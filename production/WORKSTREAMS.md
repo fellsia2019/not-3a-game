@@ -56,6 +56,8 @@ Handoff Register. Не изменяй поверхности других акт
 - Outcome: GAME_VISION утверждён; герой не сражается, обучение и progression
   инструментов перенесены после MVP.
 - Contract/files: `gamedesign/GAME_VISION.md`, `production/DECISIONS.md`,
-  `gamedesign/features/GRAYBOX_CORE_LOOP.md`.
-- Verification: решения отражены в canonical vision/plan и graybox acceptance.
-- Remaining: Git baseline, затем реализация интеграционного Unity graybox.
+  `gamedesign/features/GRAYBOX_CORE_LOOP.md`,
+  `gamedesign/features/OBJECTIVES.md`.
+- Verification: решения отражены в canonical vision/plan; Git baseline
+  `0016bd5` опубликован в `origin/main`.
+- Remaining: реализация интеграционного Unity graybox одним Foundation owner.

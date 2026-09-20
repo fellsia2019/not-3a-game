@@ -1,7 +1,7 @@
 # Development Plan
 
-Canonical status: **Stage 0 concept approved; Stage 1 graybox specification is
-ready. Technical Stage 0 closes after version-control setup.**
+Canonical status: **Stage 1 graybox ready to implement. Stage 0 administrative
+items that do not block the prototype remain open.**
 
 Каждый этап закрывается только после реализации, проверки, обновления
 документации и фиксации оставшихся рисков. Перепрыгивать к массовому контенту до
