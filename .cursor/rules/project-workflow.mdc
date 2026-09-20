@@ -1,0 +1,19 @@
+---
+description: Always-on workflow and sources of truth for Not 3A Game
+alwaysApply: true
+---
+
+# Project Workflow
+
+- Read and follow root `AGENTS.md` before changing the project.
+- Product truth: `gamedesign/GAME_VISION.md`.
+- Current stage and gate: `gamedesign/DEVELOPMENT_PLAN.md`.
+- Durable choices: `production/DECISIONS.md`.
+- Ownership and handoffs: `production/WORKSTREAMS.md`.
+- Create a feature spec from `gamedesign/features/FEATURE_TEMPLATE.md` only for
+  an active nontrivial mechanic/system.
+- Do not expand MVP scope, invent player-facing rules, or overwrite another
+  workstream's surface without an explicit decision/handoff.
+- Update the canonical plan/spec/handoff when behavior changes; do not create
+  parallel roadmaps or changelogs.
+

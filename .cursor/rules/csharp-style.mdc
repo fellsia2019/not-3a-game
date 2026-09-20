@@ -1,0 +1,27 @@
+---
+description: C# and Unity code style for Not 3A Game
+globs: "**/*.cs"
+alwaysApply: false
+---
+
+# C# Style
+
+- Project-local patterns and formatter settings take priority.
+- Use explicit access modifiers. Use `PascalCase` for types, methods,
+  properties, events, and public members; `camelCase` for locals/parameters;
+  `_camelCase` for private instance fields.
+- Name booleans with `Is`, `Can`, or `Has`; use `TryX` for fallible operations.
+- Use `[SerializeField] private` for Inspector references/tunables and preserve
+  serialized names or provide an explicit migration.
+- Keep per-frame callbacks small. Put deterministic gameplay rules in plain C#
+  classes; use MonoBehaviours for lifecycle, presentation, and scene binding.
+- Use ScriptableObjects for shared authored definitions/catalogs, not as a
+  wrapper for every value.
+- Prefer precise responsibility names over `Manager`, `Helper`, or `Utility`.
+- Use `var` when the type is obvious; use braces for all control flow.
+- Comments explain constraints and why, not what readable code already says.
+- Never log every frame. Log actionable transitions and failures.
+- Follow the project's established async stack. Avoid `async void` except
+  framework event handlers, and handle exceptions there.
+- Do not edit generated, package-cache, vendored, or third-party code.
+

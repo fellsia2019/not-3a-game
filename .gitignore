@@ -1,0 +1,44 @@
+# Unity generated
+[Ll]ibrary/
+[Tt]emp/
+[Tt]mp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+[Mm]emoryCaptures/
+[Rr]ecordings/
+
+# IDE generated
+.vs/
+.idea/
+.vscode/*.csproj
+.vscode/*.sln
+*.csproj
+*.sln
+*.slnx
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+Desktop.ini
+*~
+**/.obsidian/
+
+# Test/build output
+TestResults/
+Artifacts/
+
+# Local visual references with unverified redistribution rights
+/concepts_visual_scene/*
+!/concepts_visual_scene/README.md
