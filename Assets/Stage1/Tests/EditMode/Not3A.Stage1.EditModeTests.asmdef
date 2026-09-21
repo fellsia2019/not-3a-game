@@ -1,0 +1,21 @@
+{
+  "name": "Not3A.Stage1.EditModeTests",
+  "rootNamespace": "Not3A.Stage1.Tests",
+  "references": [
+    "Not3A.Stage1"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": false,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false,
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
+}

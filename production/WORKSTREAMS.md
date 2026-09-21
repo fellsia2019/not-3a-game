@@ -61,3 +61,92 @@ Handoff Register. Не изменяй поверхности других акт
 - Verification: решения отражены в canonical vision/plan; Git baseline
   `0016bd5` опубликован в `origin/main`.
 - Remaining: реализация интеграционного Unity graybox одним Foundation owner.
+
+### 2026-09-20 — Foundation/integration -> Stage 1 complete
+
+- Outcome: реализован полный graybox loop: WASD/fixed isometric camera, конечные
+  tree/stone nodes с автоматическими топором/киркой, одна размещаемая башня,
+  фиксированный маршрут и одна волна, throne damage, win/lose/restart и one-shot
+  objective «добыть 5 дерева» с наградой существующим ресурсом.
+- Contract/files: `Assets/Scenes/Stage1Graybox.unity`, `Assets/Stage1/Runtime/`,
+  `Assets/Stage1/Prefabs/`, `Assets/Stage1/Tests/`,
+  `ProjectSettings/EditorBuildSettings.asset`; integration scene ownership
+  остаётся у Foundation до начала следующего согласованного workstream. Для
+  discoverability добавлены `Tools > Stage 1 > Open Graybox Scene` и безопасное
+  автопереключение только с неизменённой `SampleScene` при первом импорте.
+- Verification: EditMode 7/7, PlayMode 3/3 (включая cell-space map bounds,
+  Input System, gathering,
+  invalid/valid placement, tower win, unopposed throne loss и restart), Windows
+  x64 Development Build создан в `Builds/Windows/Not3AGraybox.exe`; headless
+  player smoke запущен без attributable exceptions/errors.
+- Readability follow-up: поле расширено с 15x11 до 21x17 клеток, внешний ряд
+  получил контрастный boundary treatment, а hero/resources ограничены общей
+  изометрической областью вместо несовпадающего world-space прямоугольника.
+- Scale follow-up: hero, enemy, tree, stone, tower и throne переведены на
+  простые grounded rectangular blocks; PlayMode фиксирует относительную высоту,
+  физическую блокировку героя и наличие blocking footprints у ресурсов, трона и
+  построенной башни. Встроенный UI sprite заменён на проектный solid sprite 1x1
+  world unit; PlayMode проверяет точное совпадение нижней грани с ground origin.
+- Visual cleanup: runtime-заливки `Resource Zone`/`Build Zone` удалены после
+  обнаружения неверного масштаба встроенного UI sprite; PlayMode запрещает их
+  повторное появление, enemy entrance использует изометрический marker.
+- Remaining: финальный art/audio/UI, tutorial, metal, дополнительные
+  towers/enemies/waves, tool progression, save/Steam и production balance вне
+  Stage 1; P-002–P-006 не становятся durable решениями из-за prototype values.
+
+### 2026-09-21 — Product/design pivot -> Stage 1 reopened
+
+- Outcome: принято D-009 — башни формируют динамический grid route; длинный
+  зигзаг является основной стратегией, а при полном перекрытии враги разрушают
+  blocking towers и продолжают путь. Fixed-route build остаётся исторической
+  проверенной базой, но больше не закрывает Stage 1.
+- Contract/files: `gamedesign/GAME_VISION.md`,
+  `gamedesign/features/DYNAMIC_ENEMY_PATHING.md`,
+  `gamedesign/features/GRAYBOX_CORE_LOOP.md`, `gamedesign/DEVELOPMENT_PLAN.md`,
+  `production/DECISIONS.md`. Foundation сохраняет integration/scene ownership;
+  navigation grid/path result принадлежит Foundation/Waves, tower occupancy и
+  health — Defense.
+- Verification: canonical документы согласованы с maze-building direction;
+  implementation verification ещё не выполнялась и прежние 7/7 EditMode,
+  3/3 PlayMode не покрывают новый gate.
+- Remaining: заменить `FixedRoute` и route-clearance rejection на grid search,
+  occupancy/replanning, tower health и blocker siege; затем заново пройти
+  EditMode, PlayMode, Windows build и ручной acceptance. Stage 2 не активен.
+
+### 2026-09-21 — Foundation/integration -> Stage 1 human acceptance
+
+- Outcome: D-009/D-011 реализованы на плоском 21x17 representative slice:
+  широкий серый corridor и зелёная территория coplanar; башни занимают клетки
+  обеих зон, меняют кратчайший путь и могут полностью закрыть corridor. При
+  блокировке враг подходит к доступной стороне башни, разрушает её, освобождает
+  occupancy и продолжает к трону. Старый `FixedRoute` больше не связан со
+  сценой.
+- Contract/files: `Assets/Stage1/Runtime/DynamicNavigationGrid.cs`,
+  `Stage1Rules.GridPathfinder`, обновлённые `BuildPlacement`, `EnemyController`,
+  `TowerController`, `WaveSpawner`, builder, prefabs и
+  `Assets/Scenes/Stage1Graybox.unity`. Prototype tower cost — 2 wood/1 stone;
+  значения остаются tuning, не durable balance.
+- Verification: scene rebuild/compile passed; EditMode 8/8; PlayMode 4/4,
+  включая route-cell placement, deterministic longer zigzag, full wall,
+  blocker destruction, route resume, tower win, throne loss и restart. Windows
+  x64 Development Build собран в `Builds/Windows/Not3AGraybox.exe`, запущен и
+  отвечает без attributable startup errors.
+- Remaining: человеку проверить читаемость серого corridor, ощущение
+  maze-building/siege и prototype balance в Windows build. До этого Stage 1
+  gate остаётся pending; production map 100x100 и сравнение 200x200 относятся
+  к Stage 2/P-008, финальный арт и остальные out-of-scope системы не начаты.
+
+### 2026-09-21 — Human playtest -> Stage 1 complete
+
+- Outcome: человек подтвердил, что динамическое движение и разрушение полной
+  стены работают корректно; Stage 1 gate закрыт. Временный siege-test profile
+  удалён: стартовые ресурсы снова 0/0, здоровье врага снова 8.
+- Contract/files: gameplay contracts не изменены; canonical status обновлён в
+  `gamedesign/DEVELOPMENT_PLAN.md`, `GRAYBOX_CORE_LOOP.md` и
+  `DYNAMIC_ENEMY_PATHING.md`.
+- Verification: human acceptance получен; после возврата значений повторно
+  пройдены EditMode 8/8 и PlayMode 4/4, Windows x64 Development Build успешно
+  пересобран, запущен и не показывает attributable startup errors.
+- Remaining: Stage 2 не активирован. Перед ним требуется отдельное решение о
+  старте работ; P-002–P-006 и P-008 остаются открытыми, production-scale map и
+  контент Stage 2 ещё не реализуются.
