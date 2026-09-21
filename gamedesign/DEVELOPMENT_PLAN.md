@@ -1,7 +1,7 @@
 # Development Plan
 
 Canonical status: **Stage 1 complete and human-accepted on 2026-09-21 after
-D-009/D-011. Stage 2 is not active.**
+D-009/D-011. Stage 2 planning is ready; implementation has not started.**
 
 Каждый этап закрывается только после реализации, проверки, обновления
 документации и фиксации оставшихся рисков. Перепрыгивать к массовому контенту до
@@ -45,6 +45,13 @@ maze-building, динамический маршрут и разрушение �
 
 ## Stage 2 — First Playable / Vertical Slice
 
+Status: **Planning ready, implementation not started.** Canonical task ownership,
+contracts, dependencies, parallel windows and verification are defined in
+`gamedesign/features/STAGE2_VERTICAL_SLICE.md`. Implementation begins only when
+an owner claims a ready task and records its active surface in
+`production/WORKSTREAMS.md`; task-specific feature files are created then, not
+in advance. Only the Integration owner may edit the Stage 2 scene.
+
 Перенести проверенный maze-loop на масштабируемую data-driven карту. Первый
 кандидат — 100x100 клеток; 200x200 оценивается только сравнительным performance и
 travel-time тестом. Реализовать серый invasion corridor и зелёную территорию
@@ -53,6 +60,13 @@ travel-time тестом. Реализовать серый invasion corridor и
 врагов, несколько волн, фиксированные gather/build objectives, первую
 репрезентативную графику, звук, feedback и понятный UI. Создать один законченный
 забег без отдельного tutorial/onboarding.
+
+Execution summary: сначала закрыть decision tasks для P-002–P-006/P-008 в точке,
+где они блокируют durable реализацию; затем независимо подготовить map/economy,
+defense/AI/waves/objectives и presentation prefabs/data/tests; после handoff
+Integration owner единолично собирает `Stage2VerticalSlice` scene; Platform/QA
+квалифицирует Windows build, после чего внешний comprehension playtest принимает
+или возвращает Stage 2 gate. Детальный DAG и task IDs не дублируются здесь.
 
 Gate: внешний игрок понимает игру без разработчика; визуал и UX показывают
 целевое качество; core loop заслуживает продолжения по результатам playtest.

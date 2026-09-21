@@ -19,6 +19,26 @@ Waves/AI начинают параллельно только после сог�
 иначе работа последовательно интегрируется владельцем сцены. UI и art не должны
 блокировать graybox.
 
+## Stage 2 Ownership Rules
+
+Canonical backlog и dependency graph находятся в
+`gamedesign/features/STAGE2_VERTICAL_SLICE.md`.
+
+- **Integration — единственный владелец
+  `Assets/Scenes/Stage2VerticalSlice.unity`.** Только этот owner создаёт,
+  редактирует, сохраняет и меняет build wiring Stage 2 scene. Map, Economy,
+  Defense, Waves/AI, UI/UX, Art/Audio и Platform/QA передают ему prefabs, data,
+  tests и wiring notes; они не открывают сцену для сохранения.
+- Stage 1 scene/assets остаются regression baseline и не мигрируются скрыто.
+- Параллельная работа разрешена только для task IDs с готовыми входными
+  контрактами и непересекающимися surfaces. Активный owner до начала добавляет в
+  этот файл task ID, owned files/contracts, dependencies и acceptance.
+- Task-specific feature spec создаётся при фактической активации задачи, а не
+  заранее. Integration возвращает дефект владельцу системы вместо
+  opportunistic изменения чужого runtime/prefab surface.
+- S2-INT-02, S2-QA-01 и S2-QA-02 закрываются последовательно. Только принятый
+  внешний playtest переводит Stage 2 в complete.
+
 ## Generic Prompt For A New Chat
 
 ```text
@@ -150,3 +170,19 @@ Handoff Register. Не изменяй поверхности других акт
 - Remaining: Stage 2 не активирован. Перед ним требуется отдельное решение о
   старте работ; P-002–P-006 и P-008 остаются открытыми, production-scale map и
   контент Stage 2 ещё не реализуются.
+
+### 2026-09-21 — Stage 2 planning coordination -> Stage 2 workstreams
+
+- Outcome: Stage 2 разложен на atomic task backlog от map/economy decisions до
+  qualified build и external comprehension gate; отмечены dependency graph,
+  parallel windows и единоличное владение Stage 2 scene Integration owner'ом.
+- Contract/files: `gamedesign/features/STAGE2_VERTICAL_SLICE.md`, Stage 2 status
+  в `gamedesign/DEVELOPMENT_PLAN.md` и ownership rules в этом файле. План не
+  создаёт task-specific feature specs или Unity assets заранее.
+- Verification: Stage 1 baseline `37178e2` перед планированием совпадал с
+  `origin/main`, working tree был чист; документы сверены с D-001–D-011,
+  P-002–P-006/P-008, Stage 1 contracts и art direction; Unity code/scenes не
+  изменялись.
+- Remaining: Stage 2 implementation не начата. Первый owner должен явно claim
+  ready task и surface; P-002–P-006/P-008 закрываются соответствующими decision
+  tasks до зависящей durable реализации.
