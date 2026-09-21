@@ -1,6 +1,6 @@
 # Feature: Stage 2 First Playable / Vertical Slice
 
-Status: Planning ready; implementation not started, 2026-09-21
+Status: Implementation active; S2-MAP-01 complete, 2026-09-21
 Owner/workstream: Design coordination until the first implementation task is
 claimed; Integration owns cross-system assembly
 Depends on: accepted Stage 1 (`37178e2`), D-001–D-011,
@@ -72,6 +72,10 @@ Stage 2 не обещает весь MVP budget. Точные роли враг�
 
 ### S2-MAP-01 — Data-Driven 100x100 Map Candidate
 
+- **Status/result:** Complete, 2026-09-21. `STAGE2_MAP.md` and the generated
+  `Stage2Map100x100.asset` provide the validated read-only map contract and
+  Integration wiring notes. S2-MAP-01 EditMode 12/12 and full EditMode 20/20
+  pass; no scene, ProjectSettings or package file changed. P-008 remains open.
 - **Player/project outcome:** игрок получает читаемую плоскую карту с серым
   invasion corridor, зелёной лесной территорией, входом сверху справа, троном у
   противоположного конца corridor и дальностными resource regions; проект

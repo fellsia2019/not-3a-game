@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b388cc922e20934ca8872e4837eb5ff, type: 3}
+  m_Name: Stage2Map100x100
+  m_EditorClassIdentifier: Not3A.Stage2.Map::Not3A.Stage2.Map.Stage2MapDefinition
+  cellBounds:
+    minimum: {x: -50, y: -50}
+    size: {x: 100, y: 100}
+  defaultSurface: 0
+  surfaceRegions:
+  - surface: 1
+    area:
+      minimum: {x: -50, y: -4}
+      size: {x: 100, y: 9}
+  walkableMask:
+    defaultValue: 1
+    enabledAreas: []
+    disabledAreas: []
+  buildableMask:
+    defaultValue: 1
+    enabledAreas: []
+    disabledAreas:
+    - minimum: {x: 49, y: 0}
+      size: {x: 1, y: 1}
+    - minimum: {x: -40, y: 0}
+      size: {x: 1, y: 1}
+    - minimum: {x: -36, y: 14}
+      size: {x: 1, y: 1}
+    - minimum: {x: -15, y: 28}
+      size: {x: 1, y: 1}
+    - minimum: {x: 10, y: 42}
+      size: {x: 1, y: 1}
+  hasEnemyEntrance: 1
+  enemyEntrance: {x: 49, y: 0}
+  hasThrone: 1
+  throne: {x: -40, y: 0}
+  resourceRegions:
+  - resource: 0
+    area:
+      minimum: {x: -44, y: 8}
+      size: {x: 16, y: 14}
+    anchor: {x: -36, y: 14}
+  - resource: 1
+    area:
+      minimum: {x: -24, y: 20}
+      size: {x: 18, y: 16}
+    anchor: {x: -15, y: 28}
+  - resource: 2
+    area:
+      minimum: {x: 0, y: 34}
+      size: {x: 20, y: 15}
+    anchor: {x: 10, y: 42}
+  cameraBounds:
+    minimum: {x: -50, y: -50}
+    size: {x: 100, y: 100}
+  forestDebugColor: {r: 0.18, g: 0.34, b: 0.19, a: 1}
+  corridorDebugColor: {r: 0.34, g: 0.37, b: 0.38, a: 1}

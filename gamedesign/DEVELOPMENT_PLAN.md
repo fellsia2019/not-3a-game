@@ -1,7 +1,7 @@
 # Development Plan
 
 Canonical status: **Stage 1 complete and human-accepted on 2026-09-21 after
-D-009/D-011. Stage 2 planning is ready; implementation has not started.**
+D-009/D-011. Stage 2 implementation is active; S2-MAP-01 is complete.**
 
 Каждый этап закрывается только после реализации, проверки, обновления
 документации и фиксации оставшихся рисков. Перепрыгивать к массовому контенту до
@@ -45,12 +45,13 @@ maze-building, динамический маршрут и разрушение �
 
 ## Stage 2 — First Playable / Vertical Slice
 
-Status: **Planning ready, implementation not started.** Canonical task ownership,
-contracts, dependencies, parallel windows and verification are defined in
-`gamedesign/features/STAGE2_VERTICAL_SLICE.md`. Implementation begins only when
-an owner claims a ready task and records its active surface in
-`production/WORKSTREAMS.md`; task-specific feature files are created then, not
-in advance. Only the Integration owner may edit the Stage 2 scene.
+Status: **Implementation active; S2-MAP-01 complete.** The validated data-driven
+100x100 candidate and map handoff are documented in `STAGE2_MAP.md`; P-008 is
+still open and Stage 2 is not complete. Canonical task ownership, contracts,
+dependencies, parallel windows and verification remain defined in
+`gamedesign/features/STAGE2_VERTICAL_SLICE.md`. New work begins only when an
+owner claims a ready task and records its surface in `production/WORKSTREAMS.md`.
+Only the Integration owner may edit the Stage 2 scene.
 
 Перенести проверенный maze-loop на масштабируемую data-driven карту. Первый
 кандидат — 100x100 клеток; 200x200 оценивается только сравнительным performance и

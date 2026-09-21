@@ -1,0 +1,21 @@
+{
+  "name": "Not3A.Stage2.Map.EditModeTests",
+  "rootNamespace": "Not3A.Stage2.Map.Tests",
+  "references": [
+    "Not3A.Stage2.Map"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": false,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false,
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "Not3A.Stage2.Map",
+  "rootNamespace": "Not3A.Stage2.Map",
+  "references": [
+    "Not3A.Stage1"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

@@ -52,6 +52,24 @@ Handoff Register. Не изменяй поверхности других акт
 явного handoff.
 ```
 
+## Active Stage 2 Claims
+
+### S2-MAP-01 — Foundation / Map
+
+- Status: complete, 2026-09-21; surface released for the handoffs below.
+- Owned surface: `Assets/Stage2/Map/**`, its EditMode tests, S2-MAP-01 status in
+  `gamedesign/features/STAGE2_VERTICAL_SLICE.md`, current Stage 2 status in
+  `gamedesign/DEVELOPMENT_PLAN.md`, and this claim/handoff register.
+- Dependencies: D-003 and D-009–D-011; accepted Stage 1 `IsoGrid`, dynamic
+  pathing, scene-builder and test contracts. Stage 2 scene/build wiring remains
+  exclusively owned by Integration.
+- Acceptance: one authored 100x100 map asset exposes cell bounds, green/gray
+  surfaces, walkable/buildable masks, one entrance, one throne, wood/stone/metal
+  placement regions and camera bounds; deterministic validation rejects invalid
+  bounds, missing/out-of-bounds landmarks, invalid regions/camera bounds and
+  incompatible masks; isometric cell/world round-trip and deterministic reads
+  pass EditMode tests without changing Stage 1 or either scene.
+
 ## Handoff Entry Format
 
 ```md
@@ -186,3 +204,21 @@ Handoff Register. Не изменяй поверхности других акт
 - Remaining: Stage 2 implementation не начата. Первый owner должен явно claim
   ready task и surface; P-002–P-006/P-008 закрываются соответствующими decision
   tasks до зависящей durable реализации.
+
+### 2026-09-21 — Foundation/Map S2-MAP-01 -> Integration/Navigation/Economy
+
+- Outcome: одна data asset описывает первый плоский 100x100 candidate: green
+  forest и gray invasion corridor, entrance/throne, walkable/buildable masks,
+  wood/stone/metal placement regions/anchors, camera bounds и разные debug
+  colors; runtime больше не требует Stage 1 bounds 21x17.
+- Contract/files: `Assets/Stage2/Map/` предоставляет read-only
+  `Stage2MapDefinition`, deterministic validation/content hash, generated debug
+  mesh renderer, Editor asset builder, candidate asset and EditMode tests;
+  `gamedesign/features/STAGE2_MAP.md` содержит точные wiring notes.
+- Verification: clean Unity 6000.6.2f1 compile without C# warnings/errors;
+  S2-MAP-01 EditMode 12/12 and full EditMode 20/20 pass; `git diff --check`
+  passes; no `.unity`, ProjectSettings or package change. Windows build deferred
+  by task contract to S2-INT-01.
+- Remaining: S2-INT-01 wires the asset/debug renderer in the Stage 2 scene;
+  S2-MAP-02 consumes masks for scalable navigation/occupancy; S2-ECO-02 places
+  nodes in resource regions. P-008 remains open; no 200x200 variant exists.
