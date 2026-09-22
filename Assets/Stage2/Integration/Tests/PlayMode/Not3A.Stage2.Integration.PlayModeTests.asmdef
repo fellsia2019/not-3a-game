@@ -1,0 +1,23 @@
+{
+  "name": "Not3A.Stage2.Integration.PlayModeTests",
+  "rootNamespace": "Not3A.Stage2.Integration.Tests",
+  "references": [
+    "Not3A.Stage1",
+    "Not3A.Stage2.Map",
+    "Not3A.Stage2.Integration",
+    "Unity.InputSystem",
+    "Unity.InputSystem.TestFramework"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": false,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false,
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
+}

@@ -1,7 +1,8 @@
 # Development Plan
 
 Canonical status: **Stage 1 complete and human-accepted on 2026-09-21 after
-D-009/D-011. Stage 2 implementation is active; S2-MAP-01 is complete.**
+D-009/D-011. Stage 2 implementation is active; S2-MAP-01 and S2-INT-01 are
+complete.**
 
 Каждый этап закрывается только после реализации, проверки, обновления
 документации и фиксации оставшихся рисков. Перепрыгивать к массовому контенту до
@@ -45,9 +46,15 @@ maze-building, динамический маршрут и разрушение �
 
 ## Stage 2 — First Playable / Vertical Slice
 
-Status: **Implementation active; S2-MAP-01 complete.** The validated data-driven
-100x100 candidate and map handoff are documented in `STAGE2_MAP.md`; P-008 is
-still open and Stage 2 is not complete. Canonical task ownership, contracts,
+Status: **Implementation active; S2-MAP-01 and S2-INT-01 complete.** The validated
+data-driven 100x100 candidate is wired into `Stage2VerticalSlice`: debug surfaces,
+landmarks, non-combat WASD player, authored player/camera bounds and startup
+validation. Windows Development Build starts in Stage 2 (enabled index 0);
+Stage 1 remains the regression scene (index 1), including restart. Verification
+on 2026-09-22: EditMode 20/20, PlayMode 13/13 and Windows startup smoke pass.
+Map contract and integration handoff remain in `STAGE2_MAP.md` and
+`production/WORKSTREAMS.md`; P-008 is still open and Stage 2 is not complete.
+Canonical task ownership, contracts,
 dependencies, parallel windows and verification remain defined in
 `gamedesign/features/STAGE2_VERTICAL_SLICE.md`. New work begins only when an
 owner claims a ready task and records its surface in `production/WORKSTREAMS.md`.

@@ -70,6 +70,26 @@ Handoff Register. Не изменяй поверхности других акт
   incompatible masks; isometric cell/world round-trip and deterministic reads
   pass EditMode tests without changing Stage 1 or either scene.
 
+### S2-INT-01 — Integration
+
+- Status: complete, 2026-09-22; claimed 2026-09-21. Handoff ready below;
+  further Stage 2 scene edits remain exclusively owned by Integration.
+- Owned surface: `Assets/Scenes/Stage2VerticalSlice.unity` and its `.meta`,
+  `Assets/Stage2/Integration/**`, Stage 2 integration PlayMode tests,
+  `ProjectSettings/EditorBuildSettings.asset`, S2-INT-01 status in
+  `gamedesign/features/STAGE2_VERTICAL_SLICE.md`, current Stage 2 status in
+  `gamedesign/DEVELOPMENT_PLAN.md`, and this claim/handoff register.
+- Dependencies: completed S2-MAP-01 and its read-only
+  `Stage2Map100x100.asset`; accepted Stage 1 movement, camera, isometric grid,
+  scene-builder and regression-test contracts. `Assets/Stage2/Map/**` and the
+  Stage 1 scene/assets remain read-only inputs.
+- Acceptance: a builder-authored Stage 2 scene explicitly binds and validates
+  the 100x100 map, renders distinct forest/corridor surfaces and readable
+  entrance/throne landmarks, moves a non-combat WASD player inside `CellBounds`,
+  follows it with a fixed orthographic camera inside `CameraBounds`, reports
+  missing/invalid map references with code/reason, preserves Stage 1 regression,
+  and is the first enabled Windows Development Build scene.
+
 ## Handoff Entry Format
 
 ```md
@@ -222,3 +242,50 @@ Handoff Register. Не изменяй поверхности других акт
 - Remaining: S2-INT-01 wires the asset/debug renderer in the Stage 2 scene;
   S2-MAP-02 consumes masks for scalable navigation/occupancy; S2-ECO-02 places
   nodes in resource regions. P-008 remains open; no 200x200 variant exists.
+
+### 2026-09-22 — Integration S2-INT-01 -> Map/Economy/system owners/Platform-QA
+
+- Outcome: `Assets/Scenes/Stage2VerticalSlice.unity` is a runnable 100x100 scene
+  shell with green forest, gray corridor, orange entrance, gold throne, cyan
+  non-combat WASD player and fixed orthographic follow camera. Startup validates
+  the explicit map reference and reports `S2_INT_VALIDATION_ERROR` with code and
+  reason on missing/invalid data; valid startup logs `S2_INT_STARTUP_OK` and the
+  deterministic map hash. Runtime never writes authored map data.
+- Contract/files: `Assets/Stage2/Integration/Runtime/Stage2SceneBootstrap.cs` on
+  `Stage 2 Scene Composition` owns serialized `mapDefinition`, `mapDebugRenderer`,
+  `playerMover`, `cameraFollow`, `entranceMarker`, `throneMarker`. The same
+  `Stage2Map100x100.asset` is assigned to all map consumers; player uses
+  `CellBounds`, camera target/position uses `CameraBounds` in cell space.
+  Landmarks resolve from data at startup. Narrow movement/camera components
+  reuse Stage 1 `IsoGrid` without a `Stage1GameController` dependency.
+- Build/wiring: enabled order is `Stage2VerticalSlice` (0), `Stage1Graybox` (1).
+  `Tools > Stage 2 > Integration` exposes Open Vertical Slice Scene, Rebuild
+  Scene Shell and Build Windows Development; the Editor builder creates/saves
+  the scene through Unity APIs and refuses to overwrite unsaved open scenes.
+  Output is `Builds/Windows/Not3AStage2.exe`. Stage 1 scene/assets/tests, Map
+  assets and packages are unchanged; automatic build-time settings serialization
+  was restored to the original Git contents.
+- Verification: full EditMode 20/20 (Stage 1 8/8, Map 12/12); full PlayMode 13/13
+  (Stage 1 4/4 including restart, Integration 9/9). Integration covers all WASD
+  directions, four extreme bounds, actual camera following, validation
+  diagnostics and a transient changed definition with independent camera bounds.
+  Clean Editor startup has 0 errors/0 warnings. Windows x64 Development Build
+  succeeded with 0 errors; 56-second batchmode smoke with Direct3D 11 enabled
+  logged `S2_INT_STARTUP_OK`, responded and produced no errors/exceptions.
+  `git diff --check` passes; protected Stage 1/Map/package surfaces have no diff.
+  Local evidence: `Artifacts/S2-INT-01/` contains EditMode/PlayMode reports,
+  startup/entrance screenshots, Windows build report and `Windows-player.log`.
+- QA environment notes: build emitted three package warnings: disabled optional
+  Pipeline runtime and stripped `Hidden/Core/DebugOccluder` / `DebugOcclusionTest`
+  shaders. Existing Stage 1 tests alone reproduce stale Input System mouse
+  monitor errors on the next Editor Play entry with Domain Reload disabled;
+  reload the script domain or restart Editor after those tests. Integration
+  alone passes 9/9 and the subsequent Play entry stays clean. No tests are
+  skipped or replaced with degraded manual movement checks.
+- Remaining/handoffs: map composition/serialized binding points -> S2-MAP-02;
+  map/player/camera shell -> S2-ECO-02. Defense, Waves/AI, UI/UX and Art/Audio
+  owners deliver prefabs/data plus wiring notes to Integration rather than
+  editing the scene. Platform/QA receives the Windows build and smoke evidence.
+  Navigation scaling, resource nodes, economy, combat/waves/objectives, final
+  UI/art/audio and overall Stage 2 acceptance remain unimplemented by this task;
+  P-002–P-006/P-008 remain open and no 200x200 variant was created.

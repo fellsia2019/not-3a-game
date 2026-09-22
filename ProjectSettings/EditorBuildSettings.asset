@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Stage2VerticalSlice.unity
+    guid: cc45ebffebe293c42afe7dab9d30f213
+  - enabled: 1
     path: Assets/Scenes/Stage1Graybox.unity
     guid: a1ae41bc571627745aec907f58c45bb6
   m_configObjects:

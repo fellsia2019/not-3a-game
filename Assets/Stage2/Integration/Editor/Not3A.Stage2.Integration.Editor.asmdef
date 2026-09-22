@@ -1,0 +1,20 @@
+{
+  "name": "Not3A.Stage2.Integration.Editor",
+  "rootNamespace": "Not3A.Stage2.Integration.Editor",
+  "references": [
+    "Not3A.Stage1",
+    "Not3A.Stage2.Map",
+    "Not3A.Stage2.Integration"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

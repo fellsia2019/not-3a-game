@@ -1,6 +1,6 @@
 # Feature: Stage 2 First Playable / Vertical Slice
 
-Status: Implementation active; S2-MAP-01 complete, 2026-09-21
+Status: Implementation active; S2-MAP-01 and S2-INT-01 complete, 2026-09-22
 Owner/workstream: Design coordination until the first implementation task is
 claimed; Integration owns cross-system assembly
 Depends on: accepted Stage 1 (`37178e2`), D-001–D-011,
@@ -101,6 +101,14 @@ Stage 2 не обещает весь MVP budget. Точные роли враг�
 
 ### S2-INT-01 — Stage 2 Scene Shell
 
+- **Status/result:** Complete, 2026-09-22. `Stage2VerticalSlice` explicitly binds
+  the validated read-only map to debug rendering, non-combat WASD movement,
+  cell-space player/camera bounds and entrance/throne markers. Integration
+  PlayMode 9/9, Stage 1 PlayMode 4/4 and full EditMode 20/20 pass. Windows x64
+  Development Build starts in Stage 2; Stage 1 remains enabled at index 1 and
+  its restart passes regression. Binding points, build commands and QA evidence
+  are recorded in `production/WORKSTREAMS.md`. This closes only the scene shell;
+  Stage 2 and P-008 remain open.
 - **Player/project outcome:** существует отдельная запускаемая Stage 2 scene,
   которая показывает authored 100x100 candidate и сохраняет Stage 1 baseline.
 - **Owner/workstream:** Integration.
