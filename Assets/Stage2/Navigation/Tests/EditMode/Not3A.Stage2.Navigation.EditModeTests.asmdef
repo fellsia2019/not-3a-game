@@ -1,0 +1,16 @@
+{
+  "name": "Not3A.Stage2.Navigation.EditModeTests",
+  "rootNamespace": "Not3A.Stage2.Navigation",
+  "references": [
+    "Not3A.Stage2.Map",
+    "Not3A.Stage2.Navigation",
+    "Not3A.Stage2.Navigation.TestFixtures"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "autoReferenced": false,
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
+}

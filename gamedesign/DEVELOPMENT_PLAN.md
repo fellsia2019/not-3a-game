@@ -1,7 +1,7 @@
 # Development Plan
 
 Canonical status: **Stage 1 complete and human-accepted on 2026-09-21 after
-D-009/D-011. Stage 2 implementation is active; S2-MAP-01 and S2-INT-01 are
+D-009/D-011. Stage 2 implementation is active; S2-MAP-01, S2-INT-01 and S2-MAP-02 are
 complete.**
 
 Каждый этап закрывается только после реализации, проверки, обновления
@@ -46,12 +46,19 @@ maze-building, динамический маршрут и разрушение �
 
 ## Stage 2 — First Playable / Vertical Slice
 
-Status: **Implementation active; S2-MAP-01 and S2-INT-01 complete.** The validated
+Status: **Implementation active; S2-MAP-01, S2-INT-01 and S2-MAP-02 complete.** The validated
 data-driven 100x100 candidate is wired into `Stage2VerticalSlice`: debug surfaces,
 landmarks, non-combat WASD player, authored player/camera bounds and startup
 validation. Windows Development Build starts in Stage 2 (enabled index 0);
 Stage 1 remains the regression scene (index 1), including restart. Verification
 on 2026-09-22: EditMode 20/20, PlayMode 13/13 and Windows startup smoke pass.
+S2-MAP-02 adds a standalone navigation API with deterministic path/blocker
+results, identity-checked occupancy/revision/reset and shared search/cache
+diagnostics on that candidate. Latest regression: EditMode 42/42, PlayMode 20/20;
+fresh Editor and Play entry have 0 errors/0 warnings. The 64-consumer test uses
+one full search across 128 frames. Recorded workstation measurements and wiring
+handoff are in `DYNAMIC_ENEMY_PATHING.md`; Navigation has not been wired into
+the scene, and its Windows build qualification remains S2-QA-01.
 Map contract and integration handoff remain in `STAGE2_MAP.md` and
 `production/WORKSTREAMS.md`; P-008 is still open and Stage 2 is not complete.
 Canonical task ownership, contracts,

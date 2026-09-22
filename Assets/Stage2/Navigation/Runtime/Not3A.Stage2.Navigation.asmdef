@@ -1,0 +1,9 @@
+{
+  "name": "Not3A.Stage2.Navigation",
+  "rootNamespace": "Not3A.Stage2.Navigation",
+  "references": [
+    "Not3A.Stage2.Map"
+  ],
+  "includePlatforms": [],
+  "autoReferenced": true
+}

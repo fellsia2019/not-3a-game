@@ -54,6 +54,26 @@ Handoff Register. Не изменяй поверхности других акт
 
 ## Active Stage 2 Claims
 
+### S2-MAP-02 — Foundation / Waves-AI Navigation
+
+- Status: complete, 2026-09-22; surface released for the handoffs below.
+  Claimed against clean `main` at `f0d151b`, equal
+  to freshly fetched `origin/main`. Editor preflight: 0 errors/0 warnings;
+  retained baseline reports: EditMode 20/20, PlayMode 13/13.
+- Owned surface: `Assets/Stage2/Navigation/**` (runtime, diagnostics, navigation
+  EditMode/PlayMode tests and fixtures, required assembly boundaries and metas),
+  Stage 2 navigation section in `DYNAMIC_ENEMY_PATHING.md`, S2-MAP-02 status in
+  `STAGE2_VERTICAL_SLICE.md`, current `DEVELOPMENT_PLAN.md` status, this register.
+- Dependencies: completed S2-MAP-01 read-only map definition/candidate asset,
+  S2-INT-01 composition contracts, accepted Stage 1 dynamic pathing. Map,
+  Integration, both scenes, Stage 1, ProjectSettings and Packages stay read-only.
+- Observable acceptance: candidate 100x100 open/longer-zigzag/stable reachable
+  blocker routes respect authored masks; identity-checked atomic occupancy and
+  exact revision/no-op semantics; destruction/reset/replanning recover; simulated
+  consumers share unchanged-state searches; measured search/cache/replan counts
+  and timings with hardware/map hash; full EditMode/PlayMode regression and
+  fresh-domain Console pass. No scene wiring, combat, P-008 or Stage 2 gate change.
+
 ### S2-MAP-01 — Foundation / Map
 
 - Status: complete, 2026-09-21; surface released for the handoffs below.
@@ -289,3 +309,39 @@ Handoff Register. Не изменяй поверхности других акт
   Navigation scaling, resource nodes, economy, combat/waves/objectives, final
   UI/art/audio and overall Stage 2 acceptance remain unimplemented by this task;
   P-002–P-006/P-008 remain open and no 200x200 variant was created.
+
+### 2026-09-22 — Foundation/Waves-AI S2-MAP-02 -> Defense/AI/Integration/Platform-QA
+
+- Outcome: data-driven navigation on the actual 100x100 candidate produces
+  deterministic open/zigzag/blocker routes; removing blockers and resetting a
+  run recover safely. Occupancy validates authored masks and reference identity;
+  each real transaction changes revision once. Consumers share a reverse search
+  field and retain immutable plans until revision/run generation changes.
+- Contracts/files: `Assets/Stage2/Navigation/Runtime/Stage2Navigation.cs`, its
+  test assemblies/fixtures and the Stage 2 section of `DYNAMIC_ENEMY_PATHING.md`.
+  Defense S2-DEF-01 receives `TryOccupy`/`TryRelease` ownership-token lifecycle;
+  S2-AI-01/S2-AI-02 receive `NavigationPlan` path/blocker/diagnostic output and
+  `ReplanIfStale`. Integration receives explicit shared-instance injection and
+  map-reference/reset instructions; no prefab or scene edit is needed here.
+- Verification: EditMode 42/42 = Stage 1 8 + Map 12 + Navigation 22; PlayMode
+  20/20 = Stage 1 4 + Integration 9 + Navigation 7; no skips. Fresh Editor
+  restart and subsequent Stage 2 Play entry: 0 errors/0 warnings, no compile
+  failure or recurring stale Input System monitor error. Integration's two
+  intentional validation errors were expected by its negative tests. Scene
+  remains clean/unsaved; protected surfaces unchanged; `git diff --check` passes.
+- Measurements -> S2-MAP-03/Platform-QA: map hash `77A23824A9BF24DA`, Unity
+  6000.6.2f1 Editor/Editor PlayMode, i5-12400F, 12 logical CPUs, 32581 MB RAM,
+  GTX 1060 6GB, Windows 11 build 26100. Three warmups and 30 samples per case
+  and mode. Search median ms (open/zigzag/full wall): EditMode
+  1.0835/1.1217/1.0958; PlayMode 1.0741/1.0448/1.1208. Full p95/max and replan/
+  cache timings are recorded in the existing pathing spec. Routes: 89/385 steps;
+  wall approach: 48 steps to blocker `(0,0)`. 64 moving consumers/128 frames:
+  1 search, 64 requests, 8128 retained-plan hits; 24 consumers with shared
+  next-cell placement: 2 searches total and all reach the throne. Local raw
+  samples, reports, Console evidence and exact diff: `Artifacts/S2-MAP-02/`.
+- Remaining: S2-BLD-01 owns placement-phase/current-cell overlap policy;
+  S2-DEF-01 owns tower lifecycle/economy binding; S2-AI-02 owns continuous enemy
+  movement/siege; Integration alone wires the shared instance into the scene.
+  S2-MAP-03 still decides scale/travel time/P-008, S2-QA-01 qualifies the Windows
+  build. No universal timing budget, 200x200 variant, combat/spawning/economy or
+  Stage 2 completion is implied. Only S2-MAP-02 is closed by this handoff.

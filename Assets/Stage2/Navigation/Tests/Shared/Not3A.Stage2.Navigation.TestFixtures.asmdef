@@ -1,0 +1,13 @@
+{
+  "name": "Not3A.Stage2.Navigation.TestFixtures",
+  "rootNamespace": "Not3A.Stage2.Navigation",
+  "references": [
+    "Not3A.Stage2.Map",
+    "Not3A.Stage2.Navigation"
+  ],
+  "includePlatforms": [],
+  "autoReferenced": false,
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
+}

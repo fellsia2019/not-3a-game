@@ -1,6 +1,6 @@
 # Feature: Stage 2 First Playable / Vertical Slice
 
-Status: Implementation active; S2-MAP-01 and S2-INT-01 complete, 2026-09-22
+Status: Implementation active; S2-MAP-01, S2-INT-01 and S2-MAP-02 complete, 2026-09-22
 Owner/workstream: Design coordination until the first implementation task is
 claimed; Integration owns cross-system assembly
 Depends on: accepted Stage 1 (`37178e2`), D-001–D-011,
@@ -132,6 +132,17 @@ Stage 2 не обещает весь MVP budget. Точные роли враг�
 
 ### S2-MAP-02 — Production-Scale Navigation And Occupancy
 
+- **Status/result:** Complete, 2026-09-22. `Assets/Stage2/Navigation/` provides
+  map-snapshot navigation, identity-checked occupancy, exact revisions/reset,
+  deterministic shortest open paths and reachable blockers, one shared search
+  per queried revision, immutable plans and profiler/counter diagnostics.
+  Full EditMode 42/42 and PlayMode 20/20 pass (new Navigation 22/22 and 7/7).
+  Fresh Editor and Play entry: 0 errors/0 warnings. The 100x100 candidate's
+  measured open/zigzag routes have 89/385 steps; 64 consumers over 128 frames
+  use one full search. Hardware, raw-sample method, timings, API and Integration
+  wiring notes are in the Stage 2 section of `DYNAMIC_ENEMY_PATHING.md`.
+  Protected surfaces and scenes are unchanged. Build qualification remains
+  S2-QA-01; P-008 and the Stage 2 gate remain open.
 - **Player/project outcome:** maze-building и blocker siege сохраняют Stage 1
   поведение на масштабируемой карте без заметных зависаний при изменении пути.
 - **Owner/workstream:** Foundation / Waves-AI navigation.
