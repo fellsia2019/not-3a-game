@@ -1,0 +1,6 @@
+{
+  "name": "Not3A.Stage2.WavesAI",
+  "rootNamespace": "Not3A.Stage2.WavesAI",
+  "references": ["Not3A.Stage2.Map", "Not3A.Stage2.Navigation", "Not3A.Stage2.Defense"],
+  "autoReferenced": true
+}

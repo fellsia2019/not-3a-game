@@ -1,0 +1,6 @@
+{
+  "name": "Not3A.Stage2.Defense",
+  "rootNamespace": "Not3A.Stage2.Defense",
+  "references": ["Not3A.Stage2.Map", "Not3A.Stage2.Navigation", "Not3A.Stage2.Economy", "Unity.InputSystem"],
+  "autoReferenced": true
+}

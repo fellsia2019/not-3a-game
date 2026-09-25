@@ -1,7 +1,11 @@
 using System;
 using System.IO;
 using System.Linq;
+using Not3A.Stage2.Defense;
+using Not3A.Stage2.Economy;
 using Not3A.Stage2.Map;
+using Not3A.Stage2.RunState;
+using Not3A.Stage2.WavesAI;
 using UnityEditor;
 using UnityEditor.Build.Reporting;
 using UnityEditor.SceneManagement;
@@ -19,6 +23,10 @@ namespace Not3A.Stage2.Integration.Editor
 
         private const string SolidSpriteAssetPath = "Assets/Stage1/Generated/GrayboxSolid.asset";
         private const string DiamondSpriteAssetPath = "Assets/Stage1/Generated/GrayboxDiamond.asset";
+        private const string EconomyCatalogPath = "Assets/Stage2/Economy/Data/Stage2EconomyPrototype.asset";
+        private const string DefenseCatalogPath = "Assets/Stage2/Defense/Data/Stage2DefensePrototype.asset";
+        private const string EnemyCatalogPath = "Assets/Stage2/WavesAI/Data/Stage2EnemyPrototype.asset";
+        private const string RunCatalogPath = "Assets/Stage2/RunState/Data/Stage2RunPrototype.asset";
 
         [MenuItem("Tools/Stage 2/Integration/Rebuild Scene Shell")]
         public static void RebuildSceneShell()
@@ -42,6 +50,24 @@ namespace Not3A.Stage2.Integration.Editor
             {
                 EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
             }
+        }
+
+        [MenuItem("Tools/Stage 2/Integration/Wire Gameplay Into Existing Scene")]
+        public static void WireGameplayIntoExistingScene()
+        {
+            if (EditorApplication.isPlayingOrWillChangePlaymode)
+                throw new InvalidOperationException("Stop Play Mode before wiring the Stage 2 scene.");
+            var scene = SceneManager.GetActiveScene();
+            if (scene.path != ScenePath || scene.isDirty)
+                throw new InvalidOperationException("Open the clean Stage 2 scene before wiring gameplay; do not overwrite other scene changes.");
+            var bootstrap = UnityEngine.Object.FindAnyObjectByType<Stage2SceneBootstrap>();
+            if (bootstrap == null || bootstrap.gameObject.scene != scene)
+                throw new InvalidOperationException("Stage 2 scene composition root is missing.");
+            AttachGameplay(bootstrap);
+            EditorSceneManager.MarkSceneDirty(scene);
+            if (!EditorSceneManager.SaveScene(scene, ScenePath))
+                throw new InvalidOperationException("Could not save Stage 2 gameplay wiring.");
+            Debug.Log("S2_INT_GAMEPLAY_SCENE_WIRED: existing Stage 2 shell preserved.");
         }
 
         [MenuItem("Tools/Stage 2/Integration/Build Windows Development")]
@@ -129,6 +155,7 @@ namespace Not3A.Stage2.Integration.Editor
                 cameraFollow,
                 entranceMarker.transform,
                 throneMarker.transform);
+            AttachGameplay(bootstrap);
 
             if (!EditorSceneManager.SaveScene(scene, ScenePath))
             {
@@ -168,6 +195,38 @@ namespace Not3A.Stage2.Integration.Editor
                 Vector2.zero,
                 100);
             return root;
+        }
+
+        private static void AttachGameplay(Stage2SceneBootstrap bootstrap)
+        {
+            var economyData = RequireAsset<Stage2EconomyCatalog>(EconomyCatalogPath);
+            var defenseData = RequireAsset<Stage2DefenseCatalog>(DefenseCatalogPath);
+            var enemyData = RequireAsset<Stage2EnemyCatalog>(EnemyCatalogPath);
+            var runData = RequireAsset<Stage2RunCatalog>(RunCatalogPath);
+            var root = bootstrap.gameObject;
+            var gathering = root.GetComponent<Stage2GatheringDriver>();
+            if (gathering == null) gathering = root.AddComponent<Stage2GatheringDriver>();
+            var serializedGathering = new SerializedObject(gathering);
+            serializedGathering.FindProperty("mapDefinition").objectReferenceValue = bootstrap.MapDefinition;
+            serializedGathering.FindProperty("catalog").objectReferenceValue = economyData;
+            serializedGathering.FindProperty("player").objectReferenceValue = bootstrap.PlayerMover.transform;
+            serializedGathering.ApplyModifiedPropertiesWithoutUndo();
+
+            var building = root.GetComponent<Stage2BuildDriver>();
+            if (building == null) building = root.AddComponent<Stage2BuildDriver>();
+            var runDriver = root.GetComponent<Stage2RunDriver>();
+            if (runDriver == null) runDriver = root.AddComponent<Stage2RunDriver>();
+            var composition = root.GetComponent<Stage2GameComposition>();
+            if (composition == null) composition = root.AddComponent<Stage2GameComposition>();
+            composition.Configure(bootstrap, economyData, defenseData, enemyData,
+                runData, gathering, building, runDriver);
+        }
+
+        private static T RequireAsset<T>(string path) where T : UnityEngine.Object
+        {
+            var asset = AssetDatabase.LoadAssetAtPath<T>(path);
+            if (asset == null) throw new InvalidOperationException($"Required Stage 2 gameplay asset is missing: {path}");
+            return asset;
         }
 
         private static GameObject CreateThroneMarker(Stage2MapDefinition definition, Sprite solidSprite)

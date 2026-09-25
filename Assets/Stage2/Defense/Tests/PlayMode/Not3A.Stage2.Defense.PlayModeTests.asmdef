@@ -1,0 +1,7 @@
+{
+  "name": "Not3A.Stage2.Defense.PlayModeTests",
+  "rootNamespace": "Not3A.Stage2.Defense.Tests",
+  "references": ["Not3A.Stage2.Defense", "Not3A.Stage2.Economy", "Not3A.Stage2.Map", "Not3A.Stage2.Navigation", "Unity.InputSystem", "Unity.InputSystem.TestFramework"],
+  "autoReferenced": false,
+  "optionalUnityReferences": ["TestAssemblies"]
+}

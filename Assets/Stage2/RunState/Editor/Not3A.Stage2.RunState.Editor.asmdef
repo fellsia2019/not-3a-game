@@ -1,0 +1,7 @@
+{
+  "name": "Not3A.Stage2.RunState.Editor",
+  "rootNamespace": "Not3A.Stage2.RunState.Editor",
+  "references": ["Not3A.Stage2.RunState"],
+  "includePlatforms": ["Editor"],
+  "autoReferenced": false
+}

@@ -1,7 +1,7 @@
 # Feature: Stage 2 Data-Driven Map
 
-Status: S2-MAP-01 implemented; ready for Integration/Navigation/Economy handoff,
-2026-09-21
+Status: S2-MAP-01 complete, 2026-09-21. S2-MAP-03 measured recommendation is
+ready for human P-008 review, 2026-09-24; see its section below.
 Owner/workstream: Foundation / Map
 Depends on: D-003, D-009–D-011, accepted Stage 1 `IsoGrid` conversion and
 dynamic-pathing contracts
@@ -89,3 +89,114 @@ S2-MAP-02 consumes the walkability/buildability contract for production-scale
 navigation; S2-ECO-02 populates the three placement regions. S2-MAP-03 alone may
 accept P-008 or create a comparison 200x200 variant after travel-time and
 performance evidence exists.
+
+## S2-MAP-03 — Live Scale And Maze Decision
+
+Status: analysis and consolidated measurement complete, 2026-09-24; P-008
+recommendation is ready for human acceptance. The authored candidate is
+unchanged. No final size or topology acceptance is inferred from task activation.
+
+The decision must distinguish world bounds, travel layout and enemy battlefield
+width. The current asset makes every cell walkable; the gray corridor is a
+surface classification, not an enemy boundary. Earlier 100-cell wall and
+297-tower zigzag measurements establish navigation correctness, not an
+affordable player layout. A current source circuit yields only a few towers.
+
+Recommendation after compact-layout checks: retain the 100x100 envelope and
+current masks for the Stage 2 candidate. Do not create 200x200. Resource travel
+is differentiated and affordable compact layouts already permit both detour
+and siege. A new enemy-only mask or compulsory choke-point rebuild is not
+justified by these measurements; it would need separate evidence and acceptance.
+
+Consolidated measurements must record the unchanged map hash, hero speed,
+actual WASD travel to each anchor and a complete three-resource return circuit,
+gather/build/defense duration and per-resource spend. Record live frame intervals,
+Unity memory and Navigation diagnostics on named hardware. Paid layouts must
+be evaluated separately from synthetic wall stress cases. A fast search alone
+does not accept P-008; a longer walk alone does not justify enlarging the map.
+
+Observable follow-up: use the measured affordable layouts in a comparison
+with an actual player and the next wave candidate. Resource ordering must
+remain visible and practical. The external player still has to identify the
+distance/layout tradeoff; automated travel cannot establish that comprehension.
+
+### Consolidated Evidence And Proposed Disposition
+
+Source: `production/measurements/` reproduction scripts and local raw evidence
+`Artifacts/S2-DecisionBatch/summary.json`. Unity 6000.6.2f1 Editor Play,
+timeScale 1, i5-12400F, GTX 1060 6GB, 32581 MB system RAM, Windows 11 build
+26100; Game view 1101x506, vSync off, target frame rate unrestricted. The map
+hash remains `77A23824A9BF24DA`. These are Editor observations, not a standalone
+Windows performance certification.
+
+- Actual WASD replay from the authored hero spawn to wood/stone/metal took
+  1.588/4.654/9.221 seconds; the return legs took 1.544/4.640/9.221 seconds.
+  Eight-direction geometric estimates were 1.633/4.729/9.311 seconds; the
+  replay stops within 0.18 world units of the target. One replay per policy,
+  known coordinates and no discovery/search time; no human observation claimed.
+- A source circuit, holding E for three units of each resource, returning
+  and confirming three paid towers, took 29.489 seconds. Travel accounted
+  for 19.269 seconds and gathering for 7.218; build timing included three
+  scripted one-second confirmation allowances, not human UI timing.
+- On the unchanged map, a three-cell wall changes the open 89-step route
+  to 93; nine cells change it to 99. A transverse full wall requires 100
+  occupancy cells in this diagnostic; the 385-step zigzag uses 297 tokens.
+  These particular full-map layouts are not affordable from one three-tower
+  resource circuit. Compact controls correct that incomplete comparison:
+  three sides of the throne produce a 95-step open route; a four-tower throne
+  ring produces siege after an 87-step approach; three neighbors of the
+  edge entrance produce immediate siege. The three-tower entrance cap was
+  additionally purchased through actual Defense transactions for 3 of each
+  resource with no token wall, then breached by an enemy and reopened.
+- Three warmups and 30 samples per navigation layout: median search times
+  range from 1.018 to 1.044 ms across all eight layouts; observed search p95
+  is at most 1.450 ms and replan p95 at most 1.412 ms. The managed allocation counter
+  returned zero on this Mono runtime and is unavailable, not zero allocation.
+- Three ten-second live-load phases, discarding each first second: sampled
+  frame p95 was 2.132 ms idle, 2.348 ms with 64 moving enemies and 2.351 ms
+  with 64 enemies plus occupancy revisions at 1 Hz. Total Unity Editor
+  allocated-memory medians were 838.93/839.37/839.47 MiB; this includes
+  Editor/probe overhead, not Player RAM or a leak test. No sampled frames
+  were skipped. The workload produced 11 new full searches, 704 requests
+  and 2496 retained-plan hits; shared field reuse worked.
+
+Disposition: **continue with 100x100 and the current masks for Stage 2; do not
+expand to 200x200 or mandate a topology rebuild.** Travel orders resource
+distance, and no measured navigation bottleneck argues for a size change.
+The gray nine-cell corridor does not constrain enemies, but the actual map
+already supports an affordable open detour and a three-tower complete
+blockage. The earlier draft's proposed compulsory choke-point rework was
+withdrawn after the compact-layout control; a 100-cell transverse wall alone
+was insufficient evidence for that change. No map asset was edited.
+
+P-008 still needs human acceptance of 100x100 for this slice, not a permanent
+MVP-size lock. Reopen the choice if representative content causes a measured
+performance/travel problem or players cannot make a meaningful layout choice.
+Current evidence does not establish resource discoverability, absence of a
+dominant entrance-camping strategy or human comprehension.
+
+### Human Clarification — Future Map Composition, 2026-09-24
+
+The current priority is proving the playable core with the MVP scope. The
+100x100 recommendation concerns this test slice; it does not fix the eventual
+map's size, shape or placement rules. The following are human-proposed future
+options, not accepted requirements for a Stage 2 rebuild:
+
+- Extend the map as a rectangle along the resource/invasion axis. "Height"
+  here means map extent, not terrain elevation; the flat-map decision remains.
+- Offset the throne toward the enemy entrance, with a shorter throne-to-gate
+  distance and more depth toward the opposite resource-side boundary. No
+  dimensions or distance ratio have been selected.
+- Make the gray invasion area wide and winding/zigzag rather than necessarily
+  rectangular; towers could further shape the enemies' route.
+- Possibly forbid towers on green terrain and permit them only on gray terrain.
+  Build permission and enemy walkability are separate rules: a future brief
+  must specify both. Currently surface color alone does not confine enemies.
+
+Keep these options in this spec until a map revision becomes active; do not
+create speculative feature documents or introduce new architecture for them.
+No scene, masks or runtime values change with this clarification. Scope and
+verification of a later revision must be agreed when it becomes necessary.
+Detailed Blender production remains later, separately scoped work under D-012,
+not a prerequisite for proving the Stage 2 loop. This clarification does not
+accept the pending cadence or enemy-role proposals.

@@ -369,7 +369,7 @@ MeshRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1000
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &741638372
@@ -729,6 +729,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1713031726}
   - component: {fileID: 1713031725}
+  - component: {fileID: 1713031730}
+  - component: {fileID: 1713031729}
+  - component: {fileID: 1713031728}
+  - component: {fileID: 1713031727}
   m_Layer: 0
   m_Name: Stage 2 Scene Composition
   m_TagString: Untagged
@@ -769,6 +773,75 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1713031727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1713031724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 963d3f9862b0dea4eae7278c4718c4dc, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Not3A.Stage2.Integration::Not3A.Stage2.Integration.Stage2GameComposition
+  bootstrap: {fileID: 1713031725}
+  economyCatalog: {fileID: 11400000, guid: 258f3ddcb677467caa9f9d27794ca00b, type: 2}
+  defenseCatalog: {fileID: 11400000, guid: af08b22adb6bfc04d912042efbc197a3, type: 2}
+  enemyCatalog: {fileID: 11400000, guid: bf4bec7be7071644b9d2e344a1da20ce, type: 2}
+  runCatalog: {fileID: 11400000, guid: 3dd74bf7c75f2c349bfabd6e16159ec7, type: 2}
+  gathering: {fileID: 1713031730}
+  building: {fileID: 1713031729}
+  runDriver: {fileID: 1713031728}
+  showDevelopmentHud: 1
+--- !u!114 &1713031728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1713031724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13e6775d273196d43bba62d4b18f635d, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Not3A.Stage2.RunState::Not3A.Stage2.RunState.Stage2RunDriver
+  catalog: {fileID: 0}
+  gathering: {fileID: 0}
+  building: {fileID: 0}
+  player: {fileID: 0}
+--- !u!114 &1713031729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1713031724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cacfe18f13c80cf4aaf7a462433b3469, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Not3A.Stage2.Defense::Not3A.Stage2.Defense.Stage2BuildDriver
+  mapDefinition: {fileID: 0}
+  catalog: {fileID: 0}
+  gathering: {fileID: 0}
+  player: {fileID: 0}
+  worldCamera: {fileID: 0}
+--- !u!114 &1713031730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1713031724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc8e08ee02b54b9f9a4ce69d3fbc0a30, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Not3A.Stage2.Economy::Not3A.Stage2.Economy.Stage2GatheringDriver
+  mapDefinition: {fileID: 11400000, guid: 6c7ad686559f7994e8ef16ebfada15ed, type: 2}
+  catalog: {fileID: 11400000, guid: 258f3ddcb677467caa9f9d27794ca00b, type: 2}
+  player: {fileID: 200527826}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

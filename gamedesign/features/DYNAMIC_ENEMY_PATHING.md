@@ -1,7 +1,8 @@
 # Feature: Player-Shaped Enemy Pathing
 
 Status: Stage 1 complete and human-accepted, 2026-09-21;
-Stage 2 S2-MAP-02 navigation complete, 2026-09-22
+Stage 2 S2-MAP-02 navigation complete, 2026-09-22;
+S2-AI-02 continuous enemy/siege implementation complete, 2026-09-24
 Owner/workstream: Foundation / integration, with Defense and Waves/AI contracts
 Depends on: D-002, D-006, D-009, D-010, D-011; grid, tower placement,
 health/damage
@@ -124,7 +125,8 @@ Decision links: `production/DECISIONS.md` D-009–D-011
 
 ## Open Decisions
 
-- P-002: разрешено ли размещение новых башен во время активной волны.
+- P-002: historical Stage 1 open item, accepted for Stage 2 as D-014 on
+  2026-09-24; active-wave placement is implemented by S2-DEF-01/S2-AI-02.
 - P-008: целевой production-размер карты после компактного Stage 1 slice.
 
 ## Stage 2 Navigation — S2-MAP-02
@@ -192,10 +194,13 @@ generation; use `IsCurrent(plan)` instead of comparing revision numbers alone.
 `ReachesThrone` ends at the authored throne. `ReachableBlocker` ends adjacent to
 the blocker and excludes every occupied cell. Explicit failure statuses are
 `InvalidMap`, `StartOutsideBounds`, `StartNotWalkable`, `StartOccupied` and
-`Unreachable`; failure paths are empty. Occupying an enemy's current cell is a
-placement-policy issue for S2-BLD-01: navigation reports `StartOccupied` rather
-than inventing escape/teleport movement. Next-cell placement is supported and
-covered for multiple moving consumers.
+`Unreachable`; failure paths are empty. D-014 (S2-BLD-01) now rejects placement
+on a live enemy's current cell or either endpoint of its already-started step;
+see `STAGE2_BUILDING.md`. Navigation still reports `StartOccupied` defensively
+rather than inventing escape/teleport movement. Placement on an uncommitted
+future cell is supported and covered for multiple discrete moving consumers.
+The accepted continuous-step exclusion remains to be implemented by Defense/AI;
+the completed navigation API and existing test scope are unchanged.
 
 ### Integration Handoff And Wiring
 
@@ -207,15 +212,22 @@ Do not create an instance per enemy. Only Integration edits the Stage 2 scene.
 1. Defense stores its fresh ownership token after `TryOccupy == Changed` and
    releases with that token on destruction/removal. Resource spending and allowed
    build phases remain Defense/Economy responsibilities.
-2. Each consumer stores its plan and path index. Before movement or blocker
-   interaction, call `ReplanIfStale(currentCell, plan)`. When plan identity
+2. Each consumer stores its plan and path index. At a cell center, before
+   beginning a new step or blocker interaction, call
+   `ReplanIfStale(currentCell, plan)`. When plan identity
    changes, reset path index to 1 (index 0 is the current cell). Advance through
    `Path` without repeatedly calling `PlanFrom`. A retained plan is only for that
    consumer's continuous route; clear it after external relocation.
-3. Follow cells via the map's `CellToWorld`/`WorldToCell` contract. On revision
-   change, replan from the consumer's committed cell before entering its next
-   cell. Continuous movement/placement overlap arbitration belongs to S2-AI-02
-   and S2-BLD-01; the included harness advances discrete cells only.
+3. Follow cells via the map's coordinate contract, retaining an explicit
+   committed cell rather than rounding a moving transform to infer it.
+   Under D-014, Waves/AI protects both endpoints before starting a continuous
+   step; Defense rejects placement there while any live enemy protects them.
+   On revision change mid-step, finish that protected segment continuously,
+   commit arrival and replan before the next step or attack. Release source
+   protection on arrival and all protection on removal/reset. This placement
+   constraint is not tower occupancy and must not increment navigation Revision.
+   S2-AI-02/S2-DEF-01 own implementation/testing; the existing harness advances
+   discrete cells only and does not prove continuous-step safety.
 4. At the end of a blocker approach, Waves/AI receives its owner token and cell
    for the future siege/health binding. Recheck plan currency before attack;
    navigation implements neither attacks nor target health.
@@ -302,3 +314,49 @@ the known stale Input System monitor issue does not recur on the fresh run.
 `git diff --check` passes. Scenes, Map, Integration, Stage 1, ProjectSettings and
 Packages have no diff. Raw test reports and fresh Console evidence are in
 `Artifacts/S2-MAP-02/`; navigation build-level qualification remains S2-QA-01.
+
+## Stage 2 Continuous Enemy And Siege — S2-AI-02 (2026-09-24)
+
+`Assets/Stage2/WavesAI/Runtime/Stage2Enemy.cs` follows an explicit
+`CurrentCell` and optional `StepDestination` instead of rounding a moving
+transform. Before each new cardinal step or siege hit it asks the one shared
+`Stage2Navigation` for a current plan; a changed Revision during an already
+committed step lets that segment finish continuously, then replans at arrival.
+`Stage2EnemyGroup` owns the live enemies for one run and provides
+`IsCellProtected(Vector2Int)` to Defense. Every living enemy protects its
+current cell plus the destination of its active step; death, throne arrival,
+despawn and reset release those protections without changing Navigation
+Revision. Multiple enemies can protect the same cell independently.
+
+A `ReachableBlocker` plan ends next to a tower. Before each hit the enemy
+rechecks plan currency, tower life, one-cell adjacency and exact occupancy
+identity, then damages `Stage2Tower` via its public `TakeDamage`. The siege
+interval counts active time continuously and is not reset by route revisions;
+destroyed towers release their own occupancy in Defense, causing a fresh route
+next tick. `ReachedThrone(int damage)` on the group is one fact per enemy, for
+S2-WAV-02 to apply to throne health. The group emits `EnemyRemoved` for wave
+completion bookkeeping. No hero targeting/combat or run-phase progression is
+implemented by this package.
+
+Prototype data is `Assets/Stage2/WavesAI/Data/Stage2EnemyPrototype.asset` and
+the inactive `Prefabs/Stage2GroundEnemy.prefab`; the simple warm silhouette
+reuses the original Stage 1 graybox sprite read-only. Values are provisional
+Unity data, not approved cadence/balance or a second enemy role. Integration
+constructs `new Stage2EnemyGroup(map, sharedNavigation, enemyCatalog)`, calls
+`buildDriver.SetEnemyProtection(group.IsCellProtected)` **after** Defense
+Configure, and gives the same group to S2-WAV-02. The run owner calls
+`group.SetPaused(paused)` on pause, `group.ResetRun()` before a new run, and
+`Stage2Navigation.Reset()` after Defense/AI clear old occupants and actors.
+Spawn only in an active wave; `Spawn()` starts at the authored entrance and
+rejects a tower-occupied or nonwalkable start. Do not create one Navigation
+per enemy or publish enemy protection as tower occupancy.
+
+Verification: EditMode 61/61 and PlayMode 26/26 pass, including actual
+frame-driven movement, current/active-step rejection, future-route placement,
+shared protections, mid-step replan, full-wall siege/destruction/resume,
+frequent Revision churn without cooldown starvation, blocker replacement and
+one throne-contact fact. The full PlayMode suite's two Integration negative
+validation logs are expected. A cleared Console and subsequent Stage 2 Play
+entry/exit show 0 errors, 0 warnings and no compilation failure. No scene
+wiring or Windows build is claimed; S2-WAV-02, Integration and QA must prove
+the actual run and build on the map.

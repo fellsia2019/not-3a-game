@@ -38,6 +38,7 @@ Desktop.ini
 # Test/build output
 TestResults/
 Artifacts/
+/reports/
 
 # Local visual references with unverified redistribution rights
 /concepts_visual_scene/*

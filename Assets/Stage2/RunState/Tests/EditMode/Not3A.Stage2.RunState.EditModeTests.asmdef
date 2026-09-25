@@ -1,0 +1,8 @@
+{
+  "name": "Not3A.Stage2.RunState.EditModeTests",
+  "rootNamespace": "Not3A.Stage2.RunState.Tests",
+  "references": ["Not3A.Stage2.RunState", "Not3A.Stage2.WavesAI", "Not3A.Stage2.Defense", "Not3A.Stage2.Economy", "Not3A.Stage2.Map", "Not3A.Stage2.Navigation"],
+  "includePlatforms": ["Editor"],
+  "autoReferenced": false,
+  "optionalUnityReferences": ["TestAssemblies"]
+}

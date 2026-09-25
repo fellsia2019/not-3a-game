@@ -1,0 +1,14 @@
+{
+  "name": "Not3A.Stage2.Economy",
+  "rootNamespace": "Not3A.Stage2.Economy",
+  "references": ["Not3A.Stage2.Map", "Unity.InputSystem"],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

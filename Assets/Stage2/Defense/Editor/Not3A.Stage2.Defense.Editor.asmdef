@@ -1,0 +1,7 @@
+{
+  "name": "Not3A.Stage2.Defense.Editor",
+  "rootNamespace": "Not3A.Stage2.Defense.Editor",
+  "references": ["Not3A.Stage2.Defense"],
+  "includePlatforms": ["Editor"],
+  "autoReferenced": false
+}

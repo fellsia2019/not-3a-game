@@ -5,6 +5,11 @@
     "Not3A.Stage1",
     "Not3A.Stage2.Map",
     "Not3A.Stage2.Integration",
+    "Not3A.Stage2.Navigation",
+    "Not3A.Stage2.Economy",
+    "Not3A.Stage2.Defense",
+    "Not3A.Stage2.WavesAI",
+    "Not3A.Stage2.RunState",
     "Unity.InputSystem",
     "Unity.InputSystem.TestFramework"
   ],
