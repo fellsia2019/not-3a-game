@@ -5,6 +5,38 @@
 
 ## Current Resource Order
 
+### Active package — S2-DEF-02 (2026-09-25)
+
+- Owner: Defense, `Assets/Stage2/Defense/**` and
+  `gamedesign/features/STAGE2_TOWER_ROLES.md`. Integration retains exclusive
+  ownership of the Stage 2 scene and its composition/HUD files.
+- Inputs: completed S2-DEF-01/DEF-01-FIX, D-009/D-014 and the delivered
+  S2-AI-01 brief. Human selected GPT-6 Sol / high.
+- Acceptance: two paid one-cell tower roles use distinct catalog data and
+  prefabs; role selection changes the preview and price without spending;
+  focused EditMode/PlayMode checks cover reach, damage, purchase, pause and
+  reset. Scene wiring, build and player choice observation follow as separate
+  Integration/QA checkpoints.
+
+### 2026-09-25 — Defense S2-DEF-02 -> Integration/QA
+
+- Behavior: keys 1/2 select Rapid/Longshot; B opens placement; selected role
+  controls ghost silhouette, full-price validation, instantiated prefab and
+  attack profile. Both roles retain one-cell occupancy, siege and reset.
+- Contracts/files: `Assets/Stage2/Defense/Runtime/Stage2Defense.cs`,
+  `Stage2BuildDriver.cs`, `Stage2DefenseCatalog.cs`, two catalog assets,
+  two inactive prefabs and focused Defense tests. Existing baseline asset
+  retains its GUID and references. See `STAGE2_TOWER_ROLES.md` for the exact
+  `Configure` overload and data paths; Integration owns scene/HUD changes.
+- Verification: Unity 6000.6.2f1 isolated-copy Defense EditMode 10/10,
+  PlayMode 3/3, no failures/skips, compile errors or new exceptions in final
+  focused logs. A cold import initially resolved pre-existing data assets as
+  null; copying the current Editor import cache made both suites pass.
+  `git diff --check` clean. No scene or Windows build claim for this delivery.
+- Remaining: Integration binds Longshot and shows role/price, then QA checks
+  Editor/Windows and the player tests whether the choice changes a real-map
+  layout. P-004/P-008 and S2-AI-01 product acceptance remain separate.
+
 Human verification preference, 2026-09-24: keep agent verification focused on
 changed logic and necessary regression. The human can perform one manual game
 check at the end of a task or task batch. Do not spend further agent turns on

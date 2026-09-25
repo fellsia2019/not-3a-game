@@ -19,6 +19,7 @@ namespace Not3A.Stage2.Defense.Tests
         private Mouse mouse;
         private Stage2MapDefinition map;
         private Stage2DefenseCatalog catalog;
+        private Stage2DefenseCatalog longshot;
         private Stage2Navigation navigation;
         private GameObject hero;
         private GameObject owner;
@@ -36,8 +37,10 @@ namespace Not3A.Stage2.Defense.Tests
             mouse = InputSystem.AddDevice<Mouse>();
             map = AssetDatabase.LoadAssetAtPath<Stage2MapDefinition>("Assets/Stage2/Map/Data/Stage2Map100x100.asset");
             catalog = AssetDatabase.LoadAssetAtPath<Stage2DefenseCatalog>("Assets/Stage2/Defense/Data/Stage2DefensePrototype.asset");
+            longshot = AssetDatabase.LoadAssetAtPath<Stage2DefenseCatalog>("Assets/Stage2/Defense/Data/Stage2DefenseLongshot.asset");
             var economyCatalog = AssetDatabase.LoadAssetAtPath<Stage2EconomyCatalog>("Assets/Stage2/Economy/Data/Stage2EconomyPrototype.asset");
             Assert.That(catalog.TryValidate(out var reason), Is.True, reason);
+            Assert.That(longshot.TryValidate(out reason), Is.True, reason);
             navigation = new Stage2Navigation(map);
             cell = FindBuildableCell();
             hero = new GameObject("Hero");
@@ -51,7 +54,8 @@ namespace Not3A.Stage2.Defense.Tests
             gathering = owner.AddComponent<Stage2GatheringDriver>();
             gathering.Configure(map, economyCatalog, hero.transform);
             building = owner.AddComponent<Stage2BuildDriver>();
-            Assert.That(building.Configure(map, catalog, gathering, hero.transform, camera, navigation), Is.True);
+            Assert.That(building.Configure(map, catalog, new[] { longshot }, gathering,
+                hero.transform, camera, navigation), Is.True);
             building.SetRunState(Stage2BuildPhase.Preparation, false);
             foreach (var kind in new[] { MapResourceKind.Wood, MapResourceKind.Stone, MapResourceKind.Metal })
                 gathering.Economy.Inventory.TryAdd(kind, 1);
@@ -130,6 +134,32 @@ namespace Not3A.Stage2.Defense.Tests
             building.SetRunState(Stage2BuildPhase.Wave, true);
             Assert.That(building.Defense.IsPlacing, Is.False);
             Assert.That(navigation.Revision, Is.Zero);
+        }
+
+        [UnityTest]
+        public IEnumerator RoleKey_ChangesPreviewAndPurchasesSelectedTower()
+        {
+            var camera = cameraObject.GetComponent<Camera>();
+            var screen = camera.WorldToScreenPoint(map.CellToWorld(cell));
+            input.Set(mouse.position, new Vector2(screen.x, screen.y));
+            input.Press(keyboard.digit2Key);
+            yield return null;
+            input.Release(keyboard.digit2Key);
+            Assert.That(building.Defense.SelectedCatalog, Is.SameAs(longshot));
+            input.Press(keyboard.bKey);
+            yield return null;
+            input.Release(keyboard.bKey);
+            yield return null;
+            Assert.That(building.PreviewResult, Is.EqualTo(PlacementResult.CannotAfford));
+            gathering.Economy.Inventory.TryAdd(MapResourceKind.Metal, 1);
+            yield return null;
+            Assert.That(building.PreviewResult, Is.EqualTo(PlacementResult.Ready));
+            input.Press(mouse.leftButton);
+            yield return null;
+            Assert.That(navigation.TryGetOccupant(cell, out var ownerToken), Is.True);
+            Assert.That((ownerToken as Stage2Tower).name, Does.StartWith(longshot.TowerPrefab.name));
+            Assert.That(gathering.Economy.Inventory.Get(MapResourceKind.Metal), Is.Zero);
+            Assert.That(building.Defense.TowerCount, Is.EqualTo(1));
         }
 
         private Vector2Int FindBuildableCell()

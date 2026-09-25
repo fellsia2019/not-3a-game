@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Stage2DefensePrototype
   m_EditorClassIdentifier: Not3A.Stage2.Defense::Not3A.Stage2.Defense.Stage2DefenseCatalog
   towerPrefab: {fileID: 8768468511423994358, guid: a724bd2fa8477b942b745ceb251a699f, type: 3}
+  roleName: Rapid
   woodCost: 1
   stoneCost: 1
   metalCost: 1

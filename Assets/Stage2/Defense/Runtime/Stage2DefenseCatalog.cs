@@ -6,6 +6,7 @@ namespace Not3A.Stage2.Defense
     public sealed class Stage2DefenseCatalog : ScriptableObject
     {
         [SerializeField] private Stage2Tower towerPrefab;
+        [SerializeField] private string roleName = "Rapid";
         [SerializeField, Min(0)] private int woodCost = 1;
         [SerializeField, Min(0)] private int stoneCost = 1;
         [SerializeField, Min(0)] private int metalCost = 1;
@@ -15,6 +16,7 @@ namespace Not3A.Stage2.Defense
         [SerializeField, Min(1)] private int attackDamage = 1;
 
         public Stage2Tower TowerPrefab => towerPrefab;
+        public string RoleName => roleName;
         public int WoodCost => woodCost;
         public int StoneCost => stoneCost;
         public int MetalCost => metalCost;
@@ -42,6 +44,7 @@ namespace Not3A.Stage2.Defense
         public bool TryValidate(out string reason)
         {
             if (towerPrefab == null || towerPrefab.gameObject.activeSelf ||
+                string.IsNullOrWhiteSpace(roleName) ||
                 woodCost < 0 || stoneCost < 0 || metalCost < 0 ||
                 woodCost + (long)stoneCost + metalCost == 0 || towerHealth <= 0 ||
                 attackRange <= 0f || float.IsNaN(attackRange) || float.IsInfinity(attackRange) ||

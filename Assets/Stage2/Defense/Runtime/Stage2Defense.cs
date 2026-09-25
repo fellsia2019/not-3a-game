@@ -22,9 +22,9 @@ namespace Not3A.Stage2.Defense
         private readonly Stage2MapDefinition map;
         private readonly Stage2Navigation navigation;
         private readonly Stage2Inventory inventory;
-        private readonly Stage2DefenseCatalog catalog;
+        private readonly IReadOnlyList<Stage2DefenseCatalog> catalogs;
         private readonly Func<Vector2> heroWorld;
-        private readonly Func<Stage2Tower> prepareTower;
+        private readonly Func<Stage2DefenseCatalog, Stage2Tower> prepareTower;
         private readonly List<Stage2Tower> towers = new List<Stage2Tower>();
         private Func<Vector2Int, bool> enemyProtected;
         private Func<Vector2, float, int, bool> attackTarget;
@@ -34,28 +34,51 @@ namespace Not3A.Stage2.Defense
         private bool paused;
         private bool committing;
         private Stage2BuildPhase phase = Stage2BuildPhase.Inactive;
+        private int selectedCatalogIndex;
 
         public Stage2Defense(Stage2MapDefinition map, Stage2Navigation navigation,
             Stage2Inventory inventory, Stage2DefenseCatalog catalog, Func<Vector2> heroWorld,
             Func<Stage2Tower> prepareTower)
+            : this(map, navigation, inventory, new[] { catalog }, heroWorld,
+                _ => prepareTower())
+        {
+            if (prepareTower == null) throw new ArgumentNullException(nameof(prepareTower));
+        }
+
+        public Stage2Defense(Stage2MapDefinition map, Stage2Navigation navigation,
+            Stage2Inventory inventory, IReadOnlyList<Stage2DefenseCatalog> catalogs,
+            Func<Vector2> heroWorld, Func<Stage2DefenseCatalog, Stage2Tower> prepareTower)
         {
             if (map == null || !map.ValidateDefinition().IsValid) throw new ArgumentException("Invalid map.", nameof(map));
             if (navigation == null || !navigation.IsValid || navigation.MapHash != map.ComputeDeterministicContentHash())
                 throw new ArgumentException("Navigation must use the same valid map.", nameof(navigation));
             if (inventory == null) throw new ArgumentNullException(nameof(inventory));
-            if (catalog == null || !catalog.TryValidate(out _)) throw new ArgumentException("Invalid defense catalog.", nameof(catalog));
+            if (catalogs == null || catalogs.Count == 0) throw new ArgumentException("At least one defense catalog is required.", nameof(catalogs));
+            foreach (var item in catalogs)
+                if (item == null || !item.TryValidate(out _))
+                    throw new ArgumentException("Invalid defense catalog.", nameof(catalogs));
             this.heroWorld = heroWorld ?? throw new ArgumentNullException(nameof(heroWorld));
             this.prepareTower = prepareTower ?? throw new ArgumentNullException(nameof(prepareTower));
             this.map = map;
             this.navigation = navigation;
             this.inventory = inventory;
-            this.catalog = catalog;
+            this.catalogs = catalogs;
         }
 
         public event Action<Stage2Tower> Built;
         public bool IsPlacing => placing;
         public int TowerCount => towers.Count;
         public Vector2Int? PreviewCell => previewCell;
+        public int RoleCount => catalogs.Count;
+        public int SelectedRoleIndex => selectedCatalogIndex;
+        public Stage2DefenseCatalog SelectedCatalog => catalogs[selectedCatalogIndex];
+
+        public bool SelectRole(int index)
+        {
+            if (committing || index < 0 || index >= catalogs.Count) return false;
+            selectedCatalogIndex = index;
+            return true;
+        }
 
         public void SetEnemyProtection(Func<Vector2Int, bool> isProtected) => enemyProtected = isProtected;
 
@@ -118,6 +141,7 @@ namespace Not3A.Stage2.Defense
             if (phase == Stage2BuildPhase.Wave && enemyProtected == null)
                 return PlacementResult.EnemyStateUnavailable;
             if (enemyProtected != null && enemyProtected(cell)) return PlacementResult.EnemyProtected;
+            var catalog = SelectedCatalog;
             if (!inventory.CanAfford(catalog.WoodCost, catalog.StoneCost, catalog.MetalCost))
                 return PlacementResult.CannotAfford;
             return PlacementResult.Ready;
@@ -135,7 +159,8 @@ namespace Not3A.Stage2.Defense
             Stage2Tower prepared = null;
             try
             {
-                try { prepared = prepareTower(); }
+                var catalog = SelectedCatalog;
+                try { prepared = prepareTower(catalog); }
                 catch (Exception exception)
                 {
                     Debug.LogWarning($"S2_DEF_CREATION_FAILED: {exception.Message}");
@@ -188,6 +213,7 @@ namespace Not3A.Stage2.Defense
                 DestroyObject(tower.gameObject);
             }
             towers.Clear();
+            selectedCatalogIndex = 0;
             phase = Stage2BuildPhase.Inactive;
             paused = false;
         }

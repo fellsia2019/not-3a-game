@@ -216,6 +216,36 @@ namespace Not3A.Stage2.Defense.Tests
             AssertBalances(0);
         }
 
+        [Test]
+        public void SelectedRole_UsesItsOwnPrefabAndFullPrice_ThenResetRestoresRapid()
+        {
+            var longshot = AssetDatabase.LoadAssetAtPath<Stage2DefenseCatalog>(
+                "Assets/Stage2/Defense/Data/Stage2DefenseLongshot.asset");
+            Assert.That(longshot.TryValidate(out var reason), Is.True, reason);
+            defense.ResetRun();
+            defense = new Stage2Defense(map, navigation, inventory,
+                new[] { catalog, longshot }, () => heroWorld,
+                selected => Object.Instantiate(selected.TowerPrefab));
+            defense.SetRunState(Stage2BuildPhase.Preparation, false);
+            Fund(1);
+            Assert.That(defense.SelectRole(1), Is.True);
+            Assert.That(defense.SelectRole(2), Is.False);
+            defense.BeginPlacement();
+            defense.SetPreviewCell(cell);
+            Assert.That(defense.TryConfirm(out _), Is.EqualTo(PlacementResult.CannotAfford));
+            Assert.That(navigation.Revision, Is.Zero);
+            inventory.TryAdd(MapResourceKind.Metal, 1);
+            Assert.That(defense.TryConfirm(out var tower), Is.EqualTo(PlacementResult.Ready));
+            Assert.That(tower.name, Does.StartWith(longshot.TowerPrefab.name));
+            Assert.That(inventory.Get(MapResourceKind.Wood), Is.Zero);
+            Assert.That(inventory.Get(MapResourceKind.Stone), Is.Zero);
+            Assert.That(inventory.Get(MapResourceKind.Metal), Is.Zero);
+            Assert.That(defense.SelectedRoleIndex, Is.EqualTo(1));
+            defense.ResetRun();
+            Assert.That(defense.SelectedRoleIndex, Is.Zero);
+            Assert.That(navigation.OccupiedCount, Is.Zero);
+        }
+
         private Vector2Int FirstBuildable()
         {
             for (var y = map.MinimumCell.y; y <= map.MaximumCell.y; y++)

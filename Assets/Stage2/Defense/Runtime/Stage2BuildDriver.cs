@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Not3A.Stage2.Economy;
 using Not3A.Stage2.Map;
 using Not3A.Stage2.Navigation;
@@ -13,6 +14,7 @@ namespace Not3A.Stage2.Defense
     {
         [SerializeField] private Stage2MapDefinition mapDefinition;
         [SerializeField] private Stage2DefenseCatalog catalog;
+        [SerializeField] private Stage2DefenseCatalog[] additionalCatalogs = Array.Empty<Stage2DefenseCatalog>();
         [SerializeField] private Stage2GatheringDriver gathering;
         [SerializeField] private Transform player;
         [SerializeField] private Camera worldCamera;
@@ -23,6 +25,8 @@ namespace Not3A.Stage2.Defense
         private InputAction buildAction;
         private InputAction confirmAction;
         private InputAction cancelAction;
+        private InputAction firstRoleAction;
+        private InputAction secondRoleAction;
         private Stage2BuildPhase phase = Stage2BuildPhase.Inactive;
         private bool paused;
 
@@ -32,9 +36,16 @@ namespace Not3A.Stage2.Defense
         public bool Configure(Stage2MapDefinition definition, Stage2DefenseCatalog data,
             Stage2GatheringDriver economyDriver, Transform playerTransform,
             Camera camera, Stage2Navigation sharedNavigation)
+            => Configure(definition, data, Array.Empty<Stage2DefenseCatalog>(), economyDriver,
+                playerTransform, camera, sharedNavigation);
+
+        public bool Configure(Stage2MapDefinition definition, Stage2DefenseCatalog data,
+            Stage2DefenseCatalog[] extraCatalogs, Stage2GatheringDriver economyDriver,
+            Transform playerTransform, Camera camera, Stage2Navigation sharedNavigation)
         {
             mapDefinition = definition;
             catalog = data;
+            additionalCatalogs = extraCatalogs ?? Array.Empty<Stage2DefenseCatalog>();
             gathering = economyDriver;
             player = playerTransform;
             worldCamera = camera;
@@ -53,8 +64,10 @@ namespace Not3A.Stage2.Defense
             try
             {
                 defense?.ResetRun();
+                var roles = new List<Stage2DefenseCatalog> { catalog };
+                roles.AddRange(additionalCatalogs);
                 defense = new Stage2Defense(mapDefinition, navigation, gathering.Economy.Inventory,
-                    catalog, () => player.position, () => Instantiate(catalog.TowerPrefab));
+                    roles, () => player.position, selected => Instantiate(selected.TowerPrefab));
                 defense.SetRunState(phase, paused);
                 CreateGhost();
                 return true;
@@ -92,9 +105,13 @@ namespace Not3A.Stage2.Defense
             cancelAction = new InputAction("Stage 2 Cancel Build", InputActionType.Button);
             cancelAction.AddBinding("<Keyboard>/escape");
             cancelAction.AddBinding("<Mouse>/rightButton");
+            firstRoleAction = new InputAction("Stage 2 Rapid Tower", InputActionType.Button, "<Keyboard>/1");
+            secondRoleAction = new InputAction("Stage 2 Longshot Tower", InputActionType.Button, "<Keyboard>/2");
             buildAction.Enable();
             confirmAction.Enable();
             cancelAction.Enable();
+            firstRoleAction.Enable();
+            secondRoleAction.Enable();
         }
 
         private void OnDisable()
@@ -102,7 +119,9 @@ namespace Not3A.Stage2.Defense
             buildAction?.Dispose();
             confirmAction?.Dispose();
             cancelAction?.Dispose();
-            buildAction = confirmAction = cancelAction = null;
+            firstRoleAction?.Dispose();
+            secondRoleAction?.Dispose();
+            buildAction = confirmAction = cancelAction = firstRoleAction = secondRoleAction = null;
             defense?.CancelPlacement();
             SyncBuildMode();
         }
@@ -118,6 +137,10 @@ namespace Not3A.Stage2.Defense
             if (defense == null) return;
             var buildPressed = buildAction != null && buildAction.WasPressedThisFrame();
             var cancelPressed = cancelAction != null && cancelAction.WasPressedThisFrame();
+            if (firstRoleAction != null && firstRoleAction.WasPressedThisFrame() && defense.SelectRole(0))
+                CreateGhost();
+            if (secondRoleAction != null && secondRoleAction.WasPressedThisFrame() && defense.SelectRole(1))
+                CreateGhost();
             // Cancellation wins over confirmation in the same input update.
             if (cancelPressed || (buildPressed && defense.IsPlacing)) defense.CancelPlacement();
             else if (buildPressed) defense.BeginPlacement();
@@ -153,7 +176,7 @@ namespace Not3A.Stage2.Defense
         private void CreateGhost()
         {
             if (ghost != null) Destroy(ghost.gameObject);
-            var source = catalog.TowerPrefab.GetComponentInChildren<SpriteRenderer>(true);
+            var source = defense.SelectedCatalog.TowerPrefab.GetComponentInChildren<SpriteRenderer>(true);
             if (source == null) return;
             var instance = new GameObject("Stage 2 Build Preview");
             ghost = instance.AddComponent<SpriteRenderer>();
