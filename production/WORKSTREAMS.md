@@ -39,7 +39,7 @@ D-017: каждый новый Stage 2–7 ведёт новый агент в �
   have explicit unknown-rights documentation. The owner approved placing all
   references in the existing public repository (D-044). GitHub `main` was
   verified at `8b156ffd8a5e655e73b217269c35e7c22428c735`; a local ZIP is
-  only an additional backup, not the Mac transfer path. `art/review` GIF/MP4
+  an older snapshot, not the Mac transfer path. `art/review` GIF/MP4
   files were agent-generated QA captures, not player-provided references; the
   owner subsequently requested their removal (handoff above).
 - Remaining: open/import and Play in Unity on the actual Mac; owner review of

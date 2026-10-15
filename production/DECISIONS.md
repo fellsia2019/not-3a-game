@@ -709,8 +709,8 @@ files under `concepts_visual_scene/` and the player-supplied image under
 rights status; they remain outside Unity `Assets/` and are not runtime art.
 This decision records storage and visibility only. It does not establish a
 license, authorize copying any reference into the game or change the Windows
-MVP target. A local portable archive also retains the complete working state,
-original generated artwork, prompts, provenance, documentation and Git history.
+MVP target. The current public Git `main` is the Mac handoff source. An older
+local ZIP snapshot predates the later removal of optional QA recordings.
 
 ## Pending Product Decisions
 
