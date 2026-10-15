@@ -54,7 +54,8 @@ Exact generation brief: `art/source/skeleton_walk_cartoon_prompt.txt`;
 provenance: `art/source/skeleton_walk_cartoon_provenance.json`. No third-party
 image/mesh is used. A 6x4 sheet supplies one unit's right/away/left/toward walk;
 feet/torso registration is stored in Sprite pivots without repainting the PNG.
-The actual Game-camera recording is `art/review/skeleton_sprite_portal_walk.gif`.
+Static Game-camera checks remain in `art/review/skeleton_sprite_portal_*.png`;
+the animated QA recording was removed at the owner's request.
 This narrow mixed 2D/3D trial awaits owner review; it does not approve a final
 pipeline for the towers, landscape or remaining actors.
 
@@ -313,5 +314,5 @@ Stage 3 Longshot: оригинальный концепт каменной ар�
 D-042 final close review: Longshot flight uses the same painted stone as the
 loaded cup, including foreground ordering at release. The paved map edge gets
 an irregular grass apron against the nonwalkable border; border turf uses the
-same tint. Actual 60 Hz throw evidence: `art/review/astra_catapult_throw_60fps.mp4`
-(90 rendered frames / 1.5 s, no synthetic interpolation).
+same tint. The 60 Hz throw was checked with 90 rendered frames over 1.5 s;
+the optional recording was removed at the owner's request.

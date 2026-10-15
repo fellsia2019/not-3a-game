@@ -139,8 +139,8 @@ or hero-spawn change. Normal game entry keeps the existing start/countdown.
 Verification: Stage 3/Integration/RunState PlayMode 39/39 passed, including
 actual spawned-frame progression, four directions, alpha, hit feedback,
 pause, reset and the existing full paid three-wave win/restart. Actual camera
-captures at size 5/3.2 and a 60-frame, 15 fps recording are in `art/review/` and
-`Artifacts/S3-SKELETON-SPRITE/`.
+captures at size 5/3.2 remain in `art/review/`; the animated QA recording was
+removed at the owner's request. Logs remain in `Artifacts/S3-SKELETON-SPRITE/`.
 Windows Development Build: `Builds/Windows/Stage3SkeletonSprite/Not3A.exe`,
 0 errors / 7 warnings; see the retained build report/log. Owner acceptance of
 style, gait and scale is still required; no final pipeline or Stage 3 completion
@@ -200,9 +200,9 @@ the rendered ground, red/blue pixel changes and paused stability, ordinary
 portal spawning, reservations/reset and the existing full paid win/restart.
 Final Stage 3/Integration/RunState PlayMode: 39/39 in 22.38 s. Windows Development
 Build `Builds/Windows/Stage3LandmarkSprites/Not3A.exe`: 0 errors / 7 warnings.
-Screenshots/recording are `art/review/{portal_sprite_game_close,
-soul_objective_sprite_game_close,landmark_sprites_game_overview}.png` and
-`landmark_sprites_game_walk.gif`; logs/reports are in
+Screenshots are `art/review/{portal_sprite_game_close,
+soul_objective_sprite_game_close,landmark_sprites_game_overview}.png`;
+the animated QA recording was removed. Logs/reports are in
 `Artifacts/S3-LANDMARK-SPRITES/`. The owner approved the appearance before
 D-041; these replacements do not close Stage 3 or choose every remaining asset.
 
@@ -247,8 +247,8 @@ separate grass/flowers. No walls, bushes, collision or new terrain type added.
 Acceptance checks include transparent source PNGs, unchanged map size/anchors,
 shared preview/build artwork, paid construction of 24 towers, four aiming
 bearings, shot windup/release/impact, pause, restart and the paid full-run test.
-Review evidence: `art/review/cartoon_world_game_walk.gif`,
-`cartoon_world_game_overview.png` and `cartoon_{rapid,longshot}_game_close.png`.
+Review evidence: `art/review/cartoon_world_game_overview.png` and
+`cartoon_{rapid,longshot}_game_close.png`. The animated QA recording was removed.
 Exact prompts and source hashes: `art/source/cartoon_map_tower_prompts.json`
 and `cartoon_map_tower_provenance.json`. Runtime tower/terrain appearance still
 awaits the owner's review; remaining Stage 3 and stable performance are open.
@@ -449,5 +449,5 @@ remains open with the owner.
 D-042 final close review: Longshot flight uses the same painted stone as the
 loaded cup, including foreground ordering at release. The paved map edge gets
 an irregular grass apron against the nonwalkable border; border turf uses the
-same tint. Actual 60 Hz throw evidence: `art/review/astra_catapult_throw_60fps.mp4`
-(90 rendered frames / 1.5 s, no synthetic interpolation).
+same tint. The throw was checked at 60 Hz (90 rendered frames / 1.5 s,
+no synthetic interpolation); the optional recording was removed.

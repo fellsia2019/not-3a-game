@@ -143,9 +143,9 @@ Stage 3 остаётся открыт, Stage 4 не начат.
 ходьба привязана к направлению и пройденному расстоянию; исходный враг
 выходит из портала в `Stage3Rapid3DGamePilot`. Параметры боя/волны не менялись.
 Stage 3/Integration/RunState PlayMode 39/39 прошли, включая полный забег,
-паузу, попадание и рестарт. Реальная запись игровой камеры:
-`art/review/skeleton_sprite_portal_walk.gif`; кадры и отчёты:
-`Artifacts/S3-SKELETON-SPRITE/`. Это проба внешнего вида и производства.
+паузу, попадание и рестарт. Статичные кадры игровой камеры остаются в
+`art/review/`; журналы проверки — в `Artifacts/S3-SKELETON-SPRITE/`.
+Анимированная запись удалена по запросу владельца. Это проба внешнего вида и производства.
 Windows Development Build собран в `Builds/Windows/Stage3SkeletonSprite/`:
 0 ошибок, 7 предупреждений; полный журнал сохранён рядом с проверками.
 Окончательный выбор спрайтов для всей игры остаётся за владельцем после
@@ -156,8 +156,8 @@ Windows Development Build собран в `Builds/Windows/Stage3SkeletonSprite/`
 мультяшные изображения и отдельные sprite-prefab; текущая сцена использует их
 вместе со скелетом. Воронка и голубая энергия анимированы; появление врагов,
 здоровье/поражение цели и запреты стройки 3×3 сохраняются. Старые 3D-ассеты и
-Blender-источники сохранены. Кадры из игры и проверка:
-`art/review/landmark_sprites_game_walk.gif`, `Artifacts/S3-LANDMARK-SPRITES/`.
+Blender-источники сохранены. Статичные кадры — в `art/review/`, проверка —
+`Artifacts/S3-LANDMARK-SPRITES/`. Анимированная запись удалена.
 Финальные Stage 3/Integration/RunState PlayMode: 39/39; Windows Development
 Build `Builds/Windows/Stage3LandmarkSprites/Not3A.exe`: 0 ошибок, 7 предупреждений.
 Владелец одобрил этот результат; Stage 3 остаётся открыт.
@@ -171,9 +171,9 @@ Build `Builds/Windows/Stage3LandmarkSprites/Not3A.exe`: 0 ошибок, 7 пре
 `Stage3CartoonWorldBuilder`; главный rebuilder сохраняет этот выбор.
 Исходные PNG и промпты сохранены. Финальные Stage 3/Integration/RunState
 PlayMode: 40/40; Windows Development Build — 0 ошибок, 7 предупреждений.
-Запись реальной первой волны и крупные планы —
-`art/review/cartoon_world_game_walk.gif`, `cartoon_world_game_overview.png`,
-`cartoon_{rapid,longshot}_game_close.png`. Новая оценка владельца и остальные
+Общий кадр и крупные планы — `art/review/cartoon_world_game_overview.png`,
+`cartoon_{rapid,longshot}_game_close.png`; анимированная запись удалена.
+Новая оценка владельца и остальные
 пункты Stage 3 остаются открытыми; это не завершение всего этапа.
 
 **D-042 — доработка после отклонения D-041:** владелец запросил приблизить
@@ -513,9 +513,8 @@ GTX 1060: 14,85 мс с порталом и 15,24 мс без него; это �
 Проверка сравнивает реальные кадры: за 0,4 с изменились 2870 красных пикселей
 в крупном кадре 320×320, на паузе — 0; движение после победы также проверено.
 Полный PlayMode-набор 34/34 прошёл, включая забег и рестарт. Windows
-Development Build собран с 0 ошибками и 7 предупреждениями. Запись движения:
-`art/review/entrance_portal_circulation.gif` и общий игровой ракурс
-`art/review/entrance_portal_circulation_tactical.mp4`. Канонический остаток
+Development Build собран с 0 ошибками и 7 предупреждениями. Анимированные
+записи проверки движения позднее удалены по запросу владельца. Канонический остаток
 Stage 3 по D-032 прежний; gate открыт.
 
 **D-036, возврат прежнего зума:** после расширения карты стартовый
@@ -833,4 +832,5 @@ remains open with the owner.
 
 D-042 final follow-up: focused combat/capture/landscape 4/4 (17.32 s) after
 border seam and painted flight-stone correction. Final Windows build succeeded
-with 0 errors / 7 existing warnings. Close throw: `art/review/astra_catapult_throw_60fps.mp4`.
+with 0 errors / 7 existing warnings. The optional close-throw recording was
+later removed at the owner's request.

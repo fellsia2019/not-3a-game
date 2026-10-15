@@ -10,6 +10,19 @@ D-017: каждый новый Stage 2–7 ведёт новый агент в �
 в `reports/development-roadmap.html`; внутри stage мелкие задачи не дробятся
 по агентам. На переходе обновляются этот handoff и канонический план.
 
+### 2026-10-15 — Remove unneeded animated QA captures
+
+- Owner/surface: current chat; eight agent-generated GIF/MP4 recordings under
+  `art/review/` and their documentation links. No runtime Unity asset changed.
+- Behavior: remove motion recordings that are unnecessary for playing or
+  continuing the project on Mac; retain static review PNGs, original sprite
+  artwork, prompts/provenance and gameplay verification results.
+- Verification: no GIF/MP4 remains in `art/review/`, no documentation link
+  points to a deleted recording, and the Git working tree is synced after the
+  removal. The historical commit still contains the recordings; no history
+  rewrite was requested.
+- Remaining: Stage 3 visual acceptance and actual Unity import/Play on Mac.
+
 ### 2026-10-15 — Portable Mac development handoff
 
 - Owner/surface: current chat; README, reference inventory and GitHub handoff.
@@ -27,7 +40,8 @@ D-017: каждый новый Stage 2–7 ведёт новый агент в �
   references in the existing public repository (D-044). GitHub `main` was
   verified at `8b156ffd8a5e655e73b217269c35e7c22428c735`; a local ZIP is
   only an additional backup, not the Mac transfer path. `art/review` GIF/MP4
-  files are agent-generated QA captures, not player-provided references.
+  files were agent-generated QA captures, not player-provided references; the
+  owner subsequently requested their removal (handoff above).
 - Remaining: open/import and Play in Unity on the actual Mac; owner review of
   Stage 3 visuals and the open Stage 3 gate.
 
@@ -89,10 +103,9 @@ D-017: каждый новый Stage 2–7 ведёт новый агент в �
   Windows Development build succeeded, 277524044 bytes, 0 errors/7 pre-existing
   warnings. Standalone startup reached gameplay and 67-prop readiness without a
   new attributable error; owned smoke process terminated after startup verification.
-- Evidence: `art/review/astra_world_game_overview.png`, tower closeups,
-  `astra_world_game_walk.gif` (150 actual frames at 15 fps) and
-  `astra_catapult_game_throw.gif` (50 close frames sampled at 5 fps), plus
-  `astra_catapult_throw_60fps.mp4` (90 actual rule-clock frames at 60 fps, 1.5 s).
+- Evidence: `art/review/astra_world_game_overview.png`, tower closeups and
+  the retained PlayMode results; motion recordings were later removed at the
+  owner's request.
   Final close-frame review found and corrected legacy cube-like flight artwork:
   released Longshot stone now shares the loaded painted sprite. The outside
   world edge also receives the same irregular grass apron; its former dark
@@ -137,8 +150,8 @@ D-017: каждый новый Stage 2–7 ведёт новый агент в �
   Final standalone startup reached gameplay/tactical readiness without a new
   error; the owned hidden smoke process was closed. The Editor opens the
   framed ordinary preparation scene for live inspection.
-- Evidence: 150 actual Game-camera frames, 15 simulation fps;
-  `art/review/cartoon_world_game_walk.gif`, overview and both tower close-ups.
+- Evidence: overview and both tower close-ups under `art/review/`; the
+  animated QA capture was later removed at the owner's request.
   Source/rights: `art/source/cartoon_map_tower_provenance.json`; exact prompts:
   `cartoon_map_tower_prompts.json`. All four PNG hashes match imagegen originals.
 - Remaining: owner review of new tower/terrain appearance and drawn animation,
@@ -175,8 +188,9 @@ D-017: каждый новый Stage 2–7 ведёт новый агент в �
   a new runtime error; the owned hidden smoke process was closed afterward.
   The interactive Editor scene remains open for the owner's live inspection.
 - Evidence: `Artifacts/S3-LANDMARK-SPRITES/` reports/logs and 60 actual camera
-  frames; `art/review/landmark_sprites_game_walk.gif`, overview and individual
-  close stills. Exact prompts/source rights are in `art/source/landmark_sprites_provenance.json`
+  frames; overview and individual close stills remain under `art/review/`.
+  The animated QA capture was later removed at the owner's request.
+  Exact prompts/source rights are in `art/source/landmark_sprites_provenance.json`
   and referenced prompt files; both PNGs match original imagegen outputs.
 - Review: the existing explicit Editor preview now frames both landmarks and
   starts prepared waves early, repeating after outcome until Play Mode stops.
@@ -208,7 +222,7 @@ D-017: каждый новый Stage 2–7 ведёт новый агент в �
   Final compile/test/build logs have no new attributable compiler/runtime error.
 - Evidence: `Artifacts/S3-SKELETON-SPRITE/` retains import pivots, reports,
   logs and 60 actual Game-camera frames; `art/review/skeleton_sprite_portal_*`
-  includes size-5/3.2 stills and a looping GIF. Prompts/provenance and the
+  includes size-5/3.2 stills. The looping GIF was later removed. Prompts/provenance and the
   recording assembler are in `art/source/skeleton_walk_cartoon_*` and
   `assemble_skeleton_walk_review.cjs`. Source art is original built-in imagegen;
   no third-party image or mesh input. The PNG itself is preserved unchanged.
@@ -438,8 +452,8 @@ D-017: каждый новый Stage 2–7 ведёт новый агент в �
   Windows Development Build succeeded with 0 errors and 7 warnings; the
   visible Unity Console has no errors. The explicit `motion` review captures
   90 actual Game camera frames over six simulation seconds, preserving time
-  and camera settings afterward. Outputs: `art/review/entrance_portal_circulation.gif`
-  and `art/review/entrance_portal_circulation_tactical.mp4`.
+  and camera settings afterward. The resulting GIF/MP4 recordings were later
+  removed as unnecessary for the project handoff.
 - Remaining: owner review of presentation and overall map composition, then
   the D-032 baseline undead, three resource models, hero last, HUD and sounds.
   Each new model needs its specific image approval. Stage 3 gate is open;
