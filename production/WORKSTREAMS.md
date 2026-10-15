@@ -41,9 +41,11 @@ D-017: каждый новый Stage 2–7 ведёт новый агент в �
   `git clone https://github.com/fellsia2019/not-3a-game.git`: complete 14-commit
   remote history, no shallow/partial clone, `git fsck --full` passed. This full
   clone now occupies the original project path. The documentation commit was
-  reapplied with `git am` and all three document hashes matched. Original source
-  repository remains in the sibling `not-3a-game-backup-20261015` folder; local
-  Unity cache and test evidence were retained. GitHub CLI login/setup is complete
+  reapplied with `git am` and all three document hashes matched. At the owner's
+  subsequent request, `not-3a-game-backup-20261015` was moved from `game-dev` to
+  the Mac Trash. Local Unity cache and Mac test evidence remain in the active
+  full clone; all 17 stable evidence files (XML/log/summary and 14 PNGs) retained
+  their SHA256 hashes. GitHub CLI login/setup is complete
   for `fellsia2019`, with repository push permission verified.
   After the replacement, the same scene was reopened through Open Live Review:
   both towers/gameplay ready, unchanged map hash, GUI Console 0 errors/0 warnings.
