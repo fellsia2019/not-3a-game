@@ -10,6 +10,52 @@ D-017: каждый новый Stage 2–7 ведёт новый агент в �
 в `reports/development-roadmap.html`; внутри stage мелкие задачи не дробятся
 по агентам. На переходе обновляются этот handoff и канонический план.
 
+### 2026-10-15 — Mac Editor startup and shared Windows development
+
+- Owner/surface: chat `Запуск и продолжение Not 3A Game`; local Mac Unity
+  installation, import, existing tests, live Stage 3 review and this handoff.
+  Depends on clean `main` at `649938c4aa81404739ca10e4495ea01aef12b60d`,
+  Unity 6000.6.2f1 ARM64 and the existing Personal license.
+- Contract: develop the same project on Mac and Windows, retaining Windows/Steam
+  as the release target. Preserve current mechanics, visuals, scene bindings and
+  package versions; only fix an observed startup/compatibility blocker.
+- Acceptance: import and compile, relevant existing tests, no new attributable
+  Console errors, then `Stage3Rapid3DGamePilot` running in Editor Play through
+  `Tools > Stage 3 > Cartoon World > Open Live Review`.
+- Verification: Unity 6000.6.2f1 ARM64 imported packages/FBX and compiled on
+  Apple M3/Metal. Existing Stage3/Integration/RunState PlayMode passed 41/41,
+  45.87 s, including paid full run/restart, both tower roles and camera bounds.
+  XML/log: `Artifacts/S3-MAC-20261015/playmode.{xml,log}`. Mac-rendered review
+  PNGs are in its `mac-review/`; original tracked review PNGs were restored.
+  Import-only URP runtime-list serialization was restored to the clean baseline.
+  No new compiler/shader/test error; existing deprecated-API warnings remain.
+  Initial repository status was clean. No Blender dependency in Unity `Assets/`.
+  Owner accepted the first-launch Editor terms. First GUI startup produced one
+  UnityEditor.Search indexing exception; an ordinary Editor restart resolved it,
+  with no package/cache/source edits. Final GUI Console: 0 errors, 0 warnings.
+  `Open Live Review` runs the actual `Stage3Rapid3DGamePilot` in Play, with
+  `S2_INT_GAMEPLAY_READY`, map hash `996FF3F8BC05F95C`, both tower readiness
+  markers and `S3_CARTOON_LIVE_REVIEW_READY`. Log: `editor-reopen.log` in the
+  same evidence folder. Editor remains open in Game view for the owner.
+  On the owner's follow-up, the project was re-cloned with ordinary
+  `git clone https://github.com/fellsia2019/not-3a-game.git`: complete 14-commit
+  remote history, no shallow/partial clone, `git fsck --full` passed. This full
+  clone now occupies the original project path. The documentation commit was
+  reapplied with `git am` and all three document hashes matched. Original source
+  repository remains in the sibling `not-3a-game-backup-20261015` folder; local
+  Unity cache and test evidence were retained. GitHub CLI login/setup is complete
+  for `fellsia2019`, with repository push permission verified.
+  After the replacement, the same scene was reopened through Open Live Review:
+  both towers/gameplay ready, unchanged map hash, GUI Console 0 errors/0 warnings.
+  Startup log: `Artifacts/S3-MAC-20261015/editor-full-clone.log`.
+  The earlier long Editor session also logged two native JobTempAlloc warning
+  messages during first-time indexing; no project error accompanied them.
+- Files changed: this handoff, canonical plan and README instructions for
+  alternating Windows/Mac Git work. Runtime code, scenes, art and packages are
+  unchanged.
+- Remaining: owner visual review and Stage 3 gate stay open; Stage 4 is not
+  started. No macOS player or new Windows build was requested or produced.
+
 ### 2026-10-15 — Remove unneeded animated QA captures
 
 - Owner/surface: current chat; eight agent-generated GIF/MP4 recordings under
