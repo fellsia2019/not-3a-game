@@ -12,20 +12,22 @@ D-017: каждый новый Stage 2–7 ведёт новый агент в �
 
 ### 2026-10-15 — Portable Mac development handoff
 
-- Owner/surface: current chat; README, local reference inventory and a private
-  project-transfer archive. No gameplay or Unity scene behavior changed.
+- Owner/surface: current chat; README, reference inventory and GitHub handoff.
+  No gameplay or Unity scene behavior changed.
   Depends on the current Stage 3 cartoon scene and its existing art provenance.
-- Contract: Unity Editor 6000.6.2f1 opens the project root; `Assets/` and all
-  `.meta`, `Packages/`, `ProjectSettings/`, `art/`, canonical docs and the local
-  historical reference folder travel together. Windows remains the approved
+- Contract: Unity Editor 6000.6.2f1 opens the cloned project root; `Assets/` and
+  all `.meta`, `Packages/`, `ProjectSettings/`, `art/`, canonical docs and the
+  historical reference folder are saved in public GitHub `main`. Windows remains the approved
   build target; Mac is for continuing development and visual review.
 - Verification: project-owned B board and both attached B PNGs are pixel-equal;
   all `Assets/` entries have `.meta` and portable paths have no case-fold name
   collisions. Historic third-party reference files under
   `concepts_visual_scene/` and `art/references/` stay outside `Assets/` and
   have explicit unknown-rights documentation. The owner approved placing all
-  references in the existing public repository (D-044). The local archive and
-  its SHA-256 manifest are verified separately after final Git sync.
+  references in the existing public repository (D-044). GitHub `main` was
+  verified at `8b156ffd8a5e655e73b217269c35e7c22428c735`; a local ZIP is
+  only an additional backup, not the Mac transfer path. `art/review` GIF/MP4
+  files are agent-generated QA captures, not player-provided references.
 - Remaining: open/import and Play in Unity on the actual Mac; owner review of
   Stage 3 visuals and the open Stage 3 gate.
 
