@@ -18,6 +18,10 @@ namespace Not3A.Stage2.Integration
         private float tacticalStartingSize;
         private float tacticalTargetSize;
         private int zoomDiagnosticsRemaining = 4;
+        private int pinchDiagnosticsRemaining = 3;
+        private System.Func<Vector2, bool> pointerBlocker;
+
+        public void SetPointerBlocker(System.Func<Vector2, bool> blocker) => pointerBlocker = blocker;
 
         public Transform Target => target;
         public Stage2MapDefinition MapDefinition => mapDefinition;
@@ -33,9 +37,18 @@ namespace Not3A.Stage2.Integration
         private void OnEnable()
         {
             if (!tacticalView) return;
-            tacticalStartingSize = BoundCamera.orthographicSize;
-            tacticalTargetSize = tacticalStartingSize;
+            if (tacticalStartingSize <= 0f) tacticalStartingSize = BoundCamera.orthographicSize;
+            tacticalTargetSize = Mathf.Clamp(BoundCamera.orthographicSize,
+                tacticalStartingSize * .5f, tacticalStartingSize * 2f);
+            Stage2MacTrackpad.Initialize();
             ApplyFollow(true);
+        }
+
+        private void OnDisable() => Stage2MacTrackpad.Stop();
+
+        private void OnApplicationFocus(bool focused)
+        {
+            if (!focused) Stage2MacTrackpad.Stop();
         }
 
         public void ConfigureTacticalView(float startingSize = 5f)
@@ -74,18 +87,55 @@ namespace Not3A.Stage2.Integration
 
         private void Update()
         {
-            if (!tacticalView || Mouse.current == null || tacticalStartingSize <= 0f) return;
+            if (!tacticalView || tacticalStartingSize <= 0f) return;
+            var pointerAllowed = Mouse.current == null || pointerBlocker == null ||
+                !pointerBlocker(Mouse.current.position.ReadValue());
+            var pinchScale = Stage2MacTrackpad.ReadScale(CanReceivePinch() && pointerAllowed);
+            if (!pointerAllowed) return;
+            if (pinchScale != 1f)
+            {
+                ZoomByPinchScale(pinchScale);
+                if (pinchDiagnosticsRemaining-- > 0)
+                    Debug.Log($"S3_PINCH_INPUT scale={pinchScale:0.####} target={tacticalTargetSize:0.###}");
+                return;
+            }
+            if (Mouse.current == null) return;
             var scroll = Mouse.current.scroll.ReadValue().y;
             if (scroll == 0f) return;
             // Input System reports a delta whose units vary by device. A small
             // nonzero wheel event is still a deliberate zoom step.
             var steps = Mathf.Sign(scroll) * Mathf.Max(1f, Mathf.Abs(scroll) / 120f);
             var multiplier = zoomSettings != null ? zoomSettings.StepMultiplier : 1.4f;
-            tacticalTargetSize = Mathf.Clamp(
-                tacticalTargetSize * Mathf.Pow(multiplier, -steps),
-                tacticalStartingSize * .5f, tacticalStartingSize * 2f);
+            ApplyZoomScale(Mathf.Pow(multiplier, -steps));
             if (zoomDiagnosticsRemaining-- > 0)
                 Debug.Log($"S3_ZOOM_INPUT raw={scroll:0.###} steps={steps:0.###} target={tacticalTargetSize:0.###}");
+        }
+
+        /// <summary>Ratio supplied by a pinch gesture: spreading fingers (>1) zooms in.</summary>
+        public void ZoomByPinchScale(float scale)
+        {
+            if (!isActiveAndEnabled || !tacticalView || tacticalStartingSize <= 0f ||
+                scale <= 0f || float.IsNaN(scale) || float.IsInfinity(scale)) return;
+            ApplyZoomScale(1f / Mathf.Max(scale, .000001f));
+        }
+
+        private void ApplyZoomScale(float scale)
+        {
+            tacticalTargetSize = Mathf.Clamp(tacticalTargetSize * scale,
+                tacticalStartingSize * .5f, tacticalStartingSize * 2f);
+        }
+
+        private static bool CanReceivePinch()
+        {
+            if (!Application.isFocused || Application.isBatchMode) return false;
+#if UNITY_EDITOR
+            var focused = UnityEditor.EditorWindow.focusedWindow;
+            var hovered = UnityEditor.EditorWindow.mouseOverWindow;
+            return !UnityEditor.EditorApplication.isPaused && focused != null && hovered != null &&
+                focused.GetType().Name == "GameView" && hovered.GetType().Name == "GameView";
+#else
+            return true;
+#endif
         }
 
         private void ApplyFollow(bool immediate)

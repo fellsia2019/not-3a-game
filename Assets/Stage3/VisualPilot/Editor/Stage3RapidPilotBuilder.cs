@@ -30,7 +30,7 @@ namespace Not3A.Stage3.VisualPilot.Editor
         private const string Game3DCatalogPath = Folder + "RapidWatchtower3DGameCatalog.asset";
         private const string ReviewFolder = "art/review";
         private const string Game3DBuild = "Builds/Windows/Not3AStage3RapidPilot.exe";
-        private const string TacticalMapPath = Folder + "Stage3PlanarCorner.asset";
+        internal const string TacticalMapPath = Folder + "Stage3PlanarCorner.asset";
         private const string TacticalZoomPath = Folder + "TacticalZoomSettings.asset";
 
         // Explicit, short-lived local request for the already open interactive Editor.
@@ -326,7 +326,8 @@ namespace Not3A.Stage3.VisualPilot.Editor
             if (cartoonTowers) Stage3CartoonWorldBuilder.BuildAssets();
             Stage3SoulSphereBuilder.BuildPrefab();
             Stage3EntrancePortalBuilder.BuildPrefab();
-            Stage3ResourceSourceBuilder.BuildPrefabs();
+            if (Stage3ResourceSpriteBuilder.SourcesPresent) Stage3ResourceSpriteBuilder.BuildPrefabs();
+            else Stage3ResourceSourceBuilder.BuildPrefabs();
             if (File.Exists(Stage3SkeletonSpriteBuilder.SheetPath)) Stage3SkeletonSpriteBuilder.BuildPrefab();
             if (File.Exists(Stage3LandmarkSpriteBuilder.PortalTexture)) Stage3LandmarkSpriteBuilder.BuildPrefabs();
             Stage3EntrancePortalBuilder.ReserveFootprint(Require<Stage2MapDefinition>(TacticalMapPath));
@@ -501,9 +502,13 @@ namespace Not3A.Stage3.VisualPilot.Editor
                 ? Stage3LandmarkSpriteBuilder.SoulPrefab : Stage3SoulSphereBuilder.PrefabPath));
             SetReference(presentation,"entrancePortalPrefab",Require<GameObject>(File.Exists(Stage3LandmarkSpriteBuilder.PortalTexture)
                 ? Stage3LandmarkSpriteBuilder.PortalPrefab : Stage3EntrancePortalBuilder.PrefabPath));
-            SetReference(presentation,"woodSourceModel",Require<GameObject>(Stage3ResourceSourceBuilder.WoodPrefabPath));
-            SetReference(presentation,"stoneSourceModel",Require<GameObject>(Stage3ResourceSourceBuilder.StonePrefabPath));
-            SetReference(presentation,"metalSourceModel",Require<GameObject>(Stage3ResourceSourceBuilder.IronOrePrefabPath));
+            if (Stage3ResourceSpriteBuilder.SourcesPresent) Stage3ResourceSpriteBuilder.Wire(presentation);
+            else
+            {
+                SetReference(presentation,"woodSourceModel",Require<GameObject>(Stage3ResourceSourceBuilder.WoodPrefabPath));
+                SetReference(presentation,"stoneSourceModel",Require<GameObject>(Stage3ResourceSourceBuilder.StonePrefabPath));
+                SetReference(presentation,"metalSourceModel",Require<GameObject>(Stage3ResourceSourceBuilder.IronOrePrefabPath));
+            }
             SetReference(presentation,"skeletonSpritePrefab",AssetDatabase.LoadAssetAtPath<Stage3SkeletonSprite>(Stage3SkeletonSpriteBuilder.PrefabPath));
             EditorUtility.SetDirty(bootstrap);
             EditorUtility.SetDirty(camera);

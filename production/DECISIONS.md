@@ -712,6 +712,170 @@ license, authorize copying any reference into the game or change the Windows
 MVP target. The current public Git `main` is the Mac handoff source. An older
 local ZIP snapshot predates the later removal of optional QA recordings.
 
+## D-045 — Winding invasion-route concepts and larger-world direction
+
+Status: I route shape accepted by the owner, 2026-10-15; Unity implementation
+verified on Mac (EditMode 46/46, PlayMode 42/42). Owner tested and accepted the
+changed road; the separate grass-appearance question and pacing assessment remain.
+The owner conditionally authorized moving the
+portal from the upper-right to the lower-left if the map supports it; inspection
+confirmed data-driven spawning and camera-facing portal artwork, so that option
+is used. The alternative upper-right redraw is not needed.
+Current owner direction (latest correction): a SINGLE HORIZONTAL DOUBLE
+RECTANGULAR ZIGZAG, uniform about SEVEN tower ground footprints wide, portal
+at one end and throne at the other, no branches. Portal is now lower-left;
+the throne occupies the far right endpoint. Keep the B Cartoon 2D
+gameplay-strip paving/grass style. This supersedes the earlier organic-curve,
+variable 7–8/3-width and later single vertical five-wide studies below.
+The current candidate is `i_horizontal_double_zigzag_7wide.png`; exact guide,
+prompts and provenance: `art/source/horizontal_double_zigzag_7wide_2026-10-15_*`.
+The original SVG specifies width 7 with nine segments/eight square turns;
+the generated illustration guided the measured Unity map. Acceptance applies
+to I's direction and route shape; the owner subsequently tested the live road
+and confirmed it is fine. This does not settle the separate grass-art question.
+
+Implementation uses the existing `Stage3PlanarCorner` asset and builder, with
+seven-cell rectilinear strips in the existing 100×100 world. Portal and throne
+positions, reservations and road masks are authored together. The old nearby
+landmark pair is replaced by the long route; the initial roughly 2x endpoint
+distance was an exploration target, not the scale of this selected seven-wide
+double-zigzag blockout. Actual direct separation is 91.24 cells; unopposed
+route is 195 steps (196 visited cells). This larger scale remains subject to
+live pacing review, without silently changing wave/speed/economy tuning.
+Enemy navigation has an opt-in map flag restricting it to gray cells; hero
+walkability remains unchanged on green resource land. Tower detours, full-block
+siege, economy, waves, input and camera orientation remain existing rules.
+
+Earlier exploration history:
+Decision: first compare original ImageGen references for a winding gray
+invasion/building zone between the existing portal and soul objective. The
+portal-to-objective distance measured in a straight line should be roughly
+twice the present test layout; winding travel adds further distance. Current
+anchors (46,44)/(39,39) are 8.60 cells apart, so the first comparison targets
+17.20 cells direct separation. These are design targets, not measured pixels
+or an implemented map.
+
+The owner described the future world scale using Satisfactory/Factorio as
+an ambition for a large explorable world. This selects neither final world
+bounds nor factory/logistics mechanics. Treat the defense zone as one district
+within that future world. References compare A wide S, B broad zigzag and C
+large arc/detour under `art/concepts/invasion_route_review_2026-10-15/`.
+Prompts/source hashes are in `art/source/invasion_route_concepts_2026-10-15_*`.
+
+This authorizes exploring a replacement for D-034/D-041's straight diagonal
+layout; the live scene remains unchanged until a candidate is selected.
+Current enemy navigation permits green terrain, so a future implementation
+must explicitly keep enemies inside the intended invasion zone to prevent
+shortcuts, while retaining hero access to resource land and dynamic local
+tower detours/siege. No waypoint/patrol system, world streaming architecture,
+new content or balance change is selected by these concepts. Stage 3 stays open.
+
+Owner clarification, 2026-10-15: this is the original player-shaped/mazing TD
+contract. The gray surface must be a wide construction battlefield in which
+the player places alternating rows of towers to lengthen enemy travel while
+leaving a connected passage. Width comes first; the terrain's large, gentle
+bend must accommodate several rows and turning space. A narrow pre-authored
+serpentine road does not meet that intent. The first A/B/C illustrations were
+too road-like, and A's earlier recommendation is withdrawn.
+
+Revised references in the same concept folder: `d1_open_building_field.png`
+and `d2_player_built_maze.png` show the open field and the same field with
+alternating tower barriers. Gold arrows in D2 explain the intended example
+flow only. Prompts/provenance: `art/source/maze_field_width_review_2026-10-15_*`.
+A 12–16-cell usable width is the agent's initial study hypothesis, not an
+accepted size or measured image geometry. The roughly 2x direct endpoint
+separation remains a target for blockout. Example tower counts do not set
+economy or wave tuning. Full-block/siege behavior from D-009 remains intact;
+the illustrated defense deliberately leaves an open route. No live map changed.
+
+Further owner correction, 2026-10-15: D1/D2 are rejected as an oval/plaza-like
+field. The requested gray area is still a NATURAL WINDING WIDE ROAD. Preserve
+organic, substantial bends and uneven shoulders together with enough width
+for tower rows and enemy passages; neither a skinny pre-made maze nor a broad
+straight arena is the target. The earlier phrase "too road-like" overstated
+the width correction and must not guide implementation. New candidate E,
+`e_natural_wide_road.png`, restores an asymmetrical meander and worn irregular
+edges. Exact prompt/provenance: `art/source/natural_wide_road_2026-10-15_*`.
+The owner subsequently rejected E as still insufficiently wide. The explicit
+width target is now 7–8 full tower footprints SIDE BY SIDE ACROSS broad
+sections, with short narrow sections allowed to fit about 3. Measure usable
+gray ground transversely to the local road direction; length along a bend
+does not establish width. Keep natural meanders and smooth width transitions.
+This supersedes the agent's 12–16-cell hypothesis, not the tower-made maze or
+full-block/siege rules. New F scale study: `f_variable_width_road.png`, with
+countable 8/3-tower overlays; prompts/provenance:
+`art/source/variable_width_road_2026-10-15_*`. The painted perspective is not a
+measured blockout and F has no owner acceptance. The owner next requested
+the original B cartoon board's lower gameplay-strip road as the reference
+to inspect: `art/concepts/sprite_style_review_2026-10-15/b_cartoon_2d.png`.
+The owner confirmed that B's road is the desired visual direction, then
+requested a uniform roughly five-wide rectangular zigzag with no branches.
+H followed that single/vertical study; the next correction widened it to
+seven and requested TWO zigzags arranged horizontally. I is the current
+candidate for that correction, using original geometry guidance to prevent
+branching and confusing tower counts. Those concept rounds ended before the
+owner acceptance and runtime implementation described at the top of D-045.
+
+## D-046 — Mac trackpad pinch zoom
+
+Status: requested and clarified by the owner, 2026-10-15. Implementation and
+automated Mac checks passed; the owner tested the physical gesture in the live
+Game view and confirmed "Да, работает".
+Two-finger spread zooms in and pinch zooms out through the existing tactical
+camera smoothing and original 0.5×..2× size limits (currently 2.5–10).
+Mouse wheel remains available. No camera rotation or movement change is selected.
+
+A narrow original AppKit native plug-in reads app-local magnify events only;
+the Editor accepts them while the live Game view is focused and under the
+pointer. Focus loss, pause, Play exit and domain reload clear pending input.
+Universal ARM64/x86_64 source, build script and macOS-only importer metadata
+are kept in the project. Windows/Linux exclude this library and native calls.
+This supports Mac development and does not change the Windows/Steam MVP target.
+Native checks and Unity PlayMode 43/43 passed; the live Console shows 0 errors
+and 0 warnings. Tests verify native loading and zoom contracts separately from
+physical gesture delivery, which is now confirmed by the owner and live input
+diagnostics. Rebuild/wiring and evidence are linked from
+`gamedesign/features/STAGE3_TACTICAL_VIEW.md` and the current handoff.
+
+## D-047 — Bottom-left minimap now, wider UI later
+
+Status: explicitly requested by the owner, 2026-10-15; implemented and verified
+on Mac (PlayMode 46/46 and interactive visual/input review). Owner appearance
+feedback remains open.
+Add the minimap in the lower-left corner as one useful UI element during the
+current mechanics/visual work. This does not start a wider HUD redesign or
+select the final UI production stack.
+
+Show the authored road/world, live hero, portal/throne, available resources,
+towers/enemies and the main camera's ground footprint. Keep the map orientation
+fixed, adapt to viewport size and update from existing run state, including
+depletion/removal/restart. Use a passive map for this first version; no new
+camera-pan/movement command, exploration/fog rule or game tuning is selected.
+The panel blocks world placement and camera zoom through its area. Source of
+truth and acceptance: `gamedesign/features/STAGE3_MINIMAP.md`.
+
+## D-048 — Resource sprite previews and remove direction labels
+
+Status: owner-requested, 2026-10-15; labels removed and live-verified.
+The owner approved all three sprite previews and explicitly requested runtime
+integration. Implemented with exact PNG copies; Mac PlayMode 46/46 and live
+review of all three sources passed. Owner feedback on the live result remains open.
+Remove floating resource labels such as `Stone W+A` / `Wood W+D` and their
+keyboard-direction suffixes in the temporary resource readout. Resource counts,
+distance readout, nearby E-gather prompt and minimap markers retain their roles.
+
+Prepare previews now for cartoon sprites of the existing wood, stone and metal
+sources. The owner clarified that the voice-transcribed timing means "now,
+previews". Keep D-037/D-038's selected identities: compact conifer B, pale
+granite boulder A and dark iron outcrop A with rusty seams. Match the current
+cartoon B sprite style and fixed tactical angle. The initial request covered
+previews; the subsequent approval authorizes using these exact images as the
+three existing resource visuals in the game. Preserve resource/economy/map
+rules, fixed camera, terrain and original concepts/models. New resource types
+or gameplay tuning are not selected.
+Candidates: `art/concepts/resource_sprite_review_2026-10-15/`; exact prompts,
+generation/refinement sources and hashes: `art/source/resource_sprite_preview_2026-10-15_*`.
+
 ## Pending Product Decisions
 
 - Угловая композиция карты и правило серой зоны приняты D-016. Точный размер,

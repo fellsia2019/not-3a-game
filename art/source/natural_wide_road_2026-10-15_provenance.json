@@ -1,0 +1,32 @@
+{
+  "date": "2026-10-15",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "art/source/natural_wide_road_2026-10-15_prompts.json",
+  "status": "Owner rejected E as still insufficiently wide; explicit target now 7–8 tower footprints across broad sections, about 3 at narrow sections.",
+  "purpose": "Combine a natural meandering road silhouette with generous building width for player-made tower mazes; D1/D2 were rejected as oval/plaza-like.",
+  "rights": "Original AI-generated project concept using only the project's original gameplay image and cartoon B board as style/identity inputs. No third-party reference input.",
+  "references": [
+    {
+      "path": "art/review/astra_world_game_overview.png",
+      "sha256": "20b6ff0c5c0c00a85e4571441f26d20aeca88fb9bc1afe8b07a1c66dad1f1842"
+    },
+    {
+      "path": "art/concepts/sprite_style_review_2026-10-15/b_cartoon_2d.png",
+      "sha256": "41224078d0bb85bd7ea0589be759a17a9eea28f09e99c725d4170f1b7f27c634"
+    }
+  ],
+  "entry": {
+    "path": "art/concepts/invasion_route_review_2026-10-15/e_natural_wide_road.png",
+    "generation_output": "/Users/artemmusket/.codex/generated_images/01a14054-81d2-75b1-a100-d954bacec6f2/exec-3d96d30d-1bb8-4961-b173-2b2b20367fb9.png",
+    "sha256": "1869a55c4fda13314bd6b5a307558b71566c477540d7dcc7fa2124d5b244f396",
+    "width": 1672,
+    "height": 941,
+    "byte_identical_to_generation": true
+  },
+  "limits": [
+    "Illustrative terrain shape, not a measured grid or Unity screenshot.",
+    "Road width and roughly 2x straight-line endpoint separation remain targets to verify in a later blockout.",
+    "Towers still create local enemy detours; no gameplay, navigation, resource, economy or camera change implemented."
+  ],
+  "followup": "art/source/variable_width_road_2026-10-15_provenance.json"
+}

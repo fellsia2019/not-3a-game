@@ -1,0 +1,38 @@
+{
+  "date": "2026-10-15",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "art/source/variable_width_road_2026-10-15_prompts.json",
+  "status": "Superseded by owner instruction: one rectangular zigzag road of constant about five tower footprints width; F was not accepted.",
+  "owner_width_target": "Broad sections fit 7–8 full tower footprints transversely; short narrow sections may fit about 3. This supersedes the agent-proposed 12–16-cell hypothesis.",
+  "rights": "Original AI-generated project concept. Refinement input is the original project E concept; initial inputs are original gameplay image and cartoon B board. No third-party image input.",
+  "references": [
+    {
+      "path": "art/review/astra_world_game_overview.png",
+      "sha256": "20b6ff0c5c0c00a85e4571441f26d20aeca88fb9bc1afe8b07a1c66dad1f1842"
+    },
+    {
+      "path": "art/concepts/sprite_style_review_2026-10-15/b_cartoon_2d.png",
+      "sha256": "41224078d0bb85bd7ea0589be759a17a9eea28f09e99c725d4170f1b7f27c634"
+    },
+    {
+      "path": "art/concepts/invasion_route_review_2026-10-15/e_natural_wide_road.png",
+      "sha256": "1869a55c4fda13314bd6b5a307558b71566c477540d7dcc7fa2124d5b244f396"
+    }
+  ],
+  "entry": {
+    "path": "art/concepts/invasion_route_review_2026-10-15/f_variable_width_road.png",
+    "generation_output": "/Users/artemmusket/.codex/generated_images/01a14054-81d2-75b1-a100-d954bacec6f2/exec-80226e45-6615-425e-bfe0-700b598889a2.png",
+    "sha256": "97c7a0b053e0f795adba5e3210b60ad43ba78c78b9c5f4c3066de8879d0fe248",
+    "width": 1672,
+    "height": 941,
+    "byte_identical_to_generation": true
+  },
+  "discarded_initial_output": "/Users/artemmusket/.codex/generated_images/01a14054-81d2-75b1-a100-d954bacec6f2/exec-1d06b3eb-e10b-4932-a480-86f1ad2c136b.png",
+  "limits": [
+    "Illustrative scale overlay: 8 and 3 towers are countable, but painted perspective and row orientation do not certify grid dimensions.",
+    "A measured Unity blockout must verify transverse usable width, connected enemy passage and endpoint distance.",
+    "Translucent test rows illustrate scale, not a recommended full-block defense. Existing full-block siege rule remains.",
+    "No runtime map, mechanics, scene, package or camera changes."
+  ],
+  "followup": "art/source/rectangular_zigzag_5wide_2026-10-15_provenance.json"
+}

@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-15",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "art/source/rectangular_zigzag_5wide_2026-10-15_prompts.json",
+  "status": "Superseded by owner correction: width seven, double zigzag, overall horizontal orientation. H single vertical study not accepted.",
+  "rights": "Original generated project illustration from an original code-native geometry guide and original project B cartoon/gameplay images. No third-party reference input.",
+  "geometry_guide": "Original SVG stroke has constant width 5 units, miter joins and one open polyline with four right-angle world-space turns; affine isometric projection. Quick Look PNG rendering is a supporting guide, not final art.",
+  "references": [
+    {
+      "path": "art/source/rectangular_zigzag_5wide_2026-10-15_guide.svg",
+      "sha256": "f7ac631275ba751d6b4bbb0f49dae5d47eeb81bf24b2419cd0820c065f82ef8a"
+    },
+    {
+      "path": "Artifacts/ROUTE-CONCEPT-20261015/rectangular_zigzag_5wide_2026-10-15_guide.svg.png",
+      "sha256": "09511a813f69abaa42b6da6cb31f84f5a470108327d8179f67b5125b4ca0ea63"
+    },
+    {
+      "path": "art/concepts/sprite_style_review_2026-10-15/b_cartoon_2d.png",
+      "sha256": "41224078d0bb85bd7ea0589be759a17a9eea28f09e99c725d4170f1b7f27c634"
+    },
+    {
+      "path": "art/review/astra_world_game_overview.png",
+      "sha256": "20b6ff0c5c0c00a85e4571441f26d20aeca88fb9bc1afe8b07a1c66dad1f1842"
+    }
+  ],
+  "entry": {
+    "path": "art/concepts/invasion_route_review_2026-10-15/h_rectangular_zigzag_5wide.png",
+    "generation_output": "/Users/artemmusket/.codex/generated_images/01a14054-81d2-75b1-a100-d954bacec6f2/exec-ed953cc4-5154-47e9-bf1e-357dc48e560e.png",
+    "sha256": "2c453cc90384df711c536981308b595435465d69ac531ba58fb554b6408f2b9a",
+    "width": 1254,
+    "height": 1254,
+    "byte_identical_to_generation": true
+  },
+  "discarded_initial_output": "/Users/artemmusket/.codex/generated_images/01a14054-81d2-75b1-a100-d954bacec6f2/exec-14f37783-f04d-4f5a-a13d-9770fd3d2b23.png",
+  "verification": [
+    "Visually inspected continuous unbranched route with two endpoints and four square bends.",
+    "Refined the test row from four towers to five; final has five countable roofs/foundations across the upper reach.",
+    "Final image copied byte-identically; no image editing outside ImageGen."
+  ],
+  "limits": [
+    "Uniform five-footprint width is the owner target; generated perspective does not certify Unity grid dimensions.",
+    "Guide lengths and endpoint distance are illustrative, not accepted production geometry; roughly 2x original endpoint distance remains a later blockout target.",
+    "Five-tower row is a scale illustration, not a recommended full-block defense or new behavior.",
+    "No Unity runtime, scene, package, camera, economy or mechanics changes."
+  ],
+  "followup": "art/source/horizontal_double_zigzag_7wide_2026-10-15_provenance.json"
+}

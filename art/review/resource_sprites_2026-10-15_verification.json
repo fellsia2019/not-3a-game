@@ -1,0 +1,112 @@
+{
+  "date": "2026-10-15",
+  "unity": "6000.6.2f1",
+  "platform": "macOS Apple Silicon / Metal",
+  "status": "Approved previews integrated; automated and live review checks passed.",
+  "playmode": {
+    "total": "46",
+    "passed": "46",
+    "failed": "0",
+    "skipped": "0",
+    "duration": "42.6197463"
+  },
+  "checks": [
+    "Approved PNG copies retain exact file hashes and alpha.",
+    "Scene changed only its three existing resource visual references; ordinary builders retain sprite wiring.",
+    "One visible camera-facing sprite per resource, grounded footprint, scale, no duplicate mesh or gameplay collider.",
+    "Existing anchors, depletion/recovery/reset, minimap and gathering state preserved.",
+    "All three resources render above terrain at orthographic sizes 5 and 2.5.",
+    "Existing minimap, mouse/trackpad, movement/building, paid combat and full run/restart regressions passed."
+  ],
+  "interactive": [
+    "Visited Wood, Stone and Metal in the live Game view.",
+    "Each showed its sprite at the ground and nearby E-gather prompt.",
+    "Observed Console 0 errors/0 warnings.",
+    "Editor remains running beside the ore node."
+  ],
+  "console": {
+    "errors": 0,
+    "warnings": 0
+  },
+  "captures": [
+    {
+      "path": "art/review/resource_sprite_wood_game_default_2026-10-15.png",
+      "sha256": "200e92a8d8e68feb8865660675f7e9c9dec5e85e3e8429b2092a79961f00ab77",
+      "source": "Artifacts/S3-RESOURCE-SPRITES-20261015/fresh-captures/art/review/resource_wood_game_default.png",
+      "byte_identical": true
+    },
+    {
+      "path": "art/review/resource_sprite_wood_game_close_2026-10-15.png",
+      "sha256": "d6faf7b6995a1a9204347c193677bbf0ca387afef011760d4a582e62d335bfa1",
+      "source": "Artifacts/S3-RESOURCE-SPRITES-20261015/fresh-captures/art/review/resource_wood_game_close.png",
+      "byte_identical": true
+    },
+    {
+      "path": "art/review/resource_sprite_stone_game_default_2026-10-15.png",
+      "sha256": "d70eb630c898c1d7d0338d465d3e3ec55f204bd66c02a59b0acd7b7051bc5931",
+      "source": "Artifacts/S3-RESOURCE-SPRITES-20261015/fresh-captures/art/review/resource_stone_game_default.png",
+      "byte_identical": true
+    },
+    {
+      "path": "art/review/resource_sprite_stone_game_close_2026-10-15.png",
+      "sha256": "603fc9bfc9a0325fac118917b0c8842dcc758a71121838ca56d5039e758eadc9",
+      "source": "Artifacts/S3-RESOURCE-SPRITES-20261015/fresh-captures/art/review/resource_stone_game_close.png",
+      "byte_identical": true
+    },
+    {
+      "path": "art/review/resource_sprite_metal_game_default_2026-10-15.png",
+      "sha256": "6b1b4a464272affe36c6ef965eaa27ff854e340e9167de0e4c4ca2355478657c",
+      "source": "Artifacts/S3-RESOURCE-SPRITES-20261015/fresh-captures/art/review/resource_metal_game_default.png",
+      "byte_identical": true
+    },
+    {
+      "path": "art/review/resource_sprite_metal_game_close_2026-10-15.png",
+      "sha256": "cbf378b31dd94cf6a7c41f4456974f6b8e787443d36dedacc689b8f5b8f9211a",
+      "source": "Artifacts/S3-RESOURCE-SPRITES-20261015/fresh-captures/art/review/resource_metal_game_close.png",
+      "byte_identical": true
+    }
+  ],
+  "sources": [
+    {
+      "path": "Assets/Stage3/ResourceSpritePilot/Stage3ResourceSprite.cs",
+      "sha256": "9ff1c42813d0fba699fe881700968e7c84579c1b2750427e3dfea32b179252fc"
+    },
+    {
+      "path": "Assets/Stage3/ResourceSpritePilot/Editor/Stage3ResourceSpriteBuilder.cs",
+      "sha256": "a40d27b46bc2489bdcd2e6b4b92074a770df3415f565d69be67a1650d3d9e422"
+    },
+    {
+      "path": "Assets/Stage3/VisualPilot/Runtime/Stage3TacticalPresentation.cs",
+      "sha256": "621e69839c17ece3511fce00649ae722b1ca2090f6fb815d2fdddd5cdc7b0cb8"
+    },
+    {
+      "path": "Assets/Stage3/VisualPilot/Editor/Stage3RapidPilotBuilder.cs",
+      "sha256": "f74c09927c421f564111dc57adb15796306cc3dadd8d101a6186e767314a82d7"
+    },
+    {
+      "path": "Assets/Stage3/CartoonWorldPilot/Editor/Stage3CartoonWorldBuilder.cs",
+      "sha256": "ad07e3d9dbc3dc81f6268e6822fd79c9e493c70c14f3e8934add8a1e3c955355"
+    },
+    {
+      "path": "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3RapidPilotTests.cs",
+      "sha256": "03ebdc38de1317bb35abb2f4a1f89b0fcdee31c4017e621e8350241dd692ddb1"
+    },
+    {
+      "path": "Assets/Scenes/Stage3Rapid3DGamePilot.unity",
+      "sha256": "0d582d2423e861ec17988e9e05db2f13ad205c6b00fa8fcc822db9fa3ceec1d1"
+    }
+  ],
+  "runtime_art_provenance": "art/source/resource_sprites_2026-10-15_provenance.json",
+  "preexisting_files_restored_and_hash_verified": 90,
+  "preserved": [
+    "Accepted road/map file byte-identical.",
+    "Original 3D resource prefabs/FBX/textures retained.",
+    "Existing grass/paving materials, textures and camera orientation retained."
+  ],
+  "evidence_folder": "Artifacts/S3-RESOURCE-SPRITES-20261015",
+  "limits": [
+    "No fresh Windows build/run on this Mac.",
+    "Initial test used flat rules-plane anchor for footing; corrected to existing grass relief and final 46/46 passed. Raw first-run report retained.",
+    "Owner approved preview artwork; further live appearance feedback remains open."
+  ]
+}

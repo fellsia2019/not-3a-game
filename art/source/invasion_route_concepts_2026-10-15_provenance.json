@@ -1,0 +1,53 @@
+{
+  "date": "2026-10-15",
+  "generator": "built-in image_gen.imagegen",
+  "purpose": "Illustrative invasion-route layout concepts for owner selection; no runtime asset/map implementation",
+  "prompt_file": "art/source/invasion_route_concepts_2026-10-15_prompts.json",
+  "references": [
+    {
+      "path": "art/review/astra_world_game_overview.png",
+      "sha256": "20b6ff0c5c0c00a85e4571441f26d20aeca88fb9bc1afe8b07a1c66dad1f1842",
+      "role": "Project-created visual identity/style reference only"
+    },
+    {
+      "path": "art/concepts/sprite_style_review_2026-10-15/b_cartoon_2d.png",
+      "sha256": "41224078d0bb85bd7ea0589be759a17a9eea28f09e99c725d4170f1b7f27c634",
+      "role": "Project-created visual identity/style reference only"
+    }
+  ],
+  "rights": "Original AI-generated project concept artwork, using this project's original cartoon B board and actual gameplay frame as references. No third-party image or asset input. Retained PNGs are unchanged generation outputs.",
+  "entries": [
+    {
+      "path": "art/concepts/invasion_route_review_2026-10-15/a_wide_s.png",
+      "generation_output": "/Users/artemmusket/.codex/generated_images/01a14054-81d2-75b1-a100-d954bacec6f2/exec-808a5c34-5c6d-4d7e-9a00-d5cfa4890c85.png",
+      "sha256": "f0643b1109d9413b461dea530c2186bc1a7027c60f4858d7388f9148d0f1d05a",
+      "width": 1672,
+      "height": 941,
+      "byte_identical_to_generation": true
+    },
+    {
+      "path": "art/concepts/invasion_route_review_2026-10-15/b_wide_zigzag.png",
+      "generation_output": "/Users/artemmusket/.codex/generated_images/01a14054-81d2-75b1-a100-d954bacec6f2/exec-0ff58265-42c6-4fd6-8ec7-97a2ca10c338.png",
+      "sha256": "6e9d27d5fe7fe8296ed485676b180faf6514a96b79b13e876312d7d2373d4749",
+      "width": 1672,
+      "height": 941,
+      "byte_identical_to_generation": true
+    },
+    {
+      "path": "art/concepts/invasion_route_review_2026-10-15/c_long_detour.png",
+      "generation_output": "/Users/artemmusket/.codex/generated_images/01a14054-81d2-75b1-a100-d954bacec6f2/exec-777f9b23-911c-4b52-a93d-035862311f76.png",
+      "sha256": "de658406beb60d8b7c7f313e23da1999a3eb90f0fa767d13103b2179cf75ccdb",
+      "width": 1672,
+      "height": 941,
+      "byte_identical_to_generation": true
+    }
+  ],
+  "refinement": "C was edited once to remove an unintended paved spur continuing beyond the objective. The retained C is the corrected output.",
+  "limits": [
+    "Images illustrate route topology and visual context; they are not pixel-to-cell measured plans or Unity captures.",
+    "Exact double direct-distance target (8.60 to 17.20 cells) must be verified in an authored map later.",
+    "No candidate has been accepted. World bounds, navigation implementation and balance are pending."
+  ],
+  "review_status": "Historical first pass; owner clarified that these road-like bands are too narrow for player-built tower mazes. D1/D2 width study supersedes the recommendation of A.",
+  "followup_provenance": "art/source/maze_field_width_review_2026-10-15_provenance.json"
+}

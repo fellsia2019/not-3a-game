@@ -29,8 +29,8 @@ namespace Not3A.Stage3.VisualPilot.Tests
                 var composition=Object.FindAnyObjectByType<Stage2GameComposition>();
                 var bootstrap=composition.GetComponent<Stage2SceneBootstrap>();
                 Assert.That(bootstrap.MapDefinition.Size,Is.EqualTo(new Vector2Int(100,100)));
-                Assert.That(bootstrap.MapDefinition.EnemyEntrance,Is.EqualTo(new Vector2Int(46,44)));
-                Assert.That(bootstrap.MapDefinition.Throne,Is.EqualTo(new Vector2Int(39,39)));
+                Assert.That(bootstrap.MapDefinition.EnemyEntrance,Is.EqualTo(new Vector2Int(-42,-30)));
+                Assert.That(bootstrap.MapDefinition.Throne,Is.EqualTo(new Vector2Int(39,12)));
                 var ground=GameObject.Find("Tactical grass and paved build cells").GetComponent<MeshRenderer>();
                 Assert.That(ground.sharedMaterials[0].GetTexture("_BaseMap").name,Is.EqualTo("CartoonMeadowV2"));
                 Assert.That(ground.sharedMaterials[1].GetTexture("_BaseMap").name,Is.EqualTo("CartoonPavingV2"));
@@ -51,7 +51,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
                 var body=catapult.GetComponentsInChildren<SpriteRenderer>().First(r=>r.enabled);
                 var camera=bootstrap.CameraFollow.BoundCamera;
                 bootstrap.CameraFollow.enabled=false;
-                var focus=(bootstrap.EntranceMarker.position+bootstrap.ThroneMarker.position)*.5f+Vector3.back*.6f;
+                var focus=bootstrap.ThroneMarker.position+Vector3.back*.6f;
                 camera.transform.position=focus-camera.transform.forward*14f;
                 camera.orthographicSize=6f;
                 const string output="Artifacts/S3-ASTRA-VISUAL/";
@@ -59,6 +59,25 @@ namespace Not3A.Stage3.VisualPilot.Tests
                 Directory.CreateDirectory("art/review");
                 Time.captureFramerate=15;
                 composition.RunDriver.Run.StartWave();
+                // Advance the long, empty approach through normal rule/movement ticks.
+                // Capture the same ten seconds of combat once the first creep is nearby.
+                composition.RunDriver.enabled=false;
+                composition.RunDriver.Run.SetPaused(false); // OnDisable pauses the run; this test owns the clock.
+                bool approached=false;
+                for(var step=0;step<3000 && !approached;step++)
+                {
+                    composition.RunDriver.Run.Tick(.1f);
+                    for(var i=composition.Enemies.ActiveCount-1;i>=0;i--)
+                    {
+                        var enemy=composition.Enemies.GetEnemy(i);
+                        enemy.SetAutomaticTick(false);
+                        enemy.Tick(.1f);
+                        approached|=Vector2.Distance(enemy.transform.position,bootstrap.ThroneMarker.position)<=6f;
+                    }
+                }
+                Assert.That(approached,Is.True,"The wave must traverse the authored winding road.");
+                for(var i=0;i<composition.Enemies.ActiveCount;i++)composition.Enemies.GetEnemy(i).SetAutomaticTick(true);
+                composition.RunDriver.enabled=true;
                 bool fired=false,arrow=false;
                 for(var frame=0;frame<150;frame++)
                 {

@@ -120,7 +120,10 @@ namespace Not3A.Stage2.Navigation
             for (var index = 0; index < count; index++)
             {
                 var cell = map.ReadCell(Cell(index));
-                walkable[index] = cell.IsWalkable;
+                // Hero walkability stays on the authored mask. Only enemy routing
+                // is restricted, so a winding road cannot be bypassed on the grass.
+                walkable[index] = cell.IsWalkable && (!map.EnemiesStayOnInvasionCorridor ||
+                    cell.Surface == MapSurfaceKind.InvasionCorridor);
                 buildable[index] = cell.IsBuildable;
             }
 

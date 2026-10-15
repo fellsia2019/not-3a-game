@@ -1,5 +1,6 @@
 #if UNITY_EDITOR
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Not3A.Stage2.Defense;
@@ -126,7 +127,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
         }
 
         [UnityTest]
-        public IEnumerator DiagonalMap_PlacesLandmarksResourcesAndBuildArea()
+        public IEnumerator ZigzagMap_PlacesLandmarksResourcesAndBuildArea()
         {
             EditorSceneManager.LoadSceneInPlayMode("Assets/Scenes/Stage3Rapid3DGamePilot.unity",
                 new LoadSceneParameters(LoadSceneMode.Single));
@@ -135,11 +136,12 @@ namespace Not3A.Stage3.VisualPilot.Tests
             var map=bootstrap.MapDefinition;
             Assert.That(map.ValidateDefinition().IsValid,Is.True);
             Assert.That(map.Size,Is.EqualTo(new Vector2Int(100,100)));
-            Assert.That(map.EnemyEntrance,Is.EqualTo(new Vector2Int(46,44)));
-            Assert.That(map.Throne,Is.EqualTo(new Vector2Int(39,39)));
-            Assert.That(map.GetSurface(new Vector2Int(49,49)),Is.EqualTo(MapSurfaceKind.InvasionCorridor));
-            Assert.That(map.GetSurface(new Vector2Int(28,28)),Is.EqualTo(MapSurfaceKind.InvasionCorridor));
-            Assert.That(map.GetSurface(new Vector2Int(24,29)),Is.EqualTo(MapSurfaceKind.Forest));
+            Assert.That(map.EnemyEntrance,Is.EqualTo(new Vector2Int(-42,-30)));
+            Assert.That(map.Throne,Is.EqualTo(new Vector2Int(39,12)));
+            Assert.That(map.EnemiesStayOnInvasionCorridor,Is.True);
+            Assert.That(map.GetSurface(new Vector2Int(-42,-15)),Is.EqualTo(MapSurfaceKind.InvasionCorridor));
+            Assert.That(map.GetSurface(new Vector2Int(3,6)),Is.EqualTo(MapSurfaceKind.InvasionCorridor));
+            Assert.That(map.GetSurface(new Vector2Int(-15,-12)),Is.EqualTo(MapSurfaceKind.Forest));
             Assert.That(map.GetSurface(new Vector2Int(20,20)),Is.EqualTo(MapSurfaceKind.Forest));
             for(var index=0;index<3;index++)
             {
@@ -156,41 +158,128 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Assert.That(bootstrap.PlayerMover.transform.position.y,Is.EqualTo(28f));
             var camera=bootstrap.CameraFollow.BoundCamera;
             Assert.That(camera.orthographicSize,Is.EqualTo(5f).Within(.01f));
-            Assert.That(camera.WorldToViewportPoint(bootstrap.ThroneMarker.position).x,
-                Is.GreaterThan(.5f));
-            Assert.That(camera.WorldToViewportPoint(bootstrap.ThroneMarker.position).y,
-                Is.GreaterThan(.5f));
+            bootstrap.PlayerMover.transform.position=bootstrap.EntranceMarker.position;
+            bootstrap.CameraFollow.SnapToTarget();
+            var portalOnScreen=camera.WorldToViewportPoint(bootstrap.EntranceMarker.position);
+            Assert.That(portalOnScreen.x,Is.InRange(.1f,.9f));
+            Assert.That(portalOnScreen.y,Is.InRange(.1f,.9f));
         }
 
         [UnityTest]
-        public IEnumerator ResourceModels_FitAnchorsAndFollowDepletionAndRecovery()
+        public IEnumerator ZigzagRoad_EnemyTraversesWholeRoadAndPortalIsVisible()
+        {
+            EditorSceneManager.LoadSceneInPlayMode("Assets/Scenes/Stage3Rapid3DGamePilot.unity",
+                new LoadSceneParameters(LoadSceneMode.Single));
+            yield return null; yield return null; yield return null;
+            var composition=Object.FindAnyObjectByType<Stage2GameComposition>();
+            var bootstrap=composition.GetComponent<Stage2SceneBootstrap>();
+            var map=bootstrap.MapDefinition;
+            var run=composition.RunDriver.Run;
+            composition.RunDriver.enabled=false;
+            run.ResetRun();
+            var camera=bootstrap.CameraFollow.BoundCamera;
+            bootstrap.CameraFollow.enabled=false;
+            camera.orthographicSize=30f;
+            camera.transform.position=new Vector3(-1.5f,-9f,0)-camera.transform.forward*20f;
+            SaveRoadView(camera,"route-overview.png",1600,900);
+            camera.orthographicSize=5f;
+            camera.transform.position=bootstrap.EntranceMarker.position-camera.transform.forward*20f;
+            SaveRoadView(camera,"portal-lower-left.png",1200,900);
+            var artwork=bootstrap.EntranceMarker.GetComponentsInChildren<SpriteRenderer>().Single(r=>r.enabled);
+            Assert.That(artwork,Is.Not.Null);
+            Assert.That(Vector3.Dot(artwork.transform.forward,camera.transform.forward),Is.GreaterThan(.999f));
+            var visible=camera.WorldToViewportPoint(bootstrap.EntranceMarker.position);
+            Assert.That(visible.x,Is.InRange(.1f,.9f));
+            Assert.That(visible.y,Is.InRange(.1f,.9f));
+            AssertBaseVisible(bootstrap,artwork,false,new Vector2(.47f,.13f));
+            Assert.That(run.StartWave(),Is.True);
+            var enemy=composition.Enemies.GetEnemy(0);
+            enemy.SetAutomaticTick(false);
+            var visited=new HashSet<Vector2Int>();
+            var health=run.ThroneHealth;
+            for(var i=0;i<400 && enemy!=null && enemy.IsAlive;i++)
+            {
+                visited.Add(enemy.CurrentCell);
+                Assert.That(map.GetSurface(enemy.CurrentCell),Is.EqualTo(MapSurfaceKind.InvasionCorridor));
+                enemy.Tick(1f);
+                if(i%20==0)yield return null;
+            }
+            Assert.That(visited.Count,Is.GreaterThan(120),"The ordinary enemy must traverse both detours.");
+            Assert.That(run.ThroneHealth,Is.LessThan(health));
+            File.WriteAllText("Artifacts/S3-INVASION-ROAD-20261015/traversal.txt",
+                $"visitedCells={visited.Count}\nportal={map.EnemyEntrance}\nthrone={map.Throne}\nwidth=7\nheroGrassWalkable={map.IsWalkable(map.GetResourceRegion(0).Anchor)}\n");
+        }
+
+        private static void SaveRoadView(Camera camera,string name,int width,int height)
+        {
+            const string folder="Artifacts/S3-INVASION-ROAD-20261015/";
+            Directory.CreateDirectory(folder);
+            var previousTarget=camera.targetTexture; var previousActive=RenderTexture.active;
+            var target=RenderTexture.GetTemporary(width,height,24);
+            var image=new Texture2D(width,height,TextureFormat.RGB24,false);
+            try
+            {
+                camera.targetTexture=target; camera.Render(); RenderTexture.active=target;
+                image.ReadPixels(new Rect(0,0,width,height),0,0); image.Apply();
+                File.WriteAllBytes(folder+name,image.EncodeToPNG());
+            }
+            finally
+            {
+                camera.targetTexture=previousTarget; RenderTexture.active=previousActive;
+                RenderTexture.ReleaseTemporary(target); Object.DestroyImmediate(image);
+            }
+        }
+
+        [UnityTest]
+        public IEnumerator ResourceSprites_FitAnchorsAndFollowDepletionRecoveryAndReset()
         {
             EditorSceneManager.LoadSceneInPlayMode("Assets/Scenes/Stage3Rapid3DGamePilot.unity",
                 new LoadSceneParameters(LoadSceneMode.Single));
             yield return null; yield return null; yield return null;
             var composition = Object.FindAnyObjectByType<Stage2GameComposition>();
+            var camera = composition.GetComponent<Stage2SceneBootstrap>().CameraFollow.BoundCamera;
             var economy = composition.Gathering.Economy;
             foreach (var kind in new[] { MapResourceKind.Wood, MapResourceKind.Stone, MapResourceKind.Metal })
             {
                 var marker = composition.transform.Find($"{kind} Resource Marker");
                 Assert.That(marker, Is.Not.Null);
-                var renderers = marker.GetComponentsInChildren<MeshRenderer>();
+                var renderers = marker.GetComponentsInChildren<SpriteRenderer>().Where(item => item.enabled).ToArray();
                 Assert.That(renderers.Length, Is.EqualTo(1), kind.ToString());
-                var bounds = renderers[0].bounds;
+                Assert.That(marker.GetComponentsInChildren<MeshRenderer>(), Is.Empty, "Do not leave the 3D resource under the sprite.");
+                var body = renderers[0];
                 var anchor = economy.WorldPosition(kind);
-                Assert.That(bounds.center.x, Is.EqualTo(anchor.x).Within(.2f), kind.ToString());
-                Assert.That(bounds.center.y, Is.EqualTo(anchor.y).Within(.2f), kind.ToString());
-                Assert.That(bounds.size.x, Is.InRange(1f, 1.5f), kind.ToString());
-                Assert.That(bounds.size.y, Is.InRange(1f, 1.5f), kind.ToString());
-                Assert.That(bounds.size.z, kind == MapResourceKind.Wood
-                    ? Is.InRange(1.9f, 2.3f) : Is.InRange(.8f, 1.2f), kind.ToString());
+                Assert.That((Vector2)marker.position, Is.EqualTo(anchor));
+                Assert.That(Quaternion.Angle(body.transform.rotation, camera.transform.rotation), Is.LessThan(.1f));
+                var visualRoot = body.transform.parent;
+                Assert.That((Vector2)visualRoot.position, Is.EqualTo(anchor));
+                Assert.That(visualRoot.position.z, Is.InRange(-.205f, -.075f), "The footing follows existing grass relief.");
+                var screenAnchor = (Vector2)camera.WorldToScreenPoint(visualRoot.position);
+                var screenFooting = (Vector2)camera.WorldToScreenPoint(body.transform.position);
+                var pixelTolerance = camera.pixelHeight / (2f * camera.orthographicSize) * .03f + .1f;
+                Assert.That(Vector2.Distance(screenAnchor, screenFooting), Is.LessThan(pixelTolerance), "The painted footing stays registered at the grass surface.");
+                Assert.That(body.sortingOrder, Is.EqualTo(-Mathf.RoundToInt(marker.position.y * 100f)));
+                var importer = AssetImporter.GetAtPath(AssetDatabase.GetAssetPath(body.sprite.texture)) as TextureImporter;
+                Assert.That(importer.alphaIsTransparency, Is.True);
+                Assert.That(importer.npotScale, Is.EqualTo(TextureImporterNPOTScale.None));
+                Assert.That(importer.textureCompression, Is.EqualTo(TextureImporterCompression.Uncompressed));
+                var png = new Texture2D(2, 2, TextureFormat.RGBA32, false);
+                try
+                {
+                    png.LoadImage(File.ReadAllBytes(AssetDatabase.GetAssetPath(body.sprite.texture)));
+                    var pixels = png.GetPixels32();
+                    var xs = Enumerable.Range(0, pixels.Length).Where(i => pixels[i].a >= 128).Select(i => i % png.width).ToArray();
+                    var ys = Enumerable.Range(0, pixels.Length).Where(i => pixels[i].a >= 128).Select(i => i / png.width).ToArray();
+                    Assert.That((xs.Max() - xs.Min() + 1f) / body.sprite.pixelsPerUnit, Is.InRange(1.4f, 1.55f));
+                    Assert.That((ys.Max() - ys.Min() + 1f) / body.sprite.pixelsPerUnit,
+                        kind == MapResourceKind.Wood ? Is.InRange(1.85f, 2.15f) : Is.InRange(1.1f, 1.35f));
+                }
+                finally { Object.DestroyImmediate(png); }
                 Assert.That(marker.GetComponentsInChildren<Collider>(), Is.Empty);
                 Assert.That(renderers[0].sharedMaterials.Length, Is.EqualTo(1), kind.ToString());
                 foreach (var material in renderers[0].sharedMaterials)
                 {
                     Assert.That(material.shader.isSupported, Is.True, material.name);
-                    Assert.That(material.GetTexture("_BaseMap"), Is.Not.Null,
-                        "The reworked source must retain its baked surface after import.");
+                    Assert.That(body.sprite.texture, Is.Not.Null);
                 }
                 var node = economy.GetNode(kind);
                 for (var unit = 0; unit < node.Capacity; unit++)
@@ -201,10 +290,19 @@ namespace Not3A.Stage3.VisualPilot.Tests
                 yield return null;
                 Assert.That(marker.gameObject.activeSelf, Is.True, kind.ToString());
             }
+            composition.RunDriver.ResetRun();
+            yield return null;
+            foreach (var kind in new[] { MapResourceKind.Wood, MapResourceKind.Stone, MapResourceKind.Metal })
+            {
+                var marker = composition.transform.Find($"{kind} Resource Marker");
+                Assert.That(marker.gameObject.activeSelf, Is.True);
+                Assert.That(marker.GetComponentsInChildren<SpriteRenderer>().Count(item => item.enabled), Is.EqualTo(1));
+                Assert.That(economy.GetNode(kind).Remaining, Is.EqualTo(economy.GetNode(kind).Capacity));
+            }
         }
 
         [UnityTest]
-        public IEnumerator ResourceModels_RenderInPlayableCameraAtBothZoomLevels()
+        public IEnumerator ResourceSprites_RenderInPlayableCameraAtBothZoomLevels()
         {
             EditorSceneManager.LoadSceneInPlayMode("Assets/Scenes/Stage3Rapid3DGamePilot.unity",
                 new LoadSceneParameters(LoadSceneMode.Single));
@@ -219,17 +317,18 @@ namespace Not3A.Stage3.VisualPilot.Tests
             foreach (var kind in new[] { MapResourceKind.Stone, MapResourceKind.Wood, MapResourceKind.Metal })
             {
                 var anchor = economy.WorldPosition(kind);
-                bootstrap.PlayerMover.transform.position = new Vector3(anchor.x - 1.1f, anchor.y - 1.1f, 0);
+                bootstrap.PlayerMover.transform.position = new Vector3(anchor.x - 1.1f, anchor.y - .55f, 0);
                 bootstrap.CameraFollow.SnapToTarget();
                 yield return null;
                 var marker = composition.transform.Find($"{kind} Resource Marker");
-                var renderer = marker.GetComponentInChildren<MeshRenderer>();
+                var renderer = marker.GetComponentsInChildren<SpriteRenderer>().Single(item => item.enabled);
                 Assert.That(renderer, Is.Not.Null);
                 var viewport = camera.WorldToViewportPoint(renderer.bounds.center);
                 Assert.That(viewport.x, Is.InRange(.2f, .8f), kind.ToString());
                 Assert.That(viewport.y, Is.InRange(.2f, .8f), kind.ToString());
                 camera.orthographicSize = 5f;
                 SaveResourceFrame(camera, $"art/review/resource_{kind.ToString().ToLowerInvariant()}_game_default.png");
+                AssertResourceVisible(camera, renderer);
                 var with = new double[48];
                 var without = new double[48];
                 var target = RenderTexture.GetTemporary(1280, 720, 24);
@@ -260,11 +359,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
                     }
                     System.Array.Sort(with);
                     System.Array.Sort(without);
-                    var mesh = renderer.GetComponent<MeshFilter>().sharedMesh;
-                    ulong indices = 0;
-                    for (var submesh = 0; submesh < mesh.subMeshCount; submesh++)
-                        indices += mesh.GetIndexCount(submesh);
-                    timing.AppendLine($"{kind}: tris={indices / 3} " +
+                    timing.AppendLine($"{kind}: spriteTris={renderer.sprite.triangles.Length / 3} " +
                         $"renderOnMedianMs={with[24]:F3} renderOffMedianMs={without[24]:F3} " +
                         $"renderOnP95Ms={with[45]:F3} renderOffP95Ms={without[45]:F3}");
                 }
@@ -278,10 +373,44 @@ namespace Not3A.Stage3.VisualPilot.Tests
                 }
                 camera.orthographicSize = 2.5f;
                 SaveResourceFrame(camera, $"art/review/resource_{kind.ToString().ToLowerInvariant()}_game_close.png");
+                AssertResourceVisible(camera, renderer);
                 camera.orthographicSize = 5f;
             }
             File.WriteAllText("Artifacts/S3-RESOURCE-SOURCES/render-comparison.txt",
                 $"Camera.Render plus synchronous 1px readback in playable Stage 3 scene, Editor, 1280x720, four reversed-order rounds, 4 warmups and 12 samples per state per round. GPU={SystemInfo.graphicsDeviceName}. Hardware-specific observation, not standalone FPS.\n{timing}");
+        }
+
+        private static void AssertResourceVisible(Camera camera, SpriteRenderer renderer)
+        {
+            var target = RenderTexture.GetTemporary(320, 320, 24);
+            var previous = camera.targetTexture;
+            var active = RenderTexture.active;
+            var image = new Texture2D(320, 320, TextureFormat.RGB24, false);
+            try
+            {
+                camera.targetTexture = target;
+                camera.Render();
+                RenderTexture.active = target;
+                image.ReadPixels(new Rect(0, 0, 320, 320), 0, 0); image.Apply();
+                var visible = image.GetPixels32();
+                renderer.enabled = false;
+                camera.Render();
+                image.ReadPixels(new Rect(0, 0, 320, 320), 0, 0); image.Apply();
+                var ground = image.GetPixels32();
+                var changed = 0;
+                for (var i = 0; i < ground.Length; i++)
+                    if (Mathf.Abs(visible[i].r - ground[i].r) + Mathf.Abs(visible[i].g - ground[i].g) +
+                        Mathf.Abs(visible[i].b - ground[i].b) > 40) changed++;
+                Assert.That(changed, Is.GreaterThan(500), renderer.sprite.name + " must render above the terrain.");
+            }
+            finally
+            {
+                renderer.enabled = true;
+                camera.targetTexture = previous;
+                RenderTexture.active = active;
+                RenderTexture.ReleaseTemporary(target);
+                Object.DestroyImmediate(image);
+            }
         }
 
         private static void SaveResourceFrame(Camera camera, string path)
@@ -1010,6 +1139,54 @@ namespace Not3A.Stage3.VisualPilot.Tests
         }
 
         [UnityTest]
+        public IEnumerator TacticalView_TrackpadPinchSharesWheelLimitsAndClearsOnDisable()
+        {
+            EditorSceneManager.LoadSceneInPlayMode("Assets/Scenes/Stage3Rapid3DGamePilot.unity",
+                new LoadSceneParameters(LoadSceneMode.Single));
+            yield return null; yield return null; yield return null;
+            var bootstrap=Object.FindAnyObjectByType<Stage2SceneBootstrap>();
+            var follow=bootstrap.CameraFollow;
+            var camera=follow.BoundCamera;
+            var hero=bootstrap.PlayerMover.transform.position;
+            var importer=AssetImporter.GetAtPath("Assets/Plugins/macOS/libNot3ATrackpad.dylib") as PluginImporter;
+            Assert.That(importer,Is.Not.Null);
+            Assert.That(importer.GetCompatibleWithAnyPlatform(),Is.False);
+            Assert.That(importer.GetEditorData("OS"),Is.EqualTo("OSX"));
+            Assert.That(importer.GetCompatibleWithPlatform(BuildTarget.StandaloneOSX),Is.True);
+            Assert.That(importer.GetCompatibleWithPlatform(BuildTarget.StandaloneWindows64),Is.False);
+#if UNITY_EDITOR_OSX
+            Assert.That(Stage2MacTrackpad.IsAvailable,Is.True,"The real universal AppKit library must load in Unity.");
+#endif
+            follow.ZoomByPinchScale(1.25f);
+            yield return new WaitForSecondsRealtime(.9f);
+            Assert.That(camera.orthographicSize,Is.EqualTo(4f).Within(.02f));
+            follow.ZoomByPinchScale(.8f);
+            yield return new WaitForSecondsRealtime(.9f);
+            Assert.That(camera.orthographicSize,Is.EqualTo(5f).Within(.02f));
+            foreach(var invalid in new[]{0f,-1f,float.NaN,float.PositiveInfinity,1f})
+                follow.ZoomByPinchScale(invalid);
+            yield return new WaitForSecondsRealtime(.2f);
+            Assert.That(camera.orthographicSize,Is.EqualTo(5f).Within(.02f));
+            follow.ZoomByPinchScale(100f);
+            yield return new WaitForSecondsRealtime(1f);
+            Assert.That(camera.orthographicSize,Is.EqualTo(2.5f).Within(.02f));
+            follow.ZoomByPinchScale(.001f);
+            yield return new WaitForSecondsRealtime(1f);
+            Assert.That(camera.orthographicSize,Is.EqualTo(10f).Within(.02f));
+            follow.enabled=false;
+            Assert.That(Stage2MacTrackpad.IsAvailable,Is.False);
+            follow.ZoomByPinchScale(2f);
+            follow.enabled=true;
+            yield return new WaitForSecondsRealtime(.2f);
+            Assert.That(camera.orthographicSize,Is.EqualTo(10f).Within(.02f),"No stale pinch or zoom rebase on resume.");
+            follow.ZoomByPinchScale(100f);
+            yield return new WaitForSecondsRealtime(1f);
+            Assert.That(camera.orthographicSize,Is.EqualTo(2.5f).Within(.02f));
+            Assert.That(bootstrap.PlayerMover.transform.position,Is.EqualTo(hero));
+            Assert.That(Vector3.Angle(camera.transform.forward,Vector3.forward),Is.EqualTo(35f).Within(.01f));
+        }
+
+        [UnityTest]
         public IEnumerator TacticalView_InspectorZoomSettingUpdatesLiveAndWheelClamps()
         {
             var mouse = InputSystem.AddDevice<Mouse>();
@@ -1144,8 +1321,10 @@ namespace Not3A.Stage3.VisualPilot.Tests
             var camera = bootstrap.CameraFollow.BoundCamera;
             Assert.That(Vector3.Angle(camera.transform.forward, Vector3.forward), Is.EqualTo(35f).Within(.01f));
             var objective=bootstrap.MapDefinition.Throne;
+            bootstrap.PlayerMover.transform.position=bootstrap.MapDefinition.CellToWorld(objective)+Vector2.left*2f;
+            bootstrap.CameraFollow.SnapToTarget();
             foreach (var cell in new[] { objective+new Vector2Int(3,-1),
-                objective+new Vector2Int(-2,2), objective+new Vector2Int(-16,-16) })
+                objective+new Vector2Int(-2,2), objective+new Vector2Int(-6,0) })
             {
                 var screen = camera.WorldToScreenPoint(bootstrap.MapDefinition.CellToWorld(cell));
                 Assert.That(composition.Building.TryScreenToCell(screen, out var picked), Is.True);
@@ -1168,7 +1347,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             inventory.TryAddGold(5); inventory.TryAdd(MapResourceKind.Wood,2); inventory.TryAdd(MapResourceKind.Stone,1);
             Assert.That(defense.BeginPlacement(), Is.True);
             input.Set(mouse.position,(Vector2)camera.WorldToScreenPoint(
-                bootstrap.MapDefinition.CellToWorld(objective+new Vector2Int(-16,-16))));
+                bootstrap.MapDefinition.CellToWorld(objective+new Vector2Int(-6,0))));
             yield return null;
             Assert.That(composition.Building.PreviewResult, Is.Not.EqualTo(PlacementResult.Ready));
             input.Press(mouse.leftButton); yield return null; input.Release(mouse.leftButton);
@@ -1228,7 +1407,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             {
                 Assert.That(run.WaveNumber, Is.EqualTo(wave));
                 Assert.That(run.StartWave(), Is.True);
-                for (var step = 0; step < 400 && run.Phase == Stage2RunPhase.Wave; step++)
+                for (var step = 0; step < 2000 && run.Phase == Stage2RunPhase.Wave; step++)
                 {
                     run.Tick(0.2f);
                     for (var index = composition.Enemies.ActiveCount - 1; index >= 0; index--)

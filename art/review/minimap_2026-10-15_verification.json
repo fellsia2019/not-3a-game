@@ -1,0 +1,90 @@
+{
+  "date": "2026-10-15",
+  "unity": "6000.6.2f1",
+  "platform": "macOS Apple Silicon / Metal",
+  "status": "Implementation and automated/interactive checks passed; owner appearance feedback open.",
+  "feature": "Passive minimap at bottom left",
+  "playmode": {
+    "total": "46",
+    "passed": "46",
+    "failed": "0",
+    "skipped": "0",
+    "duration": "42.2625388"
+  },
+  "checks": [
+    "Cached terrain matches every authored road/grass cell.",
+    "Hero and enemy movement; tower/enemy removal; resource depletion/recovery; full run reset.",
+    "Panel layout at 640x360, 1280x720, 1920x1080 and 800x1000; camera footprint/edge/zoom.",
+    "Pointer exclusion blocks an otherwise valid purchase through the map, hides placement preview and blocks world wheel zoom; outside click still buys normally.",
+    "Existing mouse/trackpad camera, movement, paid combat, full run and restart regressions."
+  ],
+  "interactive": [
+    "Actual Game screenshots inspected at 819x556 and 1206x614, including OnGUI overlay.",
+    "Real WASD movement moved the hero marker and camera footprint.",
+    "Ordinary wave displayed live creep markers along the zigzag.",
+    "Fresh live review reopened; original Editor panel layout restored."
+  ],
+  "console": {
+    "errors": 0,
+    "warnings": 0
+  },
+  "captures": [
+    {
+      "path": "art/review/minimap_game_2026-10-15.png",
+      "source": "Artifacts/S3-MINIMAP-20261015/game-panel-819x556.png",
+      "sha256": "35bbfa4fce42bac6448fdead6bee0a9098e2e92d31179df38c4a2eb493b504b6",
+      "size": [
+        819,
+        556
+      ],
+      "byte_identical": true
+    },
+    {
+      "path": "art/review/minimap_game_expanded_2026-10-15.png",
+      "source": "Artifacts/S3-MINIMAP-20261015/game-expanded-1206x614.png",
+      "sha256": "71648eff5de6ade89d1b143776ed6f1c82a393c7f18ef913293e4d07b9fb401c",
+      "size": [
+        1206,
+        614
+      ],
+      "byte_identical": true
+    }
+  ],
+  "sources": [
+    {
+      "path": "Assets/Stage2/Integration/Runtime/Stage2Minimap.cs",
+      "sha256": "7ce2936a96ae55a187c608702a41db7e20bbe3a81821702b629e336d0d001c48"
+    },
+    {
+      "path": "Assets/Stage2/Defense/Runtime/Stage2BuildDriver.cs",
+      "sha256": "00976d95ee44d2d34802b0b57dac634cc00b9fbc961dc56d45d3edaf81933c7d"
+    },
+    {
+      "path": "Assets/Stage2/Defense/Runtime/Stage2Defense.cs",
+      "sha256": "4a1e7e0c6c877bef205d37476576ad0fe0004305717cd1ed205f756ecf7d1915"
+    },
+    {
+      "path": "Assets/Stage2/Integration/Runtime/Stage2CameraFollow.cs",
+      "sha256": "2eaf3e0f2be10cf6a3f13e26af531057134eea093b7560e73480aa81a5501501"
+    },
+    {
+      "path": "Assets/Stage3/VisualPilot/Runtime/Stage3TacticalPresentation.cs",
+      "sha256": "680f785d507eba02a518f0afc1b5a5853bed16f71621862a12c8f045766a2a89"
+    },
+    {
+      "path": "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3MinimapTests.cs",
+      "sha256": "627785108ce574c557446fe972dfc498cfe71cc04d83ff95fc8ffc60a529222e"
+    },
+    {
+      "path": "Assets/Stage3/VisualPilot/Editor/Stage3MinimapReview.cs",
+      "sha256": "77634eeb71a04d08109134309f2942a9fe7b603a54a6658e8fde604fbc8a1bf5"
+    }
+  ],
+  "preexisting_files_restored_and_hash_verified": 85,
+  "evidence_folder": "Artifacts/S3-MINIMAP-20261015",
+  "limits": [
+    "Initial batch screenshot test had no displayed Game surface; final behavioral suite is 46/46 and separate interactive capture passed. Initial log/XML retained.",
+    "No Windows build/run on this Mac.",
+    "Minimap is passive; click-to-pan/movement and fog are outside current scope."
+  ]
+}

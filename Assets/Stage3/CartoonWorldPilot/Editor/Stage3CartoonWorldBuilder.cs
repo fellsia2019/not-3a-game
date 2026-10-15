@@ -29,10 +29,10 @@ namespace Not3A.Stage3.VisualPilot.Editor
                 var composition=Object.FindAnyObjectByType<Stage2GameComposition>();
                 if(composition==null || !composition.IsInitialized || composition.Building.Defense.TowerCount<2) return;
                 var bootstrap=composition.GetComponent<Stage2SceneBootstrap>();
-                bootstrap.PlayerMover.transform.position=(bootstrap.EntranceMarker.position+bootstrap.ThroneMarker.position)*.5f;
+                bootstrap.PlayerMover.transform.position=bootstrap.EntranceMarker.position+Vector3.up*3f;
                 bootstrap.CameraFollow.SnapToTarget();
                 SessionState.SetBool(FrameReview,false);
-                Debug.Log("S3_CARTOON_LIVE_REVIEW_READY: ordinary preparation, both sprite towers; Space starts the wave.");
+                Debug.Log("S3_CARTOON_LIVE_REVIEW_READY: lower-left portal, ordinary preparation; Space starts the wave.");
             };
             EditorApplication.playModeStateChanged += state =>
             {
@@ -60,6 +60,7 @@ namespace Not3A.Stage3.VisualPilot.Editor
                 .Any(i => UnityEngine.SceneManagement.SceneManager.GetSceneAt(i).isDirty))
                 throw new InvalidOperationException("Stop Play and save open scene changes first.");
             BuildAssets();
+            if (Stage3ResourceSpriteBuilder.SourcesPresent) Stage3ResourceSpriteBuilder.BuildPrefabs();
             var scene = EditorSceneManager.OpenScene(Stage3SkeletonSpriteBuilder.ScenePath);
             var composition = Object.FindAnyObjectByType<Stage2GameComposition>();
             var building = Object.FindAnyObjectByType<Stage2BuildDriver>();
@@ -72,6 +73,8 @@ namespace Not3A.Stage3.VisualPilot.Editor
             Set(Object.FindAnyObjectByType<Stage3TacticalPresentation>(),"grassVerge",
                 AssetDatabase.LoadAssetAtPath<Material>(Folder+"GrassVerge.mat"));
             Set(Object.FindAnyObjectByType<Stage3TacticalPresentation>(),"roadsideArt",AssetDatabase.LoadAssetAtPath<Stage3RoadsideArt>(Folder+"RoadsideArt.asset"));
+            if (Stage3ResourceSpriteBuilder.SourcesPresent)
+                Stage3ResourceSpriteBuilder.Wire(Object.FindAnyObjectByType<Stage3TacticalPresentation>());
             EditorSceneManager.MarkSceneDirty(scene);
             EditorSceneManager.SaveScene(scene);
             AssetDatabase.SaveAssets();

@@ -153,15 +153,6 @@ namespace Not3A.Stage2.Integration
             return true;
         }
 
-        private static string SourceDirection(Vector2 offset)
-        {
-            var vertical = offset.y > 0.5f ? "W" : offset.y < -0.5f ? "S" : "";
-            var horizontal = offset.x > 0.5f ? "D" : offset.x < -0.5f ? "A" : "";
-            return vertical.Length == 0 && horizontal.Length == 0 ? "HERE" :
-                vertical.Length == 0 ? horizontal :
-                horizontal.Length == 0 ? vertical : vertical + "+" + horizontal;
-        }
-
         private void OnGUI()
         {
             if (!Debug.isDebugBuild || !showDevelopmentHud || !IsInitialized || runDriver.Run == null) return;
@@ -211,20 +202,7 @@ namespace Not3A.Stage2.Integration
                     ? $"0/{node.Capacity} ({Mathf.CeilToInt(node.RecoveryRemaining)}s)"
                     : $"{node.Remaining}/{node.Capacity}";
                 GUI.Label(new Rect(panelX + 10, panelY + 24 + index * 25, 190, 20),
-                    $"{kind}: {stock}  {offset.magnitude:0}m  {SourceDirection(offset)}");
-
-                var sourceScreen = bootstrap.CameraFollow.BoundCamera.WorldToScreenPoint(
-                    gathering.Economy.WorldPosition(kind));
-                var sourceY = Screen.height - sourceScreen.y;
-                var hiddenByReadout = sourceScreen.x < 410f && sourceY < 185f;
-                var hiddenBySourcePanel = sideBySide && sourceScreen.x > panelX && sourceY < 125f;
-                var outsideScreen = sourceScreen.z <= 0f || sourceScreen.x < 12f ||
-                    sourceScreen.x > Screen.width - 12f || sourceY < 12f || sourceY > Screen.height - 12f;
-                if (!hiddenByReadout && !hiddenBySourcePanel && !outsideScreen) continue;
-
-                var hintX = Mathf.Clamp(sourceScreen.x - 48f, 10f, Mathf.Max(10f, Screen.width - 106f));
-                var hintY = Mathf.Clamp(sourceY - 10f, 185f, Mathf.Max(185f, Screen.height - 32f));
-                GUI.Box(new Rect(hintX, hintY, 96f, 22f), $"{kind} {SourceDirection(offset)}");
+                    $"{kind}: {stock}  {offset.magnitude:0}m");
             }
             if (nearbyKind.HasValue)
                 GUI.Box(new Rect(Mathf.Max(10f, (Screen.width - 210f) * 0.5f),

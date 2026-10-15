@@ -1,0 +1,90 @@
+{
+  "date": "2026-10-15",
+  "generator": "Built-in image_gen.imagegen",
+  "mode": "Reference-guided style-transfer generation, one call per resource; separate cleanup edits for stone and ore.",
+  "scope": "Preview candidates for the existing wood/stone/metal resource identities, not runtime implementation.",
+  "inputs_rights": "All input images are original project-generated concepts. No external artwork or mesh was used.",
+  "status": "All three previews approved by the owner and integrated as unchanged runtime PNG copies; Mac checks passed.",
+  "prompts": "art/source/resource_sprite_preview_2026-10-15_prompts.json",
+  "assets": [
+    {
+      "resource": "wood",
+      "path": "art/concepts/resource_sprite_review_2026-10-15/wood_conifer_sprite_preview.png",
+      "original_generated_path": "/Users/artemmusket/.codex/generated_images/01a14054-81d2-75b1-a100-d954bacec6f2/exec-c2fd71d8-4a39-438b-8d27-0e8ddd796e0a.png",
+      "sha256": "b3408f40cd015436144226599a4e2d3e0e3154e7cf476e96d1a67b7fd56a0542",
+      "byte_identical": true,
+      "dimensions": [
+        1200,
+        1310
+      ],
+      "mode": "RGBA",
+      "transparent_corners": true,
+      "fully_transparent_pixels": 1168647,
+      "near_opaque_pixels_alpha_ge_240": 358222,
+      "identity_reference": {
+        "path": "art/concepts/wood_source_option_b_conifer.png",
+        "sha256": "9589d006ca34227aa0c8dbfe2dd3c29cdddb2ec484446c2a96205c921d31f687"
+      },
+      "style_reference": {
+        "path": "art/concepts/sprite_style_review_2026-10-15/b_cartoon_2d.png",
+        "sha256": "41224078d0bb85bd7ea0589be759a17a9eea28f09e99c725d4170f1b7f27c634"
+      },
+      "initial_generation_before_refinement": null,
+      "refinement_prompt": null,
+      "approved_runtime_copy": "Assets/Stage3/ResourceSpritePilot/WoodConifer.png"
+    },
+    {
+      "resource": "stone",
+      "path": "art/concepts/resource_sprite_review_2026-10-15/stone_granite_sprite_preview.png",
+      "original_generated_path": "/Users/artemmusket/.codex/generated_images/01a14054-81d2-75b1-a100-d954bacec6f2/exec-d4fd26ad-f1a0-449d-9ec3-96b613069992.png",
+      "sha256": "64deef8c4903cea5f74ea6aaff68f9526bb6cb558fe86463057e72507350312d",
+      "byte_identical": true,
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "transparent_corners": true,
+      "fully_transparent_pixels": 1249218,
+      "near_opaque_pixels_alpha_ge_240": 299238,
+      "identity_reference": {
+        "path": "art/concepts/stone_source_option_a_granite_boulder.png",
+        "sha256": "47e2c1821908dfeeddde775786874ba4bb1dda4076721313543fea8f3eee93ab"
+      },
+      "style_reference": {
+        "path": "art/concepts/sprite_style_review_2026-10-15/b_cartoon_2d.png",
+        "sha256": "41224078d0bb85bd7ea0589be759a17a9eea28f09e99c725d4170f1b7f27c634"
+      },
+      "initial_generation_before_refinement": "/Users/artemmusket/.codex/generated_images/01a14054-81d2-75b1-a100-d954bacec6f2/exec-83724836-6e0c-4c80-bb30-a3989a6d01c6.png",
+      "refinement_prompt": "art/source/resource_sprite_preview_2026-10-15_refinement_prompt.txt",
+      "approved_runtime_copy": "Assets/Stage3/ResourceSpritePilot/StoneGranite.png"
+    },
+    {
+      "resource": "ore",
+      "path": "art/concepts/resource_sprite_review_2026-10-15/ore_iron_sprite_preview.png",
+      "original_generated_path": "/Users/artemmusket/.codex/generated_images/01a14054-81d2-75b1-a100-d954bacec6f2/exec-d68627c5-c5bb-4387-81c4-c059fc3ba0d4.png",
+      "sha256": "71c904fd6abead6bf7f342ea0b7569f1966a8029f43706319b13175ca4333589",
+      "byte_identical": true,
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "transparent_corners": true,
+      "fully_transparent_pixels": 1003323,
+      "near_opaque_pixels_alpha_ge_240": 536818,
+      "identity_reference": {
+        "path": "art/concepts/iron_ore_source_option_a_jagged_outcrop.png",
+        "sha256": "397e521a937cdc262ee1706a5f9f755ff34aa520c6e80e93bd7fc3bd280846f5"
+      },
+      "style_reference": {
+        "path": "art/concepts/sprite_style_review_2026-10-15/b_cartoon_2d.png",
+        "sha256": "41224078d0bb85bd7ea0589be759a17a9eea28f09e99c725d4170f1b7f27c634"
+      },
+      "initial_generation_before_refinement": "/Users/artemmusket/.codex/generated_images/01a14054-81d2-75b1-a100-d954bacec6f2/exec-677d52fc-57ee-4389-b4da-ce25034037ae.png",
+      "refinement_prompt": "art/source/resource_sprite_preview_2026-10-15_refinement_prompt.txt",
+      "approved_runtime_copy": "Assets/Stage3/ResourceSpritePilot/IronOre.png"
+    }
+  ],
+  "preservation": "Original PNGs copied byte-identically. No repainting, cropping, compositing, RGB/alpha editing or resampling performed. Existing runtime resource prefabs match pre-change HEAD."
+}

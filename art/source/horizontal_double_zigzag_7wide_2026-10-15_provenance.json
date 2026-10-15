@@ -1,0 +1,39 @@
+{
+  "date": "2026-10-15",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "art/source/horizontal_double_zigzag_7wide_2026-10-15_prompts.json",
+  "status": "Owner accepted I route shape and authorized lower-left portal relocation, 2026-10-15. Implemented as a measured Stage 3 Unity map; live appearance/pacing review remains open.",
+  "rights": "Original project artwork: final generation uses only an original code-native geometric guide. Initial discarded generation also used original project B style board and gameplay reference. No third-party reference image.",
+  "references": [
+    {
+      "path": "art/source/horizontal_double_zigzag_7wide_2026-10-15_guide.svg",
+      "sha256": "fdbd6d42da2cbf3154d26195fce3ad6863f143b083c056a9b71eda9a0960b4e7"
+    },
+    {
+      "path": "Artifacts/ROUTE-CONCEPT-20261015/horizontal_double_zigzag_7wide_2026-10-15_guide.svg.png",
+      "sha256": "7b13793c67f503c4f8b3eb4552eb982014d658a9b10c630be1d79e3266149960"
+    }
+  ],
+  "entry": {
+    "path": "art/concepts/invasion_route_review_2026-10-15/i_horizontal_double_zigzag_7wide.png",
+    "generation_output": "/Users/artemmusket/.codex/generated_images/01a14054-81d2-75b1-a100-d954bacec6f2/exec-7d057410-8495-41b7-84db-100605934e01.png",
+    "sha256": "9855105670b8b866da24dc02ac90b43b6bc1a93db042dbb6e8619ba3424188d0",
+    "width": 1672,
+    "height": 941,
+    "byte_identical_to_generation": true
+  },
+  "discarded_initial_output": "/Users/artemmusket/.codex/generated_images/01a14054-81d2-75b1-a100-d954bacec6f2/exec-298f283c-d708-4bd3-9ee6-fd0a12b076bd.png",
+  "verification": [
+    "Original SVG stroke width is exactly 7 units with miter joins: one open polyline, nine segments and eight right-angle world-space corners.",
+    "Guide and final image visually inspected: overall left-to-right composition, two consecutive rectangular zigzags, exactly two endpoints and no branches.",
+    "Seven footprint markers cross the first reach. Final art remains an illustration, not a Unity grid test.",
+    "PNG copied byte-identically to repository."
+  ],
+  "limits": [
+    "Illustrated marker/paving sizes and perspective are not certified runtime dimensions; use the SVG units and a measured Unity blockout for implementation.",
+    "Guide route lengths and overall map size are illustrative; initial roughly 2x straight-line portal-to-throne distance still requires blockout review.",
+    "Paving slabs are texture, not the construction grid.",
+    "Image generation changes no runtime files itself; the later accepted Unity implementation and checks are recorded in art/review/invasion_route_2026-10-15_verification.json."
+  ],
+  "runtime_verification": "art/review/invasion_route_2026-10-15_verification.json"
+}

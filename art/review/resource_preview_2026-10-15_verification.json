@@ -1,0 +1,83 @@
+{
+  "date": "2026-10-15",
+  "unity": "6000.6.2f1",
+  "platform": "macOS Apple Silicon / Metal",
+  "change": "Removed floating resource direction boxes and WASD direction suffixes from the temporary source readout.",
+  "verification": "Unity script refresh/compile and interactive actual Game visual smoke check passed.",
+  "console": {
+    "errors": 0,
+    "warnings": 0
+  },
+  "preserved": [
+    "Resource stock and distance readout.",
+    "Nearby E-gather prompt.",
+    "Minimap resource markers.",
+    "Resource models, prefabs, map/economy/gathering rules."
+  ],
+  "test_scope": "No new tests or broad rerun for this reversible label-only deletion; verified compilation and displayed UI.",
+  "capture": {
+    "path": "art/review/resource_direction_labels_removed_2026-10-15.png",
+    "sha256": "d0f7e728fac9e37c420b01149497bb1d79a35fb06192d12c3b80e448d98cd570"
+  },
+  "source": {
+    "path": "Assets/Stage2/Integration/Runtime/Stage2GameComposition.cs",
+    "sha256": "346f097b86d3dfc756a7bf41bbedff5005e5226e641cf86703593b459d564324"
+  },
+  "preview_input_references": [
+    {
+      "path": "art/concepts/sprite_style_review_2026-10-15/b_cartoon_2d.png",
+      "sha256": "41224078d0bb85bd7ea0589be759a17a9eea28f09e99c725d4170f1b7f27c634"
+    },
+    {
+      "path": "art/concepts/wood_source_option_b_conifer.png",
+      "sha256": "9589d006ca34227aa0c8dbfe2dd3c29cdddb2ec484446c2a96205c921d31f687"
+    },
+    {
+      "path": "art/concepts/stone_source_option_a_granite_boulder.png",
+      "sha256": "47e2c1821908dfeeddde775786874ba4bb1dda4076721313543fea8f3eee93ab"
+    },
+    {
+      "path": "art/concepts/iron_ore_source_option_a_jagged_outcrop.png",
+      "sha256": "397e521a937cdc262ee1706a5f9f755ff34aa520c6e80e93bd7fc3bd280846f5"
+    }
+  ],
+  "sprite_previews": [
+    {
+      "resource": "wood",
+      "path": "art/concepts/resource_sprite_review_2026-10-15/wood_conifer_sprite_preview.png",
+      "sha256": "b3408f40cd015436144226599a4e2d3e0e3154e7cf476e96d1a67b7fd56a0542",
+      "dimensions": [
+        1200,
+        1310
+      ],
+      "mode": "RGBA",
+      "transparent_corners": true,
+      "byte_identical": true
+    },
+    {
+      "resource": "stone",
+      "path": "art/concepts/resource_sprite_review_2026-10-15/stone_granite_sprite_preview.png",
+      "sha256": "64deef8c4903cea5f74ea6aaff68f9526bb6cb558fe86463057e72507350312d",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "transparent_corners": true,
+      "byte_identical": true
+    },
+    {
+      "resource": "ore",
+      "path": "art/concepts/resource_sprite_review_2026-10-15/ore_iron_sprite_preview.png",
+      "sha256": "71c904fd6abead6bf7f342ea0b7569f1966a8029f43706319b13175ca4333589",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "transparent_corners": true,
+      "byte_identical": true
+    }
+  ],
+  "preview_status": "Prepared for owner review; not wired into the game."
+}

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1800" viewBox="0 0 1800 1800">
+  <rect width="1800" height="1800" fill="#82964e"/>
+  <g transform="matrix(16 -8 -16 -8 625 1100)">
+    <path d="M0 30 V0 H12 V24 H24 V-6 H36 V18 H48 V-12" fill="none" stroke="#777b7b" stroke-width="7" stroke-linecap="butt" stroke-linejoin="miter"/>
+    <g fill="#c6c8c6" stroke="#eeeeeb" stroke-width="0.08">
+      <rect x="-3.45" y="14.55" width="0.9" height="0.9"/>
+      <rect x="-2.45" y="14.55" width="0.9" height="0.9"/>
+      <rect x="-1.45" y="14.55" width="0.9" height="0.9"/>
+      <rect x="-0.45" y="14.55" width="0.9" height="0.9"/>
+      <rect x="0.55" y="14.55" width="0.9" height="0.9"/>
+      <rect x="1.55" y="14.55" width="0.9" height="0.9"/>
+      <rect x="2.55" y="14.55" width="0.9" height="0.9"/>
+    </g>
+    <circle cx="0" cy="29" r="1.5" fill="#b32424"/>
+    <circle cx="48" cy="-11" r="1.5" fill="#31c1e8"/>
+  </g>
+</svg>

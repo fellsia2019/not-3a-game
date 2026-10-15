@@ -1,0 +1,76 @@
+{
+  "date": "2026-10-15",
+  "unity": "6000.6.2f1",
+  "platform": "macOS Apple Silicon / Metal",
+  "feature": "Two-finger pinch/spread zoom on Mac trackpad",
+  "status": "Passed automated checks and owner-confirmed physical pinch/spread in live Unity Game view.",
+  "native_checks": "AppKit monitor installs once and tears down/reinitializes; additive magnification accumulates consistently across polling rates; focus loss/cancel clear input; invalid data stays finite. Native unit executable passed.",
+  "native_architectures": [
+    "arm64",
+    "x86_64"
+  ],
+  "signature": "Ad-hoc code signature verified for both slices",
+  "playmode": {
+    "total": "43",
+    "passed": "43",
+    "failed": "0",
+    "skipped": "0",
+    "duration": "39.377587"
+  },
+  "unity_checks": [
+    "Actual native library loads and AppKit monitor initializes in Unity.",
+    "Importer is macOS Editor/player only; Windows player excluded.",
+    "Pinch direction, smoothing, neutral/invalid data, 2.5..10 zoom bounds and disable/resume checked.",
+    "Existing mouse wheel, camera/movement/clamp, paid combat, complete run and restart regressions passed."
+  ],
+  "sources": [
+    {
+      "path": "Assets/Stage2/Integration/Runtime/Stage2CameraFollow.cs",
+      "sha256": "dc05188885a62042cbe08da79e69cece0c1c344419ce329ebbea02e00914da4d"
+    },
+    {
+      "path": "Assets/Stage2/Integration/Runtime/Stage2MacTrackpad.cs",
+      "sha256": "8556f84815dcb43a49592c009e6bd1378a2f15735c3a0ae9f5296d413bccd021"
+    },
+    {
+      "path": "native/macos/Not3ATrackpad.mm",
+      "sha256": "d56d27b74a83bd7073aa79bfcfcd818f460900072b692a08e655e0a0a9a3c0fa"
+    },
+    {
+      "path": "native/macos/build-trackpad.sh",
+      "sha256": "5e4c8a3b293a63fb6918013b388cc10aea2007887882d8abe65b5036ca757b28"
+    },
+    {
+      "path": "native/macos/tests/TrackpadTests.mm",
+      "sha256": "51746792cf14c66e549899577b1a0bab1bc7c26cf2911a65a935d81ddc871292"
+    },
+    {
+      "path": "Assets/Plugins/macOS/libNot3ATrackpad.dylib",
+      "sha256": "41161a4b66c4c34582135f2df9de618f1daf5e782ed1b8d53c8a3b937f1743f4"
+    },
+    {
+      "path": "Assets/Plugins/macOS/libNot3ATrackpad.dylib.meta",
+      "sha256": "ea8656b366210bc267ae56a92921074a292f4f61da98d9975d13b0406bac3611"
+    }
+  ],
+  "preexisting_files_restored_and_hash_verified": 84,
+  "evidence_folder": "Artifacts/S3-TRACKPAD-20261015",
+  "limits": [
+    "Native unit tests feed synthetic magnifications directly; real input separately verified in the live Game view by the owner.",
+    "Intel slice compiled/signed but not executed on this Apple Silicon machine; no Windows build/run performed."
+  ],
+  "physical_gesture_validation": {
+    "result": "passed",
+    "owner_confirmation": "Да, работает",
+    "context": "Focused live Unity Game view on Mac trackpad",
+    "native_input_samples": [
+      "S3_PINCH_INPUT scale=0.999 target=5.005",
+      "S3_PINCH_INPUT scale=0.9716 target=5.151",
+      "S3_PINCH_INPUT scale=0.9658 target=5.333"
+    ]
+  },
+  "live_console": {
+    "errors": 0,
+    "warnings": 0
+  }
+}

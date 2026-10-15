@@ -1,0 +1,58 @@
+{
+  "date": "2026-10-15",
+  "status": "Owner approved all three previews and requested runtime integration. Implemented; Mac PlayMode 46/46 and interactive review passed.",
+  "generator": "Built-in image_gen.imagegen (approved preview generation; no new generation in integration).",
+  "preview_provenance": "art/source/resource_sprite_preview_2026-10-15_provenance.json",
+  "rights": "All artwork is original project-generated material based on original project concepts. No third-party art or mesh input.",
+  "implementation": "Exact PNG copies; Unity metadata supplies scale/pivot. Camera-facing, ground-sorted SpriteRenderers use the existing unlit transparent sprite shader. Existing resource parent markers own depletion/recovery visibility.",
+  "assets": [
+    {
+      "resource": "wood",
+      "approved_preview": "art/concepts/resource_sprite_review_2026-10-15/wood_conifer_sprite_preview.png",
+      "runtime_png": "Assets/Stage3/ResourceSpritePilot/WoodConifer.png",
+      "sha256": "b3408f40cd015436144226599a4e2d3e0e3154e7cf476e96d1a67b7fd56a0542",
+      "byte_identical_to_approved_preview": true,
+      "dimensions": [
+        1200,
+        1310
+      ],
+      "prefab": "Assets/Stage3/ResourceSpritePilot/WoodConifer.prefab",
+      "texture_meta_sha256": "f1b6a666066b9b76d413ecac4f1bc8fc17bcc4f0f0d59b61de793d1fdb3e8592",
+      "pixels_per_unit": 504.66666,
+      "pivot": "{x: 0.50625, y: 0.15808398}"
+    },
+    {
+      "resource": "stone",
+      "approved_preview": "art/concepts/resource_sprite_review_2026-10-15/stone_granite_sprite_preview.png",
+      "runtime_png": "Assets/Stage3/ResourceSpritePilot/StoneGranite.png",
+      "sha256": "64deef8c4903cea5f74ea6aaff68f9526bb6cb558fe86463057e72507350312d",
+      "byte_identical_to_approved_preview": true,
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "prefab": "Assets/Stage3/ResourceSpritePilot/StoneGranite.prefab",
+      "texture_meta_sha256": "ff141db3658ce67c74141c7499395058d220f194798953b3c88669124239d471",
+      "pixels_per_unit": 486.89655,
+      "pivot": "{x: 0.4986979, y: 0.2998047}"
+    },
+    {
+      "resource": "ore",
+      "approved_preview": "art/concepts/resource_sprite_review_2026-10-15/ore_iron_sprite_preview.png",
+      "runtime_png": "Assets/Stage3/ResourceSpritePilot/IronOre.png",
+      "sha256": "71c904fd6abead6bf7f342ea0b7569f1966a8029f43706319b13175ca4333589",
+      "byte_identical_to_approved_preview": true,
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "prefab": "Assets/Stage3/ResourceSpritePilot/IronOre.prefab",
+      "texture_meta_sha256": "7b60f4d6bccf929c9f132da49c9eb8c6cdf24b752167e6bf437e65a12d363985",
+      "pixels_per_unit": 687.3333,
+      "pivot": "{x: 0.5055339, y: 0.18691406}"
+    }
+  ],
+  "pixel_preservation": "Original PNGs and generated alpha are unchanged; no raster crop, repaint, compositing or resampling.",
+  "legacy_models": "Preserved separately under Assets/Stage3/VisualPilot; no prefab/FBX/texture replacement there.",
+  "scene_migration": "Only woodSourceModel/stoneSourceModel/metalSourceModel references changed in the existing Stage3Rapid3DGamePilot scene."
+}

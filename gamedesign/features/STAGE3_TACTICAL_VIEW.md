@@ -2,6 +2,71 @@
 
 Active brief: D-019, 2026-09-25. Owner: Stage 3 visual integration.
 
+2026-10-15, D-048: remove floating resource direction boxes and WASD suffixes
+from the temporary source panel. Counts/distances, nearby E-gather prompt and
+minimap markers remain. The owner approved the cartoon sprite previews for all
+three D-037/D-038 resource identities and requested integration. The resource
+binding and checks below supersede the initial preview-only scope.
+
+2026-10-15, D-047: bottom-left passive minimap is the next authorized UI element;
+its live markers, camera footprint, input exclusion and checks are owned by
+`STAGE3_MINIMAP.md`. The wider HUD/UI remains deferred.
+
+2026-10-15, D-046 — Mac trackpad pinch: the owner requested spreading/pinching
+two fingers, rather than two-finger scrolling. `Stage2CameraFollow` accepts a
+continuous pinch scale ratio, sharing wheel zoom's smoothing, viewport clamp
+and original 0.5×..2× size bounds. Spread zooms in; pinch zooms out. Disable /
+enable preserves the original zoom limits and does not replay stale input.
+`Stage2MacTrackpad` reads an app-local AppKit magnify monitor from the original
+universal ARM64/x86_64 `Assets/Plugins/macOS/libNot3ATrackpad.dylib`.
+In the Editor, capture is enabled only in unpaused Play Mode with Game both
+focused and under the pointer; consumed gestures do not scale the Editor's
+Game-view toolbar setting. Focus loss, pause, Play exit and domain reload clear
+the monitor/pending deltas. No system-wide input listener or permission is used.
+The importer includes macOS Editor/player only, excluding Windows/Linux;
+preprocessor guards avoid native calls there. Mouse wheel behavior/settings stay
+available. This is Mac development input, not a new mobile/Mac release target.
+
+Native source/rebuild: `native/macos/Not3ATrackpad.mm`,
+`bash native/macos/build-trackpad.sh` (Apple Command Line Tools). After rebuilding,
+restart Unity because native libraries stay loaded; the committed `.meta`
+preserves platform restrictions. Initial setup/reconfiguration entry is
+`Not3A.Stage2.Integration.Editor.Stage2MacTrackpadPluginSetup.Configure`.
+Native checks: compile `native/macos/tests/TrackpadTests.mm` with clang++ C++17,
+ARC/blocks and `-framework AppKit`. They cover monitor lifetime, additive gesture
+scaling across polling rates, cancellation/focus reset and invalid input. Unity
+PlayMode also checks the real native library load, platform flags, pinch
+direction/bounds, neutral/invalid input, disable/resume, and wheel regression.
+Physical two-finger gesture acceptance is checked separately in the live Game view.
+Mac verification, 2026-10-15: native checks and Unity PlayMode 43/43 passed;
+live Console 0 errors/0 warnings. The owner tested pinch/spread and confirmed
+"Да, работает"; `S3_PINCH_INPUT` in the live log records actual native delivery.
+Shared result: `art/review/trackpad_zoom_2026-10-15_verification.json`;
+full logs: `Artifacts/S3-TRACKPAD-20261015/`.
+
+API references: [AppKit magnification](https://developer.apple.com/documentation/appkit/nsevent/magnification),
+[app-local event monitor](https://developer.apple.com/documentation/appkit/nsevent/addlocalmonitorforevents(matching:handler:)),
+[Unity native plug-in import settings](https://docs.unity.com/en-us/engine/6000.6/manual/programming-environment/plug-ins/plug-in-inspector).
+
+2026-10-15, D-045: the owner selected the I double rectangular zigzag and
+authorized a lower-left portal instead of redrawing the concept around the
+old upper-right entrance. The existing map asset now authors nine connected
+seven-wide road reaches, eight square bends, both endpoint reservations and
+an opt-in enemy-only gray-surface restriction. Rebuild entry:
+`Tools > Stage 3 > Invasion Road > Apply Accepted Double Zigzag`.
+The historical `Stage3DiagonalMapBuilder` file/entry is retained so ordinary
+Stage 3 rebuilds reproduce the selected route rather than restore the diagonal.
+Cartoon World live review frames the portal; the normal hero/resource starting
+position, camera tilt, zoom settings, billboard art and controls are unchanged.
+An overview image uses the same Game-camera orientation at a wider QA zoom;
+this does not change the player's authored zoom range.
+Mac/Metal verification: Map/Navigation EditMode 46/46, Stage 3 + Integration +
+RunState PlayMode 42/42. Actual Game-camera overview/portal images and JSON
+summary are under `art/review/invasion_route_*2026-10-15*`; full logs are in
+`Artifacts/S3-INVASION-ROAD-20261015/`. Owner tested and accepted the changed
+road; grass appearance is a separate follow-up and longer-route pacing remains
+open. The early roughly 17.2-cell distance study is not this blockout's scale.
+
 ## Acceptance
 
 - Shared fixed elevated view like the user's TD examples: readable ground,
@@ -346,7 +411,58 @@ unchanged square base, giving a visible red opening in the actual Game scene;
 the map's nine-cell exclusion and all spawn/navigation rules stay the same.
 The overall Stage 3 gate remains open.
 
-## Three approved resource concepts; runtime art review open — D-037/D-038
+## Approved resource sprites — D-048, following D-037/D-038
+
+2026-10-15, D-048 follow-up: owner requested new sprite previews for all three
+sources in the current cartoon B style. Preserve the chosen conifer/granite/
+rust-seamed iron identities and the camera angle. Original concepts are shape
+references, B is the style reference; built-in ImageGen produces transparent
+original cutouts, saved unchanged under
+`art/concepts/resource_sprite_review_2026-10-15/`. Prompts and source/output
+hashes are in `art/source/resource_sprite_preview_2026-10-15_*`. The owner
+approved all three previews and explicitly requested using them in the game.
+All three original RGBA previews are saved and inspected; input/output hashes
+and alpha checks passed. UI deletion compiled and was checked in actual Game,
+with Console 0 errors/0 warnings. Shared result/capture:
+`art/review/resource_preview_2026-10-15_verification.json`,
+`art/review/resource_direction_labels_removed_2026-10-15.png`.
+
+Runtime integration: exact PNG copies under
+`Assets/Stage3/ResourceSpritePilot/`, with single-sprite import settings and
+one shared existing unlit transparent sprite shader. `Stage3ResourceSprite`
+faces the tactical camera, sorts by ground anchor and clears the terrain along
+the view ray, keeping the painted footing registered to the original resource
+node. `Stage3TacticalPresentation` still places the visual at the same economy
+anchor/grass height; the existing parent marker hides and returns on depletion/
+recovery. There are no gameplay colliders or changes to gathering, stock,
+timers, map cells or minimap markers.
+
+Rebuild/wiring: `Tools > Stage 3 > Resource Sprites > Build and Wire`, or
+`Not3A.Stage3.VisualPilot.Editor.Stage3ResourceSpriteBuilder.BuildAndWire`.
+The existing `woodSourceModel`/`stoneSourceModel`/`metalSourceModel` serialized
+fields reference the new sprite prefabs; their names and old 3D assets are
+preserved. Ordinary Stage 3 and Cartoon World rebuilds retain this selection.
+Import computes scale from solid-alpha width, rather than transparent canvas
+margins, and authors the base pivot separately for foliage and rock footprints.
+PNG pixels remain unchanged. Texture metadata/prefabs hold runtime scale/pivot.
+Live review: `Tools > Stage 3 > Resource Sprites > Open Live Review`; the three
+`Frame ...` commands are Editor-only QA framing, not player camera controls.
+Verification: Mac/Metal Stage 3 + Integration + RunState PlayMode 46/46 passed
+(42.62 s, no skips). Affected resource checks now exercise sprite size/footing,
+camera alignment, no duplicated mesh/collider, depletion/recovery/reset and
+actual rendered visibility at sizes 5 and 2.5. The initial footing assertion
+was corrected to use the existing grass relief rather than the flat rules
+plane; final run passed. Existing camera/trackpad, minimap, paid defense,
+combat and full-run/restart checks passed. All six real Game-camera frames
+were inspected. Interactive Game review visited all three nodes with an
+E-gather prompt; Console 0 errors/0 warnings. All 90 preexisting review/settings
+files were restored and hash-verified after keeping fresh captures separately.
+The accepted road/map is byte-identical; Windows was not rebuilt/run on Mac.
+Evidence: `Artifacts/S3-RESOURCE-SPRITES-20261015/`; shared captures/result:
+`art/review/resource_sprite_*2026-10-15*`; original/runtime PNG provenance:
+`art/source/resource_sprites_2026-10-15_provenance.json`.
+
+### Earlier 3D resource trial (preserved history)
 
 The existing wood, stone and metal nodes now use original Blender models:
 wood B is a compact conifer, stone A is a pale granite boulder and metal is

@@ -10,6 +10,238 @@ D-017: каждый новый Stage 2–7 ведёт новый агент в �
 в `reports/development-roadmap.html`; внутри stage мелкие задачи не дробятся
 по агентам. На переходе обновляются этот handoff и канонический план.
 
+### 2026-10-15 — Approved resource sprites in the game
+
+- Owner/surface: current Stage 3 chat; three sprite imports/prefabs, narrow
+  camera-facing resource view, existing tactical resource binding/builders,
+  actual-scene resource checks and canonical art/spec docs.
+- Authorization: owner approved all three D-048 previews and explicitly asked
+  to put them in the game. Use those exact PNGs, preserving their source files.
+- Dependencies/acceptance: keep the existing wood/stone/metal anchors, gather
+  interaction, stocks/recovery, minimap and run reset; visible grounded sprites
+  at opening/close zoom, no gameplay colliders, no duplicated 3D model; preserve
+  the current map, terrain, camera and earlier changes. Standard builders must
+  reproduce sprite wiring. Verify lifecycle/real rendering and live Console.
+- Implementation: exact approved PNG copies and three new prefabs in
+  `Assets/Stage3/ResourceSpritePilot/`, shared existing unlit sprite treatment,
+  alpha-based visible scale/custom footing pivots and ground-anchor sorting.
+  Existing scene changed only its three resource visual references. Normal
+  Stage 3/Cartoon World rebuilds retain the sprites; 3D sources stay preserved.
+- Verification: Mac/Metal Stage 3 + Integration + RunState PlayMode 46/46 passed
+  (42.62 s, no skips). Updated legacy mesh checks cover one visible sprite/no
+  duplicate mesh or collider, original anchors/grass relief, size/pivot/camera
+  alignment, depletion/recovery/reset and actual rendered pixels at size 5/2.5.
+  Existing minimap, input/trackpad, building, combat, full run/restart checks pass.
+  All six default/close Game-camera captures inspected. Interactive Game review
+  visited each resource with the nearby E-gather prompt; Console 0 errors and
+  0 warnings. All 90 preexisting review/settings files restored/hash-verified;
+  fresh captures kept separately. Accepted road/map remains byte-identical.
+  Evidence: `Artifacts/S3-RESOURCE-SPRITES-20261015/`; shared frames/result:
+  `art/review/resource_sprite_*2026-10-15*`. PNG copies/source provenance:
+  `art/source/resource_sprites_2026-10-15_provenance.json`.
+- Remaining: owner live appearance feedback; no implementation blocker. Editor
+  is running beside the ore node. No Windows build/run performed on this Mac;
+  wider Stage 3 gate remains open.
+
+### 2026-10-15 — Remove resource direction labels; resource sprite previews
+
+- Owner/surface: current Stage 3 chat; resource-direction rendering in
+  `Stage2GameComposition`, original ImageGen previews and canonical art/spec docs.
+  Depends on the current cartoon B scene and approved D-037/D-038 resource shapes.
+- Authorization/acceptance: remove floating `Stone W+A` / `Wood W+D` labels;
+  prepare previews now (owner clarified the voice-transcribed timing). Keep the
+  conifer, pale granite boulder and rust-seamed iron outcrop identities, rendered
+  as cartoon sprites for review. This request is previews, not runtime replacement.
+- Implementation: remove floating resource boxes and keyboard-direction suffixes
+  from the temporary source readout. Resource counts/distances, nearby gathering
+  prompt, minimap markers and economy remain existing behavior.
+- Verification: refreshed/compiled in Unity and inspected the real live Game;
+  floating resource boxes and direction suffixes are gone, minimap/resource
+  counters remain, Console 0 errors/0 warnings. Actual frame:
+  `art/review/resource_direction_labels_removed_2026-10-15.png`.
+  No new tests or broad rerun for this label-only deletion. Three distinct
+  original RGBA previews saved unchanged under
+  `art/concepts/resource_sprite_review_2026-10-15/`; transparent corners and
+  visible content verified. Stone/ore had a separate background-cleanup pass;
+  prompts/source/output hashes: `art/source/resource_sprite_preview_2026-10-15_*`.
+  Existing runtime resource prefabs match pre-change HEAD. Summary/evidence:
+  `art/review/resource_preview_2026-10-15_verification.json`,
+  `Artifacts/S3-RESOURCE-PREVIEW-20261015/`. Earlier minimap capture restored
+  byte-identically after the new frame was saved separately.
+- Remaining: owner assessment of the three previews. No runtime sprite
+  replacement in this request. Wider UI and Stage 3 gate remain open.
+
+### 2026-10-15 — Bottom-left minimap
+
+- Owner/surface: current Stage 3 chat; narrow minimap presentation in Integration,
+  Stage 3 binding, pointer exclusion in build/camera input and relevant tests.
+  Depends on authored map cells, existing actor/run state and tactical camera.
+- Request/acceptance: owner authorized this UI element now while the wider UI
+  remains deferred. Bottom-left map must show the whole road/world, live hero,
+  portal/throne, resources, towers/enemies and current camera footprint; follow
+  movement/zoom/reset, resize within the screen and prevent building through it.
+- Approach: cached schematic terrain and live markers in the existing immediate
+  HUD path; no extra world-rendering camera, packages or final UI stack migration.
+  Passive map only: no new movement command, camera pan, fog or exploration rule.
+- Implementation: `Stage2Minimap` caches authored terrain and reads live marker
+  state; `Stage3TacticalPresentation` creates/binds it at runtime. Existing
+  build/camera drivers take a scene-owned pointer blocker, with teardown cleanup.
+  No scene/material/map asset or package changed for this feature.
+- Verification: Mac/Metal Stage 3 + Integration + RunState PlayMode 46/46 passed
+  (42.26 s, no skips). Three new tests cover every terrain cell, live movement/
+  actor removal/resource depletion/recovery/reset, viewport layout/edge zoom and
+  an otherwise valid purchase blocked through the panel, with outside purchase
+  still succeeding. Existing 43 camera/trackpad/gameplay checks passed.
+  Interactive Game captures at 819×556 and 1206×614 were visually checked;
+  real WASD movement moved the hero/camera outline and ordinary wave creeps
+  appeared along the zigzag. Final observed Console: 0 errors, 0 warnings.
+  The first batch screenshot attempt had no displayed Game surface; visual
+  capture moved to the interactive Editor and passed. Raw initial evidence kept.
+  All 85 preexisting review/settings files restored and hash-verified after
+  retaining fresh test captures separately. Evidence: `Artifacts/S3-MINIMAP-20261015/`;
+  shared image/summary: `art/review/minimap_{game,2026-10-15_verification}*`.
+- Remaining: owner appearance feedback; no implementation blocker. Editor is
+  open in a fresh ordinary Play review, original panel layout restored. Windows
+  build/run not performed on this Mac. Wider UI and Stage 3 gate remain open.
+
+### 2026-10-15 — Mac trackpad pinch zoom
+
+- Owner/surface: current Stage 3 chat; `Stage2CameraFollow`, narrow AppKit
+  adapter/native library + source/build script, importer metadata and camera
+  regression test. Depends on existing tactical zoom, camera clamp and Input System.
+- Authorization/acceptance: owner clarified two-finger pinch/spread on the Mac
+  trackpad. Continuous zoom shares wheel smoothing and 0.5×..2× bounds; wheel
+  remains usable. Native monitor acts only over the focused live Game view and
+  clears on focus loss, Editor pause, Play exit/domain reload. Windows excludes
+  this binary and never calls the native adapter.
+- Verification: native source compiled universal ARM64/x86_64 and ad-hoc signed;
+  native AppKit monitor/ratio/reset/invalid-input checks passed. Unity importer
+  configured macOS only. Stage 3 + Integration + RunState PlayMode passed 43/43
+  (39.38 s, no skips), including actual native loading, zoom bounds, disable/
+  resume and existing wheel/movement/combat regressions. All 84 preexisting
+  art/review/settings files restored and hash-verified; fresh test captures kept
+  separately. Live Mac/Metal Game view is open in Play; observed Console has
+  0 errors and 0 warnings. Evidence: `Artifacts/S3-TRACKPAD-20261015/`;
+  shared summary: `art/review/trackpad_zoom_2026-10-15_verification.json`.
+  Owner physically tested pinch/spread in the live Game view and confirmed
+  "Да, работает"; the live log also records native `S3_PINCH_INPUT` samples.
+- Remaining: no open work for this input request. Intel slice compiled/signed
+  only; Windows build/run not performed. The wider Stage 3 appearance/pacing
+  review stays open.
+
+### 2026-10-15 — Accepted invasion road and lower-left portal
+
+- Owner/surface: current Stage 3 chat; existing Stage 3 map builder/asset,
+  opt-in map/navigation contract, live review framing and affected tests/docs.
+  Depends on I's owner-accepted shape, existing hero movement, paid tower
+  occupancy, enemy detours/siege and camera-facing landmark sprites.
+- Authorization: keep I's horizontal double rectangular zigzag, seven tower
+  footprints across. The owner allowed a lower-left portal if relocation is
+  straightforward; spawning and landmarks already consume authored map anchors,
+  so use that option. No new drawing or upper-right redraw is necessary.
+- Implementation: existing `Stage3PlanarCorner` in the 100×100 world, nine
+  connected seven-cell strips/eight right-angle bends, updated endpoint
+  reservations and gray-only building mask. `EnemiesStayOnInvasionCorridor`
+  restricts enemy navigation while keeping hero/resource walkability intact.
+  Default false preserves earlier Stage 2 routing/hashes. Existing Stage 3
+  rebuilds reproduce the new layout. Cartoon World live review frames the portal.
+- Observable acceptance: width seven on all nine reaches; one connected road;
+  enemy traverses both detours without grass shortcuts, six towers leave a
+  passage and seven cause siege, release/reset restore navigation; portal
+  spawns enemies, faces the Game camera and renders above the paving.
+- Verification: Mac/Metal Map+Navigation EditMode 46/46 (0.55 s) and Stage 3,
+  Integration+RunState PlayMode 42/42 (33.17 s), no skips. Existing short-road
+  capture timing/off-screen pointer setup updated; capture pre-roll uses normal
+  run/enemy ticks before combat, and full-run guard allows the longer route.
+  Ordinary combat, victory/restart and the complete unopposed enemy traversal
+  passed. Width tested transversely on all nine reaches; portal front/base
+  visibility checked by the actual Game camera. No combat tuning changed.
+  Actual route: 196 visited cells/195 steps, direct endpoint distance 91.24 cells;
+  initial 17.20-cell concept target is not the scale of this blockout. At the
+  existing 2.2-cell/s movement this is roughly 89 s before frame rounding/detours.
+  Evidence: `Artifacts/S3-INVASION-ROAD-20261015/`; shareable captures and summary:
+  `art/review/invasion_route_{game_overview,portal_lower_left}_2026-10-15.png`,
+  `art/review/invasion_route_2026-10-15_verification.json`. All 81 preexisting
+  reference/settings files were restored and hash-verified after fresh captures
+  were retained separately. Windows was not rebuilt/retested on this Mac.
+- Owner follow-up, 2026-10-15: tested the changed road and confirmed it is fine.
+  Road review accepted; grass appearance raised separately. Hash comparison to
+  pre-road HEAD confirms identical CartoonMeadowV2 PNG/import settings,
+  TacticalGrass/GrassVerge materials, terrain shader/UV code and scene wiring.
+  Live review now frames the lower-left portal instead of the old midpoint.
+- Remaining: longer travel/pacing assessment; grass appearance clarification.
+  Unity live review is open in Play Mode at the lower-left portal; observed
+  Console: 0 errors, 0 warnings, portal front fully visible. Stage 3 stays open.
+
+### 2026-10-15 — Winding invasion route concept review (historical exploration)
+
+Historical concept handoff, superseded by the accepted-road implementation above.
+
+- Owner/surface: current chat; ImageGen layout references under `art/concepts/`
+  and the current design/handoff documents. Depends on the current Stage 3
+  cartoon scene, original B board and existing map/navigation contracts.
+- Request: explore a winding gray invasion/building zone, with roughly twice
+  the existing portal-to-objective straight-line distance. Large explorable
+  world is the longer-term direction; final world bounds are not selected.
+- Current acceptance: ONE horizontal DOUBLE RECTANGULAR ZIGZAG road of uniform
+  about SEVEN tower ground footprints width, no branches, portal and throne
+  at its two ends. Use the B gameplay strip's gray paving/grass style. Preserve
+  room for player-built mazes, original art and prompts/provenance. The earlier
+  organic/variable-width and single vertical studies below are superseded.
+  No runtime map, scene, camera or mechanic change in this task.
+- Verification: all three original reference PNGs were visually inspected and
+  copied unchanged into `art/concepts/invasion_route_review_2026-10-15/`.
+  Exact generation/refinement prompts, input/output SHA256 and provenance are
+  in `art/source/invasion_route_concepts_2026-10-15_{prompts,provenance}.json`.
+  C was refined once to remove an unintended road spur beyond the objective.
+  Current endpoints are (46,44)/(39,39): 8.60 cells direct, giving 17.20 cells
+  for a 2x comparison. Image geometry is illustrative, not a measured map.
+  Current navigation allows green terrain; future routing must prevent that
+  shortcut while preserving hero resource travel and local tower detour/siege.
+  Runtime/scene/package files are unchanged; gameplay tests were not rerun for
+  this concept-only work.
+- Owner correction: first A/B/C were too road-like. The original TD uses towers
+  as blockers; the player, not narrow terrain, creates the repeated zigzag.
+  A's earlier recommendation is withdrawn. D1 shows the wide, gently curved
+  construction field; D2 edits that same field with alternating tower barriers
+  and an illustrative gold route through their open ends. All output PNGs are
+  unchanged ImageGen originals. New prompts/hashes/provenance:
+  `art/source/maze_field_width_review_2026-10-15_{prompts,provenance}.json`.
+  12–16 usable construction cells across is a starting hypothesis for blockout,
+  not accepted tuning or measured image geometry. Example tower counts do not
+  select economy. Current full-block/siege behavior stays unchanged.
+- Further owner correction: D1/D2 rejected as oval/plaza-like. The gray area
+  must remain an organically winding wide road, not a straight construction
+  arena. E restores an asymmetrical S/meander and irregular worn shoulders;
+  it is a new candidate, not an accepted result. Original output is retained as
+  `art/concepts/invasion_route_review_2026-10-15/e_natural_wide_road.png`.
+  Prompts/source hashes: `art/source/natural_wide_road_2026-10-15_*`.
+- Quantified owner correction: E is still too narrow. Broad sections must fit
+  7–8 tower ground footprints transversely; short necks may fit about 3. This
+  supersedes the earlier agent-proposed 12–16-cell hypothesis. New F candidate
+  `f_variable_width_road.png` has countable 8/3 scale rows, with unchanged PNG
+  copy and prompts/source hashes in `art/source/variable_width_road_2026-10-15_*`.
+  Initial generated attempt was discarded for an unwanted branch and a row
+  along the reach; refinement uses the continuous E road as its edit target.
+  Painted perspective/row direction do not certify usable grid width. No Unity
+  tests rerun for concept-only work. Owner next requested the original B board:
+  `art/concepts/sprite_style_review_2026-10-15/b_cartoon_2d.png`, lower gameplay
+  strip road; found and opened. This does not select a new runtime layout.
+- Latest owner correction: B road style confirmed, then uniform five-wide
+  rectangular road requested; H single vertical zigzag was corrected to width
+  seven, DOUBLE zigzag and HORIZONTAL composition. Current I original PNG:
+  `art/concepts/invasion_route_review_2026-10-15/i_horizontal_double_zigzag_7wide.png`.
+  Exact original SVG guide, prompts and hashes:
+  `art/source/horizontal_double_zigzag_7wide_2026-10-15_*`. Guide has one open
+  nine-segment polyline, eight square turns, width 7 and seven transverse
+  footprint markers. Initial I generation was discarded for projection/count
+  drift; final uses only the exact guide as edit input. Final route visually
+  inspected, PNG copied byte-identically, JSON parses and diff whitespace
+  checked. Generated paving/markers are illustrative, not certified Unity cells.
+- Remaining: owner review of I, then measured width/layout/shortest-route
+  blockout before map/navigation implementation. Stage 3 remains open;
+  Stage 4 is not started. No gameplay tests rerun for concept-only changes.
+
 ### 2026-10-15 — Mac Editor startup and shared Windows development
 
 - Owner/surface: chat `Запуск и продолжение Not 3A Game`; local Mac Unity

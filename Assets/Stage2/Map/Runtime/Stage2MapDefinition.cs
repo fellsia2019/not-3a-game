@@ -268,6 +268,7 @@ namespace Not3A.Stage2.Map
         [Header("Masks")]
         [SerializeField] private MapCellMask walkableMask = new MapCellMask(true, null, null);
         [SerializeField] private MapCellMask buildableMask = new MapCellMask(true, null, null);
+        [SerializeField] private bool enemiesStayOnInvasionCorridor;
 
         [Header("Landmarks")]
         [SerializeField] private bool hasEnemyEntrance;
@@ -288,6 +289,7 @@ namespace Not3A.Stage2.Map
         public Vector2Int MaximumCell => cellBounds.MaximumInclusive;
         public Vector2Int Size => cellBounds.Size;
         public bool HasEnemyEntrance => hasEnemyEntrance;
+        public bool EnemiesStayOnInvasionCorridor => enemiesStayOnInvasionCorridor;
         public Vector2Int EnemyEntrance => enemyEntrance;
         public bool HasThrone => hasThrone;
         public Vector2Int Throne => throne;
@@ -402,11 +404,14 @@ namespace Not3A.Stage2.Map
             HashColor(ref hash, corridorDebugColor);
             // Keep existing Stage 2 hashes stable; the opt-in planar migration has a distinct hash.
             if (planarGrid) HashInt(ref hash, 3);
+            // Existing maps retain their hashes until this routing policy is opted in.
+            if (enemiesStayOnInvasionCorridor) HashInt(ref hash, 7);
             return hash.ToString("X16", CultureInfo.InvariantCulture);
         }
 
 #if UNITY_EDITOR
         public void UsePlanarGridForEditor() => planarGrid = true;
+        public void KeepEnemiesOnInvasionCorridorForEditor() => enemiesStayOnInvasionCorridor = true;
 
         public void ConfigureForEditor(
             MapCellArea authoredCellBounds,

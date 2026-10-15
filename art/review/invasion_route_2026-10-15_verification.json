@@ -1,0 +1,81 @@
+{
+  "date": "2026-10-15",
+  "unity": "6000.6.2f1",
+  "platform": "macOS Apple Silicon, Metal",
+  "status": "Automated verification passed; live appearance/pacing owner review remains open.",
+  "map_asset": "Assets/Stage3/VisualPilot/Stage3PlanarCorner.asset",
+  "map_content_hash": "E6FB753923172F2A",
+  "map_file_sha256": "b7c1ea6662990a1c35eecebb7696d39dba41e397c521f3bc4a4d4a2f17885f15",
+  "map_size": [
+    100,
+    100
+  ],
+  "anchors": {
+    "enemyEntrance": [
+      -42,
+      -30
+    ],
+    "throne": [
+      39,
+      12
+    ]
+  },
+  "straight_distance_cells": 91.2414379544733,
+  "road_width_cells": 7,
+  "straight_reaches": 9,
+  "right_angle_turns": 8,
+  "unopposed_enemy_unique_visited_cells": 196,
+  "unopposed_route_steps": 195,
+  "estimated_continuous_travel_seconds_at_2_2_cells_per_second": 88.63636363636363,
+  "travel_note": "Estimate excludes per-step frame rounding and tower detours; actual full route traversal and throne damage passed. Selected wide double zigzag is larger than the early roughly 17.2-cell direct-distance study target.",
+  "contracts": [
+    "Enemy-only gray-surface navigation; hero green walkability preserved.",
+    "Six-tower partial barrier leaves passage; seven invokes blocker/siege plan; release/reset recover.",
+    "Portal sprite remains camera-facing and renders above paving.",
+    "Existing input, camera orientation, wave/economy/damage tuning preserved."
+  ],
+  "tests": {
+    "editmode": {
+      "result": "Passed",
+      "total": "46",
+      "passed": "46",
+      "failed": "0",
+      "skipped": "0",
+      "duration": "0.553129",
+      "report": "Artifacts/S3-INVASION-ROAD-20261015/editmode-final.xml"
+    },
+    "playmode": {
+      "result": "Passed",
+      "total": "42",
+      "passed": "42",
+      "failed": "0",
+      "skipped": "0",
+      "duration": "33.1747705",
+      "report": "Artifacts/S3-INVASION-ROAD-20261015/playmode-verified.xml"
+    }
+  },
+  "captures": [
+    {
+      "path": "art/review/invasion_route_game_overview_2026-10-15.png",
+      "sha256": "935c2d1576620afd4116878e986da1caf743ad1e9b69908d2c897de61cee0bc4",
+      "source": "Artifacts/S3-INVASION-ROAD-20261015/route-overview.png",
+      "byte_identical": true
+    },
+    {
+      "path": "art/review/invasion_route_portal_lower_left_2026-10-15.png",
+      "sha256": "ed3ec268368bf5dc50fd3be8c1ed1dc92a4faa66cfb289b271aec9769894c3af",
+      "source": "Artifacts/S3-INVASION-ROAD-20261015/portal-lower-left.png",
+      "byte_identical": true
+    }
+  ],
+  "preexisting_files_restored_and_hash_verified": 81,
+  "evidence_folder": "Artifacts/S3-INVASION-ROAD-20261015",
+  "windows_note": "No fresh Windows build/run in this Mac verification.",
+  "live_editor_observation": {
+    "scene": "Assets/Scenes/Stage3Rapid3DGamePilot.unity",
+    "state": "Play Mode at lower-left portal",
+    "console_errors": 0,
+    "console_warnings": 0,
+    "portal_front_visible": true
+  }
+}

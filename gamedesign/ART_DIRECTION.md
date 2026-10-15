@@ -46,6 +46,21 @@ Approved portal/soul art is preserved. Runtime acceptance remains open.
 
 ## Stage 3 — Shared Tactical View (D-019)
 
+2026-10-15, D-048: the owner requested previews for cartoon resource sprites,
+retaining D-037/D-038's approved conifer, pale granite and rust-seamed iron
+outcrop. Match B's painted volumes, dark outlines and fixed tactical view.
+Original transparent ImageGen previews go to
+`art/concepts/resource_sprite_review_2026-10-15/`; prompts/provenance:
+`art/source/resource_sprite_preview_2026-10-15_*`. The owner approved all three
+and requested runtime use. Exact PNG copies and new sprite prefabs are under
+`Assets/Stage3/ResourceSpritePilot/`; keep the original 3D sources separately.
+Use the fixed camera, grounded contact pivot and existing unlit sprite treatment.
+Terrain and resource rules remain existing behavior. Integration passed Mac
+PlayMode 46/46 and live review of all three resources. Actual Game-camera frames:
+`art/review/resource_sprite_*2026-10-15*`; exact runtime/source hashes:
+`art/source/resource_sprites_2026-10-15_provenance.json`. Owner approval of the
+preview art and feedback on the live scale/readability are separate observations.
+
 2026-10-15, D-039: the owner authorized a direct cartoon-sprite walk trial
 using skeleton B from `art/concepts/sprite_style_review_2026-10-15/`.
 `Assets/Stage3/SkeletonSpritePilot/SkeletonWalk.png` is original built-in

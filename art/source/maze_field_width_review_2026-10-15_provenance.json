@@ -1,0 +1,44 @@
+{
+  "date": "2026-10-15",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "art/source/maze_field_width_review_2026-10-15_prompts.json",
+  "purpose": "Owner clarification of original mazing TD: a broad buildable invasion field; player towers create the zigzag while leaving open passage. Illustrative review only.",
+  "rights": "Original AI-generated project artwork. Only project-created gameplay/concept images used as references. No third-party input or runtime asset copying.",
+  "references": [
+    {
+      "path": "art/review/astra_world_game_overview.png",
+      "sha256": "20b6ff0c5c0c00a85e4571441f26d20aeca88fb9bc1afe8b07a1c66dad1f1842"
+    },
+    {
+      "path": "art/concepts/invasion_route_review_2026-10-15/a_wide_s.png",
+      "sha256": "f0643b1109d9413b461dea530c2186bc1a7027c60f4858d7388f9148d0f1d05a"
+    }
+  ],
+  "entries": [
+    {
+      "path": "art/concepts/invasion_route_review_2026-10-15/d1_open_building_field.png",
+      "generation_output": "/Users/artemmusket/.codex/generated_images/01a14054-81d2-75b1-a100-d954bacec6f2/exec-8138863a-6537-4b34-a9a9-2589e9d2799f.png",
+      "sha256": "608bf3a5d7f6dcbfb44417ae7180fd59d0136c6079f85ee820a1fa86c2ed651a",
+      "width": 1672,
+      "height": 941,
+      "byte_identical_to_generation": true
+    },
+    {
+      "path": "art/concepts/invasion_route_review_2026-10-15/d2_player_built_maze.png",
+      "generation_output": "/Users/artemmusket/.codex/generated_images/01a14054-81d2-75b1-a100-d954bacec6f2/exec-bf4dacf9-5475-4750-8bd0-431431cb533e.png",
+      "sha256": "3d06d766270c41237024535960e9f5ca5ea7d3f9c6d025700b875b443a964050",
+      "width": 1672,
+      "height": 941,
+      "byte_identical_to_generation": true
+    }
+  ],
+  "revision": "D2 derived from D1, then refined once to extend alternating tower rows to opposite gray-area boundaries. Discarded intermediate output remains only in the generator output folder.",
+  "limits": [
+    "Construction-cell width 12-16 is an agent sketch hypothesis, not accepted geometry or a pixel-measured grid.",
+    "Gold arrows explain an intended example route, not an implemented navigation result.",
+    "The example tower count is illustrative; no prices, starting resources or wave balance changed.",
+    "Existing full-block/siege behavior is unchanged; example deliberately leaves an open route."
+  ],
+  "review_status": "D1/D2 rejected by owner: too oval/plaza-like. The required surface is still a natural winding wide road with space for player-built mazes.",
+  "followup_provenance": "art/source/natural_wide_road_2026-10-15_provenance.json"
+}

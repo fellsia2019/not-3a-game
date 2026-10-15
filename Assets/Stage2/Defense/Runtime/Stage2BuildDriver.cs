@@ -29,10 +29,14 @@ namespace Not3A.Stage2.Defense
         private InputAction secondRoleAction;
         private Stage2BuildPhase phase = Stage2BuildPhase.Inactive;
         private bool paused;
+        private Func<Vector2, bool> pointerBlocker;
 
         public Stage2Defense Defense => defense;
         public PlacementResult PreviewResult { get; private set; } = PlacementResult.NotPlacing;
         public SpriteRenderer PreviewRenderer => ghost;
+        public bool PointerOverUi { get; private set; }
+
+        public void SetPointerBlocker(Func<Vector2, bool> blocker) => pointerBlocker = blocker;
 
         public bool TryScreenToCell(Vector2 screen, out Vector2Int cell)
         {
@@ -146,6 +150,8 @@ namespace Not3A.Stage2.Defense
         private void Update()
         {
             if (defense == null) return;
+            PointerOverUi = Mouse.current != null && pointerBlocker != null &&
+                pointerBlocker(Mouse.current.position.ReadValue());
             var buildPressed = buildAction != null && buildAction.WasPressedThisFrame();
             var cancelPressed = cancelAction != null && cancelAction.WasPressedThisFrame();
             if (firstRoleAction != null && firstRoleAction.WasPressedThisFrame() && defense.SelectRole(0))
@@ -158,6 +164,12 @@ namespace Not3A.Stage2.Defense
 
             if (defense.IsPlacing && Mouse.current != null)
             {
+                if (PointerOverUi)
+                {
+                    PreviewResult = PlacementResult.InvalidCell;
+                    SyncBuildMode();
+                    return;
+                }
                 var screen = Mouse.current.position.ReadValue();
                 if (!TryScreenToCell(screen, out var cell)) return;
                 defense.SetPreviewCell(cell);
@@ -180,7 +192,7 @@ namespace Not3A.Stage2.Defense
         {
             var placing = defense != null && defense.IsPlacing;
             gathering?.SetBuildMode(placing);
-            if (ghost != null) ghost.gameObject.SetActive(placing);
+            if (ghost != null) ghost.gameObject.SetActive(placing && !PointerOverUi);
         }
 
         private void CreateGhost()

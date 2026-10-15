@@ -1,5 +1,14 @@
 # Feature: Player-Shaped Enemy Pathing
 
+2026-10-15, D-045: the Stage 3 map opts into
+`Stage2MapDefinition.EnemiesStayOnInvasionCorridor`. `Stage2Navigation`
+combines the authored walkable mask with the gray surface for enemy searches,
+preventing shortcuts across the new double zigzag. `IsWalkable` remains the
+hero's mask, so green resource travel stays open. The flag defaults to false
+for earlier Stage 2 maps; their hashes/routing remain unchanged. The opted-in
+policy contributes to the content hash. Tower occupancy, shortest-path detours,
+full-block siege, revision invalidation and reset contracts stay unchanged.
+
 Status: Stage 1 complete and human-accepted, 2026-09-21;
 Stage 2 S2-MAP-02 navigation complete, 2026-09-22;
 S2-AI-02 continuous enemy/siege implementation complete, 2026-09-24

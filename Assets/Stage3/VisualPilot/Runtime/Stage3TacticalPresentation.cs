@@ -55,6 +55,9 @@ namespace Not3A.Stage3.VisualPilot
             bootstrap = GetComponent<Stage2SceneBootstrap>();
             composition = GetComponent<Stage2GameComposition>();
             if (bootstrap == null || composition == null || !composition.IsInitialized) yield break;
+            var minimap = GetComponent<Stage2Minimap>();
+            if (minimap == null) minimap = gameObject.AddComponent<Stage2Minimap>();
+            minimap.Initialize(bootstrap, composition);
             BuildSurface();
             Stage3LandscapeProps.Build(bootstrap.MapDefinition, transform,
                 new[] {
@@ -116,6 +119,8 @@ namespace Not3A.Stage3.VisualPilot
                     var visual = Instantiate(model, marker, false);
                     visual.transform.localPosition = new Vector3(0, 0,
                         GrassSurfaceZ(composition.Gathering.Economy.WorldPosition((MapResourceKind)i)));
+                    var sprite = visual.GetComponent<Stage3ResourceSprite>();
+                    if (sprite != null) sprite.Bind(bootstrap.CameraFollow.BoundCamera);
                 }
                 else
                     Solid(marker, "Resource scale marker", i == 1 ? PrimitiveType.Sphere : PrimitiveType.Cylinder,
@@ -191,7 +196,7 @@ namespace Not3A.Stage3.VisualPilot
             var driver = composition.Building;
             var defense = driver.Defense;
             if (driver.PreviewRenderer != null) driver.PreviewRenderer.enabled = false;
-            if (!defense.IsPlacing || !defense.PreviewCell.HasValue)
+            if (!defense.IsPlacing || !defense.PreviewCell.HasValue || driver.PointerOverUi)
             {
                 if (preview != null) preview.SetActive(false);
                 return;

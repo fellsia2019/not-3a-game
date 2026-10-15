@@ -68,6 +68,7 @@ namespace Not3A.Stage2.Defense
         public event Action<Stage2Tower> Built;
         public bool IsPlacing => placing;
         public int TowerCount => towers.Count;
+        public Stage2Tower GetTower(int index) => towers[index];
         public Vector2Int? PreviewCell => previewCell;
         public int RoleCount => catalogs.Count;
         public int SelectedRoleIndex => selectedCatalogIndex;
