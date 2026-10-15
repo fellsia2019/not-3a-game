@@ -29,7 +29,9 @@ Stage 4 не начат. Точное состояние — в [плане](gam
 
 1. На Mac клонировать актуальную ветку `main` из публичного репозитория
    `https://github.com/fellsia2019/not-3a-game` (например,
-   `git clone https://github.com/fellsia2019/not-3a-game.git`). В Git сохранены
+   `git clone --depth 1 https://github.com/fellsia2019/not-3a-game.git`).
+   Такой перенос берёт текущее состояние без старых удалённых QA-записей из
+   истории. В Git сохранены
    `Assets/` с `.meta`, `Packages/`, `ProjectSettings/`, `art/`, вся проектная
    документация и `concepts_visual_scene/`. Для дальнейших обновлений в
    этой папке использовать обычный `git pull`.
