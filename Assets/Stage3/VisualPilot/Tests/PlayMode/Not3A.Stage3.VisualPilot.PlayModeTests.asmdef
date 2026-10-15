@@ -1,0 +1,24 @@
+{
+  "name": "Not3A.Stage3.VisualPilot.PlayModeTests",
+  "rootNamespace": "Not3A.Stage3.VisualPilot.Tests",
+  "references": [
+    "Not3A.Stage2.Map",
+    "Not3A.Stage2.Integration",
+    "Not3A.Stage2.Economy",
+    "Not3A.Stage2.Defense",
+    "Not3A.Stage2.RunState",
+    "Not3A.Stage2.WavesAI",
+    "Unity.InputSystem",
+    "Unity.InputSystem.TestFramework"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": false,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false,
+  "optionalUnityReferences": ["TestAssemblies"]
+}

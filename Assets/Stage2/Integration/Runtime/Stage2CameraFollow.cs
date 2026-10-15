@@ -1,6 +1,7 @@
 using Not3A.Stage1;
 using Not3A.Stage2.Map;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Not3A.Stage2.Integration
 {
@@ -11,10 +12,42 @@ namespace Not3A.Stage2.Integration
         [SerializeField] private Transform target;
         [SerializeField] private Stage2MapDefinition mapDefinition;
         [SerializeField, Min(0f)] private float smoothing = 7f;
+        [SerializeField] private bool tacticalView;
+        [SerializeField] private Vector3 tacticalOffset = new Vector3(0f, -11.47f, -16.38f);
+        [SerializeField] private Stage2CameraZoomSettings zoomSettings;
+        private float tacticalStartingSize;
+        private float tacticalTargetSize;
+        private int zoomDiagnosticsRemaining = 4;
 
         public Transform Target => target;
         public Stage2MapDefinition MapDefinition => mapDefinition;
         public Camera BoundCamera => GetComponent<Camera>();
+        public bool TacticalView => tacticalView;
+        public Stage2CameraZoomSettings ZoomSettings => zoomSettings;
+
+        public void ConfigureTacticalZoom(Stage2CameraZoomSettings settings)
+        {
+            zoomSettings = settings;
+        }
+
+        private void OnEnable()
+        {
+            if (!tacticalView) return;
+            tacticalStartingSize = BoundCamera.orthographicSize;
+            tacticalTargetSize = tacticalStartingSize;
+            ApplyFollow(true);
+        }
+
+        public void ConfigureTacticalView(float startingSize = 5f)
+        {
+            tacticalView = true;
+            transform.rotation = Quaternion.Euler(-35f, 0f, 0f);
+            tacticalOffset = -transform.forward * 20f;
+            BoundCamera.orthographicSize = startingSize;
+            tacticalStartingSize = BoundCamera.orthographicSize;
+            tacticalTargetSize = tacticalStartingSize;
+            SnapToTarget();
+        }
 
         public void Configure(Transform followTarget, Stage2MapDefinition definition, float smooth)
         {
@@ -30,7 +63,29 @@ namespace Not3A.Stage2.Integration
 
         private void LateUpdate()
         {
+            if (tacticalView)
+            {
+                var camera = BoundCamera;
+                var factor = 1f - Mathf.Exp(-7f * Time.deltaTime);
+                camera.orthographicSize = Mathf.Lerp(camera.orthographicSize, tacticalTargetSize, factor);
+            }
             ApplyFollow(false);
+        }
+
+        private void Update()
+        {
+            if (!tacticalView || Mouse.current == null || tacticalStartingSize <= 0f) return;
+            var scroll = Mouse.current.scroll.ReadValue().y;
+            if (scroll == 0f) return;
+            // Input System reports a delta whose units vary by device. A small
+            // nonzero wheel event is still a deliberate zoom step.
+            var steps = Mathf.Sign(scroll) * Mathf.Max(1f, Mathf.Abs(scroll) / 120f);
+            var multiplier = zoomSettings != null ? zoomSettings.StepMultiplier : 1.4f;
+            tacticalTargetSize = Mathf.Clamp(
+                tacticalTargetSize * Mathf.Pow(multiplier, -steps),
+                tacticalStartingSize * .5f, tacticalStartingSize * 2f);
+            if (zoomDiagnosticsRemaining-- > 0)
+                Debug.Log($"S3_ZOOM_INPUT raw={scroll:0.###} steps={steps:0.###} target={tacticalTargetSize:0.###}");
         }
 
         private void ApplyFollow(bool immediate)
@@ -41,6 +96,41 @@ namespace Not3A.Stage2.Integration
             }
 
             var bounds = mapDefinition.CameraBounds;
+            if (tacticalView)
+            {
+                var focus = mapDefinition.ClampWorld((Vector2)target.position, bounds);
+                var camera = BoundCamera;
+                // At a wide orthographic size, a fixed camera distance puts the
+                // lower viewport rays behind the ground plane. Keep the whole
+                // viewport in front of it without changing angle or focus.
+                var viewDistance = Mathf.Max(tacticalOffset.magnitude, camera.orthographicSize);
+                var desiredView = new Vector3(focus.x, focus.y, 0f) - transform.forward * viewDistance;
+                transform.position = desiredView;
+                // Follow the hero until the visible ground reaches the playable
+                // edge. At that point the hero moves across the screen while the
+                // camera stays put. The larger decorative border remains hidden.
+                var ground = new Plane(Vector3.forward, Vector3.zero);
+                var minimumOffset = new Vector2(float.PositiveInfinity, float.PositiveInfinity);
+                var maximumOffset = new Vector2(float.NegativeInfinity, float.NegativeInfinity);
+                for (var corner = 0; corner < 4; corner++)
+                {
+                    var ray = camera.ViewportPointToRay(new Vector3(corner & 1, corner >> 1, 0f));
+                    if (!ground.Raycast(ray, out var distance)) return;
+                    var offset = (Vector2)ray.GetPoint(distance) - focus;
+                    minimumOffset = Vector2.Min(minimumOffset, offset);
+                    maximumOffset = Vector2.Max(maximumOffset, offset);
+                }
+
+                const float edgeInset = .2f;
+                var minimum = (Vector2)bounds.Minimum - Vector2.one * (.5f - edgeInset);
+                var maximum = (Vector2)bounds.MaximumInclusive + Vector2.one * (.5f - edgeInset);
+                focus.x = ClampViewportAxis(focus.x, minimum.x - minimumOffset.x,
+                    maximum.x - maximumOffset.x);
+                focus.y = ClampViewportAxis(focus.y, minimum.y - minimumOffset.y,
+                    maximum.y - maximumOffset.y);
+                transform.position = new Vector3(focus.x, focus.y, 0f) - transform.forward * viewDistance;
+                return;
+            }
             var clamped = IsoGrid.ClampWorldToCellBounds(
                 target.position,
                 bounds.Minimum,
@@ -55,5 +145,14 @@ namespace Not3A.Stage2.Integration
                 bounds.MaximumInclusive);
             transform.position = new Vector3(next.x, next.y, desired.z);
         }
+
+        private static float ClampViewportAxis(float value, float minimum, float maximum)
+        {
+            // A viewport wider than the authored world cannot fit entirely.
+            // Center it in that exceptional case instead of reversing the clamp.
+            return minimum <= maximum ? Mathf.Clamp(value, minimum, maximum)
+                : (minimum + maximum) * .5f;
+        }
+
     }
 }

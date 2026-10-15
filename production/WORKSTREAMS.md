@@ -2,10 +2,1388 @@
 
 Этот файл — единая координация отдельных чатов. Один активный владелец на
 систему/сцену/контракт; параллельные агенты не редактируют одни и те же файлы.
+Для новой работы читать текущий блок и handoff затрагиваемой системы. Старые
+claims ниже открывать только при разборе соответствующего контракта/дефекта.
 
-## Current Resource Order
+D-017: каждый новый Stage 2–7 ведёт новый агент в новой задаче Codex. Он
+сверяет предыдущий gate и использует стартовый промпт соответствующего этапа
+в `reports/development-roadmap.html`; внутри stage мелкие задачи не дробятся
+по агентам. На переходе обновляются этот handoff и канонический план.
 
-### Active package — S2-DEF-02 (2026-09-25)
+### 2026-10-15 — Portable Mac development handoff
+
+- Owner/surface: current chat; README, local reference inventory and a private
+  project-transfer archive. No gameplay or Unity scene behavior changed.
+  Depends on the current Stage 3 cartoon scene and its existing art provenance.
+- Contract: Unity Editor 6000.6.2f1 opens the project root; `Assets/` and all
+  `.meta`, `Packages/`, `ProjectSettings/`, `art/`, canonical docs and the local
+  historical reference folder travel together. Windows remains the approved
+  build target; Mac is for continuing development and visual review.
+- Verification: project-owned B board and both attached B PNGs are pixel-equal;
+  all `Assets/` entries have `.meta` and portable paths have no case-fold name
+  collisions. Historic third-party reference files under
+  `concepts_visual_scene/` and `art/references/` stay outside `Assets/` and
+  have explicit unknown-rights documentation. The owner approved placing all
+  references in the existing public repository (D-044). The local archive and
+  its SHA-256 manifest are verified separately after final Git sync.
+- Remaining: open/import and Play in Unity on the actual Mac; owner review of
+  Stage 3 visuals and the open Stage 3 gate.
+
+### 2026-10-15 — D-043 tactical camera viewport clamp
+
+- Owner/surface: current chat; `Stage2CameraFollow` tactical branch, existing
+  Stage 3 camera checks and tactical-view docs. Depends on current Stage 3
+  100×100 map, fixed view angle and the D-042 playable scene.
+- Behavior: camera follows the hero centrally until a visible ground corner
+  reaches a playable map edge. It then stops translating on that axis so the
+  hero moves through the viewport. The clamp tracks orthographic zoom and
+  Game view aspect; Stage 2 non-tactical following and map rules stay intact.
+- Acceptance: all four viewport corners remain over playable ground at map
+  corners and zoom extremes; center follow, clicks, movement and zoom work.
+- Verification/handoff: Stage3/Integration/RunState PlayMode 41/41; focused
+  edge capture 1/1. Ground corners checked at 2.5/5/10 zoom and two aspects;
+  edge-follow lock and center follow checked. Actual Game frames:
+  `art/review/camera_clamp_{southwest,northeast}.png`. Windows Development
+  build succeeded, 277524877 bytes, 0 errors/3 warnings; standalone reached
+  Gameplay Ready with unchanged map hash `996FF3F8BC05F95C`. Reports/logs:
+  `Artifacts/S3-CAMERA-CLAMP/`. Outer visual border remains unseen backing;
+  owner visual review remains. No Git mutations performed.
+- Follow-up from owner: the complete hero silhouette must stay on screen at
+  the stopped camera edge. Stage 3 planar movement now has one cell of inner
+  clearance, serialized into its current scene and preserved by both builders;
+  Stage 2 movement is unchanged. Full PlayMode 41/41 passed again, including
+  hero renderer bounds at the map extremes. Updated edge frames:
+  `art/review/camera_clamp_{southwest,northeast}.png`. Final Development build
+  succeeded, 277525565 bytes, 0 errors/7 warnings; standalone reached
+  Gameplay Ready with unchanged map hash. Logs: `Artifacts/S3-HERO-EDGE/`.
+  Owner visual judgement of the clearance remains open.
+
+### 2026-10-15 — D-042 Astra cartoon rework -> owner visual review
+
+- Owner/surface: human-requested Astra implementation agent in current chat;
+  `Assets/Stage3/CartoonWorldPilot/**`, narrow tactical terrain/landscape/shot
+  presentation, narrow/main builders, existing Stage 3 tests and canonical docs.
+  Depends on original B gameplay reference and existing map/build/combat contracts.
+- Behavior: V2 short turf with earth pockets, worn paving with joint weeds,
+  67 bounded roadside ruin/shrub/flower sprites including the visible nonwalkable
+  border. No collision or buildable-cell occupation; objective/resource clearance.
+  Old bright triangle fringe removed, irregular grass apron and perspective-aware
+  paving UVs retained. Map 100x100, anchors, resources and camera unchanged.
+- Towers: grounded red-roof Rapid stays static. Longshot uses ONE stationary
+  masonry/support sprite plus smoothly articulated spoon and separate loaded
+  stone. The cup has fixed dimensions; projectile starts at its sampled actual
+  release position on the existing clock. Pause and reset restore expected state.
+  Four bearings are still observable; the support is a 2D fixed drawing, not a
+  continuously rotating 3D mechanism. Preview and paid build share artwork.
+- Source/rights: five original built-in imagegen PNGs under CartoonWorldPilot;
+  exact prompts/provenance/SHA256 in `art/source/astra_cartoon_rework_*.json`.
+  Original PNGs and metadata retained; V2 files match generation outputs exactly.
+- Verification: full Stage3/Integration/RunState PlayMode 40/40, 33.00 s,
+  including paid full run/restart, 24 builds, foundation-stable aiming/fire,
+  actual cup release, pause and loaded-stone state. After final fringe removal,
+  capture/landscape 2/2 (13.03 s); extra decor-cell/landmark-clearance check 1/1.
+  After border-seam and painted-projectile fixes, final focused capture/combat/
+  landscape checks passed 4/4 (17.32 s), including 90 actual 60 Hz throw frames.
+  Windows Development build succeeded, 277524044 bytes, 0 errors/7 pre-existing
+  warnings. Standalone startup reached gameplay and 67-prop readiness without a
+  new attributable error; owned smoke process terminated after startup verification.
+- Evidence: `art/review/astra_world_game_overview.png`, tower closeups,
+  `astra_world_game_walk.gif` (150 actual frames at 15 fps) and
+  `astra_catapult_game_throw.gif` (50 close frames sampled at 5 fps), plus
+  `astra_catapult_throw_60fps.mp4` (90 actual rule-clock frames at 60 fps, 1.5 s).
+  Final close-frame review found and corrected legacy cube-like flight artwork:
+  released Longshot stone now shares the loaded painted sprite. The outside
+  world edge also receives the same irregular grass apron; its former dark
+  border tint is removed to avoid a straight color seam.
+  Logs/XML/build report/frames: `Artifacts/S3-ASTRA-VISUAL/`.
+  Build: `Builds/Windows/Stage3CartoonWorld/Not3A.exe`.
+- Rebuild: `Stage3CartoonWorldBuilder.BuildAndWire`; main builder preserves V2
+  art and roadside reference. No new scene Inspector work required. Live review
+  frames ordinary preparation once; Space begins the wave.
+- Remaining: owner's judgement of closeness to reference, wider Stage 3 visuals
+  and stable standalone performance gate. First D-041 result was rejected;
+  automated checks do not imply visual acceptance. Git was read-only throughout.
+
+### 2026-10-15 — Stage 3 cartoon towers/terrain -> live review
+
+- Owner/surface: current root; `Assets/Stage3/CartoonWorldPilot/**`, narrow
+  tactical presentation/shot-motion/scene-builder changes, existing Stage 3
+  tests and canonical documents. Depends on original cartoon B board and the
+  existing building/combat/map contracts. D-041 authorizes two tower visuals
+  and terrain; the owner's clarification explicitly retains map/camera.
+- Behavior: Rapid and Longshot are transparent sprite towers with shared
+  authored artwork in the placement preview. Longshot uses four drawn aiming
+  directions and shot-clock windup/release/return; the actual projectile starts
+  at its drawn cup socket. Rapid stays still. Pause, prices, damage, occupancy,
+  paid building, waves and restart remain unchanged. Soft contact shadows have
+  no collision. Four original source PNGs and exact prompts/hashes are saved.
+- Terrain: cartoon grass and gray stone paving replace the old pigment/grid
+  texture. Paving courses and slab aspect match the reference more closely;
+  an alpha-faded visual grass apron softens the existing edge. The 100x100
+  map, diagonal invasion zone, anchors, resource positions and camera stay.
+  Original 3D assets remain available; no package or assembly added.
+- Integration: existing Stage 3 scene uses copied catalogs with unchanged
+  gameplay values. `Stage3CartoonWorldBuilder.BuildAndWire` rebuilds only this
+  surface; the main builder retains it. `Open Live Review` frames the two
+  towers/objectives once during ordinary preparation, with Space starting
+  the wave. It saves no player-position/timing change and does not loop/reset.
+- Verification: final Stage 3/Integration/RunState PlayMode 40/40 in 29.69 s,
+  including 24 paid sprite towers, four bearings, windup/release/impact/pause,
+  reset, the paid full-run check and actual first-wave firing of both roles.
+  Windows Development Build succeeded, 269135061 bytes, 0 errors/7 warnings.
+  Logs/reports are under `Artifacts/S3-CARTOON-WORLD/`.
+  Final standalone startup reached gameplay/tactical readiness without a new
+  error; the owned hidden smoke process was closed. The Editor opens the
+  framed ordinary preparation scene for live inspection.
+- Evidence: 150 actual Game-camera frames, 15 simulation fps;
+  `art/review/cartoon_world_game_walk.gif`, overview and both tower close-ups.
+  Source/rights: `art/source/cartoon_map_tower_provenance.json`; exact prompts:
+  `cartoon_map_tower_prompts.json`. All four PNG hashes match imagegen originals.
+- Remaining: owner review of new tower/terrain appearance and drawn animation,
+  remaining resource/hero visuals and other Stage 3 gates. D-040 landmark
+  appearance was approved in the current request. No full-project art approval
+  or stable performance claim. Pre-existing work preserved; Git read-only.
+
+### 2026-10-15 — Stage 3 portal/soul sprites -> live review
+
+- Owner/surface: current root; `Assets/Stage3/LandmarkSpritePilot/**`, narrow
+  presentation/scene-builder binding, skeleton ground sorting, existing Stage 3
+  tests and canonical documents. Depends on saved B4/soul-sphere references,
+  cartoon B style and existing map/run/portal contracts. D-040 authorizes these
+  two replacements; full-project pipeline/art approval remains open.
+- Behavior: original transparent cartoon PNGs replace the portal and soul
+  objective visuals in the existing Stage 3 scene. The portal retains its red
+  circulation clock; cyan highlights travel around the objective's horizontal
+  arc band and its soul flame shimmers. Explicit pause freezes both. Root map
+  anchors/bearing, 3x3 build exclusions, spawns, health/loss, combat/economy and
+  waves remain unchanged. Old 3D prefabs/Blender sources are preserved.
+- Integration: Sprite prefabs reuse the existing serialized visual fields;
+  deterministic import/build and the main scene rebuilder retain this choice.
+  View-ray clearance corrects observed foreground base clipping by opaque
+  terrain without moving screen registration. Ground-anchor sorting keeps
+  skeletons in front after leaving the portal, while opaque meshes depth-test
+  normally. No collider, package, assembly boundary or gameplay system added.
+- Verification: final Stage 3/Integration/RunState PlayMode 39/39 in 22.38 s.
+  Checks retain paid three-wave win/restart and ordinary spawn/reservations,
+  compare foreground steps/anchors against rendered ground, confirm changing
+  red/blue pixels, pause stability and skeleton walking/feedback/reset.
+  Windows Development Build succeeded: 268557149 bytes, 0 errors, 7 warnings.
+  Final compile/test/build logs show no attributable compiler/runtime error.
+  Standalone startup logged gameplay/tactical readiness and responded without
+  a new runtime error; the owned hidden smoke process was closed afterward.
+  The interactive Editor scene remains open for the owner's live inspection.
+- Evidence: `Artifacts/S3-LANDMARK-SPRITES/` reports/logs and 60 actual camera
+  frames; `art/review/landmark_sprites_game_walk.gif`, overview and individual
+  close stills. Exact prompts/source rights are in `art/source/landmark_sprites_provenance.json`
+  and referenced prompt files; both PNGs match original imagegen outputs.
+- Review: the existing explicit Editor preview now frames both landmarks and
+  starts prepared waves early, repeating after outcome until Play Mode stops.
+  It saves no player-position or timing change. Remaining: owner review of
+  artwork, perceived facing, scale and flow; the rest of Stage 3 and stable
+  standalone performance remain open. No Stage 4 or whole-project sprite
+  conversion is claimed. Pre-existing work is preserved; Git read-only.
+
+### 2026-10-15 — Stage 3 cartoon skeleton walk -> live review
+
+- Owner/surface: current root; `Assets/Stage3/SkeletonSpritePilot/**`, narrow
+  enemy-visual binding in `Stage3TacticalPresentation`/its scene builder and
+  existing Stage 3 PlayMode tests/spec. Depends on chosen-for-trial cartoon B
+  and the existing enemy/run/portal contracts. D-039 authorizes this one actor
+  trial, not a full project pipeline switch.
+- Behavior: one original transparent 1536x1024 imagegen sheet supplies six
+  walk frames in each of four directions. Shared Sprite subassets register
+  feet/torso from alpha; a small view changes frames with actual distance,
+  faces the tactical camera, freezes on pause/outcome, stops at blockers and
+  forwards the existing hit flash. A ground shadow has no collider. Normal
+  portal spawning, navigation, combat, economy and wave values are unchanged;
+  Stage 2 prefab/catalog remain intact. Scene regeneration retains the binding.
+- Verification: Stage 3/Integration/RunState PlayMode 39/39 passed in 37.81 s,
+  including normal portal spawns, real walking, four directions, alpha,
+  pause/hit/reset and the full paid three-wave win/restart. Windows Development
+  Build succeeded, 255543777 bytes, 0 errors, 7 warnings (full build log retained).
+  The initial builder hit Unity's missing-component fake-null behavior with
+  `??`; explicit Unity null checks corrected it before final import/tests/build.
+  Final compile/test/build logs have no new attributable compiler/runtime error.
+- Evidence: `Artifacts/S3-SKELETON-SPRITE/` retains import pivots, reports,
+  logs and 60 actual Game-camera frames; `art/review/skeleton_sprite_portal_*`
+  includes size-5/3.2 stills and a looping GIF. Prompts/provenance and the
+  recording assembler are in `art/source/skeleton_walk_cartoon_*` and
+  `assemble_skeleton_walk_review.cjs`. Source art is original built-in imagegen;
+  no third-party image or mesh input. The PNG itself is preserved unchanged.
+- Review: Tools > Stage 3 > Skeleton Sprites > Open Looping Live Review opens
+  the existing scene near the portal and repeats ordinary first waves after
+  outcome, only inside Editor Play Mode. Stop Play Mode ends this temporary
+  inspection; normal game startup/countdown and saved hero spawn are unchanged.
+- Remaining: owner's assessment of gait, style, scale and scene occlusion.
+  No attack/death animation, final pipeline approval, resource-art acceptance
+  or standalone performance claim. Stage 3 gate stays open; Stage 4 not started.
+  Pre-existing uncommitted work is preserved; Git was used read-only.
+
+### 2026-10-15 — Stage 3 sprite style comparison -> awaiting owner choice
+
+- Owner/surface: current root; original visual review concepts under
+  `art/concepts/sprite_style_review_2026-10-15/` and current plan/handoff only.
+  Depends on the existing Rapid arrow / Longshot bowl-catapult roles and
+  baseline undead identity. No new tower or enemy role is introduced.
+- Intent/outcome: owner rejected the current 3D tower quality relative to
+  production cost and requested pixel-art and smooth cartoon sprite options
+  before deciding. Inspected current tower/resource Game frames and project
+  tower concepts; generated two original comparison boards with the built-in
+  imagegen tool. Each shows both towers, the same proposed skeleton in several
+  poses, and an illustrative gameplay-scale strip. These strips are not Unity
+  captures; scenery/heraldry do not approve new mechanics or lore.
+- Files/provenance: `a_pixel_art.png`, `b_cartoon_2d.png` and
+  `generation_manifest.json` retain outputs, exact prompts and source notes.
+  Cartoon is a style edit of the original pixel board; no third-party image
+  input was supplied. Both outputs were visually inspected before handoff.
+- Remaining: owner selects or revises the direction. No style/pipeline switch,
+  runtime asset, animation delivery or model approval is implied. Actual sprite
+  animation/import/readability still need validation after the choice. No Unity
+  gameplay/scene change, so tests/build are not rerun. Stage 3 stays open.
+
+### 2026-09-26 — Stage 3 resources -> smooth stone, then continue wood/ore
+
+- Latest owner instruction after the stone review: "поправь сглаживание и го
+  дальше". This supersedes the temporary stone-only hold below. Preserve the
+  approved A/B/A concepts and proceed with their implementation, without a
+  new concept-selection loop. Stage 3 gate remains open; hero remains last.
+- Ownership: root owns the shared Blender driver, stone assets, Unity import,
+  actual-scene checks and canonical docs. Conifer subtask owns only
+  `art/source/resource_wood_model.py` and wood candidate/source files; ore
+  subtask owns only `art/source/resource_ore_model.py` and ore candidate/source
+  files. They return geometry/materials for root integration and do not modify
+  shared runtime assets or run the Unity test/build request watcher.
+- Stone smoothing: confirmed false faceting came from CORNER albedo tint
+  computed from each triangle's normal. Changed to POINT tint computed from
+  the smooth vertex normal, then rebaked/exported. Imported mesh normals already
+  preserve Blender smoothing; no gameplay or camera change is required.
+  Its actual-scene verification passed 36/36 in 35.39 s; evidence is
+  `Artifacts/S3-RESOURCE-SOURCES/stone-smoothing-playmode.xml` and the
+  `stone-smoothed-game-close.png` capture there. The all-resource final
+  test/build results are recorded below.
+- Wood/ore are integrated at the existing asset paths. Wood has 33236
+  triangles, closed boughs and a closed crown; ore has 9464 triangles with
+  dark fractured masses surrounding recessed iron mineral. Ore's original
+  generated slate surface and its provenance/prompt are in `art/source/`.
+  Each resource still has one renderer/material and no collider.
+- The actual wood frame exposed a second geometry defect beyond smooth
+  normals: some radial contour samples went backwards around the center,
+  folding thin top strips inward. A/B renders with a constant texture and
+  disabled shadow reception retained the marks; unlit rendering did not.
+  Ordered contour samples retain the same outline points and prevent the
+  folds. The generator now checks outward upper/lower faces on all 22 boughs
+  and the crown. No production lighting, shadow or shader workaround is used.
+- Final verification: corrected stone and replacement wood/ore were captured
+  in the actual scene at zoom 5/2.5. Stage 3/Integration/RunState PlayMode
+  passed 36/36 in 35.50 s, including footprint/placement, material imports,
+  resource depletion/recovery and the paid three-wave win/restart. Evidence:
+  `Artifacts/S3-RESOURCE-SOURCES/playmode.xml`, `status.txt` and
+  `art/review/resource_{stone,wood,metal}_game_{default,close}.png`.
+  Editor render/readback on/off medians: stone 2.449/2.433 ms, wood
+  2.457/2.455 ms, ore 2.595/2.424 ms; on p95 3.138/2.935/3.225 ms.
+  These 1280×720 GTX 1060 observations do not establish standalone FPS.
+- Final Windows Development Build succeeded: 249623372 bytes, 0 errors,
+  3 warnings (`Artifacts/S3-RESOURCE-SOURCES/build.txt`). The playable scene
+  was reopened after build. Asset/meta audit preserves existing GUIDs and
+  verifies source/FBX/2048 atlases. The final suites/build log has no new
+  compiler or runtime exception/error lines. A temporary SSAO diagnostic
+  lacked a URP test assembly reference; it was removed before the final
+  passing suites/build. No diagnostic material or rendering change remains.
+- Remaining: owner's visual review of the actual resource set and stable
+  standalone performance. The ore's front rust seam is still broader than
+  its concept; technical checks do not constitute art approval. Then D-032
+  basic undead, finished HUD/audio and hero last. Stage 3 gate stays open;
+  Stage 4 is not started. All pre-existing uncommitted work is preserved;
+  replaced wood/ore artifacts were copied into `rejected-r2/` before export.
+
+### 2026-09-26 — Stage 3 resource visuals -> second implementation rejected
+
+- Owner/surface: current Stage 3 agent; resource appearance and production
+  approach. The owner rejected all three replacement models after seeing
+  actual Game frames. Neither runtime iteration is accepted art.
+- State/contracts: existing assets, uncommitted work and technical evidence
+  are preserved. No asset deletion, rollback, gameplay change or new model
+  production accompanies this status update. D-037/D-038 remain the selected
+  concepts unless the owner revises them.
+- Owner clarification: the A/B/A concepts are correct; the in-game execution
+  is the failure. Active surface is now stone A only: authored major planes,
+  front-facing fragment composition in the actual camera, sparse structural
+  fractures and a light granite palette. Independent review produced an unused
+  isolated experiment under `Artifacts/S3-RESOURCE-SOURCES/`; that reviewer
+  did not edit runtime assets, the main generator or project documents.
+- Stone review candidate: corrected the authored front for the unchanged
+  FBX/prefab pivot chain, compacted/widened/lowered the composition and flattened
+  its pointed crown. The existing stone FBX, `.blend`, albedo and normal paths
+  now contain the new candidate; their `.meta` GUIDs and Economy bindings are
+  preserved. New original imagegen granite source/prompt/provenance are in
+  `art/source/stone_granite_painted_albedo{.png,_prompt.txt}`; only its baked
+  atlas ships. No concept pixels or third-party assets are copied.
+- Verification: 5832 triangles, one renderer/material, footprint about
+  1.44×1.05 and height 1.03 cell; actual camera frames at unchanged zoom 5/2.5
+  are `art/review/resource_stone_game_{default,close}.png`. Final PlayMode
+  36/36 passed in 35.50 s, including paid full run/restart and resource lifecycle.
+  Evidence is `Artifacts/S3-RESOURCE-SOURCES/playmode.xml`. The new candidate
+  has not been visually accepted; wood and ore were not regenerated this pass.
+- Remaining: resolve the visual mismatch on one representative object before repeating
+  production across all three. Existing 36/36 tests establish behavior only.
+  Resource art acceptance and standalone performance remain open; D-032
+  undead, HUD/audio and hero last follow later. Stage 3 gate open, Stage 4
+  not started.
+
+### 2026-09-26 — Stage 3 second resource implementation -> technically checked, art rejected
+
+- Owner/surface: current Stage 3 agent; three resource Blender sources,
+  exported geometry/textures, resource prefab materials and actual Game review.
+  Dependencies: approved D-037/D-038 concepts and existing Economy bindings.
+- Owner feedback: first runtime models look excessively low-poly and do not
+  meet the approved concepts. Their technical pass below is not art approval.
+  The approved A/B/A choices remain in force. Replacements now have broad
+  weathered rock surfaces, softened edges, baked cracks/rust and individual
+  rounded conifer boughs with bark. The source script, editable Blender files,
+  FBXs and prefabs retain the existing asset paths and gameplay contracts.
+- Implementation: stone 28172, wood 51620, ore 37478 triangles; one renderer
+  and one material each. Original 2048 albedo atlases for all three and 2048
+  tangent normal maps for stone/ore. `Stage3ResourceSourceBuilder` configures
+  sRGB/mipmap/normal imports. Foliage atlas padding and background prevent
+  black mip bleed; ordinary receiving/casting shadows remain enabled.
+- Verification: final PlayMode 36/36 passed in 43.70 s, including material
+  import, source dimensions/anchors, depletion/recovery, paid three-wave win
+  and restart (`Artifacts/S3-RESOURCE-SOURCES/playmode.xml`). Actual playable
+  camera frames at zoom 5/2.5 are
+  `art/review/resource_{stone,wood,metal}_game_{default,close}.png`.
+  Final Editor render/readback medians were 8.932–10.866 ms with the source,
+  9.641–11.167 ms without; p95 outliers reached 87.258 ms. This noisy local
+  comparison does not establish release FPS; standalone performance remains
+  degraded/pending for the Stage 3 gate. Updated Windows Development Build
+  succeeded with 0 errors and 3 warnings
+  (`Artifacts/S3-RESOURCE-SOURCES/build.txt`); final asset/meta checks passed
+  and no new attributable Editor errors were found. The playable scene was
+  reopened for review after build.
+- Remaining: owner review of the actual replacement models, stable standalone
+  performance review, then the D-032 undead, HUD/audio and hero last. Stage 3
+  gate open; Stage 4 not started. Earlier uncommitted work is preserved;
+  rejected resource artifacts were also copied under
+  `Artifacts/S3-RESOURCE-SOURCES/rejected-r1/` before replacement.
+
+### 2026-09-26 — Stage 3 first resource models -> technically integrated, art rejected
+
+- Owner/surface: current Stage 3 agent; D-032 resource visuals in
+  `art/source/build_resource_sources.py`, `Assets/Stage3/VisualPilot/**`,
+  playable Stage 3 scene, related PlayMode tests and documentation. Depends
+  on D-037/D-038 selections, existing Economy lifecycle and D-034 map.
+- Behavior/contracts: the approved stone A granite boulder, wood B conifer
+  and iron-ore A source are separate Blender FBX/prefabs under the existing
+  wood/stone/metal markers. `Stage3ResourceSourceBuilder` creates materials and
+  prefabs; `Stage3TacticalPresentation` binds and grass-aligns them. Each has
+  one renderer and no collider. Source cells, gathering, stock recovery,
+  navigation, buildability and run rules are unchanged. Source concepts remain
+  review images only; original geometry is reproducible from the Blender
+  script and editable `.blend` files.
+- Verification: Blender export reports 1280/634/640 triangles for stone/wood/
+  ore. Actual Game camera captures at zoom 5 and 2.5 are
+  `art/review/resource_{stone,wood,metal}_game_{default,close}.png` and show
+  distinct silhouettes in the playable scene. PlayMode 36/36 passed, including
+  source dimensions/anchors, depletion/recovery, full paid three-wave win and
+  restart (`Artifacts/S3-RESOURCE-SOURCES/playmode.xml`). The 1280×720 Editor
+  render/readback comparison is in
+  `Artifacts/S3-RESOURCE-SOURCES/render-comparison.txt`; local medians varied
+  by less than 0.5 ms on/off per source after warmups, and are not release FPS.
+  Windows Development Build succeeded with 0 errors and 3 warnings
+  (`Artifacts/S3-RESOURCE-SOURCES/build.txt`); no new attributable Editor
+  errors were found after build.
+- Remaining: owner can review the three actual Game frames; complete the
+  D-032 baseline undead, HUD, audio and hero last, then final full-run and
+  performance review. Stage 3 gate open; Stage 4 not started.
+
+### 2026-09-26 — Stage 3 D-036 former zoom scale -> implemented, gate open
+
+- Owner/surface: current Stage 3 agent; tactical Stage 3 scene camera setup,
+  its zoom regression and current Game capture. Depends on D-026 wheel
+  behavior and the D-034 100×100 map.
+- Behavior/contracts: `Stage3RapidPilotBuilder` again configures the Stage 3
+  camera with opening orthographic size 5. `Stage2CameraFollow` retains its
+  0.5×..2× clamps, making the actual bounds 2.5–10. Angle, centered follow,
+  smooth wheel, Inspector step setting, map cells, gameplay rules and all
+  existing uncommitted work remain preserved. The player chose this scale
+  after being told the portal and objective begin outside the resource-area
+  hero's frame.
+- Verification: full Stage 3/Integration/RunState PlayMode 34/34 passed,
+  including exact near/far bounds, WASD zoom stability, paid three-wave win
+  and restart. Evidence: `Artifacts/S3-ENTRANCE-PORTAL/zoom-restored-playmode.xml`.
+  Windows Development Build succeeded with 0 errors and 3 warnings. Actual
+  starting Game-camera view: `art/review/stage3_zoom_restored_default_game.png`.
+- Remaining: owner assesses the close framing and whether the defense corner
+  can be found without explanation. Then continue only the D-032 accepted
+  model/UI/audio set, with image approval before each new model; hero last.
+  Stage 3 gate is open, Stage 4 has not started.
+
+### 2026-09-26 — Stage 3 portal circulation -> implemented, gate open
+
+- Owner/surface: current Stage 3 agent; portal shader/material, narrow
+  presentation clock, actual-render regression and explicit review recording.
+  Dependency: the approved B4 red opening and D-035 placement. The owner
+  reported a static-looking interior and requested visible circulation.
+- Behavior/contracts: `EntrancePortalVortex.shader` rotates the red strands
+  with bounded inward distortion; speed lives in `EntrancePortalVortex.mat`
+  and is reproduced by `Stage3EntrancePortalBuilder`. `Stage3EntrancePortal`
+  honors explicit pause and keeps the ambient vortex alive after an outcome
+  or in an unbound Play-mode preview. Game rules, 45-degree ring and 3x3
+  foundation remain independent of the effect.
+- Verification: all 34 Stage 3/Integration/RunState PlayMode checks passed,
+  including full paid victory/restart. Actual red-pixel comparisons detected
+  2,870 changed pixels over 0.4 seconds, zero on pause, and continued motion
+  after victory. Evidence: `Artifacts/S3-ENTRANCE-PORTAL/portal-circulation-playmode.xml`.
+  Windows Development Build succeeded with 0 errors and 7 warnings; the
+  visible Unity Console has no errors. The explicit `motion` review captures
+  90 actual Game camera frames over six simulation seconds, preserving time
+  and camera settings afterward. Outputs: `art/review/entrance_portal_circulation.gif`
+  and `art/review/entrance_portal_circulation_tactical.mp4`.
+- Remaining: owner review of presentation and overall map composition, then
+  the D-032 baseline undead, three resource models, hero last, HUD and sounds.
+  Each new model needs its specific image approval. Stage 3 gate is open;
+  Stage 4 has not started. Existing uncommitted work is retained.
+
+### 2026-09-26 — Stage 3 D-035 portal at 45 degrees -> implemented, gate open
+
+- Owner/surface: current Stage 3 agent; approved B4 portal Blender source,
+  exported FBX/prefab, tactical placement and portal PlayMode regression.
+- Dependency/intent: after the D-034 diagonal map, the player requested the
+  enemy gate at 45 degrees. Its exit remains toward the objective, with the
+  red vortex and intact dark ring already approved in D-033.
+- Behavior/contracts: `art/source/build_entrance_portal.py` and the editable
+  `.blend` turn the upright ring, buttresses, steps and aperture 45 degrees
+  inside the unchanged 2.945x2.945 square foundation. The FBX, baked stone
+  texture and `EntrancePortal.prefab` were rebuilt without changing asset
+  GUIDs, spawn/navigation rules or the nine-cell building exclusion.
+  `Stage3RapidPilotTests` checks the diagonal aperture extents, foundation,
+  spawn/movement, pause/reset and exclusion. The actual Game frames are
+  `art/review/stage3_diagonal_portal_45_game_overview.png` and
+  `art/review/stage3_diagonal_portal_45_game_close.png`.
+- Verification: focused PlayMode 1/1 and full Stage 3/Integration/RunState
+  PlayMode 34/34 passed, including the paid three-wave win and restart.
+  Evidence: `Artifacts/S3-ENTRANCE-PORTAL/portal-45-playmode.xml`.
+  Windows Development Build succeeded with 0 errors and 3 warnings. Model:
+  3 meshes, 6,860 triangles, 0 colliders, world ground extents 2.945x2.945.
+  Local Editor 1600x900 Camera.Render/readback medians on GTX 1060 were
+  14.850ms on and 15.237ms off; these are not standalone FPS. No new
+  attributable console errors observed.
+- Remaining: owner reviews the combined D-034 map composition. Then continue
+  only the D-032 enemy, three resources, hero last, HUD and sound set, with
+  specific image approval before each new model. Stage 3 gate stays open;
+  Stage 4 has not started.
+
+### 2026-09-26 — Stage 3 D-034 diagonal 100×100 map -> active
+
+- Owner/surface: Stage 3 planar map data, playable 3D scene composition,
+  tactical camera start, temporary actor placement, and relevant PlayMode
+  checks. Existing Stage 2 map/scene assets and approved model shapes stay
+  with their owners.
+- Dependency/intent: player supplied a screen composition and confirmed a
+  100×100 map with a gray strip about 30 cells long and 12 across, descending
+  from the upper right corner. Portal and objective sit along it; three
+  resource types remain in green. The short three-wave run remains the check.
+- Acceptance: actual game frame reflects the diagonal corner; both 3×3
+  landmarks fit and remain legible, hero/resources are reachable, gray-only
+  construction agrees with rendered ground, enemies reach the objective,
+  paid defense can win all waves and restart, and map/render overhead is
+  measured. Preserve unrelated uncommitted work.
+- Outcome/contracts: `Stage3PlanarCorner.asset` holds the new map;
+  `Stage3DiagonalMapBuilder` reproduces it. `Stage3RapidPilotBuilder` positions
+  the hero and opens a wider fixed camera. The portal foundation turns by a
+  grid-aligned quarter turn toward the new objective, keeping its 3x3 square
+  base within the reserved cells; D-035 angles the aperture within it.
+  `Stage3TacticalPresentation` uses one grass
+  quad per cell on this large map and extends only the non-walkable visual
+  border for maximum zoom. Stage 2 assets are retained.
+- Verification: 34/34 Stage 3/Integration/RunState PlayMode tests pass,
+  including the map, resources, gray-only placement, enemy movement, paid
+  three-wave victory and restart, and zoom limits. Evidence:
+  `Artifacts/S3-ENTRANCE-PORTAL/diagonal-map-final-playmode.xml`.
+  Windows Development build succeeded with 0 errors and 7 obsolete-API
+  warnings. Actual 1600x900 Game camera capture:
+  `art/review/stage3_diagonal_map_game_overview.png`. Local Editor render and
+  readback median is 17.7 ms on GTX 1060, a bounded observation rather than a
+  standalone frame budget. The initial far-zoom border test failure was fixed
+  and rerun; no new attributable console errors remain.
+- Remaining: owner reviews the actual composition against the supplied
+  mockup. If accepted, continue the agreed Stage 3 model/UI/audio set with
+  specific image approval before each new model; hero stays last. Stage 3
+  gate is open; no Stage 4 work started.
+
+### 2026-09-26 — Stage 3 entrance portal B4 -> 3x3 placement corrected
+
+- Owner/surface: Stage 3 portal Blender source, FBX/materials/prefab, tactical
+  presentation binding and focused regression; other uncommitted work retained.
+- Dependency/intent: player approved intact dark stone/red vortex B4 and
+  explicitly requested modeling (D-033). Existing map entrance and run rules
+  remain the source of spawn and navigation behavior.
+- Acceptance: recognizable portal at tactical camera sizes, intact masonry,
+  red animated center, owner-requested 90-degree turn and 3x3 base/exclusion,
+  unchanged spawn/path, valid placement outside the base, pause/reset, full run and no new
+  errors in a fresh Play session; model overhead measured locally.
+- Contracts/files: `build_entrance_portal.py`/`.blend`, portal FBX, textures,
+  shader and prefab; `Stage3EntrancePortalBuilder`, tactical presentation,
+  `Stage3PlanarCorner.asset` and portal/full-run PlayMode checks. Base is
+  2.945x2.945, with a centered nine-cell building exclusion in authored map
+  data. The quarter turn faces the +X objective route; no collider or game-rule
+  dependency on the mesh was added.
+- Verification: 33/33 PlayMode checks passed after rebuilding the new map,
+  including all three waves to victory with paid defense and restart,
+  spawn/movement, all nine excluded cells, walkability, bounds, pause/reset
+  and existing integration/run-state regressions. Evidence:
+  `Artifacts/S3-ENTRANCE-PORTAL/placement-3x3-playmode.xml`.
+  An earlier stale-map run failed the exclusion assertion; two zero-test
+  runner results were discarded. Explicit script reload fixed test discovery.
+  Windows development build succeeded (0 errors, 7 warnings); the fresh
+  tactical capture confirms 3 meshes/6,860 triangles, no colliders and a
+  2.945x2.945 footprint. The exact 90-degree turn makes the aperture edge-on
+  to the fixed camera. After seeing that exact tactical screenshot and the
+  alternative directions, the owner explicitly chose to retain the exit
+  toward the objective. D-035 subsequently changed the exact bearing to 45
+  degrees while keeping that destination.
+  Local Editor render/readback medians: portal on 9.845ms, off 10.056ms;
+  this noisy bounded comparison is not a minimum-target frame-budget result.
+  Standalone startup logged gameplay and tactical readiness with no error or
+  exception. Its hidden-window screenshot was black and was discarded as
+  visual evidence; the reviewed images are from the actual Editor Play scene.
+  Remaining: baseline undead enemy, three resources, hero last, accepted HUD
+  and sounds, with specific image approvals before each new model and playable
+  validation. The requested portal placement correction is complete; Stage 3
+  gate stays open and Stage 4 has not started.
+
+### 2026-09-26 — Stage 3 minimal MVP scope accepted -> visual/UI/audio work
+
+- Active owner/surface: Stage 3 agent; remaining visual models in the playable
+  `Stage3Rapid3DGamePilot`, its HUD and sound presentation. Dependencies are
+  D-027/D-030/D-031, current map/economy/defense/run contracts and the
+  individually approved concept for each new model.
+- Outcome: player accepted D-032's minimal set: current short run, existing two
+  towers and soul objective, then entrance portal, one baseline enemy, three
+  resource sources, and hero last; finished run HUD and short cues for gather,
+  build, both attacks/impacts, objective danger, wave and outcome. No new game
+  mechanic was accepted. Existing hero, enemy, portal and resources are still
+  temporary solids; the only HUD is development-only IMGUI; no gameplay audio
+  assets or playback were found. Portal is the next concept candidate.
+- Contracts/files: `production/DECISIONS.md` D-032 and Stage 3 in
+  `gamedesign/DEVELOPMENT_PLAN.md`; runtime contracts and scene untouched.
+- Verification: repository asset/code/scene/package and Git-status audit;
+  earlier accepted soul-objective 11/11 PlayMode evidence remains recorded
+  above. No runtime edit in this handoff, so tests/build were not rerun.
+- Remaining: get portal concept approval before Blender/Unity; repeat that
+  approval and playable-scene scale/silhouette/performance check for each
+  remaining model, implement accepted HUD and sounds, verify full run and
+  relevant regressions, then seek player acceptance of the Stage 3 gate.
+  Stage 4 remains closed and belongs to a separate agent.
+  Portal review options: `art/concepts/entrance_portal_option_a_violet_arch.png`
+  and `entrance_portal_option_b_ember_ring.png`; no model was built from them.
+  Player selected B's direction but rejected its broken stonework; intact
+  revision `art/concepts/entrance_portal_option_b2_intact_ember_ring.png` is
+  awaiting specific approval before production.
+  Player then specified a darker entrance for an undead baseline enemy. The
+  intermediate review candidate was
+  `art/concepts/entrance_portal_option_b3_undead_ring.png`; no new enemy rules
+  or runtime art have been added.
+  The player restored the red interior; current review candidate is
+  `art/concepts/entrance_portal_option_b4_dark_red_ring.png`, pending approval.
+
+### 2026-09-26 — Stage 3 soul objective revision 3 after owner rejection
+
+- Active owner/surface: Stage 3 objective model, shaders, prefab, tactical scene
+  binding and the owner-requested 3x3 building exclusion. Depends on the D-031
+  approved concept and the existing Stage 2 center-cell throne contract.
+- Acceptance: separate stone bowl/anchors, soul sphere with readable blue flame,
+  transparent smooth protective dome and horizontal external flowing strips;
+  about 3x3 cells, readable from the existing tactical camera, no visual-driven
+  combat rules. Initial small uniformly lit result and vertical orbit rejected.
+- Changes: original `build_soul_sphere.py`, Blender/FBX, baked 1024² slate atlas,
+  `SoulSphereIceDome.prefab`, smooth-ice/flame/wave shaders and materials,
+  `Stage3SoulSphereMotion`, builder and scene bloom profile. Raised bowl and
+  four anchors have real geometry. Stone face winding corrected. Orbit uses
+  world -Z, independent of imported FBX local axes; solids remain stationary.
+  Nine cells are reserved in `Stage3PlanarCorner.asset`; target, health and
+  movement contracts remain unchanged. All earlier uncommitted work preserved.
+- Verification: 11/11 Stage 3 PlayMode tests pass, including full run/win/restart,
+  building rejection across all nine cells and more than a complete orbit with
+  constant wave altitude. Evidence: `Artifacts/S3-SOUL-SPHERE/playmode.xml`.
+  Final material tuning inspected in actual Unity captures
+  `art/review/soul_sphere_game_close.png` and `soul_sphere_game_overview.png`.
+  Console 0 errors/0 warnings after fresh Play start; shaders supported.
+  Runtime objective: 26,796 triangles, six renderers, one shadowless point light.
+  One local Editor Stats observation: 317.9 FPS, total 3.1 ms/GPU 1.9 ms,
+  442.5k scene triangles, 113 draws at roughly 1100x506. No controlled build
+  baseline; standalone/minimum-target performance remains a Stage 3 gate item.
+- Review tooling: `Stage3SoulSphereReview` consumes explicit local
+  `Artifacts/S3-SOUL-SPHERE/review.request` (`validate` or `open`), rebuilds the
+  pilot, optionally runs its PlayMode suite, then opens Play and captures only
+  after the model exists and shader compilation finishes. No background task
+  remains after the request. Sources and generated review files stay local.
+- Owner visually approved revision 3 after the playable scene review.
+- Remaining: agree the minimal commercial MVP content; produce only its needed
+  UI/audio and remaining models with individual visual approvals, then check
+  target-build performance and the complete playable run. Hero remains last.
+  Stage 4 stays closed until the Stage 3 gate is accepted by the owner.
+
+### 2026-09-26 — Stage 3 soul sphere model in playable scene (rejected revision 1)
+
+- Owner/surface: loss-critical objective visual only. D-031 selected the fourth
+  concept and authorized modeling. No health, occupancy or rule changes.
+- Output: original project geometry from `art/source/build_soul_sphere.py` and
+  `soul_sphere_ice_dome.blend`; `Assets/Stage3/VisualPilot/SoulSphereIceDome.fbx`,
+  six URP materials, `SoulSphereIceDome.prefab`, `Stage3SoulSphereMotion`, and
+  the `soulSpherePrefab` binding in `Stage3Rapid3DGamePilot.unity`. Source is
+  project-owned original Blender geometry derived from the AI-generated
+  approved concept; no third-party mesh, texture or material was shipped.
+- Verification: Blender export/render succeeded (4183 vertices, 7452 triangles,
+  six mesh renderers); interactive Game Play Mode shows the sphere, dome and
+  rotating orbit at the authored throne cell beside both towers. Unity Console
+  showed zero errors and warnings in that review. Stats showed about 383k scene
+  triangles and 300 FPS on the local machine; no controlled baseline measured.
+- Remaining: owner review of the in-game model; full run, relevant PlayMode
+  regression and final screenshot after shader warm-up before Stage 3 gate.
+
+### 2026-09-26 — Stage 3 central soul sphere correction
+
+- Owner/surface: visual concepts for the loss-critical objective only. The
+  player specified a sphere containing the hero's soul in the center.
+- Output: `art/concepts/throne_soul_sphere_energy_dome.png` and
+  `art/concepts/throne_soul_sphere_ice_dome.png` show that sphere beneath a
+  transparent blue dome with circular energy strips. Prompts are in
+  `art/source/throne_soul_sphere_concept_prompts.txt`. Previous dome-throne
+  concepts are rejected historical sketches.
+- Verification: both generated images visually inspected and saved. No Blender
+  model, Unity asset, scene, gameplay rule or test changed.
+- Remaining: player visual approval of the corrected concept before modeling
+  and playable-scene integration. Stage 3 gate remains open.
+
+### 2026-09-26 — Stage 3 dome-throne concept replaces smooth obelisk
+
+- Owner/surface: visual concepts for the player's loss-critical throne only.
+  The player redirected the design before model production.
+- Output: two original built-in imagegen concepts in `art/concepts/`:
+  `throne_dome_option_energy.png` has a transparent cyan force dome;
+  `throne_dome_option_ice.png` has a smooth translucent ice dome. Both place a
+  smooth blue throne on a compact circular dais with broken orbiting energy
+  arcs and no front-facing soul emblem. Exact prompts are in
+  `art/source/throne_dome_concept_prompts.txt`. The supplied gameplay screenshot
+  is a motion/composition reference only; its architecture, statues and UI are
+  not reused. The A4 obelisk remains a historical review image.
+- Verification: images visually inspected. An unfinished unapproved Blender
+  script started before the direction change was removed. No runtime Unity
+  asset, scene, gameplay rule or test changed.
+- Remaining: player chooses the dome and central form before Blender modeling,
+  Unity integration and a playable-scene check. Stage 3 gate remains open.
+
+### 2026-09-26 — Stage 3 ice throne smooth-monolith revision
+
+- Owner/surface: visual concept only for the player's loss-critical objective.
+- Output: `art/concepts/throne_ice_option_a4_smooth_monolith.png` removes the
+  previous monolith's small facets, cracks and busy ice texture. It keeps one
+  continuous softly sculpted cone, with the embedded soul prism as the sole
+  detailed focal point. Exact built-in imagegen edit prompt is appended to
+  `art/source/throne_ice_concept_prompts.txt`.
+- Verification: image-only visual review. No Blender, Unity asset, scene,
+  gameplay rule or test changed.
+- Remaining: player visual approval before model production or integration.
+
+### 2026-09-26 — Stage 3 ice throne homogeneous-monolith revision
+
+- Owner/surface: visual concept only for the player's loss-critical objective.
+- Output: `art/concepts/throne_ice_option_a3_monolith.png` revises A1 into one
+  continuous tapered ice body. All satellite, front and crown-cluster shards
+  are removed; the soul prism remains embedded in the monolith, held by the
+  existing stone altar and metal retainers. Exact built-in imagegen edit prompt
+  is appended to `art/source/throne_ice_concept_prompts.txt`.
+- Verification: image-only visual review. No Blender, Unity asset, scene,
+  gameplay rule or test changed.
+- Remaining: player visual approval before model production or integration.
+
+### 2026-09-26 — Stage 3 ice-obelisk narrative revisions
+
+- Owner/surface: visual concept only for the player's loss-critical objective.
+  The player selected original option A as the closest direction and proposed
+  a possible story motivation: an evil sorceress imprisoned the hero's soul in
+  the ice, so breaking it kills the hero. This remains a visual premise until
+  explicitly accepted as canon.
+- Output: `throne_ice_option_a1_soul_prism.png` strengthens hierarchy with a
+  clean visible soul prism, metal seals and one energy ring;
+  `throne_ice_option_a2_witch_reliquary.png` adds a cursed violet fracture,
+  clamps and chains. Both preserve the chosen conical obelisk and one-cell base.
+  Exact built-in imagegen edit prompts are appended to
+  `art/source/throne_ice_concept_prompts.txt`.
+- Verification: image-only visual review. No Blender, Unity asset, scene,
+  gameplay rule or test changed.
+- Remaining: player selects one revision or requests a blend before any model
+  production or playable-scene integration.
+
+### 2026-09-26 — Stage 3 ice-throne concepts awaiting selection
+
+- Owner/surface: visual concept only for the player's loss-critical throne;
+  its gameplay role and rules are unchanged.
+- Output: three original imagegen options in `art/concepts/`: A is an ice-crown
+  obelisk, B is a recognizable empty throne with a high tapered crystal back,
+  and C is a glacial core shrine. Approved Rapid and landscape images were
+  used only as style and mood references. Exact prompts are recorded in
+  `art/source/throne_ice_concept_prompts.txt`.
+- Verification: image-only review; each option is a single readable object
+  with a broad base and isometric presentation. No Unity assets, Blender file,
+  scene, rules or tests changed.
+- Remaining: player selects or revises one concept. Blender production and
+  playable-scene integration require that visual approval first.
+
+### 2026-09-26 — Stage 3 landscape parked by player
+
+- Owner/surface: Stage 3 content order; no Unity asset or gameplay edit.
+- Outcome: the player chose to leave the current landscape in place for now
+  and move on. `DEVELOPMENT_PLAN.md` records this as a pause, not final visual
+  acceptance. Existing build/capture and prior 49/49 verification remain the
+  latest evidence; no tests rerun for this documentation-only update.
+- Remaining: agree the minimum commercial MVP models, UI and sound before
+  further production; review the landscape again before Stage 3 gate. The hero
+  model remains last.
+
+### 2026-09-25 — Stage 3 landscape closer to concept B
+
+- Owner/surface: Stage 3 playable landscape only. The player said the previous
+  runtime frame improved but remained far from approved concept B.
+- Behavior/contracts: original grass and compacted-earth albedos regenerated
+  from concept B as a style reference; exact prompts in `art/source/`. The
+  earth keeps fine cell guides and flush mineral flecks. Grass now has shallow
+  deterministic visual relief with smooth normals, marker/foliage height
+  alignment, and a wider irregular slope into gray earth. `Stage3TacticalPresentation.cs`,
+  `Stage3LandscapeProps.cs`, two runtime textures, the material builder, and
+  the focused PlayMode check changed. Bushes stay removed; no colliders or
+  gameplay rules changed. The old procedural earth script produces only a
+  fallback outside runtime Assets.
+- Verification: isolated Unity 6000.6.2f1 PlayMode 49/49 including complete
+  run, two paid towers, no-collider terrain and map rule checks. Windows x64
+  Development build succeeded and is running from
+  `Builds/Windows/Stage3LandscapeConceptB`; capture:
+  `art/review/landscape-concept-b-game.png`. Player log has no attributable
+  errors; runtime reports 0 bushes, 10,099 combined foliage triangles and 0
+  foliage colliders. `git diff --check` passed.
+- Remaining: player visual acceptance and quantitative frame cost. Commercial
+  MVP model/UI/audio scope and Stage 3 gate remain open; final hero model last.
+
+### 2026-09-25 — Stage 3 concept B grass and soft gray-zone verge
+
+- Owner/surface: Stage 3 playable landscape. The player pointed back to the
+  approved concept B image and requested that grass texture and its soft,
+  irregular transition on every gray-zone side, with no bushes.
+- Behavior/contracts: a new original `LandscapeGrass.png` was generated with
+  concept B as a style reference (prompt at
+  `art/source/landscape_grass_prompt.txt`). `TacticalGrass.mat` repeats it at an
+  eight-cell scale. `Stage3TacticalPresentation.cs` lowers the visual grass
+  lift to 0.08 cell and replaces the straight dark sidewall with a textured
+  sloping verge on each forest/gray boundary. `Stage3LandscapeProps.cs` puts
+  real grass fringe at the outer edge; no bush meshes or materials return.
+  The shared rules plane and gray-only tower placement stay unchanged.
+- Verification: isolated Unity 6000.6.2f1 PlayMode 49/49 including full run,
+  grass-verge geometry, no foliage colliders, two paid towers and existing map
+  rules; 1/1 focused check passed after the final grass material scale edit.
+  Windows x64 Development build succeeds. Running build:
+  `Builds/Windows/Stage3LandscapeConceptB`; actual game capture:
+  `art/review/landscape-concept-b-scale-game.png`; player log has no new
+  attributable errors. Main/built scene, scripts, material and texture hashes
+  match; `git diff --check` passes.
+- Remaining: player visual acceptance and quantitative frame-cost check if
+  accepted. Commercial MVP model/UI/audio scope and overall Stage 3 gate are
+  open. The final hero model remains last.
+
+### 2026-09-25 — Stage 3 raised grass edge, rejected bushes removed
+
+- Owner/surface: Stage 3 playable landscape presentation. The player rejected
+  the procedural bushes and asked for grass visibly above compacted gray earth
+  as in concept B. No new model or gameplay system is introduced.
+- Behavior/contracts: `Stage3LandscapeProps.cs` now generates only grass blades
+  and flowers, with denser real 3D blades along the green/gray boundary. Bush
+  methods, scene bindings and their unreferenced material assets were removed.
+  `Stage3TacticalPresentation.cs` renders green cells 0.18 cell above gray and
+  builds a shallow soil sidewall, while lifting hero/resource scale markers to
+  match; the scene and builder use the reduced material set. Navigation,
+  movement, ray clicks, combat and tower placement still use the unchanged
+  flat map coordinates. D-011/D-030 and tactical/art specs record the visual
+  exception; no collider was added.
+- Verification: isolated Unity 6000.6.2f1 PlayMode 49/49 including full run,
+  followed by 1/1 focused edge geometry check after the fringe density edit.
+  Windows x64 Development build succeeded. The actual game capture is
+  `art/review/landscape-raised-grass-final.png`; running player
+  `Builds/Windows/Stage3LandscapeRaisedGrass` has no attributable log errors.
+  Runtime reports 0 bushes, 3 shared foliage meshes, 7487 triangles and 0
+  foliage colliders. `git diff --check` and main/isolated input hashes checked.
+- Remaining: player visual review and quantitative frame cost if the terrain
+  is accepted. Stage 3 commercial MVP model/UI/audio scope and gate remain
+  open; hero model remains last.
+
+### 2026-09-25 — Stage 3 landscape visual correction
+
+- Owner/surface: Stage 3 landscape presentation in the playable 3D scene.
+  The player rejected the first texture-only pass as blurry and distant from
+  selected concept B. Hero, towers, combat rules and map masks remain owned by
+  their existing surfaces.
+- Behavior/contracts: `LandscapeGrass.png` now carries original text-prompt
+  generated painted turf, imported uncompressed with full NPOT resolution.
+  `Stage3LandscapeProps.cs` adds separate rounded bush, leaf, grass-blade and
+  flower meshes on green terrain/border; five combined renderers, no colliders
+  or rule references. `Stage3TacticalPresentation` and the scene bind the new
+  materials. The procedural source script generates only gray earth now;
+  `STAGE3_TACTICAL_VIEW.md` and `ART_DIRECTION.md` record provenance.
+- Verification: isolated Unity 6000.6.2f1 PlayMode 49/49 including full run,
+  map-rule and no-collider checks; Windows x64 Development build succeeded.
+  `Builds/Windows/Stage3LandscapePolished` runs and responds, with both paid
+  towers visible; `Artifacts/S3-RAPID-PILOT/landscape-polished-player.log` has
+  no attributable errors. Actual capture: `art/review/landscape-polished-game.png`.
+  Five shared meshes contain 44,245 triangles total, 0 colliders;
+  `git diff --check` passes.
+- Remaining: the player must judge the revised look in the game. Measure
+  frame cost after visual acceptance and adjust only if needed. Commercial MVP
+  model/UI/audio scope and the overall Stage 3 gate remain open; the final
+  hero model is still last.
+
+### 2026-09-25 — Stage 3 landscape concept selection
+
+- Owner/surface: Stage 3 visual landscape planning. The player deferred the
+  final hero model until the end; the current basic hero marker remains.
+- Input: player-supplied bright grass, low bushes and small white flower
+  reference at `art/references/landscape_player_grass_reference.png`; unknown
+  source license, inspiration only. Current game screenshot provided scale and
+  camera composition. No external image is runtime-ready.
+- Output: two imagegen review concepts in `art/concepts/landscape_option_a_stone_paving.png`
+  and `landscape_option_b_packed_earth.png`. A uses weathered stone paving in
+  the gray zone; B uses compacted earth/slate chips. Both explore the grassy
+  green zone. Player selected B and required real 3D props for any raised
+  bushes/rocks; omitting these in the first pass is accepted.
+- First pass (subsequently rejected): original seamless turf and compacted earth textures via
+  `art/source/build_landscape_textures.py`, continuous four-cell UVs in
+  `Stage3TacticalPresentation`, updated materials and builder bindings. No
+  fake-relief props are painted into the textures. Scene/map rules and prefabs
+  are unchanged; the existing terrain mesh and draw-call structure are reused.
+- Verification: PlayMode 48/48 including full run, catapult aiming, camera and
+  map bounds. Main and tested landscape inputs matched by hash. Windows x64
+  Development build `Builds/Windows/Stage3LandscapeB` launched with both
+  purchased towers; `Artifacts/S3-RAPID-PILOT/landscape-player.log` has no
+  attributable errors. Actual-player capture: `art/review/landscape-b-game.png`.
+  Two 512-square maps replace two 128-square maps; no raised prop geometry was
+  added. Release GPU timing was not separately measured.
+- Historical remaining work: the texture-only pass awaited review; the player
+  rejected it, and the newer entry above records the visual correction.
+
+### 2026-09-25 — Stage 3 centered rotation of the catapult inner mechanism
+
+- Owner/surface: Stage 3 visual aiming, following the player's annotated
+  screenshot. Existing model, textures, material, camera and prior uncommitted
+  changes are preserved. No additional content is produced.
+- Behavior: an explicit `Catapult centered yaw` pivot lies on the vertical
+  line through the occupied cell center. Imported frame/axle/arm/cup move
+  together below that pivot; masonry and parapet remain outside it. Forward
+  comes from the imported cup and axle positions. Between throws the mechanism
+  continuously tracks the nearest living enemy; the throwing arm retains its
+  separate axle motion. Pause freezes tracking and reset cleans it up.
+- Contracts/files: `Stage3TowerShotMotion` and combat presentation; read-only
+  `Stage2Tower.AttackRange` and `Stage2EnemyGroup.FindNearest` reuse combat's
+  existing target selection. Aiming cannot fire, reserve targets or deal damage.
+  Catalog values, damage timing and shots are unchanged; no Inspector migration.
+- Verification: EditMode 79/79 and complete PlayMode 48/48, including full run/restart and a new
+  four-bearing check of fixed pivot, frame height/radius, fixed foundation and
+  parapet, live-target tracking without shots, and pause/reset. Preview versus
+  placed bounds allow 0.0001 world units for float rounding during the
+  world-preserving reparent. Evidence: `Artifacts/S3-RAPID-PILOT/catapult-yaw-*`.
+  Windows build `Builds/Windows/Stage3CatapultYaw` launched; player startup and
+  both tower bindings are ready, with no attributable errors. Actual gameplay
+  captures `art/review/catapult-yaw-stone-windup.png`, `catapult-yaw-stone-release.png`
+  and `catapult-yaw-stone-flight.png` show the mechanism inside the fixed base.
+  Main Assets/Packages/ProjectSettings match the tested build inputs by hash.
+- Acceptance: player inspected the restarted playable build and accepted the
+  revised aiming on 2026-09-25.
+- Remaining: agree commercial MVP model/UI/audio scope, produce only approved
+  content, then verify the full run. Stage 3 gate remains open; Stage 4 waits.
+
+### 2026-09-25 — Stage 3 player corrections to tower animation
+
+- Owner/surface: Stage 3 combat presentation and removal of obsolete tower
+  shot tint from `Stage2Tower`. Existing assets, camera, catalogs and all prior
+  uncommitted changes are preserved. No new model or package was introduced.
+- Behavior: both towers retain their authored colors; Rapid's model remains
+  completely still. Catapult aims from its current bearing, winds back with
+  the stone still loaded, releases at the cup socket, follows through and
+  smoothly returns/reloads. The existing shot clock drives the pose and release;
+  windup fits within the original flight duration, so damage timing is unchanged.
+  Enemy damage feedback remains. No Inspector reassignment is required.
+- Contracts/files: `Stage3TowerShotMotion`, `Stage3CombatPresentation`, tactical
+  binding, `Stage2Tower`, focused tests, tactical spec, D-029 and canonical plan.
+- Verification: Unity 6000.6.2f1 EditMode 79/79 and PlayMode 47/47, including
+  the full tactical run/restart. The presentation check asserts loaded stone
+  during windup, no visible duplicate projectile, release within 0.002 world
+  units of the cup, unchanged Rapid position/rotation/color, pause and reset.
+  Evidence: `Artifacts/S3-RAPID-PILOT/combat-r2-*`.
+  Windows build `Builds/Windows/Stage3CombatR2` launched with a clean player
+  log. Actual player frames `art/review/combat-r2-stone-windup.png`,
+  `combat-r2-stone-release.png`, `combat-r2-arrow-flight.png` verified distinct
+  loaded/released phases and unchanged tower colors. `git diff --check` passes.
+- Remaining: player evaluates corrected motion in the open build; Stage 3 gate and
+  commercial MVP model/UI/audio scope remain open. Stage 4 awaits that gate.
+
+### 2026-09-25 — Stage 3 tower firing and impact animation (D-029)
+
+- Owner/surface: Stage 3 combat presentation with a narrow Defense/WavesAI/Run
+  timing contract. The player requested firing and impact animation for both
+  existing towers. Prior uncommitted changes and approved camera are preserved.
+- Behavior: Rapid arrow/trail/recoil/impact sparks; Longshot aims the upper
+  frame, releases its arm/bowl, throws a stone along an arc, returns and reloads.
+  Stone impact emits fragments and a ring at the real area boundary. The
+  catapult uses four shared mesh parts with the original atlas/material and
+  unchanged triangle count; no new tower/character production was started.
+- Contracts/files: `Stage2DefenseCatalog.projectileFlightSeconds` is authored
+  in baseline and visual catalogs; Tower forwards it to EnemyGroup. The group
+  owns pending shots and launch/impact/clear facts; Run advances them, freezes
+  them on pause and clears them on reset. Damage resolves on arrival without
+  any renderer/collider/animation event dependency. Dead targets are not
+  retargeted; arrows do no extra damage, stone resolves at last known position.
+  Wave completion waits for outstanding shots. Range/cadence/damage/costs stay.
+  `Stage3CombatPresentation`/`Stage3TowerShotMotion` bind automatically through
+  the tactical presentation; no manual Inspector step or package change.
+- Verification: EditMode 79/79 and complete PlayMode 47/47, including full
+  tactical run and visual flight/pause/impact/restart. A preview test exposed an
+  extra 0.338-cell vertical offset in the aiming pivot; fixed in source and
+  verified against the original bounds without relaxing the test. Shared mesh
+  placement was checked with 24 catapults. This Editor diagnostic does not
+  substitute for release GPU profiling. Logs/XML: `Artifacts/S3-RAPID-PILOT/combat-*`.
+  Final Windows x64 Development Build is `Builds/Windows/Stage3Combat`; source
+  Assets/Packages/ProjectSettings hashes matched the tested isolated copy.
+  Final player launched; clean gameplay-ready log and refreshed actual-player
+  captures `art/review/combat-arrow-flight.png`, `combat-stone-flight.png`,
+  `combat-stone-impact.png` confirm trails, articulated pose and area impact.
+  The player remains open; Space starts the next wave. `git diff --check` passes.
+- Remaining: player review of animation readability/timing; commercial MVP
+  model/UI/audio roster and representative release performance pass remain
+  open. Stage 3 gate stays open; Stage 4 is reserved for a new agent after it.
+
+### 2026-09-25 — Stage 3 bowl catapult model -> playable review
+
+- Owner/surface: Stage 3 art and visual integration; dependencies are approved
+  concept A, explicit Blender authorization and existing D-028 Longshot rules.
+  Added original `art/source/longshot_catapult.blend`, reproducible script,
+  atlas/FBX, material, prefab and visual catalog in `Assets/Stage3/VisualPilot`.
+  Scene changes only bind the new Longshot catalog; prior camera settings and
+  all pre-existing working-tree changes are preserved.
+- Behavior: the player-owned second tower now shows masonry, timber frame,
+  axle/rope, throwing arm and bowl with a stone. Showcase buys both roles
+  through normal placement, Longshot left of Rapid. The visual catalog copies
+  rule values from the baseline catalog; no geometry-based combat/navigation.
+  Added `BuildCurrentGamePlayer` to build the saved scene without regenerating
+  accepted camera/model settings. No manual Inspector wiring remains.
+- Verification: isolated Unity 6000.6.2f1 PlayMode 46/46, including complete
+  tactical run/restart, matching mesh preview/placement bounds and 24 paid
+  copies sharing one mesh/material. Footprint 0.918 x 0.916 cells, height 1.581;
+  22,968 triangles, one 2048-square atlas. Batchmode Editor frame diagnostics
+  are not release GPU performance evidence. Prior rule EditMode 77/77 remains
+  the unchanged gameplay baseline. Final Windows Development build succeeds;
+  visible player logs startup, both towers and tactical ready without errors.
+  Actual playable camera inspection shows both distinct silhouettes, correct
+  one-cell bases and shadows; screenshot `art/review/longshot_in_game.png`.
+  Evidence: `Artifacts/S3-RAPID-PILOT/catapult-*`; build/player in
+  `Builds/Windows/Stage3Longshot`. `git diff --check` passes.
+- Remaining: owner evaluates the finished model in the launched game; this
+  does not imply visual acceptance. Arm/projectile animation is not implemented;
+  existing attack flash remains. Agree commercial MVP model/UI/audio roster
+  before further production; profile representative release load later.
+  Existing interactive Editor hot-reload errors were not used as validation;
+  the fresh build/test environment is clean. Stage 3 gate remains open;
+  Stage 4 starts with a new agent only after that gate closes.
+
+### 2026-09-25 — Stage 3 Longshot concept and D-028 rules checkpoint
+
+- Owner/surface: Stage 3 visual-content proposal and Longshot catalog/attack
+  contract; `art/concepts/`, Defense/WavesAI rules and focused tests, canonical
+  Stage 3 plan, tower-role spec, art direction and D-028.
+- Behavior: player chose the original stone catapult concept A, price 2 wood/5
+  stone/0 metal and a two-cell blast dealing the current two damage to each
+  enemy. Rapid remains single-target. Metal stays gatherable on the map.
+  Blender modeling is explicitly held until separate player authorization.
+- Verification: original working-tree changes preserved. Unity 6000.6.2f1
+  isolated-copy EditMode 77/77 and PlayMode 45/45 passed, including the
+  tactical-scene full two-role run and restart. Test logs/XML are under
+  `Artifacts/S3-RAPID-PILOT/longshot-*`. No attributable C# errors; two
+  expected invalid-map diagnostics came from negative tests. Windows x64
+  Development Build succeeded; hidden headless player smoke logged Stage 3
+  gameplay/tactical ready without attributable errors.
+- Remaining: agree proposed commercial MVP model/UI/audio scope, then await explicit permission
+  before Blender work. Once a model is accepted, check its scale, silhouette,
+  camera readability, placement and many-tower cost in the playable scene.
+  Stage 3 gate remains open; Stage 4 belongs to a new agent.
+
+### 2026-09-25 — Stage 3 owner accepted runtime 3D (D-027)
+
+- Owner/surface: Stage 3 product decision and visual-production handoff;
+  `production/DECISIONS.md`, `gamedesign/GAME_VISION.md`,
+  `gamedesign/ART_DIRECTION.md`, `gamedesign/DEVELOPMENT_PLAN.md` and this entry.
+- Behavior: player accepted the playable Rapid watchtower and tactical camera,
+  and explicitly chose runtime 3D over sprites rendered from 3D. Each future
+  model still requires a role/look discussion and image concept approval
+  before Blender modeling and Unity integration.
+- Verification: player confirmation in chat; documentation-only decision,
+  with no scene, runtime, asset or test changes in this entry.
+- Remaining: agree commercial MVP asset scope and the next model (Longshot is
+  the likely next tower), review its concepts with the player, then implement
+  only accepted content. Stage 3 gate stays open; Stage 4 belongs to a new
+  agent after that gate closes.
+
+### 2026-09-25 — Stage 3 closer-view limit from player screenshots (D-026)
+
+- Owner/surface: Stage 3 tactical camera near clamp, matching PlayMode check,
+  and current visual/plan handoff. The player supplied two real game frames;
+  their cell and tower sizes indicate a closest view about 2× less magnified.
+- Behavior: closest zoom is 2× the opening view (orthographic size 0.5×)
+  instead of 4× (0.25×). D-025 movement behavior, far 2× limit and the saved
+  1.205 Inspector step remain.
+- Verification: isolated PlayMode 45/45 passed, including the new near bound,
+  unchanged far bound, movement/corners, full run and restart. Windows build
+  succeeded and was opened from `Builds/Windows/Stage3CloserZoom/`. Player log
+  has `S2_INT_GAMEPLAY_READY`, `S3_RAPID_GAME_READY` and
+  `S3_TACTICAL_VIEW_READY` without a new attributable error. `git diff --check`
+  passed. Stage 3 remains open for visual acceptance by the player.
+
+### 2026-09-25 — Stage 3 fixed movement zoom and non-walkable border (D-025)
+
+- Owner/surface: Stage 3 tactical camera/presentation and their pilot tests.
+  The player selected a finite non-walkable visual border after weighing the
+  conflicting center, map-edge and 2× zoom requirements.
+- Behavior: WASD no longer changes orthographic size. Wheel alone eases toward
+  a size from 0.25× to 2× the opening view; the hero remains centered. A
+  darkened terrain border surrounds the unchanged 32×32 gameplay map, with no
+  walkable/buildable/navigation cells or new gameplay content. The saved
+  Inspector multiplier remains 1.205.
+- Verification: isolated PlayMode 45/45 passed, including WASD without zoom,
+  smooth wheel steps, 2× retreat, centered hero and all viewport corners at
+  old gameplay-map edges; the complete run and restart also pass. Windows build
+  succeeded and was opened from `Builds/Windows/Stage3CameraSteady/`.
+  Player log has `S2_INT_GAMEPLAY_READY`, `S3_RAPID_GAME_READY` and
+  `S3_TACTICAL_VIEW_READY` without a new attributable error. The current
+  build screenshot is `art/review/stage3_tactical_game.png`; `git diff --check`
+  passed. Human camera/tower acceptance and Stage 3 gate remain open.
+
+### 2026-09-25 — Stage 3 map-bound, hero-centered smooth camera (D-024)
+
+- Owner/surface: Stage 3 tactical presentation and opt-in camera behavior in
+  `Stage2CameraFollow`; the Stage 2 camera path and gameplay rules are unchanged.
+- Behavior: the hero's ground point is the exact screen center. Mouse wheel
+  updates a target orthographic size and the image eases toward it. Maximum
+  size follows the nearest playable map edge and Game view aspect; the camera
+  approaches automatically near borders. The outer grass skirt was removed.
+  The player's persistent `TacticalZoomSettings.asset` value of 1.205 is kept.
+- Verification: isolated PlayMode 45/45 passed, including live Inspector
+  setting, smooth wheel zoom, map corners, ground picking, the full run and
+  restart. Windows build succeeded; launched player logged
+  `S2_INT_GAMEPLAY_READY`, `S3_RAPID_GAME_READY`, `S3_TACTICAL_VIEW_READY` with
+  no new attributable error. `git diff --check` passed. Build:
+  `Builds/Windows/Stage3CameraBounds/Not3AStage3RapidPilot.exe`.
+- Remaining: the owner assesses the visible camera behavior and tower style in
+  the actual game. Stage 3 gate and runtime-3D-versus-sprites production choice
+  remain open; no mass content production or Stage 4 handoff yet.
+
+### 2026-09-25 — Stage 3 Inspector zoom tuning (D-023)
+
+- Owner/surface: Stage 3 pilot scene/Editor opening flow and a narrow Stage 2
+  camera settings asset. Player highlighted the empty Inspector and asked to
+  tune the abrupt wheel strength there.
+- Behavior: `TacticalZoomSettings.asset` stores a 1.05..3 multiplier (default
+  1.4), which the tactical camera reads live; its custom Inspector presents a
+  Russian slider and saves edits during Play Mode. The game opening command
+  selects this asset in the right-hand Inspector. Wheel normalization and
+  near/far limits remain as D-022; rules have no asset dependency.
+- Verification/build: isolated PlayMode 45/45 passed, including live setting
+  changes via a scratch ScriptableObject plus small/standard wheel deltas,
+  range clamps and ground picking. Windows build succeeded and startup/gameplay/
+  tower/tactical-ready markers passed. The Editor had one native crash during
+  script reload in `com.unity.pipeline` startup; after restart the scene entered
+  Play Mode without a new attributable error. The main scene's serialized
+  camera reference points to `TacticalZoomSettings.asset`; Editor status
+  confirms `zoomSettingsSelected=True`, scene ready and step 1.4. The Inspector
+  was opened and the temporary standalone window closed so the user can tune
+  in Unity. `git diff --check` passed. Player chooses final strength; Stage 3
+  gate remains open.
+
+### 2026-09-25 — Stage 3 wheel delta correction (D-022)
+
+- Owner/surface: same Stage 3 tactical camera and its input regression test.
+  Player still saw almost no zoom after D-021. The camera divided every wheel
+  value by 120, so devices reporting small deltas could barely move it.
+- Behavior: each nonzero wheel event counts as at least one 2.5× scale step;
+  large deltas retain multi-step behavior. D-021 limits and fixed angle remain.
+  First four wheel events log raw delta and resulting size for a real-device
+  follow-up. No change to building, navigation or playable map cells.
+- Verification/build: full isolated PlayMode suite 45/45 passed, including the
+  regression with raw wheel deltas 1 and 120, both directions, range clamps,
+  ground coverage and picking. Windows build succeeded and was copied to
+  `Builds/Windows/Stage3TacticalWheelFix/`. The previous standalone player was
+  closed and this build launched; its log has startup, gameplay, tower and
+  tactical-ready markers without attributable errors. The main Editor also
+  refreshed and resumed the playable scene (`editor-game-status.txt`: ready).
+  `git diff --check` passed. Actual wheel units on the player's device will
+  be visible as `S3_ZOOM_INPUT` after their next scroll; owner feel review remains.
+
+### 2026-09-25 — Stage 3 stronger tactical zoom (D-021)
+
+- Owner/surface: same Stage 3 tactical camera and noninteractive surrounding
+  ground; user found the previous wheel change too weak in both directions.
+- Behavior: each wheel notch changes orthographic scale 1.8×; limits are 4×
+  closer and 8× farther than opening scale 5. Fixed angle, rules-plane clicks,
+  map cell bounds and gameplay rules stay as before. Background ground now
+  covers the wider view.
+- Verification/build: full isolated PlayMode suite 45/45 passed after correcting
+  wide-view ray/ground intersection. Windows build succeeded and is open from
+  `Builds/Windows/Stage3TacticalZoomStrong/`. Its Player log has Stage 2
+  startup/gameplay and Stage 3 tower/tactical-ready markers, with no attributable
+  error. The main interactive Editor also reloaded the change and returned to
+  `Stage3Rapid3DGamePilot` in Play Mode (`editor-game-status.txt`: ready=true).
+  Owner visual review remains open.
+
+### 2026-09-25 — Stage 3 tactical mouse zoom
+
+- Owner/surface: Stage 3 camera follow, surrounding visual ground and focused
+  PlayMode coverage. Depends on D-019 tactical scene and input system.
+- Player request: mouse wheel zooms relative to the current opening view;
+  `orthographicSize` 5 is clamped to 2.5..20. Fixed angle, navigation, build
+  rules and the 32×32 playable boundary stay intact. The visual ground skirt
+  fills the wide camera view but adds no cells or collision.
+- Verification: focused wheel/boundary/picking check 1/1 and full PlayMode
+  suite 45/45 passed in the isolated Unity project. Updated Windows build
+  succeeded (`zoom-build.log`) and was copied to
+  `Builds/Windows/Stage3TacticalZoom/`. The main interactive Editor reloaded
+  the changed scripts, resumed `Stage3Rapid3DGamePilot` in Play Mode and logged
+  startup/tactical/tower readiness; status confirms `playing=True, ready=True`.
+  Actual Editor game capture `art/review/stage3_editor_game.png` was inspected.
+  `git diff --check` passed. Owner visual approval remains open.
+
+### 2026-09-25 — Stage 3 playable scene in the user's existing Editor
+
+- Fixed review delivery: the Windows player had started, but the visible Editor
+  still showed the standalone model probe. Opened `Stage3Rapid3DGamePilot` in
+  that existing Editor, entered Play Mode and selected the Game tab.
+- Surface: `Stage3RapidPilotBuilder` accepts an explicit local request at
+  `Artifacts/S3-RAPID-PILOT/open-game.request` on script reload. Requests expire
+  after five minutes, are consumed once, skip batch mode, and use Unity's save
+  prompt before changing scenes. No automatic launch without a request.
+- Verified in the main interactive Editor: successful compilation, startup,
+  gameplay, tower and tactical-ready markers; `editor-game-status.txt` records
+  the intended scene with `playing=True`, `ready=True`. No new attributable
+  exception. Desktop screenshot verification was unavailable because the
+  computer-use tool failed to initialize; runtime status is verified via Editor
+  APIs. Existing 76 EditMode / 44 PlayMode results apply to unchanged gameplay.
+- Remaining: owner's visual review and the previously recorded Stage 3 work.
+
+### 2026-09-25 — Stage 3 D-019 tactical camera/ground -> playable review
+
+- Owner/surface: current Stage 3 agent; shared camera follow, ground coordinate
+  conversion and mouse picking plus isolated Stage 3 scene/presentation. Depends
+  on accepted Stage 2 loop and the original Rapid R2 Blender output. User
+  explicitly authorized camera adaptation now, after supplying more TD views.
+- Behavior: one fixed elevated orthographic camera over a unit square ground
+  grid; upright Rapid with foundations/shadows, temporary solid hero/objective/
+  resource/enemy markers, matching mesh build preview and existing tint feedback.
+  Gray-only placement, paid construction, navigation, damage and run rules stay
+  authoritative. No final new actor/environment models were approved or made.
+- Contracts/files: map adds opt-in planar conversion/hash/clamp; mover uses map
+  clamp; camera has opt-in tactical follow and bootstrap validates its fixed
+  orientation; build input intersects Z=0. `Stage3PlanarCorner` is a separate
+  map asset. `Stage3TacticalPresentation` and `Stage3MeshFeedback` own visuals.
+  Source Stage 2 assets keep their legacy view. Updated vision/art/plan, D-019,
+  tactical feature brief, related map/build specs, both requested HTML reports.
+- Verification: EditMode 76/76; final PlayMode 44/44, including upright FBX,
+  real mouse placement/grass rejection, planar movement, full viewport within
+  map edges, paid two-role full run/restart and legacy regressions. Windows
+  build/startup/pilot/tactical-ready markers passed, final build/player logs
+  have no new attributable error. Visually checked actual player capture
+  `art/review/stage3_tactical_game.png`. Build is open from
+  `Builds/Windows/Stage3TacticalView/`. Evidence: `Artifacts/S3-RAPID-PILOT/tactical-*`.
+  Both HTML reports now identify Stage 3 as current and embed that game capture;
+  local image links/unique IDs were checked.
+- Remaining: owner evaluates the new view; mass art/production budget, sustained
+  many-tower performance, final actor art/UI/audio and the Stage 3 gate remain
+  open. Stage 4 starts with a new agent. Working implementation is runtime 3D;
+  the previous sprite-first recommendation is superseded by D-019.
+
+### 2026-09-25 — Stage 3 Rapid model revision 2 -> owner visual review
+
+- Behavior: the original concept (wood, no visible archer) is approved, but the
+  player rejected the first overly simple model. R2 rebuilds the silhouette,
+  layered curved shingles, hip caps, heavy beams, rails/slats, riveted collars
+  and stone feet. Original procedural wood/stone color and AO are baked into
+  one 2048 atlas; FBX has one renderer/material and 31,668 triangles. Actual
+  Blender render: `art/review/rapid_watchtower_r2_blender.png`. Model approval
+  is still pending; do not confuse concept approval with model acceptance.
+- Playable wiring: `Stage3Rapid3DGamePilot` buys one Rapid through normal paid
+  placement for immediate review. Its prefab keeps the imported FBX axis
+  conversion inside a separate visual orientation parent for the XY camera;
+  a dedicated scene light makes the mesh readable. A small depth offset keeps
+  feet above the flat map surface. Reimport texture settings before prefab
+  mutation (reimporting during mutation can reset imported-root overrides).
+  Sprite preview and separate sprite pilot remain available. Gameplay rules
+  and the original Stage 2 scene/catalog were not changed by this revision.
+- Contracts/files: `art/concepts/rapid_watchtower_approved.png`,
+  `art/source/rapid_watchtower.blend` and build scripts,
+  `Assets/Stage3/VisualPilot/**`, `Assets/Scenes/Stage3Rapid*`, review captures,
+  this register, art direction and the canonical plan. Other uncommitted
+  changes were preserved. Build: `Builds/Windows/Stage3RapidPilotR2/`.
+- Verification: Blender source exported and rendered; Unity imported the atlas,
+  model and sprite. Windows build emitted `S3_RAPID_GAME_BUILD_OK`; actual
+  player emitted startup/gameplay/pilot-ready markers and was visually checked
+  in `art/review/rapid_r2_in_game.png`. Final build/player logs have no new
+  attributable error. Earlier full PlayMode suite passed 40/40; final revision
+  checks passed 3/3: both visual pilots plus the existing complete winning
+  run/restart (`revision2-verified-tests.xml`). One test launch hit a transient
+  Unity IL postprocessor startup failure; the unchanged retry completed.
+  Evidence: `Artifacts/S3-RAPID-PILOT/revision2-*`. Immediate editor Camera.Render
+  capture has an unreliable ground-material preview; use the actual player
+  screenshot and Blender render for visual judgment.
+- Remaining: owner reviews R2 and chooses runtime 3D or Blender-rendered sprites.
+  Current runtime mesh pilot does not show the existing SpriteRenderer attack
+  flash, and uses a sprite placement preview. Actor overlap, picking/surface
+  consistency and many-tower performance/LOD still need evaluation before
+  adopting runtime 3D. Geometry count is pilot data, not an accepted production
+  budget. No broader art, UI or audio production yet; Stage 3 gate remains
+  open. Stage 4 belongs to a new agent after Stage 3 closes.
+
+### 2026-09-25 — Stage 2 Rapid hit visibility -> Stage 3
+
+- Behavior: a live corner-map check confirmed one Rapid kills multiple first-wave
+  enemies. Each successful shot now flashes the tower briefly, and nonlethal
+  enemy damage flashes the enemy; attack rules and values stay the same.
+- Contracts/files: `Stage2Tower`, `Stage2Enemy`, focused Defense and Integration
+  tests, tower-role spec and canonical plan. No scene or Inspector migration.
+- Verification: EditMode 76/76 and PlayMode 39/39 passed. Windows player build
+  emitted `S2_INT_BUILD_OK`, launched with `S2_INT_STARTUP_OK` and
+  `S2_INT_GAMEPLAY_READY`, and has no new attributable startup error.
+  Evidence: `Artifacts/S2-RAPID-FEEDBACK/`.
+- Human observation: player confirmed the new Windows build: «теперь
+  работает». Repeated attacks are readable; Stage 3 remains a separate new
+  task.
+
+### 2026-09-25 — Stage 2 D-018 economy and first-wave pacing -> Stage 3
+
+- Behavior: preparation before every authored wave is 180 s; Rapid costs
+  5 gold, 2 wood, 1 stone;
+  each run starts with 5 gold and each killed enemy grants 1. Throne contact
+  and restart cleanup grant none. Longshot price remains.
+- Contracts/files: Run catalog/builder, Economy inventory/catalog/asset,
+  Defense payment/catalog/asset/builder, enemy death fact, run reward, temporary
+  HUD, focused tests and vision/plan/spec/decision docs. Stage 2 scene uses
+  the existing asset references; no Inspector migration is needed.
+- Verification: Unity 6000.6.2f1 EditMode 76/76, PlayMode 38/38; the full
+  automated run buys a second Rapid after first-wave kills, wins and restarts.
+  Windows Development Build emitted `S2_INT_BUILD_OK` and the launched player
+  emitted `S2_INT_STARTUP_OK` and `S2_INT_GAMEPLAY_READY`, responsive with no
+  new attributable startup error. The later extension to 180 s for waves 2/3
+  passed EditMode 76/76 and PlayMode 38/38; its new Windows build started
+  cleanly. Evidence: `Artifacts/S2-ECONOMY-REVISION/` and
+  `Artifacts/S2-ALL-WAVES-180/`.
+- Remaining: no new human pacing observation since D-018; values are
+  provisional. Stage 3 still starts in a separate task with a new agent.
+
+### 2026-09-25 — Stage 2 first playable gate -> new Stage 3 agent
+
+- Behavior: D-016 corner defense now runs on a 32×32 map; Rapid and Longshot
+  are both wired, selectable, purchasable and active in one automated winning
+  run. Gray-only combat placement remains enforced. The old 100×100 asset is
+  retained for historical navigation/performance fixtures.
+- Contracts/files: new `Stage2Corner32x32.asset` and Map builder, Integration
+  scene/builder/tests, map test and current map/vertical-slice/plan/decision
+  docs. The existing uncommitted Longshot wiring was preserved. Scene map
+  references, entrance/throne/hero/camera positions and resource anchors now
+  agree with the corner asset; no new Inspector assignment is required.
+- Verification: Unity 6000.6.2f1 EditMode 74/74, PlayMode 38/38, then focused
+  Integration 16/16 after adding a viewport assertion. Windows x64 Development
+  Build `S2_INT_BUILD_OK` launched with `S2_INT_STARTUP_OK` and
+  `S2_INT_GAMEPLAY_READY` for final hash `48A2358B440C3C65`, responsive and
+  without a new attributable startup error. A human completed and restarted
+  a run, then confirmed the final start shows portal/throne and clear resource
+  directions. Screenshot, test reports and logs are under
+  `Artifacts/S2-CORNER/`; `git diff --check` passes.
+- Remaining: Stage 2 gate is closed. Map size and tempo are provisional; no
+  specific blocker was reported. Stage 3 starts only in a separate new task
+  with another agent and begins with the small Blender visual pilot.
+
+### 2026-09-25 — Stage agent prompts -> future stage owners
+
+- Behavior: roadmap now contains a standalone starter prompt for each Stage
+  2–7 and regression-only prompts for completed Stage 0–1. Each new stage uses
+  a new Codex agent/task after the previous gate; one agent carries its stage.
+- Contracts/files: `reports/development-roadmap.html`,
+  `gamedesign/DEVELOPMENT_PLAN.md`, D-017 in `production/DECISIONS.md` and this
+  handoff. Existing Unity scene/runtime/data changes were left untouched.
+- Verification: HTML parses; all eight prompts sit in their matching stage,
+  and all 18 links/anchors resolve. `git diff --check` passes. Documentation
+  only, so Unity tests and build were not rerun for this change.
+- Remaining: current Stage 2 agent still needs to complete its playable gate;
+  create the Stage 3 agent only after that gate is accepted.
+
+### 2026-09-25 — Roadmap stage navigation
+
+- Behavior/files: `reports/development-roadmap.html` now switches Stage 0–1 and
+  Stage 2–7 through accessible button tabs; only the chosen stage panel shows.
+  Stage prompts, task-level model guidance and the canonical stage gates remain.
+- Verification: HTML structure/links and seven tab-panel bindings pass; a DOM
+  interaction check covers click, Arrow, Home/End and the current-stage shortcut.
+  `git diff --check` passes. No Unity behavior changed in this edit.
+- Remaining: Stage 2 playable work and gate are unchanged.
+
+### 2026-09-25 — Model settings in stage prompts
+
+- Behavior/files: all eight starter prompts in
+  `reports/development-roadmap.html` now begin with an explicit Codex model and
+  reasoning level; the setting is also visible above the copyable text.
+  `gamedesign/DEVELOPMENT_PLAN.md` clarifies that the user selects that setting
+  in Codex before creating the stage task, with any later switch described in
+  the prompt.
+- Verification: parsed every prompt and checked its first line against the
+  stage recommendation; HTML links resolve and `git diff --check` passes.
+- Remaining: stage gates and Unity work are unchanged.
+
+## Completed Work — First Playable (D-015)
+
+Active workstream: Integration, owner of
+`Assets/Scenes/Stage2VerticalSlice.unity`, its scene builder, composition and
+temporary readout. Defense owns its existing tower data/runtime. The
+uncommitted Longshot scene binding has been preserved and automatically
+verified. Dependencies: completed gather/build/path/siege/run loop and the
+two delivered Defense roles. Exit evidence: both roles work in the same
+automated full run; a player completed and restarted a Windows run, then
+confirmed the corrected startup view. Relevant checks pass and no new
+attributable startup errors appear.
+
+Next action: a new Stage 3 agent begins the small visual pilot when requested.
+`DEVELOPMENT_PLAN.md` is the current short
+path. The earlier task schedule, token estimates and proposed content below
+are retained only as historical evidence; they are not current assignments.
+
+D-016 update, 2026-09-25: Defense owns the gray-only combat placement check in
+`Assets/Stage2/Defense/Runtime/Stage2Defense.cs` and its focused tests. Map owns
+the authored map and Editor asset builder; Integration alone owns the scene,
+composition and its tests. The corner layout, three resource directions,
+gray-only paid towers, route/siege and camera now pass automated checks. The
+100×100 asset remains an older opposite-end candidate. Human Windows-run
+acceptance and final startup-visibility confirmation are recorded above.
+
+### 2026-09-25 — Defense gray-zone rule -> Map/Integration/QA
+
+- Behavior: Defense preview and confirm reject combat towers on green Forest
+  cells, even when the general buildable/walkable masks allow them; no tower,
+  payment or occupancy is produced. Gray InvasionCorridor placement remains
+  subject to all existing actor, economy and map checks.
+- Contracts/files: `Stage2Defense.cs`, focused Defense EditMode/PlayMode tests,
+  D-016, current vision/plan/map/building/vertical-slice docs and both HTML
+  reports. No Stage 2 scene, map asset or Integration work was overwritten.
+- Verification: `git diff --check` passes; both HTML files parse, SVG tags
+  balance and local links/anchors resolve. Focused Unity tests are degraded:
+  the project is open in an Editor process, and a second batchmode instance
+  cannot use the same project. Run Defense EditMode/PlayMode checks in that
+  Editor when the current Integration scene work is ready. Map geometry has
+  not yet been changed.
+- Remaining: Map and Integration implement the selected corner composition,
+  update coordinate-dependent tests and qualify the Windows player run.
+
+## Historical Stage 2 Package Notes
+
+### Former active package — S2-DEF-02 (2026-09-25)
 
 - Owner: Defense, `Assets/Stage2/Defense/**` and
   `gamedesign/features/STAGE2_TOWER_ROLES.md`. Integration retains exclusive
@@ -43,7 +1421,7 @@ check at the end of a task or task batch. Do not spend further agent turns on
 repeated live placement/timing comparisons unless a concrete defect or an
 explicit measurement request requires them. Present a short manual checklist.
 
-Stage 1 is complete. For Stage 2, reserve the scarce Integration/scene slot
+Historical sequence before D-015: Stage 1 is complete. For Stage 2, reserve the scarce Integration/scene slot
 for a running loop before polishing content. The next work is:
 
 1. S2-ECO-01 closed P-003 as D-013; S2-BLD-01 closed P-002 as D-014.
@@ -76,7 +1454,7 @@ model's guess.
 
 ## Stage 2 Ownership Rules
 
-Canonical task register and readiness order are in
+Current playability check is in
 `gamedesign/features/STAGE2_VERTICAL_SLICE.md`.
 
 - **Integration — единственный владелец
@@ -95,88 +1473,7 @@ Canonical task register and readiness order are in
   S2-QA-02 — после квалифицированной representative сборки. Только принятый
   внешний playtest переводит Stage 2 в complete.
 
-## Model And Token Routing For Project Tasks
-
-These are planning presets for the currently available Codex GPT-6 family,
-not a guarantee of actual consumption or account availability. In the Codex
-model picker, medium/high/xhigh/ultra mean the user's средний/высокий/очень
-высокий/ультра. Official OpenAI API docs describe effort through max; the
-Codex UI's ultra option should be treated as an exceptional extra setting,
-not as a documented API-equivalent preset.
-
-- **Inventory, status, formatting and narrow documentation updates:** GPT-6
-  Luna medium. Supply only the relevant decision, section and diff. Working
-  envelope: 5–12k input-context tokens and 1–2k visible result tokens.
-- **Ready isolated Unity C# tasks, focused tests and straightforward UI/data
-  wiring:** GPT-6 Sol medium; raise to high for lifecycle/reset/serialization
-  or tricky PlayMode failures. Working envelope: 12–30k input and 2–8k visible
-  output, depending on code volume.
-- **P-002/P-003/P-004/P-008 product tradeoffs and Stage 2 gate review:**
-  GPT-6 Astra high. Use xhigh when evidence conflicts across design, code and
-  playtests. Working envelope: 20–45k input and 2–6k visible decision memo.
-  The human accepts player-facing rules in DECISIONS.md.
-- **Navigation, economy/build transaction boundaries, scene integration and
-  performance regression:** GPT-6 Sol high for a bounded owner surface;
-  Astra xhigh for cross-system failure analysis with competing explanations.
-  Working envelope: 20–50k input and 3–8k visible report/code summary.
-- **MVP art and UI:** Luna medium for provenance/inventory or narrow reference
-  extraction; Sol medium for silhouettes, mockup briefs and simple 2D/Unity
-  import tasks. Raise to Sol high only for a concrete readability or technical
-  integration problem. Do not allocate Astra/xhigh/ultra to routine MVP asset
-  polishing. Use the appropriate visual or Unity tools for actual assets.
-- **Post-MVP Blender work:** after a separate art-direction decision and
-  scoped asset brief, GPT-6 Astra high can lead difficult modeling/editing,
-  rigging, export and review tasks using the available Blender workflow.
-  Try xhigh only for a measured unresolved blocker.
-  Allocate tokens per approved asset, not a standing full-project art thread.
-- **UX comprehension and release-critical review:** Sol high for a scoped
-  brief; Astra high/xhigh when several accepted rules or a costly irreversible
-  choice interact.
-- **Ultra:** reserve for a specific unresolved, high-cost decision after a
-  focused high/xhigh attempt has failed or produced conflicting evidence.
-  State the question and expected evidence first; do not use ultra for file
-  reading, routine coding or a broad repo dump.
-
-DEVELOPMENT_PLAN.md now assigns a model, effort and cumulative token envelope
-to every remaining Stage 2 task and every Stage 3–7 work package. Use that
-per-ID allocation at activation; the bands above are per focused Codex run,
-not an additional task or stage budget. Completed S2-MAP-01/S2-INT-01/
-S2-MAP-02 receive no forward allocation. Escalate model/effort only when the
-acceptance evidence shows a concrete unresolved problem, then record the
-reason and actual usage in the handoff.
-
-Envelopes cover planned input context, including selected tool output, and
-visible deliverables; they do not estimate hidden reasoning tokens, caching
-effects or a Codex subscription quota.
-They are initial soft limits, not task estimates or API prices. Track real
-usage where the product exposes it; after three comparable tasks, use measured
-completion quality, retries, latency and usage to adjust the preset. When
-context exceeds the envelope, narrow files and make a handoff summary before
-raising effort. Switching to a stronger model never substitutes for a clear
-feature brief or a Unity/playtest check.
-
-The routing follows the [OpenAI model selection guide](https://developers.openai.com/api/docs/guides/model-selection),
-which places Luna on scoped high-volume work, Sol on everyday coding/judgment
-and Astra on ambiguous deep work. The [reasoning guide](https://developers.openai.com/api/docs/guides/reasoning)
-explains the quality/latency/token tradeoff and recommends xhigh only when
-evaluation shows a benefit. These API guides inform the heuristic; Codex task
-usage and model access may differ.
-
-## Generic Prompt For A New Chat
-
-```text
-Прочитай AGENTS.md, gamedesign/GAME_VISION.md,
-gamedesign/DEVELOPMENT_PLAN.md, production/DECISIONS.md и этот файл.
-Ты владеешь workstream <NAME> и задачей <TASK>. Сначала изучи проект и
-соответствующий feature spec; не придумывай player-facing правила. Зафиксируй
-goal, scope, contracts, acceptance, модель/effort и soft token envelope из
-DEVELOPMENT_PLAN.md, а также unresolved decisions. После готовности
-реализуй минимальный coherent slice, проверь его и обнови canonical plan/spec и
-Handoff Register. Не изменяй поверхности других активных workstreams без
-явного handoff.
-```
-
-## Active Stage 2 Claims
+## Historical Stage 2 Claims
 
 ### S2-WAV-01 / P-004 — diagnostic cadence follow-up
 
@@ -499,6 +1796,45 @@ Handoff Register. Не изменяй поверхности других акт
 ```
 
 ## Handoff Register
+
+### 2026-09-25 — Current vision HTML and roadmap cleanup -> All workstreams
+
+- Behavior: the current game design is presented in `reports/game-design.html`;
+  `reports/development-roadmap.html` now follows Stage 0–7 with a short active
+  path, a model/effort recommendation per task or stage, and the Stage 3
+  Blender trigger immediately after the first playable gate.
+- Contracts/files: updated `README.md`, reference index, `.gitignore`,
+  `DEVELOPMENT_PLAN.md`, `GAME_VISION.md`, D-015 and the two HTML reports.
+  The old 55-package roadmap was replaced; historical feature specs,
+  measurements and original local reference images were preserved.
+- Verification: both HTML documents parse with balanced tags, unique IDs and
+  working local links/anchors; `git diff --check` passes. Browser preview of
+  local `file://` pages was blocked by the browser URL policy. No Unity
+  runtime/scene/asset changed in this documentation task, so Unity tests were
+  not rerun.
+- Remaining: Stage 2 Integration verifies the in-progress two-tower scene and
+  complete Windows run. After acceptance, start one Blender/Unity pilot before
+  mass model production.
+
+### 2026-09-25 — Design audit / D-015 -> Integration and later Art
+
+- Behavior: first playable is now one short understandable gather/build/defend
+  run on a compact map with two towers and the existing three resources.
+  Pixel art is no longer the target; soft cartoon isometric presentation is
+  deferred until the core run works. Optional objectives, more enemy/content
+  breadth, final UI/audio, fine balance and speculative token packages are
+  removed from the first-playable gate.
+- Contracts/files: `GAME_VISION.md`, `ART_DIRECTION.md`, `DEVELOPMENT_PLAN.md`,
+  `STAGE2_VERTICAL_SLICE.md`, D-015 in `DECISIONS.md`, and status notes in map,
+  run, economy, enemy and objective specs. Existing Unity scene/code changes
+  by Integration were inspected and left untouched.
+- Verification: repository and Unity 6000.6.2f1 scene/data inspected;
+  documentation references checked and `git diff --check` passed. No runtime
+  behavior changed by this audit, so Unity tests/build were not rerun.
+- Remaining: Integration verifies the in-progress Longshot scene wiring and
+  one full Windows run; live play decides whether 100×100 feels compact and
+  which temporary feedback is still unclear. After that gate, Art tests a
+  small target-look asset before choosing runtime 3D or rendered sprites.
 
 ### 2026-09-25 — Integration S2-INT-02 depleted markers and metal input -> accepted
 

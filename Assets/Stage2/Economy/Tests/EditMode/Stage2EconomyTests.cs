@@ -118,16 +118,20 @@ namespace Not3A.Stage2.Economy.Tests
         public void Inventory_FullCostIsAtomicAndResetClearsAllBalancesAndTimers()
         {
             var inventory = economy.Inventory;
+            Assert.That(inventory.Gold, Is.EqualTo(5));
             Assert.That(inventory.TryAdd(MapResourceKind.Wood, 2), Is.True);
             Assert.That(inventory.TryAdd(MapResourceKind.Stone, 1), Is.True);
             Assert.That(inventory.TryAdd(MapResourceKind.Metal, 1), Is.True);
             Assert.That(inventory.TrySpend(2, 1, 2), Is.False);
+            Assert.That(inventory.TrySpend(2, 1, 1, 6), Is.False);
+            Assert.That(inventory.Gold, Is.EqualTo(5));
             Assert.That(inventory.Get(MapResourceKind.Wood), Is.EqualTo(2));
             Assert.That(inventory.Get(MapResourceKind.Stone), Is.EqualTo(1));
             Assert.That(inventory.Get(MapResourceKind.Metal), Is.EqualTo(1));
             Assert.That(inventory.TrySpend(-1, 0, 0), Is.False);
-            Assert.That(inventory.TrySpend(2, 1, 1), Is.True);
-            Assert.That(inventory.TrySpend(2, 1, 1), Is.False);
+            Assert.That(inventory.TrySpend(2, 1, 1, 5), Is.True);
+            Assert.That(inventory.Gold, Is.Zero);
+            Assert.That(inventory.TrySpend(2, 1, 1, 5), Is.False);
             foreach (var kind in new[] { MapResourceKind.Wood, MapResourceKind.Stone, MapResourceKind.Metal })
             {
                 var node = economy.GetNode(kind);
@@ -136,6 +140,7 @@ namespace Not3A.Stage2.Economy.Tests
             }
             economy.Tick(5f, true);
             economy.Reset();
+            Assert.That(inventory.Gold, Is.EqualTo(5));
             foreach (var kind in new[] { MapResourceKind.Wood, MapResourceKind.Stone, MapResourceKind.Metal })
             {
                 Assert.That(inventory.Get(kind), Is.Zero);

@@ -1,0 +1,55 @@
+{
+  "date": "2026-10-15",
+  "entries": [
+    {
+      "kind": "turf",
+      "generator": "built-in image_gen.imagegen",
+      "source": "C:\\Users\\MushketCO\\.codex\\generated_images\\01a13f9d-ff4b-7592-94c1-ee30bb4476b5\\exec-26a6935d-65e8-41db-847f-1770f54481aa.png",
+      "prompt_file": "art/source/astra_cartoon_rework_prompts.json",
+      "rights": "Original AI-generated project artwork. Project-owned original cartoon B board used as style reference; no third-party asset embedded or traced.",
+      "runtime_path": "Assets/Stage3/CartoonWorldPilot/CartoonMeadowV2.png",
+      "sha256": "f7ace5c20584447a0bbec0806f6f3b3aa3f97a93f0c38566099c1a803cb5157a",
+      "source_matches_runtime": true
+    },
+    {
+      "kind": "paving",
+      "generator": "built-in image_gen.imagegen",
+      "source": "C:\\Users\\MushketCO\\.codex\\generated_images\\01a13f9d-ff4b-7592-94c1-ee30bb4476b5\\exec-7bb1d0cb-1ec8-49bb-bff4-780431adeb38.png",
+      "prompt_file": "art/source/astra_cartoon_rework_prompts.json",
+      "rights": "Original AI-generated project artwork. Project-owned original cartoon B board used as style reference; no third-party asset embedded or traced.",
+      "runtime_path": "Assets/Stage3/CartoonWorldPilot/CartoonPavingV2.png",
+      "sha256": "4f5b88d6d92964904b4fa61ae06c7629dad13a8e6fc4beb83741cf6a85fd3c76",
+      "source_matches_runtime": true
+    },
+    {
+      "kind": "props",
+      "generator": "built-in image_gen.imagegen",
+      "source": "C:\\Users\\MushketCO\\.codex\\generated_images\\01a13f9d-ff4b-7592-94c1-ee30bb4476b5\\exec-36647440-a4de-4113-a337-1ae0f1b9dc63.png",
+      "prompt_file": "art/source/astra_cartoon_rework_prompts.json",
+      "rights": "Original AI-generated project artwork. Project-owned original cartoon B board used as style reference; no third-party asset embedded or traced.",
+      "runtime_path": "Assets/Stage3/CartoonWorldPilot/RoadsidePropsV2.png",
+      "sha256": "773a8713f8e1f0d86112be75f6df7427009cd6a2a731daabed0d1e82fcc65fb4",
+      "source_matches_runtime": true
+    },
+    {
+      "kind": "catapult",
+      "generator": "built-in image_gen.imagegen",
+      "source": "C:\\Users\\MushketCO\\.codex\\generated_images\\01a13f9d-ff4b-7592-94c1-ee30bb4476b5\\exec-e1f8edb9-5e91-4323-bb6e-9d832fbae8e0.png",
+      "prompt_file": "art/source/astra_cartoon_rework_prompts.json",
+      "rights": "Original AI-generated project artwork. Project-owned original cartoon B board used as style reference; no third-party asset embedded or traced.",
+      "runtime_path": "Assets/Stage3/CartoonWorldPilot/LongshotPartsV2.png",
+      "sha256": "32c637c60e4f6832805460599a7572140428c8b9df56793230daf63b34915b45",
+      "source_matches_runtime": true
+    },
+    {
+      "kind": "rapid",
+      "generator": "built-in image_gen.imagegen",
+      "source": "C:\\Users\\MushketCO\\.codex\\generated_images\\01a13f9d-ff4b-7592-94c1-ee30bb4476b5\\exec-52263a9c-d4f5-476c-85e9-5da2d5b0b13f.png",
+      "prompt_file": "art/source/astra_cartoon_rework_prompts.json",
+      "rights": "Original AI-generated project artwork. Project-owned original cartoon B board used as style reference; no third-party asset embedded or traced.",
+      "runtime_path": "Assets/Stage3/CartoonWorldPilot/RapidGroundedV2.png",
+      "sha256": "cae693cb952a3fbdae635111137fdf1bebc7d8a7b8d7e4047f9873f5c1074d26",
+      "source_matches_runtime": true
+    }
+  ]
+}

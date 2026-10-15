@@ -1,0 +1,83 @@
+[
+  {
+    "asset": "StoneResourceSource",
+    "meshes": 1,
+    "triangles": 5832,
+    "materials": 1,
+    "albedo": [
+      2048,
+      2048
+    ],
+    "normal": [
+      2048,
+      2048
+    ],
+    "bounds": [
+      [
+        -0.685,
+        0.753
+      ],
+      [
+        -0.521,
+        0.53
+      ],
+      [
+        -0.031,
+        0.985
+      ]
+    ]
+  },
+  {
+    "asset": "WoodResourceSource",
+    "meshes": 1,
+    "triangles": 33236,
+    "materials": 1,
+    "albedo": [
+      2048,
+      2048
+    ],
+    "normal": null,
+    "bounds": [
+      [
+        -0.671,
+        0.632
+      ],
+      [
+        -0.585,
+        0.575
+      ],
+      [
+        0.0,
+        2.29
+      ]
+    ]
+  },
+  {
+    "asset": "IronOreResourceSource",
+    "meshes": 1,
+    "triangles": 9464,
+    "materials": 1,
+    "albedo": [
+      2048,
+      2048
+    ],
+    "normal": [
+      2048,
+      2048
+    ],
+    "bounds": [
+      [
+        -0.672,
+        0.696
+      ],
+      [
+        -0.499,
+        0.618
+      ],
+      [
+        -0.012,
+        1.121
+      ]
+    ]
+  }
+]

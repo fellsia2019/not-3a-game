@@ -60,6 +60,8 @@ namespace Not3A.Stage2.RunState
             if (elapsedSeconds < 0f || float.IsNaN(elapsedSeconds) || float.IsInfinity(elapsedSeconds))
                 throw new ArgumentOutOfRangeException(nameof(elapsedSeconds));
             if (disposed || IsPaused || IsTerminal || elapsedSeconds == 0f) return;
+            enemies.TickShots(elapsedSeconds);
+            if (IsTerminal) return;
             if (Phase == Stage2RunPhase.Preparation)
             {
                 PreparationRemaining = Mathf.Max(0f, PreparationRemaining - elapsedSeconds);
@@ -144,14 +146,18 @@ namespace Not3A.Stage2.RunState
             else Changed?.Invoke();
         }
 
-        private void OnEnemyRemoved(Stage2Enemy _)
+        private void OnEnemyRemoved(Stage2Enemy enemy)
         {
-            if (!disposed) TryCompleteWave();
+            if (disposed) return;
+            if (Phase == Stage2RunPhase.Wave && enemy.WasKilled && economy.GoldPerKill > 0)
+                economy.Inventory.TryAddGold(economy.GoldPerKill);
+            TryCompleteWave();
         }
 
         private void TryCompleteWave()
         {
-            if (Phase != Stage2RunPhase.Wave || !spawningFinished || enemies.ActiveCount != 0 || ThroneHealth <= 0)
+            if (Phase != Stage2RunPhase.Wave || !spawningFinished || enemies.ActiveCount != 0 ||
+                enemies.PendingShotCount != 0 || ThroneHealth <= 0)
                 return;
             if (IsFinalWave)
             {

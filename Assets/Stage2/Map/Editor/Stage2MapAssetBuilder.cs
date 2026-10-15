@@ -7,6 +7,59 @@ namespace Not3A.Stage2.Map.Editor
     public static class Stage2MapAssetBuilder
     {
         public const string CandidateAssetPath = "Assets/Stage2/Map/Data/Stage2Map100x100.asset";
+        public const string CornerAssetPath = "Assets/Stage2/Map/Data/Stage2Corner32x32.asset";
+
+        [MenuItem("Tools/Stage 2/Create or Update Corner Playable Map")]
+        public static void CreateOrUpdateCornerPlayable()
+        {
+            var definition = AssetDatabase.LoadAssetAtPath<Stage2MapDefinition>(CornerAssetPath);
+            if (definition == null)
+            {
+                definition = ScriptableObject.CreateInstance<Stage2MapDefinition>();
+                definition.name = "Stage2Corner32x32";
+                AssetDatabase.CreateAsset(definition, CornerAssetPath);
+            }
+
+            var entrance = new Vector2Int(-14, -12);
+            var throne = new Vector2Int(-5, -12);
+            var wood = new Vector2Int(10, -10);
+            var stone = new Vector2Int(-10, 10);
+            var metal = new Vector2Int(10, 10);
+            var bounds = new MapCellArea(new Vector2Int(-16, -16), new Vector2Int(32, 32));
+            definition.ConfigureForEditor(
+                bounds,
+                MapSurfaceKind.Forest,
+                new[] { new MapSurfaceRegion(MapSurfaceKind.InvasionCorridor,
+                    new MapCellArea(new Vector2Int(-16, -14), new Vector2Int(19, 6))) },
+                new MapCellMask(true, null, null),
+                new MapCellMask(true, null, new[]
+                {
+                    SingleCell(entrance), SingleCell(throne), SingleCell(wood),
+                    SingleCell(stone), SingleCell(metal)
+                }),
+                true, entrance, true, throne,
+                new[]
+                {
+                    new MapResourceRegion(MapResourceKind.Wood,
+                        new MapCellArea(new Vector2Int(7, -13), new Vector2Int(7, 7)), wood),
+                    new MapResourceRegion(MapResourceKind.Stone,
+                        new MapCellArea(new Vector2Int(-13, 7), new Vector2Int(7, 7)), stone),
+                    new MapResourceRegion(MapResourceKind.Metal,
+                        new MapCellArea(new Vector2Int(7, 7), new Vector2Int(7, 7)), metal)
+                },
+                bounds,
+                new Color(0.18f, 0.34f, 0.19f, 1f),
+                new Color(0.34f, 0.37f, 0.38f, 1f));
+
+            var validation = definition.ValidateDefinition();
+            if (!validation.IsValid)
+                throw new InvalidOperationException($"Stage 2 corner map is invalid: {validation.Issues[0]}");
+            EditorUtility.SetDirty(definition);
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+            Selection.activeObject = definition;
+            Debug.Log($"S2_MAP_ASSET_OK path={CornerAssetPath} size=32x32 hash={definition.ComputeDeterministicContentHash()}");
+        }
 
         private static readonly Vector2Int MapMinimum = new Vector2Int(-50, -50);
         private static readonly Vector2Int MapSize = new Vector2Int(100, 100);

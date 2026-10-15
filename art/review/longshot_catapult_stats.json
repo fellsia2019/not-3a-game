@@ -1,0 +1,17 @@
+{
+  "revision": 2,
+  "vertices": 11890,
+  "triangles": 22968,
+  "renderers": 4,
+  "materials": 1,
+  "atlas": [
+    2048,
+    2048
+  ],
+  "construction_parts": 203,
+  "animated_parts": [
+    "CatapultAim",
+    "CatapultArm",
+    "LoadedStone"
+  ]
+}

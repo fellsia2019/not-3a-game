@@ -1,0 +1,24 @@
+{
+  "date": "2026-10-15",
+  "generator": "Built-in image_gen.imagegen",
+  "reference": "art/concepts/sprite_style_review_2026-10-15/b_cartoon_2d.png",
+  "source": "Original project-generated concept; no third-party image inputs.",
+  "output": "Assets/Stage3/SkeletonSpritePilot/SkeletonWalk.png",
+  "original": "C:/Users/MushketCO/.codex/generated_images/01a13f3d-78fe-71f2-b4d8-caf638481ec6/exec-36d32058-8d6b-4f0c-87aa-0aeb836eb2aa.png",
+  "prompt": "art/source/skeleton_walk_cartoon_prompt.txt",
+  "layout": {
+    "width": 1536,
+    "height": 1024,
+    "columns": 6,
+    "rows": 4,
+    "directionsTopToBottom": [
+      "screen-right",
+      "away",
+      "screen-left",
+      "toward"
+    ]
+  },
+  "processing": "PNG copied unchanged. Unity creates shared rectangular Sprite subassets with alpha-based foot/torso pivots; pixels are not redrawn or cut into new PNGs.",
+  "scope": "One baseline enemy visual walk trial, no gameplay changes; not final artistic acceptance.",
+  "verification": "39/39 Stage 3/Integration/RunState PlayMode tests; actual Game camera captures and 60 frames at 15 simulation fps."
+}

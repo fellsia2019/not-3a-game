@@ -1,83 +1,317 @@
-# Art Direction And Mockup Plan
+# Art Direction
 
-## Chosen Working Direction
+Status: target look clarified by the player, 2026-09-25. Current Stage 2
+sprites and markers are temporary gameplay placeholders.
 
-Стилизованная **2D-изометрия, pixel/near-pixel**, мягкое мультяшное medieval
-fantasy. Камера ортографическая, фиксированная, без вращения; мир строится на
-модульной сетке 2:1. Это дешевле и предсказуемее для MVP, чем детализированная
-рисованная сцена или полноценный low-poly 3D pipeline.
+## Target
 
-## Asset Production Boundary
+Мягкая мультяшная fantasy-графика в изометрическом виде с читаемыми объёмами;
+ориентир по настроению — Dota 2 и её пользовательские TD-карты. Не копировать
+их модели, текстуры, персонажей или UI. Pixel/near-pixel больше не является
+целевым стилем. Камера остаётся фиксированной и ортографической для читаемости
+маршрута и размещения; поворот камеры не нужен для первого играбельного билда.
 
-- **Stage 2:** серые формы, простые силуэты и минимальные оригинальные или
-  лицензированные 2D-ассеты показывают масштаб, роли, маршрут и состояния.
-  Для прохождения gate не нужны детальные Blender-модели, ретопология, UV,
-  сложный rigging или полноценный 3D export pipeline.
-- **Stage 3 MVP:** довести только игровые 2D-ассеты, необходимые для
-  различимости объектов и законченного забега. Читаемость в игровом масштабе
-  важнее числа деталей и времени работы над отдельной моделью.
-- **Stage 4–6:** исправлять лишь визуальные дефекты, мешающие читаемости или
-  выпуску. Массовую замену ассетов и смену рендер-подхода не начинать в beta.
-- **После MVP:** отдельно оценить Blender-доработку по результатам игры и
-  доступным ресурсам. Способ применения 3D-исходников и возможная смена
-  визуального направления требуют отдельного решения; D-003 пока сохраняет
-  2D-изометрию в Unity.
+По D-027 игрок выбрал полноценные runtime 3D-объекты в Unity на общей
+поверхности и принял текущие башню и камеру в играбельной сцене. Первый
+играбельный забег и малый Blender-пилот уже проверены. Спрайтовая версия
+снова используется для выбранных объектов по D-039–D-041. Вид
+каждой следующей модели и бюджет массового производства согласуются отдельно.
+Не закладывать pixel art как обязательство в новые ассеты. Правила сохраняют
+плоские координаты, а камера, размещение и визуалы уже адаптированы вместе.
 
-Blender не является зависимостью текущих gameplay tasks. При каждом арт-задании
-сначала указать конкретный вопрос читаемости и самый дешёвый достаточный
-результат: mockup, простой sprite/placeholder или окончательный 2D-ассет.
+## Current cartoon revision — D-042
+
+The first D-041 tower/terrain scene was rejected by the owner. The target is
+specifically the original B board's lower gameplay strip, including its earth
+pockets, short pointed turf, weeds between chipped paving, small flowers,
+shrubs and broken masonry at the road. These decorative props are now authorized;
+they must not obscure the objective/resources or consume buildable cells.
+The fixed camera and map geometry remain unchanged.
+
+`Assets/Stage3/CartoonWorldPilot/*V2.png` are original built-in imagegen artwork.
+Exact prompts and byte-identical source/runtime hashes are recorded in
+`art/source/astra_cartoon_rework_prompts.json` and
+`art/source/astra_cartoon_rework_provenance.json`. Earlier art is retained.
+Roadside props are shared transparent sprites without collision, placed only
+on grass or the nonwalkable visual border with objective/resource clearances.
+The old bright triangle fringe is removed. Paving UVs compensate for the fixed
+camera so stone courses agree more closely with the drawn tower foundations.
+
+Rapid stays static, with contact marks and sparse sprouts at its stone feet.
+Longshot uses one fixed masonry/support image and a separate spoon/stone;
+only the spoon articulates during the throw. Bowl dimensions remain constant,
+loaded stone disappears at the rule-clock release and returns after recovery.
+It is a 2D articulated drawing: no continuous 3D support rotation is claimed.
+Approved portal/soul art is preserved. Runtime acceptance remains open.
+
+## Stage 3 — Shared Tactical View (D-019)
+
+2026-10-15, D-039: the owner authorized a direct cartoon-sprite walk trial
+using skeleton B from `art/concepts/sprite_style_review_2026-10-15/`.
+`Assets/Stage3/SkeletonSpritePilot/SkeletonWalk.png` is original built-in
+imagegen RGBA art, referenced only from the project's original concept board.
+Exact generation brief: `art/source/skeleton_walk_cartoon_prompt.txt`;
+provenance: `art/source/skeleton_walk_cartoon_provenance.json`. No third-party
+image/mesh is used. A 6x4 sheet supplies one unit's right/away/left/toward walk;
+feet/torso registration is stored in Sprite pivots without repainting the PNG.
+The actual Game-camera recording is `art/review/skeleton_sprite_portal_walk.gif`.
+This narrow mixed 2D/3D trial awaits owner review; it does not approve a final
+pipeline for the towers, landscape or remaining actors.
+
+2026-10-15, D-040: the owner extended the direct cartoon-sprite trial to the
+B4 portal and the selected soul-sphere objective. Original project concepts
+`entrance_portal_option_b4_dark_red_ring.png` and
+`throne_soul_sphere_ice_dome.png`, plus cartoon style board B, are the only
+image inputs. Original RGBA outputs are `PortalCartoon.png` and
+`SoulObjectiveCartoon.png` under `Assets/Stage3/LandmarkSpritePilot/`.
+Exact prompts and source/rights are in `art/source/portal_cartoon_sprite_prompt.txt`,
+`soul_objective_cartoon_sprite_prompt.txt` and `landmark_sprites_provenance.json`.
+The PNGs are copied unchanged; Unity imports scale/pivots and animates only the
+vortex interior and blue energy highlights. New models/Blender conversion are
+not part of this delivery. The previous sources/prefabs are retained; live
+appearance was approved by the owner; the final production pipeline remains open.
+
+2026-10-15, D-041: the same cartoon B board now guides both tower sprites and
+the terrain. Original built-in imagegen PNGs are in `Assets/Stage3/CartoonWorldPilot/`:
+`RapidCartoon.png`, `LongshotFire.png`, `CartoonGrass.png`, `CartoonPaving.png`.
+Exact prompts: `art/source/cartoon_map_tower_prompts.json`; source/rights and
+file hashes: `art/source/cartoon_map_tower_provenance.json`. The only image
+input was this project's original generated board. Source PNGs are unchanged;
+Unity stores sprite rectangles/pivots and frame selection separately.
+Rapid is stationary; Longshot has four drawn aiming directions and firing
+poses. The sheet's detached-stone pose is excluded from playback because the
+existing projectile view supplies the moving stone. No copied illustration
+patch, new heraldry or third-party runtime asset is used. Unlit ground colors,
+diagonal slab courses and an alpha-faded grass verge bring the material style
+closer to the reference while keeping the existing map geometry/camera.
+Tower/terrain runtime appearance still needs the owner's assessment.
+
+Новые примеры игрока от 2026-09-25 задают композицию: достаточно крутой взгляд
+сверху, квадратные клетки на поверхности, вертикальные башни с видимыми
+основаниями, контактные тени и промежутки между объектами. Камера общая для
+земли, башен и акторов. Отдельный поворот меша для имитации своей камеры снят.
+Текущий пилот использует фиксированную ортографическую камеру с наклоном;
+колесо мыши плавно меняет масштаб до 2× в обе стороны от стартового вида;
+WASD не меняет масштаб, герой остаётся в центре. Вокруг игровых клеток есть
+непроходимая
+видимая рамка земли, поэтому при отдалении кадр остаётся заполнен;
+любой ненулевой шаг учитывается независимо от единиц устройства, а его сила
+настраивается игроком ползунком Inspector (1,05×–3×,
+начально 1,4×) и сохраняется между запусками;
+свободное вращение камеры не добавляется. Кровля не должна превращать
+соседние клетки в непросматриваемую стену; проверять стройку рядом с башней,
+героя, волну и рестарт в реальном игровом кадре.
+
+Runtime 3D — активный способ проверки этого вида. Остальные акторы пока
+представлены простыми объёмами. Поверхность получает лёгкую фактуру и линии
+клеток серой зоны; это техническое оформление пилота, не утверждённый биом.
+Референсы Dota/TD описывают ракурс и масштаб; их карты, персонажи и модели
+не копируются. Финальные новые объекты по-прежнему сначала согласуются по
+картинке с игроком.
+
+## Historical Placeholder Boundary
+
+До первого играбельного билда использовать существующие блоки, спрайты и
+простые оригинальные маркеры. Новая графика нужна только тогда, когда игрок
+не может найти ресурс, отличить башни, увидеть маршрут/врага или прочитать
+состояние забега. Звук, финальные модели, анимации и законченный UI идут после
+проверки цикла.
 
 ## Readability Rules
 
-- Трон и центральная площадь — главный визуальный якорь.
-- С одной стороны читается вход и путь волны, с противоположной — лес, карьер и
-  рудная зона.
-- Дерево, камень и металл различаются силуэтом раньше, чем цветом.
-- Башни различаются формой/ролью, враги — размером, скоростью и силуэтом.
-- Опасности и враги теплее/контрастнее окружения; декор не скрывает клетки,
-  ресурсы, путь и build preview.
-- Кроны и высокие объекты не перекрывают интерактивные элементы.
-- Герой и враги имеют не более 4 направлений и примерно 4–6 кадров на основную
-  анимацию в MVP.
+- Трон, вход врагов и ресурсные источники различимы в игровом масштабе.
+- Серая зона вторжения и зелёная ресурсная зона различаются с первого взгляда;
+  цвет не должен быть единственной подсказкой для интерактивных объектов.
+  Preview боевой башни ясно показывает запрет на зелёной зоне.
+- Портал и трон читаются как единый оборонительный угол; три направления
+  исследования и добычи различимы уже на временной карте.
+- Дерево, камень и металл различаются силуэтом; башни — силуэтом и действием.
+- Preview показывает допустимость и цену размещения; враги и удары не теряются
+  на фоне окружения.
+- Высокие объекты и декор не закрывают героя, врагов и важные клетки.
+- Одна карта и один согласованный набор форм важнее разнообразия декора.
 
-## Reference Use
+## References And Rights
 
-- `images.jpg`: основной ориентир уютной pixel/near-pixel среды и модульных
-  ресурсов/строений.
-- `df8f...png`: геометрия, контраст и чистая изометрическая сетка.
-- `unnamed.webp`: силуэты башен/врагов и combat feedback, но не UI/детализация.
-- `tower-defense...jpg` и `images (1).jpg`: только читаемость маршрута и волны.
-- `runefall...avif` и `eMBQdE.jpg`: композиция поселения; их плотность слишком
-  дорога для MVP.
-- `images (2).jpg`: альтернативный low-poly 3D путь, который сейчас отклонён.
+The player's `Без имени.png` is a layout mockup for D-034: green land fills
+most of the 100×100 map, while the gray invasion zone runs diagonally from
+the upper right corner toward the lower left. The red and blue circles mark
+portal and objective positions. It is used for composition only, never as a
+runtime texture or traced visual asset.
 
-Все файлы — только референсы. Нельзя копировать, трассировать или выпускать их
-без подтверждённой лицензии. Изображения с неизвестными правами не публикуются
-в Git; индекс находится в `concepts_visual_scene/README.md`.
+Stage 3 entrance portal: `art/concepts/entrance_portal_option_a_violet_arch.png`
+and `entrance_portal_option_b_ember_ring.png` are original built-in imagegen
+review concepts made for this project from text prompts, without third-party
+image inputs. They compare a violet slate arch with a lower warm stone ring.
+Neither is a runtime texture, mesh source to trace, or an approved model.
+These first alternatives are historical; B4 is approved below.
 
-## Minimum Mockups Before Final Art
+The player chose direction B but rejected its broken-ring appearance.
+`art/concepts/entrance_portal_option_b2_intact_ember_ring.png` is an original
+built-in imagegen edit of the project concept, showing a continuous intact
+stone ring. This revision was superseded by the darker B4 below.
+The player clarified that the baseline enemy emerging from the portal is
+undead and asked for a darker mood. The original imagegen review revision
+`art/concepts/entrance_portal_option_b3_undead_ring.png` keeps the intact ring
+and replaces the warm opening with a dark spectral vortex. It remains a concept
+not approved and not a runtime asset.
+The player then restored the original red interior. The latest original
+imagegen review edit is `art/concepts/entrance_portal_option_b4_dark_red_ring.png`:
+intact dark stone and a red vortex. The B3 spectral-color option is historical.
+B4 was explicitly approved for modeling (D-033). Original runtime geometry,
+baked procedural slate and analytic red vortex are authored by
+`art/source/build_entrance_portal.py`, with editable source in
+`art/source/entrance_portal.blend`. No third-party asset or traced texture is
+used. The owner subsequently requested a 90-degree placement turn and 3x3
+size matching the objective. After seeing the actual tactical screenshot,
+the owner confirmed keeping the exit toward the objective, even though that
+bearing made the red aperture edge-on to the fixed camera. On the subsequent
+D-034 diagonal map the owner requested a 45-degree gate angle (D-035). The
+upright arch and red aperture now turn within the grid-aligned 3x3 stone base;
+the original B4 color and complete silhouette remain the visual source.
 
-1. **Map blockout:** трон, вход волны, исходный открытый маршрут, допустимые
-   клетки для башен, ресурсные зоны и дистанция игрока. Отдельно показать
-   удлинённый маршрут после постройки зигзага и полную блокировку с атакой башни:
-   это обязательные состояния по D-009.
-2. **Gameplay frame 16:9:** один кадр 1920×1080 с целевым масштабом тайла,
-   героя, трона, ресурса, башни и врага.
-3. **HUD wireframe:** три ресурса слева сверху, wave/timer по центру, pause справа,
-   build bar снизу, здоровье трона и предупреждение вдали от базы.
-4. **Build states:** ghost, valid/invalid cell, цена, нехватка ресурса, радиус,
-   выбор/отмена.
-5. **Combat states:** incoming wave, удар, урон, смерть, повреждение трона,
-   win/lose; upgrade choice добавляется только если механика утверждена.
+Stage 3 resource source options are original built-in imagegen review concepts
+generated from text with the project's actual Game screenshot as a palette and
+camera reference. The approved stone A concept was also used only as a style
+and size reference for the wood and iron-ore images. No third-party input or
+traced image is used. Stone A,
+`art/concepts/stone_source_option_a_granite_boulder.png`, is a compact pale
+granite boulder with small stones and is approved for modeling; stone B,
+`art/concepts/stone_source_option_b_limestone_outcrop.png`, is unselected.
+Wood A `art/concepts/wood_source_option_a_broadleaf.png` is unselected;
+wood B `art/concepts/wood_source_option_b_conifer.png` is the approved compact
+conifer. Iron ore A `art/concepts/iron_ore_source_option_a_jagged_outcrop.png`
+is approved dark angular rock with rust seams; iron ore B
+`art/concepts/iron_ore_source_option_b_upright_slabs.png` has three upright
+ironstone slabs and is unselected. All six images remain
+review concepts, not runtime textures or mesh sources to trace.
+The owner rejected both resource model iterations: first the coarse faceted
+models, then the smoothed and textured replacements shown in the Game view.
+Neither implementation is an accepted visual baseline. Increasing polygon
+counts and smoothing alone did not resolve the mismatch with the concepts.
+The A/B/A selections remain approved. Broad natural rock forms, soft worn
+edges, surface texture and cracks, rusty mineral seams, and separate rounded
+conifer boughs are required; a faceted sphere or stacked cones do not meet the
+concepts. Technical tests alone do not constitute visual acceptance.
+Runtime source meshes are original procedural geometry created by
+`art/source/build_resource_sources.py`, with the conifer and iron-ore geometry
+in `resource_wood_model.py` and `resource_ore_model.py`, and saved as editable
+`StoneResourceSource.blend`, `WoodResourceSource.blend` and
+`IronOreResourceSource.blend` in `art/source/`. FBXs, project-created URP
+materials and visual prefabs are under `Assets/Stage3/VisualPilot/`. Each
+source has an original 2048×2048 albedo atlas. Wood uses procedural foliage,
+bark, vertex tint and local occlusion. The current stone revision uses a new
+original imagegen granite surface, box-projected
+and baked with vertex tint and local occlusion. Its source is
+`art/source/stone_granite_painted_albedo.png`; exact built-in generation brief
+and provenance are in `art/source/stone_granite_painted_albedo_prompt.txt`.
+The selected stone concept was a style/palette reference only. No concept
+pixels were sampled or traced. Ore uses an original imagegen slate surface,
+`art/source/ore_slate_painted_albedo.png`, with its exact brief/provenance in
+`ore_slate_painted_albedo_prompt.txt`; exposed rusty mineral is procedural and
+recessed between the dark rock masses. This texture was generated from text
+without image input or third-party assets. Stone and ore also use a 2048×2048 tangent normal
+map for shallow fractures and surface grain. No external meshes or third-party
+textures are included. After the stone review the owner requested corrected
+smoothing and explicitly authorized continuing wood/ore. Stone tint is now
+continuous across smooth vertex normals. The conifer has individual closed
+bough volumes and separate upper/lower normals at their perimeter, retaining
+smooth surfaces without folding the upper edge normals downward. The current
+mesh also orders the radial contour monotonically around each bough center:
+the earlier backtracking contour formed inward narrow strips despite smooth
+normals. All 22 bough shells and the crown are checked for outward winding
+in the source generator. The current set still requires the owner's visual
+acceptance in the actual game.
+At the game's tactical camera the light boulder, tapered conifer and dark
+rust-seamed ore must remain distinct. Their actual Game frames are
+`art/review/resource_{stone,wood,metal}_game_{default,close}.png`.
 
-Сначала graybox проверяет размер и игровой поток. Детальный concept art не
-заменяет тестируемую сцену. Финальный UI создаётся после утверждения layout и
-состояний; сложные экраны могут пройти HTML-прототип из production pipeline.
+Soul objective (D-031): `art/concepts/throne_soul_sphere_ice_dome.png` is the
+selected original imagegen concept, reattached by the player to clarify its
+layering. It is review material only. Runtime geometry and procedural slate
+albedo are authored by `art/source/build_soul_sphere.py`; smooth ice, soul and
+flowing energy use original project shaders. No third-party mesh, copied image
+patch, traced texture or unlicensed runtime material is included. Preserve the
+distinct stone bowl, inner sphere/flame, transparent outer dome and horizontal
+external flow. The first uniform luminous-shell implementation was rejected.
 
-## MVP Asset Budget
+Существующие изображения в `concepts_visual_scene/` — только вдохновение;
+их старые подписи о pixel art или отклонённом 3D не задают новый target.
+Перед включением любого стороннего ассета в игру записать источник и лицензию.
 
-Один тайлсет/биом, несколько повторяемых деревьев/камней, три ресурсных узла,
-три башни, три обычных врага, один boss/elite, один герой, трон, простые VFX и
-небольшой набор UI-иконок. Без сезонов, времени суток, поворота камеры и большого
-набора уникального декора. Это верхняя граница содержания, а не заказ на
-детальные 3D-модели или производство каждой позиции до проверки Stage 2.
+Stage 3 landscape: `art/references/landscape_player_grass_reference.png` is a
+player-supplied visual reference (rights/license not specified), for inspiration
+only, never a runtime texture or trace source. Original concept previews
+`art/concepts/landscape_option_a_stone_paving.png` and
+`art/concepts/landscape_option_b_packed_earth.png` were generated with the
+built-in imagegen tool from the current gameplay screenshot and that reference.
+They are review images, not Unity assets. Both retain the green resource zone
+and flat gray defense zone; their gray surface and decoration density are
+alternatives. The player selected B: soft bright turf and compacted gray earth.
+Bushes, rocks and other raised decoration must be separate 3D props if added;
+they can be omitted from the first terrain pass. The selected concept is not
+a runtime texture or geometry source. The player rejected the first playable
+pass as blurry and too distant from the concept. The current grass and gray
+earth albedos are original imagegen results using the approved concept B as a
+style/palette reference. The concept screenshot itself
+is not cropped or included as runtime art. No bushes, stones or flowers are
+painted into the grass texture.
+The player rejected the generated bushes, which have been removed. Small
+grass blades and flowers remain separate procedural 3D meshes with no
+collision. The player then rejected the dark straight ledge and asked for the
+grass texture and transition of concept B around every side of the gray zone.
+The green surface starts 0.08 cell above gray, has small real 3D rolling relief,
+and slopes over a broad irregular textured verge with separate 3D grass fringe.
+This is presentation
+geometry only; movement and placement stay on one plane. The
+current runtime scene still awaits the player's visual review; the hero
+remains the basic marker until the end of Stage 3 content.
+Runtime ground images: original built-in imagegen outputs created for this
+project, with concept B as an appearance reference, stored at
+`Assets/Stage3/VisualPilot/LandscapeGrass.png` and
+`Assets/Stage3/VisualPilot/LandscapeDefenseEarth.png`. Exact generation briefs:
+`art/source/landscape_grass_prompt.txt` and
+`art/source/landscape_earth_prompt.txt`. Source/rights record: project-generated
+outputs; no third-party image or separate third-party asset license. The old
+procedural earth generator remains a fallback outside the runtime asset path.
+3D grass/flowers are generated by project code. Player reference and concept
+images are review material only, not included in runtime assets.
+
+Stage 3 Rapid: предоставленное игроком изображение деревянной вышки использовано
+только как референс настроения; его источник и лицензия не установлены, поэтому
+само изображение не становится игровым ассетом. Одобренный оригинальный
+сгенерированный концепт — `art/concepts/rapid_watchtower_approved.png`;
+Первую упрощённую модель игрок отклонил за несоответствие концепту. Ревизия 2
+сохраняет его пропорции и основные детали: толстые опоры, раскосы, перила,
+изогнутые деревянные рёбра и отдельные красные кровельные дощечки, железные
+обоймы с заклёпками, каменные основания. Геометрия и процедурная текстура
+созданы для проекта; сторонние модели и текстуры не использованы.
+Источник — `art/source/rapid_watchtower.blend` и воспроизводимый скрипт рядом;
+рендер фактической модели — `art/review/rapid_watchtower_r2_blender.png`.
+Концепт одобрен; новая модель и общий вид ещё ожидают оценки игрока. Runtime
+3D проверяется по D-019; финальный бюджет производства ещё не утверждён.
+
+Stage 3 Longshot: оригинальный концепт каменной артиллерии с метательным
+рычагом и чашей `art/concepts/longshot_stone_catapult_option_a.png` выбран
+игроком по D-028. Второй показанный вариант — требюше с противовесом — не
+выбран. Изображения созданы для проекта при помощи imagegen с одобренным
+оригинальным концептом Rapid в качестве стилевого референса; сторонние модели
+или текстуры не использованы. После отдельного разрешения игрока модель
+создана в `art/source/longshot_catapult.blend`; воспроизводимый скрипт рядом,
+рендер фактической геометрии — `art/review/longshot_catapult_blender.png`.
+Основание с кладкой и угловыми опорами, деревянные перила и A-образная рама,
+ось, железные обоймы, канат, рычаг и чаша с камнем повторяют выбранные формы.
+Геометрия и текстура оригинальные. По запросу анимации D-029 runtime разделён
+на основание, поворотную раму, рычаг/чашу и камень, с общим атласом/материалом.
+Концепт принят; оценка готовой модели в игре остаётся за игроком.
+
+Эффекты боя D-029: стрела, камень/осколки и следы построены оригинальным
+кодом проекта; сторонние модели, текстуры и эффекты не использованы.
+Попадание Longshot обозначает фактический радиус, затем быстро затухает,
+чтобы сохранять видимость врагов, маршрута и клеток.
+
+D-042 final close review: Longshot flight uses the same painted stone as the
+loaded cup, including foreground ordering at release. The paved map edge gets
+an irregular grass apron against the nonwalkable border; border turf uses the
+same tint. Actual 60 Hz throw evidence: `art/review/astra_catapult_throw_60fps.mp4`
+(90 rendered frames / 1.5 s, no synthetic interpolation).

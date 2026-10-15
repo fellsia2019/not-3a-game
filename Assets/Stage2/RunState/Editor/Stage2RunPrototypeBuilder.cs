@@ -18,9 +18,9 @@ namespace Not3A.Stage2.RunState.Editor
             var catalog = ScriptableObject.CreateInstance<Stage2RunCatalog>();
             catalog.ConfigureWaves(new[]
             {
-                new Stage2WaveDefinition(45f, 6, 0.8f),
-                new Stage2WaveDefinition(30f, 8, 0.8f),
-                new Stage2WaveDefinition(30f, 10, 0.8f)
+                new Stage2WaveDefinition(180f, 6, 0.8f),
+                new Stage2WaveDefinition(180f, 8, 0.8f),
+                new Stage2WaveDefinition(180f, 10, 0.8f)
             }, 5);
             AssetDatabase.CreateAsset(catalog, CatalogPath);
             AssetDatabase.SaveAssets();

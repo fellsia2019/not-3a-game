@@ -229,7 +229,8 @@ namespace Not3A.Stage2.WavesAI.Tests
         private void Fund(int amount)
         {
             foreach (var kind in new[] { MapResourceKind.Wood, MapResourceKind.Stone, MapResourceKind.Metal })
-                inventory.TryAdd(kind, amount);
+                inventory.TryAdd(kind, kind == MapResourceKind.Wood ? amount * 2 : amount);
+            inventory.TryAddGold(amount * 5);
         }
     }
 }

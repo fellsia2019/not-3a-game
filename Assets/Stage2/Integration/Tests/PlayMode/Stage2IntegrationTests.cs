@@ -56,12 +56,19 @@ namespace Not3A.Stage2.Integration.Tests
             Assert.That(bootstrap, Is.Not.Null);
             Assert.That(bootstrap.IsInitialized, Is.True, bootstrap.LastValidation.Reason);
             Assert.That(bootstrap.MapDefinition, Is.Not.Null);
-            Assert.That(bootstrap.MapDefinition.Size, Is.EqualTo(new Vector2Int(100, 100)));
+            Assert.That(bootstrap.MapDefinition.Size, Is.EqualTo(new Vector2Int(32, 32)));
             Assert.That(bootstrap.MapDefinition.ValidateDefinition().IsValid, Is.True);
             Assert.That(bootstrap.MapDebugRenderer.MapDefinition, Is.SameAs(bootstrap.MapDefinition));
             Assert.That(bootstrap.PlayerMover.MapDefinition, Is.SameAs(bootstrap.MapDefinition));
             Assert.That(bootstrap.CameraFollow.MapDefinition, Is.SameAs(bootstrap.MapDefinition));
             Assert.That(bootstrap.AuthoredMapHash, Is.EqualTo(bootstrap.MapDefinition.ComputeDeterministicContentHash()));
+            var camera = bootstrap.CameraFollow.BoundCamera;
+            foreach (var landmark in new[] { bootstrap.EntranceMarker, bootstrap.ThroneMarker })
+            {
+                var viewport = camera.WorldToViewportPoint(landmark.position);
+                Assert.That(viewport.x, Is.InRange(0.05f, 0.95f), $"{landmark.name} must be visible at the start.");
+                Assert.That(viewport.y, Is.InRange(0.05f, 0.95f), $"{landmark.name} must be visible at the start.");
+            }
             var composition = Object.FindAnyObjectByType<Stage2GameComposition>();
             Assert.That(composition, Is.Not.Null);
             Assert.That(composition.IsInitialized, Is.True);
@@ -163,7 +170,7 @@ namespace Not3A.Stage2.Integration.Tests
             var economy = composition.Gathering.Economy;
             var defense = composition.Building.Defense;
             var run = composition.RunDriver.Run;
-            var routeCell = new Vector2Int(48, 0);
+            var routeCell = new Vector2Int(-13, -12);
             var open = composition.Navigation.PlanFrom(map.EnemyEntrance);
             Assert.That(open.Status, Is.EqualTo(NavigationStatus.ReachesThrone));
             Assert.That(open.Path, Does.Contain(routeCell));
@@ -177,6 +184,12 @@ namespace Not3A.Stage2.Integration.Tests
                 Assert.That(economy.Inventory.Get(kind), Is.EqualTo(1));
             }
 
+            Assert.That(run.PreparationRemaining, Is.InRange(179f, 180f));
+            Assert.That(economy.Inventory.Gold, Is.EqualTo(5));
+            Assert.That(economy.AdvanceGather(MapResourceKind.Wood,
+                economy.WorldPosition(MapResourceKind.Wood), true,
+                economy.GetNode(MapResourceKind.Wood).GatherSeconds, true), Is.True);
+
             Assert.That(defense.BeginPlacement(), Is.True);
             defense.SetPreviewCell(routeCell);
             Assert.That(defense.TryConfirm(out var tower), Is.EqualTo(PlacementResult.Ready));
@@ -186,7 +199,8 @@ namespace Not3A.Stage2.Integration.Tests
             Assert.That(owner, Is.SameAs(tower));
             Assert.That(economy.Inventory.Get(MapResourceKind.Wood), Is.Zero);
             Assert.That(economy.Inventory.Get(MapResourceKind.Stone), Is.Zero);
-            Assert.That(economy.Inventory.Get(MapResourceKind.Metal), Is.Zero);
+            Assert.That(economy.Inventory.Get(MapResourceKind.Metal), Is.EqualTo(1));
+            Assert.That(economy.Inventory.Gold, Is.Zero);
             var diverted = composition.Navigation.PlanFrom(map.EnemyEntrance);
             Assert.That(diverted.Status, Is.EqualTo(NavigationStatus.ReachesThrone));
             Assert.That(diverted.Path.Contains(routeCell), Is.False);
@@ -200,7 +214,78 @@ namespace Not3A.Stage2.Integration.Tests
             Assert.That(defense.TowerCount, Is.Zero);
             Assert.That(composition.Enemies.ActiveCount, Is.Zero);
             Assert.That(economy.Inventory.Get(MapResourceKind.Wood), Is.Zero);
+            Assert.That(economy.Inventory.Gold, Is.EqualTo(5));
             Assert.That(composition.Navigation.PlanFrom(map.EnemyEntrance).Path.Count, Is.EqualTo(open.Path.Count));
+            yield return null;
+        }
+
+        [UnityTest]
+        public IEnumerator RealMap_LongshotRequiresItsPriceAndDivertsRoute()
+        {
+            var composition = Object.FindAnyObjectByType<Stage2GameComposition>();
+            var map = Object.FindAnyObjectByType<Stage2SceneBootstrap>().MapDefinition;
+            var economy = composition.Gathering.Economy;
+            var defense = composition.Building.Defense;
+            var cell = new Vector2Int(-13, -12);
+            var before = composition.Navigation.PlanFrom(map.EnemyEntrance);
+            Assert.That(defense.RoleCount, Is.EqualTo(2));
+            Assert.That(defense.SelectRole(1), Is.True);
+            var longshot = defense.SelectedCatalog;
+            Assert.That(longshot.RoleName, Is.EqualTo("Longshot"));
+            foreach (var kind in new[] { MapResourceKind.Wood, MapResourceKind.Stone, MapResourceKind.Metal })
+                Assert.That(economy.AdvanceGather(kind, economy.WorldPosition(kind), true,
+                    economy.GetNode(kind).GatherSeconds, true), Is.True);
+            Assert.That(defense.BeginPlacement(), Is.True);
+            defense.SetPreviewCell(cell);
+            Assert.That(defense.EvaluatePreview(), Is.EqualTo(PlacementResult.CannotAfford));
+            Assert.That(composition.Navigation.Revision, Is.Zero);
+            Assert.That(economy.AdvanceGather(MapResourceKind.Wood,
+                economy.WorldPosition(MapResourceKind.Wood), true,
+                economy.GetNode(MapResourceKind.Wood).GatherSeconds, true), Is.True);
+            for (var i = 0; i < 2; i++)
+                Assert.That(economy.AdvanceGather(MapResourceKind.Stone,
+                    economy.WorldPosition(MapResourceKind.Stone), true,
+                    economy.GetNode(MapResourceKind.Stone).GatherSeconds, true), Is.True);
+            economy.Tick(economy.GetNode(MapResourceKind.Stone).RecoverySeconds, true);
+            for (var i = 0; i < 2; i++)
+                Assert.That(economy.AdvanceGather(MapResourceKind.Stone,
+                    economy.WorldPosition(MapResourceKind.Stone), true,
+                    economy.GetNode(MapResourceKind.Stone).GatherSeconds, true), Is.True);
+            Assert.That(defense.TryConfirm(out var tower), Is.EqualTo(PlacementResult.Ready));
+            Assert.That(tower.name, Does.StartWith(longshot.TowerPrefab.name));
+            Assert.That(economy.Inventory.Get(MapResourceKind.Wood), Is.Zero);
+            Assert.That(economy.Inventory.Get(MapResourceKind.Stone), Is.Zero);
+            Assert.That(economy.Inventory.Get(MapResourceKind.Metal), Is.EqualTo(1));
+            Assert.That(composition.Navigation.PlanFrom(map.EnemyEntrance).Path.Count,
+                Is.GreaterThan(before.Path.Count));
+            composition.RunDriver.ResetRun();
+            Assert.That(defense.SelectedRoleIndex, Is.Zero);
+            Assert.That(composition.Navigation.OccupiedCount, Is.Zero);
+            yield return null;
+        }
+
+        [UnityTest]
+        public IEnumerator RealMap_OneRapidKeepsFiringAcrossFirstWave()
+        {
+            var composition = Object.FindAnyObjectByType<Stage2GameComposition>();
+            var economy = composition.Gathering.Economy;
+            var defense = composition.Building.Defense;
+            var run = composition.RunDriver.Run;
+            economy.Inventory.TryAdd(MapResourceKind.Wood, 2);
+            economy.Inventory.TryAdd(MapResourceKind.Stone, 1);
+            Assert.That(defense.BeginPlacement(), Is.True);
+            defense.SetPreviewCell(new Vector2Int(-13, -12));
+            Assert.That(defense.TryConfirm(out var rapid), Is.EqualTo(PlacementResult.Ready));
+            Assert.That(run.StartWave(), Is.True);
+            for (var step = 0; step < 80 && !run.IsTerminal; step++)
+            {
+                run.Tick(0.2f);
+                for (var enemy = composition.Enemies.ActiveCount - 1; enemy >= 0; enemy--)
+                    composition.Enemies.GetEnemy(enemy).Tick(0.2f);
+                if (rapid.IsAlive) rapid.Tick(0.2f);
+            }
+            Assert.That(economy.Inventory.Gold, Is.GreaterThanOrEqualTo(2),
+                "A surviving Rapid at the entrance should repeatedly attack across the first wave.");
             yield return null;
         }
 
@@ -212,15 +297,38 @@ namespace Not3A.Stage2.Integration.Tests
             var defense = composition.Building.Defense;
             var run = composition.RunDriver.Run;
             var towers = new Stage2Tower[3];
-            for (var index = 0; index < towers.Length; index++)
+            for (var index = 0; index < 2; index++)
             {
+                Assert.That(defense.SelectRole(index == 1 ? 1 : 0), Is.True);
                 foreach (var kind in new[] { MapResourceKind.Wood, MapResourceKind.Stone, MapResourceKind.Metal })
                     Assert.That(economy.AdvanceGather(kind, economy.WorldPosition(kind), true,
                         economy.GetNode(kind).GatherSeconds, true), Is.True);
+                if (index != 1)
+                    Assert.That(economy.AdvanceGather(MapResourceKind.Wood,
+                        economy.WorldPosition(MapResourceKind.Wood), true,
+                        economy.GetNode(MapResourceKind.Wood).GatherSeconds, true), Is.True);
+                if (index == 1)
+                {
+                    economy.Tick(economy.GetNode(MapResourceKind.Wood).RecoverySeconds, true);
+                    Assert.That(economy.AdvanceGather(MapResourceKind.Wood,
+                        economy.WorldPosition(MapResourceKind.Wood), true,
+                        economy.GetNode(MapResourceKind.Wood).GatherSeconds, true), Is.True);
+                    Assert.That(economy.AdvanceGather(MapResourceKind.Stone,
+                        economy.WorldPosition(MapResourceKind.Stone), true,
+                        economy.GetNode(MapResourceKind.Stone).GatherSeconds, true), Is.True);
+                    economy.Tick(economy.GetNode(MapResourceKind.Stone).RecoverySeconds, true);
+                    for (var i = 0; i < 3; i++)
+                        Assert.That(economy.AdvanceGather(MapResourceKind.Stone,
+                            economy.WorldPosition(MapResourceKind.Stone), true,
+                            economy.GetNode(MapResourceKind.Stone).GatherSeconds, true), Is.True);
+                }
                 Assert.That(defense.BeginPlacement(), Is.True);
-                defense.SetPreviewCell(new Vector2Int(48 - index * 4, 0));
+                defense.SetPreviewCell(new Vector2Int(-13 + index * 3, -12));
                 Assert.That(defense.TryConfirm(out towers[index]), Is.EqualTo(PlacementResult.Ready));
             }
+            Assert.That(towers[0].name, Does.Contain("Blocker"));
+            Assert.That(towers[1].name, Does.Contain("Longshot"));
+            Assert.That(economy.Inventory.Gold, Is.Zero);
 
             Assert.That(run.WaveCount, Is.EqualTo(3));
             for (var wave = 1; wave <= run.WaveCount; wave++)
@@ -233,6 +341,24 @@ namespace Not3A.Stage2.Integration.Tests
                     for (var index = composition.Enemies.ActiveCount - 1; index >= 0; index--)
                         composition.Enemies.GetEnemy(index).Tick(0.2f);
                     foreach (var tower in towers) if (tower != null && tower.IsAlive) tower.Tick(0.2f);
+                }
+                if (wave == 1)
+                {
+                    Assert.That(run.Phase, Is.EqualTo(Stage2RunPhase.Preparation));
+                    Assert.That(economy.Inventory.Gold, Is.GreaterThanOrEqualTo(5));
+                    economy.Tick(economy.GetNode(MapResourceKind.Wood).RecoverySeconds, true);
+                    Assert.That(defense.SelectRole(0), Is.True);
+                    for (var unit = 0; unit < 2; unit++)
+                        Assert.That(economy.AdvanceGather(MapResourceKind.Wood,
+                            economy.WorldPosition(MapResourceKind.Wood), true,
+                            economy.GetNode(MapResourceKind.Wood).GatherSeconds, true), Is.True);
+                    Assert.That(economy.AdvanceGather(MapResourceKind.Stone,
+                        economy.WorldPosition(MapResourceKind.Stone), true,
+                        economy.GetNode(MapResourceKind.Stone).GatherSeconds, true), Is.True);
+                    Assert.That(defense.BeginPlacement(), Is.True);
+                    defense.SetPreviewCell(new Vector2Int(-7, -12));
+                    Assert.That(defense.TryConfirm(out towers[2]), Is.EqualTo(PlacementResult.Ready));
+                    Assert.That(economy.Inventory.Gold, Is.EqualTo(1));
                 }
                 if (wave < run.WaveCount)
                 {
@@ -283,27 +409,31 @@ namespace Not3A.Stage2.Integration.Tests
             foreach (var kind in new[] { MapResourceKind.Wood, MapResourceKind.Stone, MapResourceKind.Metal })
                 Assert.That(economy.AdvanceGather(kind, economy.WorldPosition(kind), true,
                     economy.GetNode(kind).GatherSeconds, true), Is.True);
+            Assert.That(economy.AdvanceGather(MapResourceKind.Wood,
+                economy.WorldPosition(MapResourceKind.Wood), true,
+                economy.GetNode(MapResourceKind.Wood).GatherSeconds, true), Is.True);
             Assert.That(defense.BeginPlacement(), Is.True);
-            defense.SetPreviewCell(Vector2Int.zero);
+            var breachCell = new Vector2Int(0, -12);
+            defense.SetPreviewCell(breachCell);
             Assert.That(defense.TryConfirm(out var blocker), Is.EqualTo(PlacementResult.Ready));
             for (var y = map.MinimumCell.y; y <= map.MaximumCell.y; y++)
             {
-                if (y == 0) continue;
+                if (y == breachCell.y) continue;
                 Assert.That(navigation.TryOccupy(new Vector2Int(0, y), new object()),
                     Is.EqualTo(OccupancyResult.Changed));
             }
 
-            var fromEast = new Vector2Int(1, 0);
+            var fromEast = new Vector2Int(1, -12);
             var blocked = navigation.PlanFrom(fromEast);
             Assert.That(blocked.Status, Is.EqualTo(NavigationStatus.ReachableBlocker));
-            Assert.That(blocked.BlockerCell, Is.EqualTo(Vector2Int.zero));
+            Assert.That(blocked.BlockerCell, Is.EqualTo(breachCell));
             Assert.That(composition.RunDriver.Run.StartWave(), Is.True);
             defense.SetAttackActive(false); // Isolate siege from the tower's offensive fire.
             var siegeEnemy = composition.Enemies.SpawnAt(fromEast);
             for (var step = 0; step < 30 && blocker.IsAlive; step++) siegeEnemy.Tick(0.5f);
             Assert.That(blocker.IsAlive, Is.False);
             Assert.That(defense.TowerCount, Is.Zero);
-            Assert.That(navigation.TryGetOccupant(Vector2Int.zero, out _), Is.False);
+            Assert.That(navigation.TryGetOccupant(breachCell, out _), Is.False);
             Assert.That(navigation.PlanFrom(fromEast).Status, Is.EqualTo(NavigationStatus.ReachesThrone));
             composition.RunDriver.ResetRun();
             yield return null;
@@ -316,7 +446,7 @@ namespace Not3A.Stage2.Integration.Tests
             var renderer = bootstrap.MapDebugRenderer;
             var mesh = renderer.GetComponent<MeshFilter>().sharedMesh;
             Assert.That(mesh, Is.Not.Null);
-            Assert.That(mesh.vertexCount, Is.EqualTo(100 * 100 * 4));
+            Assert.That(mesh.vertexCount, Is.EqualTo(32 * 32 * 4));
 
             var colors = mesh.colors32;
             var forest = (Color32)bootstrap.MapDefinition.ForestDebugColor;
@@ -457,8 +587,8 @@ namespace Not3A.Stage2.Integration.Tests
             var changed = Object.Instantiate(original);
             // Modify only a transient copy, never the authored candidate on disk.
             JsonUtility.FromJsonOverwrite(
-                "{\"cellBounds\":{\"minimum\":{\"x\":-50,\"y\":-40},\"size\":{\"x\":100,\"y\":90}}," +
-                "\"cameraBounds\":{\"minimum\":{\"x\":-40,\"y\":0},\"size\":{\"x\":90,\"y\":43}}," +
+                "{\"cellBounds\":{\"minimum\":{\"x\":-18,\"y\":-18},\"size\":{\"x\":36,\"y\":36}}," +
+                "\"cameraBounds\":{\"minimum\":{\"x\":-16,\"y\":-16},\"size\":{\"x\":30,\"y\":30}}," +
                 "\"forestDebugColor\":{\"r\":0.1,\"g\":0.5,\"b\":0.2,\"a\":1}}", changed);
             try
             {

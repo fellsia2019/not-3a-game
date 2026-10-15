@@ -43,7 +43,7 @@ namespace Not3A.Stage2.Defense.Editor
             }
             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(PrefabPath).GetComponent<Stage2Tower>();
             var catalog = ScriptableObject.CreateInstance<Stage2DefenseCatalog>();
-            catalog.Configure(prefab, 1, 1, 1, 10);
+            catalog.Configure(prefab, 2, 1, 0, 10, 4.25f, 0.45f, 1, 5);
             AssetDatabase.CreateAsset(catalog, CatalogPath);
             AssetDatabase.SaveAssets();
             Debug.Log("S2_DEF_ASSETS_READY: blocker tower prefab and prototype catalog created.");
@@ -61,7 +61,7 @@ namespace Not3A.Stage2.Defense.Editor
             // Preserve the already-authored cost/health. Stage 1 attack values
             // are provisional; P-004 and S2-DEF-02 remain separate decisions.
             catalog.Configure(catalog.TowerPrefab, catalog.WoodCost, catalog.StoneCost,
-                catalog.MetalCost, catalog.TowerHealth, 4.25f, 0.45f, 1);
+                catalog.MetalCost, catalog.TowerHealth, 4.25f, 0.45f, 1, catalog.GoldCost);
             EditorUtility.SetDirty(catalog);
             AssetDatabase.SaveAssets();
             Debug.Log("S2_DEF_ATTACK_READY: baseline tower attack added to prototype data.");

@@ -1,0 +1,17 @@
+{
+  "revision": 2,
+  "vertices": 16432,
+  "triangles": 31668,
+  "renderers": 1,
+  "materials": 1,
+  "atlas": [
+    2048,
+    2048
+  ],
+  "dimensions_m": [
+    1.1313344240188599,
+    1.1313343048095703,
+    1.9823999404907227
+  ],
+  "construction_parts": 299
+}

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c79004c27e5fc24fb59b313c71228e6, type: 3}
+  m_Name: LongshotCatapultGameCatalog
+  m_EditorClassIdentifier: Not3A.Stage2.Defense::Not3A.Stage2.Defense.Stage2DefenseCatalog
+  towerPrefab: {fileID: 9194006976412647055, guid: 244f48d5139612246a2066887a1e1ab4, type: 3}
+  roleName: Longshot
+  woodCost: 2
+  stoneCost: 5
+  metalCost: 0
+  goldCost: 0
+  towerHealth: 10
+  attackRange: 7.5
+  fireInterval: 1.4
+  attackDamage: 2
+  splashRadiusCells: 2
+  projectileFlightSeconds: 0.58

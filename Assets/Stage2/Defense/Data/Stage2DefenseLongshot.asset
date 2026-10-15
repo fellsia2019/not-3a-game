@@ -14,10 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Not3A.Stage2.Defense::Not3A.Stage2.Defense.Stage2DefenseCatalog
   towerPrefab: {fileID: 8768468511423994358, guid: 5cd4b56b831f49a38be5bd1abe353957, type: 3}
   roleName: Longshot
-  woodCost: 1
-  stoneCost: 1
-  metalCost: 2
+  woodCost: 2
+  stoneCost: 5
+  metalCost: 0
   towerHealth: 10
   attackRange: 7.5
   fireInterval: 1.4
   attackDamage: 2
+  splashRadiusCells: 2
+  projectileFlightSeconds: 0.58

@@ -1,0 +1,14 @@
+{
+  "revision": 3,
+  "vertices": 14574,
+  "triangles": 26924,
+  "renderers": 6,
+  "base_diameter_cells": 2.96,
+  "wave_diameter_cells": 3.52,
+  "height_cells": 1.817,
+  "stone_atlas": [
+    1024,
+    1024
+  ],
+  "source": "Original project Blender geometry and baked procedural stone, no external assets"
+}

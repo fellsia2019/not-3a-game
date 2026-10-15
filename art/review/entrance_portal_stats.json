@@ -1,0 +1,23 @@
+{
+  "concept": "B4",
+  "triangles": 6860,
+  "meshes": 3,
+  "reserved_cells": [
+    3,
+    3
+  ],
+  "footprint_cells": [
+    2.945000171661377,
+    2.945000171661377
+  ],
+  "height_cells": 3.163501024246216,
+  "stone_texture": [
+    1024,
+    1024
+  ],
+  "vortex_texture": [
+    512,
+    512
+  ],
+  "source": "Original Blender geometry, procedural baked slate and analytic red vortex"
+}

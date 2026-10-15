@@ -76,7 +76,7 @@ namespace Not3A.Stage2.RunState.Tests
         public IEnumerator SpaceStartsWave_LastEnemyWins_RRestartsWithoutOldOccupancy()
         {
             foreach (var kind in new[] { MapResourceKind.Wood, MapResourceKind.Stone, MapResourceKind.Metal })
-                gathering.Economy.Inventory.TryAdd(kind, 1);
+                gathering.Economy.Inventory.TryAdd(kind, kind == MapResourceKind.Wood ? 2 : 1);
             building.Defense.BeginPlacement();
             building.Defense.SetPreviewCell(new Vector2Int(0, 0));
             Assert.That(building.Defense.TryConfirm(out _), Is.EqualTo(PlacementResult.Ready));
@@ -129,7 +129,7 @@ namespace Not3A.Stage2.RunState.Tests
         public IEnumerator BaselineTowerKillsEnemyAndNaturallyWinsOneWave()
         {
             foreach (var kind in new[] { MapResourceKind.Wood, MapResourceKind.Stone, MapResourceKind.Metal })
-                gathering.Economy.Inventory.TryAdd(kind, 1);
+                gathering.Economy.Inventory.TryAdd(kind, kind == MapResourceKind.Wood ? 2 : 1);
             building.Defense.BeginPlacement();
             building.Defense.SetPreviewCell(new Vector2Int(map.EnemyEntrance.x - 1, map.EnemyEntrance.y));
             Assert.That(building.Defense.TryConfirm(out var tower), Is.EqualTo(PlacementResult.Ready));

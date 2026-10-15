@@ -109,9 +109,11 @@ namespace Not3A.Stage2.Integration
             }
 
             var boundCamera = cameraFollow.BoundCamera;
-            if (boundCamera == null || !boundCamera.orthographic || cameraFollow.transform.rotation != Quaternion.identity)
+            var expectedRotation = cameraFollow.TacticalView ? Quaternion.Euler(-35f, 0f, 0f) : Quaternion.identity;
+            if (boundCamera == null || !boundCamera.orthographic ||
+                Quaternion.Angle(cameraFollow.transform.rotation, expectedRotation) > 0.1f)
             {
-                return Invalid("InvalidCameraConfiguration", "The Stage 2 camera must be orthographic with identity rotation.");
+                return Invalid("InvalidCameraConfiguration", "Camera must be orthographic with its configured fixed orientation.");
             }
 
             if (entranceMarker == null)

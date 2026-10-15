@@ -1,0 +1,35 @@
+{
+  "date": "2026-10-15",
+  "tool": "built-in image_gen.imagegen, one call per asset",
+  "reference": "art/concepts/sprite_style_review_2026-10-15/b_cartoon_2d.png",
+  "reference_source": "Original imagegen board created for this project; user reattached the same board.",
+  "rights": "Project-generated original outputs; no third-party asset or third-party license imported.",
+  "prompts": "art/source/cartoon_map_tower_prompts.json",
+  "processing": "Original PNG bytes preserved. Unity import stores rects/pivots and selects frames; no repaint or background removal.",
+  "assets": [
+    {
+      "asset": "Assets/Stage3/CartoonWorldPilot/RapidCartoon.png",
+      "original": "C:\\Users\\MushketCO\\.codex\\generated_images\\01a13f3d-78fe-71f2-b4d8-caf638481ec6\\exec-0c143aaa-d46b-4f25-ae7a-35fb368b9568.png",
+      "sha256": "a7fda2b0b9d7f29942c953638c28b515b78d74ab649eac323cf40210608aa556",
+      "transparent": true
+    },
+    {
+      "asset": "Assets/Stage3/CartoonWorldPilot/LongshotFire.png",
+      "original": "C:\\Users\\MushketCO\\.codex\\generated_images\\01a13f3d-78fe-71f2-b4d8-caf638481ec6\\exec-40ae233a-2766-4dc4-a764-b14869d63200.png",
+      "sha256": "dd060b27bf2084536927eba003be6ceaf58433c8aec4078dc65a0a060eacf708",
+      "transparent": true
+    },
+    {
+      "asset": "Assets/Stage3/CartoonWorldPilot/CartoonGrass.png",
+      "original": "C:\\Users\\MushketCO\\.codex\\generated_images\\01a13f3d-78fe-71f2-b4d8-caf638481ec6\\exec-276e4a0c-0b16-46e4-895e-28138996008f.png",
+      "sha256": "7b7ba24f8bca247f7098ca047f41b1d01d8bde91bd9c8714af4094e517d61d8e",
+      "transparent": false
+    },
+    {
+      "asset": "Assets/Stage3/CartoonWorldPilot/CartoonPaving.png",
+      "original": "C:\\Users\\MushketCO\\.codex\\generated_images\\01a13f3d-78fe-71f2-b4d8-caf638481ec6\\exec-822a19dc-99e1-406c-8854-1a1272265d2b.png",
+      "sha256": "d404885accff713bae76326a8936f9521a9be948b894c1cccbfd66d9322a2bb2",
+      "transparent": false
+    }
+  ]
+}

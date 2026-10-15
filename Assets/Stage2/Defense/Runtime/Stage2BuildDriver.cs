@@ -32,6 +32,17 @@ namespace Not3A.Stage2.Defense
 
         public Stage2Defense Defense => defense;
         public PlacementResult PreviewResult { get; private set; } = PlacementResult.NotPlacing;
+        public SpriteRenderer PreviewRenderer => ghost;
+
+        public bool TryScreenToCell(Vector2 screen, out Vector2Int cell)
+        {
+            cell = default;
+            if (worldCamera == null || mapDefinition == null) return false;
+            var ray = worldCamera.ScreenPointToRay(screen);
+            if (!new Plane(Vector3.forward, Vector3.zero).Raycast(ray, out var distance)) return false;
+            cell = mapDefinition.WorldToCell(ray.GetPoint(distance));
+            return true;
+        }
 
         public bool Configure(Stage2MapDefinition definition, Stage2DefenseCatalog data,
             Stage2GatheringDriver economyDriver, Transform playerTransform,
@@ -148,8 +159,7 @@ namespace Not3A.Stage2.Defense
             if (defense.IsPlacing && Mouse.current != null)
             {
                 var screen = Mouse.current.position.ReadValue();
-                var world = worldCamera.ScreenToWorldPoint(new Vector3(screen.x, screen.y, -worldCamera.transform.position.z));
-                var cell = mapDefinition.WorldToCell(world);
+                if (!TryScreenToCell(screen, out var cell)) return;
                 defense.SetPreviewCell(cell);
                 PreviewResult = defense.EvaluatePreview();
                 if (ghost != null)

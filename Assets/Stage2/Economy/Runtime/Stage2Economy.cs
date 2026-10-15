@@ -7,9 +7,19 @@ namespace Not3A.Stage2.Economy
     public sealed class Stage2Inventory
     {
         private readonly int[] amounts = new int[3];
+        private int gold;
         public event Action Changed;
 
         public int Get(MapResourceKind kind) => amounts[Index(kind)];
+        public int Gold => gold;
+
+        public bool TryAddGold(int amount)
+        {
+            if (amount <= 0 || amount > int.MaxValue - gold) return false;
+            gold += amount;
+            Changed?.Invoke();
+            return true;
+        }
 
         public bool TryAdd(MapResourceKind kind, int amount)
         {
@@ -20,25 +30,28 @@ namespace Not3A.Stage2.Economy
             return true;
         }
 
-        public bool CanAfford(int wood, int stone, int metal) =>
-            wood >= 0 && stone >= 0 && metal >= 0 &&
-            amounts[0] >= wood && amounts[1] >= stone && amounts[2] >= metal;
+        public bool CanAfford(int wood, int stone, int metal, int requiredGold = 0) =>
+            wood >= 0 && stone >= 0 && metal >= 0 && requiredGold >= 0 &&
+            amounts[0] >= wood && amounts[1] >= stone && amounts[2] >= metal && gold >= requiredGold;
 
-        public bool TrySpend(int wood, int stone, int metal)
+        public bool TrySpend(int wood, int stone, int metal, int requiredGold = 0)
         {
-            if (!CanAfford(wood, stone, metal)) return false;
-            if (wood == 0 && stone == 0 && metal == 0) return true;
+            if (!CanAfford(wood, stone, metal, requiredGold)) return false;
+            if (wood == 0 && stone == 0 && metal == 0 && requiredGold == 0) return true;
             amounts[0] -= wood;
             amounts[1] -= stone;
             amounts[2] -= metal;
+            gold -= requiredGold;
             Changed?.Invoke();
             return true;
         }
 
-        public void Reset()
+        public void Reset(int initialGold = 0)
         {
-            if (amounts[0] == 0 && amounts[1] == 0 && amounts[2] == 0) return;
+            if (initialGold < 0) throw new ArgumentOutOfRangeException(nameof(initialGold));
+            if (amounts[0] == 0 && amounts[1] == 0 && amounts[2] == 0 && gold == initialGold) return;
             Array.Clear(amounts, 0, amounts.Length);
+            gold = initialGold;
             Changed?.Invoke();
         }
 
@@ -100,6 +113,7 @@ namespace Not3A.Stage2.Economy
     public sealed class Stage2Economy
     {
         private readonly Stage2MapDefinition map;
+        private readonly int startingGold;
         private readonly Stage2ResourceNode[] nodes = new Stage2ResourceNode[3];
         private readonly float interactionRangeSquared;
         private int currentKind = -1;
@@ -113,6 +127,8 @@ namespace Not3A.Stage2.Economy
             if (!validation.IsValid) throw new ArgumentException(validation.FirstError, nameof(map));
             if (!catalog.TryValidate(out var reason)) throw new ArgumentException(reason, nameof(catalog));
             this.map = map;
+            startingGold = catalog.StartingGold;
+            GoldPerKill = catalog.GoldPerKill;
             interactionRangeSquared = catalog.InteractionRange * catalog.InteractionRange;
             for (var index = 0; index < nodes.Length; index++)
             {
@@ -122,9 +138,11 @@ namespace Not3A.Stage2.Economy
                 nodes[index] = new Stage2ResourceNode(catalog.Get(kind), region.Anchor);
             }
             Inventory = new Stage2Inventory();
+            Inventory.Reset(startingGold);
         }
 
         public Stage2Inventory Inventory { get; }
+        public int GoldPerKill { get; }
         public event Action<MapResourceKind, int> Gathered;
         public float GatherProgress => gatherProgress;
 
@@ -182,7 +200,7 @@ namespace Not3A.Stage2.Economy
         {
             CancelGather();
             foreach (var node in nodes) node.Reset();
-            Inventory.Reset();
+            Inventory.Reset(startingGold);
         }
     }
 }

@@ -6,9 +6,11 @@ trial choice and implementation under S2-WAV-01/P-004; the multi-wave follow-up
 is implemented with EditMode/PlayMode passing. Further agent live comparisons
 were stopped after the human's cost/scope correction; manual game checking is
 handed to the human. S2-WAV-02 remains a completed baseline package.
+Under D-015 the three-wave trial is enough for the first playable if a full
+run is understandable. The former 15–25-minute target is historical and does
+not block this gate; detailed pacing/balance waits for live play.
 Owner/workstream: Waves/AI / Run state.
-Preset: GPT-6 Sol / high recommended by DEVELOPMENT_PLAN.md; model and effort
-remain the human's UI choice. Inputs: S2-AI-02, S2-DEF-01, S2-ECO-02,
+Historical preset: GPT-6 Sol / high. Inputs: S2-AI-02, S2-DEF-01, S2-ECO-02,
 S2-MAP-02, D-009/D-013/D-014 and accepted Stage 1 run semantics.
 
 ## Player Outcome And Boundary
@@ -173,6 +175,12 @@ with Space still allowing early start. The first allowance leaves roughly
 the subsequent allowance is a trial hypothesis, not a demonstrated human
 recovery budget. The human subsequently authorized this trial by delegation;
 the authoritative runtime values are now in the catalog asset.
+
+2026-09-25 D-018 supersedes the preparation candidates above: all three
+authored waves now wait 180 seconds. The initial D-018 request changed only
+the first wave; the player then extended the same wait to the second and third.
+Space still starts a wave early. The model reads each entry of the authored
+wave list, so the legacy fallback field alone cannot set these durations.
 
 This proposed three-round trial is for finding the rhythm, not a claim to
 meet the unchanged 15–25 minute vision. Exact pressure/group composition and

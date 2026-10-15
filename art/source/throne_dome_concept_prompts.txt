@@ -1,0 +1,21 @@
+Built-in imagegen, 2026-09-26. Both images are original review concepts, not runtime assets.
+
+Shared prompt:
+
+Use case: stylized-concept
+Asset type: original visual concept for the player's protected throne in a fixed-camera isometric Unity tower-defense game.
+Input images: Image 1 is the player's gameplay reference ONLY for the idea of a circular energy field around an important objective, not for architecture or ornaments. Image 2 is the project's earlier smooth blue ice concept ONLY for its soft stylized material and blue palette; redesign the object.
+Scene/backdrop: a small patch of plain gray earth with faint square cells; nothing else.
+Subject: a new life-critical throne/shrine at the center of a compact circular dark-stone dais. The core is a single smooth blue ice form suggesting a throne with a gently tapered high back, no fractures and no many-faceted gem texture. No framed soul cube or icon on the front. The player's soul is implied by a concentrated soft blue-white glow deep within the ice.
+Composition: one complete object, elevated three-quarter orthographic camera as in a top-down strategy game, clear one-cell central footprint. The protective field can extend beyond the cell as non-solid visual effects. Center and base remain readable.
+Motion shown in a still image: several broken concentric cyan energy arcs orbit clockwise around the dais at ground level. Each arc has a bright leading edge and faint trailing parallel streaks, so the circular travelling wave and moving blue strips are obvious. Keep the arcs thin enough to see the ground and central structure.
+Style: original polished stylized 3D game concept, soft painterly fantasy materials, strong readable silhouette, no photorealism. Ice is calm, smooth and uncracked.
+Avoid: no copied Warcraft architecture, no large stone arches, no gold statues, no gold orbital rings, no health bar or 100% UI, no text, no logo, no character, no skulls, no detached ice shards, no cracks, no busy particle storm.
+
+Variant ENERGY DOME:
+
+Above the throne is a large translucent hemispherical dome of pale cyan magical energy. It is transparent enough to see the entire smooth ice throne beneath. Define the dome mostly with one clear luminous rim and two broad soft flowing blue bands over its surface, like a protective force field. The apex is gently glowing. The orbiting ground wave is prominent and visibly travelling clockwise. No solid ice shell.
+
+Variant ICE DOME:
+
+Above and around the throne is a smooth thin translucent blue ice canopy, a low hemisphere grown from the dais like one continuous frosted shell. Its surface is pristine, without cracks or mosaic facets, and clear enough that the central ice throne remains visible. A restrained bright cyan edge outlines the canopy. Separate broken concentric ground-level energy arcs orbit clockwise outside the dais, with trailing light strips showing motion. No rock arches.

@@ -18,13 +18,14 @@ namespace Not3A.Stage2.Integration.Editor
     {
         public const string ScenePath = "Assets/Scenes/Stage2VerticalSlice.unity";
         public const string Stage1ScenePath = "Assets/Scenes/Stage1Graybox.unity";
-        public const string MapAssetPath = "Assets/Stage2/Map/Data/Stage2Map100x100.asset";
+        public const string MapAssetPath = "Assets/Stage2/Map/Data/Stage2Corner32x32.asset";
         public const string BuildPath = "Builds/Windows/Not3AStage2.exe";
 
         private const string SolidSpriteAssetPath = "Assets/Stage1/Generated/GrayboxSolid.asset";
         private const string DiamondSpriteAssetPath = "Assets/Stage1/Generated/GrayboxDiamond.asset";
         private const string EconomyCatalogPath = "Assets/Stage2/Economy/Data/Stage2EconomyPrototype.asset";
         private const string DefenseCatalogPath = "Assets/Stage2/Defense/Data/Stage2DefensePrototype.asset";
+        private const string LongshotCatalogPath = "Assets/Stage2/Defense/Data/Stage2DefenseLongshot.asset";
         private const string EnemyCatalogPath = "Assets/Stage2/WavesAI/Data/Stage2EnemyPrototype.asset";
         private const string RunCatalogPath = "Assets/Stage2/RunState/Data/Stage2RunPrototype.asset";
 
@@ -137,7 +138,7 @@ namespace Not3A.Stage2.Integration.Editor
             var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             scene.name = "Stage2VerticalSlice";
 
-            var mapObject = new GameObject("Authored 100x100 Map Surface", typeof(MeshFilter), typeof(MeshRenderer));
+            var mapObject = new GameObject("Authored Corner Map Surface", typeof(MeshFilter), typeof(MeshRenderer));
             var debugRenderer = mapObject.AddComponent<Stage2MapDebugRenderer>();
             debugRenderer.Configure(mapDefinition);
 
@@ -201,6 +202,7 @@ namespace Not3A.Stage2.Integration.Editor
         {
             var economyData = RequireAsset<Stage2EconomyCatalog>(EconomyCatalogPath);
             var defenseData = RequireAsset<Stage2DefenseCatalog>(DefenseCatalogPath);
+            var longshotData = RequireAsset<Stage2DefenseCatalog>(LongshotCatalogPath);
             var enemyData = RequireAsset<Stage2EnemyCatalog>(EnemyCatalogPath);
             var runData = RequireAsset<Stage2RunCatalog>(RunCatalogPath);
             var root = bootstrap.gameObject;
@@ -218,7 +220,7 @@ namespace Not3A.Stage2.Integration.Editor
             if (runDriver == null) runDriver = root.AddComponent<Stage2RunDriver>();
             var composition = root.GetComponent<Stage2GameComposition>();
             if (composition == null) composition = root.AddComponent<Stage2GameComposition>();
-            composition.Configure(bootstrap, economyData, defenseData, enemyData,
+            composition.Configure(bootstrap, economyData, defenseData, longshotData, enemyData,
                 runData, gathering, building, runDriver);
         }
 
@@ -281,7 +283,9 @@ namespace Not3A.Stage2.Integration.Editor
 
         private static Vector2Int FindPlayerSpawn(Stage2MapDefinition definition)
         {
-            var origin = definition.Throne;
+            var origin = new Vector2Int(
+                (definition.EnemyEntrance.x + definition.Throne.x) / 2,
+                (definition.EnemyEntrance.y + definition.Throne.y) / 2);
             var maximumRadius = Mathf.Max(definition.Size.x, definition.Size.y);
             var directions = new[] { Vector2Int.up, Vector2Int.left, Vector2Int.down, Vector2Int.right };
             for (var radius = 1; radius <= maximumRadius; radius++)

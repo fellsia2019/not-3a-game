@@ -17,12 +17,12 @@ MonoBehaviour:
   spawnInterval: 0.8
   throneHealth: 5
   waves:
-  - preparationSeconds: 45
+  - preparationSeconds: 180
     enemyCount: 6
     spawnInterval: 0.8
-  - preparationSeconds: 30
+  - preparationSeconds: 180
     enemyCount: 8
     spawnInterval: 0.8
-  - preparationSeconds: 30
+  - preparationSeconds: 180
     enemyCount: 10
     spawnInterval: 0.8

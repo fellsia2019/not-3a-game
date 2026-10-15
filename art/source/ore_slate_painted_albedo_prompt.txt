@@ -1,0 +1,8 @@
+Source/provenance: Original built-in imagegen output for Not 3A, 2026-09-26.
+No image input, copied concept pixels, external mesh, or third-party texture.
+Generated file: C:/Users/MushketCO/.codex/generated_images/01a0ddfe-e0f7-7c72-9268-5b80e5969034/exec-66456ea4-3df0-4b4b-a1ae-0308804ec740.png
+Project file: art/source/ore_slate_painted_albedo.png
+Tool: built-in image_gen.imagegen; transparent_background=false.
+
+Exact prompt:
+Use case: stylized-concept. Asset type: original seamless square diffuse/albedo surface texture for a stylized fantasy 3D ironstone resource rock. Fill the entire image edge to edge with dark desaturated blue-gray charcoal slate/ironstone, softly hand-painted medium irregular angular mineral patches and chipped stone grain. Palette predominantly muted slate blue-gray with slightly warmer gray chipped patches, a very sparse amount of subdued iron-brown mineral speckling. Match soft polished fantasy strategy game art, matte stone. Flat orthographic surface, even neutral lighting, no rendered objects, no ground, no grass, no shadows, no directional highlights, no depth scene, no text, no border. Continuous physically plausible stone surface, not a collection of separate pebbles, not a regular cell pattern, no dramatic cracks or orange veins (the 3D model will supply its own recessed iron veins). Original texture only; do not use or crop any concept image. 2048x2048 texture.

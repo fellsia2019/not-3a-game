@@ -58,7 +58,7 @@ namespace Not3A.Stage2.Defense.Tests
                 hero.transform, camera, navigation), Is.True);
             building.SetRunState(Stage2BuildPhase.Preparation, false);
             foreach (var kind in new[] { MapResourceKind.Wood, MapResourceKind.Stone, MapResourceKind.Metal })
-                gathering.Economy.Inventory.TryAdd(kind, 1);
+                gathering.Economy.Inventory.TryAdd(kind, kind == MapResourceKind.Wood ? 2 : 1);
             yield return null;
         }
 
@@ -93,7 +93,7 @@ namespace Not3A.Stage2.Defense.Tests
             Assert.That(tower, Is.Not.Null);
             Assert.That(tower.gameObject.activeInHierarchy, Is.True);
             Assert.That(navigation.Revision, Is.EqualTo(1));
-            Assert.That(gathering.Economy.Inventory.Get(MapResourceKind.Metal), Is.Zero);
+            Assert.That(gathering.Economy.Inventory.Get(MapResourceKind.Metal), Is.EqualTo(1));
             yield return null;
             Assert.That(building.Defense.TowerCount, Is.EqualTo(1), "Held click must not repeat purchase.");
             input.Release(mouse.leftButton);
@@ -119,7 +119,7 @@ namespace Not3A.Stage2.Defense.Tests
             yield return null;
             Assert.That(building.Defense.TowerCount, Is.Zero);
             Assert.That(navigation.Revision, Is.Zero);
-            Assert.That(gathering.Economy.Inventory.Get(MapResourceKind.Wood), Is.EqualTo(1));
+            Assert.That(gathering.Economy.Inventory.Get(MapResourceKind.Wood), Is.EqualTo(2));
             input.Release(keyboard.escapeKey);
             input.Release(mouse.leftButton);
             building.SetRunState(Stage2BuildPhase.Wave, false);
@@ -151,14 +151,14 @@ namespace Not3A.Stage2.Defense.Tests
             input.Release(keyboard.bKey);
             yield return null;
             Assert.That(building.PreviewResult, Is.EqualTo(PlacementResult.CannotAfford));
-            gathering.Economy.Inventory.TryAdd(MapResourceKind.Metal, 1);
+            gathering.Economy.Inventory.TryAdd(MapResourceKind.Stone, 4);
             yield return null;
             Assert.That(building.PreviewResult, Is.EqualTo(PlacementResult.Ready));
             input.Press(mouse.leftButton);
             yield return null;
             Assert.That(navigation.TryGetOccupant(cell, out var ownerToken), Is.True);
             Assert.That((ownerToken as Stage2Tower).name, Does.StartWith(longshot.TowerPrefab.name));
-            Assert.That(gathering.Economy.Inventory.Get(MapResourceKind.Metal), Is.Zero);
+            Assert.That(gathering.Economy.Inventory.Get(MapResourceKind.Metal), Is.EqualTo(1));
             Assert.That(building.Defense.TowerCount, Is.EqualTo(1));
         }
 
@@ -168,7 +168,8 @@ namespace Not3A.Stage2.Defense.Tests
                 for (var x = map.MinimumCell.x; x <= map.MaximumCell.x; x++)
                 {
                     var candidate = new Vector2Int(x, y);
-                    if (map.IsBuildable(candidate) && map.IsWalkable(candidate)) return candidate;
+                    if (map.GetSurface(candidate) == MapSurfaceKind.InvasionCorridor &&
+                        map.IsBuildable(candidate) && map.IsWalkable(candidate)) return candidate;
                 }
             Assert.Fail("Map has no buildable cell.");
             return default;

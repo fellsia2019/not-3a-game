@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c79004c27e5fc24fb59b313c71228e6, type: 3}
+  m_Name: RapidWatchtower3DGameCatalog
+  m_EditorClassIdentifier: Not3A.Stage2.Defense::Not3A.Stage2.Defense.Stage2DefenseCatalog
+  towerPrefab: {fileID: 1432178459933168085, guid: 9e6fd812ad9153b49bf62758b907b4a1, type: 3}
+  roleName: Rapid
+  woodCost: 2
+  stoneCost: 1
+  metalCost: 0
+  goldCost: 5
+  towerHealth: 10
+  attackRange: 4.25
+  fireInterval: 0.45
+  attackDamage: 1
+  projectileFlightSeconds: 0.18

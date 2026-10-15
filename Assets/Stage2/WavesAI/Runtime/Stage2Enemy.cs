@@ -21,12 +21,16 @@ namespace Not3A.Stage2.WavesAI
         private bool removed;
         private bool paused;
         private bool automaticTick = true;
+        private SpriteRenderer spriteRenderer;
+        private Color restingColor;
+        private float hitFlashRemaining;
 
         public Vector2Int CurrentCell { get; private set; }
         public Vector2Int? StepDestination => stepDestination;
         public NavigationPlan Plan => plan;
         public int Health => health;
         public bool IsAlive => configured && !removed && health > 0;
+        public bool WasKilled { get; private set; }
         public bool IsAtCellCenter => !stepDestination.HasValue;
         public event Action<Stage2Enemy, int> ReachedThrone;
         public event Action<Stage2Enemy> Removed;
@@ -50,12 +54,20 @@ namespace Not3A.Stage2.WavesAI
             CurrentCell = startCell;
             transform.position = definition.CellToWorld(startCell);
             health = settings.Health;
+            spriteRenderer = GetComponent<SpriteRenderer>();
+            if (spriteRenderer != null)
+            {
+                restingColor = spriteRenderer.color;
+                spriteRenderer.color = restingColor;
+            }
+            hitFlashRemaining = 0f;
             siegeRemaining = settings.SiegeInterval;
             plan = null;
             pathIndex = 0;
             stepDestination = null;
             paused = false;
             removed = false;
+            WasKilled = false;
             configured = true;
         }
 
@@ -69,7 +81,16 @@ namespace Not3A.Stage2.WavesAI
         {
             if (amount <= 0 || !IsAlive) return false;
             health = Mathf.Max(0, health - amount);
-            if (health == 0) RemoveOnce(false, true);
+            if (health > 0 && spriteRenderer != null)
+            {
+                spriteRenderer.color = Color.white;
+                hitFlashRemaining = 0.16f;
+            }
+            if (health == 0)
+            {
+                WasKilled = true;
+                RemoveOnce(false, true);
+            }
             return true;
         }
 
@@ -80,6 +101,11 @@ namespace Not3A.Stage2.WavesAI
             if (elapsedSeconds < 0f || float.IsNaN(elapsedSeconds) || float.IsInfinity(elapsedSeconds))
                 throw new ArgumentOutOfRangeException(nameof(elapsedSeconds));
             if (!IsAlive || paused || elapsedSeconds == 0f) return;
+            if (hitFlashRemaining > 0f)
+            {
+                hitFlashRemaining = Mathf.Max(0f, hitFlashRemaining - elapsedSeconds);
+                if (hitFlashRemaining == 0f && spriteRenderer != null) spriteRenderer.color = restingColor;
+            }
             siegeRemaining = Mathf.Max(0f, siegeRemaining - elapsedSeconds);
 
             // An already-started step owns both endpoints until arrival. A mid-step

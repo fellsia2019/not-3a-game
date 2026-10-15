@@ -34,12 +34,18 @@ Thumbs.db
 Desktop.ini
 *~
 **/.obsidian/
+__pycache__/
+*.py[cod]
+.env*
+*.pem
+*.p12
+*.pfx
 
 # Test/build output
 TestResults/
 Artifacts/
-/reports/
+/reports/*
+!/reports/game-design.html
+!/reports/development-roadmap.html
 
-# Local visual references with unverified redistribution rights
-/concepts_visual_scene/*
-!/concepts_visual_scene/README.md
+# Reference images are kept outside Assets; provenance and rights are documented.

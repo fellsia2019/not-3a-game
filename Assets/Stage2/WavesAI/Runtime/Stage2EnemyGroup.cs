@@ -6,6 +6,19 @@ using UnityEngine;
 
 namespace Not3A.Stage2.WavesAI
 {
+    /// <summary>Run-owned shot facts. Neither flight nor impact requires a renderer or collider.</summary>
+    public sealed class Stage2Shot
+    {
+        public Vector2 Origin { get; internal set; }
+        public Vector2 Position { get; internal set; }
+        public float Duration { get; internal set; }
+        public float Elapsed { get; internal set; }
+        public float SplashRadiusCells { get; internal set; }
+        public float Progress => Duration <= 0f ? 1f : Mathf.Clamp01(Elapsed / Duration);
+        internal Stage2Enemy Target;
+        internal int Damage;
+    }
+
     /// <summary>Explicit run-owned population; pass IsCellProtected to Defense.</summary>
     public sealed class Stage2EnemyGroup
     {
@@ -14,6 +27,7 @@ namespace Not3A.Stage2.WavesAI
         private readonly Stage2EnemyCatalog catalog;
         private readonly List<Stage2Enemy> enemies = new List<Stage2Enemy>();
         private bool paused;
+        private readonly List<Stage2Shot> shots = new List<Stage2Shot>();
 
         public Stage2EnemyGroup(Stage2MapDefinition definition, Stage2Navigation sharedNavigation,
             Stage2EnemyCatalog settings)
@@ -34,6 +48,10 @@ namespace Not3A.Stage2.WavesAI
         public Stage2Enemy GetEnemy(int index) => enemies[index];
         public event Action<int> ReachedThrone;
         public event Action<Stage2Enemy> EnemyRemoved;
+        public event Action<Stage2Shot> ShotLaunched;
+        public event Action<Stage2Shot> ShotImpacted;
+        public event Action ShotsCleared;
+        public int PendingShotCount => shots.Count;
 
         public bool IsCellProtected(Vector2Int cell)
         {
@@ -42,9 +60,28 @@ namespace Not3A.Stage2.WavesAI
             return false;
         }
 
-        public bool TryHitNearest(Vector2 world, float range, int damage)
+        public bool TryHitNearest(Vector2 world, float range, int damage, float splashRadiusCells)
+            => TryHitNearest(world, range, damage, splashRadiusCells, 0f);
+
+        public bool TryHitNearest(Vector2 world, float range, int damage, float splashRadiusCells, float flightSeconds)
         {
-            if (paused || range <= 0f || damage <= 0) return false;
+            if (paused || range <= 0f || damage <= 0 || splashRadiusCells < 0f ||
+                float.IsNaN(splashRadiusCells) || float.IsInfinity(splashRadiusCells) ||
+                flightSeconds < 0f || float.IsNaN(flightSeconds) || float.IsInfinity(flightSeconds)) return false;
+            var nearest=FindNearest(world,range);
+            if (nearest == null) return false;
+            var shot = new Stage2Shot { Origin = world, Position = nearest.transform.position,
+                Target = nearest, Damage = damage, SplashRadiusCells = splashRadiusCells, Duration = flightSeconds };
+            if (flightSeconds > 0f) shots.Add(shot);
+            ShotLaunched?.Invoke(shot);
+            if (flightSeconds == 0f) ResolveShot(shot);
+            return true;
+        }
+
+        // Read-only target query shared by combat and continuous visual aiming.
+        public Stage2Enemy FindNearest(Vector2 world, float range)
+        {
+            if (paused || range <= 0f) return null;
             Stage2Enemy nearest = null;
             var bestSquared = range * range;
             for (var index = 0; index < enemies.Count; index++)
@@ -58,7 +95,47 @@ namespace Not3A.Stage2.WavesAI
                 nearest = candidate;
                 bestSquared = squared;
             }
-            return nearest != null && nearest.TakeDamage(damage);
+            return nearest;
+        }
+
+        public void TickShots(float elapsedSeconds)
+        {
+            if (elapsedSeconds < 0f || float.IsNaN(elapsedSeconds) || float.IsInfinity(elapsedSeconds))
+                throw new ArgumentOutOfRangeException(nameof(elapsedSeconds));
+            if (paused || elapsedSeconds == 0f) return;
+            for (var index = shots.Count - 1; index >= 0; index--)
+            {
+                var shot = shots[index];
+                if (shot.Target != null && shot.Target.IsAlive) shot.Position = shot.Target.transform.position;
+                shot.Elapsed = Mathf.Min(shot.Duration, shot.Elapsed + elapsedSeconds);
+                if (shot.Progress < 1f) continue;
+                shots.RemoveAt(index);
+                ResolveShot(shot);
+            }
+        }
+
+        private void ResolveShot(Stage2Shot shot)
+        {
+            // Emit even if another shot already killed the target: the projectile still lands.
+            ShotImpacted?.Invoke(shot);
+            if (shot.SplashRadiusCells == 0f)
+            {
+                if (shot.Target != null && shot.Target.IsAlive) shot.Target.TakeDamage(shot.Damage);
+                return;
+            }
+
+            // The blast follows the selected enemy's position in map-cell space.
+            // Iterate backwards because a lethal hit removes its enemy immediately.
+            var center = map.WorldToCellCoordinates(shot.Position);
+            var radiusSquared = shot.SplashRadiusCells * shot.SplashRadiusCells;
+            for (var index = enemies.Count - 1; index >= 0; index--)
+            {
+                var candidate = enemies[index];
+                if (candidate == null || !candidate.IsAlive) continue;
+                var position = map.WorldToCellCoordinates(candidate.transform.position);
+                if ((position - center).sqrMagnitude <= radiusSquared)
+                    candidate.TakeDamage(shot.Damage);
+            }
         }
 
         public Stage2Enemy Spawn() => SpawnAt(map.EnemyEntrance);
@@ -92,6 +169,8 @@ namespace Not3A.Stage2.WavesAI
 
         public void ResetRun()
         {
+            shots.Clear();
+            ShotsCleared?.Invoke();
             while (enemies.Count > 0)
             {
                 var enemy = enemies[enemies.Count - 1];

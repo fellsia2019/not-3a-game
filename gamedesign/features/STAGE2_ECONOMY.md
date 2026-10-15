@@ -159,6 +159,12 @@ progress, recovery and all balances. `Inventory.CanAfford` and
 deduct. `Gathered(kind, amount)` is a confirmed fact for later objectives/UI;
 recovery never raises it. The model has no Stage 1 controller dependency.
 
+2026-09-25 D-018 extension: the current run starts with five gold. Gold is a
+currency in the same inventory, not a fourth map node or gatherable resource.
+Each confirmed enemy kill credits one gold; throne contact and despawn credit
+none. `CanAfford`/`TrySpend` include gold in the same atomic tower payment.
+Restart clears earned gold and restores the authored starting five.
+
 Integration S2-INT-02: attach `Stage2GatheringDriver` to its owned scene root,
 bind the same `Stage2Map100x100.asset` used by the scene bootstrap, assign
 `Stage2EconomyPrototype.asset` and the non-combat player's `Transform`.
@@ -177,7 +183,8 @@ each source's stock, recovery time, distance and WASD direction; a label remains
 at the screen edge when the source is outside the camera or covered by the
 readout. In range it prompts the player to hold E; after win/loss it prompts R
 to restart before gathering. This is discoverability scaffolding until
-S2-ART-02/S2-UI-02 provide representative art and HUD.
+Temporary Stage 2 markers/readout provide first-playable feedback under D-015.
+Finished art and UI follow the playable check.
 
 The run state calls `SetRunActivity(running, paused)` on phase/pause changes,
 with `running` true in Preparation/Wave only, and `ResetRun()` at restart.

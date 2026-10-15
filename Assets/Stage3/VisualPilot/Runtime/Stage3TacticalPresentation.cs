@@ -1,0 +1,450 @@
+using System.Collections;
+using System.Collections.Generic;
+using Not3A.Stage2.Defense;
+using Not3A.Stage2.Integration;
+using Not3A.Stage2.Map;
+using UnityEngine;
+using UnityEngine.Rendering;
+
+namespace Not3A.Stage3.VisualPilot
+{
+    /// <summary>One flat XY rules plane, real height along -Z, one shared tactical camera.
+    /// Temporary actor solids are scale references, not final character/content production.</summary>
+    public sealed class Stage3TacticalPresentation : MonoBehaviour
+    {
+        public const int NonWalkableBorderCells = 128;
+        public const float GrassVisualLift = .08f;
+        public const float GrassApronReach = .40f;
+        [SerializeField] private Material grass;
+        [SerializeField] private Stage3RoadsideArt roadsideArt;
+        [SerializeField] private Material grassVerge;
+        [SerializeField] private Material paving;
+        [SerializeField] private Material neutral;
+        [SerializeField] private Stage3SkeletonSprite skeletonSpritePrefab;
+        [SerializeField] private Material hero;
+        [SerializeField] private Material throne;
+        [SerializeField] private GameObject soulSpherePrefab;
+        [SerializeField] private Material entrance;
+        [SerializeField] private GameObject entrancePortalPrefab;
+        [SerializeField] private Material woodSource;
+        [SerializeField] private Material stoneSource;
+        [SerializeField] private Material metalSource;
+        [SerializeField] private GameObject woodSourceModel;
+        [SerializeField] private GameObject stoneSourceModel;
+        [SerializeField] private GameObject metalSourceModel;
+        [SerializeField] private Material grassBlades;
+        [SerializeField] private Material flowerPetals;
+        [SerializeField] private Material flowerCenters;
+        private Stage2SceneBootstrap bootstrap;
+        private Stage2GameComposition composition;
+        private GameObject terrain;
+        private Mesh terrainMesh;
+        private GameObject grassEdge;
+        private Mesh grassEdgeMesh;
+        private GameObject borderGround;
+        private Mesh borderMesh;
+        private Transform heroVisual;
+        private GameObject preview;
+        private int previewRole = -1;
+        private MaterialPropertyBlock tint;
+
+        private IEnumerator Start()
+        {
+            tint = new MaterialPropertyBlock();
+            yield return null;
+            bootstrap = GetComponent<Stage2SceneBootstrap>();
+            composition = GetComponent<Stage2GameComposition>();
+            if (bootstrap == null || composition == null || !composition.IsInitialized) yield break;
+            BuildSurface();
+            Stage3LandscapeProps.Build(bootstrap.MapDefinition, transform,
+                new[] {
+                    (Vector2)bootstrap.EntranceMarker.position,
+                    (Vector2)bootstrap.ThroneMarker.position,
+                    composition.Gathering.Economy.WorldPosition(MapResourceKind.Wood),
+                    composition.Gathering.Economy.WorldPosition(MapResourceKind.Stone),
+                    composition.Gathering.Economy.WorldPosition(MapResourceKind.Metal)
+                }, grassBlades, flowerPetals, flowerCenters, GrassVisualLift);
+            Stage3RoadsideDecoration.Build(bootstrap.MapDefinition,transform,roadsideArt,bootstrap.CameraFollow.BoundCamera,
+                new[] {(Vector2)bootstrap.EntranceMarker.position,(Vector2)bootstrap.ThroneMarker.position,
+                    composition.Gathering.Economy.WorldPosition(MapResourceKind.Wood),
+                    composition.Gathering.Economy.WorldPosition(MapResourceKind.Stone),
+                    composition.Gathering.Economy.WorldPosition(MapResourceKind.Metal)});
+            HideSprites(bootstrap.PlayerMover.gameObject);
+            heroVisual = Solid(bootstrap.PlayerMover.transform, "Hero scale marker", PrimitiveType.Capsule,
+                new Vector3(0,0,-.43f), new Vector3(.38f,.43f,.38f), hero);
+            UpdateHeroGroundHeight(true);
+            HideSprites(bootstrap.ThroneMarker.gameObject);
+            if (soulSpherePrefab != null)
+            {
+                var objective = Instantiate(soulSpherePrefab, bootstrap.ThroneMarker, false);
+                var sprite = objective.GetComponent<Stage3LandmarkSprite>();
+                if (sprite != null) sprite.Bind(composition.RunDriver, bootstrap.CameraFollow.BoundCamera);
+            }
+            else
+            {
+                Solid(bootstrap.ThroneMarker, "Throne base", PrimitiveType.Cylinder,
+                    new Vector3(0,0,-.08f), new Vector3(1.0f,.08f,1.0f), neutral);
+                Solid(bootstrap.ThroneMarker, "Throne objective marker", PrimitiveType.Cube,
+                    new Vector3(0,0,-.57f), new Vector3(.55f,.85f,.55f), throne);
+            }
+            HideSprites(bootstrap.EntranceMarker.gameObject);
+            if (entrancePortalPrefab != null)
+            {
+                var portal=Instantiate(entrancePortalPrefab,bootstrap.EntranceMarker,false);
+                var towardGoal=bootstrap.MapDefinition.Throne-bootstrap.MapDefinition.EnemyEntrance;
+                var quarterTurns=Mathf.RoundToInt(Mathf.Atan2(towardGoal.y,towardGoal.x)
+                    *Mathf.Rad2Deg/90f);
+                // Keep the square 3x3 foundation grid-aligned. The authored
+                // aperture is 45 degrees from this quarter-turn bearing.
+                portal.transform.localRotation=Quaternion.AngleAxis(quarterTurns*90f,Vector3.forward);
+                portal.GetComponent<Stage3EntrancePortal>().Bind(composition.RunDriver);
+                var sprite = portal.GetComponent<Stage3LandmarkSprite>();
+                if (sprite != null) sprite.Bind(composition.RunDriver, bootstrap.CameraFollow.BoundCamera);
+            }
+            else
+                Solid(bootstrap.EntranceMarker, "Entrance disc", PrimitiveType.Cylinder,
+                    new Vector3(0,0,-.035f), new Vector3(1.05f,.035f,1.05f), entrance);
+            for (var i=0; i<3; i++)
+            {
+                var marker = transform.Find($"{(MapResourceKind)i} Resource Marker");
+                if (marker == null) continue;
+                HideSprites(marker.gameObject);
+                marker.position = (Vector3)composition.Gathering.Economy.WorldPosition((MapResourceKind)i);
+                var model = i == 0 ? woodSourceModel : i == 1 ? stoneSourceModel : metalSourceModel;
+                if (model != null)
+                {
+                    var visual = Instantiate(model, marker, false);
+                    visual.transform.localPosition = new Vector3(0, 0,
+                        GrassSurfaceZ(composition.Gathering.Economy.WorldPosition((MapResourceKind)i)));
+                }
+                else
+                    Solid(marker, "Resource scale marker", i == 1 ? PrimitiveType.Sphere : PrimitiveType.Cylinder,
+                        new Vector3(0,0,(i == 1 ? -.32f : -.45f) +
+                            GrassSurfaceZ(composition.Gathering.Economy.WorldPosition((MapResourceKind)i))),
+                        new Vector3(.65f,i == 1 ? .64f : .45f,.65f),
+                        i == 0 ? woodSource : i == 1 ? stoneSource : metalSource);
+            }
+            foreach (var tower in FindObjectsByType<Stage2Tower>(FindObjectsSortMode.None)) OnTowerBuilt(tower);
+            composition.Building.Defense.Built += OnTowerBuilt;
+            gameObject.AddComponent<Stage3CombatPresentation>().Initialize(composition, neutral);
+            Debug.Log("S3_TACTICAL_VIEW_READY elevation=55 planarGrid=true heightAxis=-Z");
+        }
+
+        private void OnTowerBuilt(Stage2Tower tower)
+        {
+            tower.transform.localScale = Vector3.one;
+            var sprite = tower.GetComponentInChildren<Stage3TowerSprite>();
+            if (sprite != null)
+            {
+                var placeholder = tower.GetComponent<SpriteRenderer>();
+                if (placeholder != null) placeholder.enabled = false;
+                sprite.Bind(bootstrap.CameraFollow.BoundCamera);
+                return;
+            }
+            HideSprites(tower.gameObject);
+            if (tower.GetComponentInChildren<MeshRenderer>() == null)
+                Solid(tower.transform, "Longshot scale marker", PrimitiveType.Cylinder,
+                    new Vector3(0,0,-.65f), new Vector3(.58f,.65f,.58f), neutral);
+            Solid(tower.transform, "Occupied cell footing", PrimitiveType.Cube,
+                new Vector3(0,0,-.015f), new Vector3(.94f,.03f,.94f), paving);
+        }
+
+        private void LateUpdate()
+        {
+            if (composition == null || !composition.IsInitialized) return;
+            UpdateHeroGroundHeight(false);
+            for (var i=0; i<composition.Enemies.ActiveCount; i++)
+            {
+                var enemy = composition.Enemies.GetEnemy(i);
+                if (enemy == null || enemy.GetComponentInChildren<Stage3SkeletonSprite>() != null ||
+                    enemy.GetComponentInChildren<MeshRenderer>() != null) continue;
+                HideSprites(enemy.gameObject);
+                enemy.transform.localScale = Vector3.one;
+                if (skeletonSpritePrefab != null)
+                {
+                    var sprite = Instantiate(skeletonSpritePrefab, enemy.transform, false);
+                    sprite.Bind(enemy, composition.RunDriver, bootstrap.CameraFollow.BoundCamera);
+                    continue;
+                }
+                Solid(enemy.transform, "Enemy scale marker", PrimitiveType.Capsule,
+                    new Vector3(0,0,-.32f), new Vector3(.34f,.32f,.34f), neutral);
+                enemy.gameObject.AddComponent<Stage3MeshFeedback>();
+            }
+            UpdatePreview();
+        }
+
+        private void UpdateHeroGroundHeight(bool immediate)
+        {
+            if (heroVisual == null || bootstrap == null) return;
+            var map = bootstrap.MapDefinition;
+            var world = bootstrap.PlayerMover.transform.position;
+            var cell = map.WorldToCell(world);
+            var target = -.43f + (map.Contains(cell) && map.GetSurface(cell) == MapSurfaceKind.Forest
+                ? GrassSurfaceZ(world) : 0f);
+            var position = heroVisual.localPosition;
+            position.z = immediate ? target : Mathf.MoveTowards(position.z, target, Time.deltaTime * 1.5f);
+            heroVisual.localPosition = position;
+        }
+
+        private void UpdatePreview()
+        {
+            var driver = composition.Building;
+            var defense = driver.Defense;
+            if (driver.PreviewRenderer != null) driver.PreviewRenderer.enabled = false;
+            if (!defense.IsPlacing || !defense.PreviewCell.HasValue)
+            {
+                if (preview != null) preview.SetActive(false);
+                return;
+            }
+            if (preview == null || previewRole != defense.SelectedRoleIndex)
+            {
+                if (preview != null) Destroy(preview);
+                preview = new GameObject("Tactical mesh placement preview");
+                previewRole = defense.SelectedRoleIndex;
+                var model = defense.SelectedCatalog.TowerPrefab.transform.Find("Pilot ground-aligned mesh");
+                var spriteModel = defense.SelectedCatalog.TowerPrefab.GetComponentInChildren<Stage3TowerSprite>(true);
+                if (spriteModel != null)
+                {
+                    var sprite = Instantiate(spriteModel,preview.transform,false);
+                    sprite.Bind(bootstrap.CameraFollow.BoundCamera);
+                }
+                else if (model != null) Instantiate(model.gameObject, preview.transform, false);
+                else Solid(preview.transform, "Longshot preview", PrimitiveType.Cylinder,
+                    new Vector3(0,0,-.65f), new Vector3(.58f,.65f,.58f), neutral);
+                Solid(preview.transform, "Selected cell", PrimitiveType.Cube,
+                    new Vector3(0,0,-.025f), new Vector3(.96f,.05f,.96f), neutral);
+                foreach (var renderer in preview.GetComponentsInChildren<MeshRenderer>())
+                    renderer.shadowCastingMode = ShadowCastingMode.Off;
+            }
+            preview.SetActive(true);
+            preview.transform.position = bootstrap.MapDefinition.CellToWorld(defense.PreviewCell.Value);
+            tint.SetColor("_BaseColor", defense.EvaluatePreview() == PlacementResult.Ready
+                ? new Color(.35f,1f,.55f) : new Color(1f,.16f,.12f));
+            foreach (var renderer in preview.GetComponentsInChildren<MeshRenderer>()) renderer.SetPropertyBlock(tint);
+            var previewSprite = preview.GetComponentInChildren<Stage3TowerSprite>();
+            if (previewSprite != null) previewSprite.Tint(defense.EvaluatePreview() == PlacementResult.Ready
+                ? new Color(.6f,1f,.7f,.7f) : new Color(1f,.35f,.3f,.7f));
+        }
+
+        private void BuildSurface()
+        {
+            bootstrap.MapDebugRenderer.GetComponent<MeshRenderer>().enabled = false;
+            var map = bootstrap.MapDefinition;
+            // The border is visible terrain, but lies outside authored cells:
+            // player movement, building and navigation cannot enter it.
+            var minimum = map.MinimumCell;
+            var maximum = map.MaximumCell;
+            var minX = minimum.x - NonWalkableBorderCells - .5f;
+            var minY = minimum.y - NonWalkableBorderCells - .5f;
+            var maxX = maximum.x + NonWalkableBorderCells + .5f;
+            var maxY = maximum.y + NonWalkableBorderCells + .5f;
+            borderMesh = new Mesh { name = "Non-walkable map border" };
+            borderMesh.vertices = new[] {
+                new Vector3(minX,minY,.02f), new Vector3(minX,maxY,.02f),
+                new Vector3(maxX,maxY,.02f), new Vector3(maxX,minY,.02f) };
+            // One seamless pigment tile covers 4x4 cells, including the
+            // non-walkable visual border beyond the authored map.
+            borderMesh.uv = new[] {
+                new Vector2((minX+.5f)/4f,(minY+.5f)/4f),
+                new Vector2((minX+.5f)/4f,(maxY+.5f)/4f),
+                new Vector2((maxX+.5f)/4f,(maxY+.5f)/4f),
+                new Vector2((maxX+.5f)/4f,(minY+.5f)/4f) };
+            borderMesh.triangles = new[] { 0,1,2,0,2,3 };
+            borderMesh.RecalculateNormals();
+            borderMesh.RecalculateBounds();
+            borderGround = new GameObject("Non-walkable map border");
+            borderGround.AddComponent<MeshFilter>().sharedMesh = borderMesh;
+            var borderRenderer = borderGround.AddComponent<MeshRenderer>();
+            borderRenderer.sharedMaterial = grass;
+            borderRenderer.shadowCastingMode = ShadowCastingMode.Off;
+            var borderTint = new MaterialPropertyBlock();
+            borderTint.SetColor("_BaseColor", Color.white);
+            borderRenderer.SetPropertyBlock(borderTint);
+            var vertices = new List<Vector3>();
+            var uv = new List<Vector2>();
+            var normals = new List<Vector3>();
+            var triangles = new[] { new List<int>(), new List<int>() };
+            var edgeVertices = new List<Vector3>();
+            var edgeUV = new List<Vector2>();
+            var edgeTriangles = new List<int>();
+            for (var x=map.MinimumCell.x; x<=map.MaximumCell.x; x++)
+            for (var y=map.MinimumCell.y; y<=map.MaximumCell.y; y++)
+            {
+                var ground = map.GetSurface(new Vector2Int(x,y)) == MapSurfaceKind.Forest ? 0 : 1;
+                // A 100x100 world keeps the same textured grass/normal function,
+                // while one quad per distant cell avoids 16 off-screen quads.
+                var divisions = ground == 0 && map.Size.x < 64 ? 4 : 1;
+                for (var dx = 0; dx < divisions; dx++)
+                for (var dy = 0; dy < divisions; dy++)
+                {
+                    var a = new Vector2(x-.5f+dx/(float)divisions,
+                        y-.5f+dy/(float)divisions);
+                    var b = a + new Vector2(0f,1f/divisions);
+                    var c = a + new Vector2(1f/divisions,1f/divisions);
+                    var d = a + new Vector2(1f/divisions,0f);
+                    var first = vertices.Count;
+                    foreach (var point in new[] { a,b,c,d })
+                    {
+                        vertices.Add(new Vector3(point.x,point.y,
+                            ground == 0 ? GrassSurfaceZ(point) : 0f));
+                        var tilePoint = point+Vector2.one*.5f;
+                        if (ground == 1 && grassVerge != null)
+                            tilePoint = new Vector2(tilePoint.x*.61f-tilePoint.y,tilePoint.x*.61f+tilePoint.y)*.70710678f;
+                        uv.Add(tilePoint/4f);
+                        normals.Add(ground == 0 ? GrassSurfaceNormal(point) : Vector3.back);
+                    }
+                    triangles[ground].AddRange(new[]{first,first+1,first+2,first,first+2,first+3});
+                }
+                if (ground == 0)
+                {
+                    if (IsLowerNeighbor(map, x-1, y))
+                        AddGrassApron(edgeVertices, edgeTriangles, edgeUV,
+                            new Vector2(x-.5f,y+.5f), new Vector2(x-.5f,y-.5f));
+                    if (IsLowerNeighbor(map, x+1, y))
+                        AddGrassApron(edgeVertices, edgeTriangles, edgeUV,
+                            new Vector2(x+.5f,y-.5f), new Vector2(x+.5f,y+.5f));
+                    if (IsLowerNeighbor(map, x, y-1))
+                        AddGrassApron(edgeVertices, edgeTriangles, edgeUV,
+                            new Vector2(x-.5f,y-.5f), new Vector2(x+.5f,y-.5f));
+                    if (IsLowerNeighbor(map, x, y+1))
+                        AddGrassApron(edgeVertices, edgeTriangles, edgeUV,
+                            new Vector2(x+.5f,y+.5f), new Vector2(x-.5f,y+.5f));
+                }
+                else if(grassVerge != null)
+                {
+                    // The outside world is visual grass too. Its border has no
+                    // authored Forest cell from which the usual apron can grow.
+                    if(x==map.MaximumCell.x)
+                        AddGrassApron(edgeVertices,edgeTriangles,edgeUV,
+                            new Vector2(x+.5f,y+.5f),new Vector2(x+.5f,y-.5f));
+                    if(x==map.MinimumCell.x)
+                        AddGrassApron(edgeVertices,edgeTriangles,edgeUV,
+                            new Vector2(x-.5f,y-.5f),new Vector2(x-.5f,y+.5f));
+                    if(y==map.MaximumCell.y)
+                        AddGrassApron(edgeVertices,edgeTriangles,edgeUV,
+                            new Vector2(x-.5f,y+.5f),new Vector2(x+.5f,y+.5f));
+                    if(y==map.MinimumCell.y)
+                        AddGrassApron(edgeVertices,edgeTriangles,edgeUV,
+                            new Vector2(x+.5f,y-.5f),new Vector2(x-.5f,y-.5f));
+                }
+            }
+            terrainMesh = new Mesh { name = "Stage 3 visual ground", indexFormat = IndexFormat.UInt32,
+                subMeshCount = 2 };
+            terrainMesh.SetVertices(vertices); terrainMesh.SetUVs(0,uv);
+            terrainMesh.SetNormals(normals);
+            terrainMesh.SetTriangles(triangles[0],0); terrainMesh.SetTriangles(triangles[1],1);
+            terrainMesh.RecalculateBounds();
+            terrain = new GameObject("Tactical grass and paved build cells");
+            terrain.AddComponent<MeshFilter>().sharedMesh = terrainMesh;
+            var renderer = terrain.AddComponent<MeshRenderer>();
+            renderer.sharedMaterials = new[] {grass,paving};
+            renderer.shadowCastingMode = ShadowCastingMode.Off;
+            grassEdgeMesh = new Mesh { name = "Visual grass verge" };
+            grassEdgeMesh.SetVertices(edgeVertices);
+            grassEdgeMesh.SetUVs(0, edgeUV);
+            if (grassVerge != null)
+            {
+                var colors = new Color[edgeVertices.Count];
+                for (var i=0;i<colors.Length;i++) colors[i] = new Color(1,1,1,i%2==0 ? 1f : 0f);
+                grassEdgeMesh.colors = colors;
+            }
+            grassEdgeMesh.SetTriangles(edgeTriangles, 0);
+            grassEdgeMesh.RecalculateNormals(); grassEdgeMesh.RecalculateBounds();
+            grassEdge = new GameObject("Visual grass verge");
+            grassEdge.AddComponent<MeshFilter>().sharedMesh = grassEdgeMesh;
+            var edgeRenderer = grassEdge.AddComponent<MeshRenderer>();
+            edgeRenderer.sharedMaterial = grassVerge != null ? grassVerge : grass;
+            edgeRenderer.shadowCastingMode = ShadowCastingMode.Off;
+        }
+
+        private static bool IsLowerNeighbor(Stage2MapDefinition map, int x, int y)
+        {
+            var cell = new Vector2Int(x, y);
+            return map.Contains(cell) && map.GetSurface(cell) != MapSurfaceKind.Forest;
+        }
+
+        internal static float GrassApronDistance(Vector2 point)
+        {
+            var broad = (Mathf.PerlinNoise((point.x + 67.1f) * .9f,
+                (point.y + 31.7f) * .9f) - .5f) * .24f;
+            var detail = (Mathf.PerlinNoise((point.x + 11.3f) * 5.1f,
+                (point.y + 79.5f) * 5.1f) - .5f) * .10f;
+            return Mathf.Clamp(GrassApronReach + broad + detail, .23f, .65f);
+        }
+
+        // Presentation-only humps. Rules, cell picking, navigation and tower feet
+        // remain on the original flat XY plane.
+        internal static float GrassSurfaceZ(Vector2 point)
+        {
+            var broad = Mathf.PerlinNoise((point.x+53.2f)*.34f,
+                (point.y+17.8f)*.34f);
+            var fine = Mathf.PerlinNoise((point.x+11.6f)*.86f,
+                (point.y+81.3f)*.86f);
+            return -GrassVisualLift - .12f * Mathf.Clamp01(broad*.75f+fine*.25f);
+        }
+
+        private static Vector3 GrassSurfaceNormal(Vector2 point)
+        {
+            const float step = .03f;
+            var dx = (GrassSurfaceZ(point+Vector2.right*step)-
+                GrassSurfaceZ(point-Vector2.right*step))/(2f*step);
+            var dy = (GrassSurfaceZ(point+Vector2.up*step)-
+                GrassSurfaceZ(point-Vector2.up*step))/(2f*step);
+            return new Vector3(dx,dy,-1f).normalized;
+        }
+
+        private static void AddGrassApron(List<Vector3> vertices, List<int> triangles,
+            List<Vector2> uv, Vector2 start, Vector2 end)
+        {
+            const int segments = 12;
+            var first = vertices.Count;
+            var tangent = (end - start).normalized;
+            var outward = new Vector2(tangent.y, -tangent.x);
+            for (var i = 0; i <= segments; i++)
+            {
+                var inner = Vector2.Lerp(start, end, i / (float)segments);
+                var outer = inner + outward * GrassApronDistance(inner);
+                vertices.Add(new Vector3(inner.x, inner.y, GrassSurfaceZ(inner)));
+                vertices.Add(new Vector3(outer.x, outer.y, -.006f));
+                uv.Add(new Vector2((inner.x + .5f) / 4f, (inner.y + .5f) / 4f));
+                uv.Add(new Vector2((outer.x + .5f) / 4f, (outer.y + .5f) / 4f));
+                if (i == segments) continue;
+                var index = first + 2 * i;
+                triangles.AddRange(new[] { index, index+2, index+3,
+                    index, index+3, index+1 });
+            }
+        }
+
+        private static void HideSprites(GameObject target)
+        {
+            foreach (var sprite in target.GetComponentsInChildren<SpriteRenderer>()) sprite.enabled = false;
+        }
+
+        private static Transform Solid(Transform parent, string name, PrimitiveType shape,
+            Vector3 position, Vector3 scale, Material material)
+        {
+            var part = GameObject.CreatePrimitive(shape);
+            part.name = name;
+            Destroy(part.GetComponent<Collider>()); // Visuals never own movement or cell occupancy.
+            part.transform.SetParent(parent,false);
+            part.transform.localPosition = position;
+            part.transform.localRotation = Quaternion.Euler(-90f,0,0);
+            part.transform.localScale = scale;
+            part.GetComponent<MeshRenderer>().sharedMaterial = material;
+            return part.transform;
+        }
+
+        private void OnDestroy()
+        {
+            if (composition != null && composition.Building?.Defense != null)
+                composition.Building.Defense.Built -= OnTowerBuilt;
+            if (terrain != null) Destroy(terrain);
+            if (terrainMesh != null) Destroy(terrainMesh);
+            if (grassEdge != null) Destroy(grassEdge);
+            if (grassEdgeMesh != null) Destroy(grassEdgeMesh);
+            if (borderGround != null) Destroy(borderGround);
+            if (borderMesh != null) Destroy(borderMesh);
+            if (preview != null) Destroy(preview);
+        }
+    }
+}

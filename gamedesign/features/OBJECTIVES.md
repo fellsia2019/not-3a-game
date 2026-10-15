@@ -1,6 +1,7 @@
 # Feature: Lightweight Objectives
 
-Status: Ready for minimal graybox slice  
+Status: historical candidate; secondary objective deferred beyond the first
+playable by D-015. The primary throne/wave outcome remains active.
 Owner/workstream: Run state / UI integration  
 Depends on: resource inventory, building events, wave state, D-008
 

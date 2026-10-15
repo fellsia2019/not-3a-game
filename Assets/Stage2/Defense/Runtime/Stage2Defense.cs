@@ -27,7 +27,7 @@ namespace Not3A.Stage2.Defense
         private readonly Func<Stage2DefenseCatalog, Stage2Tower> prepareTower;
         private readonly List<Stage2Tower> towers = new List<Stage2Tower>();
         private Func<Vector2Int, bool> enemyProtected;
-        private Func<Vector2, float, int, bool> attackTarget;
+        private Func<Vector2, float, int, float, float, bool> attackTarget;
         private bool attackActive = true;
         private Vector2Int? previewCell;
         private bool placing;
@@ -82,7 +82,7 @@ namespace Not3A.Stage2.Defense
 
         public void SetEnemyProtection(Func<Vector2Int, bool> isProtected) => enemyProtected = isProtected;
 
-        public void SetAttackTarget(Func<Vector2, float, int, bool> hitNearest)
+        public void SetAttackTarget(Func<Vector2, float, int, float, float, bool> hitNearest)
         {
             attackTarget = hitNearest;
             foreach (var tower in towers) if (tower != null) tower.SetAttackTarget(hitNearest);
@@ -133,7 +133,8 @@ namespace Not3A.Stage2.Defense
         {
             if (phase == Stage2BuildPhase.Inactive) return PlacementResult.Inactive;
             if (paused) return PlacementResult.Paused;
-            if (!map.Contains(cell) || !map.IsWalkable(cell) || !map.IsBuildable(cell) ||
+            if (!map.Contains(cell) || map.GetSurface(cell) != MapSurfaceKind.InvasionCorridor ||
+                !map.IsWalkable(cell) || !map.IsBuildable(cell) ||
                 cell == map.EnemyEntrance || cell == map.Throne) return PlacementResult.InvalidCell;
             if (navigation.TryGetOccupant(cell, out _)) return PlacementResult.Occupied;
             if (map.WorldToCell(heroWorld()) == cell) return PlacementResult.HeroProtected;
@@ -142,7 +143,7 @@ namespace Not3A.Stage2.Defense
                 return PlacementResult.EnemyStateUnavailable;
             if (enemyProtected != null && enemyProtected(cell)) return PlacementResult.EnemyProtected;
             var catalog = SelectedCatalog;
-            if (!inventory.CanAfford(catalog.WoodCost, catalog.StoneCost, catalog.MetalCost))
+            if (!inventory.CanAfford(catalog.WoodCost, catalog.StoneCost, catalog.MetalCost, catalog.GoldCost))
                 return PlacementResult.CannotAfford;
             return PlacementResult.Ready;
         }
@@ -169,7 +170,7 @@ namespace Not3A.Stage2.Defense
                 if (prepared == null || prepared.gameObject.activeInHierarchy)
                     return PlacementResult.CreationFailed;
                 prepared.Configure(cell, catalog.TowerHealth, catalog.AttackRange,
-                    catalog.FireInterval, catalog.AttackDamage);
+                    catalog.FireInterval, catalog.AttackDamage, catalog.SplashRadiusCells, catalog.ProjectileFlightSeconds);
                 prepared.SetAttackTarget(attackTarget);
                 prepared.SetAttackActive(attackActive);
                 prepared.transform.position = map.CellToWorld(cell);
@@ -179,7 +180,7 @@ namespace Not3A.Stage2.Defense
                 if (validity != PlacementResult.Ready) return validity;
                 if (navigation.TryOccupy(cell, prepared) != OccupancyResult.Changed)
                     return PlacementResult.RegistrationFailed;
-                if (!inventory.TrySpend(catalog.WoodCost, catalog.StoneCost, catalog.MetalCost))
+                if (!inventory.TrySpend(catalog.WoodCost, catalog.StoneCost, catalog.MetalCost, catalog.GoldCost))
                 {
                     navigation.TryRelease(cell, prepared);
                     return PlacementResult.PaymentFailed;

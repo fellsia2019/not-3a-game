@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Not 3A — текущий геймдизайн</title>
+  <style>
+    :root{--bg:#101a18;--paper:#172521;--paper2:#20302a;--line:#385046;--ink:#f0eedf;--muted:#b7c7b9;--green:#b3d68b;--gold:#efc77f;--gray:#b8c6c3}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Segoe UI",system-ui,sans-serif}
+    a{color:var(--green);text-underline-offset:3px}
+    .shell{width:min(1200px,calc(100% - 40px));margin:auto}
+    .top{border-bottom:1px solid var(--line);background:#14201d}
+    .top .shell{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:17px 0}
+    .brand{font-weight:800;letter-spacing:.18em;font-size:13px;text-transform:uppercase;color:var(--green)}
+    nav{display:flex;gap:22px;flex-wrap:wrap;font-size:13px}
+    nav a{text-decoration:none;color:var(--muted)}
+    nav a:hover,nav a:focus-visible{color:var(--ink)}
+    .hero{padding:70px 0 48px;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(300px,.9fr);gap:60px;align-items:end}
+    .eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--green);font-weight:800}
+    h1{font-size:clamp(45px,6.7vw,86px);line-height:1.02;letter-spacing:-.065em;margin:16px 0 24px}
+    .lead{font-size:clamp(18px,2vw,23px);line-height:1.48;color:var(--ink);max-width:640px}
+    .sub{color:var(--muted);max-width:620px}
+    .hero-side{border-left:3px solid var(--gold);padding:4px 0 3px 22px}
+    .hero-side strong{color:var(--gold);font-size:21px}
+    .hero-side p{margin:9px 0 0;color:var(--muted)}
+    .facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--line);margin:0 0 65px}
+    .fact{padding:19px 21px;border-right:1px solid var(--line)}
+    .fact:last-child{border-right:0}
+    .fact b{display:block;font-size:27px;line-height:1.1;color:var(--gold)}
+    .fact span{display:block;font-size:13px;color:var(--muted);margin-top:7px}
+    section{padding:50px 0;border-top:1px solid var(--line)}
+    .section-head{display:grid;grid-template-columns:250px minmax(0,1fr);gap:35px;margin-bottom:30px}
+    .section-head p{margin:0;color:var(--muted);max-width:730px}
+    h2{font-size:clamp(25px,3vw,37px);letter-spacing:-.04em;line-height:1.14;margin:0}
+    h3{font-size:19px;margin:0 0 10px}
+    .map-wrap{background:#22352e;border:1px solid #526b59;overflow:hidden}
+    svg{width:100%;height:auto;display:block}
+    .caption{color:var(--muted);font-size:12px;margin:12px 0 0}
+    .loop{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+    .step{background:var(--paper);border:1px solid var(--line);padding:19px 17px;min-height:150px}
+    .step .num{font-size:12px;letter-spacing:.16em;color:var(--gold);font-weight:800}
+    .step h3{margin:12px 0 6px}
+    .step p{font-size:14px;color:var(--muted);margin:0}
+    .scope{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+    .scope article{background:var(--paper);border:1px solid var(--line);padding:25px}
+    .scope article.highlight{background:#26362e;border-color:#7e9a71}
+    .scope ul,.future ul{padding-left:21px;margin:12px 0 0}
+    li{margin:8px 0}
+    .future{display:grid;grid-template-columns:1fr 1fr;gap:42px}
+    .future p{color:var(--muted)}
+    .pill{display:inline-block;color:var(--gold);border:1px solid #8a7655;padding:4px 9px;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+    .callout{border-left:3px solid var(--green);background:var(--paper);padding:24px 28px;color:var(--ink);font-size:20px;line-height:1.45}
+    footer{padding:36px 0 60px;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
+    footer .shell{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+    @media(max-width:850px){.hero{grid-template-columns:1fr;gap:30px;padding-top:48px}.section-head{grid-template-columns:1fr;gap:13px}.loop{grid-template-columns:repeat(2,1fr)}.facts{grid-template-columns:repeat(2,1fr)}.fact:nth-child(2){border-right:0}.fact:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+    @media(max-width:580px){.shell{width:min(100% - 28px,1200px)}.top .shell{align-items:flex-start;flex-direction:column;gap:8px}nav{gap:12px}.hero{padding-top:36px}.scope,.future{grid-template-columns:1fr}.loop{grid-template-columns:1fr}.facts{grid-template-columns:1fr}.fact{border-right:0;border-bottom:1px solid var(--line)}.fact:last-child{border-bottom:0}section{padding:38px 0}}
+  </style>
+</head>
+<body>
+  <header class="top"><div class="shell"><div class="brand">Not 3A / Game Design</div><nav aria-label="Навигация"><a href="#world">Мир</a><a href="#loop">Цикл</a><a href="#scope">Первый билд</a><a href="#future">Дальше</a><a href="development-roadmap.html">План разработки ↗</a></nav></div></header>
+  <main class="shell">
+    <div class="hero">
+      <div><div class="eyebrow">Текущее видение · 25 сентября 2026</div><h1>Добывай.<br>Строй.<br>Защищай.</h1><p class="lead">Изометрическая tower defense, где герой добывает ресурсы и строит оборону вокруг трона. Башни сдерживают врагов и меняют их путь.</p><p class="sub">Ближайшая цель — короткая игра, которую можно запустить, понять и пройти. Целевой вид — мягкая мультяшная изометрия по настроению пользовательских TD-карт Dota 2; референсы не копируются. Stage 2 уже принят. Сейчас Stage 3: общая наклонная камера, объёмная вышка на поверхности, читаемые клетки и тени.</p></div>
+      <aside class="hero-side"><strong>Один законченный забег</strong><p>Уйти за ресурсами или вернуться к трону? Поставить башню там, где она стреляет лучше, или там, где она удлинит маршрут волны? Игрок делает эти решения без боёвки героя.</p></aside>
+    </div>
+    <div class="facts" aria-label="Объём первого играбельного билда"><div class="fact"><b>1</b><span>компактная карта</span></div><div class="fact"><b>3</b><span>ресурса: дерево, камень, металл</span></div><div class="fact"><b>2</b><span>башни: Rapid и Longshot</span></div><div class="fact"><b>1</b><span>базовый враг; короткая серия волн</span></div></div>
+
+    <section id="world">
+      <div class="section-head"><h2>Пространство игры</h2><p>Портал и трон находятся рядом в одном углу. От этого угла зелёный мир для исследования и добычи расходится в трёх направлениях. Боевые башни ставятся только на серой зоне вторжения. Текущая играбельная карта 32×32 уже реализует эту композицию; Stage 3 сохраняет её клетки и адаптирует общий вид.</p></div>
+      <div class="map-wrap">
+        <svg viewBox="0 0 1100 560" role="img" aria-labelledby="mapTitle mapDesc">
+          <title id="mapTitle">Угловая композиция карты</title><desc id="mapDesc">В левом верхнем углу рядом портал, трон и серая оборонительная зона с башнями. Зелёный мир и три места добычи расходятся вправо, вниз и по диагонали.</desc>
+          <defs>
+            <pattern id="grass" width="32" height="32" patternUnits="userSpaceOnUse"><rect width="32" height="32" fill="#355b43"/><path d="M3 26l7-5m9-14l7-5m-4 26l5-4" stroke="#467450" stroke-width="2" opacity=".5"/></pattern>
+            <pattern id="stone" width="40" height="40" patternUnits="userSpaceOnUse"><rect width="40" height="40" fill="#5e6861"/><path d="M0 22l15 3 16-8 9 5M13 0l-3 13m18 20l5 7" stroke="#78817a" opacity=".5"/></pattern>
+            <marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0l9 4.5L0 9" fill="none" stroke="#f1ce8a" stroke-width="2"/></marker>
+          </defs>
+          <rect width="1100" height="560" fill="url(#grass)"/>
+          <path d="M0 0H375Q430 120 375 210Q330 285 245 295H0Z" fill="url(#stone)"/>
+          <path d="M375 0Q430 120 375 210Q330 285 245 295H0" fill="none" stroke="#96a393" stroke-width="5" opacity=".7"/>
+          <path d="M92 110C150 78 220 98 270 150S290 225 203 238" fill="none" stroke="#f1ce8a" stroke-width="8" stroke-dasharray="2 18" stroke-linecap="round" marker-end="url(#arrow)"/>
+          <g transform="translate(88 108)" fill="none" stroke="#eeb889"><ellipse rx="30" ry="45" stroke-width="10"/><ellipse rx="16" ry="30" stroke-width="4"/></g>
+          <g transform="translate(202 225)"><ellipse cy="45" rx="55" ry="14" fill="#263a35" opacity=".6"/><path d="M-31 4L0-31 31 4 27 42H-27z" fill="#c2a474" stroke="#f3dca5" stroke-width="4"/><path d="M-35 3L0-40 35 3" fill="none" stroke="#ead6a3" stroke-width="7"/></g>
+          <g fill="#d6ba80" stroke="#f6d999" stroke-width="4"><path d="M261 78l-15-29 16-32 16 32z"/><path d="M324 172l-15-29 16-32 16 32z"/></g>
+          <g stroke="#c8e7a8" stroke-width="5" fill="#244333"><path d="M642 137l30-44 30 44zM633 152l39-55 39 55z"/><rect x="667" y="150" width="10" height="24" fill="#97754a" stroke="none"/></g>
+          <g fill="#b9c8b4" stroke="#e0e6cf" stroke-width="3"><path d="M188 444l38-52 38 52-12 20h-51z"/></g>
+          <g fill="#a5b7be" stroke="#dce2d4" stroke-width="3"><path d="M851 379l27-42 29 36-11 22h-36z"/><path d="M911 418l30-47 36 47-12 24h-42z"/></g>
+          <g fill="#334b40" stroke="#b3d68b" stroke-width="4"><circle cx="479" cy="290" r="19"/><path d="M479 269v-25m-18 74l-15 16"/></g>
+          <g fill="none" stroke="#b3d68b" stroke-width="3" stroke-dasharray="7 9" opacity=".8"><path d="M330 255Q445 128 586 125"/><path d="M306 294Q290 370 235 401"/><path d="M364 264Q624 248 806 365"/></g>
+          <g font-family="Segoe UI,system-ui,sans-serif" font-size="19" font-weight="700" fill="#f4f1df"><text x="40" y="183">ПОРТАЛ</text><text x="154" y="322">ТРОН</text><text x="575" y="214">ДЕРЕВО</text><text x="157" y="502">КАМЕНЬ</text><text x="843" y="480">МЕТАЛЛ</text><text x="405" y="354">ГЕРОЙ</text><text x="275" y="62">БАШНИ</text></g>
+          <rect x="20" y="20" width="202" height="34" rx="3" fill="#34403d" opacity=".95"/><text x="32" y="43" font-family="Segoe UI,system-ui,sans-serif" font-size="15" font-weight="700" fill="#e0e6df">ЗОНА ОБОРОНЫ</text>
+          <rect x="818" y="20" width="250" height="34" rx="3" fill="#172721" opacity=".9"/><text x="830" y="43" font-family="Segoe UI,system-ui,sans-serif" font-size="15" font-weight="700" fill="#cee8af">МИР И ДОБЫЧА</text>
+        </svg>
+      </div><p class="caption">Целевая схема первого играбельного билда. Серый цвет обязателен для строительства боевых башен; проходимость врагов пока задаётся отдельной маской карты.</p>
+    </section>
+
+    <section id="loop"><div class="section-head"><h2>Основной цикл</h2><p>Оборона и добыча конкурируют за время игрока. Герой не атакует; за бой отвечают башни.</p></div><div class="loop"><article class="step"><div class="num">01 / ОЦЕНИТЬ</div><h3>Угроза</h3><p>Увидеть трон, направление врагов и начало волны.</p></article><article class="step"><div class="num">02 / ДОБЫТЬ</div><h3>Ресурсы</h3><p>Найти дерево, камень и металл; решить, когда возвращаться.</p></article><article class="step"><div class="num">03 / ВЛОЖИТЬ</div><h3>Башни</h3><p>Выбрать роль, оплатить её и разместить на карте.</p></article><article class="step"><div class="num">04 / ЗАЩИТИТЬ</div><h3>Волна</h3><p>Башни стреляют и меняют путь; полная блокировка вызывает осаду.</p></article><article class="step"><div class="num">05 / ПОВТОРИТЬ</div><h3>Новый план</h3><p>Перестроить оборону, пережить финал или начать новый забег.</p></article></div></section>
+
+    <section id="scope"><div class="section-head"><h2>Проверенная игровая основа</h2><p>Первый играбельный Stage 2 принят игроком. Его цикл сохраняется в Stage 3: уйти за ресурсами, построить защиту трона, завершить волны и перезапустить забег.</p></div><div class="scope"><article class="highlight"><span class="pill">Первый играбельный</span><h3 style="margin-top:17px">Один полный забег</h3><ul><li>Портал и трон в одном углу; три направления доступной добычи.</li><li>Две оплачиваемые башни, только на серой зоне.</li><li>Короткая конечная последовательность волн.</li><li>Победа, поражение, перезапуск; нет тупика при полном перекрытии.</li><li>Временная индикация цены, волны, здоровья трона и исхода.</li></ul></article><article><span class="pill">Проверка</span><h3 style="margin-top:17px">Игрок без подсказки</h3><ul><li>Находит ресурсы и понимает, как их добывать.</li><li>Покупает башню и замечает её действие.</li><li>Понимает угрозу трону и завершает забег.</li><li>Может назвать одно решение для следующей попытки.</li><li>Замеченные блокеры исправляются до расширения контента.</li></ul></article></div></section>
+
+    <section id="tactical-view"><div class="section-head"><h2>Камера и башни · Stage 3</h2><p>По новым примерам игрока: общий вид сверху под углом, квадратная поверхность, видимые основания и тени. Геометрия стоит на земле; ракурс задаёт общая камера.</p></div><img src="../art/review/stage3_tactical_game.png" alt="Реальная игра Stage 3 с общей наклонной камерой и деревянной вышкой" style="display:block;width:100%;border:1px solid var(--line)"><p class="caption">Игровой пилот D-019. Герой, враги, ресурсы и трон пока показаны простыми объёмными маркерами. По D-023 сила шага колёсика настраивается ползунком в Unity Inspector от 1,05× до 3× и сохраняется после Play Mode; По D-026 максимальное приближение и отдаление составляют 2× стартового вида; WASD не меняет масштаб, герой остаётся в центре, а непроходимая рамка земли заполняет кадр у краёв карты. Угол камеры неизменен. Проверки: EditMode 76/76, PlayMode 45/45, включая полный забег и рестарт. Финальный арт окружения ещё не производится.</p></section>
+    <section id="future"><div class="section-head"><h2>Что оставлено на потом</h2><p>Более широкий мир — направление развития. Ни одна из этих идей не задерживает первый играбельный билд.</p></div><div class="future"><div><h3>Текущий визуальный пилот</h3><p>Stage 3 уже идёт. Оригинальная деревянная Rapid создана в Blender и переделана по замечанию игрока. D-019 задаёт общий вид по TD/Dota-примерам: камера сверху под фиксированным углом, вертикальные башни на земле, видимые основания, тени и интервалы между клетками. По D-027 игрок принял башню и камеру и выбрал runtime 3D для игры; каждый следующий объект сначала обсуждается и согласуется по изображениям перед моделированием.</p><ul><li>В Stage 3 вместе адаптируются камера, клик по земле, объёмный preview, следование за героем и масштаб временных акторов. Игровые правила сохраняются на одной плоскости.</li><li>Затем — модели и анимации, полноценный UI, звук и эффекты.</li><li>Новые башни, враги, волны, ресурсы и карта — по результату игры.</li><li>Точная настройка баланса после стабилизации полного цикла.</li></ul></div><div><h3>Дальняя концепция</h3><p>TD с открытым для исследования миром и добычей. От 7 Days to Die интересуют добыча, исследование и, возможно, будущий крафт. Боевые башни уже ограничены серой зоной; в будущем на зелёной могут появиться мирные здания.</p><ul><li>Исследовательская станция: новые башни и улучшения.</li><li>Лесопилка, камнедобыча и другие источники пассивных ресурсов.</li><li>Возможный крафт, расширенное исследование и дальнейшие системы.</li></ul></div></div></section>
+    <section><div class="callout">Текущая задача Stage 3 — проверить общий тактический вид в Windows-игре: камера, поверхность, башни, мышь и полный забег. Stage 2 gate принят; массовое производство моделей ещё не начато. <a href="development-roadmap.html">Открыть краткий план и выбор моделей →</a></div></section>
+  </main>
+  <footer><div class="shell"><span>Not 3A · обзор текущего геймдизайна · 25.09.2026</span><span>Источники: <a href="../gamedesign/GAME_VISION.md">Game Vision</a> · <a href="../gamedesign/ART_DIRECTION.md">Art Direction</a> · <a href="../production/DECISIONS.md">Decisions</a></span></div></footer>
+</body>
+</html>

@@ -260,6 +260,7 @@ namespace Not3A.Stage2.Map
         private const long MaximumValidationCellCount = 1_000_000L;
 
         [Header("Cell Space")]
+        [SerializeField] private bool planarGrid;
         [SerializeField] private MapCellArea cellBounds = new MapCellArea(Vector2Int.zero, Vector2Int.one);
         [SerializeField] private MapSurfaceKind defaultSurface = MapSurfaceKind.Forest;
         [SerializeField] private MapSurfaceRegion[] surfaceRegions = Array.Empty<MapSurfaceRegion>();
@@ -297,9 +298,23 @@ namespace Not3A.Stage2.Map
 
         public bool Contains(Vector2Int cell) => cellBounds != null && cellBounds.Contains(cell);
 
-        public Vector2 CellToWorld(Vector2Int cell) => IsoGrid.CellToWorld(cell);
+        public bool PlanarGrid => planarGrid;
+        public Vector2 CellToWorld(Vector2Int cell) => CellCoordinatesToWorld(cell);
 
-        public Vector2Int WorldToCell(Vector2 world) => IsoGrid.WorldToCell(world);
+        public Vector2 CellCoordinatesToWorld(Vector2 cell) => planarGrid ? cell : IsoGrid.CellCoordinatesToWorld(cell);
+        public Vector2 WorldToCellCoordinates(Vector2 world) => planarGrid ? world : IsoGrid.WorldToCellCoordinates(world);
+        public Vector2Int WorldToCell(Vector2 world)
+        {
+            var cell = WorldToCellCoordinates(world);
+            return new Vector2Int(Mathf.RoundToInt(cell.x), Mathf.RoundToInt(cell.y));
+        }
+        public Vector2 ClampWorld(Vector2 world, MapCellArea bounds)
+        {
+            var cell = WorldToCellCoordinates(world);
+            var maximum = bounds.MaximumInclusive;
+            return CellCoordinatesToWorld(new Vector2(Mathf.Clamp(cell.x, bounds.Minimum.x, maximum.x),
+                Mathf.Clamp(cell.y, bounds.Minimum.y, maximum.y)));
+        }
 
         public MapCellData ReadCell(Vector2Int cell)
         {
@@ -385,10 +400,14 @@ namespace Not3A.Stage2.Map
             HashArea(ref hash, cameraBounds);
             HashColor(ref hash, forestDebugColor);
             HashColor(ref hash, corridorDebugColor);
+            // Keep existing Stage 2 hashes stable; the opt-in planar migration has a distinct hash.
+            if (planarGrid) HashInt(ref hash, 3);
             return hash.ToString("X16", CultureInfo.InvariantCulture);
         }
 
 #if UNITY_EDITOR
+        public void UsePlanarGridForEditor() => planarGrid = true;
+
         public void ConfigureForEditor(
             MapCellArea authoredCellBounds,
             MapSurfaceKind authoredDefaultSurface,

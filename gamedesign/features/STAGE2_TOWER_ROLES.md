@@ -1,7 +1,7 @@
 # Feature: Stage 2 Tower Choice
 
-Status: S2-DEF-02 Defense delivery complete, 2026-09-25; scene integration
-and player-choice observation remain open.
+Status: S2-DEF-02 Defense delivery complete, 2026-09-25; Longshot revised by
+D-028 in Stage 3.
 Owner: Defense. Integration exclusively owns the Stage 2 scene.
 Preset: GPT-6 Sol / high, selected by the human.
 Inputs: S2-DEF-01 and DEF-01-FIX, D-009/D-014, S2-AI-01 enemy-role brief.
@@ -10,14 +10,16 @@ Inputs: S2-DEF-01 and DEF-01-FIX, D-009/D-014, S2-AI-01 enemy-role brief.
 
 Can a player choose between guarding a compact choke and covering a longer
 open route, while both towers still shape the enemy path as one-cell blockers?
-The Stage 2 experiment uses two single-target roles. It does not add area,
-slow, resistance, projectile or new enemy-damage contracts.
+The original Stage 2 experiment used two single-target roles. D-028 later
+added area damage to Longshot without adding slow or resistance.
 
 ## Prototype Contract
 
-- Rapid is the existing inexpensive, short-range, frequent-shot tower.
+- Rapid is the existing short-range, frequent-shot tower.
 - Longshot reaches farther and deals a heavier hit, but fires less often and
-  requires an additional metal unit. Stats and prices
+  now throws a stone that damages enemies within two map cells of the selected
+  target. Each affected enemy takes the full two damage. Its D-028 price is
+  two wood and five stone; metal is not charged. Stats and prices
   are authored only in the two Defense catalog assets.
 - Both towers use the existing nearest-living-enemy callback, occupancy,
   siege health, pause and restart rules. Switching the selected recipe during
@@ -42,6 +44,34 @@ The authored numbers are diagnostic candidates, not final balance. A fresh
 player must be able to name a layout where each role helps. If the difference
 is invisible or only makes one tower strictly better, adjust the two catalog
 assets or the feedback before expanding tower breadth.
+
+2026-09-25 D-018 revision: Rapid is the ordinary tower, with a planned later
+archer-tower presentation. Its current exact price is five gold, two wood and
+one stone, with no metal. The starting five gold funds one Rapid; further Rapid
+towers require enemy kills. At that time Longshot kept its old one wood, one stone
+and two metal price; D-028 supersedes it. The temporary HUD shows gold balance and both selected
+recipe costs; the combat roles and stats are unchanged.
+
+2026-09-25 visibility correction: the live corner-map test confirms one Rapid
+can kill multiple enemies during the first wave. Because hits had no visual
+cue, successful shots now briefly flash the tower and nonlethal damage flashes
+the enemy. Attack interval, damage, targeting and authored stats are unchanged.
+
+2026-09-25 D-028 revision: Longshot's selected-target range and cooldown stay
+the same, but its hit applies damage around that target's instantaneous position
+in continuous map-cell coordinates. Rapid keeps a zero splash radius. The
+stone node has capacity three and recovers, so buying one Longshot requires
+waiting for at least one recovery; metal gathering stays available even though
+neither current tower spends it. The player approved the catapult concept and
+explicitly held Blender modeling until a separate go-ahead.
+
+Stage 3 animation follow-up: the player requested firing and impact animation
+for both towers. Defense catalog `projectileFlightSeconds` now delays hit
+resolution until arrival; the run-owned enemy group ticks flights without any
+visual dependency. D-028's center is the selected target's position at impact;
+if that target dies first, the shot lands at its last known position (Rapid
+does not damage another target, Longshot still resolves its area). Pausing and
+resetting freeze/cancel flights; prices, damage, range and cooldown are unchanged.
 
 ## Verification, 2026-09-25
 

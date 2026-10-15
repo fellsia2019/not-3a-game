@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Stage2EconomyPrototype
   m_EditorClassIdentifier: Not3A.Stage2.Economy::Not3A.Stage2.Economy.Stage2EconomyCatalog
   interactionRange: 1.5
+  startingGold: 5
+  goldPerKill: 1
   resources:
   - resource: 0
     capacity: 3

@@ -1,0 +1,20 @@
+Built-in imagegen, 2026-09-26. Original review concepts, not runtime assets.
+
+Shared prompt:
+
+Use case: stylized-concept
+Asset type: revised original concept for the player's protected life-critical objective in a fixed-camera isometric Unity tower-defense game.
+Input images: Image 1 is the player's screenshot, a reference only for the central soul-containing sphere, circular motion, and overhead field; do not reproduce its architecture, ornament, UI or composition literally. Image 2 is the project's accepted landscape, a reference only for soft fantasy rendering and tactical camera.
+Scene: compact round dark-stone platform on gray game ground with faint square cells, one clear central objective and no background clutter.
+CRITICAL SUBJECT: in the exact center is ONE LARGE ROUND SPHERE containing the hero's imprisoned soul. The sphere is the main physical protected object, not a throne chair, not a seat, not a tapered obelisk, not a crystal spike. Make it a smooth uncracked translucent blue ice/glass sphere, about half the diameter of the protective dome, clearly raised above a low stone socket. Inside the sphere, a single small white-blue ethereal flame is visibly trapped; no human silhouette, no framed cube symbol. The circle of stone supports is secondary.
+Motion shown in a still image: broken cyan concentric energy arcs travel clockwise around the platform at ground level, bright leading tips and thin trailing parallel strips. The moving wave is readable but does not obscure the sphere.
+Composition: elevated three-quarter orthographic game camera, entire objective visible, compact gameplay footprint, protected sphere clearly seen through the dome. Stylized original 3D concept with soft painterly blue ice and stone, readable at small tactical scale.
+Constraints: smooth ice and sphere with NO cracks, no mosaic facets, no separate icicles, no chair, no throne back, no tall spire, no humanoid, no gold statues, no large stone arches, no gold orbital cage, no health bar or 100% label, no UI, no text or logo, no copied Warcraft asset, no excessive particles.
+
+Variant 1 — energy dome:
+
+A large very transparent pale cyan hemispherical force dome arches above and around the soul sphere. Only a luminous outline and a few gentle flowing bands define the dome, leaving the contained sphere completely visible. The blue-white soul inside the sphere is the brightest focal point.
+
+Variant 2 — ice dome:
+
+A large smooth thin translucent blue ice hemisphere shelters the soul sphere. The shell is unbroken, frost-smooth and clear enough to see the entire round sphere and flame at its center. A restrained glowing cyan rim defines the dome, while the separate orbiting energy wave remains outside it.

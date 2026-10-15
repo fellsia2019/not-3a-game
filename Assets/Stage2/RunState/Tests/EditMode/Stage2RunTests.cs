@@ -29,6 +29,9 @@ namespace Not3A.Stage2.RunState.Tests
             var enemyData = AssetDatabase.LoadAssetAtPath<Stage2EnemyCatalog>("Assets/Stage2/WavesAI/Data/Stage2EnemyPrototype.asset");
             var authoredRun = AssetDatabase.LoadAssetAtPath<Stage2RunCatalog>("Assets/Stage2/RunState/Data/Stage2RunPrototype.asset");
             Assert.That(authoredRun.TryValidate(out var reason), Is.True, reason);
+            Assert.That(authoredRun.WaveCount, Is.EqualTo(3));
+            for (var wave = 0; wave < authoredRun.WaveCount; wave++)
+                Assert.That(authoredRun.GetWave(wave).PreparationSeconds, Is.EqualTo(180f));
             navigation = new Stage2Navigation(map);
             economy = new Stage2Economy(map, economyData);
             defense = new Stage2Defense(map, navigation, economy.Inventory, defenseData,
@@ -118,6 +121,7 @@ namespace Not3A.Stage2.RunState.Tests
             Assert.That(defense.TowerCount, Is.EqualTo(1));
             Assert.That(navigation.Revision, Is.EqualTo(revision));
             Assert.That(economy.Inventory.Get(MapResourceKind.Wood), Is.EqualTo(woodInventory));
+            Assert.That(economy.Inventory.Gold, Is.GreaterThanOrEqualTo(0));
             Assert.That(wood.Remaining, Is.Zero);
             Assert.That(wood.RecoveryRemaining, Is.EqualTo(recovery));
             economy.Tick(recovery, true);
@@ -279,6 +283,24 @@ namespace Not3A.Stage2.RunState.Tests
                 Assert.That(economy.GetNode(kind).Remaining, Is.EqualTo(economy.GetNode(kind).Capacity));
             }
             Assert.That(defense.TryConfirm(out _), Is.EqualTo(PlacementResult.NotPlacing));
+            Assert.That(economy.Inventory.Gold, Is.EqualTo(5));
+        }
+
+        [Test]
+        public void KillCreditsOneGold_ThroneContactAndRestartDoNot()
+        {
+            Assert.That(economy.Inventory.Gold, Is.EqualTo(5));
+            run.StartWave();
+            var killed = enemies.GetEnemy(0);
+            killed.TakeDamage(killed.Health);
+            Assert.That(economy.Inventory.Gold, Is.EqualTo(6));
+            var contact = enemies.SpawnAt(map.Throne + Vector2Int.right);
+            contact.SetAutomaticTick(false);
+            contact.Tick(1f);
+            contact.Tick(0.01f);
+            Assert.That(economy.Inventory.Gold, Is.EqualTo(6));
+            run.ResetRun();
+            Assert.That(economy.Inventory.Gold, Is.EqualTo(5));
         }
     }
 }

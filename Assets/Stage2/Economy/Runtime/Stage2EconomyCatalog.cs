@@ -36,13 +36,19 @@ namespace Not3A.Stage2.Economy
     {
         [SerializeField, Min(0.01f)] private float interactionRange = 1.5f;
         [SerializeField] private Stage2ResourceSettings[] resources = Array.Empty<Stage2ResourceSettings>();
+        [SerializeField, Min(0)] private int startingGold = 5;
+        [SerializeField, Min(0)] private int goldPerKill = 1;
 
         public float InteractionRange => interactionRange;
+        public int StartingGold => startingGold;
+        public int GoldPerKill => goldPerKill;
 
-        public void Configure(float range, Stage2ResourceSettings[] settings)
+        public void Configure(float range, Stage2ResourceSettings[] settings, int initialGold = 5, int killGold = 1)
         {
             interactionRange = range;
             resources = settings == null ? Array.Empty<Stage2ResourceSettings>() : (Stage2ResourceSettings[])settings.Clone();
+            startingGold = initialGold;
+            goldPerKill = killGold;
         }
 
         public bool TryValidate(out string reason)
@@ -50,6 +56,11 @@ namespace Not3A.Stage2.Economy
             if (interactionRange <= 0f || float.IsNaN(interactionRange) || float.IsInfinity(interactionRange))
             {
                 reason = "Interaction range must be positive and finite.";
+                return false;
+            }
+            if (startingGold < 0 || goldPerKill < 0)
+            {
+                reason = "Gold values must be nonnegative.";
                 return false;
             }
             if (resources == null || resources.Length != 3)

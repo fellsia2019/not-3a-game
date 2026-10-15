@@ -14,6 +14,7 @@ namespace Not3A.Stage2.Defense.Tests
         private Stage2Navigation navigation;
         private Stage2Inventory inventory;
         private Stage2DefenseCatalog catalog;
+        private Stage2DefenseCatalog authoredCatalog;
         private Stage2Defense defense;
         private Vector2 heroWorld;
         private Vector2Int cell;
@@ -24,10 +25,12 @@ namespace Not3A.Stage2.Defense.Tests
         public void SetUp()
         {
             map = AssetDatabase.LoadAssetAtPath<Stage2MapDefinition>("Assets/Stage2/Map/Data/Stage2Map100x100.asset");
-            catalog = AssetDatabase.LoadAssetAtPath<Stage2DefenseCatalog>("Assets/Stage2/Defense/Data/Stage2DefensePrototype.asset");
+            authoredCatalog = AssetDatabase.LoadAssetAtPath<Stage2DefenseCatalog>("Assets/Stage2/Defense/Data/Stage2DefensePrototype.asset");
             Assert.That(map, Is.Not.Null);
-            Assert.That(catalog, Is.Not.Null);
-            Assert.That(catalog.TryValidate(out var reason), Is.True, reason);
+            Assert.That(authoredCatalog, Is.Not.Null);
+            Assert.That(authoredCatalog.TryValidate(out var reason), Is.True, reason);
+            catalog = ScriptableObject.CreateInstance<Stage2DefenseCatalog>();
+            catalog.Configure(authoredCatalog.TowerPrefab, 1, 1, 1, authoredCatalog.TowerHealth);
             navigation = new Stage2Navigation(map);
             inventory = new Stage2Inventory();
             heroWorld = map.CellToWorld(map.Throne);
@@ -40,7 +43,34 @@ namespace Not3A.Stage2.Defense.Tests
         }
 
         [TearDown]
-        public void TearDown() => defense?.ResetRun();
+        public void TearDown()
+        {
+            defense?.ResetRun();
+            if (catalog != null) Object.DestroyImmediate(catalog);
+        }
+
+        [Test]
+        public void AuthoredRapid_RequiresGoldAndExactMaterialPrice()
+        {
+            Assert.That(authoredCatalog.GoldCost, Is.EqualTo(5));
+            Assert.That(authoredCatalog.WoodCost, Is.EqualTo(2));
+            Assert.That(authoredCatalog.StoneCost, Is.EqualTo(1));
+            Assert.That(authoredCatalog.MetalCost, Is.Zero);
+            defense.ResetRun();
+            defense = new Stage2Defense(map, navigation, inventory, authoredCatalog,
+                () => heroWorld, () => Object.Instantiate(authoredCatalog.TowerPrefab));
+            defense.SetRunState(Stage2BuildPhase.Preparation, false);
+            inventory.TryAdd(MapResourceKind.Wood, 2);
+            inventory.TryAdd(MapResourceKind.Stone, 1);
+            defense.BeginPlacement();
+            defense.SetPreviewCell(cell);
+            Assert.That(defense.TryConfirm(out _), Is.EqualTo(PlacementResult.CannotAfford));
+            inventory.TryAddGold(5);
+            Assert.That(defense.TryConfirm(out _), Is.EqualTo(PlacementResult.Ready));
+            Assert.That(inventory.Gold, Is.Zero);
+            Assert.That(inventory.Get(MapResourceKind.Wood), Is.Zero);
+            Assert.That(inventory.Get(MapResourceKind.Stone), Is.Zero);
+        }
 
         [Test]
         public void Confirm_CommitsOneTowerFullPriceAndOneOccupancyRevision()
@@ -62,6 +92,25 @@ namespace Not3A.Stage2.Defense.Tests
             Assert.That(defense.TryConfirm(out _), Is.EqualTo(PlacementResult.NotPlacing));
             Assert.That(created, Is.EqualTo(1));
             Assert.That(facts, Is.EqualTo(1));
+            AssertBalances(1);
+        }
+
+        [Test]
+        public void GreenZone_RejectsCombatTowerWithoutPaymentOrOccupancy()
+        {
+            Fund(1);
+            var greenCell = map.GetResourceRegion(0).Anchor + Vector2Int.right;
+            Assert.That(map.GetSurface(greenCell), Is.EqualTo(MapSurfaceKind.Forest));
+            Assert.That(map.IsWalkable(greenCell) && map.IsBuildable(greenCell), Is.True);
+            Assert.That(defense.BeginPlacement(), Is.True);
+            defense.SetPreviewCell(greenCell);
+            Assert.That(defense.EvaluatePreview(), Is.EqualTo(PlacementResult.InvalidCell));
+            Assert.That(defense.TryConfirm(out var tower), Is.EqualTo(PlacementResult.InvalidCell));
+            Assert.That(tower, Is.Null);
+            Assert.That(defense.TowerCount, Is.Zero);
+            Assert.That(navigation.Revision, Is.Zero);
+            Assert.That(created, Is.Zero);
+            Assert.That(facts, Is.Zero);
             AssertBalances(1);
         }
 
@@ -222,19 +271,24 @@ namespace Not3A.Stage2.Defense.Tests
             var longshot = AssetDatabase.LoadAssetAtPath<Stage2DefenseCatalog>(
                 "Assets/Stage2/Defense/Data/Stage2DefenseLongshot.asset");
             Assert.That(longshot.TryValidate(out var reason), Is.True, reason);
+            Assert.That(longshot.WoodCost, Is.EqualTo(2));
+            Assert.That(longshot.StoneCost, Is.EqualTo(5));
+            Assert.That(longshot.MetalCost, Is.Zero);
+            Assert.That(longshot.SplashRadiusCells, Is.EqualTo(2f));
             defense.ResetRun();
             defense = new Stage2Defense(map, navigation, inventory,
                 new[] { catalog, longshot }, () => heroWorld,
                 selected => Object.Instantiate(selected.TowerPrefab));
             defense.SetRunState(Stage2BuildPhase.Preparation, false);
-            Fund(1);
+            inventory.TryAdd(MapResourceKind.Wood, 2);
+            inventory.TryAdd(MapResourceKind.Stone, 4);
             Assert.That(defense.SelectRole(1), Is.True);
             Assert.That(defense.SelectRole(2), Is.False);
             defense.BeginPlacement();
             defense.SetPreviewCell(cell);
             Assert.That(defense.TryConfirm(out _), Is.EqualTo(PlacementResult.CannotAfford));
             Assert.That(navigation.Revision, Is.Zero);
-            inventory.TryAdd(MapResourceKind.Metal, 1);
+            inventory.TryAdd(MapResourceKind.Stone, 1);
             Assert.That(defense.TryConfirm(out var tower), Is.EqualTo(PlacementResult.Ready));
             Assert.That(tower.name, Does.StartWith(longshot.TowerPrefab.name));
             Assert.That(inventory.Get(MapResourceKind.Wood), Is.Zero);
@@ -252,7 +306,8 @@ namespace Not3A.Stage2.Defense.Tests
                 for (var x = map.MinimumCell.x; x <= map.MaximumCell.x; x++)
                 {
                     var candidate = new Vector2Int(x, y);
-                    if (map.IsBuildable(candidate) && map.IsWalkable(candidate)) return candidate;
+                    if (map.GetSurface(candidate) == MapSurfaceKind.InvasionCorridor &&
+                        map.IsBuildable(candidate) && map.IsWalkable(candidate)) return candidate;
                 }
             Assert.Fail("Map has no buildable cell.");
             return default;

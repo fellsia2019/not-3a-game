@@ -10,6 +10,12 @@ changes. Runtime placement, combat and scene wiring remain downstream packages.
 
 ## Accepted Outcome
 
+Stage 3 D-019 keeps this payment/occupancy policy. The shared build driver now
+projects mouse rays onto the XY ground plane, which supports both the old
+identity camera and the new fixed inclined camera. The tactical scene replaces
+the displayed sprite ghost with mesh geometry; all approval and spending still
+come from the same `Stage2Defense` preview/confirm path.
+
 Allow building during preparation and active waves. Reject construction under
 a live enemy and across a step it has already started. Allow construction on
 the rest of its future route, including a complete wall: enemies then reroute
@@ -89,6 +95,9 @@ buys exactly one tower and changes occupancy once.
 
 10. Respect authored buildability/walkability, map bounds, entrance/throne,
     existing towers and resource locations, including depleted nodes per D-013.
+    D-016 additionally permits combat towers only on `InvasionCorridor` cells;
+    green `Forest` cells reject preview and confirm without spending. The
+    general buildable mask remains available for future civilian buildings.
     Keep the candidate asset read-only. Full blockage of enemy routes is not
     a rejection reason; it triggers the existing deterministic siege contract.
 11. Successful confirm makes one usable tower, spends its complete recipe

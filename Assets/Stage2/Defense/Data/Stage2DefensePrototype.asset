@@ -14,10 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Not3A.Stage2.Defense::Not3A.Stage2.Defense.Stage2DefenseCatalog
   towerPrefab: {fileID: 8768468511423994358, guid: a724bd2fa8477b942b745ceb251a699f, type: 3}
   roleName: Rapid
-  woodCost: 1
+  woodCost: 2
   stoneCost: 1
-  metalCost: 1
+  metalCost: 0
+  goldCost: 5
   towerHealth: 10
   attackRange: 4.25
   fireInterval: 0.45
   attackDamage: 1
+  projectileFlightSeconds: 0.18

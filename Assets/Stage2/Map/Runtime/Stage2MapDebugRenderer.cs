@@ -90,10 +90,20 @@ namespace Not3A.Stage2.Map
                         definition.MinimumCell.y + yOffset);
                     var center = definition.CellToWorld(cell);
                     var firstVertex = vertices.Count;
-                    vertices.Add(new Vector3(center.x - halfWidth, center.y, 0f));
-                    vertices.Add(new Vector3(center.x, center.y + halfHeight, 0f));
-                    vertices.Add(new Vector3(center.x + halfWidth, center.y, 0f));
-                    vertices.Add(new Vector3(center.x, center.y - halfHeight, 0f));
+                    if (definition.PlanarGrid)
+                    {
+                        vertices.Add(new Vector3(center.x - .5f, center.y - .5f, 0f));
+                        vertices.Add(new Vector3(center.x - .5f, center.y + .5f, 0f));
+                        vertices.Add(new Vector3(center.x + .5f, center.y + .5f, 0f));
+                        vertices.Add(new Vector3(center.x + .5f, center.y - .5f, 0f));
+                    }
+                    else
+                    {
+                        vertices.Add(new Vector3(center.x - halfWidth, center.y, 0f));
+                        vertices.Add(new Vector3(center.x, center.y + halfHeight, 0f));
+                        vertices.Add(new Vector3(center.x + halfWidth, center.y, 0f));
+                        vertices.Add(new Vector3(center.x, center.y - halfHeight, 0f));
+                    }
 
                     var color = (Color32)(definition.GetSurface(cell) == MapSurfaceKind.Forest
                         ? definition.ForestDebugColor

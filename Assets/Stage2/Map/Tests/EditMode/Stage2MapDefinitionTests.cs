@@ -10,6 +10,36 @@ namespace Not3A.Stage2.Map.Tests
         private const string CandidateAssetPath = "Assets/Stage2/Map/Data/Stage2Map100x100.asset";
 
         [Test]
+        public void CornerPlayableMap_PutsDefenseAndResourcesInThreeDirections()
+        {
+            var map = AssetDatabase.LoadAssetAtPath<Stage2MapDefinition>(
+                "Assets/Stage2/Map/Data/Stage2Corner32x32.asset");
+            Assert.That(map, Is.Not.Null);
+            Assert.That(map.ValidateDefinition().IsValid, Is.True, map.ValidateDefinition().FirstError);
+            Assert.That(map.Size, Is.EqualTo(new Vector2Int(32, 32)));
+            Assert.That(Distance(map.EnemyEntrance, map.Throne), Is.EqualTo(9));
+            Assert.That(map.EnemyEntrance.x, Is.LessThan(0));
+            Assert.That(map.Throne.y, Is.LessThan(0));
+            Assert.That(map.GetSurface(new Vector2Int(-10, -12)), Is.EqualTo(MapSurfaceKind.InvasionCorridor));
+            Assert.That(map.GetSurface(Vector2Int.zero), Is.EqualTo(MapSurfaceKind.Forest));
+            var wood = GetRegion(map, MapResourceKind.Wood).Anchor;
+            var stone = GetRegion(map, MapResourceKind.Stone).Anchor;
+            var metal = GetRegion(map, MapResourceKind.Metal).Anchor;
+            Assert.That(wood.x, Is.GreaterThan(map.Throne.x));
+            Assert.That(wood.y, Is.LessThan(0));
+            Assert.That(stone.x, Is.LessThan(0));
+            Assert.That(stone.y, Is.GreaterThan(map.Throne.y));
+            Assert.That(metal.x, Is.GreaterThan(0));
+            Assert.That(metal.y, Is.GreaterThan(0));
+            foreach (var cell in new[] { wood, stone, metal })
+            {
+                Assert.That(map.GetSurface(cell), Is.EqualTo(MapSurfaceKind.Forest));
+                Assert.That(map.IsWalkable(cell), Is.True);
+                Assert.That(map.CameraBounds.Contains(cell), Is.True);
+            }
+        }
+
+        [Test]
         public void CandidateAsset_DescribesTheComplete100x100Map()
         {
             var definition = LoadCandidate();

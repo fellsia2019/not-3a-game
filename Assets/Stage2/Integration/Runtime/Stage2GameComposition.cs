@@ -15,6 +15,7 @@ namespace Not3A.Stage2.Integration
         [SerializeField] private Stage2SceneBootstrap bootstrap;
         [SerializeField] private Stage2EconomyCatalog economyCatalog;
         [SerializeField] private Stage2DefenseCatalog defenseCatalog;
+        [SerializeField] private Stage2DefenseCatalog longshotCatalog;
         [SerializeField] private Stage2EnemyCatalog enemyCatalog;
         [SerializeField] private Stage2RunCatalog runCatalog;
         [SerializeField] private Stage2GatheringDriver gathering;
@@ -35,6 +36,7 @@ namespace Not3A.Stage2.Integration
 
         public void Configure(Stage2SceneBootstrap sceneBootstrap,
             Stage2EconomyCatalog economyData, Stage2DefenseCatalog defenseData,
+            Stage2DefenseCatalog longshotData,
             Stage2EnemyCatalog enemyData, Stage2RunCatalog runData,
             Stage2GatheringDriver economyDriver, Stage2BuildDriver buildDriver,
             Stage2RunDriver stateDriver)
@@ -42,6 +44,7 @@ namespace Not3A.Stage2.Integration
             bootstrap = sceneBootstrap;
             economyCatalog = economyData;
             defenseCatalog = defenseData;
+            longshotCatalog = longshotData;
             enemyCatalog = enemyData;
             runCatalog = runData;
             gathering = economyDriver;
@@ -54,10 +57,12 @@ namespace Not3A.Stage2.Integration
             if (IsInitialized) return true;
             if (bootstrap == null || !bootstrap.IsInitialized || gathering == null ||
                 building == null || runDriver == null || economyCatalog == null ||
-                defenseCatalog == null || enemyCatalog == null || runCatalog == null)
+                defenseCatalog == null || longshotCatalog == null ||
+                enemyCatalog == null || runCatalog == null)
                 return BindingError("MissingOrUninitializedBinding");
             if (!economyCatalog.TryValidate(out var reason)) return BindingError($"InvalidEconomyCatalog {reason}");
             if (!defenseCatalog.TryValidate(out reason)) return BindingError($"InvalidDefenseCatalog {reason}");
+            if (!longshotCatalog.TryValidate(out reason)) return BindingError($"InvalidLongshotCatalog {reason}");
             if (!enemyCatalog.TryValidate(out reason)) return BindingError($"InvalidEnemyCatalog {reason}");
             if (!runCatalog.TryValidate(out reason)) return BindingError($"InvalidRunCatalog {reason}");
 
@@ -69,7 +74,8 @@ namespace Not3A.Stage2.Integration
             gathering.Configure(map, economyCatalog, hero);
             if (gathering.Economy == null)
                 return BindingError("EconomyConfigureFailed");
-            if (!building.Configure(map, defenseCatalog, gathering, hero, camera, navigation))
+            if (!building.Configure(map, defenseCatalog, new[] { longshotCatalog },
+                    gathering, hero, camera, navigation))
                 return BindingError("DefenseConfigureFailed");
             enemies = new Stage2EnemyGroup(map, navigation, enemyCatalog);
             building.SetEnemyProtection(enemies.IsCellProtected);
@@ -164,16 +170,20 @@ namespace Not3A.Stage2.Integration
             var phase = run.Phase == Stage2RunPhase.Preparation
                 ? $"Preparation {Mathf.CeilToInt(run.PreparationRemaining)}s"
                 : run.Phase.ToString();
-            GUI.Box(new Rect(10, 10, 400, 150), "Stage 2 development readout");
+            GUI.Box(new Rect(10, 10, 400, 170), "Stage 2 development readout");
             GUI.Label(new Rect(20, 32, 380, 20),
                 $"{phase}  |  Throne {run.ThroneHealth}/{run.ThroneMaximum}  |  Enemies {run.ActiveEnemies}");
             GUI.Label(new Rect(20, 53, 380, 20),
-                $"Wood {inventory.Get(MapResourceKind.Wood)}  Stone {inventory.Get(MapResourceKind.Stone)}  Metal {inventory.Get(MapResourceKind.Metal)}");
+                $"Gold {inventory.Gold}  Wood {inventory.Get(MapResourceKind.Wood)}  Stone {inventory.Get(MapResourceKind.Stone)}  Metal {inventory.Get(MapResourceKind.Metal)}");
             GUI.Label(new Rect(20, 74, 380, 20),
                 $"Wave {run.WaveNumber}/{run.WaveCount} ({run.WaveEnemyCount} total)  |  Build: {(building.Defense.IsPlacing ? building.PreviewResult.ToString() : "off")}");
+            var selected = building.Defense.SelectedCatalog;
             GUI.Label(new Rect(20, 96, 380, 20),
-                "WASD move  E gather  B build  click confirm  Esc cancel");
-            GUI.Label(new Rect(20, 117, 380, 20), "Space start wave  |  R restart after win/loss");
+                $"Tower {selected.RoleName}  price G{selected.GoldCost} W{selected.WoodCost} S{selected.StoneCost} M{selected.MetalCost}");
+            GUI.Label(new Rect(20, 117, 380, 20),
+                "WASD move  E gather  B build  1/2 role  click confirm");
+            GUI.Label(new Rect(20, 138, 380, 20),
+                "Esc cancel  |  Space wave  |  R restart after win/loss");
 
             if (run.IsTerminal)
             {
@@ -187,7 +197,7 @@ namespace Not3A.Stage2.Integration
 
             var sideBySide = Screen.width >= 630;
             var panelX = sideBySide ? Screen.width - 215f : 10f;
-            var panelY = sideBySide ? 10f : 165f;
+            var panelY = sideBySide ? 10f : 185f;
             GUI.Box(new Rect(panelX, panelY, 205, 108), "Resource sources");
             MapResourceKind? nearbyKind = null;
             for (var index = 0; index < 3; index++)
@@ -206,14 +216,14 @@ namespace Not3A.Stage2.Integration
                 var sourceScreen = bootstrap.CameraFollow.BoundCamera.WorldToScreenPoint(
                     gathering.Economy.WorldPosition(kind));
                 var sourceY = Screen.height - sourceScreen.y;
-                var hiddenByReadout = sourceScreen.x < 410f && sourceY < 165f;
+                var hiddenByReadout = sourceScreen.x < 410f && sourceY < 185f;
                 var hiddenBySourcePanel = sideBySide && sourceScreen.x > panelX && sourceY < 125f;
                 var outsideScreen = sourceScreen.z <= 0f || sourceScreen.x < 12f ||
                     sourceScreen.x > Screen.width - 12f || sourceY < 12f || sourceY > Screen.height - 12f;
                 if (!hiddenByReadout && !hiddenBySourcePanel && !outsideScreen) continue;
 
                 var hintX = Mathf.Clamp(sourceScreen.x - 48f, 10f, Mathf.Max(10f, Screen.width - 106f));
-                var hintY = Mathf.Clamp(sourceY - 10f, 165f, Mathf.Max(165f, Screen.height - 32f));
+                var hintY = Mathf.Clamp(sourceY - 10f, 185f, Mathf.Max(185f, Screen.height - 32f));
                 GUI.Box(new Rect(hintX, hintY, 96f, 22f), $"{kind} {SourceDirection(offset)}");
             }
             if (nearbyKind.HasValue)

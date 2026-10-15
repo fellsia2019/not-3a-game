@@ -1,450 +1,836 @@
 # Development Plan
 
-Canonical state, replanned 2026-09-24. Stage 1 was accepted by a human on
-2026-09-21. Stage 2 is active: S2-MAP-01, S2-INT-01, S2-MAP-02 and the
-S2-ECO-01/S2-BLD-01 decision packages and S2-ECO-02/S2-DEF-01/S2-AI-02/
-S2-WAV-02/S2-DEF-01-FIX/S2-INT-02/S2-QA-01 checkpoints are complete;
-P-003/P-002 are accepted as D-013/D-014 respectively.
-S2-MAP-03/S2-WAV-01 analysis and S2-AI-01 brief are delivered with consolidated
-verification, 2026-09-24. The human then delegated the P-004 diagnostic trial
-choice and implementation. S2-WAV-01 cadence implementation is delivered; S2-WAV-02
-remains complete. Final pacing, P-008 and enemy breadth remain separate
-decisions. Their live evidence is in the map/run specs and enemy-role brief.
-The detailed active-task contracts and evidence are in
-gamedesign/features/STAGE2_VERTICAL_SLICE.md and production/WORKSTREAMS.md.
+Status: replanned 2026-09-25 from the player's playable-first direction.
+`GAME_VISION.md` owns product intent; `production/DECISIONS.md` owns durable
+decisions; `production/WORKSTREAMS.md` retains historical task evidence.
 
-## Planning Rule
+## Working Rule
 
-Each stage buys down a specific risk. A stage closes after a playable result,
-relevant tests/build checks, a human observation where specified, and an explicit
-continue/rework decision. The MVP budget in GAME_VISION.md is a ceiling, not a
-shopping list. Numbers for content, map size and balance become commitments only
-after the test that needs them. Accepted D-001–D-012 are unchanged by this plan.
+Делаем один проверяемый игровой результат за раз. Не открываем отдельный пакет,
+чат, согласование или длинный spec для простой правки. Находим конкретный
+игровой пробел, исправляем его в существующем коде/данных, проверяем затронутое
+поведение и даём человеку один билд для проверки. Тесты и сборка нужны по
+риску изменения, а не после каждого текстового решения.
 
-Keep one owner for each shared Unity surface and limit work in progress to tasks
-whose inputs are ready. Prototype values live in Unity data, not a second table
-here. When a gate fails, fix the observed cause before expanding content.
+Каждый **новый Stage 2–7 ведёт новый Codex-агент в отдельной задаче**. Один
+агент может выполнить несколько последовательных пунктов своего этапа; смена
+агента нужна на границе stage, а не для каждой мелкой правки. Новый агент
+начинает с `AGENTS.md`, текущих vision/plan/decisions/handoff и Git-статуса,
+проверяет gate предыдущего stage, сохраняет незавершённые изменения и не
+объявляет этап готовым без наблюдаемого результата. В конце он фиксирует
+состояние и оставшуюся работу в этом плане и `production/WORKSTREAMS.md`.
+Готовые стартовые промпты для каждого stage размещены в
+`reports/development-roadmap.html`; каждый промпт содержит рекомендуемые
+модель и уровень рассуждения для старта, а при необходимости — момент смены
+настройки внутри этапа. Выбор в интерфейсе Codex делается отдельно от вставки
+промпта. Этапы 0–1 уже завершены и не запускаются повторно без конкретного
+регресса.
 
-## Stage 0 — Foundation And Product Boundary
+Ранее расписанные Stage 2–7 task IDs, модельные назначения и token envelopes
+сняты с активного плана. Они были прогнозом процесса, а не продуктовым
+требованием. Завершённая работа и её проверки остаются в handoff и feature
+specs; незавершённые идеи заново оцениваются только при появлении нужды.
 
-Status: core product boundary and version control established. Remaining
-administrative items do not reopen the completed Stage 1 prototype.
+## Stage 0–1 — Already Built
 
-- [x] Approve GAME_VISION, non-combat hero, three resources, art direction and
-  MVP/post-MVP boundary.
-- [x] Initialize Git and ignore generated Unity directories.
-- [ ] Resolve the working title, IP ownership and sources/licenses before any
-  public asset is used.
-- [ ] Decide whether the experimental com.unity.pipeline package is needed
-  before relying on it for build automation.
-- [ ] Resolve P-002–P-006/P-008 at their actual implementation or gate point;
-  P-007 remains post-MVP.
+- **Stage 1:** технический graybox-цикл принят игроком 2026-09-21.
+- **Stage 2:** есть сцена `Assets/Scenes/Stage2VerticalSlice.unity` с компактной
+  картой D-016, тремя добываемыми ресурсами, платным строительством, динамическим
+  маршрутом, осадой, уроном трону, волнами, исходом и рестартом. Исправлена
+  видимость ресурсных маркеров; игрок подтвердил это 2026-09-25.
+- Rapid/Longshot привязаны к сцене. Автоматический полный забег покупает обе
+  роли, проходит волны и перезапускается; EditMode 74/74 и PlayMode 38/38.
+- Новая карта 32×32 и темп остаются пробными данными. Старый asset 100×100 —
+  фикстура прежних измерений. Человек закончил и перезапустил один Windows
+  забег; после узкой правки стартового кадра подтвердил, что видит портал,
+  трон и понимает направление к ресурсам. Финальная сборка с этой правкой
+  запущена без относимой ошибки старта; автоматический полный забег и
+  релевантная регрессия прошли.
 
-Gate: repository and concept are usable for a technical prototype. Passed for
-Stage 1; the remaining items retain their own deadlines above.
+Stage 2 first-playable gate принят по человеческому забегу, повторному
+наблюдению стартового кадра и проверкам финальной сборки. Содержание пока не
+расширяется; Stage 3 начинает другой новый агент в отдельной задаче.
 
-## Stage 1 — Technical Maze Loop
+Перед Stage 3 внесена D-018: первая подготовка теперь 180 секунд; Rapid стоит
+5 золота, 2 дерева и 1 камень; каждый забег начинается с 5 золота и каждое
+подтверждённое убийство даёт 1. Longshot не менялся. По следующему запросу
+игрока подготовка перед второй и третьей волной также увеличена до 180 секунд;
+Space по-прежнему запускает волну досрочно. После правки экономики EditMode
+76/76 и PlayMode 38/38 прошли; полный
+автоматический забег купил вторую Rapid после первой волны на заработанное
+золото, завершил волны и перезапустился. Windows Development Build повторно
+собран и запущен с `S2_INT_BUILD_OK`, `S2_INT_STARTUP_OK` и
+`S2_INT_GAMEPLAY_READY`, без новой относимой ошибки старта. Логи и отчёты —
+`Artifacts/S2-ECONOMY-REVISION/`. Новое ручное наблюдение темпа после D-018
+ещё не проводилось; точный баланс остаётся пробным.
 
-Status: complete and human-accepted, 2026-09-21. The compact graybox proves
-gather -> spend -> build a longer route or full wall -> enemy path/siege -> throne
-win/loss/restart. D-009 replaced the original fixed-route assumption.
+После расширения паузы на все три волны: EditMode 76/76, PlayMode 38/38;
+новый Windows Development Build собран и запущен без новой ошибки старта.
+Отчёты и журналы: `Artifacts/S2-ALL-WAVES-180/`.
 
-Evidence: EditMode 8/8, PlayMode 4/4, Windows x64 Development Build startup
-without attributable errors, and human playtest of the maze behavior. Stage 1
-scene remains the regression baseline; it is not the production map.
+После сообщения игрока о якобы единственном ударе Rapid за волну проверка на
+реальной карте подтвердила несколько убийств одной башней. Для читаемости
+повторных попаданий добавлены короткие вспышки башни и поражённого врага;
+таймер и урон не менялись. Повторные EditMode/PlayMode проверки прошли.
+EditMode 76/76, PlayMode 39/39; новый Windows Development Build собран и
+запущен без новой относимой ошибки старта. Отчёты и журналы:
+`Artifacts/S2-RAPID-FEEDBACK/`. Игрок проверил открытый билд и подтвердил:
+«теперь работает»; вопрос читаемости атаки закрыт.
 
-## Stage 2 — First Playable And Representative Slice
+## Stage 2 — First Playable (Complete, 2026-09-25)
 
-Status: active. Its question is whether the accepted loop works on the
-data-driven map and is understandable and worth repeating. The first 100x100
-candidate is an experiment; P-008 remains open. Stage 2 does not require every
-tower, enemy, boss, VFX or menu allowed by the MVP ceiling.
+Owner: Integration для общей сцены; узкий владелец системы для найденного
+дефекта. Dependencies: существующая Stage 2 сцена, данные и договоры.
 
-### Checkpoint A — Map And Navigation Contract
+1. **Стабилизировать текущую сборку.** Завершить и проверить уже начатую
+   привязку второй башни. Сохранить существующие изменения владельца сцены.
+   Проверить, что роли реально выбираются, оплачиваются, атакуют и отличаются
+   в одном забеге; при дефекте исправить только его.
+2. **Привести карту к принятой композиции.** Портал и трон разместить рядом в
+   одном углу компактного поля; зелёная зона с тремя доступными ресурсами
+   расходится от них в трёх направлениях. Башни ставятся только на серой зоне.
+   Изменить карту/генератор и затронутые проверки сцены согласованно, затем
+   проверить маршрут врагов, поиск ресурсов и камеру. Точные размеры и расстояния
+   выбирать по короткому ручному забегу, без увеличения мира ради масштаба.
+3. **Пройти один полный забег руками.** Проверить последовательность от старта
+   до win/lose и рестарта: поиск трёх ресурсов, добыча, две башни, волны,
+   изменение маршрута и осада. Записать лишь блокеры и непонятные места.
+4. **Сделать карту и индикацию достаточно понятными.** Текущие 100×100 —
+   пробный размер. Если путь между действием и обороной кажется долгим или
+   пустым, уменьшить/сжать карту или передвинуть узлы по наблюдению.
+   Существующий временный HUD можно улучшить ровно настолько,
+   чтобы без подсказки читались ресурсы, цена/выбор башни, волна, трон и исход.
+5. **Отдать один Windows билд на проверку.** Другой игрок без coaching должен
+   найти ресурсы, построить башню, понять угрозу и закончить забег. Зафиксировать
+   2–3 конкретных проблемы и исправить блокирующие. Повторный playtest нужен
+   только если исправление меняет непонятное поведение.
 
-Status: passed. S2-MAP-01 provides the 100x100 map asset; S2-INT-01 provides the
-Stage 2 scene shell; S2-MAP-02 provides deterministic navigation and occupancy.
-The latest recorded regression is EditMode 42/42 and PlayMode 20/20, with clean
-Editor/Play entry at that checkpoint. S2-INT-02/S2-QA-01 subsequently wired and
-qualified its integrated use; the current cumulative counts are recorded below.
+Gate: один короткий законченный забег можно запустить, понять и повторить;
+релевантные EditMode/PlayMode проверки проходят, Windows build запускается,
+новых относимых ошибок Console/Player нет. Размер и темп выбираются по этому
+опыту, без цели попасть в заранее назначенное число минут. Первый билд может
+оставаться graybox и с временным UI.
 
-### Checkpoint B — One Playable Loop On The Real Map
+Gate закрыт: human Windows run завершён и перезапущен; на финальном стартовом
+кадре игрок подтвердил видимость портала/трона и понятное направление к
+ресурсам. Финальная сборка показывает `S2_INT_STARTUP_OK` и
+`S2_INT_GAMEPLAY_READY` для карты `48A2358B440C3C65`, без новой относимой
+ошибки. EditMode 74/74, PlayMode 38/38, дополнительная Integration проверка
+видимости 16/16. Полный человеческий забег был до последней узкой правки
+ширины серой полосы и позиции героя; после неё полный автоматический забег
+прошёл, а игрок отдельно проверил изменённый стартовый вид. Баланс и размер
+не зафиксированы как окончательные.
 
-Completed package: **S2-ECO-01**, Economy/Design; GPT-6 Astra / high,
-human-accepted on 2026-09-24. P-003 is resolved by D-013; the accepted contract
-and rule-level review are in `features/STAGE2_ECONOMY.md`. Runtime implementation
-and live-loop recovery checks remain downstream.
+Не блокируют этот gate: побочная задача, второй вид врага, boss, новые волны,
+дополнительные башни/ресурсы, сохранение незаконченного забега, финальный UI,
+звук, VFX, модели и тонкий баланс. Механика динамического маршрута сохраняется;
+для боевых башен действует новое ограничение серой зоны D-016.
 
-Last completed package: **S2-BLD-01**, Defense/Design; GPT-6 Astra / high,
-human-accepted on 2026-09-24. D-014 resolves P-002; `features/STAGE2_BUILDING.md`
-contains the accepted rules. Runtime verification remains downstream.
-Last completed package: **S2-ECO-02**, Economy; human authorized it on
-2026-09-24. The plan recommends GPT-6 Sol / high; model/effort selection stays
-in this dialogue's UI. Three-resource gathering, timed recovery, atomic
-full-cost spending and reset pass EditMode 47/47 and PlayMode 22/22, with a
-clean subsequent Stage 2 Play entry. The scene is not yet wired to Economy.
-Last completed package: **S2-DEF-01**, Defense; human authorized it on
-2026-09-24. The plan recommends GPT-6 Sol / high; model/effort selection stays
-in this dialogue's UI. Paid placement and tower lifecycle pass EditMode 54/54,
-PlayMode 24/24 and a clean subsequent Stage 2 Play entry. The Defense prefab,
-catalog and exact wiring contract are delivered; Integration still owns scene
-connection. The human authorized sequential starts of following ready packages
-up to the S2-MAP-03 boundary without separate approval. **S2-AI-02** is
-complete: continuous movement, active-step exclusion and siege pass EditMode
-61/61, PlayMode 26/26 and a clean subsequent Stage 2 Play entry. Its prefab,
-data and exact wiring contract are delivered; the scene remains Integration-owned.
-**S2-WAV-02** and corrective **S2-DEF-01-FIX** are complete under the human's
-sequential authorization. The one-wave run and baseline tower attack pass
-EditMode 66/66, PlayMode 29/29; a moving wave can now end in a natural win.
-P-004 remains open for live pacing, and Integration/Windows qualification is
-still required. S2-DEF-02 role variation remains later.
-**S2-INT-02** is complete under the human's sequential authorization. The
-saved Stage 2 scene binds one shared Navigation/Economy/Defense/enemy group/run;
-real-map PlayMode covers three sources, paid towers, route diversion, full-wall
-siege, natural win, throne loss and restart (33/33 PlayMode). **S2-QA-01** is
-complete under the same authorization: EditMode 66/66, PlayMode 33/33, fresh
-Editor Play 0 errors/0 warnings, Windows x64 Development Build succeeded and
-its Player log reached both Stage 2 startup messages without errors. The human
-subsequently authorized S2-MAP-03 -> S2-WAV-01 -> S2-AI-01, with consolidated
-checks/corrections after all three drafts. Those deliveries are now reviewed;
-product acceptance remains explicit.
+## Stage 3 — MVP Alpha And Visual Foundation
 
-2026-09-25 player observation found a missing S2-INT-02 deliverable: the
-resource anchors had Economy logic but no visible scene markers, so the
-100x100 test build did not show how to find wood, stone or metal. Integration
-added three nonblocking runtime markers and source directions in the temporary
-Development Build readout; focused full PlayMode regression is 35/35. The
-corrected Windows build passed on 2026-09-25 and was relaunched with a clean
-Stage 2 startup. The human recheck of source readability is pending before
-this defect is closed. No map/economy values were changed.
-The recheck identified a further S2-INT-02 defect: depleted wood/stone markers
-did not disappear. The same screenshot showed the run was Lost and metal was
-18 m away, explaining why E could not gather there. The follow-up makes empty
-markers disappear until recovery/restart and makes hold-E/restart requirements
-explicit; an active-run E input test and renewed human build check qualify it.
-Integration PlayMode 15/15 passed, including depletion/recovery/restart marker
-lifecycle and actual held-E metal gathering. The Windows Development Build was
-rebuilt and relaunched on 2026-09-25 with clean startup. The player confirmed
-the corrected build works ("все гуд"), closing this S2-INT-02 correction.
-Stage 2 gate is not decided by this correction alone.
+**2026-10-15 — повторная оценка способа производства графики:** игрок считает
+текущие 3D-башни визуально неприемлемыми при затраченном времени/лимитах и
+запросил сначала изображения спрайтовых Rapid, Longshot и базовой нежити в
+пиксельном и рисованном мультяшном стиле. Обе сравнительные подборки сохранены
+в `art/concepts/sprite_style_review_2026-10-15/`; выбор владельца ожидается.
+Это концепты, не готовые анимационные наборы и не кадры Unity. Сцены и правила
+не изменены; переход с runtime 3D на спрайты пока не принят. Следующий шаг
+этой визуальной задачи — выбор/правки подборок перед производством ассетов.
+Stage 3 остаётся открыт, Stage 4 не начат.
 
-Priority: first. Reuse the tested Stage 1 rules where appropriate; adapt only
-the contracts that fail on the new map or the third resource. Apply the accepted
-P-003 node lifecycle and P-002 active-wave placement rules.
-Connect resource gathering/inventory, paid placement, tower occupancy, enemy
-movement/siege, throne damage and restart in the Integration-owned scene.
-Provisional wave/timing values may live in data while P-004 is tested.
+**D-039 — мультяшный скелет в игре:** после сравнения владелец разрешил
+проверить концепт Б на одном враге. Подготовлен прозрачный лист 6×4,
+ходьба привязана к направлению и пройденному расстоянию; исходный враг
+выходит из портала в `Stage3Rapid3DGamePilot`. Параметры боя/волны не менялись.
+Stage 3/Integration/RunState PlayMode 39/39 прошли, включая полный забег,
+паузу, попадание и рестарт. Реальная запись игровой камеры:
+`art/review/skeleton_sprite_portal_walk.gif`; кадры и отчёты:
+`Artifacts/S3-SKELETON-SPRITE/`. Это проба внешнего вида и производства.
+Windows Development Build собран в `Builds/Windows/Stage3SkeletonSprite/`:
+0 ошибок, 7 предупреждений; полный журнал сохранён рядом с проверками.
+Окончательный выбор спрайтов для всей игры остаётся за владельцем после
+просмотра ходьбы, масштаба и перекрытий вживую.
 
-Gate: a developer can repeat gather -> build -> defend -> recover on the
-100x100 candidate, including an open route, a longer route, a full wall, blocker
-destruction and restart. Invalid placement cannot spend resources. All three
-resources are obtainable. Relevant EditMode/PlayMode checks and a Windows
-development launch have no new attributable errors. A failed gate returns to
-the narrow system owner before content breadth or final art is added.
+**D-040 — портал и цель спрайтами:** по прямому запросу владельца подняты
+сохранённые референсы Б4 и сферы души под ледяным куполом. Созданы прозрачные
+мультяшные изображения и отдельные sprite-prefab; текущая сцена использует их
+вместе со скелетом. Воронка и голубая энергия анимированы; появление врагов,
+здоровье/поражение цели и запреты стройки 3×3 сохраняются. Старые 3D-ассеты и
+Blender-источники сохранены. Кадры из игры и проверка:
+`art/review/landmark_sprites_game_walk.gif`, `Artifacts/S3-LANDMARK-SPRITES/`.
+Финальные Stage 3/Integration/RunState PlayMode: 39/39; Windows Development
+Build `Builds/Windows/Stage3LandmarkSprites/Not3A.exe`: 0 ошибок, 7 предупреждений.
+Владелец одобрил этот результат; Stage 3 остаётся открыт.
 
-### Checkpoint C — Distance, Pacing And Choice
+**D-041 — башни и местность по cartoon B:** обе башни заменены прозрачными
+спрайтами, земля — серой каменной мостовой, трава — рисованным зелёным
+покрытием с мягким краем. Катапульта использует четыре направления и
+замах/выпуск/возврат по существующему таймеру снаряда; Rapid не качается.
+По уточнению владельца карта 100×100, её диагональная зона, маршрут,
+позиции и камера сохраняются. Импорт/привязка воспроизводятся через
+`Stage3CartoonWorldBuilder`; главный rebuilder сохраняет этот выбор.
+Исходные PNG и промпты сохранены. Финальные Stage 3/Integration/RunState
+PlayMode: 40/40; Windows Development Build — 0 ошибок, 7 предупреждений.
+Запись реальной первой волны и крупные планы —
+`art/review/cartoon_world_game_walk.gif`, `cartoon_world_game_overview.png`,
+`cartoon_{rapid,longshot}_game_close.png`. Новая оценка владельца и остальные
+пункты Stage 3 остаются открытыми; это не завершение всего этапа.
 
-Current disposition, 2026-09-24: **continue the 100x100 scale candidate;
-rework one-wave cadence; review one additional siege profile.** S2-MAP-03
-measured actual source travel and affordable compact blockage as well as
-Editor frame/memory/navigation load. It recommends keeping current masks,
-not a larger map or compulsory choke rebuild. S2-WAV-01 observed a 65.083 s
-defended win and 219.484 s unopposed loss; proposes a three-round diagnostic
-candidate with 45/30 s preparation and persistent state. S2-AI-01 delivers
-`features/STAGE2_ENEMY_ROLES.md`. The human subsequently delegated the cadence
-trial; the existing run catalog now supports the finite sequence. P-008,
-final representative P-004 pacing and the new profile remain open. No
-fresh-player run has been observed. Checkpoint C and the Stage 2 gate remain open.
+**D-042 — доработка после отклонения D-041:** владелец запросил приблизить
+реальную сцену к нижней игровой полосе cartoon B, разрешив декоративные
+кусты, цветы и разрушенную кладку. Новые V2-ассеты дают грунт между дерниной,
+траву в стыках мостовой и небольшие группы камней/кустов вдоль дороги.
+Rapid получил более явное примыкание каменных опор к земле. У Longshot
+основание больше не меняется кадрами: отдельные ложка и камень движутся
+плавно, с выпуском из фактической чаши по существующему времени выстрела.
+Карта, камера, цены, урон и правила сохранены. Геометрическая яркая бахрома
+обочины удалена. Источники и точные промпты — `art/source/astra_cartoon_rework_*`;
+кадры реальной сцены — `art/review/astra_*`; проверки —
+`Artifacts/S3-ASTRA-VISUAL/`. Приёмка обновлённого вида владельцем остаётся
+открытой; новая версия не закрывает Stage 3.
 
-The human clarified that future map shape and placement rules remain open:
-rectangular expansion, an offset throne, a winding invasion area and possibly
-gray-only building are tentative options recorded in `features/STAGE2_MAP.md`.
-They do not expand the current slice scope or make 100x100 a permanent size lock.
+**D-043 — камера у края карты:** по замечанию владельца тактическая камера
+ограничивается видимой областью игровой карты, а не только положением героя.
+В центре герой остаётся по центру экрана; у края камера останавливается и
+герой идёт к краю кадра. Предел пересчитывается при изменении зума и размера
+Game view. Декоративное внешнее поле остаётся технической подложкой, но не
+попадает в обычный кадр. Карта, передвижение и правила не меняются. Проверка
+четырёх углов кадра на противоположных краях карты при зуме 2.5, 5 и 10 и
+двух пропорциях окна прошла; общий Stage3/Integration/RunState PlayMode —
+41/41. Кадры из игры: `art/review/camera_clamp_{southwest,northeast}.png`.
+Windows Development Build собран без ошибок; фактический запуск достиг
+состояния Gameplay Ready с прежним хешем карты. Визуальная оценка владельца
+остаётся открытой.
+После замечания владельца о выходе героя за край кадра тактическое движение
+получило запас в одну клетку внутри границ карты. Это оставляет видимым весь
+временный силуэт персонажа у каждого края. Повторная проверка 41/41 прошла;
+кадры крайних точек обновлены. Размер мира, правила добычи/боя и Stage 2
+движение не затронуты. Итоговый Windows Development Build: 0 ошибок,
+7 предупреждений; запуск дошёл до Gameplay Ready с прежним хешем карты.
 
-Priority: after a live loop exists. Measure travel to each resource region,
-time spent gathering/building, resource gained/spent/remaining by type and
-phase, route changes, frame time, memory and navigation replans on recorded
-hardware. S2-MAP-03 resolves P-008 from those observations;
-200x200 is only a comparison if the 100x100 result cannot meet the design
-intent. S2-WAV-01 resolves P-004 from a complete run rather than an abstract
-wave count. Test whether tower/enemy variation adds a meaningful decision;
-implement only the breadth needed for this slice.
+**Ранее принятое решение D-027:** игрок принял деревянную Rapid и тактическую камеру
+в играбельной сцене и выбрал runtime 3D вместо спрайтов из 3D. Этот выбор
+закрывает вопрос визуального pipeline, но не утверждает вид всех остальных
+ассетов или бюджет массового производства. Ближайший шаг — согласовать
+состав коммерческого MVP и следующий конкретный объект. Для каждой новой
+модели сначала обсудить назначение и облик, показать варианты изображений,
+получить визуальный выбор игрока, затем моделировать в Blender и проверять в
+Unity. Кандидат на следующий объект — Longshot как вторая уже работающая
+башня. Stage 3 gate остаётся открытым до полного забега с принятым составом,
+нужными UI и звуком.
 
-Gate: a complete run has a clear preparation/defense rhythm, no resource
-soft-lock, readable risk of distance and a recorded map-size/pacing decision.
-Each resource has an understandable source and useful sink; objective rewards
-cannot silently mask an economy that fails without them.
-If travel or waiting dominates, change data/map composition before increasing
-content. The final MVP content count remains a later decision.
+**D-028, текущий checkpoint:** игрок выбрал для Longshot каменную артиллерию:
+цена 2 дерева и 5 камня, попадание по площади радиусом 2 клетки с полным
+уроном 2 каждому задетому врагу. Одобрен концепт катапульты с чашей
+`art/concepts/longshot_stone_catapult_option_a.png`; отдельное разрешение на
+Blender-модель и запуск игры получено 2026-09-25. Металл остаётся добываемым на карте
+для будущих башен. Предложение минимального коммерческого MVP к согласованию:
+одна компактная карта и текущий короткий цикл; модели двух башен, героя,
+базового врага, трона/портала и трёх ресурсных источников; HUD ресурсов/цен,
+строительства, волны, трона и исхода; короткие звуковые сигналы добычи,
+строительства, двух атак и попаданий, угрозы трону, волны и исхода. Новые
+башни и другие механики не включены в это предложение. Stage 3 gate открыт.
+Катапульта создана в `art/source/longshot_catapult.blend` и интегрирована
+через отдельные FBX, материал, prefab и визуальный каталог в существующую
+`Stage3Rapid3DGamePilot`. Цена и урон берутся из исходного каталога Longshot;
+геометрия не участвует в правилах боя или навигации. В старте пилота обе башни
+покупаются обычным размещением; катапульта стоит слева от Rapid. Её footprint
+0,918×0,916 клетки, высота 1,581; preview совпадает с построенным объектом.
+Первый статичный вариант: один меш/материал, 22 968 треугольников и атлас 2048². Проверка 24 построек
+подтвердила общий меш/материал и очистку при рестарте; замер в batchmode Editor
+не заменяет профилирование кадров выпуска на целевых конфигурациях.
+PlayMode 46/46 прошли в изолированной копии Unity 6000.6.2f1, включая полный
+забег обеих башен и рестарт. Предыдущие EditMode 77/77 проверяют неизменённые
+правила D-028. Windows x64 Development Build — `Builds/Windows/Stage3Longshot`;
+он использует сохранённую сцену и принятые настройки камеры основного проекта.
+Сборка запущена для игрока: старт и обе модели готовы, новых ошибок в player
+log нет. В настоящем игровом кадре проверены основание в клетке, тени,
+различимые силуэты и ближний вид; кадр — `art/review/longshot_in_game.png`.
+Логи/XML — `Artifacts/S3-RAPID-PILOT/catapult-*`. Предложение состава MVP пока
+не принято; требуется оценка готовой модели игроком.
 
-### Checkpoint D — Representative Presentation And External Test
+**D-029, анимация боя:** по замечанию игрока статичный вариант дополнен
+выстрелами и попаданиями обеих башен. После замечаний игрока убраны смена
+цвета башен и отдача Rapid: она остаётся неподвижной и выпускает стрелу.
+Longshot плавно наводит механизм, делает замах с камнем в чаше, затем
+выпускает камень из положения чаши, завершает бросок и плавно возвращает рычаг.
+Замах помещается в прежнее время до попадания; момент урона не изменён.
+По следующему рисунку игрока внутренняя рама с осью, рычагом и чашей помещена
+на отдельный узел поворота вокруг вертикали в центре клетки. Каменное
+основание и ограждение неподвижны. Между бросками механизм следит за ближайшим
+живым врагом; наведение использует общий с боем запрос цели только для чтения.
+Направление берётся из фактического положения чаши и оси импортированной модели.
+Попадание стрелы даёт короткие
+искры, камня — разлёт осколков и затухающее кольцо границы поражения.
+Катапульта теперь состоит из четырёх подвижных/неподвижных мешей с прежним
+общим атласом и материалом; исходный силуэт и 22 968 треугольников сохранены.
+Время полёта хранится в Defense data; урон наносится в момент прилёта кодом
+правил, без зависимости от визуалов. Цена, урон, дальность, интервалы выстрелов
+и радиус Longshot сохранены. Пауза останавливает полёт и анимации, рестарт
+очищает снаряды и эффекты. Цель отслеживается до попадания; после её гибели
+снаряд долетает до последней позиции без перенаведения. Стрела не наносит
+повторный урон, камень применяет площадь в этой точке. Финальная оценка
+читаемости анимации и её темпа остаётся за игроком; Stage 3 gate открыт.
+Проверено на Unity 6000.6.2f1: EditMode 79/79, PlayMode 47/47, включая полный
+тактический забег, прилёт/урон, паузу, рестарт и 24 катапульты с общими мешами.
+При проверке устранено лишнее вертикальное смещение поворотного механизма;
+размеры исходной башни сохранены. Доказательства —
+`Artifacts/S3-RAPID-PILOT/combat-*` и `art/review/combat-*.png`.
+После правки цвета/отдачи/броска повторно пройдены EditMode 79/79 и PlayMode
+47/47; новая проверка подтверждает непрерывный выпуск из чаши и неподвижность
+Rapid. Кадры фаз — `art/review/combat-r2-*.png`, логи —
+`Artifacts/S3-RAPID-PILOT/combat-r2-*`.
+После уточнения поворота внутренней рамы: EditMode 79/79 и PlayMode 48/48,
+включая проверку четырёх направлений, неподвижности основания/ограждения,
+высоты и радиуса вращения рамы, паузы и наведения без стрельбы.
+Логи — `Artifacts/S3-RAPID-PILOT/catapult-yaw-*`.
+Сборка для просмотра — `Builds/Windows/Stage3CatapultYaw` (Windows x64 Development).
+Она запущена; финальный player log без относимых ошибок, кадры полёта и
+попадания обновлены из настоящего игрового окна (`art/review/catapult-yaw-*.png`).
+Space запускает следующую волну.
+Игрок посмотрел исправленный поворот в запущенной игре и принял его 2026-09-25.
+Следующий шаг Stage 3 — согласование предложенного выше минимального состава
+моделей, UI и звука коммерческого MVP; общий gate этапа ещё открыт.
 
-Choose P-006 before final HUD implementation. Build a compact HUD and
-build/route feedback, one optional objective per D-008, simple readable
-original or licensed 2D art, basic audio and win/loss/pause states needed to
-understand the run. Detailed Blender models are not a Stage 2 gate.
-Visual research and UI wireframes can start before Checkpoint C; runtime art
-fill and scene wiring follow tested scale/contracts. P-005 save policy is
-decided before a persistence feature is built; it may be assigned to Stage 3
-if the Stage 2 test does not require mid-run save.
+**Следующий визуальный объект — ландшафт карты:** по запросу игрока финальную
+модель героя делать последней; текущий простой маркер героя остаётся. Игрок
+передал референс светлой травы, низких кустов и мелких цветов. Для выбора
+подготовлены два концепта на кадре играбельной сцены: `art/concepts/landscape_option_a_stone_paving.png`
+с каменной серой зоной и `art/concepts/landscape_option_b_packed_earth.png`
+с утоптанной серой землёй. Игрок выбрал вариант Б: зелёная трава и утоптанная
+серая земля. Кусты, камни и другой объёмный декор должны быть настоящими
+3D-пропсами, а не нарисованным рельефом; первый проход покрытия может быть без
+них. Оригинальные бесшовные покрытия создаются отдельно от игровых правил;
+зелёная и серая зоны остаются на одной игровой плоскости.
+Первый проход (`Builds/Windows/Stage3LandscapeB`) проверен с обеими башнями:
+PlayMode 48/48, включая полный забег, но игрок отверг его как «мыло» и далёкий
+от выбранного концепта. Переработан травяной альбедо, добавлены отдельные 3D
+меши кустов, травинок и цветов без коллайдеров и изменения игровых правил.
+После смягчения форм кустов проверка PlayMode 49/49, включая полный забег,
+прошла; Windows x64 Development build `Builds/Windows/Stage3LandscapePolished`
+собран и запущен. Кадр из настоящей сцены —
+`art/review/landscape-polished-game.png`; player log без относимых ошибок.
+Декор: 119 кустов, 693 пучка травы, 219 цветов, 44 245 треугольников,
+0 коллайдеров в пяти объединённых мешах. Игрок отверг эти кусты и указал,
+что трава не кажется приподнятой над серой зоной. Эта сборка — историческая,
+не кандидат на принятие.
 
-Gate: S2-QA-01 qualifies an integrated Windows x64 build and full-run
-regression. S2-QA-02 observes at least one fresh player without developer
-coaching. The player locates throne, entrance and resources, understands that
-towers reshape routes and full blockage triggers siege, completes or loses a
-run, and can name a meaningful layout decision to change. The 15–25 minute
-run target is measured, not assumed. Record continue/rework/stop and the
-specific evidence in the canonical handoff register.
+Текущая ревизия убирает кусты и их материалы из сцены. Трава отрисовывается
+на 0,18 клетки выше серой земли; видимая тонкая земляная стенка и отдельные
+3D-травинки образуют переход на границе. Герой и маркеры ресурсов визуально
+следуют за поверхностью, но движение, постройка и наведение используют прежнюю
+плоскую сетку. После изменения: PlayMode 49/49, включая полный забег,
+и отдельная проверка финальной плотности травы 1/1. Windows x64 Development
+build `Builds/Windows/Stage3LandscapeRaisedGrass` собран и запущен без новых
+player errors; фактический кадр — `art/review/landscape-raised-grass-final.png`.
+В сцене 0 кустов, 3 общих меша травы/цветов, 7487 треугольников и 0
+коллайдеров; земляной торец — отдельный визуальный меш. Визуальная оценка
+игроком и измерение производительности после неё остаются открытыми.
+Stage 3 gate открыт. Игрок затем отверг резкий тёмный переход; эта сборка
+осталась историческим кандидатом.
 
-## Stage 3 — MVP Alpha
+**Текущий кандидат ландшафта:** по прямой ссылке игрока на выбранный концепт Б
+сгенерирована новая оригинальная травяная текстура с крупными светлыми
+живописными пятнами и видимыми пучками (`LandscapeGrass.png`, источник запроса
+в `art/source/landscape_grass_prompt.txt`). Кустов нет. Вместо тёмной ровной
+стенки зелёная поверхность лишь на 0,08 клетки выше серой и полого сходит
+на неё неровной травяной кромкой по всем сторонам. Отдельные 3D-травинки
+смягчают внешний край; игровая сетка, доступность клеток и правила башен не
+менялись. PlayMode 49/49, включая полный забег, затем 1/1 проверки финального
+масштаба травяной текстуры и геометрии кромки; Windows x64 Development build
+`Builds/Windows/Stage3LandscapeConceptB` запущен без новых ошибок в player log.
+Фактический кадр: `art/review/landscape-concept-b-scale-game.png`. Визуальное
+принятие игроком и количественная проверка frame cost ещё открыты; Stage 3
+gate открыт.
 
-Enter only after the Stage 2 gate. Turn the accepted slice into a feature-complete
-MVP within GAME_VISION.md. Choose the final content breadth, fill the selected
-map, finish approved tower/enemy roles and run content, settings, controls,
-save policy, basic accessibility and balance. Resolve pathing edge cases under
-representative loads. Finish only the 2D assets required for a legible MVP;
-do not introduce detailed 3D-model production. No automatic expansion to
-post-MVP systems.
+Игрок оценил этот кадр как улучшение, но всё ещё далёкое от референса.
+Следующая визуальная ревизия заменяет оба покрытия оригинальными рисованными
+материалами по концепту Б (`LandscapeGrass.png`, `LandscapeDefenseEarth.png`;
+точные запросы в `art/source/landscape_grass_prompt.txt` и
+`art/source/landscape_earth_prompt.txt`). На зелёной зоне есть неглубокий
+неравномерный визуальный 3D-рельеф; 3D-травинки и цветы стоят на его высоте.
+Травяной склон у серой зоны расширен, а её фактура стала светлее и подробнее,
+с видимой сеткой клеток. Кустов нет. Эти меши не меняют плоские игровые
+координаты, проходимость, строительство или попадания. PlayMode 49/49 прошли,
+включая полный забег и проверку геометрии без коллайдеров; Windows x64
+Development build `Builds/Windows/Stage3LandscapeConceptB` собран и запущен,
+player log без относимых ошибок. Фактический кадр:
+`art/review/landscape-concept-b-game.png`. Визуальное принятие игроком и
+измерение стоимости кадра остаются открытыми; Stage 3 gate открыт.
+26.09.2026 игрок решил пока оставить этот ландшафт как есть и перейти к
+следующему пункту. Это пауза в доработке ландшафта, не окончательное принятие
+его внешнего вида. Следующий шаг — согласовать минимальный состав моделей,
+UI и звука коммерческого MVP; герой по D-030 остаётся последней моделью.
+Первым следующим кандидатом выбран принадлежащий игроку защищаемый трон.
+По описанию игрока подготовлены три оригинальных ледяных концепта:
+`art/concepts/throne_ice_option_a_obelisk.png`,
+`throne_ice_option_b_frozen_throne.png` и
+`throne_ice_option_c_glacial_core.png`. Они используют только общую идею
+холодного кристального трона и не копируют Warcraft. Выбор игрока ожидается;
+Blender и интеграция в Unity не начаты.
+Игрок выбрал направление A как ближайшее и предложил возможную сюжетную основу:
+злая волшебница заключила душу героя в ледяной объект, поэтому его разрушение
+означает смерть героя. До фиксации лора это визуальный мотив, а не принятый
+канон. Подготовлены две ревизии A: чистый `throne_ice_option_a1_soul_prism.png`
+с видимым сосудом души и более проклятый
+`throne_ice_option_a2_witch_reliquary.png` с цепями и фиолетовым разломом.
+Окончательный визуальный выбор ожидается; Blender и Unity не начаты.
+По следующему уточнению игрока вариант A упрощён до одного однородного
+ледяного тела без боковых и передних льдин. Ревизия сохранена как
+`art/concepts/throne_ice_option_a3_monolith.png`: сосуд души встроен в цельный
+конический монолит, каменное основание и удерживающие скобы сохранены.
+Визуальное утверждение ожидается; Blender и Unity не начаты.
+После замечания о лишней огранке подготовлен
+`art/concepts/throne_ice_option_a4_smooth_monolith.png`: один гладкий ледяной
+конус без мелких граней и трещин, с сосудом души как единственным сложным
+акцентом. Визуальное утверждение ожидается; Blender и Unity не начаты.
+Игрок затем сменил направление до моделирования: центральный защищаемый объект
+должен быть сферой с заключённой душой героя, под голубым энергетическим либо
+гладким ледяным куполом. Вокруг по кругу идут движущиеся световые полосы.
+Первые варианты `art/concepts/throne_dome_option_energy.png` и
+`art/concepts/throne_dome_option_ice.png` ошибочно содержали ледяной трон в
+центре и отклонены. Исправленные оригинальные варианты:
+`art/concepts/throne_soul_sphere_energy_dome.png` и
+`art/concepts/throne_soul_sphere_ice_dome.png`. Присланный кадр использован
+только как референс эффекта: его архитектура и UI не копируются. Прежние A4 и
+два варианта с троном — исторические эскизы. По D-031 игрок выбрал четвёртый
+показанный эскиз, `throne_soul_sphere_ice_dome.png`, и разрешил моделирование.
+Первый результат в игре отклонён: слишком малый масштаб, вертикальное
+вращение внешних полос и неразличимые светящиеся оболочки. Последующее
+уточнение D-031 требует ясно разделить каменную площадку и чашу, четыре
+опоры, центральную сферу с синим пламенем души, прозрачный защитный купол
+и внешние горизонтальные потоки энергии. Исходники остаются в
+`art/source/soul_sphere_ice_dome.blend` и `build_soul_sphere.py`; интеграция —
+`SoulSphereIceDome.prefab` в `Stage3Rapid3DGamePilot.unity`.
+Основание занимает примерно 3×3 клетки; девять клеток зарезервированы для
+цели в Stage 3 map data. Здоровье и центральная клетка боевой цели прежние.
+Вращение привязано к нормали мировой плоскости, а не локальной оси FBX.
+Ревизия 3: в Unity 26 796 треугольников, 6 mesh renderers, одна текстура
+камня 1024²; раздельные материалы купола, сферы, пламени и потока, мягкое
+свечение и один локальный источник без теней. Все 11 PlayMode проверок
+Stage 3 прошли, включая 16 секунд вращения (более полного оборота), девять
+закрытых для строительства клеток, полный забег с победой и перезапуск.
+Результат: `Artifacts/S3-SOUL-SPHERE/playmode.xml`. После финальной настройки
+материалов проверены крупный и общий кадры реальной сцены:
+`art/review/soul_sphere_game_close.png` и `soul_sphere_game_overview.png`;
+Console — 0 ошибок и 0 предупреждений. Локальный обзор Unity Stats: около
+318 FPS, общий кадр 3,1 мс, GPU 1,9 мс при Game View около 1100×506;
+это разовое наблюдение в Editor, а не сравнение сборок на целевом железе.
+Игрок визуально утвердил ревизию 3. Stage 3 gate остаётся открытым: далее
+нужно согласовать минимальный состав коммерческого MVP и продолжить только
+нужные ему UI, звук и модели. Герой остаётся последней моделью по просьбе игрока.
 
-Gate: every approved MVP feature is playable end to end; no known blocker
-prevents a complete run; data and any saved state survive the intended update
-path. Record content lock candidates and remaining polish risks.
+**D-032, состав коммерческого MVP принят 26.09.2026:** одна текущая карта и
+короткий конечный забег с действующими правилами. Визуальный состав:
+две уже работающие башни Rapid и Longshot, принятая сфера-душа как защищаемая
+цель, входной портал, один базовый враг, источники дерева, камня и металла;
+финальная модель героя делается последней, до неё остаётся базовый маркер.
+Нужен законченный HUD ресурсов и цен, выбора и размещения башни, волны,
+здоровья цели, доступных действий и исхода. Нужны короткие звуковые сигналы
+добычи, строительства, атак и попаданий обеих башен, угрозы цели, волны и
+исхода. Новые игровые механики в этот состав не входят. Враг, ресурсы и герой
+пока представлены временными 3D-маркерами; портал Б4 интегрируется; HUD —
+только development IMGUI в Development Build, звуковые ассеты и воспроизведение
+отсутствуют. Перед каждой оставшейся моделью отдельно согласовать внешний
+вид по изображениям, затем проверить модель в играбельной сцене. Первым
+кандидатом после согласования состава выбран входной портал. Stage 3 gate
+остаётся открытым до полного забега, проверок кадра/регрессий и принятия
+всего утверждённого состава; Stage 4 начнёт другой агент после закрытия gate.
+Для входного портала подготовлены два оригинальных эскиза:
+`art/concepts/entrance_portal_option_a_violet_arch.png` (каменная арка с
+фиолетовой глубиной) и `entrance_portal_option_b_ember_ring.png` (низкое
+каменное кольцо с тёплым вихрем). Это варианты для выбора облика игроком,
+не игровые текстуры. Выбор завершён принятием Б4 ниже.
+Игрок выбрал направление Б, но отверг вид разрушенного кольца. Исправленный
+эскиз `art/concepts/entrance_portal_option_b2_intact_ember_ring.png` сохраняет
+тёплый вихрь и низкий силуэт, показывает цельный собранный каменный обод.
+Этот эскиз заменён более мрачной ревизией ниже.
+Игрок уточнил: из портала выходит нежить, поэтому цельное кольцо должно
+выглядеть мрачнее. Новая оригинальная ревизия
+`art/concepts/entrance_portal_option_b3_undead_ring.png` показывает тёмный
+камень и глубокий чёрно-фиолетовый вихрь с приглушённым призрачным свечением.
+Это визуальное направление базового врага; его игровые правила не меняются.
+Ревизия Б3 отклонена в пользу красного центра.
+Игрок вернул красный цвет внутри портала. Ревизия
+`art/concepts/entrance_portal_option_b4_dark_red_ring.png` оставляет мрачный
+целый каменный обод и красный вихрь. Она принята игроком;
+чёрно-фиолетовый вариант Б3 не является текущим кандидатом.
+Игрок утвердил Б4 и отдельно попросил приступить к модели (D-033).
+Оригинальный `art/source/entrance_portal.blend` экспортирован и привязан к
+существующему входу в `Stage3Rapid3DGamePilot`. По следующей правке игрока
+портал повёрнут на 90° к маршруту цели и увеличен до участка 3×3, как трон.
+Основание 2,945×2,945; карта резервирует девять клеток от строительства,
+центр появления врагов и проходимость остаются прежними. PlayMode 33/33:
+полный забег из трёх волн до победы и рестарт, габариты, появление/движение
+врагов, запрет стройки на 3×3, пауза и относимые регрессии прошли.
+Windows-сборка готова (0 ошибок, 7 предупреждений). Свежий тактический кадр
+подтвердил размер; точный поворот на 90° к цели поставил красный проём
+ребром к камере. Увидев этот кадр и альтернативы направления, игрок явно
+выбрал оставить выход к цели. Это направление зафиксировано в D-033.
+Исправление размещения завершено; общий Stage 3 gate остаётся открытым,
+Stage 4 не начат. Остались базовая нежить, три ресурса, герой последним,
+законченный HUD и принятый набор звуков с проверкой полного забега.
+
+**D-034, новая карта перед следующими моделями:** игрок прислал экранный
+макет и подтвердил 100×100 клеток. Серая зона вторжения идёт диагонально
+из верхнего правого угла вниз и влево, приблизительно 30 клеток вдоль и 12
+поперёк; портал у начала, цель ниже и левее. Остальное поле зелёное, три
+типа ресурсов на нём сохраняются. Отдельная Stage 3 карта и игровой кадр
+перестроены; герой стартует на зелёной зоне, камера удерживает портал и цель
+в правом верхнем углу кадра. Фактический кадр:
+`art/review/stage3_diagonal_map_game_overview.png`. PlayMode 34/34, включая
+серую зону, ресурсы, стройку, маршрут, полный трёхволновый забег до победы,
+рестарт и пределы камеры. Windows Development Build: 0 ошибок, 7
+предупреждений об устаревших API. Локальное время рендера/чтения кадра в
+Editor (1600×900, GTX 1060): медиана 17,7 мс; это не целевой FPS сборки.
+Осталась оценка совпадения с макетом владельцем. К следующим моделям
+переходить после неё; Stage 3 gate ещё открыт.
+Начальное широкое кадрирование здесь заменено выбором игрока D-036 ниже;
+сама карта 100×100 и позиции её объектов не менялись.
+
+**D-035, угол входного портала на диагональной карте:** после просмотра
+игровой сцены владелец потребовал поставить врата под углом 45°. В исходном
+Blender-файле цельное кольцо, ступени и красный проём повёрнуты внутри
+неподвижного квадратного основания 2,945×2,945; выход направлен вдоль серой
+диагонали к цели. Занято прежнее место 3×3, точка появления и путь врагов
+не изменились. Новый кадр реальной игровой камеры:
+`art/review/stage3_diagonal_portal_45_game_overview.png`; крупный игровой вид:
+`art/review/stage3_diagonal_portal_45_game_close.png`. Модель содержит 3 меша,
+6860 треугольников и 0 коллайдеров. Полный относимый PlayMode-набор 34/34
+прошёл, включая движение врагов, постройку вне основания, трёхволновую
+победу и рестарт. Windows Development Build: 0 ошибок, 3 предупреждения.
+Локальная медиана Camera.Render с чтением пикселя в Editor, 1600×900,
+GTX 1060: 14,85 мс с порталом и 15,24 мс без него; это не FPS сборки.
+Владелец ещё должен оценить общую композицию 100×100 относительно макета.
+После этого остаются базовая нежить, три ресурса, герой последним, HUD и
+звуки из D-032. Stage 3 gate открыт, Stage 4 не начат.
+
+**Исправление циркуляции портала, 26.09.2026:** владелец указал, что красная
+внутренняя часть выглядит неподвижной. Вращение усилено; потоки изгибаются
+внутрь без накопления деформации. Фоновый вихрь продолжается после исхода
+забега, а явная пауза останавливает его. Скорость хранится в материале;
+игровые правила и принятая модель с углом 45°/участком 3×3 сохранены.
+Проверка сравнивает реальные кадры: за 0,4 с изменились 2870 красных пикселей
+в крупном кадре 320×320, на паузе — 0; движение после победы также проверено.
+Полный PlayMode-набор 34/34 прошёл, включая забег и рестарт. Windows
+Development Build собран с 0 ошибками и 7 предупреждениями. Запись движения:
+`art/review/entrance_portal_circulation.gif` и общий игровой ракурс
+`art/review/entrance_portal_circulation_tactical.mp4`. Канонический остаток
+Stage 3 по D-032 прежний; gate открыт.
+
+**D-036, возврат прежнего зума:** после расширения карты стартовый
+ортографический размер 17 непреднамеренно сдвинул пределы колеса на 8,5–34.
+Владелец выбрал прежний старт 5 и пределы 2,5–10, зная, что портал и цель
+будут вне начального кадра героя у ресурсов. Вернули размер 5 только в
+игровой Stage 3 сцене; угол, привязка к герою, плавность, сила шага из
+Inspector и карта остались прежними. Фактический стартовый Game-кадр:
+`art/review/stage3_zoom_restored_default_game.png`. PlayMode 34/34, включая
+оба числовых предела, движение без самопроизвольного зума, полный забег и
+рестарт. Windows Development Build: 0 ошибок, 3 предупреждения. Возможность
+найти оборонительный угол без подсказок остаётся предметом оценки перед
+закрытием Stage 3 gate. Stage 4 не начат.
+
+**Ресурсы — текущая переделка после двух отклонённых реализаций:** после просмотра второй
+версии в игре владелец повторно отклонил все три модели. Ни первая, ни вторая
+версия не является принятой художественной базой. Рост числа полигонов,
+сглаживание и текстурирование не решили несоответствие эскизам. Данные
+экспорта, кадры и технические pass ниже сохранены как результаты отклонённых
+версий. Требуется пересмотреть способ производства и сначала подтвердить
+качество на одном объекте, прежде чем снова производить весь комплект.
+Владелец подтвердил: эскизы верны, проблема именно в реализации в игре.
+D-037/D-038 остаются эталоном. Переделка началась с одного камня А:
+согласовать авторский фронт с игровой камерой, вручную задать крупные плоскости
+и пропорции, проверить редкие конструктивные трещины и светлый материал.
+Подготовлен новый кандидат только для камня: исправлен фронт FBX относительно
+игровой камеры, снижена высота, расширена и уплотнена группа, срезана острая
+верхушка. Геометрия задаёт отдельные поверхности и неровные края; редкие
+трещины спроецированы на её поверхность. Оригинальная гранитная текстура
+создана встроенным imagegen по стилю/палитре эскиза и запечена в атлас;
+источник и точный prompt находятся в `art/source/`. Эскиз не копируется в ассет.
+Кандидат: 5832 треугольника, один renderer/material, 2048 albedo/normal,
+габариты около 1,44×1,05×1,03 клетки. Реальные кадры зума 5 и 2,5:
+`art/review/resource_stone_game_{default,close}.png`. Итоговый PlayMode 36/36
+за 35,50 с, включая полный оплаченный забег, рестарт и цикл ресурса.
+Это результат технической проверки, а не визуальное принятие владельцем.
+После просмотра владелец уточнил: «поправь сглаживание и го дальше».
+Подтверждённый дефект — отдельный оттенок каждого треугольника в albedo;
+он заменён непрерывной окраской по сглаженным нормалям вершин с повторным
+запеканием текстур. Камень после этой правки прошёл 36/36 PlayMode за 35,39 с.
+Владелец разрешил продолжить дерево Б и руду А по прежним эскизам;
+повторный выбор концептов не требуется. Дерево пересобрано из отдельных
+замкнутых объёмных ветвей с закрытой верхушкой и продольными бороздами коры;
+руда — из раздельных тёмных масс с углублённой ржавой породой. Их геометрия
+в `art/source/resource_wood_model.py` и `resource_ore_model.py`; общий
+`build_resource_sources.py` запекает и экспортирует прежние пути ассетов.
+Текущие бюджеты: камень 5832, дерево 33236, руда 9464 треугольника;
+по одному renderer/material, 2048 albedo и normal у камня/руды.
+Проверка дерева в Game выявила складки узких полос радиальной сетки и смешение
+нормалей верхней/нижней оболочек. Порядок соединения контура исправлен,
+нормали разделены по его периметру; встроенная проверка геометрии проходит
+для всех 22 ветвей и верхушки. В повторном игровом кадре проваленные полоски
+исчезли. Свет и приём/отбрасывание теней сохранены.
+Финальные Stage 3/Integration/RunState PlayMode: 36/36 за 35,50 с, включая
+размеры и размещение, истощение/восстановление, полный оплаченный трёхволновый
+забег и рестарт. Кадры зума 5/2,5 всех трёх обновлены в `art/review/`.
+Editor-замер 1280×720 на GTX 1060: медианы с камнем/деревом/рудой
+2,449/2,457/2,595 мс, без соответствующего узла 2,433/2,455/2,424 мс;
+это Camera.Render с синхронным чтением пикселя, не standalone FPS.
+Windows Development Build с текущими тремя моделями собран: 0 ошибок,
+3 предупреждения. Сцена открыта для игры после сборки; текущие GUID ассетов
+сохранены, итоговая проверка журнала не обнаружила новых ошибок.
+Визуальное принятие владельцем и standalone-производительность остаются
+открыты. Stage 3 gate открыт, Stage 4 не начат.
+
+**Предыдущая техническая переделка — визуально отклонена:** первая
+реализация А / Б / А не принята: упрощённые гранёные формы и плоские цвета
+не соответствуют утверждённым эскизам. Модели пересобраны: у камня и руды
+крупные неровные поверхности со смягчёнными кромками, текстуры и рельеф
+трещин; у хвойного дерева отдельные объёмные ветви и фактурный ствол.
+Выбор эскизов D-037/D-038 остаётся в силе. Технический pass не заменяет
+визуальное принятие владельцем. Финальные материалы проверены в Unity:
+36/36 PlayMode, полный забег, рестарт и жизненный цикл трёх источников.
+Обновлённый Windows-билд собран: 0 ошибок, 3 предупреждения.
+Stage 3 gate открыт; переход к следующим моделям пока отложен.
+
+**История первой интеграции ресурсов D-032, до текущей переделки:** после подтверждения
+масштаба камеры начато согласование внешнего вида трёх существующих узлов
+добычи. Для камня подготовлены два обзорных эскиза:
+`art/concepts/stone_source_option_a_granite_boulder.png` (цельный валун с
+малыми камнями) и `art/concepts/stone_source_option_b_limestone_outcrop.png`
+(низкий пластинчатый выход породы). Это не игровые ассеты. Игрок выбрал
+камень А. По просьбе игрока сразу подготовлены также два эскиза дерева —
+`art/concepts/wood_source_option_a_broadleaf.png` (лиственное) и
+`art/concepts/wood_source_option_b_conifer.png` (хвойное), и два железной
+руды — `art/concepts/iron_ore_source_option_a_jagged_outcrop.png` (тёмный
+угловатый выход руды) и
+`art/concepts/iron_ore_source_option_b_upright_slabs.png` (три вертикальные
+плиты). Игрок выбрал дерево Б и руду А (D-038); руда изображает существующий
+ресурс «металл». Все три оригинальные модели произведены через
+`art/source/build_resource_sources.py`, исходники `.blend` и FBX хранятся рядом
+с остальными ресурсами Stage 3. Префабы привязаны к существующим узлам в
+`Stage3Rapid3DGamePilot`: дерево — 51620, камень — 28172, руда — 37478
+треугольников. У каждого один MeshRenderer, один материал и atlas albedo
+2048×2048; у камня и руды также normal map 2048×2048. Атлас хвои содержит
+зелёный фон и расширенные поля UV для устранения чёрной каймы на mip-уровнях.
+Приём и отбрасывание теней сохранены. Коллайдеров нет. Игровые
+правила, места узлов, добыча, истощение и восстановление не изменены.
+PlayMode 36/36, включая полный трёхволновый забег, рестарт и цикл каждого
+источника. Реальные кадры на стартовом и ближнем зуме:
+`art/review/resource_{stone,wood,metal}_game_{default,close}.png`. Локальный
+Editor-замер Camera.Render + чтение пикселя 1280×720 хранится в
+`Artifacts/S3-RESOURCE-SOURCES/render-comparison.txt`; это сравнение одного
+источника, не бюджет FPS готовой сборки. На GTX 1060 медианы с моделями
+8,932–10,866 мс, без соответствующего источника 9,641–11,167 мс. Большой
+разброс p95 (до 87,258 мс) не позволяет считать проверку стабильного FPS
+закрытой: standalone-профилирование остаётся в Stage 3 gate.
+Остаются визуальное принятие
+переделки, базовая нежить,
+законченный HUD, звуки D-032 и герой последней моделью. Финальные
+PlayMode-результаты сохранены в `Artifacts/S3-RESOURCE-SOURCES/playmode.xml`;
+Windows Development Build собран: 0 ошибок, 3 предупреждения
+(`Artifacts/S3-RESOURCE-SOURCES/build.txt`). Новых относимых ошибок в журнале
+Editor после сборки нет. Stage 3 gate открыт; Stage 4 не начат.
+
+**D-026 ближний предел по скринам игрока:** текущие 4× приближения оказались
+слишком крупными. По сравнению размера клеток на двух кадрах предел уменьшен
+до 2× приближения (ортографический размер 0,5× стартового). Дальний предел
+2×, плавность, центрирование героя и непроходимая рамка сохраняются. Проверить
+обе границы колеса, полный игровой цикл и открыть обновлённый билд.
+PlayMode 45/45 прошли, включая оба предела и полный забег с рестартом.
+Windows build собран и открыт из `Builds/Windows/Stage3CloserZoom/`; журнал
+подтвердил готовность игрового цикла и тактического вида без новой ошибки.
+
+
+**D-025 стабильная камера при WASD:** игрок сообщил, что зум меняется во время
+движения и нельзя отдалиться. Вместо зависимого от позиции лимита колесо
+плавно меняет масштаб до 2× стартового. Герой остаётся в центре. По выбору
+игрока существующие 32×32 игровые клетки окружены видимой непроходимой рамкой:
+она заполняет кадр у края, но не открывает добычу, строительство и пути врагам.
+Проверить постоянство масштаба при WASD, предел 2×, края кадра, полный забег,
+сборку и игровой запуск. D-024 сохранено ниже как история исправления.
+PlayMode 45/45 прошли, включая WASD без зума, плавный шаг, дальний предел 2×,
+углы кадра, полный забег и рестарт. Windows build собран и запущен;
+`art/review/stage3_tactical_game.png` обновлён снимком именно этого билда.
+
+
+**История D-024 (заменено D-025):** по кадру игрока дальний зум показывал область
+за картой, герой уходил из центра, а шаги колеса были резкими. Камера теперь
+держит героя в центре; предел отдаления зависит от ближайшего края карты и
+формата окна. Возле края вид автоматически приближается. Колесо задаёт цель,
+масштаб плавно движется к ней. Плоскость за картой удалена; сила шага по
+прежнему настраивается в Inspector. Проверить углы кадра, движение героя,
+плавность, клик по земле, полный забег и новый игровой запуск.
+Проверено: PlayMode 45/45, включая центр и четыре угла кадра в центре и у
+границ карты, плавный шаг и клик по земле. Windows player собран и запущен;
+журнал подтвердил готовность игрового цикла и тактического вида без новой
+относимой ошибки. Игроку открыт обновлённый билд для оценки ощущения камеры.
+
+**D-023 сила зума в Inspector:** после оценки резкого шага игрок попросил
+ползунок в правой панели Unity. Сила одного шага вынесена в сохраняемый asset
+`Assets/Stage3/VisualPilot/TacticalZoomSettings.asset` (1,05×–3×, начально
+1,4×). При открытии пилота asset автоматически выделяется в Inspector;
+изменение действует сразу в Play Mode и остаётся после него. Проверить
+управление, сохранение настройки, полный PlayMode-набор и запустить игру.
+Проверка завершена: PlayMode 45/45, Windows build стартовал без относимых
+ошибок, сцена снова запущена в Editor. Asset выбран в правом Inspector,
+привязка камеры и значение 1,4 подтверждены; игрок подберёт удобную силу.
+
+**D-022 колесо:** игрок повторно сообщил о слабом зуме. Убрана зависимость
+силы шага от предположения, что устройство всегда передаёт 120 единиц: любое
+ненулевое событие даёт не менее одного шага 2,5×. Пределы D-021 остаются 4×
+ближе и 8× дальше. Проверяются малый и стандартный delta, полный PlayMode
+набор и новая открытая Windows-сборка. Итог: PlayMode 45/45, новый Windows
+player запущен из `Builds/Windows/Stage3TacticalWheelFix/`; прежнее окно закрыто.
+Следующее прокручивание на устройстве игрока записывает сырой delta и
+достигнутый масштаб в Player log для проверки ощущения управления.
+
+**D-020 zoom:** по запросу игрока колёсико меняет масштаб текущей игровой
+камеры в пределах 2× ближе и 4× дальше стартового вида. Угол сохраняется;
+клики по клеткам и края поля проверяются на крайних масштабах.
+Проверка отдельного сценария 1/1 и всего PlayMode-набора 45/45 прошла;
+Windows-сборка `Builds/Windows/Stage3TacticalZoom/` обновлена. Открытая сцена
+`Stage3Rapid3DGamePilot` повторно запущена в Editor; реальный кадр —
+`art/review/stage3_editor_game.png`.
+
+**D-021 усиление:** после просмотра игрок счёл приближение и отдаление слабыми.
+Шаг колёсика увеличен до 1,8×, пределы расширены до 4× ближе и 8× дальше
+стартового масштаба. Угол и игровые границы карты сохраняются; проверка и
+обновлённая сборка фиксируются в handoff. PlayMode 45/45 прошли; новая Windows
+игра открыта из `Builds/Windows/Stage3TacticalZoomStrong/`. На максимальном
+отдалении камера отходит вдоль оси взгляда, чтобы весь кадр пересекал землю.
+
+**Активная работа, D-019:** игрок потребовал привести общую камеру и размещение
+башен к присланным TD/Dota-примерам. В рамках этого же Stage 3 выполняется
+полноценная адаптация вида: плоское поле с квадратной сеткой, наклонная общая
+камера, вертикальные runtime 3D башни, тени, ray/plane picking, объёмный preview
+и временные объёмные акторы. Это обязательная часть нынешнего пилота;
+не откладывать её на Stage 4 из-за стоимости переделки прежнего 2D-вида.
+Проверка: клики и границы клеток, запрет зелёной зоны, масштаб/перекрытия,
+движение и следование камеры, атаки/осада, полный забег и рестарт. Сцена —
+`Stage3Rapid3DGamePilot`, данные — `Stage3PlanarCorner`. Исходный Stage 2 остаётся
+регрессионной основой. Обновить `reports/game-design.html` и
+`reports/development-roadmap.html`, собрать Windows player и открыть игроку.
+
+Результат D-019: реализован и открыт `Builds/Windows/Stage3TacticalView`.
+После сообщения игрока, что Editor всё ещё показывает модель, в его открытом
+Unity запущена именно `Stage3Rapid3DGamePilot` в Play Mode и выбрана вкладка
+Game. Проверка Editor API подтвердила активную сцену, игровой режим и вышку;
+статус — `Artifacts/S3-RAPID-PILOT/editor-game-status.txt`.
+Фактический кадр — `art/review/stage3_tactical_game.png`: общая наклонная
+камера, вертикальная вышка, основание/тень, клетки и объёмные временные акторы.
+Ограничение камеры учитывает весь viewport у краёв карты. EditMode 76/76,
+PlayMode 44/44, включая мышь/запрет зелёной зоны, вертикаль FBX, движение,
+края камеры, полный двухролевой забег и рестарт в новой сцене. Финальная
+сборка и Player запустились без новой относимой ошибки. Обе HTML-страницы
+обновлены; впоследствии игрок принял башню и камеру (D-027). Stage 3 gate
+остаётся открытым.
+
+История входа: после принятого Stage 2 gate создан один оригинальный
+Blender-пилот и проверена цена адаптации 2D-координат, камеры, preview и
+prefabs. По D-027 выбран runtime 3D. Игровые правила не привязывать к
+конкретным визуальным ассетам.
+
+2026-09-25: игрок одобрил оригинальный концепт деревянной Rapid без лучника,
+но отклонил первую модель за чрезмерное упрощение и несходство. Ревизия 2
+перестроена: 4 ряда объёмной кровли, изогнутые рёбра, массивный каркас, перила,
+металлические обоймы/заклёпки и каменные основания. Один Blender-источник даёт
+FBX, текстурный атлас 2048² и изометрический спрайт. Геометрия пилота — 31 668
+треугольников, один MeshRenderer и один материал; это ещё не утверждённый
+бюджет для массового размещения. Рендер модели и снимок игры — `art/review/`.
+Модель стоит в отдельной **играбельной** сцене `Stage3Rapid3DGamePilot`: обычная
+платная покупка, тот же Stage 2 цикл, отдельный свет и визуальный поворот FBX
+для существующей XY-камеры. Префаб и сцена исходного Stage 2 не заменены.
+Спрайтовая копия также сохранена для сравнения. Ранее PlayMode 40/40 прошли;
+для финальной ревизии 2 прошли 3/3: две проверки пилота и существующий полный
+забег с победой и рестартом. Windows-билд собран и открыт; фактический игровой
+кадр проверен, новых относимых ошибок в финальном журнале запуска нет.
+Эта R2-проверка относится к предыдущему виду. D-019 заменяет временный поворот
+FBX полноценным видом общей поверхности и камеры; вспышка передаётся на меш
+узким визуальным адаптером. Прежняя рекомендация спрайтов снята: runtime 3D —
+активный путь пилота. Позднее игрок принял общий вид и выбрал runtime 3D
+по D-027. Остальные модели, UI и звук не начаты, Stage 3 gate не закрыт.
+
+Добавлять роли, волны, карту и улучшения только когда понятно, какое решение
+или проблему это улучшает. Балансировать после стабилизации полного цикла.
+
+Gate: выбран способ получить целевой мягкий мультяшный вид, малый арт-пилот
+проверен в Unity, принятый состав коммерческого MVP работает в полном забеге
+с нужными для него UI и звуком. Выпускать весь перечень возможных механик
+для этого не требуется.
+
+Отдельно решить, какие поздние идеи входят в коммерческий MVP: мирные здания
+на зелёной зоне, пассивная добыча, исследования, опыт, новые башни и ресурсы,
+расширенное исследование мира и возможный крафт. Их перечень в видении не
+означает автоматическую реализацию. Для каждого нового механизма создать
+краткий feature spec лишь при начале работы.
 
 ## Stage 4 — Beta And Polish
 
-Focus on defects, clarity, performance, hardware/resolution coverage, audio
-mix, selected localization and clean-machine QA. Lock content before release
-candidate qualification; avoid a late Blender pipeline or mass visual rebuild.
-
-Gate: release candidate passes full regression, starts on a clean Windows PC,
-has no new attributable console errors and does not lose supported data.
+Вход: утверждённый и работающий состав MVP. Исправить наблюдаемые проблемы
+читаемости, управления, производительности и стабильности на Windows. Новые
+механики добавлять только для закрытия доказанного пробела в основном цикле.
+Gate: полный забег и релевантная регрессия проходят на целевых конфигурациях,
+серьёзных блокеров нет.
 
 ## Stage 5 — Steam Readiness
 
-Prepare Steamworks legal/banking/tax requirements, app fee, store assets/copy,
-content survey, price, depots/branches and launch options early enough for
-review lead times. Publish Coming Soon after the visual direction and core
-feature set are stable. Submit store page and near-final build separately,
-then verify install, launch and rollback through Steam.
-
-Gate: Valve approves page/build; required Coming Soon interval has elapsed;
-the clean-PC Steam install and rollback/hotfix path work. Recheck current
-Steamworks policy before scheduling: the 2026-09-20 source snapshot recorded
-[app fee](https://partner.steamgames.com/doc/gettingstarted/appfee),
-[onboarding timing](https://partner.steamgames.com/doc/gettingstarted/onboarding),
-[release reviews](https://partner.steamgames.com/doc/store/releasing),
-[review lead times](https://partner.steamgames.com/doc/store/review_process) and
-[SteamPipe](https://partner.steamgames.com/doc/sdk/uploading).
+После фиксации визуала и функций подготовить страницу, материалы, сборку и
+тестовую установку через Steam. Проверить актуальные правила площадки в момент
+начала этой работы. Gate: страница и сборка одобрены, установка/обновление
+проверены. Подготовку аккаунта можно начать раньше, если она не отвлекает от
+Stage 2.
 
 ## Stage 6 — Release And First Patches
 
-Freeze the release candidate, back it up, run final smoke/regression, release,
-watch crashes and player reports, and ship verified hotfixes with short patch
-notes.
+Когда состав MVP действительно принят и работает, провести целевую проверку
+Windows, производительности, доступности управления, сохранения нужных данных
+и выпуска через Steam. Сам выпуск подтверждает владелец. После выпуска
+исправлять подтверждённые критические дефекты с узкой проверкой и путём отката.
 
-Gate: critical launch issues are resolved and the remaining backlog is split
-between patches and post-MVP experiments.
+## Stage 7 — Post-MVP Candidates
 
-## Stage 7 — Post-MVP Decisions
+По данным игры отдельно оценивать мирные постройки, пассивную добычу,
+исследования, крафт, расширенный мир, обучение, инструменты, автоматизацию и
+meta-прогрессию. Это условный этап без заранее заданного списка задач.
 
-Use playtest and sales evidence to evaluate tutorial, tool tiers,
-automation/logistics, roguelite progression, additional maps/biomes, other
-platforms and detailed Blender asset work separately. GPT-6 Astra may lead
-scoped Blender modeling, editing and review after that work is activated;
-it is not a standing cost for MVP. None is promised by the MVP plan.
+## Model Routing
 
-## Task Allocation, Models And Token Envelopes
+Это рекомендации для выбора в Codex, а не бюджет токенов, обязательство
+создать отдельный чат или основание расширять scope. Для обычной готовой задачи
+достаточно GPT-6 Sol / medium; GPT-6 Luna / medium подходит для узкой правки
+текста, данных или инвентаризации. GPT-6 Astra / high использовать при
+дорогом неоднозначном выборе или сложной межсистемной ошибке. Повышать усилие
+после конкретного неразрешённого факта, а не по номеру stage.
 
-Stage 0 and Stage 1 are complete: no new model or token allocation is planned
-for them. Their evidence remains above and in WORKSTREAMS.md. The allocations
-below cover only remaining Stage 2 work and future Stage 3–7 work packages.
-Future packages are scheduling units, not permission to build unapproved
-features or create feature specs before activation.
+- **Stage 2:** привязка двух башен и проверки сцены — GPT-6 Sol / high;
+  полный забег и исправление наблюдаемого дефекта — GPT-6 Sol / medium,
+  high только для сложного взаимодействия систем; фиксация gate — Sol / medium.
+- **Stage 3:** один пробный объект в Blender и его проверка в Unity —
+  GPT-6 Astra / medium для визуального решения, GPT-6 Sol / high для импорта
+  и технического пилота; после выбора pipeline производство моделей/UI/звука
+  — Sol / medium, сложная 3D-интеграция — Sol / high.
+- **Stage 4:** исправления и регрессия — Sol / medium; сложный pathing или
+  производительность — Sol / high.
+- **Stage 5:** материалы/чеклисты — Luna / medium; сборка, depot и установка —
+  Sol / high.
+- **Stage 6:** triage — Luna / medium; hotfix — Sol / high.
+- **Stage 7:** сравнение направлений — Astra / medium; конкретный прототип —
+  Sol / medium после отдельного выбора.
 
-One developer works through one implementation package at a time. A short
-decision or art brief may be prepared while a build or external review is
-waiting, but the Integration-owned scene has one writer. Stage 5 account and
-store preparation may begin during Stage 3/4 when its inputs are ready; its
-stage number names the release gate, not a prohibition on early preparation.
+## Documentation And Handoff
 
-Each range is a **soft cumulative allocation per task in thousands of tokens**
-for selected input/tool context plus visible output over its planned Codex
-runs. It excludes hidden reasoning, tool charges, retries caused by changed
-requirements and account quotas. Stop when acceptance is met; do not spend the
-upper bound merely because it exists. Stage totals below are sums of these
-task envelopes, with conditional tasks shown separately. After three
-comparable tasks, replace these estimates with measured usage and rework rate.
-In the Codex UI, medium/high/xhigh/ultra correspond to средний/высокий/очень
-высокий/ультра; ultra is an exception, never a default task assignment.
+При изменении поведения обновить соответствующий текущий feature spec и эту
+краткую картину состояния. Для межсистемной правки добавить одну запись в
+`production/WORKSTREAMS.md`: результат, изменённые файлы/контракты, проверка,
+остаток. Старые handoff и решения сохраняются как история, не как активный
+список задач.
 
-### Stage 2 — remaining tasks
+D-042 verification: Stage3/Integration/RunState PlayMode 40/40 (33.00 s);
+after final verge removal, capture/landscape 2/2 and clearance 1/1. Windows
+Development build 0 errors / 7 existing warnings; startup smoke passed.
+Evidence: `Artifacts/S3-ASTRA-VISUAL/`, `art/review/astra_*`. Visual acceptance
+remains open with the owner.
 
-S2-MAP-01, S2-INT-01, S2-MAP-02, S2-ECO-01, S2-BLD-01, S2-ECO-02,
-S2-DEF-01, S2-AI-02, S2-WAV-02 and S2-DEF-01-FIX are complete and
-receive **0 forward tokens**. The two decision packages retain their original
-allocations below for planning history;
-the original Stage 2 total is not a new remaining-work estimate.
-The following order follows Checkpoints B–D and the active feature
-spec; S2-INT-02 and S2-QA-01 recur at integration checkpoints.
-
-- **S2-ECO-01 · Политика ресурсных узлов — complete, 2026-09-24** — Economy/Design; GPT-6 Astra · high · исходный план 14–26k; P-003 принят как D-013, проверены правила против постоянного исчерпания; runtime и своевременное восстановление обороны проверяются в следующих пакетах.
-- **S2-BLD-01 · Строительство во время волны — complete, 2026-09-24** — Defense/Design; GPT-6 Astra · high · исходный план 14–26k; P-002 принят как D-014, проверены правила фаз, занятых клеток/переходов и отмены без траты; runtime verification остаётся downstream.
-- **S2-ECO-02 · Три ресурса и инвентарь — complete, 2026-09-24** — Economy; GPT-6 Sol · high · исходный план 28–50k; данные карты связывают добычу дерева/камня/металла, запас/восстановление, полную цену и reset; EditMode 47/47, PlayMode 22/22. Scene/Windows integration остаётся отдельным checkpoint.
-- **S2-DEF-01 · Оплаченное размещение — complete, 2026-09-24** — Defense; GPT-6 Sol · high · 32–58k; после S2-ECO-02/S2-BLD-01: один confirm, одна occupancy-транзакция, отказ без списания; EditMode 54/54, PlayMode 24/24.
-- **S2-DEF-01-FIX · Базовый урон башни — complete, 2026-09-24** — Defense; GPT-6 Sol · high (рекомендация родительского S2-DEF-01); одна базовая атака, пауза замораживает таймер и естественная победа волны подтверждена без новых ролей; EditMode 66/66, PlayMode 29/29.
-- **S2-AI-02 · Движение и siege — complete, 2026-09-24** — Waves/AI; GPT-6 Sol · high · 32–58k; после S2-MAP-02/S2-DEF-01: враг перестраивает путь, разрушает blocker и продолжает движение; EditMode 61/61, PlayMode 26/26.
-- **S2-WAV-02 · Минимальный run state — complete, 2026-09-24** — Waves/AI; GPT-6 Sol · high · 24–44k; после S2-AI-02: подготовка, волна, урон трону, win/lose/restart без утечек состояния; EditMode 65/65, PlayMode 28/28. Реальную победу должен обеспечить базовый урон башни в Defense и подтвердить Integration.
-- **S2-INT-02 · Пошаговая сборка сцены — complete, 2026-09-24** — Integration; GPT-6 Sol · high · 50–90k; реальная сцена связана, 33/33 PlayMode; Windows qualification передана S2-QA-01.
-- **S2-QA-01 · Регрессия и сборка — checkpoint complete, 2026-09-24** — Platform/QA; GPT-6 Sol · high · 38–70k; EditMode 66/66, PlayMode 33/33, fresh Console clean, Windows Development Build and Player startup pass. Повторяется после будущих integration checkpoints.
-- **S2-MAP-03 · Размер карты P-008 — analysis delivered, acceptance pending** — Design/Platform/Map; GPT-6 Astra · high · 24–44k; живые travel/frame/memory и 8 layout probes: рекомендация оставить 100x100/current masks для Stage 2. P-008 ждёт человека.
-- **S2-WAV-01 · Темп забега P-004 — cadence implemented, manual check pending** — Design/Waves; GPT-6 Astra · high · 18–32k; последовательность волн и сохранение состояния реализованы, EditMode 70/70 и PlayMode 34/34. Windows Development Build обновлён 2026-09-25 (`S2_INT_BUILD_OK`); запуск и игровой прогон новой сборки переданы человеку. Дополнительные агентские прогоны остановлены по его замечанию; окончательный темп и цель 15–25 минут остаются открыты.
-- **S2-AI-01 · Бриф различий врагов — brief delivered, acceptance pending** — Design/Waves; GPT-6 Astra · high · 12–22k; baseline + один siege specialist, существующие damage/path contracts достаточны; новые runtime profiles не добавлены.
-- **S2-DEF-02 · Различимые роли башен — Defense delivery complete, 2026-09-25** — Defense; GPT-6 Sol · high · 28–50k; Rapid/Longshot catalogs, paid selection and distinct silhouette pass focused EditMode 10/10 and PlayMode 3/3. Integration still must bind the second catalog in the real scene, show selection/price and qualify a live-map comparison; player comprehension and final balance remain open.
-- **S2-OBJ-01 · Побочная задача** — Run state; GPT-6 Sol · medium · 16–28k; после подтверждённых gather/build facts: один активный прогресс и награда ровно один раз.
-- **S2-UI-01 · Выбор UI stack P-006** — UI/Integration; GPT-6 Sol · high · 10–18k; до финального HUD: сравнить текущие сцены и нужные состояния, принять стек без миграции ради миграции.
-- **S2-UI-02 · HUD и build feedback** — UI/UX; GPT-6 Sol · high · 28–50k; после контрактов игры и P-006: читаемы ресурсы, волна, трон, цена, маршрут, цель и terminal state.
-- **S2-SAV-01 · Граница сохранения P-005** — Design/Platform; GPT-6 Sol · high · 10–18k; до persistence: принять run-save policy или явно перенести реализацию в Stage 3.
-- **S2-ART-01 · Визуальный бриф и права** — Art/Design; GPT-6 Sol · medium · 8–16k; по карте и D-003/D-012: silhouette/scale sheet и подтверждённое происхождение ассетов.
-- **S2-ART-02 · Простая среда и ресурсы** — Art; GPT-6 Sol · medium · 12–22k; после P-008: читаемые 2D surfaces, landmark и resource prefabs без Blender-полировки.
-- **S2-ART-03 · Акторы, башни и VFX** — Art; GPT-6 Sol · medium · 16–30k; после gameplay hooks: роли и удары различимы в busy-wave кадре без детальных 3D-моделей.
-- **S2-AUD-01 · Критический звук** — Audio; GPT-6 Sol · medium · 10–18k; после state hooks: различимые alerts, без клиппинга и с подтверждёнными правами.
-- **S2-QA-02 · Внешний playtest и gate** — Design/QA; GPT-6 Astra · high · 16–30k; после qualified build: наблюдение без подсказок и решение continue/rework/stop.
-
-Stage 2 allocation: **440–800k**; no token reallocation to completed tasks or
-detailed Blender work. If a task exceeds its upper band, narrow the evidence
-or split the task before raising reasoning effort.
-
-### Stage 3 — MVP Alpha packages
-
-These packages become implementation-ready only after the Stage 2 gate and
-the resulting scope decision. Counts in GAME_VISION.md remain ceilings.
-
-- **S3-SCOPE-01 · Зафиксировать состав MVP** — Design; GPT-6 Astra · high · 18–32k; после S2-QA-02: человек принимает нужные роли, контент и явные исключения без расширения D-001–D-012.
-- **S3-MAP-01 · Наполнить выбранную карту** — Map/Integration; GPT-6 Sol · high · 25–45k; после P-008: выбранная карта, ресурсы и landmarks работают без пустых переходов и потери читаемости.
-- **S3-ECO-01 · Экономика полного забега** — Economy; GPT-6 Sol · high · 25–45k; после S3-SCOPE-01/P-003: приток и расход дерева/камня/металла проходят весь run без soft-lock.
-- **S3-DEF-01 · Утверждённые башни** — Defense; GPT-6 Sol · high · 30–55k; после S3-SCOPE-01: роли различаются поведением, оплачиваются и меняют путь без сломанной occupancy.
-- **S3-AI-01 · Утверждённые враги и волны** — Waves/AI; GPT-6 Sol · high · 30–55k; после S3-SCOPE-01/P-004: escalation, siege и финальная победа работают с нужным контентом.
-- **S3-RUN-01 · Цели и состояние забега** — Run state; GPT-6 Sol · high · 22–40k; после S3-AI-01: phase, optional objective, win/lose/restart согласованы с D-008.
-- **S3-UI-01 · Настройки и доступность** — UI/UX; GPT-6 Sol · high · 25–45k; после P-006 и gameplay hooks: поддержаны утверждённые controls, настройки и базовая читаемость на целевых разрешениях.
-- **S3-ART-01 · MVP 2D-графика и звук** — Art/Audio; GPT-6 Sol · medium · 20–38k; после S3-SCOPE-01: необходимые ассеты оригинальны/лицензированы и читаемы без детального Blender pipeline.
-- **S3-SAVE-01 · Run-save при принятом P-005 (условно)** — Platform/Run state; GPT-6 Sol · high · 22–40k; только если P-005 требует сохранения забега: version/round-trip/corrupt-data/relaunch проходят тесты.
-- **S3-QA-01 · Alpha end-to-end gate** — Platform/QA; GPT-6 Sol · high · 36–65k; после активных S3-пакетов: полный run, update-path и регрессия без блокеров.
-
-Stage 3 allocation: **231–420k** for the base scope, plus **22–40k** only if
-P-005 accepts run-save implementation.
-
-### Stage 4 — Beta And Polish packages
-
-- **S4-LOCK-01 · Content lock и triage** — Design/QA; GPT-6 Astra · medium · 12–22k; после Alpha: утверждённый список дефектов и запрет незаметного расширения scope.
-- **S4-UX-01 · Исправить непонятные состояния** — UI/UX; GPT-6 Sol · high · 20–36k; по playtest evidence: build, route, wave, warning и terminal feedback понятны без подсказки.
-- **S4-PERF-01 · Производительность и память** — Platform/Navigation; GPT-6 Sol · high · 28–50k; по profiler capture: frame time, replan и memory на representative load в принятом бюджете.
-- **S4-COMPAT-01 · Windows/input/resolution** — Platform/QA; GPT-6 Sol · high · 20–36k; на целевых конфигурациях: окно, DPI, ввод, pause и relaunch работают.
-- **S4-AUDIO-01 · Аудиомикс и выбранные языки** — Audio/Localization; GPT-6 Sol · medium · 12–24k; после решения о языках: важные сигналы слышны, строки помещаются, права проверены.
-- **S4-QA-01 · Release candidate regression** — Platform/QA; GPT-6 Sol · high · 28–50k; после исправлений: clean-machine run и поддержанные данные проходят полный чеклист.
-
-Stage 4 allocation: **120–218k**.
-
-### Stage 5 — Steam Readiness packages
-
-Human/account actions remain with the owner; the model prepares checklists,
-copy, scripts and evidence. Recheck current Steamworks rules when each task
-starts. Store preparation can overlap earlier stages after visual/core lock.
-
-- **S5-ADMIN-01 · Steamworks onboarding** — Human/Platform; GPT-6 Sol · medium · 8–16k; до публикации: владелец подтверждает account, legal/tax/banking и app-fee status по актуальному Steamworks checklist.
-- **S5-STORE-01 · Store copy, assets, survey** — Marketing/Design; GPT-6 Astra · high · 16–30k; после стабильного визуала: страница обещает только функции текущей сборки, материалы имеют права.
-- **S5-PAGE-01 · Review и Coming Soon** — Human/Marketing; GPT-6 Sol · medium · 10–18k; после S5-STORE-01: страница отправлена, замечания закрыты, обязательные сроки проверены.
-- **S5-DEPOT-01 · SteamPipe/depot/branch** — Platform; GPT-6 Sol · high · 20–36k; после build contract: загрузка в тестовую ветку воспроизводима, launch options верны.
-- **S5-BUILD-01 · Near-final build review** — Platform/QA; GPT-6 Sol · high · 14–26k; после S4-QA-01: сборка соответствует store claims и одобрена по актуальному процессу.
-- **S5-SMOKE-01 · Steam install и rollback** — Platform/QA; GPT-6 Sol · high · 16–28k; из Steam на чистом Windows ПК: install, launch, update и возврат ветки проверены.
-- **S5-GATE-01 · Финальный Steam gate** — Human/Design; GPT-6 Astra · high · 12–22k; после S5-PAGE-01/S5-BUILD-01/S5-SMOKE-01: человек подтверждает готовность выпуска.
-
-Stage 5 allocation: **96–176k**. Account fees and other monetary costs are
-outside this token envelope.
-
-### Stage 6 — Release And First Patches packages
-
-- **S6-RC-01 · Freeze, backup, final smoke** — Platform/QA; GPT-6 Sol · medium · 8–14k; после S5 gate: известный build hash, backup, финальный запуск и rollback evidence.
-- **S6-LAUNCH-01 · Release action** — Human/Platform; GPT-6 Sol · medium · 6–12k; после S6-RC-01: владелец запускает release в Steam и фиксирует результат.
-- **S6-MONITOR-01 · Crash/feedback triage** — Platform/Support; GPT-6 Luna · medium · 12–24k; после выпуска: группировка воспроизводимых проблем и приоритет по влиянию на игроков.
-- **S6-PATCH-01 · Проверенный hotfix (условно)** — Owning system/QA; GPT-6 Sol · high · 24–44k; только при подтверждённом дефекте: узкий фикс, регрессия, публикация и rollback.
-- **S6-EXIT-01 · Стабилизация и остаток** — Design/QA; GPT-6 Astra · medium · 10–18k; после первой волны патчей: launch blockers закрыты, backlog разделён на patches/post-MVP.
-
-Stage 6 allocation: **36–68k** without a hotfix; add **24–44k** per activated
-S6-PATCH-01 cycle.
-
-### Stage 7 — Post-MVP Decision packages
-
-These are evaluations, not promised systems. Open a separate feature brief and
-budget only after a human go/no-go. D-012 keeps detailed Blender work here.
-
-- **S7-EVIDENCE-01 · Результаты MVP** — Design/Analytics; GPT-6 Astra · high · 18–34k; по playtest/sales/feedback: явные проблемы и сильные стороны до выбора нового scope.
-- **S7-VISUAL-01 · Решить формат Blender-ассетов** — Art/Design; GPT-6 Astra · xhigh · 20–38k; после S7-EVIDENCE-01: человек выбирает 2D sprite source либо runtime 3D и при необходимости supersedes D-003.
-- **S7-BLENDER-01 · Пилот одного ассета (условно)** — Art; GPT-6 Astra · high · 25–45k; только после S7-VISUAL-01: один лицензированный/оригинальный asset проходит Blender-to-game проверку до массового производства.
-- **S7-SYSTEMS-01 · Оценить tutorial/tools/automation/meta** — Design; GPT-6 Astra · high · 20–38k; после данных MVP: каждое направление получает отдельный benefit/cost/gate, без автоматического принятия.
-- **S7-PLATFORM-01 · Другие платформы** — Platform/QA; GPT-6 Sol · high · 12–24k; при запросе на порт: проверить стоимость поддержки и тестовую матрицу до обещания.
-- **S7-GATE-01 · Выбрать следующую итерацию** — Human/Design; GPT-6 Astra · high · 14–26k; после оценок: человек принимает только одну готовую следующую цель и её ресурсный предел.
-
-Stage 7 allocation, only if activated: **84–160k** for evaluation; add
-**25–45k** for the conditional Blender pilot. This is a decision budget,
-not authorization to implement all post-MVP candidates.
-
-Across mandatory remaining Stage 2–6 packages the initial visible/context
-allocation is **923–1,682k tokens**. Conditional run-save and one hotfix would
-add **46–84k**. Stage 7 is separate. These are sums of planning envelopes,
-not a forecast of actual Codex usage or a spending target.
-
-## Stage Opening Prompts
-
-Use one Codex dialogue for each stage. Paste the corresponding prompt once at
-the start of that dialogue; continue its tasks in the same dialogue. The task
-list above remains the source for each package's model, reasoning level and
-token envelope. A prompt cannot change Codex UI settings by itself: select the
-listed model and level for the next task in that dialogue. Stage 5 preparation
-may start early in its own dialogue when its inputs are ready. These prompts
-do not waive human decisions or stage gates.
-
-### Stage 2 — стартовый промпт
-
-```text
-Веди Stage 2 проекта Not 3A в этом диалоге до решения по gate. Сначала прочитай AGENTS.md, GAME_VISION.md, DEVELOPMENT_PLAN.md, DECISIONS.md, WORKSTREAMS.md и STAGE2_VERTICAL_SLICE.md; проверь Git, Unity-сцены, тесты и фактический статус. Stage 0–1 завершены, S2-MAP-01, S2-INT-01 и S2-MAP-02 закрыты: не повторяй их без нового дефекта. Иди по готовым пакетам Stage 2 из DEVELOPMENT_PLAN.md в порядке зависимостей, по одному пакету реализации за раз. Перед каждым пакетом назови ID, рекомендуемые модель/уровень из плана, владельца поверхности, входы и критерий готовности; настройки модели и уровня я выбираю в этом же диалоге. Реализуй и проверяй пакет, обновляй канонические документы и handoff. Сначала собери на реальной карте цикл добыча → оплаченное строительство → маршрут/осада → трон → исход/рестарт, затем измеряй масштаб и темп, доводи читаемость и проведи внешний playtest. Детальные Blender-модели не входят в Stage 2. По gate предъяви сборку, тесты, наблюдения игрока и конкретное решение continue/rework/stop; не объявляй этап закрытым без этих данных.
-```
-
-### Stage 3 — стартовый промпт
-
-```text
-Веди Stage 3 MVP Alpha проекта Not 3A в одном диалоге. Сначала прочитай AGENTS.md, GAME_VISION.md, DEVELOPMENT_PLAN.md, DECISIONS.md, WORKSTREAMS.md и результат Stage 2 gate; проверь Git и Unity. Если Stage 2 не принят, покажи недостающие данные и не начинай Alpha. Начни с S3-SCOPE-01: подготовь для моего решения ровно тот состав MVP, который подтверждён playtest и ограничениями GAME_VISION.md. Затем выполняй готовые пакеты Stage 3 по зависимостям, по одному пакету реализации за раз. Перед каждым назови ID, модель/уровень из плана, владельца, входы и критерий; настройки я выбираю в этом диалоге. Не расширяй content ceiling и не запускай детальный Blender pipeline. S3-SAVE-01 выполняй только при принятом P-005. После каждого пакета проверяй поведение, тесты и Console, обновляй канонический план и handoff. Заверши Alpha полным забегом, проверкой пути обновления и списком блокеров/рисков для следующего gate.
-```
-
-### Stage 4 — стартовый промпт
-
-```text
-Веди Stage 4 Beta и полировку Not 3A в одном диалоге. Проверь AGENTS.md, GAME_VISION.md, DEVELOPMENT_PLAN.md, DECISIONS.md, WORKSTREAMS.md, принятый Stage 3 gate, Git, Unity и результаты playtest; если Alpha не принята, сначала покажи блокирующие пробелы. Начни с content lock и triage по доказанному влиянию на игрока. Затем иди по готовым пакетам Stage 4, один пакет реализации за раз; перед каждым указывай ID, модель/уровень из плана, владельца, зависимости и критерий, чтобы я выставил настройки в этом же диалоге. Исправляй ясность игровых состояний, производительность, Windows/input/resolution и аудио/локализацию без расширения контента и без позднего Blender-перехода. Для каждого исправления оставляй проверку и обновляй канонические документы/handoff. Заверши этап release candidate regression и clean-machine проверкой; покажи оставшиеся риски до решения по gate.
-```
-
-### Stage 5 — стартовый промпт
-
-```text
-Веди Stage 5 Steam Readiness Not 3A в одном диалоге. Проверь AGENTS.md, GAME_VISION.md, DEVELOPMENT_PLAN.md, DECISIONS.md, WORKSTREAMS.md, текущую сборку, Git и актуальные официальные правила Steamworks. Подготовку страницы и аккаунта можно начать до окончания Stage 4, когда зафиксированы визуал и функции; финальный gate требует принятый release candidate. Иди по готовым пакетам Stage 5, перед каждым назови ID, модель/уровень из плана, владельца, входы и критерий; настройки я выбираю в этом диалоге. Готовь copy, материалы, чеклисты, depot/branch и доказательства install/update/rollback. Юридические, банковские, ценовые и публикационные действия оставляй владельцу проекта. Сверяй обещания страницы с реальной сборкой и проверяй сроки/review заново. Не объявляй Steam gate пройденным без подтверждения страницы, сборки и проверки установки через Steam.
-```
-
-### Stage 6 — стартовый промпт
-
-```text
-Веди Stage 6 выпуска и первых патчей Not 3A в одном диалоге. Сначала проверь AGENTS.md, DEVELOPMENT_PLAN.md, DECISIONS.md, WORKSTREAMS.md, принятый Steam gate, Git, точный build hash, backup и rollback; без этого не переходи к выпуску. Иди по пакетам Stage 6 в порядке зависимостей, перед каждым указывай ID, модель/уровень из плана, владельца и критерий, чтобы я выставил настройки в этом же диалоге. Подготовь финальный smoke и выпускной чеклист; само действие release выполняет владелец проекта. После выпуска группируй реальные crash/feedback, приоритизируй по влиянию и делай S6-PATCH-01 только для подтверждённого дефекта с узким тестом и путём отката. Обновляй канонические документы/handoff. Заверши этап перечнем закрытых launch blockers и разделением остатка на патчи и post-MVP.
-```
-
-### Stage 7 — стартовый промпт
-
-```text
-Веди Stage 7 решений после MVP Not 3A в одном диалоге только после моего явного решения открыть этап. Прочитай AGENTS.md, GAME_VISION.md, DEVELOPMENT_PLAN.md, DECISIONS.md, WORKSTREAMS.md и данные playtest, продаж и отзывов; проверь Git и текущее состояние проекта. Начни с S7-EVIDENCE-01 и оцени направления по отдельности, без обещания реализовать их все. Перед каждым пакетом назови ID, модель/уровень из плана, владельца, входы и критерий; настройки я выбираю в этом диалоге. Для Blender сначала вынеси на моё решение формат: источник 2D-спрайтов или runtime 3D, включая последствия для D-003. Только после этого и отдельного принятия бюджета делай пилот одного ассета через GPT-6 Astra. Не запускай массовое производство моделей, automation, meta-progression или портирование по умолчанию. Заверши сравнением вариантов, затрат и проверяемых gate; попроси выбрать одну следующую цель.
-```
-
-## Documentation At Each Gate
-
-- GAME_VISION.md and DECISIONS.md own stable player/product truth.
-- This file owns stage status and gates; WORKSTREAMS.md owns task claims and
-  handoffs. Do not create a parallel roadmap or QA tracker.
-- One active feature spec defines a nontrivial mechanic when implementation
-  starts. Existing Stage 1 specs remain evidence, not new Stage 2 mandates.
-- Technical architecture is written only after a durable boundary is measured.
-  Unity data assets own runtime balance; documentation owns intent and rules.
+D-042 final follow-up: focused combat/capture/landscape 4/4 (17.32 s) after
+border seam and painted flight-stone correction. Final Windows build succeeded
+with 0 errors / 7 existing warnings. Close throw: `art/review/astra_catapult_throw_60fps.mp4`.

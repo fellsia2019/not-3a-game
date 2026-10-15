@@ -1,0 +1,66 @@
+Built-in imagegen, 2026-09-26.
+
+Shared prompt for all three variants:
+
+Use case: stylized-concept
+Asset type: visual approval concept for a runtime 3D Unity tower-defense objective
+Input images: Image 1 is the approved wooden watchtower style reference; Image 2 is the approved landscape palette and is only a mood/color-context reference.
+Scene/backdrop: neutral pale blue-gray studio ground, subtle contact shadow, no environment.
+Subject role: the player's loss-critical throne/objective, a sacred icy crystal monument that must read clearly from a fixed elevated isometric gameplay camera and fit inside one square gameplay cell.
+Style/medium: polished original stylized 3D game concept render, soft hand-painted fantasy materials, readable chunky shapes, production-feasible geometry, visually compatible with the existing wooden watchtower.
+Composition/framing: one object only, centered, three-quarter elevated orthographic view matching an isometric game camera, full object visible with empty margin.
+Color palette: cold cyan, pale blue and deep blue ice, restrained dark stone and muted silver accents.
+Materials/textures: faceted translucent-looking ice communicated through painted opaque game materials, frosted edges, chipped stone base, restrained detail that survives at small screen size.
+Constraints: original design; stable broad base; compact one-cell footprint; clearly recognizable silhouette; no character, no weapons, no skulls, no text, no logo, no UI, no watermark.
+Avoid: direct or close reproduction of any Warcraft location or throne, photorealism, thin fragile needles, excessive VFX, floating particles, busy background.
+
+Variant A:
+
+Variant A — Ice Crown Obelisk: a single dominant tall tapered conical crystal monolith, slightly asymmetric and faceted, emerging from a low octagonal dark-stone plinth. A few short supporting crystal fins hug the lower third. The upper silhouette resembles a simple frozen crown through three broad facets, not a chair. Strong vertical cone shape and very clean gameplay silhouette.
+
+Variant B:
+
+Variant B — Frozen Throne Spire: a recognizable empty throne carved as one chunky ice formation. Low cubic stone-and-ice seat, compact blocky armrests, and a very high tapered triangular/conical crystalline back that narrows to a broken crown-like tip. Broad back plane, deep central blue fracture, monumental and severe but still soft stylized fantasy. No person sitting on it.
+
+Variant C:
+
+Variant C — Glacial Core Shrine: a squat square dark-stone pedestal with four beveled corner braces supporting one large upright inverted-teardrop/conical ice crystal. A shallow frozen ring joins crystal and base. The crystal is the obvious protected heart, with a clean diamond-to-cone silhouette and broad readable facets. No hovering; crystal is firmly socketed into the base.
+
+Selected-direction revisions, built-in imagegen, 2026-09-26.
+
+Shared revision prompt:
+
+Use case: precise-object-edit
+Asset type: revised visual approval concept for a runtime 3D Unity tower-defense objective
+Input images: Image 1 is the edit target, the selected Ice Crown Obelisk concept. Image 2 is only the approved wooden watchtower style reference.
+Primary request: preserve the selected object's tall tapered conical ice-obelisk identity, broad dark-stone one-cell base, elevated isometric camera, centered composition, proportions, soft stylized fantasy rendering and neutral studio backdrop. Make it unmistakably the single most important protected object on the map: the player's soul has been magically imprisoned inside it by an evil sorceress, and if the obelisk is shattered the player dies.
+Readability goal: at small gameplay scale, first read is a monumental ice crown; second read is a clearly visible captive soul core inside the central crystal; third read is a deliberate magical prison anchored into the base.
+Production constraints: original design, feasible as a compact runtime 3D model, chunky readable parts, opaque hand-painted ice materials may simulate translucency, one square-cell footprint, no character standing outside the crystal, no text, no UI, no logo, no watermark, no copied Warcraft symbols or throne shapes, no thin fragile decoration, no busy environment.
+
+Revision A1 — Soul Prism:
+
+Open a large clean diamond-shaped window in the lower-middle face of the main crystal. Inside it sits one clearly visible dark cobalt faceted cube/prism containing a small white-cyan flame-like soul glow. Four thick muted-silver bands rise from the stone base and clasp the main crystal like a ritual seal. Add a restrained circular cyan energy channel carved into the base, visually connecting all four anchors. Keep the upper crown facets simple and tall. The soul core must become the strongest focal point through dark-light contrast, while the object remains solemn rather than evil. Change only these narrative and hierarchy features; preserve the original overall form and camera.
+
+Revision A2 — Witch's Frozen Reliquary:
+
+Open a deep vertical fracture/window through the front of the central obelisk. Inside is a large violet-blue faceted soul cube with a pale ghostly flame trapped at its center. Four heavy blackened-silver clamps and short chains bind the ice to the altar, and subtle violet cracks travel from the core into the surrounding blue ice. The side crystals lean inward like a cage, while the top remains a high simple frozen crown. The base has one bold circular seal, no tiny runes. The result should feel cursed, precious and life-critical without horror imagery. Change only these narrative and hierarchy features; preserve the original overall form and camera.
+
+Revision A3 — Homogeneous Monolith, built-in imagegen, 2026-09-26:
+
+Use case: precise-object-edit
+Asset type: revised visual approval concept for a runtime 3D Unity tower-defense objective
+Input image: the sole edit target.
+Primary request: change the ice structure into ONE continuous homogeneous monolithic crystal. Remove every separate ice shard: remove both side crystals, remove the small front crystal, remove the crown-like cluster of overlapping ice spikes, and remove any loose snow or secondary ice growths. The main ice must be a single tall solid tapered obelisk, broad at the bottom and narrowing into one asymmetrical conical point, with large continuous faceted planes carved from one piece.
+Preserve: the same elevated isometric camera, centered framing, one-cell dark stone altar base, muted-silver retaining bands, cyan circular energy channel, diamond-shaped window, dark cobalt soul prism and white-cyan captive soul flame. Reposition the metal retainers so they grip the single monolith directly from the base. Preserve the stylized hand-painted fantasy rendering and neutral blue-gray studio background.
+Visual hierarchy: the one-piece crystal is monumental and calm; the bright captive soul inside is the only internal focal point and makes the object feel life-critical.
+Constraints: exactly one ice body; no attached or surrounding ice pieces; no ice towers; no ice splinters; no crystalline decoration on the base; no chains; no violet magic; original design; chunky production-feasible geometry; no character, text, logo, UI or watermark. Change only the ice construction and required retainer placement.
+
+Revision A4 — Smooth Monolith, built-in imagegen, 2026-09-26:
+
+Use case: precise-object-edit
+Asset type: final visual approval revision for a runtime 3D Unity tower-defense objective
+Input image: the sole edit target.
+Primary request: make the single ice monolith SMOOTH and visually calm. Remove the many small facets, polygon patches, chipped planes, surface cracks, frosty brush noise and mosaic-like texture from the ice. Shape it as one continuous, gently asymmetrical tapered ice cone/obelisk with a smooth sculpted surface and only 3–5 very broad transitions that describe its volume. The outer silhouette should flow continuously from a wide base to one clean slightly leaning point.
+Preserve exactly: one homogeneous ice body with no separate ice shards; the embedded dark cobalt soul prism and white-cyan soul flame in its front window; the one-cell dark stone altar; the restrained metal retaining supports; the cyan circular energy channel; the elevated isometric camera, centered composition, proportions, soft stylized fantasy look and neutral studio background.
+Material: clean semi-opaque blue ice with a subtle vertical gradient, faint internal depth and soft edge highlights; no busy texture and no cut-gem appearance. The soul window may have one clean beveled rim, while the rest of the monolith stays smooth.
+Constraints: no satellite crystals, no front crystal, no ice crown cluster, no chains, no violet magic, no runes, no small facets, no cracks, no loose snow, no text, no logo, no UI, no watermark. Change only the monolith surface and its silhouette smoothness.

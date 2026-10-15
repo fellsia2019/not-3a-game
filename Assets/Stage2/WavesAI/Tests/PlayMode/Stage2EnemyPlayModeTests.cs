@@ -30,6 +30,7 @@ namespace Not3A.Stage2.WavesAI.Tests
             defenseCatalog = AssetDatabase.LoadAssetAtPath<Stage2DefenseCatalog>("Assets/Stage2/Defense/Data/Stage2DefensePrototype.asset");
             navigation = new Stage2Navigation(map);
             inventory = new Stage2Inventory();
+            inventory.TryAddGold(5);
             defense = new Stage2Defense(map, navigation, inventory, defenseCatalog,
                 () => map.CellToWorld(map.Throne), () => Object.Instantiate(defenseCatalog.TowerPrefab));
             defense.SetRunState(Stage2BuildPhase.Wave, false);
@@ -58,7 +59,7 @@ namespace Not3A.Stage2.WavesAI.Tests
             Assert.That(group.IsCellProtected(destination), Is.True);
             Assert.That(navigation.Revision, Is.Zero);
             foreach (var kind in new[] { MapResourceKind.Wood, MapResourceKind.Stone, MapResourceKind.Metal })
-                inventory.TryAdd(kind, 1);
+                inventory.TryAdd(kind, kind == MapResourceKind.Wood ? 2 : 1);
             defense.BeginPlacement();
             defense.SetPreviewCell(destination);
             Assert.That(defense.TryConfirm(out _), Is.EqualTo(PlacementResult.EnemyProtected));
@@ -73,7 +74,7 @@ namespace Not3A.Stage2.WavesAI.Tests
         public IEnumerator SiegeDamage_ReleasesBlockerAndAllowsFreshRouteInPlayMode()
         {
             foreach (var kind in new[] { MapResourceKind.Wood, MapResourceKind.Stone, MapResourceKind.Metal })
-                inventory.TryAdd(kind, 1);
+                inventory.TryAdd(kind, kind == MapResourceKind.Wood ? 2 : 1);
             var cell = new Vector2Int(0, 0);
             defense.BeginPlacement();
             defense.SetPreviewCell(cell);

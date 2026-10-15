@@ -3,7 +3,9 @@
 Status: S2-AI-01 brief and consolidated contract review delivered, 2026-09-24.
 Proposed breadth is pending product
 acceptance, not implemented or added to the runtime catalogs.
-Owner: Design/Waves; GPT-6 Astra / high recommended by DEVELOPMENT_PLAN.md.
+Under D-015 this proposal is parked until a complete basic run reveals a need
+for another enemy. It is not on the first-playable critical path.
+Owner: Design/Waves; historical planning preset was GPT-6 Astra / high.
 Inputs: D-009/D-014, S2-AI-02 movement/siege, S2-WAV-02 run baseline and the
 S2-MAP-03/S2-WAV-01 decision drafts.
 

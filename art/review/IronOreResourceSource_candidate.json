@@ -1,0 +1,25 @@
+{
+  "triangles": 9464,
+  "parts_before_join": 13,
+  "materials_before_bake": 2,
+  "bounds": [
+    [
+      -0.6742,
+      0.6957
+    ],
+    [
+      -0.4943,
+      0.6195
+    ],
+    [
+      -0.0123,
+      1.1323
+    ]
+  ],
+  "size": [
+    1.3699,
+    1.1138,
+    1.1446
+  ],
+  "preview_only": true
+}

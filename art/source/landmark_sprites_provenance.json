@@ -1,0 +1,23 @@
+{
+  "created": "2026-10-15",
+  "generator": "Built-in image_gen.imagegen",
+  "scope": "Replace only the existing portal and soul objective visuals with smooth cartoon sprites; preserve map anchors, 3x3 exclusion, spawn/throne rules and visible magical motion.",
+  "assets": [
+    {
+      "asset": "Assets/Stage3/LandmarkSpritePilot/PortalCartoon.png",
+      "identityReference": "art/concepts/entrance_portal_option_b4_dark_red_ring.png",
+      "styleReference": "art/concepts/sprite_style_review_2026-10-15/b_cartoon_2d.png",
+      "prompt": "art/source/portal_cartoon_sprite_prompt.txt",
+      "original": "C:/Users/MushketCO/.codex/generated_images/01a13f3d-78fe-71f2-b4d8-caf638481ec6/exec-a25513c0-8950-474e-95e8-3020dfe5d2e4.png"
+    },
+    {
+      "asset": "Assets/Stage3/LandmarkSpritePilot/SoulObjectiveCartoon.png",
+      "identityReference": "art/concepts/throne_soul_sphere_ice_dome.png",
+      "styleReference": "art/concepts/sprite_style_review_2026-10-15/b_cartoon_2d.png",
+      "prompt": "art/source/soul_objective_cartoon_sprite_prompt.txt",
+      "original": "C:/Users/MushketCO/.codex/generated_images/01a13f3d-78fe-71f2-b4d8-caf638481ec6/exec-4f8c065d-4755-4c8e-9a0b-01f18bf898d5.png"
+    }
+  ],
+  "rights": "All reference inputs are original project-generated concepts, no third-party image/mesh input. Original PNGs copied unchanged. Unity import sets pivots, scale and transparency; a shader animates the red center and cyan energy without modeling in Blender.",
+  "status": "User-authorized sprite implementation; visual result awaits owner review. Original Blender sources and 3D prefabs preserved."
+}

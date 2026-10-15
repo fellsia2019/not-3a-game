@@ -3,9 +3,38 @@
 Status: S2-MAP-01 complete, 2026-09-21. S2-MAP-03 measured recommendation is
 ready for human P-008 review, 2026-09-24; see its section below.
 Owner/workstream: Foundation / Map
-Depends on: D-003, D-009–D-011, accepted Stage 1 `IsoGrid` conversion and
+Depends on: D-009–D-011, accepted Stage 1 `IsoGrid` conversion and
 dynamic-pathing contracts
 Runtime asset: `Assets/Stage2/Map/Data/Stage2Map100x100.asset`
+
+D-015 supersedes the former D-003 pixel-art target. The 100x100 asset and
+measurements remain historical evidence. D-016 is implemented in a separate
+32x32 playable asset: portal and throne share the lower corner; wood, stone and
+metal extend right, left and upward in the isometric view. Combat tower
+placement requires the gray `InvasionCorridor` surface in addition to the
+general masks. The old 100x100 asset stays intact for historical navigation
+and performance tests.
+
+## D-016 Playable Map, 2026-09-25
+
+Stage 3 D-019 adds an opt-in planar coordinate layout in the separate
+`Stage3PlanarCorner` asset; this Stage 2 asset remains on the original IsoGrid
+projection. Map consumers clamp and convert through `Stage2MapDefinition`.
+See `STAGE3_TACTICAL_VIEW.md` for the camera/ground migration and its checks.
+
+`Stage2Corner32x32.asset` is now the asset wired into `Stage2VerticalSlice`.
+Its bounds are (-16,-16) through (15,15), with the gray defense area at the
+lower corner. Entrance (-14,-12) and throne (-5,-12) are nine route cells
+apart. The three reachable forest anchors are wood (10,-10), stone (-10,10)
+and metal (10,10). The full compact field is within camera bounds. The
+`Create or Update Corner Playable Map` Editor command reproduces the asset;
+the Integration scene builder uses the same asset and spawns the hero on the
+green edge between entrance and throne, so both landmarks are visible at
+startup. Map validation, route/diversion, siege, camera, and resource
+access are covered by EditMode/PlayMode checks. These coordinates are current
+Unity data, not a final size or balance commitment. A player completed a run
+and confirmed the final startup view and resource directions are clear; no
+distance complaint was reported.
 
 ## Outcome And Scope
 
@@ -177,6 +206,12 @@ dominant entrance-camping strategy or human comprehension.
 
 ### Human Clarification — Future Map Composition, 2026-09-24
 
+Historical proposal, superseded in part by D-016 on 2026-09-25: the player
+selected the corner composition and accepted gray-only combat towers for the
+first playable. The bullets below describe the earlier alternatives, not the
+current implementation brief. General walkability still does not confine
+enemies to gray cells.
+
 The current priority is proving the playable core with the MVP scope. The
 100x100 recommendation concerns this test slice; it does not fix the eventual
 map's size, shape or placement rules. The following are human-proposed future
@@ -197,6 +232,6 @@ Keep these options in this spec until a map revision becomes active; do not
 create speculative feature documents or introduce new architecture for them.
 No scene, masks or runtime values change with this clarification. Scope and
 verification of a later revision must be agreed when it becomes necessary.
-Detailed Blender production remains later, separately scoped work under D-012,
+Detailed Blender production remains later, separately scoped work under D-015,
 not a prerequisite for proving the Stage 2 loop. This clarification does not
 accept the pending cadence or enemy-role proposals.
