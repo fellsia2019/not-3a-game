@@ -35,18 +35,18 @@ namespace Not3A.Stage3.VisualPilot.Editor
 
         internal static void Build(Stage2MapDefinition map)
         {
-            var bounds=new MapCellArea(new Vector2Int(-50,-50),new Vector2Int(100,100));
+            var bounds=new MapCellArea(new Vector2Int(-125,-125),new Vector2Int(250,250));
             var corridor=new List<MapSurfaceRegion>();
             var buildAreas=new List<MapCellArea>();
             // Union the square-ended, seven-cell strips, then emit disjoint row
             // spans for the existing map format. Adjacent arms remain separated by grass.
-            for(var y=-50;y<50;y++)
+            for(var y=bounds.Minimum.y;y<=bounds.MaximumInclusive.y;y++)
             {
-                for(var x=-50;x<50;x++)
+                for(var x=bounds.Minimum.x;x<=bounds.MaximumInclusive.x;x++)
                 {
                     if(!OnRoad(x,y))continue;
                     var first=x;
-                    while(x+1<50 && OnRoad(x+1,y))x++;
+                    while(x<bounds.MaximumInclusive.x && OnRoad(x+1,y))x++;
                     var area=new MapCellArea(new Vector2Int(first,y),new Vector2Int(x-first+1,1));
                     corridor.Add(new MapSurfaceRegion(MapSurfaceKind.InvasionCorridor,area));
                     buildAreas.Add(area);

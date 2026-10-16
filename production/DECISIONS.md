@@ -876,12 +876,30 @@ or gameplay tuning are not selected.
 Candidates: `art/concepts/resource_sprite_review_2026-10-15/`; exact prompts,
 generation/refinement sources and hashes: `art/source/resource_sprite_preview_2026-10-15_*`.
 
+## D-049 — Expand green world around the accepted road to 250×250
+
+Status: explicitly accepted by the owner, 2026-10-16; implemented and verified
+on Windows (Map/Navigation EditMode 47/47, Stage3/Integration/RunState PlayMode
+47/47, successful Development build and standalone startup).
+Expand the existing Stage 3 map from 100×100 to 250×250 by adding green land
+around the current road. Keep the road and combat area unchanged. Bounds grow
+75 cells on each side with no rescaling or translation of the existing cells.
+Preserve the accepted double zigzag, its seven-cell width, build masks and
+reservations, portal/throne, hero start, all three resource anchors and rules.
+New forest permits hero movement but neither combat towers nor enemy routes.
+Camera bounds and the passive minimap cover the larger world using existing
+behavior; camera angle and zoom limits remain as approved.
+This supersedes D-034's world dimensions and D-045's 100×100 world bounds,
+while retaining D-045's accepted route (1,582 gray cells; 195 unopposed steps).
+New resource placements, content, mechanics, streaming and balance changes
+require their own current requirement. Stage 3 remains open.
+
 ## Pending Product Decisions
 
-- Угловая композиция карты и правило серой зоны приняты D-016. Точный размер,
-  расстояния, форма коридора и темп волн уточняются после ручного забега.
-  Текущие 32×32 и три волны — кандидаты, не обязательный размер или баланс.
-  Прежние P-004/P-008 анализы остаются свидетельствами в feature specs.
+- Текущая карта Stage 3 — 250×250 по D-049, дорога принята D-045.
+  Темп длинного маршрута и будущие места исследования/добычи ещё оцениваются.
+  Три волны — текущий кандидат, не окончательный баланс. Старые размеры и
+  P-004/P-008 анализы остаются историческими свидетельствами в feature specs.
 - D-039–D-041 повторно проверяют спрайтовое производство для выбранных объектов;
   D-027 остаётся историческим решением о 3D, камера сохраняется. Состав коммерческого
   MVP принят D-032; вид каждой следующей модели и бюджет массового

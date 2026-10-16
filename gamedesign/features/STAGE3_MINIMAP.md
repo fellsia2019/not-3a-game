@@ -41,9 +41,16 @@ Build/camera drivers accept a scene-owned pointer exclusion delegate; minimap
 teardown removes it. Disabled maps stop excluding input.
 
 Markers read existing state every LateUpdate without scene searches. The
-100×100 terrain uses one cached 300×300 texture with a maximum edge of 512 for
-larger authored maps; only the panel/markers/camera outline redraw. This is a
+D-049 250×250 terrain uses one cached 512×512 texture (the former 100×100
+map used 300×300); only the panel/markers/camera outline redraw. The existing
+512-pixel edge limit handles the larger bounds without a UI change. This is a
 schematic map, so it does not change the grass or paving assets in the world.
+
+2026-10-16, D-049: Windows Stage3/Integration/RunState PlayMode 47/47 includes
+the expanded 250×250 terrain, live hero marker beyond the former boundary and
+camera footprint at the new map edge. All-cell terrain comparison and panel
+input protection pass. The existing cached texture remains capped at 512×512.
+Evidence: `Artifacts/S3-WORLD-250-20261016/`.
 
 Visual capture requires the interactive Editor's displayed Game view: use
 `Tools > Stage 3 > Minimap > Capture Live Game`. It captures the actual frame

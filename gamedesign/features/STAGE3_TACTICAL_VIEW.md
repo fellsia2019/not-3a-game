@@ -2,6 +2,30 @@
 
 Active brief: D-019, 2026-09-25. Owner: Stage 3 visual integration.
 
+2026-10-16, D-049: expand the green world to 250×250, adding 75 cells on each
+side of the former 100×100 bounds. Playable and camera bounds become
+(-125,-125)..(124,124); cell scale, fixed view angle and zoom stay unchanged.
+The accepted D-045 road, all 1,582 gray cells, build masks/reservations,
+portal/throne, hero start and three resource anchors retain their coordinates.
+The enemy route remains 195 steps. New forest is walkable by the hero and
+forbids combat towers/enemy travel. No extra resource nodes or gameplay tuning.
+`Stage3DiagonalMapBuilder` reproduces the expanded bounds; the saved scene
+continues referencing the same map asset. Ground, movement, camera clamp and
+minimap read those bounds. No scene/Inspector migration or new package.
+The D-034 100×100 description below records the earlier migration.
+
+Windows verification, 2026-10-16: Map/Navigation EditMode 47/47 and Stage 3 /
+Integration / RunState PlayMode 47/47, no skips. The road-cell SHA256 matches
+the pre-expansion asset; every new cell is walkable forest and non-buildable.
+WASD crosses the old boundary; rendered ground, full-map minimap, camera edge
+clamp, full run/restart and resource lifecycle pass. The map-only builder round
+trip preserves every serialized field outside world/camera bounds. Windows
+Development build and standalone startup passed without an attributable error.
+Evidence: `Artifacts/S3-WORLD-250-20261016/`; shared frames/result:
+`art/review/world_250_*2026-10-16*`. The full-world overview uses QA-only zoom
+and far clip; normal camera limits remain 2.5–10. No stable FPS claim or Stage 3
+visual acceptance is implied by this expansion check.
+
 2026-10-15, D-048: remove floating resource direction boxes and WASD suffixes
 from the temporary source panel. Counts/distances, nearby E-gather prompt and
 minimap markers remain. The owner approved the cartoon sprite previews for all

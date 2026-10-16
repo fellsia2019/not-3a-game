@@ -10,6 +10,41 @@ D-017: каждый новый Stage 2–7 ведёт новый агент в �
 в `reports/development-roadmap.html`; внутри stage мелкие задачи не дробятся
 по агентам. На переходе обновляются этот handoff и канонический план.
 
+### 2026-10-16 — D-049 green world expansion to 250×250
+
+- Owner/surface: current Stage 3 chat; saved tactical map, existing map builder,
+  affected map/navigation/camera/minimap checks and canonical documentation.
+- Authorization: owner selected 250×250 and expansion of green land only around
+  the existing road. Depend on accepted D-045 layout and D-047 minimap.
+- Contract/acceptance: extend playable/camera bounds 75 cells on each side;
+  preserve all gray/buildable cells, reservations, anchors, hero start, seven-wide
+  road and 195-step enemy route. New land is hero-walkable forest, forbidden to
+  towers/enemies. Keep camera/zoom, resource count, art, economy and combat rules.
+  Ordinary rebuilds retain the size; minimap/edge clamp cover the larger world.
+- Files: `Stage3PlanarCorner.asset`, `Stage3DiagonalMapBuilder`, existing
+  map/navigation and tactical/minimap tests; README, vision, plan, decisions
+  and tactical/minimap briefs. The saved scene, data catalogs, art and packages
+  keep their references; no new Inspector wiring or migration.
+- Verification: Windows Map/Navigation EditMode 47/47; Stage3/Integration/
+  RunState PlayMode 47/47, no skips. Road SHA256 matches the original 1,582-cell
+  set; route stays 195 steps. Builder round trip preserves all serialized map
+  fields except playable/camera bounds. New land renders, WASD crosses the old
+  edge, grass rejects paid placement without spending, minimap covers all cells,
+  and new camera edges/full run/restart/resource lifecycle pass.
+  Windows Development build succeeded (274420387 bytes); standalone reached
+  Gameplay Ready with map hash `D47CE64E44A4C38A`, no attributable runtime errors.
+  Existing obsolete-API/Production Pipeline build warnings remain outside scope.
+  Ground mesh: 250000 vertices, about 20.4 MB reported runtime memory; foliage:
+  230296 triangles at unchanged density. Its old 100×100 total-count test was
+  updated to retain a density ceiling; raw initial 46/47 result is preserved.
+  All 14 test-overwritten preexisting review PNGs restored from byte-exact local
+  copies; fresh captures kept separately. Evidence: `Artifacts/S3-WORLD-250-20261016/`;
+  shared frames/result: `art/review/world_250_*2026-10-16*`. Full-world overview
+  uses QA-only zoom/far clip; the saved player camera remains unchanged.
+- Remaining: owner play feedback and wider Stage 3 visual/performance gate.
+  New resource placements/content are not part of the expansion. Git remained
+  read-only; the owned startup smoke process was closed after verification.
+
 ### 2026-10-15 — Approved resource sprites in the game
 
 - Owner/surface: current Stage 3 chat; three sprite imports/prefabs, narrow

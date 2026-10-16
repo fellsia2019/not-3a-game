@@ -1,4 +1,6 @@
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using Not3A.Stage2.Map;
 using NUnit.Framework;
 using UnityEditor;
@@ -10,6 +12,50 @@ namespace Not3A.Stage2.Navigation.Tests
     {
         private static Stage2MapDefinition Map => AssetDatabase.LoadAssetAtPath<Stage2MapDefinition>(
             "Assets/Stage3/VisualPilot/Stage3PlanarCorner.asset");
+
+        [Test]
+        public void ExpandedGreenWorld_PreservesAcceptedCombatCellsAndAnchors()
+        {
+            var map=Map;
+            Assert.That(map.Size,Is.EqualTo(new Vector2Int(250,250)));
+            Assert.That(map.MinimumCell,Is.EqualTo(new Vector2Int(-125,-125)));
+            Assert.That(map.MaximumCell,Is.EqualTo(new Vector2Int(124,124)));
+            Assert.That(map.CameraBounds.Minimum,Is.EqualTo(map.MinimumCell));
+            Assert.That(map.CameraBounds.Size,Is.EqualTo(map.Size));
+            Assert.That(map.EnemyEntrance,Is.EqualTo(new Vector2Int(-42,-30)));
+            Assert.That(map.Throne,Is.EqualTo(new Vector2Int(39,12)));
+            var anchors=new[]{new Vector2Int(17,32),new Vector2Int(8,22),new Vector2Int(27,11)};
+            Assert.That(map.ResourceRegionCount,Is.EqualTo(anchors.Length));
+            for(var i=0;i<anchors.Length;i++)
+                Assert.That(map.GetResourceRegion(i).Anchor,Is.EqualTo(anchors[i]));
+
+            var road=new StringBuilder();
+            var roadCells=0;
+            for(var x=map.MinimumCell.x;x<=map.MaximumCell.x;x++)
+            for(var y=map.MinimumCell.y;y<=map.MaximumCell.y;y++)
+            {
+                var cell=new Vector2Int(x,y);
+                if(map.GetSurface(cell)==MapSurfaceKind.InvasionCorridor)
+                {
+                    road.Append(x).Append(',').Append(y).Append(';');
+                    roadCells++;
+                }
+                if(x>=-50 && x<50 && y>=-50 && y<50) continue;
+                Assert.That(map.GetSurface(cell),Is.EqualTo(MapSurfaceKind.Forest));
+                Assert.That(map.IsWalkable(cell),Is.True,"New green land must be reachable by the hero.");
+                Assert.That(map.IsBuildable(cell),Is.False,"Expansion must not enlarge the combat area.");
+            }
+            Assert.That(roadCells,Is.EqualTo(1582));
+            // Captured from the accepted 100x100 asset before the bounds-only expansion.
+            using(var sha=SHA256.Create())
+                Assert.That(string.Concat(sha.ComputeHash(Encoding.UTF8.GetBytes(road.ToString()))
+                    .Select(b=>b.ToString("x2"))),
+                    Is.EqualTo("627d4127e71c9be0ef77f64e71c9c669aa0964cca3f503713fee58643eb62b64"));
+            var nav=new Stage2Navigation(map);
+            Assert.That(nav.PlanFrom(map.EnemyEntrance).Path.Count-1,Is.EqualTo(195));
+            Assert.That(nav.PlanFrom(new Vector2Int(-100,-100)).Status,
+                Is.EqualTo(NavigationStatus.StartNotWalkable));
+        }
 
         [TestCase(-42,-15,true)]
         [TestCase(-24,-12,true)]

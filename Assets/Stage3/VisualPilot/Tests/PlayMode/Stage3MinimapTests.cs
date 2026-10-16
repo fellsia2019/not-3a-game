@@ -109,7 +109,8 @@ namespace Not3A.Stage3.VisualPilot.Tests
                 Assert.That(panel.xMax, Is.LessThan(size.x));
                 Assert.That(panel.yMin, Is.GreaterThanOrEqualTo(0));
             }
-            bootstrap.PlayerMover.transform.position = new Vector3(-48f, -48f, 0f);
+            var map = bootstrap.MapDefinition;
+            bootstrap.PlayerMover.transform.position = map.CellToWorld(map.MinimumCell + Vector2Int.one * 2);
             bootstrap.CameraFollow.SnapToTarget();
             var corners = new Vector2[4];
             Assert.That(minimap.GetCameraFootprint(corners), Is.True);

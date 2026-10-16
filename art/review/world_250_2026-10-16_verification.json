@@ -1,0 +1,82 @@
+{
+  "date": "2026-10-16",
+  "unity": "6000.6.2f1",
+  "platform": "Windows / Direct3D11",
+  "decision": "D-049: green world only, accepted road and combat area unchanged",
+  "map": {
+    "size": [
+      250,
+      250
+    ],
+    "minimum": [
+      -125,
+      -125
+    ],
+    "maximum": [
+      124,
+      124
+    ],
+    "added_cells": 52500,
+    "added_per_side": 75,
+    "road_cells": 1582,
+    "unopposed_route_steps": 195,
+    "road_sha256": "627d4127e71c9be0ef77f64e71c9c669aa0964cca3f503713fee58643eb62b64",
+    "runtime_hash": "D47CE64E44A4C38A",
+    "builder_round_trip": "Only cellBounds/cameraBounds differ from the original asset"
+  },
+  "tests": {
+    "EditMode": {
+      "total": "47",
+      "passed": "47",
+      "failed": "0",
+      "skipped": "0",
+      "duration": "1,7286802"
+    },
+    "PlayMode": {
+      "total": "47",
+      "passed": "47",
+      "failed": "0",
+      "skipped": "0",
+      "duration": "95,7270569"
+    }
+  },
+  "checks": [
+    "WASD crosses the old map boundary",
+    "All new cells are walkable forest and reject paid tower placement without spending",
+    "Rendered ground and minimap cover the new world",
+    "Existing edge camera/zoom, all-cell minimap and input exclusion checks pass",
+    "Full run/restart, gathering/depletion/recovery and combat pass",
+    "Saved scene, actor/resource coordinates, catalogs, art and packages preserved"
+  ],
+  "windows_build": {
+    "path": "Builds/Windows/Not3AStage3RapidPilot.exe",
+    "result": "Succeeded",
+    "total_bytes": 274420387,
+    "startup": "Gameplay Ready and tactical readiness reached; no attributable runtime errors",
+    "warnings": "Pre-existing obsolete APIs / Production Pipeline notices; no changed runtime C#"
+  },
+  "geometry": {
+    "terrain_vertices": 250000,
+    "reported_terrain_runtime_bytes": 20425744,
+    "foliage_triangles": 230296,
+    "density": "unchanged"
+  },
+  "preserved_review_settings_files_hash_verified": 97,
+  "captures": [
+    {
+      "path": "art/review/world_250_game_overview_2026-10-16.png",
+      "sha256": "9aa9dec9898b2ff04906233cbffb17c2cfccbf92c256f7b51685fb55175c83d4"
+    },
+    {
+      "path": "art/review/world_250_green_land_2026-10-16.png",
+      "sha256": "705b91dc0f271bb78259c142c1d9c9b6d2e2554360e3521dd2d65909223898a0"
+    }
+  ],
+  "evidence_folder": "Artifacts/S3-WORLD-250-20261016/",
+  "limits": [
+    "Overview uses QA-only zoom and far clip; normal camera/zoom remain unchanged",
+    "No live Mac rerun in this Windows change",
+    "Stable standalone performance and wider Stage 3 owner acceptance remain open",
+    "No new resource nodes or content were added"
+  ]
+}

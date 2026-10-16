@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Not3A.Stage2.Map::Not3A.Stage2.Map.Stage2MapDefinition
   planarGrid: 1
   cellBounds:
-    minimum: {x: -50, y: -50}
-    size: {x: 100, y: 100}
+    minimum: {x: -125, y: -125}
+    size: {x: 250, y: 250}
   defaultSurface: 0
   surfaceRegions:
   - surface: 1
@@ -928,7 +928,7 @@ MonoBehaviour:
       size: {x: 7, y: 7}
     anchor: {x: 27, y: 11}
   cameraBounds:
-    minimum: {x: -50, y: -50}
-    size: {x: 100, y: 100}
+    minimum: {x: -125, y: -125}
+    size: {x: 250, y: 250}
   forestDebugColor: {r: 0.18, g: 0.34, b: 0.19, a: 1}
   corridorDebugColor: {r: 0.34, g: 0.37, b: 0.38, a: 1}

@@ -135,7 +135,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             var bootstrap=Object.FindAnyObjectByType<Stage2SceneBootstrap>();
             var map=bootstrap.MapDefinition;
             Assert.That(map.ValidateDefinition().IsValid,Is.True);
-            Assert.That(map.Size,Is.EqualTo(new Vector2Int(100,100)));
+            Assert.That(map.Size,Is.EqualTo(new Vector2Int(250,250)));
             Assert.That(map.EnemyEntrance,Is.EqualTo(new Vector2Int(-42,-30)));
             Assert.That(map.Throne,Is.EqualTo(new Vector2Int(39,12)));
             Assert.That(map.EnemiesStayOnInvasionCorridor,Is.True);
@@ -210,9 +210,69 @@ namespace Not3A.Stage3.VisualPilot.Tests
                 $"visitedCells={visited.Count}\nportal={map.EnemyEntrance}\nthrone={map.Throne}\nwidth=7\nheroGrassWalkable={map.IsWalkable(map.GetResourceRegion(0).Anchor)}\n");
         }
 
-        private static void SaveRoadView(Camera camera,string name,int width,int height)
+        [UnityTest]
+        public IEnumerator ExpandedGreenWorld_MovementRenderingAndMinimapReachNewLand()
         {
-            const string folder="Artifacts/S3-INVASION-ROAD-20261015/";
+            EditorSceneManager.LoadSceneInPlayMode("Assets/Scenes/Stage3Rapid3DGamePilot.unity",
+                new LoadSceneParameters(LoadSceneMode.Single));
+            yield return null; yield return null; yield return null;
+            var bootstrap=Object.FindAnyObjectByType<Stage2SceneBootstrap>();
+            var map=bootstrap.MapDefinition;
+            var game=bootstrap.GetComponent<Stage2GameComposition>();
+            var minimap=bootstrap.GetComponent<Stage2Minimap>();
+            Assert.That(minimap.Terrain.width,Is.EqualTo(512));
+            Assert.That(minimap.Terrain.height,Is.EqualTo(512));
+            var mesh=GameObject.Find("Tactical grass and paved build cells").GetComponent<MeshFilter>().sharedMesh;
+            Assert.That(mesh.bounds.min.x,Is.EqualTo(-125.5f).Within(.001f));
+            Assert.That(mesh.bounds.max.x,Is.EqualTo(124.5f).Within(.001f));
+            Assert.That(mesh.bounds.min.y,Is.EqualTo(-125.5f).Within(.001f));
+            Assert.That(mesh.bounds.max.y,Is.EqualTo(124.5f).Within(.001f));
+            Assert.That(mesh.vertexCount,Is.EqualTo(250*250*4));
+
+            bootstrap.PlayerMover.transform.position=new Vector3(48.5f,75f,0f);
+            bootstrap.CameraFollow.SnapToTarget();
+            var camera=bootstrap.CameraFollow.BoundCamera;
+            var size=camera.orthographicSize;
+            input.Press(Keyboard.current.dKey);
+            yield return new WaitForSeconds(.5f);
+            input.Release(Keyboard.current.dKey);
+            Assert.That(bootstrap.PlayerMover.transform.position.x,Is.GreaterThan(49.5f),
+                "WASD must cross the old map boundary without clamping.");
+            Assert.That(camera.orthographicSize,Is.EqualTo(size).Within(.01f));
+            var hero=minimap.Markers.Single(m=>m.Kind==Stage2MinimapMarkerKind.Hero);
+            Assert.That(hero.World.x,Is.GreaterThan(49.5f));
+            var onMap=minimap.WorldToMapPoint(hero.World);
+            Assert.That(minimap.MapRect.Contains(onMap),Is.True);
+            var inventory=game.Gathering.Economy.Inventory;
+            inventory.TryAdd(MapResourceKind.Wood,2);
+            inventory.TryAdd(MapResourceKind.Stone,1);
+            var gold=inventory.Gold;
+            var wood=inventory.Get(MapResourceKind.Wood);
+            var stone=inventory.Get(MapResourceKind.Stone);
+            Assert.That(game.Building.Defense.BeginPlacement(),Is.True);
+            var green=new Vector2Int(75,75);
+            game.Building.Defense.SetPreviewCell(green);
+            Assert.That(game.Building.Defense.TryConfirm(out var rejected),Is.EqualTo(PlacementResult.InvalidCell));
+            Assert.That(rejected,Is.Null);
+            Assert.That(inventory.Gold,Is.EqualTo(gold));
+            Assert.That(inventory.Get(MapResourceKind.Wood),Is.EqualTo(wood));
+            Assert.That(inventory.Get(MapResourceKind.Stone),Is.EqualTo(stone));
+
+            const string folder="Artifacts/S3-WORLD-250-20261016/";
+            SaveRoadView(camera,"new-green-land.png",1200,900,folder);
+            bootstrap.CameraFollow.enabled=false;
+            camera.orthographicSize=150f;
+            camera.farClipPlane=600f;
+            camera.transform.position=new Vector3(-.5f,-.5f,0)-camera.transform.forward*300f;
+            SaveRoadView(camera,"world-250-overview.png",1600,1000,folder);
+            Debug.Log($"S3_WORLD_250_OK cells={map.CellBounds.CellCount} terrainVertices={mesh.vertexCount} " +
+                $"terrainBytes={UnityEngine.Profiling.Profiler.GetRuntimeMemorySizeLong(mesh)} " +
+                $"minimap={minimap.Terrain.width}x{minimap.Terrain.height} unchangedRoad=true");
+        }
+
+        private static void SaveRoadView(Camera camera,string name,int width,int height,
+            string folder="Artifacts/S3-INVASION-ROAD-20261015/")
+        {
             Directory.CreateDirectory(folder);
             var previousTarget=camera.targetTexture; var previousActive=RenderTexture.active;
             var target=RenderTexture.GetTemporary(width,height,24);
@@ -613,7 +673,13 @@ namespace Not3A.Stage3.VisualPilot.Tests
             foreach (var filter in meshes)
                 Assert.That(filter.sharedMesh.vertexCount, Is.GreaterThan(0), filter.name);
             var triangles = meshes.Sum(filter => filter.sharedMesh.triangles.Length / 3);
-            Assert.That(triangles, Is.LessThan(80000), "Keep the foliage trial bounded.");
+            var composition = Object.FindAnyObjectByType<Stage2GameComposition>();
+            var map = composition.GetComponent<Stage2SceneBootstrap>().MapDefinition;
+            // Keep the former 100x100 trial's density ceiling, including its
+            // eight-cell decorative border, as the authored world grows.
+            var decoratedCells = (map.Size.x + 16) * (map.Size.y + 16);
+            Assert.That(triangles / (float)decoratedCells, Is.LessThan(6f),
+                "Keep foliage density bounded across the expanded green world.");
             Assert.That(props.transform.position.z,
                 Is.EqualTo(-ExpectedVisualLift).Within(.001f));
             var terrain = GameObject.Find("Tactical grass and paved build cells")
@@ -645,10 +711,8 @@ namespace Not3A.Stage3.VisualPilot.Tests
                 Assert.That(vergeMesh.colors.Any(color=>color.a==0f),Is.True);
                 Assert.That(vergeMesh.colors.Any(color=>color.a==1f),Is.True);
             }
-            var composition = Object.FindAnyObjectByType<Stage2GameComposition>();
             Assert.That(composition.Building.Defense.TowerCount, Is.EqualTo(2));
-            var map = composition.GetComponent<Stage2SceneBootstrap>().MapDefinition;
-            Assert.That(map.Size,Is.EqualTo(new Vector2Int(100,100)));
+            Assert.That(map.Size,Is.EqualTo(new Vector2Int(250,250)));
             foreach(var decoration in roadside.GetComponentsInChildren<SpriteRenderer>())
             {
                 var cell=map.WorldToCell(decoration.transform.position);
