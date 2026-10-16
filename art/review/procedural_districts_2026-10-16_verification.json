@@ -1,0 +1,73 @@
+{
+  "date": "2026-10-16",
+  "decision": "D-054",
+  "scope": "Modular seeded resource district scenery, 200-300 cells; production/zone harvesting not implemented",
+  "tests": {
+    "EditMode": {
+      "result": "Passed",
+      "total": "54",
+      "passed": "54",
+      "failed": "0",
+      "skipped": "0",
+      "duration": "11,2499899"
+    },
+    "PlayModeFinal": {
+      "result": "Passed",
+      "total": "55",
+      "passed": "55",
+      "failed": "0",
+      "skipped": "0",
+      "duration": "116,8180151"
+    },
+    "DistrictsShader": {
+      "result": "Passed",
+      "total": "3",
+      "passed": "3",
+      "failed": "0",
+      "skipped": "0",
+      "duration": "10,8053597"
+    }
+  },
+  "build": {
+    "platform": "Windows x64 Development",
+    "bytes": 299641912,
+    "result": "Succeeded"
+  },
+  "actualPlayerLaunches": [
+    {
+      "launch": "a",
+      "seed": 1273994254,
+      "districts": 6,
+      "sprites": 383,
+      "attributableErrors": []
+    },
+    {
+      "launch": "b",
+      "seed": 401322775,
+      "districts": 6,
+      "sprites": 360,
+      "attributableErrors": []
+    }
+  ],
+  "activePlayerPid": 26588,
+  "baselineFilesPreserved": 108,
+  "sourcePNGsUnmodified": true,
+  "baseMapHash": "ACB42D4354F114AE",
+  "reviewSeeds": [
+    164032,
+    164033
+  ],
+  "visual": "Both seed variants of wood/stone/metal and rendered hero visibility inspected; real standalone HUD/minimap inspected at 1600x900.",
+  "evidence": "Artifacts\\S3-PROCEDURAL-DISTRICTS-20261016",
+  "remaining": [
+    "Owner appearance feedback",
+    "Future production/building placement and large-zone harvesting/forest renewal brief",
+    "Wider Stage 3 gate"
+  ],
+  "retainedInitialEvidence": [
+    "wire.log: initial wrong PNG texture shape, fixed with explicit Texture2D",
+    "playmode-compile-initial.log: Object namespace ambiguity, corrected",
+    "DistrictsFinal.xml: image check caught hidden hero; district shader now supports per-renderer tint/flip"
+  ],
+  "git": "Read-only; preexisting local changes retained."
+}

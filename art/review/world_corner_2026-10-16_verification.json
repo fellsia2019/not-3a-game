@@ -1,0 +1,78 @@
+{
+  "date": "2026-10-16",
+  "unity": "6000.6.2f1",
+  "platform": "Windows / Direct3D11",
+  "decision": "D-050: combat district in the lower-left corner of the 250x250 world",
+  "map": {
+    "size": [
+      250,
+      250
+    ],
+    "minimum": [
+      -50,
+      -50
+    ],
+    "maximum": [
+      199,
+      199
+    ],
+    "road_cells": 1582,
+    "road_extents_relative_to_world": {
+      "x": [
+        5,
+        92
+      ],
+      "y": [
+        17,
+        65
+      ]
+    },
+    "entire_road_in_lower_left_quadrant": true,
+    "unopposed_route_steps": 195,
+    "road_sha256": "627d4127e71c9be0ef77f64e71c9c669aa0964cca3f503713fee58643eb62b64",
+    "runtime_hash": "7445A7082A36130A",
+    "builder_round_trip": "Only world/camera bounds differ from D-049; all gray/build cells and anchors retain coordinates"
+  },
+  "tests": {
+    "EditMode": {
+      "total": "47",
+      "passed": "47",
+      "failed": "0",
+      "skipped": "0",
+      "duration": "1,5768797"
+    },
+    "PlayMode": {
+      "total": "47",
+      "passed": "47",
+      "failed": "0",
+      "skipped": "0",
+      "duration": "89,4738578"
+    }
+  },
+  "checks": [
+    "All road cells fit in the lower-left quadrant",
+    "Road, build masks, landmarks, resources and hero start preserved",
+    "All new land is walkable forest and rejects combat towers/enemies",
+    "Camera edge/zoom, all-cell minimap/markers and pointer exclusion pass",
+    "Full run/restart and resource lifecycle pass"
+  ],
+  "windows_build": {
+    "path": "Builds/Windows/Not3AStage3RapidPilot.exe",
+    "result": "Succeeded",
+    "total_bytes": 274420387,
+    "startup": "Gameplay Ready and tactical readiness; no attributable runtime errors",
+    "player_left_open_for_owner": true
+  },
+  "preserved_review_settings_files_hash_verified": 100,
+  "capture": {
+    "path": "art/review/world_corner_game_overview_2026-10-16.png",
+    "sha256": "2352c35d85080373e0ca0fa83068959eb2cc35f62b9580f0f6eb9bd81c02c777",
+    "view": "Actual Game camera at QA-only overview zoom/far clip; normal camera unchanged"
+  },
+  "evidence_folder": "Artifacts/S3-WORLD-CORNER-20261016/",
+  "limits": [
+    "No live Mac rerun in this Windows correction",
+    "Stage 3 visual/performance gate remains open",
+    "No resource redistribution or content/mechanic changes"
+  ]
+}

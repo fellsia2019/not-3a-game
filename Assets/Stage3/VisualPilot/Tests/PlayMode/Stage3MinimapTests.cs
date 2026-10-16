@@ -62,7 +62,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             var entrance = minimap.WorldToMapPoint(bootstrap.EntranceMarker.position);
             var throne = minimap.WorldToMapPoint(bootstrap.ThroneMarker.position);
             Assert.That(entrance.x, Is.LessThan(throne.x));
-            Assert.That(entrance.y, Is.GreaterThan(throne.y));
+            Assert.That(entrance.y, Is.EqualTo(throne.y).Within(.01f));
             Assert.That(Count(Stage2MinimapMarkerKind.Tower), Is.EqualTo(game.Building.Defense.TowerCount));
             bootstrap.PlayerMover.transform.position = new Vector3(4f, 18f, 0f);
             var enemy = game.Enemies.Spawn();
@@ -147,7 +147,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             yield return new WaitForSecondsRealtime(.2f);
             Assert.That(camera.orthographicSize, Is.EqualTo(startingSize).Within(.01f));
             bootstrap.CameraFollow.enabled = false;
-            var cell = new Vector2Int(39, -7);
+            var cell = new Vector2Int(37, -7);
             var ray = camera.ScreenPointToRay(screen);
             Assert.That(new Plane(Vector3.forward, Vector3.zero).Raycast(ray, out var distance), Is.True);
             camera.transform.position += (Vector3)(bootstrap.MapDefinition.CellToWorld(cell) - (Vector2)ray.GetPoint(distance));

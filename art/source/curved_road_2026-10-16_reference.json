@@ -1,0 +1,10 @@
+{
+  "date": "2026-10-16",
+  "source": "User-provided attachment codex-clipboard-42fd931e-1d75-4cd0-a7cf-63fac5678573.png",
+  "stored_reference": "art/references/curved_road_user_sketch_2026-10-16.png",
+  "sha256": "5c9e5bdd23c900316133050e101101eb7eecdc5c26aca11b23cf3176dac07d62",
+  "use": "Route shape guidance only; not a runtime texture or image asset",
+  "rights": "User-provided sketch; authorship/license not independently established. Original game artwork is unchanged.",
+  "confirmed_intent": "Red left endpoint is enemy portal, blue right endpoint is defended throne; smooth road about seven cells wide, lower-left district in the 250x250 world.",
+  "implementation": "Original editor-authored cubic curves baked to existing map cell data; no runtime spline system or new package."
+}

@@ -1,0 +1,121 @@
+{
+  "date": "2026-10-16",
+  "unity": "6000.6.2f1",
+  "platform": "Windows / Direct3D11",
+  "decision": "D-051: curved seven-wide invasion road from confirmed player sketch",
+  "map": {
+    "size": [
+      250,
+      250
+    ],
+    "minimum": [
+      -50,
+      -50
+    ],
+    "maximum": [
+      199,
+      199
+    ],
+    "portal": [
+      -42,
+      12
+    ],
+    "throne": [
+      55,
+      12
+    ],
+    "hero_start": [
+      18,
+      28
+    ],
+    "resource_anchors_unchanged": [
+      [
+        17,
+        32
+      ],
+      [
+        8,
+        22
+      ],
+      [
+        27,
+        11
+      ]
+    ],
+    "road_cells": 1626,
+    "road_sha256": "9865f74a6fe8fb829ac398eb82feafec45d8f27ddd23d594198d1cf46dda4b62",
+    "unopposed_route_steps": 225,
+    "runtime_hash": "ACB42D4354F114AE",
+    "road_extents_relative_to_world": {
+      "x": [
+        5,
+        108
+      ],
+      "y": [
+        13,
+        65
+      ]
+    },
+    "builder_round_trip": "Saved map reproduced byte-for-byte"
+  },
+  "tests": {
+    "EditMode": {
+      "total": "47",
+      "passed": "47",
+      "failed": "0",
+      "skipped": "0",
+      "duration": "1,6684158"
+    },
+    "PlayMode": {
+      "total": "47",
+      "passed": "47",
+      "failed": "0",
+      "skipped": "0",
+      "duration": "95,333464"
+    },
+    "Capture": {
+      "total": "1",
+      "passed": "1",
+      "failed": "0",
+      "skipped": "0",
+      "duration": "2,8112546"
+    }
+  },
+  "checks": [
+    "Seven-cell cross-sections in all straight reaches",
+    "Ordered first valley, central rise, second valley; no green shortcuts",
+    "Six-tower detour, seven-tower siege, release/reset recovery",
+    "Unchanged resource regions, walkability and camera/world bounds",
+    "Actual paid building/combat, full run/restart and resource lifecycle",
+    "All-cell minimap, moved landmark markers, camera edges/zoom and UI pointer exclusion",
+    "Real Windows frame includes the curved minimap, hero and unchanged HUD"
+  ],
+  "windows_build": {
+    "path": "Builds/Windows/Not3AStage3RapidPilot.exe",
+    "result": "Succeeded",
+    "total_bytes": 274420675,
+    "startup": "Gameplay Ready and tactical readiness; no attributable runtime errors",
+    "player_left_open": true
+  },
+  "preserved_review_settings_files_hash_verified": 102,
+  "captures": [
+    {
+      "path": "art/review/curved_road_game_overview_2026-10-16.png",
+      "sha256": "0b59ace8e0f289d96bf543835a17018891348ccc79f3353617b76e55750f4d22"
+    },
+    {
+      "path": "art/review/curved_road_live_game_2026-10-16.png",
+      "sha256": "a4da9ace5b560e6cf866ab616f2c0e073d05760de6bf077c98f40cec7e2db1d6"
+    }
+  ],
+  "reference_provenance": "art/source/curved_road_2026-10-16_reference.json",
+  "evidence_folder": "Artifacts/S3-CURVED-ROAD-20261016/",
+  "limits": [
+    "Bends are baked into the existing cell grid; width is about seven cells",
+    "Overview changes only disposable QA camera zoom/distance/far clip; saved camera unchanged",
+    "No live Mac rerun in this Windows change",
+    "Longer-route pacing and owner visual acceptance remain open Stage 3 items",
+    "No gameplay tuning, resource redistribution or new runtime spline/waypoint package"
+  ],
+  "initial_test_followup": "Initial PlayMode 45/47: two grass-cell assertions referenced the superseded route. Updated explicit grass points; final full 47/47 and focused route/capture 1/1 passed."
+}

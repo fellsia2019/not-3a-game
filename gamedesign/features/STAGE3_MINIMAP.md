@@ -3,6 +3,16 @@
 Active brief: D-047, 2026-10-15. Owner: current Stage 3 chat.
 The player requested a bottom-left minimap now; the wider UI remains deferred.
 
+2026-10-16, D-051: render the new curved road and moved portal/throne from the
+same authored map cells. The two landmarks now share the upper route level;
+the road still occupies the lower-left district. Existing all-cell comparison,
+marker lifecycle, camera outline and panel input checks cover this layout.
+
+2026-10-16, D-050: world bounds shift to keep the existing road in the lower-left
+corner of the 250×250 map. The passive minimap derives positions from the map's
+minimum/size, retaining its orientation, terrain cache, markers and camera
+footprint. No new map controls or UI stack change.
+
 ## Behavior
 
 - Show the entire authored playable map, with grass and the actual gray road.
@@ -37,8 +47,10 @@ scene root after composition initialization, then calls `Initialize` with the
 existing bootstrap/composition. No serialized scene, material or map migration
 is required; ordinary scene rebuilds retain this binding through the component.
 `Stage2Defense.GetTower` exposes current registered towers for read-only display.
-Build/camera drivers accept a scene-owned pointer exclusion delegate; minimap
-teardown removes it. Disabled maps stop excluding input.
+Build/camera drivers accept a scene-owned pointer exclusion delegate. Since
+D-052, Stage2GameComposition owns the union of minimap and HUD exclusions;
+minimap teardown no longer clears another panel's blocker. Disabled maps stop
+excluding input, independently of HUD visibility.
 
 Markers read existing state every LateUpdate without scene searches. The
 D-049 250×250 terrain uses one cached 512×512 texture (the former 100×100
@@ -74,3 +86,10 @@ Evidence folder: `Artifacts/S3-MINIMAP-20261015/`; shared actual captures:
 `art/review/minimap_game_2026-10-15.png`,
 `art/review/minimap_game_expanded_2026-10-15.png`; shared JSON summary:
 `art/review/minimap_2026-10-15_verification.json`.
+
+2026-10-16, D-054: SetResourceDistricts accepts read-only seeded footprints and
+builds a separate cached transparent texture. Forest/stone/iron districts appear
+without modifying authored terrain colors or existing live-node marker counts.
+Regeneration replaces that overlay; teardown releases it. World generator owns
+placement and state; minimap remains passive. Details:
+PROCEDURAL_RESOURCE_DISTRICTS.md.

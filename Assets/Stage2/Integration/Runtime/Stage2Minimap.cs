@@ -23,6 +23,7 @@ namespace Not3A.Stage2.Integration
         private readonly List<Stage2MinimapMarker> markers = new List<Stage2MinimapMarker>();
         private readonly Vector2[] cameraCorners = new Vector2[4];
         private Texture2D terrain;
+        private Texture2D districtTerrain;
         private Texture2D circle;
         private Texture2D diamond;
         private Texture2D arrow;
@@ -32,6 +33,7 @@ namespace Not3A.Stage2.Integration
         private static readonly Color Gold = new Color(.72f, .65f, .42f, 1f);
 
         public Texture2D Terrain => terrain;
+        public Texture2D DistrictTerrain => districtTerrain;
         public IReadOnlyList<Stage2MinimapMarker> Markers => markers;
         public Rect PanelRect => Layout(new Vector2(Screen.width, Screen.height));
         public Rect MapRect => MapArea(PanelRect, bootstrap.MapDefinition.Size);
@@ -44,9 +46,30 @@ namespace Not3A.Stage2.Integration
             if (circle == null) circle = CreateSymbol(0);
             if (diamond == null) diamond = CreateSymbol(1);
             if (arrow == null) arrow = CreateSymbol(2);
-            composition.Building.SetPointerBlocker(ContainsScreenPoint);
-            bootstrap.CameraFollow.SetPointerBlocker(ContainsScreenPoint);
             RefreshMarkers();
+        }
+
+        public void SetResourceDistricts(IReadOnlyList<ResourceDistrict> districts)
+        {
+            if (districtTerrain != null) Destroy(districtTerrain);
+            districtTerrain = null;
+            if (districts == null || terrain == null) return;
+            var lookup = new Dictionary<Vector2Int, MapResourceKind>();
+            foreach (var district in districts)
+                foreach (var cell in district.Cells) lookup[cell] = district.Kind;
+            var pixels = new Color32[terrain.width * terrain.height];
+            var map = bootstrap.MapDefinition;
+            for (var y = 0; y < terrain.height; y++)
+            for (var x = 0; x < terrain.width; x++)
+            {
+                var cell = map.MinimumCell + new Vector2Int(x * map.Size.x / terrain.width, y * map.Size.y / terrain.height);
+                if (!lookup.TryGetValue(cell, out var kind)) continue;
+                pixels[y * terrain.width + x] = kind == MapResourceKind.Wood ? new Color(.08f,.20f,.06f,.9f) :
+                    kind == MapResourceKind.Stone ? new Color(.70f,.68f,.58f,.95f) : new Color(.42f,.29f,.20f,.95f);
+            }
+            districtTerrain = new Texture2D(terrain.width, terrain.height, TextureFormat.RGBA32, false)
+            { name = "Minimap generated resource districts", filterMode = FilterMode.Bilinear };
+            districtTerrain.SetPixels32(pixels); districtTerrain.Apply(false, true);
         }
 
         // GUI uses top-left pixels; Input System uses bottom-left pixels.
@@ -127,6 +150,8 @@ namespace Not3A.Stage2.Integration
         private void BuildTerrain()
         {
             if (terrain != null) Destroy(terrain);
+            if (districtTerrain != null) Destroy(districtTerrain);
+            districtTerrain = null;
             var map = bootstrap.MapDefinition;
             var scale = Mathf.Min(3f, 512f / Mathf.Max(map.Size.x, map.Size.y));
             var width = Mathf.Max(1, Mathf.RoundToInt(map.Size.x * scale));
@@ -195,6 +220,7 @@ namespace Not3A.Stage2.Integration
                 GUI.Label(new Rect(panel.xMax - 20f, panel.y + 2f, 16f, 22f), "N", textStyle);
                 Fill(new Rect(panel.x + 5f, panel.y + 24f, panel.width - 10f, panel.width - 10f), new Color(.12f, .18f, .13f));
                 GUI.DrawTexture(area, terrain);
+                if (districtTerrain != null) GUI.DrawTexture(area, districtTerrain);
                 Outline(area, new Color(.43f, .48f, .32f), 1f);
                 if (GetCameraFootprint(cameraCorners))
                     for (var i = 0; i < 4; i++)
@@ -274,9 +300,8 @@ namespace Not3A.Stage2.Integration
 
         private void OnDestroy()
         {
-            if (composition != null && composition.Building != null) composition.Building.SetPointerBlocker(null);
-            if (bootstrap != null && bootstrap.CameraFollow != null) bootstrap.CameraFollow.SetPointerBlocker(null);
             if (terrain != null) Destroy(terrain);
+            if (districtTerrain != null) Destroy(districtTerrain);
             if (circle != null) Destroy(circle);
             if (diamond != null) Destroy(diamond);
             if (arrow != null) Destroy(arrow);

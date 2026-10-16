@@ -1,0 +1,86 @@
+{
+  "date": "2026-10-16",
+  "decision": "D-055",
+  "feature": "gamedesign/features/PROCEDURAL_RESOURCE_DISTRICTS.md",
+  "artifacts": "Artifacts\\S3-RESOURCE-COLLISION-20261016",
+  "tests": {
+    "EditMode.xml": {
+      "total": "63",
+      "passed": "63",
+      "failed": "0",
+      "skipped": "0",
+      "duration": "14,5735279"
+    },
+    "PlayModeFinal.xml": {
+      "total": "58",
+      "passed": "58",
+      "failed": "0",
+      "skipped": "0",
+      "duration": "141,0281473"
+    },
+    "DistrictsFinal.xml": {
+      "total": "6",
+      "passed": "6",
+      "failed": "0",
+      "skipped": "0",
+      "duration": "21,959712"
+    },
+    "Contact.xml": {
+      "total": "1",
+      "passed": "1",
+      "failed": "0",
+      "skipped": "0",
+      "duration": "4,1068842"
+    }
+  },
+  "player": {
+    "pid": 9976,
+    "ready": [
+      "S2_INT_GAMEPLAY_READY map=Stage3PlanarCorner hash=ACB42D4354F114AE",
+      "S3_RESOURCE_DISTRICTS_READY seed=-828002414 districts=6 sprites=361 cells=200..300 economyChanges=0 solidStrips=79 groundCircles=345",
+      "S3_TACTICAL_VIEW_READY elevation=55 planarGrid=true heightAxis=-Z"
+    ],
+    "attributable_errors": [],
+    "build_bytes": 299653025
+  },
+  "behavior": [
+    "solid stone/iron footprints including mine interior",
+    "protruding rock and hoist bases",
+    "individual scaled forest trunks and walkable gaps",
+    "complete movement sweep and contact sliding",
+    "x10 hero plus x10 simulation cannot tunnel",
+    "regeneration replaces obstacles and recovers overlap",
+    "run restart retains obstacles",
+    "unchanged road, original gathering nodes, economy and map hash",
+    "occlusion samples alpha and respects flip"
+  ],
+  "screenshots": [
+    {
+      "path": "art\\review\\resource_collision_stone_2026-10-16.png",
+      "sha256": "5588a47cff31f5c85b8bde3bd6a57ff343113139f73a2c65ff4f764f8a874fef"
+    },
+    {
+      "path": "art\\review\\resource_collision_metal_2026-10-16.png",
+      "sha256": "e928489dd0fd702201961ff325516c08980f7fd7a09cb9f4b4cbedd4376ad926"
+    },
+    {
+      "path": "art\\review\\resource_collision_forest_gap_2026-10-16.png",
+      "sha256": "37124e01cd7e0ca8815fdfd27a86174eb23d625d502dc58ee44adcae4315eebb"
+    },
+    {
+      "path": "art\\review\\resource_collision_hero_visibility_2026-10-16.png",
+      "sha256": "1a0158f1186b33e8c3f5673de200cefed9c462e0dbbb232bb5a3da469882dc19"
+    },
+    {
+      "path": "art\\review\\resource_collision_live_game_2026-10-16.png",
+      "sha256": "53f6f2b0d549328dea622fc125c16f2b62bbc708e504a5525eea75e9fdc2ec40"
+    }
+  ],
+  "baseline_files_preserved": 117,
+  "remaining": [
+    "owner collision feel/appearance review",
+    "wider Stage 3 gate",
+    "production/renewal/large-zone harvesting still require separate briefs"
+  ],
+  "git": "read-only; no staging, commit, push or pull"
+}

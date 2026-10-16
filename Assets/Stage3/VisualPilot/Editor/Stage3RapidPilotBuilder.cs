@@ -496,6 +496,7 @@ namespace Not3A.Stage3.VisualPilot.Editor
                 SetReference(presentation,"grassVerge",Require<Material>(Stage3CartoonWorldBuilder.Folder+"GrassVerge.mat"));
             if (File.Exists(Stage3CartoonWorldBuilder.Folder+"RoadsideArt.asset"))
                 SetReference(presentation,"roadsideArt",Require<Stage3RoadsideArt>(Stage3CartoonWorldBuilder.Folder+"RoadsideArt.asset"));
+            if (File.Exists(Stage3ResourceDistrictBuilder.DataPath)) Stage3ResourceDistrictBuilder.Wire(presentation);
             SetReference(presentation,"flowerPetals",Require<Material>(Folder+"LandscapeFlowerPetals.mat"));
             SetReference(presentation,"flowerCenters",Require<Material>(Folder+"LandscapeFlowerCenters.mat"));
             SetReference(presentation,"soulSpherePrefab",Require<GameObject>(File.Exists(Stage3LandmarkSpriteBuilder.SoulTexture)

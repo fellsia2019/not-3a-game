@@ -23,6 +23,7 @@ namespace Not3A.Stage2.Integration
         [SerializeField] private Stage2RunDriver runDriver;
         [SerializeField] private bool showDevelopmentHud = true;
 
+        private Stage2GameHud hud;
         private Stage2Navigation navigation;
         private Stage2EnemyGroup enemies;
         private readonly GameObject[] resourceMarkers = new GameObject[3];
@@ -83,8 +84,20 @@ namespace Not3A.Stage2.Integration
                 return BindingError("RunConfigureFailed");
             if (!CreateResourceMarkers()) return false;
             IsInitialized = true;
+            hud = GetComponent<Stage2GameHud>();
+            if (hud == null) hud = gameObject.AddComponent<Stage2GameHud>();
+            hud.Initialize(bootstrap, this, showDevelopmentHud);
+            building.SetPointerBlocker(ContainsScreenPoint);
+            bootstrap.CameraFollow.SetPointerBlocker(ContainsScreenPoint);
             Debug.Log($"S2_INT_GAMEPLAY_READY map={map.name} hash={navigation.MapHash}", this);
             return true;
+        }
+
+        public bool ContainsScreenPoint(Vector2 screen)
+        {
+            if (hud != null && hud.ContainsScreenPoint(screen)) return true;
+            var minimap = GetComponent<Stage2Minimap>();
+            return minimap != null && minimap.ContainsScreenPoint(screen);
         }
 
         public void SetPaused(bool value) => runDriver?.SetPaused(value);
@@ -104,6 +117,9 @@ namespace Not3A.Stage2.Integration
 
         private void OnDestroy()
         {
+            building?.SetPointerBlocker(null);
+            if (bootstrap != null && bootstrap.CameraFollow != null)
+                bootstrap.CameraFollow.SetPointerBlocker(null);
             enemies?.ResetRun();
             building?.Defense?.ResetRun();
             navigation?.Reset();
@@ -153,60 +169,5 @@ namespace Not3A.Stage2.Integration
             return true;
         }
 
-        private void OnGUI()
-        {
-            if (!Debug.isDebugBuild || !showDevelopmentHud || !IsInitialized || runDriver.Run == null) return;
-            var run = runDriver.Run;
-            var inventory = gathering.Economy.Inventory;
-            var phase = run.Phase == Stage2RunPhase.Preparation
-                ? $"Preparation {Mathf.CeilToInt(run.PreparationRemaining)}s"
-                : run.Phase.ToString();
-            GUI.Box(new Rect(10, 10, 400, 170), "Stage 2 development readout");
-            GUI.Label(new Rect(20, 32, 380, 20),
-                $"{phase}  |  Throne {run.ThroneHealth}/{run.ThroneMaximum}  |  Enemies {run.ActiveEnemies}");
-            GUI.Label(new Rect(20, 53, 380, 20),
-                $"Gold {inventory.Gold}  Wood {inventory.Get(MapResourceKind.Wood)}  Stone {inventory.Get(MapResourceKind.Stone)}  Metal {inventory.Get(MapResourceKind.Metal)}");
-            GUI.Label(new Rect(20, 74, 380, 20),
-                $"Wave {run.WaveNumber}/{run.WaveCount} ({run.WaveEnemyCount} total)  |  Build: {(building.Defense.IsPlacing ? building.PreviewResult.ToString() : "off")}");
-            var selected = building.Defense.SelectedCatalog;
-            GUI.Label(new Rect(20, 96, 380, 20),
-                $"Tower {selected.RoleName}  price G{selected.GoldCost} W{selected.WoodCost} S{selected.StoneCost} M{selected.MetalCost}");
-            GUI.Label(new Rect(20, 117, 380, 20),
-                "WASD move  E gather  B build  1/2 role  click confirm");
-            GUI.Label(new Rect(20, 138, 380, 20),
-                "Esc cancel  |  Space wave  |  R restart after win/loss");
-
-            if (run.IsTerminal)
-            {
-                var message = run.Phase == Stage2RunPhase.Lost
-                    ? "Throne lost. Press R to restart before gathering."
-                    : "Run won. Press R to restart before gathering.";
-                GUI.Box(new Rect(Mathf.Max(10f, (Screen.width - 370f) * 0.5f),
-                    Mathf.Max(170f, (Screen.height - 52f) * 0.5f), 370f, 52f), message);
-                return;
-            }
-
-            var sideBySide = Screen.width >= 630;
-            var panelX = sideBySide ? Screen.width - 215f : 10f;
-            var panelY = sideBySide ? 10f : 185f;
-            GUI.Box(new Rect(panelX, panelY, 205, 108), "Resource sources");
-            MapResourceKind? nearbyKind = null;
-            for (var index = 0; index < 3; index++)
-            {
-                var kind = (MapResourceKind)index;
-                var node = gathering.Economy.GetNode(kind);
-                var offset = gathering.Economy.WorldPosition(kind) - (Vector2)bootstrap.PlayerMover.transform.position;
-                if (!node.IsDepleted && offset.magnitude <= economyCatalog.InteractionRange)
-                    nearbyKind = kind;
-                var stock = node.IsDepleted
-                    ? $"0/{node.Capacity} ({Mathf.CeilToInt(node.RecoveryRemaining)}s)"
-                    : $"{node.Remaining}/{node.Capacity}";
-                GUI.Label(new Rect(panelX + 10, panelY + 24 + index * 25, 190, 20),
-                    $"{kind}: {stock}  {offset.magnitude:0}m");
-            }
-            if (nearbyKind.HasValue)
-                GUI.Box(new Rect(Mathf.Max(10f, (Screen.width - 210f) * 0.5f),
-                    Screen.height - 42f, 210f, 30f), $"Hold E to gather {nearbyKind.Value}");
-        }
     }
 }

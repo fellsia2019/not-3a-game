@@ -1,5 +1,13 @@
 # Feature: Player-Shaped Enemy Pathing
 
+2026-10-16, D-051: Stage 3's road follows the confirmed curved sketch with two
+valleys and a central rise. Its baked gray cell mask remains the single source
+for terrain, tower placement and enemy movement. Enemies must visit the first
+valley, central rise and second valley in order; green shortcuts stay forbidden.
+Seven-cell cross-sections still allow six-tower detours and full-block siege.
+Portal/throne move through map data only; Stage 2 assets and navigation rules
+are unchanged. Current geometry/rebuild: `STAGE3_TACTICAL_VIEW.md`.
+
 2026-10-15, D-045: the Stage 3 map opts into
 `Stage2MapDefinition.EnemiesStayOnInvasionCorridor`. `Stage2Navigation`
 combines the authored walkable mask with the gray surface for enemy searches,

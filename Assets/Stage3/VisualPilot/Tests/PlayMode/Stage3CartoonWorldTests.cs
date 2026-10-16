@@ -29,8 +29,8 @@ namespace Not3A.Stage3.VisualPilot.Tests
                 var composition=Object.FindAnyObjectByType<Stage2GameComposition>();
                 var bootstrap=composition.GetComponent<Stage2SceneBootstrap>();
                 Assert.That(bootstrap.MapDefinition.Size,Is.EqualTo(new Vector2Int(250,250)));
-                Assert.That(bootstrap.MapDefinition.EnemyEntrance,Is.EqualTo(new Vector2Int(-42,-30)));
-                Assert.That(bootstrap.MapDefinition.Throne,Is.EqualTo(new Vector2Int(39,12)));
+                Assert.That(bootstrap.MapDefinition.EnemyEntrance,Is.EqualTo(new Vector2Int(-42,12)));
+                Assert.That(bootstrap.MapDefinition.Throne,Is.EqualTo(new Vector2Int(55,12)));
                 var ground=GameObject.Find("Tactical grass and paved build cells").GetComponent<MeshRenderer>();
                 Assert.That(ground.sharedMaterials[0].GetTexture("_BaseMap").name,Is.EqualTo("CartoonMeadowV2"));
                 Assert.That(ground.sharedMaterials[1].GetTexture("_BaseMap").name,Is.EqualTo("CartoonPavingV2"));

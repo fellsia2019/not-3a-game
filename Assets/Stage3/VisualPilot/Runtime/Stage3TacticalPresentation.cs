@@ -17,6 +17,7 @@ namespace Not3A.Stage3.VisualPilot
         public const float GrassApronReach = .40f;
         [SerializeField] private Material grass;
         [SerializeField] private Stage3RoadsideArt roadsideArt;
+        [SerializeField] private Stage3ResourceDistrictArt resourceDistrictArt;
         [SerializeField] private Material grassVerge;
         [SerializeField] private Material paving;
         [SerializeField] private Material neutral;
@@ -58,15 +59,14 @@ namespace Not3A.Stage3.VisualPilot
             var minimap = GetComponent<Stage2Minimap>();
             if (minimap == null) minimap = gameObject.AddComponent<Stage2Minimap>();
             minimap.Initialize(bootstrap, composition);
-            BuildSurface();
-            Stage3LandscapeProps.Build(bootstrap.MapDefinition, transform,
-                new[] {
-                    (Vector2)bootstrap.EntranceMarker.position,
-                    (Vector2)bootstrap.ThroneMarker.position,
-                    composition.Gathering.Economy.WorldPosition(MapResourceKind.Wood),
-                    composition.Gathering.Economy.WorldPosition(MapResourceKind.Stone),
-                    composition.Gathering.Economy.WorldPosition(MapResourceKind.Metal)
-                }, grassBlades, flowerPetals, flowerCenters, GrassVisualLift);
+            Stage3ResourceDistrictWorld districtWorld = null;
+            if (resourceDistrictArt != null)
+            {
+                districtWorld = gameObject.AddComponent<Stage3ResourceDistrictWorld>();
+                districtWorld.Initialize(bootstrap.MapDefinition, resourceDistrictArt,
+                    bootstrap.CameraFollow.BoundCamera, bootstrap.PlayerMover.transform, minimap, RebuildLandscape);
+            }
+            else RebuildLandscape(null);
             Stage3RoadsideDecoration.Build(bootstrap.MapDefinition,transform,roadsideArt,bootstrap.CameraFollow.BoundCamera,
                 new[] {(Vector2)bootstrap.EntranceMarker.position,(Vector2)bootstrap.ThroneMarker.position,
                     composition.Gathering.Economy.WorldPosition(MapResourceKind.Wood),
@@ -133,6 +133,21 @@ namespace Not3A.Stage3.VisualPilot
             composition.Building.Defense.Built += OnTowerBuilt;
             gameObject.AddComponent<Stage3CombatPresentation>().Initialize(composition, neutral);
             Debug.Log("S3_TACTICAL_VIEW_READY elevation=55 planarGrid=true heightAxis=-Z");
+        }
+
+        private void RebuildLandscape(IReadOnlyList<ResourceDistrict> districts)
+        {
+            ReleaseSurface();
+            BuildSurface(districts);
+            Stage3LandscapeProps.Clear(transform);
+            Stage3LandscapeProps.Build(bootstrap.MapDefinition, transform,
+                new[] {
+                    (Vector2)bootstrap.EntranceMarker.position,
+                    (Vector2)bootstrap.ThroneMarker.position,
+                    composition.Gathering.Economy.WorldPosition(MapResourceKind.Wood),
+                    composition.Gathering.Economy.WorldPosition(MapResourceKind.Stone),
+                    composition.Gathering.Economy.WorldPosition(MapResourceKind.Metal)
+                }, grassBlades, flowerPetals, flowerCenters, GrassVisualLift, districts);
         }
 
         private void OnTowerBuilt(Stage2Tower tower)
@@ -231,7 +246,7 @@ namespace Not3A.Stage3.VisualPilot
                 ? new Color(.6f,1f,.7f,.7f) : new Color(1f,.35f,.3f,.7f));
         }
 
-        private void BuildSurface()
+        private void BuildSurface(IReadOnlyList<ResourceDistrict> districts)
         {
             bootstrap.MapDebugRenderer.GetComponent<MeshRenderer>().enabled = false;
             var map = bootstrap.MapDefinition;
@@ -244,17 +259,29 @@ namespace Not3A.Stage3.VisualPilot
             var maxX = maximum.x + NonWalkableBorderCells + .5f;
             var maxY = maximum.y + NonWalkableBorderCells + .5f;
             borderMesh = new Mesh { name = "Non-walkable map border" };
-            borderMesh.vertices = new[] {
-                new Vector3(minX,minY,.02f), new Vector3(minX,maxY,.02f),
-                new Vector3(maxX,maxY,.02f), new Vector3(maxX,minY,.02f) };
+            var borderVertices = new List<Vector3>();
+            var borderUV = new List<Vector2>();
+            var borderTriangles = new List<int>();
+            void BorderQuad(float left,float bottom,float right,float top)
+            {
+                var first=borderVertices.Count;
+                foreach(var point in new[]{new Vector2(left,bottom),new Vector2(left,top),new Vector2(right,top),new Vector2(right,bottom)})
+                {
+                    borderVertices.Add(new Vector3(point.x,point.y,.02f));
+                    borderUV.Add((point+Vector2.one*.5f)/4f);
+                }
+                borderTriangles.AddRange(new[]{first,first+1,first+2,first,first+2,first+3});
+            }
+            // The outside ring must not secretly put a flat grass sheet below excavations.
+            BorderQuad(minX,minY,minimum.x-.5f,maxY);
+            BorderQuad(maximum.x+.5f,minY,maxX,maxY);
+            BorderQuad(minimum.x-.5f,minY,maximum.x+.5f,minimum.y-.5f);
+            BorderQuad(minimum.x-.5f,maximum.y+.5f,maximum.x+.5f,maxY);
+            borderMesh.SetVertices(borderVertices);
             // One seamless pigment tile covers 4x4 cells, including the
             // non-walkable visual border beyond the authored map.
-            borderMesh.uv = new[] {
-                new Vector2((minX+.5f)/4f,(minY+.5f)/4f),
-                new Vector2((minX+.5f)/4f,(maxY+.5f)/4f),
-                new Vector2((maxX+.5f)/4f,(maxY+.5f)/4f),
-                new Vector2((maxX+.5f)/4f,(minY+.5f)/4f) };
-            borderMesh.triangles = new[] { 0,1,2,0,2,3 };
+            borderMesh.SetUVs(0,borderUV);
+            borderMesh.SetTriangles(borderTriangles,0);
             borderMesh.RecalculateNormals();
             borderMesh.RecalculateBounds();
             borderGround = new GameObject("Non-walkable map border");
@@ -272,9 +299,13 @@ namespace Not3A.Stage3.VisualPilot
             var edgeVertices = new List<Vector3>();
             var edgeUV = new List<Vector2>();
             var edgeTriangles = new List<int>();
+            var reliefCells=new HashSet<Vector2Int>();
+            if(districts!=null)foreach(var district in districts)
+                if(district.Kind!=MapResourceKind.Wood)foreach(var cell in district.Cells)reliefCells.Add(cell);
             for (var x=map.MinimumCell.x; x<=map.MaximumCell.x; x++)
             for (var y=map.MinimumCell.y; y<=map.MaximumCell.y; y++)
             {
+                if(reliefCells.Contains(new Vector2Int(x,y)))continue;
                 var ground = map.GetSurface(new Vector2Int(x,y)) == MapSurfaceKind.Forest ? 0 : 1;
                 // A 100x100 world keeps the same textured grass/normal function,
                 // while one quad per distant cell avoids 16 off-screen quads.
@@ -441,15 +472,22 @@ namespace Not3A.Stage3.VisualPilot
 
         private void OnDestroy()
         {
+            Stage3LandscapeProps.Clear(transform);
             if (composition != null && composition.Building?.Defense != null)
                 composition.Building.Defense.Built -= OnTowerBuilt;
-            if (terrain != null) Destroy(terrain);
-            if (terrainMesh != null) Destroy(terrainMesh);
-            if (grassEdge != null) Destroy(grassEdge);
-            if (grassEdgeMesh != null) Destroy(grassEdgeMesh);
-            if (borderGround != null) Destroy(borderGround);
-            if (borderMesh != null) Destroy(borderMesh);
+            ReleaseSurface();
             if (preview != null) Destroy(preview);
+        }
+
+        private void ReleaseSurface()
+        {
+            if (terrain != null) { terrain.SetActive(false);Destroy(terrain); }
+            if (terrainMesh != null) Destroy(terrainMesh);
+            if (grassEdge != null) { grassEdge.SetActive(false);Destroy(grassEdge); }
+            if (grassEdgeMesh != null) Destroy(grassEdgeMesh);
+            if (borderGround != null) { borderGround.SetActive(false);Destroy(borderGround); }
+            if (borderMesh != null) Destroy(borderMesh);
+            terrain=null;terrainMesh=null;grassEdge=null;grassEdgeMesh=null;borderGround=null;borderMesh=null;
         }
     }
 }

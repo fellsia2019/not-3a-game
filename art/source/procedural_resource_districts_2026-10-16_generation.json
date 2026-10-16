@@ -1,0 +1,41 @@
+{
+  "date": "2026-10-16",
+  "generator": "Built-in image_gen.imagegen",
+  "purpose": "Runtime modular resource district sprite kits",
+  "rights": "Original project-generated artwork, text-only prompts; no third-party image inputs.",
+  "assets": [
+    {
+      "key": "Trees",
+      "prompt": "Use case: stylized-concept. Asset type: original modular SPRITE ATLAS for an isometric fantasy game. Output exactly 1536x1024 pixels, a regular invisible 3 column x 2 row grid of six 512x512 cells. Exactly one complete isolated object CENTERED IN EACH CELL, generous completely transparent margins in each cell, no objects touching or overlapping adjacent cells. True transparent RGBA background, no ground plane, square tile, landscape, backing, labels, text, numbers, watermark or grid lines. Soft compact semitransparent contact shadow only directly under each object.\nStyle: hand-painted CARTOON 2D game sprites with broad readable softly rounded painted volumes, warm dark-brown contour accents, gentle upper-left highlights, restrained detail. Fixed orthographic isometric camera 55 degrees above ground horizon, show top and front, feet/base toward bottom of image. Cohesive fantasy materials, NOT photorealism, pixel art, clay or low-poly 3D. These are reusable individual modular objects, NOT one finished scenery picture. All six cells are DISTINCT healthy conifers matching olive/yellow-green upper foliage and dark cool-green undersides, warm brown short trunks with roots. Top row: one tall narrow wind-bent fir; one broad asymmetrical mature tiered fir; one medium two-trunk dense conifer. Bottom row: one short rounder bushy young fir; one tall irregular sparse fir with several visible branch gaps; one compact triangular young conifer. Each is a SINGLE independent tree with different silhouette and bough layout; keep each centered and complete. No cut lumber, buildings, rocks, decorations or other tree species.",
+      "source": "C:\\Users\\MushketCO\\.codex\\generated_images\\01a14340-53ca-7592-9a70-362411843c11\\exec-908226da-ed51-48dd-9e96-649bdc0c1ae7.png",
+      "runtime": "Assets/Stage3/ResourceDistricts/Trees.png",
+      "sha256": "77d912b2f946654b1643df7fc6f286d06cedad7c6f4a788218bd2e361c18acbc",
+      "dimensions": [
+        1536,
+        1024
+      ]
+    },
+    {
+      "key": "RockModules",
+      "prompt": "Use case: stylized-concept. Asset type: original modular SPRITE ATLAS for an isometric fantasy game. Output exactly 1536x1024 pixels, a regular invisible 3 column x 2 row grid of six 512x512 cells. Exactly one complete isolated object CENTERED IN EACH CELL, generous completely transparent margins in each cell, no objects touching or overlapping adjacent cells. True transparent RGBA background, no ground plane, square tile, landscape, backing, labels, text, numbers, watermark or grid lines. Soft compact semitransparent contact shadow only directly under each object.\nStyle: hand-painted CARTOON 2D game sprites with broad readable softly rounded painted volumes, warm dark-brown contour accents, gentle upper-left highlights, restrained detail. Fixed orthographic isometric camera 55 degrees above ground horizon, show top and front, feet/base toward bottom of image. Cohesive fantasy materials, NOT photorealism, pixel art, clay or low-poly 3D. These are reusable individual modular objects, NOT one finished scenery picture. Six distinct MODULAR ROCK ESCARPMENT CHUNKS, each one compact connected formation with a broad exposed top, one or two low steps/ledges, irregular cracked faces and a wide grounding base. These will overlap in code to build larger rock masses, so avoid tiny loose isolated pebbles around them. TOP ROW THREE CELLS: pale warm-gray GRANITE, each different silhouette: low wide stepped slab, angular medium-height cliff piece, rounded split outcrop. BOTTOM ROW THREE CELLS: dark cool-gray IRON-BEARING ROCK with restrained non-glowing rusty orange seams, similarly three different silhouettes (wide layered slab, higher jagged piece, split block). Keep pale granite clearly different from dark iron. No shrubs, grass floor, forest, buildings, mine shafts, machinery, gems, molten lava or gold.",
+      "source": "C:\\Users\\MushketCO\\.codex\\generated_images\\01a14340-53ca-7592-9a70-362411843c11\\exec-ffd2b422-2bc8-4bd1-b680-a0fcc7fb88e1.png",
+      "runtime": "Assets/Stage3/ResourceDistricts/RockModules.png",
+      "sha256": "50d0b6067a54b30a46a0f75f58ed424c992dcd56abb75240841eefc955a33603",
+      "dimensions": [
+        1536,
+        1024
+      ]
+    },
+    {
+      "key": "MineModules",
+      "prompt": "Use case: stylized-concept. Asset type: original modular SPRITE ATLAS for an isometric fantasy game. Output exactly 1536x1024 pixels, a regular invisible 3 column x 2 row grid of six 512x512 cells. Exactly one complete isolated object CENTERED IN EACH CELL, generous completely transparent margins in each cell, no objects touching or overlapping adjacent cells. True transparent RGBA background, no ground plane, square tile, landscape, backing, labels, text, numbers, watermark or grid lines. Soft compact semitransparent contact shadow only directly under each object.\nStyle: hand-painted CARTOON 2D game sprites with broad readable softly rounded painted volumes, warm dark-brown contour accents, gentle upper-left highlights, restrained detail. Fixed orthographic isometric camera 55 degrees above ground horizon, show top and front, feet/base toward bottom of image. Cohesive fantasy materials, NOT photorealism, pixel art, clay or low-poly 3D. These are reusable individual modular objects, NOT one finished scenery picture. Six distinct small MINING EXCAVATION MODULES, made of dark gray hewn natural stone with subtle rusty seams, in the same camera angle. Top-left cell: one broad low irregular worked STONE SHAFT RIM segment with a dark inner vertical face and no ground behind it. Top-middle: one different broad low rim/inner-wall segment with stepped rock ledges. Top-right: a small pile of freshly broken dark iron ore rocks with natural rusty seams. Bottom-left: one compact short run of SIX STONE STAIRS viewed isometrically, clearly leading down and away into a dig, with broken irregular side stones. Bottom-middle: one straight TIMBER SHORING FRAME with two stout wooden uprights and an iron-banded lintel for a mine wall. Bottom-right: one small timber platform with a simple rope pulley/ore bucket on a short post, no roofed building. Every module is a small isolated reusable piece, not a full pit, full mine, whole scene or large building. Transparent pixels surround all six separate modules.",
+      "source": "C:\\Users\\MushketCO\\.codex\\generated_images\\01a14340-53ca-7592-9a70-362411843c11\\exec-3eab9bb9-89af-4a86-8e7c-a098aea51829.png",
+      "runtime": "Assets/Stage3/ResourceDistricts/MineModules.png",
+      "sha256": "88703686ffb25ff046d0bdcbdce921d9dbd873611cd25e28e077249e7ea13fb3",
+      "dimensions": [
+        1536,
+        1024
+      ]
+    }
+  ]
+}

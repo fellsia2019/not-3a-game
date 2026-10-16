@@ -2,6 +2,56 @@
 
 Active brief: D-019, 2026-09-25. Owner: Stage 3 visual integration.
 
+2026-10-16, D-051: replace the rectilinear zigzag with the owner's confirmed
+sketch: portal at upper left, descent into the first valley, a central rise,
+second valley and ascent to the throne at upper right. Retain the lower-left
+district, 250×250 bounds, about seven-cell width, current camera/zoom and art.
+Editor-authored cubic segments bake a 3.5-cell-radius stroke into the existing
+disjoint row spans; terrain/building/enemies consume the same cell mask.
+No runtime spline, waypoint system or package. Rebuild entry:
+`Tools > Stage 3 > Invasion Road > Apply Accepted Curved Road`.
+The existing builder class/method and map asset/GUID remain in use.
+Landmark migration: portal (-42,12), throne (55,12); the throne's rightward
+placement clears the unchanged metal node/region. Resource anchors, hero start,
+catalog values, reservations and enemy gray-only/siege policy retain their roles.
+Bootstrap reads new landmark coordinates from the map; no scene/Inspector rewiring.
+Original reference/provenance: `art/source/curved_road_2026-10-16_reference.json`.
+The D-045/D-050 road-cell hash, old endpoint coordinates and 195-step metric
+below describe the preceding map, superseded by D-051's new route.
+
+Windows D-051 verification: Map/Navigation EditMode 47/47; Stage3/Integration/
+RunState PlayMode 47/47; final focused route/render check 1/1, no skips. Both
+valleys/central rise are traversed in order; width, six-tower detour, full-block
+siege, resource access, paid full run/restart, minimap and camera checks pass.
+Baked mask: 1,626 gray cells; unopposed route: 225 steps. Builder reproduces
+the saved asset byte-for-byte. Prices/waves/speeds retain previous values;
+pacing acceptance is still open. Windows Development build and visible player
+startup passed with hash `ACB42D4354F114AE`, no attributable runtime error.
+Actual player screenshot includes the changed minimap; separate overview uses
+only a disposable QA camera's wide zoom/distance/far clip. Player camera intact.
+Evidence: `Artifacts/S3-CURVED-ROAD-20261016/`; shared frames/result:
+`art/review/curved_road_*2026-10-16*`. Game remains open for owner review.
+
+2026-10-16, D-050: the entire combat road belongs in the world's lower-left
+corner. Keep the old 100×100 minimum (-50,-50), extending green land only to
+the right and upward. Playable/camera bounds are now (-50,-50)..(199,199),
+still 250×250. This supersedes D-049's symmetric bounds below. Road geometry,
+gray/build masks, landmarks, resource anchors and hero start keep their exact
+world coordinates; no scene or Inspector rewiring. The whole road fits in the
+world's lower-left quadrant. The original road-cell hash and 195-step route
+remain acceptance checks. Ground, movement, camera clamp and minimap use these
+authored bounds. The QA overview follows the authored map center.
+
+Windows D-050 verification: Map/Navigation EditMode 47/47; Stage 3 / Integration /
+RunState PlayMode 47/47, no skips. The entire unchanged gray footprint is in the
+lower-left quadrant; its relative extents are x=5..92, y=17..65 within 250×250.
+Road hash, route, actor/resource anchors, all-cell minimap, edge camera/zoom,
+full run/restart and resource checks pass. The map builder changes only the two
+bounds relative to D-049. Windows build and visible player startup passed with
+map hash `7445A7082A36130A`, no attributable runtime errors. Game stays open for
+owner review. Evidence: `Artifacts/S3-WORLD-CORNER-20261016/`, shared overview
+and summary: `art/review/world_corner_*2026-10-16*`. Stage 3 gate stays open.
+
 2026-10-16, D-049: expand the green world to 250×250, adding 75 cells on each
 side of the former 100×100 bounds. Playable and camera bounds become
 (-125,-125)..(124,124); cell scale, fixed view angle and zoom stay unchanged.

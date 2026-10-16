@@ -38,6 +38,14 @@ namespace Not3A.Stage2.Defense
 
         public void SetPointerBlocker(Func<Vector2, bool> blocker) => pointerBlocker = blocker;
 
+        public void SelectAndBeginPlacement(int role)
+        {
+            if (defense == null || !defense.SelectRole(role)) return;
+            CreateGhost();
+            defense.BeginPlacement();
+            SyncBuildMode();
+        }
+
         public bool TryScreenToCell(Vector2 screen, out Vector2Int cell)
         {
             cell = default;

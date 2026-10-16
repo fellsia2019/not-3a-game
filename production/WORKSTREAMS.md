@@ -10,6 +10,276 @@ D-017: каждый новый Stage 2–7 ведёт новый агент в �
 в `reports/development-roadmap.html`; внутри stage мелкие задачи не дробятся
 по агентам. На переходе обновляются этот handoff и канонический план.
 
+### 2026-10-16 — Windows to Mac source handoff
+
+- Owner/surface: current Stage 3 chat; README setup instructions and the full
+  pending Stage 3 source/assets/documentation handoff on main. The owner
+  explicitly requested committing and pushing all current work to continue on Mac.
+- Contract: both machines use Editor 6000.6.2f1, revision 770e33f6875c, from
+  ProjectSettings/ProjectVersion.txt. README names the exact version and the
+  existing-scene workflow; Packages lock and asset .meta files travel in Git,
+  while each OS regenerates its own Library. No Editor/package upgrade.
+- Verification: version checked against ProjectVersion.txt; existing final
+  Windows evidence remains 69/69 EditMode and 61/61 PlayMode. This handoff only
+  clarifies documentation; these new district changes have not yet been
+  revalidated on Mac. The earlier Mac check below predates D-050–D-056.
+- Remaining: import on Mac with the exact Editor, check Console/Game and the
+  hybrid district appearance. Owner appearance review and the wider Stage 3
+  gate remain open as described below.
+
+### 2026-10-16 — D-056 structural district refinement (verified)
+
+- Owner/surface: current Stage 3 Map/Integration/Art chat; structural layout,
+  world-owned relief/ground meshes and shaders, visibility cache/transitions,
+  hero movement diagnostics, terrain openings and existing tests/canonical docs.
+  Dependencies: fixed camera/XY movement, original sprite kit and original
+  painted stone/grass pigments. No package or assembly change.
+- Authorization: owner explicitly chose hybrid procedural relief + painted
+  sprites after reporting flicker, ground seams, unclear pit/disconnected stairs,
+  uniform stone and stuck-together trees. Production and underground traversal
+  are still outside this brief.
+- Acceptance: visible real cavity/connected stair landings, several stone
+  levels, scale-aware forest gaps, conforming ground blend, local partial fade
+  with easing/hold, and measured movement/visibility without recovery jumps.
+- Contracts: ResourceDistrictLayout drives meshes/decor; terrain and outside
+  ring omit relief interiors. Pixel masks are cached once, not texture-read
+  per frame. Geometry is sorted once for the fixed camera; no moving-camera
+  generalization. Run reset retains the world; regeneration replaces owned
+  geometry/collision/minimap/landscape. Prior local work and source PNGs retained.
+- Verification: Map/Navigation EditMode 69/69; final Stage3/Integration/RunState
+  PlayMode 61/61 including nine district scenarios, no failures/skips or new
+  attributable errors. Structural stair/landing checks cover 80 seeds; two-seed
+  overview/close frames and partial canopy/paired hero renders inspected. The
+  terrain count test now excludes exactly relief cells while keeping world
+  bounds and WASD/minimap assertions. Initial render/capture/alpha and obsolete
+  vertex-count failures are retained in evidence. 2,000 controlled steps: 0
+  managed bytes, 0 walking recoveries, max 0.070002 for 0.07 movement, mean
+  movement+visibility CPU 0.0616 ms. 120 normal post-warmup walking frames in
+  Windows PlayMode: p50 0.6387 ms / p95 0.8861 ms / max 2.2926 ms, visibility
+  p95 0.0611 ms, movement p95 0.0248 ms, no recoveries. Local Editor sample,
+  not an FPS promise for other hardware. Windows build succeeded (305294365
+  bytes); visible player PID 21564, seed 1103560765, six districts/138 sprites,
+  clean Gameplay/Tactical Ready, map hash ACB42D4354F114AE. All 123 preexisting
+  review/settings files and source sprite PNGs hash-verified unchanged.
+  Evidence: Artifacts/S3-DISTRICT-REFINEMENT-20261016/;
+  art/review/resource_district_hybrid_*. Git remained read-only.
+- Remaining: owner appearance review of this hybrid art iteration and wider
+  Stage 3 gate. Production/renewal/large-zone harvesting and underground hero
+  traversal still require separate briefs. No extra Inspector wiring; material
+  setup is owned by ResourceDistrictBuilder.UpdateHybridData.
+
+### 2026-10-16 — D-055 procedural district hero collision
+
+- Owner/surface: current Stage 3 Map/Integration/Art chat; HeroObstacleMap in
+  the existing Map assembly, Stage2PlayerMover binding/sweep, district runtime
+  ground anchors and ResourceDistrictArt collision data, tests/canonical docs.
+  Dependencies: accepted generated cells, seeded sprite placement, XY movement
+  and existing Input System. No package, assembly or Inspector wiring change.
+- Request/acceptance: owner wants packed stone/iron to stop the hero and forest
+  paths between separate trunk obstacles. Ground contours, sliding, accelerated
+  movement, regeneration cleanup/recovery and unchanged road/reset are checked.
+- Behavior/contracts: solid district strips plus protruding rock/hoist ground
+  circles; scaled individual trunk circles, no canopy/alpha walls. Mover sweeps
+  the whole displacement and slides; replacement recovers an overlapped hero
+  to nearby in-bounds free ground. Run restart retains the same obstacle data.
+  Scenery owns/detaches its binding; scenes without the kit keep prior movement.
+  Original map/art PNGs, economy, enemies and earlier local work are preserved.
+- Verification: Map/Navigation EditMode 63/63; final Stage3/Integration/RunState
+  PlayMode 58/58 (six district scenarios), no failures/skips or new attributable
+  console errors. Head-on hold with x10/x10, smooth sliding/round corners,
+  separate trunks/forest gaps, 2,000 mixed movements, deterministic collision,
+  safe regeneration/replacement, run reset and clear road pass. Contact and
+  forest captures inspected; readable-atlas alpha sampling now excludes
+  transparent margins from occlusion fading, preserving the hero render check.
+  Windows Development build succeeded (299653025 bytes); player PID 9976 is
+  visible, seed -828002414, six districts/79 strips/345 ground circles, clean
+  Gameplay/Tactical Ready and map hash ACB42D4354F114AE. All 117 preexisting
+  art/settings files and source PNGs hash-verified unchanged. Evidence:
+  Artifacts/S3-RESOURCE-COLLISION-20261016/; art/review/resource_collision_*.
+- Remaining: owner contact feel/appearance review and the wider Stage 3 gate
+  stay open; production,
+  renewal and underground travel remain separate briefs. Git stays read-only.
+
+### 2026-10-16 — D-054 procedural modular resource districts
+
+- Owner/surface: current Stage 3 Art/Map/Integration chat; new pure map generator,
+  sprite kit/data/builder and runtime scenery, minimap overlay, one scene binding,
+  landscape exclusion/teardown, tests and existing canonical documents.
+  Dependencies: current fixed planar map/camera, URP sprite renderer and Input
+  System. District-only material handles per-instance color/flip; baseline actor
+  shaders/materials are preserved.
+- Authorization/acceptance: owner clarified random varied objects at world
+  creation and approved sprite assembly. Explicit initial size: 200–300 cells.
+  Connected, distinct and separated footprints must protect road, objectives,
+  hero and the three old gathering anchors. Same seed reproduces, new seed varies;
+  real scene captures must show each resource kind and preserve hero readability.
+- Behavior/contracts: ResourceDistrictGenerator returns read-only footprint data
+  without modifying map/global Random. Stage3ResourceDistrictWorld builds
+  seeded sprite combinations and cached generated ground; run restart retains
+  world. Optional -worldSeed reproduces a scene. Landscape grass exclusion and
+  minimap overlay rebuild alongside a regenerated layout. No new economy,
+  production building, collision or underground movement rule. Art/settings:
+  Assets/Stage3/ResourceDistricts/ResourceDistrictArt.asset; current scene gets
+  one resourceDistrictArt reference via the Editor builder. Other serialized
+  bindings, map/catalogs/packages and prior local changes remain existing.
+- Source/rights: 18 original sprite parts across three transparent sheets;
+  prompts/original paths/hashes/rights in
+  art/source/procedural_resource_districts_2026-10-16_generation.json. The full
+  D-053 concepts remain references. Brief: PROCEDURAL_RESOURCE_DISTRICTS.md.
+- Verification: Map/Navigation EditMode 54/54; final Stage3/Integration/RunState
+  PlayMode 55/55, no failures/skips. Same seed reproduces footprint and sprite
+  choices/placement; other seeds vary; connectivity, strict cell area, clearances,
+  size increase, map/global-Random preservation, run reset, minimap and resource
+  cleanup pass. Both seed variants rendered for all three kinds. Initial alpha
+  inspection missed a legacy shader limitation; an actual rendered cyan-pixel
+  check caught the hidden hero. A district-only shader now applies URP tint/flip
+  and all overlapping canopies fade together; the final pixel check passes.
+  Regenerated grass exclusion and mesh teardown stay aligned with the new world.
+  Initial import/compile/render failures are retained in task evidence.
+  Windows Development build succeeded (299641912 bytes); two normal launches
+  generated seeds 1273994254 / 401322775 with six districts and clean Gameplay/
+  Tactical Ready. Real 1600x900 Game confirms the normal HUD/minimap overlay;
+  second player (PID 26588) remains visible. All 108 preexisting art/settings
+  files and original source PNG bytes preserved and hash-verified. Evidence:
+  Artifacts/S3-PROCEDURAL-DISTRICTS-20261016/; art/review/procedural_district*.
+- Remaining: owner appearance review; passive-production/large-zone harvesting
+  and forest renewal remain separate briefs, wider Stage 3 gate stays open.
+  Git stayed read-only; prior local D-050–D-053 work is retained.
+
+### 2026-10-16 — D-053 large resource district visual references
+
+- Owner/surface: current Stage 3 Art/Design chat; three concept PNGs,
+  generation/source record and existing plan/art direction/decision/handoff.
+  Dependencies: accepted cartoon B direction and current resource identities.
+- Request/acceptance: owner requested references before implementation for a
+  large forest + sawmill with forest renewal, a broad stone mass + quarry, and
+  a descending iron mine + extraction station. Each district must visually
+  dominate its small building and read through shape/material without UI labels.
+- Outcome/files: three original 1536x1024 concepts in
+  art/concepts/resource_districts_2026-10-16/. Text-only built-in imagegen;
+  project's own prior art inspected for style, no third-party image inputs.
+  Exact prompts, original generated paths, source/rights and SHA256 hashes:
+  art/source/resource_districts_2026-10-16_generation.json. Original generated
+  files retained; all three final PNGs copied into the workspace and displayed.
+- Verification: all images inspected for full framing, common style, forest
+  renewal cues, open granite benches and distinct downward mine/hoist identity;
+  PNG signatures/dimensions/hashes verified. Unity EditMode/PlayMode/build not
+  rerun: only preview art and documentation changed; no runtime/scene/asset/
+  package/wiring change. Prior local work preserved; Git read-only.
+- Remaining: owner's appearance choice; exact footprint (50x50 = 2,500 cells,
+  not the other spoken 200–300 estimate); before runtime, agree placement near
+  the matching deposit, prices/production/recovery, hero's economic role and
+  resource-zone representation. One sawmill pilot before scaling production,
+  then one enemy/tower counter pair, are recommendations only. D-032 MVP scope
+  and the Stage 3 gate remain unchanged; no passive-production work activated.
+
+### 2026-10-16 — D-052 development menu and player HUD cleanup
+
+- Owner/surface: current Stage 3 chat, UI/UX + Integration; scene-owned HUD,
+  movement runtime multiplier, build input binding, union of HUD/minimap pointer
+  exclusions, existing run/economy contracts and canonical documentation.
+  Dependencies: initialized composition, current IMGUI/Input System, minimap.
+- Authorization/behavior: owner requested wave launch, pause, x10, gold/all
+  material grants and removal/polish of diagnostic windows; explicitly chose
+  independent hero/game speed multipliers. F3/button opens hidden development
+  tools. Normal player UI retains resources, wave/throne, tower choice/price,
+  contextual E/build hints and result/restart, including non-development builds.
+  Technical source/distance tables and old readout/terminal boxes are removed.
+- Contracts/files: Stage2GameHud is bound by Stage2GameComposition without scene
+  rewiring. Stage2PlayerMover retains authored speed with a runtime x1–x10 factor;
+  Stage2BuildDriver.SelectAndBeginPlacement synchronizes the existing preview.
+  Composition owns combined pointer exclusions; minimap no longer overwrites or
+  clears HUD input protection. Pause combines run pause and scaled-time freeze;
+  F3/commands still work. Resume keeps chosen simulation speed; restart clears
+  pause/inventory; scene exit/disable restores prior timeScale and hero x1.
+  Grants use overflow-safe inventory transactions, wave start uses normal phase
+  rules. Existing opt-in showcase capture additionally captures the real menu.
+  New brief: gamedesign/features/STAGE3_DEBUG_MENU.md. No packages, map/scene/
+  prefab/catalog changes; the final commercial UI stack remains open.
+- Verification: EditMode 29/29 (Economy/Defense/RunState), PlayMode 52/52
+  (Stage3/Integration/RunState), final focused menu 5/5, no skips. Real purchase,
+  inventory/reset/overflow, wave refusal, paused hero/enemies, independent speed,
+  keyboard at zero timeScale, release guard, global clock teardown and real
+  Input System click/wheel blocking pass alongside existing minimap/full-run
+  regressions. Windows build succeeded (274435971 bytes), real HUD/menu frames
+  inspected at 1600×900; layout tightened so all commands fit. Native window
+  automation kernel failed to initialize (OS error 3); direct manual clicking
+  is degraded, covered instead by command/state and Input System checks.
+  Initial test capture failure (batchmode WaitForEndOfFrame) is retained; visual
+  evidence uses the actual standalone rendered frame. Prior review/settings
+  files preserved byte-for-byte; fresh regression captures retained separately.
+  Evidence: Artifacts/S3-DEBUG-HUD-20261016/; shared art/review/debug_hud_*.
+- Remaining: owner judgement of appearance/usability, final commercial UI stack,
+  wider Stage 3 content/audio/performance gate. Updated Windows game left open.
+  Git read-only; prior local D-050/D-051 changes are preserved.
+
+### 2026-10-16 — D-051 curved invasion road from the player's sketch
+
+- Owner/surface: current Stage 3 chat; existing map builder/asset, layout-specific
+  map/navigation/tactical/minimap checks and canonical documentation. Preserve
+  the preexisting uncommitted D-050 correction and all art/reference evidence.
+- Authorization: owner confirmed red left portal / blue right throne, smooth
+  sketched road, seven-cell width and lower-left district in the 250×250 world.
+- Behavior/contracts: Editor cubic geometry bakes into the existing gray surface
+  and build mask. Two valleys surround a central rise, endpoints above them.
+  Portal/throne reposition through map data; hero/resources, world/camera bounds,
+  visual assets, prices, waves, combat and gray-only detour/siege rules remain.
+  No runtime spline, waypoint system, package or Inspector rewiring.
+- Files/migration: existing `Stage3DiagonalMapBuilder` and `Stage3PlanarCorner`,
+  layout-specific existing tests; README, vision/plan/decisions, tactical/minimap/
+  navigation briefs. Portal moves to (-42,12), throne to (55,12), clear of metal;
+  Bootstrap updates markers from map data. Existing scene/prefab/GUID/data format
+  and Inspector wiring remain. Original sketch is outside `Assets/`, with
+  source/rights recorded in `art/source/curved_road_2026-10-16_reference.json`.
+- Verification: Windows Map/Navigation EditMode 47/47; Stage3/Integration/
+  RunState PlayMode 47/47; final focused route/render 1/1, no skips. All nine
+  sampled straight widths, ordered valleys/rise, six-tower detour/seven-tower
+  siege, resource lifecycle, paid full run/restart and minimap/camera/input pass.
+  Baked road has 1,626 cells and a 225-step free route. Curve builder reproduces
+  the saved asset byte-for-byte. World/camera/walk masks, resources and hero start
+  preserved. Initial 45/47 PlayMode retained: two superseded grass-cell fixtures
+  were corrected; no gameplay rule was changed to satisfy them.
+  Windows build succeeded (274420675 bytes), actual player reached Gameplay
+  Ready with map hash `ACB42D4354F114AE`, no attributable runtime errors. The old
+  owned player was replaced; new visible game stays open for the owner.
+  Actual Windows Game screenshot includes HUD/minimap; route overview uses only
+  a disposable QA camera. Original art/settings evidence (102 files) preserved
+  byte-for-byte after retaining new captures separately. Evidence:
+  `Artifacts/S3-CURVED-ROAD-20261016/`; shared overview/live frame/result:
+  `art/review/curved_road_*2026-10-16*`.
+- Remaining: owner judgement of the route and longer-route pacing; wider Stage 3
+  visual/performance gate. Speeds, waves and prices unchanged. Git stayed
+  read-only; the earlier local D-050 changes are retained.
+
+### 2026-10-16 — D-050 combat district in the lower-left world corner
+
+- Owner/surface: current Stage 3 chat; tactical map bounds, existing map builder,
+  related map/navigation/camera/minimap checks and canonical documentation.
+- Authorization/acceptance: owner requires the road from portal to throne in
+  the world's lower-left corner. Keep the old 100×100 lower/left bounds and
+  extend green land to the right/up within the same 250×250 size. Entire gray
+  footprint must fit in the lower-left quadrant. Preserve road cells/hash,
+  build masks, landmarks, resources, hero start, 195-step route and game rules.
+  Camera/minimap follow authored bounds; rebuilds reproduce this composition.
+- Files: `Stage3PlanarCorner.asset`, `Stage3DiagonalMapBuilder`, existing
+  invasion-road and tactical PlayMode checks; README, vision, plan, decisions,
+  tactical/minimap briefs. No scene/prefab references, catalogs or packages change.
+- Verification: Windows Map/Navigation EditMode 47/47; Stage3/Integration/
+  RunState PlayMode 47/47, no skips. All 1,582 gray cells retain the old SHA256;
+  relative road extents x=5..92, y=17..65 fit wholly in the lower-left quadrant.
+  Route remains 195 steps. Builder round trip differs from D-049 only in the
+  playable/camera bounds. Ground, input across the old edge, camera clamp/zoom,
+  minimap terrain/markers/input exclusion, full run/restart and resources pass.
+  Windows build succeeded (274420387 bytes); the previous owned player was
+  closed for rebuilding, then the new visible player reached Gameplay Ready
+  with map hash `7445A7082A36130A`, no attributable errors. Game stays open.
+  Test-overwritten preexisting review PNGs restored byte-for-byte; new overview
+  kept separately. QA overview changes zoom/far clip only in a disposable test
+  camera. Evidence: `Artifacts/S3-WORLD-CORNER-20261016/`; shared overview/result:
+  `art/review/world_corner_*2026-10-16*`. No new Inspector wiring or migration.
+- Remaining: owner review and the wider Stage 3 visual/performance gate. Git
+  remained read-only for this correction.
+
 ### 2026-10-16 — D-049 green world expansion to 250×250
 
 - Owner/surface: current Stage 3 chat; saved tactical map, existing map builder,

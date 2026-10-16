@@ -127,7 +127,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
         }
 
         [UnityTest]
-        public IEnumerator ZigzagMap_PlacesLandmarksResourcesAndBuildArea()
+        public IEnumerator CurvedMap_PlacesLandmarksResourcesAndBuildArea()
         {
             EditorSceneManager.LoadSceneInPlayMode("Assets/Scenes/Stage3Rapid3DGamePilot.unity",
                 new LoadSceneParameters(LoadSceneMode.Single));
@@ -136,11 +136,11 @@ namespace Not3A.Stage3.VisualPilot.Tests
             var map=bootstrap.MapDefinition;
             Assert.That(map.ValidateDefinition().IsValid,Is.True);
             Assert.That(map.Size,Is.EqualTo(new Vector2Int(250,250)));
-            Assert.That(map.EnemyEntrance,Is.EqualTo(new Vector2Int(-42,-30)));
-            Assert.That(map.Throne,Is.EqualTo(new Vector2Int(39,12)));
+            Assert.That(map.EnemyEntrance,Is.EqualTo(new Vector2Int(-42,12)));
+            Assert.That(map.Throne,Is.EqualTo(new Vector2Int(55,12)));
             Assert.That(map.EnemiesStayOnInvasionCorridor,Is.True);
-            Assert.That(map.GetSurface(new Vector2Int(-42,-15)),Is.EqualTo(MapSurfaceKind.InvasionCorridor));
-            Assert.That(map.GetSurface(new Vector2Int(3,6)),Is.EqualTo(MapSurfaceKind.InvasionCorridor));
+            Assert.That(map.GetSurface(new Vector2Int(-39,-20)),Is.EqualTo(MapSurfaceKind.InvasionCorridor));
+            Assert.That(map.GetSurface(new Vector2Int(2,-4)),Is.EqualTo(MapSurfaceKind.InvasionCorridor));
             Assert.That(map.GetSurface(new Vector2Int(-15,-12)),Is.EqualTo(MapSurfaceKind.Forest));
             Assert.That(map.GetSurface(new Vector2Int(20,20)),Is.EqualTo(MapSurfaceKind.Forest));
             for(var index=0;index<3;index++)
@@ -152,7 +152,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             }
             Assert.That(map.GetSurface(map.Throne+new Vector2Int(3,-1)),
                 Is.EqualTo(MapSurfaceKind.InvasionCorridor));
-            Assert.That(map.GetSurface(map.Throne+new Vector2Int(-16,-16)),
+            Assert.That(map.GetSurface(map.Throne+new Vector2Int(-20,8)),
                 Is.EqualTo(MapSurfaceKind.Forest));
             Assert.That(bootstrap.PlayerMover.transform.position.x,Is.EqualTo(18f));
             Assert.That(bootstrap.PlayerMover.transform.position.y,Is.EqualTo(28f));
@@ -166,7 +166,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
         }
 
         [UnityTest]
-        public IEnumerator ZigzagRoad_EnemyTraversesWholeRoadAndPortalIsVisible()
+        public IEnumerator CurvedRoad_EnemyTraversesWholeRoadAndPortalIsVisible()
         {
             EditorSceneManager.LoadSceneInPlayMode("Assets/Scenes/Stage3Rapid3DGamePilot.unity",
                 new LoadSceneParameters(LoadSceneMode.Single));
@@ -180,7 +180,8 @@ namespace Not3A.Stage3.VisualPilot.Tests
             var camera=bootstrap.CameraFollow.BoundCamera;
             bootstrap.CameraFollow.enabled=false;
             camera.orthographicSize=30f;
-            camera.transform.position=new Vector3(-1.5f,-9f,0)-camera.transform.forward*20f;
+            camera.farClipPlane=150f;
+            camera.transform.position=new Vector3(6.5f,-11f,0)-camera.transform.forward*60f;
             SaveRoadView(camera,"route-overview.png",1600,900);
             camera.orthographicSize=5f;
             camera.transform.position=bootstrap.EntranceMarker.position-camera.transform.forward*20f;
@@ -206,7 +207,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             }
             Assert.That(visited.Count,Is.GreaterThan(120),"The ordinary enemy must traverse both detours.");
             Assert.That(run.ThroneHealth,Is.LessThan(health));
-            File.WriteAllText("Artifacts/S3-INVASION-ROAD-20261015/traversal.txt",
+            File.WriteAllText("Artifacts/S3-CURVED-ROAD-20261016/traversal.txt",
                 $"visitedCells={visited.Count}\nportal={map.EnemyEntrance}\nthrone={map.Throne}\nwidth=7\nheroGrassWalkable={map.IsWalkable(map.GetResourceRegion(0).Anchor)}\n");
         }
 
@@ -223,11 +224,15 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Assert.That(minimap.Terrain.width,Is.EqualTo(512));
             Assert.That(minimap.Terrain.height,Is.EqualTo(512));
             var mesh=GameObject.Find("Tactical grass and paved build cells").GetComponent<MeshFilter>().sharedMesh;
-            Assert.That(mesh.bounds.min.x,Is.EqualTo(-125.5f).Within(.001f));
-            Assert.That(mesh.bounds.max.x,Is.EqualTo(124.5f).Within(.001f));
-            Assert.That(mesh.bounds.min.y,Is.EqualTo(-125.5f).Within(.001f));
-            Assert.That(mesh.bounds.max.y,Is.EqualTo(124.5f).Within(.001f));
-            Assert.That(mesh.vertexCount,Is.EqualTo(250*250*4));
+            Assert.That(mesh.bounds.min.x,Is.EqualTo(-50.5f).Within(.001f));
+            Assert.That(mesh.bounds.max.x,Is.EqualTo(199.5f).Within(.001f));
+            Assert.That(mesh.bounds.min.y,Is.EqualTo(-50.5f).Within(.001f));
+            Assert.That(mesh.bounds.max.y,Is.EqualTo(199.5f).Within(.001f));
+            var districtWorld=game.GetComponent("Stage3ResourceDistrictWorld");
+            var districts=(IReadOnlyList<ResourceDistrict>)districtWorld.GetType().GetProperty("Districts").GetValue(districtWorld);
+            var reliefCells=districts.Where(d=>d.Kind!=MapResourceKind.Wood).Sum(d=>d.Cells.Count);
+            Assert.That(mesh.vertexCount,Is.EqualTo((250*250-reliefCells)*4),
+                "The full world remains covered, with precisely the approved relief footprints cut out of the grass sheet.");
 
             bootstrap.PlayerMover.transform.position=new Vector3(48.5f,75f,0f);
             bootstrap.CameraFollow.SnapToTarget();
@@ -258,20 +263,21 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Assert.That(inventory.Get(MapResourceKind.Wood),Is.EqualTo(wood));
             Assert.That(inventory.Get(MapResourceKind.Stone),Is.EqualTo(stone));
 
-            const string folder="Artifacts/S3-WORLD-250-20261016/";
+            const string folder="Artifacts/S3-CURVED-ROAD-20261016/";
             SaveRoadView(camera,"new-green-land.png",1200,900,folder);
             bootstrap.CameraFollow.enabled=false;
             camera.orthographicSize=150f;
             camera.farClipPlane=600f;
-            camera.transform.position=new Vector3(-.5f,-.5f,0)-camera.transform.forward*300f;
+            var center=(Vector2)map.MinimumCell+(Vector2)(map.Size-Vector2Int.one)*.5f;
+            camera.transform.position=(Vector3)center-camera.transform.forward*300f;
             SaveRoadView(camera,"world-250-overview.png",1600,1000,folder);
             Debug.Log($"S3_WORLD_250_OK cells={map.CellBounds.CellCount} terrainVertices={mesh.vertexCount} " +
                 $"terrainBytes={UnityEngine.Profiling.Profiler.GetRuntimeMemorySizeLong(mesh)} " +
-                $"minimap={minimap.Terrain.width}x{minimap.Terrain.height} unchangedRoad=true");
+                $"minimap={minimap.Terrain.width}x{minimap.Terrain.height} curvedRoad=true");
         }
 
         private static void SaveRoadView(Camera camera,string name,int width,int height,
-            string folder="Artifacts/S3-INVASION-ROAD-20261015/")
+            string folder="Artifacts/S3-CURVED-ROAD-20261016/")
         {
             Directory.CreateDirectory(folder);
             var previousTarget=camera.targetTexture; var previousActive=RenderTexture.active;
@@ -1410,8 +1416,10 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Assert.That(Object.FindAnyObjectByType<Stage2Tower>().Cell, Is.EqualTo(buildCell));
             inventory.TryAddGold(5); inventory.TryAdd(MapResourceKind.Wood,2); inventory.TryAdd(MapResourceKind.Stone,1);
             Assert.That(defense.BeginPlacement(), Is.True);
+            var grassCell=objective+new Vector2Int(-6,5);
+            Assert.That(bootstrap.MapDefinition.GetSurface(grassCell),Is.EqualTo(MapSurfaceKind.Forest));
             input.Set(mouse.position,(Vector2)camera.WorldToScreenPoint(
-                bootstrap.MapDefinition.CellToWorld(objective+new Vector2Int(-6,0))));
+                bootstrap.MapDefinition.CellToWorld(grassCell)));
             yield return null;
             Assert.That(composition.Building.PreviewResult, Is.Not.EqualTo(PlacementResult.Ready));
             input.Press(mouse.leftButton); yield return null; input.Release(mouse.leftButton);
@@ -1493,7 +1501,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
                         economy.GetNode(MapResourceKind.Stone).GatherSeconds, true), Is.True);
                     Assert.That(defense.BeginPlacement(), Is.True);
                     defense.SetPreviewCell(composition.GetComponent<Stage2SceneBootstrap>()
-                        .MapDefinition.Throne+new Vector2Int(3,3));
+                        .MapDefinition.Throne+new Vector2Int(-4,3));
                     Assert.That(defense.TryConfirm(out towers[2]), Is.EqualTo(PlacementResult.Ready));
                     Assert.That(economy.Inventory.Gold, Is.EqualTo(1));
                 }

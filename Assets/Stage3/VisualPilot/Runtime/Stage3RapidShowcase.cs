@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.IO;
 using Not3A.Stage2.Defense;
 using Not3A.Stage2.Economy;
 using Not3A.Stage2.Integration;
@@ -55,6 +56,21 @@ namespace Not3A.Stage3.VisualPilot
                 yield return new WaitForSecondsRealtime(2f);
                 yield return new WaitForEndOfFrame();
                 ScreenCapture.CaptureScreenshot(capturePath);
+                // The existing opt-in QA capture also records the real IMGUI tools,
+                // which Camera.Render screenshots cannot include.
+                var hud = composition.GetComponent<Stage2GameHud>();
+                if (hud != null && hud.DebugAvailable)
+                {
+                    yield return new WaitForSecondsRealtime(.5f);
+                    hud.SetDebugOpen(true);
+                    hud.SetDebugPaused(true);
+                    yield return new WaitForEndOfFrame();
+                    ScreenCapture.CaptureScreenshot(Path.Combine(Path.GetDirectoryName(capturePath),
+                        Path.GetFileNameWithoutExtension(capturePath) + "-debug.png"));
+                    yield return new WaitForSecondsRealtime(.5f);
+                    hud.SetDebugPaused(false);
+                    hud.SetDebugOpen(false);
+                }
             }
             if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("NOT3A_COMBAT_CAPTURE")))
             {

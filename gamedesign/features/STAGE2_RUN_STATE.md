@@ -21,7 +21,9 @@ arrivals. Clearing an intermediate wave enters the next Preparation; surviving
 the final wave wins. Zero throne health loses. R
 restarts after a terminal result. Building remains available during unpaused
 Preparation and Wave, and a phase transition to Wave preserves its preview.
-Pause is an explicit run-state call for later UI, not a new key binding.
+Pause remains an explicit run-state call. D-052 now supplies a development
+menu that combines this call with zero scaled time, so the hero and presentation
+also freeze; F3 opens that menu without pausing by itself.
 
 This is a diagnostic run to test repeated recovery, not final P-004 pacing.
 Prototype values live in `Assets/Stage2/RunState/Data/Stage2RunPrototype.asset`.

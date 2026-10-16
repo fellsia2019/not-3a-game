@@ -1,0 +1,119 @@
+{
+  "date": "2026-10-16",
+  "decision": "D-056",
+  "owner_selection": "Hybrid procedural 3D relief/base plus painted sprites; hero XY rules retained",
+  "feature": "gamedesign/features/PROCEDURAL_RESOURCE_DISTRICTS.md",
+  "artifacts": "Artifacts\\S3-DISTRICT-REFINEMENT-20261016",
+  "tests": {
+    "EditModeFinal.xml": {
+      "total": "69",
+      "passed": "69",
+      "failed": "0",
+      "skipped": "0",
+      "duration": "15,0915595"
+    },
+    "PlayModeVerified.xml": {
+      "total": "61",
+      "passed": "61",
+      "failed": "0",
+      "skipped": "0",
+      "duration": "198,4925866"
+    },
+    "DistrictsSurface.xml": {
+      "total": "8",
+      "passed": "8",
+      "failed": "0",
+      "skipped": "0",
+      "duration": "55,9414811"
+    }
+  },
+  "hot_path_profile": {
+    "samples": 2000,
+    "total_cpu_ms": 123.1858,
+    "mean_cpu_ms": 0.0616,
+    "managed_bytes": 0,
+    "walking_recoveries": 0,
+    "maximum_step": 0.070002
+  },
+  "walking_frame_profile": {
+    "frames": 120,
+    "frame_p50_ms": 0.6387,
+    "frame_p95_ms": 0.8861,
+    "frame_max_ms": 2.2926,
+    "visibility_p95_ms": 0.0611,
+    "movement_p95_ms": 0.0248,
+    "walking_recoveries": 0,
+    "environment": "Windows Unity PlayMode after 40 warmup frames"
+  },
+  "player": {
+    "pid": 21564,
+    "ready": [
+      "S2_INT_GAMEPLAY_READY map=Stage3PlanarCorner hash=ACB42D4354F114AE",
+      "S3_RESOURCE_DISTRICTS_READY seed=1103560765 districts=6 sprites=138 cells=200..300 economyChanges=0 solidStrips=77 groundCircles=134 hybrid=true masks=18",
+      "S3_TACTICAL_VIEW_READY elevation=55 planarGrid=true heightAxis=-Z"
+    ],
+    "build_bytes": 305294365,
+    "attributable_startup_errors": []
+  },
+  "changes": [
+    "local partial-opacity reveal with smoothing, cached masks and exit hold",
+    "continuous beveled 3D relief, coherent terraces and connected stair tiles",
+    "actual openings in terrain and outside grass ring",
+    "conforming ground aprons and matching grass pigment/UV phase",
+    "tree crown spacing, winding clearings and varied ages/scales",
+    "depth-aware geological reveal, full shadow kept",
+    "owned geometry/collision/minimap/landscape replacement and retained run reset",
+    "movement diagnostics and CPU/frame samples"
+  ],
+  "research": [
+    "https://www.trifox-game.com/dissolving-the-world-part-2/",
+    "https://dev.epicgames.com/documentation/en-us/unreal-engine/stylized-rendering-materials?application_version=4.27",
+    "https://unity.com/blog/games/optimize-your-mobile-game-performance-expert-tips-on-graphics-and-assets"
+  ],
+  "screenshots": [
+    {
+      "path": "art\\review\\resource_district_hybrid_forest_164032_2026-10-16.png",
+      "sha256": "75bd7ad3f1cc6c70cd3289abfc2a2ca631b08e0f1dced434e7db1b6612c668cd"
+    },
+    {
+      "path": "art\\review\\resource_district_hybrid_forest_164033_2026-10-16.png",
+      "sha256": "3308b275b26ff36e2394056fc66712e05a15ddbe40096a1891d3c6af5a417fce"
+    },
+    {
+      "path": "art\\review\\resource_district_hybrid_stone_164032_2026-10-16.png",
+      "sha256": "a467dcdd9dc593611a02182bfd4db70f82e80b0439adfe3971e4e3fddb0f5983"
+    },
+    {
+      "path": "art\\review\\resource_district_hybrid_stone_164033_2026-10-16.png",
+      "sha256": "8eaff8887da3069df3fc4950045faf21ae210875e032531e54535c70d6dc448f"
+    },
+    {
+      "path": "art\\review\\resource_district_hybrid_metal_164032_2026-10-16.png",
+      "sha256": "b1b35aba1fc5ed17b0dd576b30007a403c93f9960c94392e913b1f99d67b0974"
+    },
+    {
+      "path": "art\\review\\resource_district_hybrid_metal_164033_2026-10-16.png",
+      "sha256": "9cf0defc0c22824750aea8664c2c4e57bc64f9c73a8ee09a929e6aa6395d252a"
+    },
+    {
+      "path": "art\\review\\resource_district_hybrid_partial_reveal_2026-10-16.png",
+      "sha256": "0ef1302d9941a4a49001b063251a93a883b6bbe89f53abbb781e88f572140c1e"
+    },
+    {
+      "path": "art\\review\\resource_district_hybrid_hero_visibility_2026-10-16.png",
+      "sha256": "42e8613233e18e4e16d929eb4a27771ee7b98b8d06a44c463912a23b43a2fd50"
+    },
+    {
+      "path": "art\\review\\resource_district_hybrid_live_game_2026-10-16.png",
+      "sha256": "21b4f35fda5f3bd42319b0f9bcc58ea7c271f60b39940e7645356971d679c548"
+    }
+  ],
+  "baseline_preserved": 123,
+  "source_images": "Original sprite sheets and existing painted stone/grass assets reused; no source image edits",
+  "remaining": [
+    "Owner appearance review of this hybrid iteration",
+    "Wider Stage 3 gate",
+    "Production, renewal, large-zone harvesting and underground movement require separate briefs"
+  ],
+  "git": "read-only; no stage, commit, push, pull, fetch, branch or other Git mutation"
+}

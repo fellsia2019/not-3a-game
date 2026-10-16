@@ -11,14 +11,30 @@ namespace Not3A.Stage3.VisualPilot
     {
         private const int BorderDecorationCells = 8;
 
+        internal static void Clear(Transform parent)
+        {
+            var root = parent.Find("Real landscape grass and flowers");
+            if (root == null) return;
+            root.gameObject.SetActive(false);
+            foreach (var filter in root.GetComponentsInChildren<MeshFilter>(true))
+                if (filter.sharedMesh != null) UnityEngine.Object.Destroy(filter.sharedMesh);
+            UnityEngine.Object.Destroy(root.gameObject);
+        }
+
         internal static void Build(Stage2MapDefinition map, Transform parent, Vector2[] clearances,
-            Material grassBlades, Material flowerPetals, Material flowerCenters, float visualLift)
+            Material grassBlades, Material flowerPetals, Material flowerCenters, float visualLift,
+            IReadOnlyList<ResourceDistrict> districts = null)
         {
             var grass = new MeshBuffer();
             var petals = new MeshBuffer();
             var centers = new MeshBuffer();
             var tuftCount = 0;
             var flowerCount = 0;
+            var rockCells = new HashSet<Vector2Int>();
+            if (districts != null)
+                foreach (var district in districts)
+                    if (district.Kind != MapResourceKind.Wood)
+                        foreach (var cell in district.Cells) rockCells.Add(cell);
 
             for (var x = map.MinimumCell.x - BorderDecorationCells;
                  x <= map.MaximumCell.x + BorderDecorationCells; x++)
@@ -26,6 +42,7 @@ namespace Not3A.Stage3.VisualPilot
                  y <= map.MaximumCell.y + BorderDecorationCells; y++)
             {
                 var cell = new Vector2Int(x, y);
+                if (rockCells.Contains(cell)) continue;
                 if (map.Contains(cell) && map.GetSurface(cell) != MapSurfaceKind.Forest) continue;
                 var seed = Hash(x, y, 0x6D2B79F5u);
                 var px = x + (Unit(Hash(x, y, 31)) - .5f) * .5f;

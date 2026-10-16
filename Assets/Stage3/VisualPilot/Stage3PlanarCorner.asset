@@ -14,301 +14,385 @@ MonoBehaviour:
   m_EditorClassIdentifier: Not3A.Stage2.Map::Not3A.Stage2.Map.Stage2MapDefinition
   planarGrid: 1
   cellBounds:
-    minimum: {x: -125, y: -125}
+    minimum: {x: -50, y: -50}
     size: {x: 250, y: 250}
   defaultSurface: 0
   surfaceRegions:
   - surface: 1
     area:
-      minimum: {x: -45, y: -33}
+      minimum: {x: 13, y: -37}
+      size: {x: 17, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: 11, y: -36}
+      size: {x: 23, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: 10, y: -35}
+      size: {x: 26, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: -35, y: -34}
+      size: {x: 28, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: 10, y: -34}
+      size: {x: 28, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: -38, y: -33}
+      size: {x: 33, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: 9, y: -33}
+      size: {x: 30, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: -40, y: -32}
+      size: {x: 37, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: 9, y: -32}
+      size: {x: 30, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: -41, y: -31}
+      size: {x: 39, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: 9, y: -31}
+      size: {x: 31, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: -41, y: -30}
+      size: {x: 40, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: 9, y: -30}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -45, y: -32}
+      minimum: {x: 29, y: -30}
+      size: {x: 11, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: -42, y: -29}
+      size: {x: 41, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: 10, y: -29}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -45, y: -31}
+      minimum: {x: 33, y: -29}
+      size: {x: 8, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: -42, y: -28}
+      size: {x: 42, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: 10, y: -28}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -45, y: -30}
+      minimum: {x: 34, y: -28}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -45, y: -29}
+      minimum: {x: -42, y: -27}
+      size: {x: 8, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: -8, y: -27}
+      size: {x: 8, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: 10, y: -27}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -45, y: -28}
+      minimum: {x: 34, y: -27}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -45, y: -27}
+      minimum: {x: -42, y: -26}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -27, y: -27}
-      size: {x: 25, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: -45, y: -26}
+      minimum: {x: -7, y: -26}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -27, y: -26}
-      size: {x: 25, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: -45, y: -25}
+      minimum: {x: 10, y: -26}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -27, y: -25}
-      size: {x: 25, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: -45, y: -24}
+      minimum: {x: 34, y: -26}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -27, y: -24}
-      size: {x: 25, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: -45, y: -23}
+      minimum: {x: -42, y: -25}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -27, y: -23}
-      size: {x: 25, y: 1}
+      minimum: {x: -7, y: -25}
+      size: {x: 8, y: 1}
   - surface: 1
     area:
-      minimum: {x: -45, y: -22}
+      minimum: {x: 10, y: -25}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -27, y: -22}
-      size: {x: 25, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: -45, y: -21}
+      minimum: {x: 34, y: -25}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -27, y: -21}
-      size: {x: 25, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: 9, y: -21}
-      size: {x: 34, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: -45, y: -20}
+      minimum: {x: -42, y: -24}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -27, y: -20}
+      minimum: {x: -6, y: -24}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -9, y: -20}
+      minimum: {x: 10, y: -24}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: 9, y: -20}
-      size: {x: 34, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: -45, y: -19}
+      minimum: {x: 34, y: -24}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -27, y: -19}
+      minimum: {x: -42, y: -23}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -9, y: -19}
+      minimum: {x: -6, y: -23}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: 9, y: -19}
-      size: {x: 34, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: -45, y: -18}
+      minimum: {x: 10, y: -23}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -27, y: -18}
+      minimum: {x: 34, y: -23}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -9, y: -18}
+      minimum: {x: -42, y: -22}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: 9, y: -18}
-      size: {x: 34, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: -45, y: -17}
+      minimum: {x: -6, y: -22}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -27, y: -17}
+      minimum: {x: 10, y: -22}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -9, y: -17}
+      minimum: {x: 34, y: -22}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: 9, y: -17}
-      size: {x: 34, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: -45, y: -16}
+      minimum: {x: -42, y: -21}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -27, y: -16}
+      minimum: {x: -6, y: -21}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -9, y: -16}
+      minimum: {x: 10, y: -21}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: 9, y: -16}
-      size: {x: 34, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: -45, y: -15}
+      minimum: {x: 34, y: -21}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -27, y: -15}
+      minimum: {x: -42, y: -20}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -9, y: -15}
+      minimum: {x: -6, y: -20}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: 9, y: -15}
-      size: {x: 34, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: -45, y: -14}
+      minimum: {x: 10, y: -20}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -27, y: -14}
+      minimum: {x: 34, y: -20}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -9, y: -14}
+      minimum: {x: -42, y: -19}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: 9, y: -14}
+      minimum: {x: -6, y: -19}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: 36, y: -14}
+      minimum: {x: 10, y: -19}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -45, y: -13}
+      minimum: {x: 34, y: -19}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -27, y: -13}
+      minimum: {x: -42, y: -18}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -9, y: -13}
+      minimum: {x: -6, y: -18}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: 9, y: -13}
+      minimum: {x: 10, y: -18}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: 36, y: -13}
+      minimum: {x: 34, y: -18}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -45, y: -12}
+      minimum: {x: -43, y: -17}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -27, y: -12}
+      minimum: {x: -6, y: -17}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -9, y: -12}
+      minimum: {x: 10, y: -17}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: 9, y: -12}
+      minimum: {x: 34, y: -17}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: 36, y: -12}
+      minimum: {x: -43, y: -16}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -45, y: -11}
+      minimum: {x: -6, y: -16}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -27, y: -11}
+      minimum: {x: 10, y: -16}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -9, y: -11}
+      minimum: {x: 34, y: -16}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: 9, y: -11}
+      minimum: {x: -43, y: -15}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: 36, y: -11}
+      minimum: {x: -7, y: -15}
+      size: {x: 8, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: 10, y: -15}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -45, y: -10}
+      minimum: {x: 34, y: -15}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -27, y: -10}
+      minimum: {x: -43, y: -14}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -9, y: -10}
+      minimum: {x: -7, y: -14}
       size: {x: 7, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: 10, y: -14}
+      size: {x: 7, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: 34, y: -14}
+      size: {x: 7, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: -43, y: -13}
+      size: {x: 7, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: -7, y: -13}
+      size: {x: 7, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: 10, y: -13}
+      size: {x: 7, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: 34, y: -13}
+      size: {x: 7, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: -43, y: -12}
+      size: {x: 7, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: -7, y: -12}
+      size: {x: 7, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: 10, y: -12}
+      size: {x: 7, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: 34, y: -12}
+      size: {x: 7, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: -43, y: -11}
+      size: {x: 7, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: -7, y: -11}
+      size: {x: 7, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: 10, y: -11}
+      size: {x: 7, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: 34, y: -11}
+      size: {x: 7, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: -43, y: -10}
+      size: {x: 7, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: -8, y: -10}
+      size: {x: 8, y: 1}
   - surface: 1
     area:
       minimum: {x: 9, y: -10}
+      size: {x: 8, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: 33, y: -10}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: 36, y: -10}
+      minimum: {x: -43, y: -9}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -45, y: -9}
-      size: {x: 7, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: -27, y: -9}
-      size: {x: 7, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: -9, y: -9}
+      minimum: {x: -8, y: -9}
       size: {x: 7, y: 1}
   - surface: 1
     area:
@@ -316,288 +400,236 @@ MonoBehaviour:
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: 36, y: -9}
+      minimum: {x: 33, y: -9}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -45, y: -8}
+      minimum: {x: -44, y: -8}
+      size: {x: 8, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: -8, y: -8}
+      size: {x: 8, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: 8, y: -8}
+      size: {x: 8, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: 33, y: -8}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -27, y: -8}
+      minimum: {x: -44, y: -7}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -9, y: -8}
+      minimum: {x: -7, y: -7}
+      size: {x: 23, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: 33, y: -7}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: 9, y: -8}
+      minimum: {x: -44, y: -6}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: 36, y: -8}
+      minimum: {x: -7, y: -6}
+      size: {x: 22, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: 33, y: -6}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -45, y: -7}
+      minimum: {x: -44, y: -5}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -27, y: -7}
+      minimum: {x: -7, y: -5}
+      size: {x: 22, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: 33, y: -5}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -9, y: -7}
+      minimum: {x: -44, y: -4}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: 9, y: -7}
+      minimum: {x: -6, y: -4}
+      size: {x: 20, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: 33, y: -4}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: 36, y: -7}
+      minimum: {x: -44, y: -3}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -45, y: -6}
+      minimum: {x: -5, y: -3}
+      size: {x: 18, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: 33, y: -3}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -27, y: -6}
+      minimum: {x: -44, y: -2}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -9, y: -6}
+      minimum: {x: -4, y: -2}
+      size: {x: 16, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: 33, y: -2}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: 9, y: -6}
+      minimum: {x: -44, y: -1}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: 36, y: -6}
+      minimum: {x: -1, y: -1}
+      size: {x: 11, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: 33, y: -1}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -45, y: -5}
+      minimum: {x: -44, y: 0}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -27, y: -5}
+      minimum: {x: 33, y: 0}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -9, y: -5}
+      minimum: {x: -44, y: 1}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: 9, y: -5}
-      size: {x: 7, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: 36, y: -5}
-      size: {x: 7, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: -45, y: -4}
-      size: {x: 7, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: -27, y: -4}
-      size: {x: 7, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: -9, y: -4}
-      size: {x: 7, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: 9, y: -4}
-      size: {x: 7, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: 36, y: -4}
-      size: {x: 7, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: -45, y: -3}
-      size: {x: 25, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: -9, y: -3}
-      size: {x: 7, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: 9, y: -3}
-      size: {x: 7, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: 36, y: -3}
-      size: {x: 7, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: -45, y: -2}
-      size: {x: 25, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: -9, y: -2}
-      size: {x: 7, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: 9, y: -2}
-      size: {x: 7, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: 36, y: -2}
-      size: {x: 7, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: -45, y: -1}
-      size: {x: 25, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: -9, y: -1}
-      size: {x: 7, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: 9, y: -1}
-      size: {x: 7, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: 36, y: -1}
-      size: {x: 7, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: -45, y: 0}
-      size: {x: 25, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: -9, y: 0}
-      size: {x: 7, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: 9, y: 0}
-      size: {x: 7, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: 36, y: 0}
-      size: {x: 7, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: -45, y: 1}
-      size: {x: 25, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: -9, y: 1}
-      size: {x: 7, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: 9, y: 1}
-      size: {x: 7, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: 36, y: 1}
+      minimum: {x: 33, y: 1}
       size: {x: 7, y: 1}
   - surface: 1
     area:
       minimum: {x: -45, y: 2}
-      size: {x: 25, y: 1}
+      size: {x: 8, y: 1}
   - surface: 1
     area:
-      minimum: {x: -9, y: 2}
-      size: {x: 7, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: 9, y: 2}
-      size: {x: 7, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: 36, y: 2}
+      minimum: {x: 33, y: 2}
       size: {x: 7, y: 1}
   - surface: 1
     area:
       minimum: {x: -45, y: 3}
+      size: {x: 7, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: 33, y: 3}
+      size: {x: 7, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: -45, y: 4}
+      size: {x: 7, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: 33, y: 4}
+      size: {x: 7, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: -45, y: 5}
+      size: {x: 7, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: 33, y: 5}
+      size: {x: 7, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: -45, y: 6}
+      size: {x: 7, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: 33, y: 6}
+      size: {x: 7, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: -45, y: 7}
+      size: {x: 7, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: 33, y: 7}
+      size: {x: 7, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: -45, y: 8}
+      size: {x: 7, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: 33, y: 8}
+      size: {x: 7, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: -45, y: 9}
+      size: {x: 7, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: 33, y: 9}
+      size: {x: 24, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: -45, y: 10}
+      size: {x: 7, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: 33, y: 10}
       size: {x: 25, y: 1}
   - surface: 1
     area:
-      minimum: {x: -9, y: 3}
+      minimum: {x: -45, y: 11}
+      size: {x: 7, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: 34, y: 11}
       size: {x: 25, y: 1}
   - surface: 1
     area:
-      minimum: {x: 36, y: 3}
+      minimum: {x: -45, y: 12}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -9, y: 4}
+      minimum: {x: 34, y: 12}
       size: {x: 25, y: 1}
   - surface: 1
     area:
-      minimum: {x: 36, y: 4}
+      minimum: {x: -45, y: 13}
       size: {x: 7, y: 1}
   - surface: 1
     area:
-      minimum: {x: -9, y: 5}
-      size: {x: 25, y: 1}
+      minimum: {x: 35, y: 13}
+      size: {x: 24, y: 1}
   - surface: 1
     area:
-      minimum: {x: 36, y: 5}
-      size: {x: 7, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: -9, y: 6}
-      size: {x: 25, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: 36, y: 6}
-      size: {x: 7, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: -9, y: 7}
-      size: {x: 25, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: 36, y: 7}
-      size: {x: 7, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: -9, y: 8}
-      size: {x: 25, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: 36, y: 8}
-      size: {x: 7, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: -9, y: 9}
-      size: {x: 25, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: 36, y: 9}
-      size: {x: 7, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: 36, y: 10}
-      size: {x: 7, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: 36, y: 11}
-      size: {x: 7, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: 36, y: 12}
-      size: {x: 7, y: 1}
-  - surface: 1
-    area:
-      minimum: {x: 36, y: 13}
-      size: {x: 7, y: 1}
+      minimum: {x: -44, y: 14}
+      size: {x: 5, y: 1}
   - surface: 1
     area:
       minimum: {x: 36, y: 14}
-      size: {x: 7, y: 1}
+      size: {x: 22, y: 1}
   - surface: 1
     area:
-      minimum: {x: 36, y: 15}
-      size: {x: 7, y: 1}
+      minimum: {x: -43, y: 15}
+      size: {x: 3, y: 1}
+  - surface: 1
+    area:
+      minimum: {x: 37, y: 15}
+      size: {x: 20, y: 1}
   walkableMask:
     defaultValue: 1
     enabledAreas: []
@@ -605,300 +637,316 @@ MonoBehaviour:
   buildableMask:
     defaultValue: 0
     enabledAreas:
-    - minimum: {x: -45, y: -33}
+    - minimum: {x: 13, y: -37}
+      size: {x: 17, y: 1}
+    - minimum: {x: 11, y: -36}
+      size: {x: 23, y: 1}
+    - minimum: {x: 10, y: -35}
+      size: {x: 26, y: 1}
+    - minimum: {x: -35, y: -34}
+      size: {x: 28, y: 1}
+    - minimum: {x: 10, y: -34}
+      size: {x: 28, y: 1}
+    - minimum: {x: -38, y: -33}
+      size: {x: 33, y: 1}
+    - minimum: {x: 9, y: -33}
+      size: {x: 30, y: 1}
+    - minimum: {x: -40, y: -32}
+      size: {x: 37, y: 1}
+    - minimum: {x: 9, y: -32}
+      size: {x: 30, y: 1}
+    - minimum: {x: -41, y: -31}
+      size: {x: 39, y: 1}
+    - minimum: {x: 9, y: -31}
+      size: {x: 31, y: 1}
+    - minimum: {x: -41, y: -30}
+      size: {x: 40, y: 1}
+    - minimum: {x: 9, y: -30}
       size: {x: 7, y: 1}
-    - minimum: {x: -45, y: -32}
+    - minimum: {x: 29, y: -30}
+      size: {x: 11, y: 1}
+    - minimum: {x: -42, y: -29}
+      size: {x: 41, y: 1}
+    - minimum: {x: 10, y: -29}
       size: {x: 7, y: 1}
-    - minimum: {x: -45, y: -31}
+    - minimum: {x: 33, y: -29}
+      size: {x: 8, y: 1}
+    - minimum: {x: -42, y: -28}
+      size: {x: 42, y: 1}
+    - minimum: {x: 10, y: -28}
       size: {x: 7, y: 1}
-    - minimum: {x: -45, y: -30}
+    - minimum: {x: 34, y: -28}
       size: {x: 7, y: 1}
-    - minimum: {x: -45, y: -29}
+    - minimum: {x: -42, y: -27}
+      size: {x: 8, y: 1}
+    - minimum: {x: -8, y: -27}
+      size: {x: 8, y: 1}
+    - minimum: {x: 10, y: -27}
       size: {x: 7, y: 1}
-    - minimum: {x: -45, y: -28}
+    - minimum: {x: 34, y: -27}
       size: {x: 7, y: 1}
-    - minimum: {x: -45, y: -27}
+    - minimum: {x: -42, y: -26}
       size: {x: 7, y: 1}
-    - minimum: {x: -27, y: -27}
-      size: {x: 25, y: 1}
-    - minimum: {x: -45, y: -26}
+    - minimum: {x: -7, y: -26}
       size: {x: 7, y: 1}
-    - minimum: {x: -27, y: -26}
-      size: {x: 25, y: 1}
-    - minimum: {x: -45, y: -25}
+    - minimum: {x: 10, y: -26}
       size: {x: 7, y: 1}
-    - minimum: {x: -27, y: -25}
-      size: {x: 25, y: 1}
-    - minimum: {x: -45, y: -24}
+    - minimum: {x: 34, y: -26}
       size: {x: 7, y: 1}
-    - minimum: {x: -27, y: -24}
-      size: {x: 25, y: 1}
-    - minimum: {x: -45, y: -23}
+    - minimum: {x: -42, y: -25}
       size: {x: 7, y: 1}
-    - minimum: {x: -27, y: -23}
-      size: {x: 25, y: 1}
-    - minimum: {x: -45, y: -22}
+    - minimum: {x: -7, y: -25}
+      size: {x: 8, y: 1}
+    - minimum: {x: 10, y: -25}
       size: {x: 7, y: 1}
-    - minimum: {x: -27, y: -22}
-      size: {x: 25, y: 1}
-    - minimum: {x: -45, y: -21}
+    - minimum: {x: 34, y: -25}
       size: {x: 7, y: 1}
-    - minimum: {x: -27, y: -21}
-      size: {x: 25, y: 1}
-    - minimum: {x: 9, y: -21}
-      size: {x: 34, y: 1}
-    - minimum: {x: -45, y: -20}
+    - minimum: {x: -42, y: -24}
       size: {x: 7, y: 1}
-    - minimum: {x: -27, y: -20}
+    - minimum: {x: -6, y: -24}
       size: {x: 7, y: 1}
-    - minimum: {x: -9, y: -20}
+    - minimum: {x: 10, y: -24}
       size: {x: 7, y: 1}
-    - minimum: {x: 9, y: -20}
-      size: {x: 34, y: 1}
-    - minimum: {x: -45, y: -19}
+    - minimum: {x: 34, y: -24}
       size: {x: 7, y: 1}
-    - minimum: {x: -27, y: -19}
+    - minimum: {x: -42, y: -23}
       size: {x: 7, y: 1}
-    - minimum: {x: -9, y: -19}
+    - minimum: {x: -6, y: -23}
       size: {x: 7, y: 1}
-    - minimum: {x: 9, y: -19}
-      size: {x: 34, y: 1}
-    - minimum: {x: -45, y: -18}
+    - minimum: {x: 10, y: -23}
       size: {x: 7, y: 1}
-    - minimum: {x: -27, y: -18}
+    - minimum: {x: 34, y: -23}
       size: {x: 7, y: 1}
-    - minimum: {x: -9, y: -18}
+    - minimum: {x: -42, y: -22}
       size: {x: 7, y: 1}
-    - minimum: {x: 9, y: -18}
-      size: {x: 34, y: 1}
-    - minimum: {x: -45, y: -17}
+    - minimum: {x: -6, y: -22}
       size: {x: 7, y: 1}
-    - minimum: {x: -27, y: -17}
+    - minimum: {x: 10, y: -22}
       size: {x: 7, y: 1}
-    - minimum: {x: -9, y: -17}
+    - minimum: {x: 34, y: -22}
       size: {x: 7, y: 1}
-    - minimum: {x: 9, y: -17}
-      size: {x: 34, y: 1}
-    - minimum: {x: -45, y: -16}
+    - minimum: {x: -42, y: -21}
       size: {x: 7, y: 1}
-    - minimum: {x: -27, y: -16}
+    - minimum: {x: -6, y: -21}
       size: {x: 7, y: 1}
-    - minimum: {x: -9, y: -16}
+    - minimum: {x: 10, y: -21}
       size: {x: 7, y: 1}
-    - minimum: {x: 9, y: -16}
-      size: {x: 34, y: 1}
-    - minimum: {x: -45, y: -15}
+    - minimum: {x: 34, y: -21}
       size: {x: 7, y: 1}
-    - minimum: {x: -27, y: -15}
+    - minimum: {x: -42, y: -20}
       size: {x: 7, y: 1}
-    - minimum: {x: -9, y: -15}
+    - minimum: {x: -6, y: -20}
       size: {x: 7, y: 1}
-    - minimum: {x: 9, y: -15}
-      size: {x: 34, y: 1}
-    - minimum: {x: -45, y: -14}
+    - minimum: {x: 10, y: -20}
       size: {x: 7, y: 1}
-    - minimum: {x: -27, y: -14}
+    - minimum: {x: 34, y: -20}
       size: {x: 7, y: 1}
-    - minimum: {x: -9, y: -14}
+    - minimum: {x: -42, y: -19}
       size: {x: 7, y: 1}
-    - minimum: {x: 9, y: -14}
+    - minimum: {x: -6, y: -19}
       size: {x: 7, y: 1}
-    - minimum: {x: 36, y: -14}
+    - minimum: {x: 10, y: -19}
       size: {x: 7, y: 1}
-    - minimum: {x: -45, y: -13}
+    - minimum: {x: 34, y: -19}
       size: {x: 7, y: 1}
-    - minimum: {x: -27, y: -13}
+    - minimum: {x: -42, y: -18}
       size: {x: 7, y: 1}
-    - minimum: {x: -9, y: -13}
+    - minimum: {x: -6, y: -18}
       size: {x: 7, y: 1}
-    - minimum: {x: 9, y: -13}
+    - minimum: {x: 10, y: -18}
       size: {x: 7, y: 1}
-    - minimum: {x: 36, y: -13}
+    - minimum: {x: 34, y: -18}
       size: {x: 7, y: 1}
-    - minimum: {x: -45, y: -12}
+    - minimum: {x: -43, y: -17}
       size: {x: 7, y: 1}
-    - minimum: {x: -27, y: -12}
+    - minimum: {x: -6, y: -17}
       size: {x: 7, y: 1}
-    - minimum: {x: -9, y: -12}
+    - minimum: {x: 10, y: -17}
       size: {x: 7, y: 1}
-    - minimum: {x: 9, y: -12}
+    - minimum: {x: 34, y: -17}
       size: {x: 7, y: 1}
-    - minimum: {x: 36, y: -12}
+    - minimum: {x: -43, y: -16}
       size: {x: 7, y: 1}
-    - minimum: {x: -45, y: -11}
+    - minimum: {x: -6, y: -16}
       size: {x: 7, y: 1}
-    - minimum: {x: -27, y: -11}
+    - minimum: {x: 10, y: -16}
       size: {x: 7, y: 1}
-    - minimum: {x: -9, y: -11}
+    - minimum: {x: 34, y: -16}
       size: {x: 7, y: 1}
-    - minimum: {x: 9, y: -11}
+    - minimum: {x: -43, y: -15}
       size: {x: 7, y: 1}
-    - minimum: {x: 36, y: -11}
+    - minimum: {x: -7, y: -15}
+      size: {x: 8, y: 1}
+    - minimum: {x: 10, y: -15}
       size: {x: 7, y: 1}
-    - minimum: {x: -45, y: -10}
+    - minimum: {x: 34, y: -15}
       size: {x: 7, y: 1}
-    - minimum: {x: -27, y: -10}
+    - minimum: {x: -43, y: -14}
       size: {x: 7, y: 1}
-    - minimum: {x: -9, y: -10}
+    - minimum: {x: -7, y: -14}
       size: {x: 7, y: 1}
+    - minimum: {x: 10, y: -14}
+      size: {x: 7, y: 1}
+    - minimum: {x: 34, y: -14}
+      size: {x: 7, y: 1}
+    - minimum: {x: -43, y: -13}
+      size: {x: 7, y: 1}
+    - minimum: {x: -7, y: -13}
+      size: {x: 7, y: 1}
+    - minimum: {x: 10, y: -13}
+      size: {x: 7, y: 1}
+    - minimum: {x: 34, y: -13}
+      size: {x: 7, y: 1}
+    - minimum: {x: -43, y: -12}
+      size: {x: 7, y: 1}
+    - minimum: {x: -7, y: -12}
+      size: {x: 7, y: 1}
+    - minimum: {x: 10, y: -12}
+      size: {x: 7, y: 1}
+    - minimum: {x: 34, y: -12}
+      size: {x: 7, y: 1}
+    - minimum: {x: -43, y: -11}
+      size: {x: 7, y: 1}
+    - minimum: {x: -7, y: -11}
+      size: {x: 7, y: 1}
+    - minimum: {x: 10, y: -11}
+      size: {x: 7, y: 1}
+    - minimum: {x: 34, y: -11}
+      size: {x: 7, y: 1}
+    - minimum: {x: -43, y: -10}
+      size: {x: 7, y: 1}
+    - minimum: {x: -8, y: -10}
+      size: {x: 8, y: 1}
     - minimum: {x: 9, y: -10}
+      size: {x: 8, y: 1}
+    - minimum: {x: 33, y: -10}
       size: {x: 7, y: 1}
-    - minimum: {x: 36, y: -10}
+    - minimum: {x: -43, y: -9}
       size: {x: 7, y: 1}
-    - minimum: {x: -45, y: -9}
-      size: {x: 7, y: 1}
-    - minimum: {x: -27, y: -9}
-      size: {x: 7, y: 1}
-    - minimum: {x: -9, y: -9}
+    - minimum: {x: -8, y: -9}
       size: {x: 7, y: 1}
     - minimum: {x: 9, y: -9}
       size: {x: 7, y: 1}
-    - minimum: {x: 36, y: -9}
+    - minimum: {x: 33, y: -9}
       size: {x: 7, y: 1}
-    - minimum: {x: -45, y: -8}
+    - minimum: {x: -44, y: -8}
+      size: {x: 8, y: 1}
+    - minimum: {x: -8, y: -8}
+      size: {x: 8, y: 1}
+    - minimum: {x: 8, y: -8}
+      size: {x: 8, y: 1}
+    - minimum: {x: 33, y: -8}
       size: {x: 7, y: 1}
-    - minimum: {x: -27, y: -8}
+    - minimum: {x: -44, y: -7}
       size: {x: 7, y: 1}
-    - minimum: {x: -9, y: -8}
+    - minimum: {x: -7, y: -7}
+      size: {x: 23, y: 1}
+    - minimum: {x: 33, y: -7}
       size: {x: 7, y: 1}
-    - minimum: {x: 9, y: -8}
+    - minimum: {x: -44, y: -6}
       size: {x: 7, y: 1}
-    - minimum: {x: 36, y: -8}
+    - minimum: {x: -7, y: -6}
+      size: {x: 22, y: 1}
+    - minimum: {x: 33, y: -6}
       size: {x: 7, y: 1}
-    - minimum: {x: -45, y: -7}
+    - minimum: {x: -44, y: -5}
       size: {x: 7, y: 1}
-    - minimum: {x: -27, y: -7}
+    - minimum: {x: -7, y: -5}
+      size: {x: 22, y: 1}
+    - minimum: {x: 33, y: -5}
       size: {x: 7, y: 1}
-    - minimum: {x: -9, y: -7}
+    - minimum: {x: -44, y: -4}
       size: {x: 7, y: 1}
-    - minimum: {x: 9, y: -7}
+    - minimum: {x: -6, y: -4}
+      size: {x: 20, y: 1}
+    - minimum: {x: 33, y: -4}
       size: {x: 7, y: 1}
-    - minimum: {x: 36, y: -7}
+    - minimum: {x: -44, y: -3}
       size: {x: 7, y: 1}
-    - minimum: {x: -45, y: -6}
+    - minimum: {x: -5, y: -3}
+      size: {x: 18, y: 1}
+    - minimum: {x: 33, y: -3}
       size: {x: 7, y: 1}
-    - minimum: {x: -27, y: -6}
+    - minimum: {x: -44, y: -2}
       size: {x: 7, y: 1}
-    - minimum: {x: -9, y: -6}
+    - minimum: {x: -4, y: -2}
+      size: {x: 16, y: 1}
+    - minimum: {x: 33, y: -2}
       size: {x: 7, y: 1}
-    - minimum: {x: 9, y: -6}
+    - minimum: {x: -44, y: -1}
       size: {x: 7, y: 1}
-    - minimum: {x: 36, y: -6}
+    - minimum: {x: -1, y: -1}
+      size: {x: 11, y: 1}
+    - minimum: {x: 33, y: -1}
       size: {x: 7, y: 1}
-    - minimum: {x: -45, y: -5}
+    - minimum: {x: -44, y: 0}
       size: {x: 7, y: 1}
-    - minimum: {x: -27, y: -5}
+    - minimum: {x: 33, y: 0}
       size: {x: 7, y: 1}
-    - minimum: {x: -9, y: -5}
+    - minimum: {x: -44, y: 1}
       size: {x: 7, y: 1}
-    - minimum: {x: 9, y: -5}
-      size: {x: 7, y: 1}
-    - minimum: {x: 36, y: -5}
-      size: {x: 7, y: 1}
-    - minimum: {x: -45, y: -4}
-      size: {x: 7, y: 1}
-    - minimum: {x: -27, y: -4}
-      size: {x: 7, y: 1}
-    - minimum: {x: -9, y: -4}
-      size: {x: 7, y: 1}
-    - minimum: {x: 9, y: -4}
-      size: {x: 7, y: 1}
-    - minimum: {x: 36, y: -4}
-      size: {x: 7, y: 1}
-    - minimum: {x: -45, y: -3}
-      size: {x: 25, y: 1}
-    - minimum: {x: -9, y: -3}
-      size: {x: 7, y: 1}
-    - minimum: {x: 9, y: -3}
-      size: {x: 7, y: 1}
-    - minimum: {x: 36, y: -3}
-      size: {x: 7, y: 1}
-    - minimum: {x: -45, y: -2}
-      size: {x: 25, y: 1}
-    - minimum: {x: -9, y: -2}
-      size: {x: 7, y: 1}
-    - minimum: {x: 9, y: -2}
-      size: {x: 7, y: 1}
-    - minimum: {x: 36, y: -2}
-      size: {x: 7, y: 1}
-    - minimum: {x: -45, y: -1}
-      size: {x: 25, y: 1}
-    - minimum: {x: -9, y: -1}
-      size: {x: 7, y: 1}
-    - minimum: {x: 9, y: -1}
-      size: {x: 7, y: 1}
-    - minimum: {x: 36, y: -1}
-      size: {x: 7, y: 1}
-    - minimum: {x: -45, y: 0}
-      size: {x: 25, y: 1}
-    - minimum: {x: -9, y: 0}
-      size: {x: 7, y: 1}
-    - minimum: {x: 9, y: 0}
-      size: {x: 7, y: 1}
-    - minimum: {x: 36, y: 0}
-      size: {x: 7, y: 1}
-    - minimum: {x: -45, y: 1}
-      size: {x: 25, y: 1}
-    - minimum: {x: -9, y: 1}
-      size: {x: 7, y: 1}
-    - minimum: {x: 9, y: 1}
-      size: {x: 7, y: 1}
-    - minimum: {x: 36, y: 1}
+    - minimum: {x: 33, y: 1}
       size: {x: 7, y: 1}
     - minimum: {x: -45, y: 2}
-      size: {x: 25, y: 1}
-    - minimum: {x: -9, y: 2}
-      size: {x: 7, y: 1}
-    - minimum: {x: 9, y: 2}
-      size: {x: 7, y: 1}
-    - minimum: {x: 36, y: 2}
+      size: {x: 8, y: 1}
+    - minimum: {x: 33, y: 2}
       size: {x: 7, y: 1}
     - minimum: {x: -45, y: 3}
+      size: {x: 7, y: 1}
+    - minimum: {x: 33, y: 3}
+      size: {x: 7, y: 1}
+    - minimum: {x: -45, y: 4}
+      size: {x: 7, y: 1}
+    - minimum: {x: 33, y: 4}
+      size: {x: 7, y: 1}
+    - minimum: {x: -45, y: 5}
+      size: {x: 7, y: 1}
+    - minimum: {x: 33, y: 5}
+      size: {x: 7, y: 1}
+    - minimum: {x: -45, y: 6}
+      size: {x: 7, y: 1}
+    - minimum: {x: 33, y: 6}
+      size: {x: 7, y: 1}
+    - minimum: {x: -45, y: 7}
+      size: {x: 7, y: 1}
+    - minimum: {x: 33, y: 7}
+      size: {x: 7, y: 1}
+    - minimum: {x: -45, y: 8}
+      size: {x: 7, y: 1}
+    - minimum: {x: 33, y: 8}
+      size: {x: 7, y: 1}
+    - minimum: {x: -45, y: 9}
+      size: {x: 7, y: 1}
+    - minimum: {x: 33, y: 9}
+      size: {x: 24, y: 1}
+    - minimum: {x: -45, y: 10}
+      size: {x: 7, y: 1}
+    - minimum: {x: 33, y: 10}
       size: {x: 25, y: 1}
-    - minimum: {x: -9, y: 3}
+    - minimum: {x: -45, y: 11}
+      size: {x: 7, y: 1}
+    - minimum: {x: 34, y: 11}
       size: {x: 25, y: 1}
-    - minimum: {x: 36, y: 3}
+    - minimum: {x: -45, y: 12}
       size: {x: 7, y: 1}
-    - minimum: {x: -9, y: 4}
+    - minimum: {x: 34, y: 12}
       size: {x: 25, y: 1}
-    - minimum: {x: 36, y: 4}
+    - minimum: {x: -45, y: 13}
       size: {x: 7, y: 1}
-    - minimum: {x: -9, y: 5}
-      size: {x: 25, y: 1}
-    - minimum: {x: 36, y: 5}
-      size: {x: 7, y: 1}
-    - minimum: {x: -9, y: 6}
-      size: {x: 25, y: 1}
-    - minimum: {x: 36, y: 6}
-      size: {x: 7, y: 1}
-    - minimum: {x: -9, y: 7}
-      size: {x: 25, y: 1}
-    - minimum: {x: 36, y: 7}
-      size: {x: 7, y: 1}
-    - minimum: {x: -9, y: 8}
-      size: {x: 25, y: 1}
-    - minimum: {x: 36, y: 8}
-      size: {x: 7, y: 1}
-    - minimum: {x: -9, y: 9}
-      size: {x: 25, y: 1}
-    - minimum: {x: 36, y: 9}
-      size: {x: 7, y: 1}
-    - minimum: {x: 36, y: 10}
-      size: {x: 7, y: 1}
-    - minimum: {x: 36, y: 11}
-      size: {x: 7, y: 1}
-    - minimum: {x: 36, y: 12}
-      size: {x: 7, y: 1}
-    - minimum: {x: 36, y: 13}
-      size: {x: 7, y: 1}
+    - minimum: {x: 35, y: 13}
+      size: {x: 24, y: 1}
+    - minimum: {x: -44, y: 14}
+      size: {x: 5, y: 1}
     - minimum: {x: 36, y: 14}
-      size: {x: 7, y: 1}
-    - minimum: {x: 36, y: 15}
-      size: {x: 7, y: 1}
+      size: {x: 22, y: 1}
+    - minimum: {x: -43, y: 15}
+      size: {x: 3, y: 1}
+    - minimum: {x: 37, y: 15}
+      size: {x: 20, y: 1}
     disabledAreas:
-    - minimum: {x: -43, y: -31}
+    - minimum: {x: -43, y: 11}
       size: {x: 3, y: 3}
-    - minimum: {x: 38, y: 11}
+    - minimum: {x: 54, y: 11}
       size: {x: 3, y: 3}
     - minimum: {x: 17, y: 32}
       size: {x: 1, y: 1}
@@ -908,9 +956,9 @@ MonoBehaviour:
       size: {x: 1, y: 1}
   enemiesStayOnInvasionCorridor: 1
   hasEnemyEntrance: 1
-  enemyEntrance: {x: -42, y: -30}
+  enemyEntrance: {x: -42, y: 12}
   hasThrone: 1
-  throne: {x: 39, y: 12}
+  throne: {x: 55, y: 12}
   resourceRegions:
   - resource: 0
     area:
@@ -928,7 +976,7 @@ MonoBehaviour:
       size: {x: 7, y: 7}
     anchor: {x: 27, y: 11}
   cameraBounds:
-    minimum: {x: -125, y: -125}
+    minimum: {x: -50, y: -50}
     size: {x: 250, y: 250}
   forestDebugColor: {r: 0.18, g: 0.34, b: 0.19, a: 1}
   corridorDebugColor: {r: 0.34, g: 0.37, b: 0.38, a: 1}

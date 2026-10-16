@@ -894,9 +894,163 @@ while retaining D-045's accepted route (1,582 gray cells; 195 unopposed steps).
 New resource placements, content, mechanics, streaming and balance changes
 require their own current requirement. Stage 3 remains open.
 
+## D-050 — Keep the combat district in the lower-left world corner
+
+Status: explicitly requested by the owner, 2026-10-16; implemented and verified
+on Windows (Map/Navigation EditMode 47/47; Stage3/Integration/RunState PlayMode
+47/47; successful build and startup). Owner game is open for review.
+The road from portal to throne and the whole combat district must sit in the
+lower-left corner of the 250×250 world. Preserve the accepted road layout and
+all existing object/resource/hero coordinates by keeping the original 100×100
+map's lower/left bounds. Expand green land to the right and upward instead of
+symmetrically around that district. New playable/camera bounds:
+(-50,-50)..(199,199). The gray footprint lies wholly in the lower-left quadrant;
+its left/bottom green margins are the same as before the world expansion.
+This supersedes only D-049's placement of the expanded bounds. The 250×250
+size, 1,582 gray cells, seven-cell road width, 195-step route, existing anchors,
+build/navigation/economy rules, fixed view and zoom settings remain unchanged.
+No content or resource redistribution is authorized by this composition fix.
+
+## D-051 — Curved seven-wide invasion road from the owner's sketch
+
+Status: explicitly requested and clarified by the owner, 2026-10-16;
+implemented and verified on Windows (EditMode 47/47, PlayMode 47/47, final
+route/render 1/1, successful build and visible startup). Owner review remains.
+The owner confirmed red left = enemy portal, blue right = defended throne.
+Replace the rectangular zigzag with the sketched smooth route: upper-left
+portal, first low bend, central rise, second low bend, upper-right throne.
+Keep about seven-cell width and the lower-left district of the 250×250 world.
+This supersedes D-045's rectilinear geometry and D-050's preserved endpoint
+coordinates/road hash; D-050's world bounds and district placement remain.
+
+Author original cubic geometry in the existing Editor builder and bake it to
+the current map-cell format. The runtime camera, art, gray-only enemy policy,
+tower-made detours/siege, resources and economy/combat tuning remain existing.
+Portal (-42,12) and throne (55,12) follow the new endpoints; the right arm/goal
+clear the unchanged metal node. Hero/resource coordinates remain unchanged.
+The map bootstrap already positions landmarks from data; no serialized scene
+reference or format migration, runtime spline layer, waypoint system or package.
+The new route's pacing is measured separately; do not preserve the old 195-step
+length by tuning speeds or waves. Source/provenance:
+`art/source/curved_road_2026-10-16_reference.json`; the user image is a reference
+outside `Assets/`, not a runtime texture. Stage 3 remains open.
+
+## D-052 — Separate development tools from the player HUD
+
+Status: owner-requested 2026-10-16; implemented and verified on Windows:
+EditMode 29/29, Stage3/Integration/RunState PlayMode 52/52, final menu 5/5,
+successful Development build and actual HUD/menu frame inspection. Owner
+appearance feedback and the wider Stage 3 gate remain open.
+The owner requested wave start, pause, speed up to x10, gold/material grants
+and cleanup of temporary diagnostic windows. Clarification explicitly selects
+two independent multipliers: hero movement and game simulation. Keep their
+normal x1 defaults and the existing gameplay/catalog rules. Debug grants are
+session tools; run restart resets inventory through the normal rules.
+
+Use a hidden-by-default development menu and retain necessary player-facing
+resources, wave/throne state, construction/gathering hints and outcome/restart
+in a cleaner compact HUD. Remove technical source/distance tables and raw debug
+text from normal play. Existing IMGUI is sufficient for this scoped Stage 3
+iteration; this does not select the final commercial UI production stack.
+Player HUD is also visible in non-development builds; cheats are development-only.
+This supersedes D-047's deferral of this particular HUD cleanup and D-048's
+retention of the temporary distance table. Minimap, camera and map rules remain.
+Acceptance/wiring: `gamedesign/features/STAGE3_DEBUG_MENU.md`.
+
+## D-053 — Preview large resource districts and extraction buildings
+
+Status: owner requested visual references now, 2026-10-16; three original
+concepts prepared. Appearance approval and runtime implementation remain open.
+The owner is considering more enemies/waves/towers alongside peaceful
+production. For now create references for (1) a large forest with an edge
+sawmill and visible forest renewal, (2) a substantial stone deposit with a
+quarry, (3) a stone-cut descending iron mine with an extraction station.
+Show the resource district clearly larger than its building, with legible
+material and production identities in the existing cartoon isometric direction.
+Future placement should relate buildings to the appropriate resource district;
+no placement/range/economy rule or content quota is selected by these pictures.
+
+Deliverables: art/concepts/resource_districts_2026-10-16/. Exact prompts,
+original generated paths, PNG dimensions/hashes and source/rights are in
+art/source/resource_districts_2026-10-16_generation.json. Text-only built-in
+imagegen generation; project art inspected for style, no third-party inputs.
+These are previews outside Unity Assets, not approved sprites/models or scenes.
+No exact footprint is approved: 50x50 means 2,500 cells, whereas the owner's
+other spoken estimate was 200–300; choose size explicitly before placement.
+This authorizes concept exploration without changing D-032's MVP boundary or
+activating passive production/automation. A one-building pilot and a later
+combat counter pair are recommendations, not accepted implementation tasks.
+
+## D-054 — Procedural resource scenery from modular sprites
+
+Status: owner requested implementation after the procedural-sprite explanation,
+2026-10-16; explicitly selected 200–300 cells per initial district.
+Implemented and verified: Map/Navigation EditMode 54/54, final Stage3/Integration/
+RunState PlayMode 55/55, rendered two-seed variants and hero visibility. Owner
+appearance feedback remains open.
+Create varied forests, connected stone masses and iron excavations at world
+creation using reusable individual sprite pieces, seeded placement/shape and
+variation. Complete D-053 concept pictures are visual references, not repeated
+runtime zone images. Exact size is data-controlled for later growth.
+Keep the accepted combat road/objectives, existing manual resource nodes and
+rules. This request activates resource-zone generation/presentation only;
+passive production/building placement, costs, forest renewal mechanics and
+underground traversal still require their feature brief. A normal run restart
+retains this world; creating a new scene/world chooses a new seed. A seed can
+reproduce the same scenery; save-file work is not included.
+Source of truth: gamedesign/features/PROCEDURAL_RESOURCE_DISTRICTS.md.
+This advances D-053 beyond preview-only for the resource district visuals;
+D-032's commercial gameplay scope remains unchanged.
+
+## D-055 — Hero collision for procedural resource districts
+
+Status: owner requested 2026-10-16; implemented and Windows-verified.
+Packed stone and iron districts must stop the hero at their ground contour.
+Forests remain walkable between individual tree trunks; the owner allowed a
+simpler fallback if needed, but per-tree ground circles fit the existing seeded
+assembly. Canopies and transparent sprite rectangles do not become walls.
+Use the generated footprint plus ground bases for stone/iron and the exact
+seeded tree anchors for trunks. Preserve the camera, authored road, gathering
+nodes, enemy movement and production scope. Continuous movement collision
+must work with both debug speed multipliers, allow sliding, replace itself on
+world regeneration and retain the same world on run restart. A solid generated
+under the current hero recovers the hero to nearby free ground.
+This supersedes D-054's collision deferral; production, renewal and underground
+traversal still need separate briefs. Source of truth:
+gamedesign/features/PROCEDURAL_RESOURCE_DISTRICTS.md.
+
+Verification: Map/Navigation EditMode 63/63; final Stage3/Integration/RunState
+PlayMode 58/58; real contact/forest frames and rendered hero visibility checked.
+Windows build rebuilt and opened with a fresh random world, clean Gameplay/
+Tactical Ready and unchanged map hash. Owner contact feel/appearance review
+and wider Stage 3 gate remain open.
+
+## D-056 — Structural resource scenery and stable partial occlusion
+
+Status: owner requested refinement after D-055 live review, 2026-10-16;
+explicitly selected procedural 3D relief/base plus painted sprites.
+Implemented and Windows-verified: Map/Navigation EditMode 69/69; final
+Stage3/Integration/RunState PlayMode 61/61, including nine district scenarios.
+Real two-seed close views and paired hero visibility checked; controlled
+walking/profile samples show no collision recovery jumps or hot-path managed
+allocations. Windows build rebuilt/opened with clean Gameplay/Tactical Ready
+and unchanged authored map hash. Owner appearance review remains open.
+Replace disconnected random mine pieces with coherent depths, walls, landings
+and connected stairs; make the cavity visible. Stone gets varied coherent
+terraces; forest gets size-aware gaps and varied tree ages/scales. Blend ground
+patches into the actual grass surface. Obstacles retain partial visibility and
+reveal the hero with a local, eased transition rather than instant near-erasure.
+Measure suspected forest microstutters separately from the confirmed alpha
+toggle. Keep seed variation, initial district footprint, XY hero rules and the
+existing road/economy boundaries. No production or underground hero traversal.
+This supersedes D-054's sprite-only relief representation and D-055's abrupt
+visibility fade; collision intent remains. Source of truth:
+gamedesign/features/PROCEDURAL_RESOURCE_DISTRICTS.md.
+
 ## Pending Product Decisions
 
-- Текущая карта Stage 3 — 250×250 по D-049, дорога принята D-045.
+- Текущая карта Stage 3 — 250×250 по D-049, боевая часть в нижнем левом углу
+  по D-050, форма дороги уточнена рисунком и подтверждением D-051.
   Темп длинного маршрута и будущие места исследования/добычи ещё оцениваются.
   Три волны — текущий кандидат, не окончательный баланс. Старые размеры и
   P-004/P-008 анализы остаются историческими свидетельствами в feature specs.
