@@ -10,6 +10,258 @@ D-017: каждый новый Stage 2–7 ведёт новый агент в �
 в `reports/development-roadmap.html`; внутри stage мелкие задачи не дробятся
 по агентам. На переходе обновляются этот handoff и канонический план.
 
+### 2026-10-17 — D-060 approved Astra pad icons (implemented)
+
+- Authorization: owner approved approval_sheet_astra_v2 and explicitly requested
+  implementation plus one commit of all accumulated changes. No push requested.
+- Ownership: continuing GPT-6 Astra owns the narrow runtime vector glyph/neutral
+  frame conversion, meaningful checks and Unity verification/captures. Parent
+  owns canonical acceptance/docs, full pending-change audit and final commit.
+- Dependencies/surface: D-059 mark lifecycle/material and D-057 typed locked
+  point.Clearance, current orthographic camera. Approved Astra v1 glyph shapes
+  plus v2 uniform world fit, 12% icon-layout insets, full neutral outer contour
+  and subtle dashed inner safe border. No bitmap icon import or new package.
+- Observable acceptance: all three actual pad marks match approved geometry,
+  retain transparent negative space and fit their safe bounds at normal/near
+  view. Built/reset/regenerate and UI/preview transitions keep the existing
+  lifecycle; red/green ghosts, affordability gates, small-node E, points,
+  collision/economy and accepted landmark/building art remain intact. Relevant
+  checks pass, no new attributable Console errors, and the commit includes all
+  intended pending source/assets/docs with their metadata.
+- Files/wiring: Stage2PlacementVisuals now builds the neutral full rectangle,
+  inner dashed safe border and uniformly fitted approved glyph. Original SVG
+  masks are tessellated offline by build_runtime_mesh.py into the plain generated
+  Stage2ApprovedPadGeometry.cs; negative space is actual mesh holes. No runtime
+  SVG parser, raster icon, package, scene migration or Inspector wiring.
+- Verification: Mac/Metal 3/3 EditMode (holes/solid samples, bounds and uniform
+  fit) and 6/6 PlayMode (lifecycle, actual red/green renders, pointer/input,
+  purchase/cancel and old E suppression/recovery), no failures/skips. Parent
+  independently inspected all three final normal/close pad frames; the approved
+  outline, safe fields and proportions hold. Six relevant scene/data/package
+  baselines and all 38 protected art files are unchanged. All new Assets have
+  metadata; GUIDs/source-runtime artwork/provenance hashes were checked.
+- Final live state: fresh ordinary Play started without QA funds/buildings,
+  Console initially 0/0. Owner then began playing, so automation stopped touching
+  UI. Latest Console has zero errors and one external audio-device reset warning;
+  no attributable glyph/runtime exception. Preserve this live user session.
+- Evidence: Artifacts/S3-PLACEMENT-ICONS-20261017/{editmode,playmode}.xml, final/
+  and ordinary-play.log. Runtime-ready source/geometry provenance:
+  art/source/placement_icons_runtime_2026-10-17.json. Six shared review frames,
+  hashes and independent verification: art/review/placement_icons_*2026-10-17*.
+- Remaining: Windows target validation. This completes approved Mac integration;
+  all accumulated intended source/assets/docs are saved together in the local
+  D-060 integration commit. Standard Unity .meta empty-field whitespace is
+  preserved; source whitespace checks pass. No push was requested. Rejected
+  concepts remain explicit history.
+
+### 2026-10-17 — Resource pad icon concepts (v2 approved for implementation)
+
+- Owner/surface: owner explicitly delegated the new concept revision to GPT-6
+  Astra after rejecting the parent's v1 for unrealistic bent forms and wrong
+  proportions. Astra owns its new SVG/PNG/source/provenance; parent owns canonical
+  art-status notes. Scope is a review sheet, following owner feedback that the
+  current D-059 glyphs are difficult to recognize. No runtime/scene edits.
+- Dependency/acceptance: existing three production categories and fixed 55°
+  camera; inspect axe/log, pick/stone and pick/ingot at large and 32/48/64 px
+  sizes plus schematic ground compression. Owner subsequently approved v2/D-060.
+- Files: art/concepts/placement_icons_2026-10-17/ now has three new
+  *_astra_v1.svg, build_astra_preview.py and approval_sheet_astra_v1.svg/png.
+  Corrected straight shafts, axe poll/eye/bit and asymmetric pick/chisel head;
+  irregular fractured stone differs from the regular metal bar at small sizes.
+  Provenance/hashes: art/source/placement_icons_astra_2026-10-17.json. Original
+  vector paths, no third-party assets or bitmap source; PNG is a review render.
+  Rejected parent v1 is retained, its manifest marks rejection explicitly.
+- Projection follow-up: owner flagged v1 ground tilt/missing safe areas. Current
+  approval_sheet_astra_v2.svg/png uses full actual point.Clearance and the current
+  no-yaw orthographic camera for outer bounds, a dashed proposed 12% icon inset
+  and glyph together. Same px/world scale retains actual relative pad sizes;
+  complete glyph artboards fit inside safe bounds. No arbitrary diamond/skew.
+  Source: build_astra_preview_v2.py and projection_astra_v2.json; provenance:
+  art/source/placement_icons_astra_v2_2026-10-17.json. V1 glyphs are unchanged.
+- Verification: all four new SVG XML parsed, no bitmap layers, unique mask IDs;
+  Astra and parent independently inspected the final native-rendered 1260×1030
+  sheet including small/projected rows. Eleven baseline runtime/rejected-source
+  files remain byte-identical; new provenance hashes match. No
+  Unity import/wiring, runtime changes or new gameplay tests apply. The ground
+  examples are explicitly schematic, not claimed as live Unity evidence.
+- Follow-up verification: v2 PNG independently inspected by Astra and parent,
+  SVG/unique IDs and metadata hashes verified, nested bounds checked. Eighteen
+  baseline files including runtime, previous concepts and Astra v1 sources are
+  byte-identical. The 12% inset is proposed icon padding only, not a gameplay rule.
+- Acceptance: owner approved v2 and explicitly requested implementation/commit;
+  the active D-060 handoff above now owns runtime conversion and verification.
+
+### 2026-10-16 — D-059 construction readability (implemented)
+
+- Owner/surface: continuing GPT-6 Astra owns runtime pad glyphs, preview shader,
+  tower/production drivers, tactical preview and Unity verification. Parent owns
+  existing HUD, build-menu tests, canonical docs and independent frame review.
+- Behavior: six free typed pads show neutral axe/log, pick/stone or pick/ore
+  ground stamps without entering construction. Occupied marks hide; reset and
+  regeneration restore free ones. Matching hover hides the neutral mark beneath
+  one preview outline. Actual tower/building silhouettes are transparent green
+  only for Ready and red otherwise; UI hover hides the ghost. No orange/yellow
+  placement state. Each price is visible; unaffordable cards are dimmed, do not
+  select, and explain the deficit on hover. B/1/2 and public actions share the
+  full-cost gate, with commit-time revalidation retained.
+- Dependencies/contracts: D-058 inventory/run/pointer/purchase contracts and
+  D-057 locked points. Existing costs, output, built materials/artwork, scale,
+  map/road and points stay unchanged. Marks have no collider or E interaction.
+- Files/wiring: Stage2PlacementVisuals owns original code-native glyph geometry;
+  Defense/Resources/PlacementPreview.shader owns isolated preview materials.
+  BuildDriver.CanBeginPlacement and ProductionDriver.CanBeginPlacement gate
+  input; ProductionDriver binds/owns mark lifecycle; TacticalPresentation owns
+  actual tower ghosts. Existing Stage2GameHud cards use the same gates. No new
+  package/UI stack or scene/Inspector migration is required.
+- Verification: Mac/Metal 19/19 EditMode and 21/21 PlayMode, zero failures/skips;
+  suites cover Defense, production, HUD/menu, rendered ghost transparency/color,
+  stamp lifecycle, invalid/wrong/blocked locations, pointer and late balance.
+  Parent inspected actual Game frames for all three markers/buildings and both
+  towers in green/red, plus disabled HUD frames. All 38 protected existing art
+  files remain unchanged; three production PNGs still match source bytes.
+- Native UI: actual disabled-card click did not select/spend/build. With funds,
+  card click began placement; pad interaction built one sawmill, spent exactly
+  its price once and hid that mark. Towers/Rapid and Esc also worked; Console
+  showed 0 warnings/0 errors. Fresh ordinary Play has normal follow/default
+  inventory, no QA buildings, Generators open and placement off; Console 0/0.
+  Native purchase happened before a stationary green capture; all five green
+  silhouettes are verified by final actual renders and pixel checks instead.
+  Manual details: manual-ui-verification.json; startup: ordinary-play.log.
+- Evidence: Artifacts/S3-PLACEMENT-READABILITY-20261016/final-{editmode,playmode}.xml,
+  game/ and live/; 22 shared frames and hashes in art/review/placement_readability_*.
+  Intermediate pilot/candidate failures are retained; final results supersede
+  constructor-time MaterialPropertyBlock and overbroad informational-log fixture
+  assertions. Specs: RESOURCE_PRODUCTION_BUILDINGS.md and STAGE2_BUILDING.md.
+- Remaining: owner appearance/feel judgement and Windows target validation.
+  No economy/content expansion, commit or push.
+
+### 2026-10-16 — D-058 production buildings and bottom build menu (implemented)
+
+- Owner/surface: Astra owns plain production rules/catalog in Economy, Integration
+  driver/composition, existing tower/run/gathering coordination, Stage 3 binding,
+  Unity import and runtime tests. Parent owns existing HUD, menu tests, source
+  building artwork/provenance and canonical docs. No shared-file concurrent edits.
+- Authorization: owner accepted D-057 appearance and asked for three buildable
+  generators plus bottom Towers/Generators categories. Owner explicitly delegated
+  temporary construction prices and production rates; Unity data owns the values.
+- Contract: exact locked resource/type point, one generator per point, atomic
+  shared-inventory payment, hero-safe collision and active-time passive output.
+  Pause/terminal freeze; restart/regenerate clear owned state. Existing tower
+  policy, small-node E, landmark images/scale and map/road remain authoritative.
+- Dependencies/acceptance: existing D-057 points, inventory and run phases; actual
+  menu selection, pointer exclusion, three built visuals, foreground/behind hero
+  visibility, payment/type/occupied/pause/reset/production checks and no new errors.
+- Files/wiring: Stage2Production/Catalog in Economy, Stage2ProductionDriver and
+  optional productionCatalog binding in GameComposition; Stage2GameHud categories,
+  narrow BuildDriver.PlacementStarting and Run.Reset coordination, independent
+  gathering placement flags, point/collision rebinding in ResourceDistrictWorld.
+  Stage3 scene adds exactly one serialized catalog reference. Explicit Import
+  Production Buildings menu owns new sprite/catalog import; no additional manual
+  Inspector wiring. Original landmark PNGs and 0.75 scale are preserved; only
+  quarry/mine painted-ground depth regions extend over the observed approaches.
+- Verification: Mac/Metal 33/33 EditMode, 26/26 combined PlayMode, 10/10 final
+  focused PlayMode, no skips. Cached read-only views then passed 9/9 pure checks.
+  Failed intermediate batch capture/input fixtures are retained and identified;
+  final input test uses actual mouse edges, without direct-purchase substitution.
+  Root independently inspected all nine final HUD/front/behind frames; quarry
+  foreground hero clipping is fixed. Source/runtime PNGs match byte-for-byte;
+  all 38 protected pre-production art files remain unchanged.
+- Native UI verification: actual category/card click showed the sawmill ghost;
+  actual pad click spent its complete price once and produced a visible building,
+  then wood rose automatically. Towers/Rapid preview and Esc were also clicked.
+  Fresh ordinary Play has Generators open, default inventory, no QA buildings,
+  normal camera and Console 0 warnings/0 errors. Evidence and manual record:
+  Artifacts/S3-RESOURCE-PRODUCTION-20261016/. Shared nine frames and hashes:
+  art/review/resource_production_* and resource_production_2026-10-16_verification.json.
+- Remaining: owner's appearance/feel judgement, provisional balance iteration and
+  Windows target validation. No logistics/research/upgrades/selling/persistence.
+  No commit/push or new package/UI stack.
+- Spec: gamedesign/features/RESOURCE_PRODUCTION_BUILDINGS.md. Source art/prompts:
+  art/source/resource_production_buildings_2026-10-16_generation.json.
+
+### 2026-10-16 — D-057 authored resource landmarks (implemented, owner appearance accepted)
+
+- Owner: GPT-6 Astra owns runtime/scene/canonical docs; parent owns generated
+  artwork and provenance outside Assets. No concurrent edits to those surfaces.
+- Human correction: replace smooth grey core plus edge sprites with coherent
+  compound forest/quarry/iron excavation closely matching original D-053.
+  Fixed authored composition is allowed; safe seeded placement remains. Shared
+  data scale 0.75 covers visual/footprint/collision/local building point.
+- Boundary: one typed locked local future-building point per landmark; large
+  deposits are not E-gatherable. Existing small nodes/E, road/map/objectives,
+  camera and economy remain. No production rules, prices, rates or build UI.
+- Implemented: all three original-reference-derived RGBA compositions imported
+  into Landmarks, serialized authored contours/trunks and scaled locked typed
+  points. Seeded placement retains reservations; no old core/apron/cutout is
+  rendered. Ground-depth regions preserve pad access without erasing the object.
+  Local grass exclusion avoids grass crossing painted clearings. Small E nodes
+  and production economy remain unchanged.
+- Contracts/files: ResourceDistrictArt/World, ResourceDistrictGenerator.CutsTerrain,
+  ResourceProductionPoint, ResourceDistrictSprite depth regions, LandscapeProps,
+  tactical terrain and existing district/rapid-pilot tests. Shared HeroObstacleMap
+  now rejects a float-rounded overlapping contact endpoint, retaining the last
+  clear swept position instead of triggering next-frame teleport recovery.
+- Intermediate verification retained: first focused PlayMode 10/12; old lateral
+  head-on fixture hit a slanted authored contour, and a real dense-trunk wedge
+  produced one overlap recovery. Fixture now approaches a flat actual contour;
+  the wedge has a dedicated pure regression. Earlier hot-reload NullReferences
+  in stone-iron.log are intermediate failures, not final startup evidence.
+- Final checks: Mac/Metal 27/27 EditMode, 12/12 PlayMode, no skips. XML/logs
+  are final-editmode/final-playmode under Artifacts/S3-AUTHORED-RESOURCE-LANDMARKS-20261016.
+  All six pad clearances sampled with hero radius and verified approach; matching
+  types, old-node E, reset/regenerate, accelerated contact and partial reveal pass.
+  2000-step profile: 0 bytes, 0 recoveries, max step 0.070002, mean CPU 0.0564ms.
+  Final whole/5/2.5 and pad frames: final-capture/ in that evidence root. Source
+  artwork/full prompts: art/source/resource_landmarks_2026-10-16_generation.json.
+  Parent independently inspected final Game frames and saved ten selected normal,
+  pad and actual canopy-reveal PNGs as art/review/resource_landmark_*; results and
+  frame hashes: art/review/resource_landmarks_2026-10-16_verification.json.
+  All 240 protected original images/manual-node assets/scene/map/packages/settings
+  remain unchanged; original references match origin/main and runtime PNGs match
+  the generated source bytes. This is independent review, not owner acceptance.
+  Fresh final-live.log and live Unity inspection: ordinary Play restored, follow
+  camera/normal zoom, Console 0 warnings/0 errors after complete capture. Startup
+  reports authored representation, six points and actual reserved/collision counts.
+- Remaining: owner artistic review, future production/building brief and Windows
+  target validation. No production gameplay or underground walking is implemented.
+- Acceptance: reference fidelity at whole/normal5/close2.5, both fixture seeds,
+  coherent ground/collision/point, lifecycle and old gathering regression,
+  hero reveal and Console. Prior Astra 13/9/3 passes are technical only;
+  its artistic result is REJECTED, historical evidence is retained.
+
+### 2026-10-16 — Astra artifact correction (appearance REJECTED by D-057)
+
+- Owner/surface: current Stage 3 Map/Art/Integration chat; only D-054–D-056
+  large forest, stone and iron district presentation. User explicitly narrowed
+  review and correction to these districts. Dependencies: existing fixed camera,
+  XY rules, original PNGs/materials and seeded district footprints.
+- Behavior/contracts: clean mirrored triplanar atlas pigment removes repeated
+  baked wedges/seams; better sampled bevel keeps the existing vertex count.
+  Ground/reveal transparent layers precede painted accents. Rock anchors follow
+  actual relief, with view-depth clearance only against their own opaque pixel
+  area; collision anchors remain on the ground. The mine retains readable lower
+  values and a connected descent from its visible rear lip. Forest canopy
+  opacity is restored and only its local floor is muted; tree layout is retained.
+- Files: Stage3DistrictGeometry/Stage3ResourceDistrictWorld/DistrictGeology,
+  ResourceDistrictLayout stair approach, existing feature/plan. Explicit
+  Play-mode Capture Live Districts menu restores prior seed/hero/camera after
+  review; no persistent request polling. Tests accept an evidence directory
+  override and report the real platform instead of hard-coded Windows.
+- Verification: Mac/Metal EditMode 13/13 (including 80-seed structural check),
+  district PlayMode 9/9, two-seed overview/game/close renders independently
+  reviewed. Final contact/reveal/capture recheck 3/3 passed after correcting
+  transparent geology ordering; no new attributable final-run errors. 2,000 controlled
+  steps: 0 managed bytes and 0 recovery jumps; 120 local walking frames p95
+  0.4933 ms, maximum 3.7328 ms (Editor sample, not a GPU/FPS guarantee).
+  Evidence: Artifacts/S3-ASTRA-RESOURCE-VISUAL-20261016/; shared new frames:
+  art/review/astra_resource_district_* and the matching verification JSON.
+  Independent SHA256 check preserved all 240 original images, old gathering
+  assets, scene/map files, packages and project settings. Historical evidence preserved.
+- Outcome: owner rejected the appearance; D-057 replaces this representation.
+  Technical passes above do not constitute visual acceptance. Wider Stage 3 gate remains; no production,
+  renewal, underground traversal or new assets. No new Windows build/run in
+  this Mac correction. No additional Inspector wiring. No commit or push.
+
 ### 2026-10-16 — Windows to Mac source handoff
 
 - Owner/surface: current Stage 3 chat; README setup instructions and the full

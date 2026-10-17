@@ -1,0 +1,165 @@
+{
+  "date": "2026-10-16",
+  "decision": "D-058",
+  "environment": "macOS Unity 6000.6.2f1 ARM64/Metal",
+  "scope": "Three constructible resource generators, categorized bottom HUD, paid locked-point construction and active-time production",
+  "balanceAuthority": "Owner explicitly delegated provisional prices/rates; sole runtime source is ProductionCatalog.asset",
+  "runtimeCatalog": "Assets/Stage3/ResourceDistricts/Production/ProductionCatalog.asset",
+  "sourceCatalog": "art/source/resource_production_buildings_2026-10-16_generation.json",
+  "verification": [
+    {
+      "file": "Artifacts/S3-RESOURCE-PRODUCTION-20261016/final-editmode.xml",
+      "passed": 33,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "file": "Artifacts/S3-RESOURCE-PRODUCTION-20261016/combined-playmode.xml",
+      "passed": 26,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "file": "Artifacts/S3-RESOURCE-PRODUCTION-20261016/verified-playmode.xml",
+      "passed": 10,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "file": "Artifacts/S3-RESOURCE-PRODUCTION-20261016/cached-views-editmode.xml",
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0
+    }
+  ],
+  "independentVisualReview": "All nine final-contact HUD/front/behind frames inspected. Correct whole buildings remain opaque with hero in front; partial local reveal preserves hero behind. Quarry foreground boundary clipping corrected. Categorized HUD has three labeled sprites/rates, selected price, placement feedback and no minimap overlap.",
+  "verifiedContracts": [
+    "Exact matching locked point; one building per point",
+    "Atomic one-time full payment; rejection/cancel/factory failure spends nothing",
+    "Hero-safe collision and original green-zone/invasion-road separation",
+    "Active-time output including long frames and overflow; pause/terminal freeze",
+    "Restart and regeneration clear visual/rule/collision bindings; manual small-node E preserved",
+    "Existing tower selection/placement retained; previews mutually exclusive",
+    "HUD/minimap pointer exclusion; category choices and actual world mouse purchase/cancel/duplicate input"
+  ],
+  "preservation": {
+    "preexistingArtFiles": 38,
+    "changed": [],
+    "threeRuntimePngsByteIdenticalToGeneratedSources": true,
+    "landmarkLinearScale": 0.75,
+    "sceneMigration": "One productionCatalog serialized reference added; existing scene contents preserved"
+  },
+  "intermediateHistory": [
+    "pilot-playmode.xml:batch capture fixture unsupported WaitForEndOfFrame, fixed without runtime change",
+    "final-playmode.xml:9/10 before separating release/press input frames in new test",
+    "click-diagnostic.xml:localized fixture input edge; click-separated.xml passed real input without direct purchase API",
+    "final-live/Quarry-front.png superseded by final-contact ground-depth boundary correction"
+  ],
+  "frames": [
+    {
+      "file": "art/review/resource_production_sawmill_hud_2026-10-16.png",
+      "source": "Artifacts/S3-RESOURCE-PRODUCTION-20261016/final-contact/Sawmill-hud.png",
+      "sha256": "7c19d5fedddc870688439368a37f31e47b74db37d7ef420c507b2d52d7b9519b",
+      "view": "hud"
+    },
+    {
+      "file": "art/review/resource_production_sawmill_front_2026-10-16.png",
+      "source": "Artifacts/S3-RESOURCE-PRODUCTION-20261016/final-contact/Sawmill-front.png",
+      "sha256": "240683da17f5a8ccb2325bd55158374bffd39f2abd0ab657672e5526d5ab3189",
+      "view": "front"
+    },
+    {
+      "file": "art/review/resource_production_sawmill_behind_2026-10-16.png",
+      "source": "Artifacts/S3-RESOURCE-PRODUCTION-20261016/final-contact/Sawmill-behind.png",
+      "sha256": "f9a037a7513b960a665f5d9276d1db4fe765de5a3522b23a2fc2f109b6d1c17c",
+      "view": "behind"
+    },
+    {
+      "file": "art/review/resource_production_quarry_hud_2026-10-16.png",
+      "source": "Artifacts/S3-RESOURCE-PRODUCTION-20261016/final-contact/Quarry-hud.png",
+      "sha256": "e45f9a727df73256a54aabc5630a0d5f0548b73821a6ded9fee7f44c01fdc24e",
+      "view": "hud"
+    },
+    {
+      "file": "art/review/resource_production_quarry_front_2026-10-16.png",
+      "source": "Artifacts/S3-RESOURCE-PRODUCTION-20261016/final-contact/Quarry-front.png",
+      "sha256": "0945707dd24e26503a53df252ed35e122adb7f3984b6ae0b7dfe572392459408",
+      "view": "front"
+    },
+    {
+      "file": "art/review/resource_production_quarry_behind_2026-10-16.png",
+      "source": "Artifacts/S3-RESOURCE-PRODUCTION-20261016/final-contact/Quarry-behind.png",
+      "sha256": "532e6c44b7a1aafe33986c2af7284f19dd82d227a2b11d7995d39fd05f662422",
+      "view": "behind"
+    },
+    {
+      "file": "art/review/resource_production_iron_mine_hud_2026-10-16.png",
+      "source": "Artifacts/S3-RESOURCE-PRODUCTION-20261016/final-contact/IronMine-hud.png",
+      "sha256": "2548dde9a9a707b773f2449ea318092a312d0ed9b72a05e90894b65ec2e64864",
+      "view": "hud"
+    },
+    {
+      "file": "art/review/resource_production_iron_mine_front_2026-10-16.png",
+      "source": "Artifacts/S3-RESOURCE-PRODUCTION-20261016/final-contact/IronMine-front.png",
+      "sha256": "0d9c34174eb4d78ad42347d3bfc1dad2e05787c98f5328a3b8ee4c21d904fcf5",
+      "view": "front"
+    },
+    {
+      "file": "art/review/resource_production_iron_mine_behind_2026-10-16.png",
+      "source": "Artifacts/S3-RESOURCE-PRODUCTION-20261016/final-contact/IronMine-behind.png",
+      "sha256": "004d63d88af4d48d15c423c12d7917a6149a1d5f44ac71a8818efa375d1043c6",
+      "view": "behind"
+    }
+  ],
+  "remaining": [
+    "Owner appearance/feel judgement and provisional balance iteration",
+    "Windows target validation; automated checks here ran on Mac"
+  ],
+  "git": "Local working tree; no commit/push",
+  "manualNativeUi": {
+    "manual_cua": {
+      "generator_card_ghost": true,
+      "world_click_purchase": true,
+      "inventory_before": {
+        "wood": 100,
+        "stone": 100,
+        "metal": 100
+      },
+      "inventory_after_purchase": {
+        "wood": 94,
+        "stone": 97,
+        "metal": 100
+      },
+      "operating_count": 1,
+      "production_observed_wood": [
+        96,
+        97,
+        101
+      ],
+      "tower_tab_rapid_preview": true,
+      "escape_cancel": true
+    },
+    "fresh_ordinary_play": {
+      "generators_tab_open": true,
+      "active_placement": false,
+      "qa_grants": false,
+      "resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "console_warnings": 0,
+      "console_errors": 0,
+      "log_error_matches": []
+    },
+    "cached_views_test": "cached-views-editmode.xml (9/9 Passed)"
+  },
+  "ordinaryPlay": {
+    "log": "Artifacts/S3-RESOURCE-PRODUCTION-20261016/ordinary-play.log",
+    "attributableErrorScan": [],
+    "consoleWarnings": 0,
+    "consoleErrors": 0,
+    "state": "Fresh normal Play; Generators category open, no QA grants or buildings; inspected by Astra"
+  }
+}

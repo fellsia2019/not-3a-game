@@ -145,13 +145,15 @@ namespace Not3A.Stage2.Defense.Tests
             input.Press(keyboard.digit2Key);
             yield return null;
             input.Release(keyboard.digit2Key);
+            Assert.That(building.Defense.SelectedCatalog, Is.SameAs(catalog), "Unaffordable role must not be selected.");
+            Assert.That(building.CanBeginPlacement(1), Is.False);
+            gathering.Economy.Inventory.TryAdd(MapResourceKind.Stone, 4);
+            yield return null;
+            input.Press(keyboard.digit2Key); yield return null; input.Release(keyboard.digit2Key);
             Assert.That(building.Defense.SelectedCatalog, Is.SameAs(longshot));
             input.Press(keyboard.bKey);
             yield return null;
             input.Release(keyboard.bKey);
-            yield return null;
-            Assert.That(building.PreviewResult, Is.EqualTo(PlacementResult.CannotAfford));
-            gathering.Economy.Inventory.TryAdd(MapResourceKind.Stone, 4);
             yield return null;
             Assert.That(building.PreviewResult, Is.EqualTo(PlacementResult.Ready));
             input.Press(mouse.leftButton);

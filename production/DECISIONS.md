@@ -1047,6 +1047,110 @@ This supersedes D-054's sprite-only relief representation and D-055's abrupt
 visibility fade; collision intent remains. Source of truth:
 gamedesign/features/PROCEDURAL_RESOURCE_DISTRICTS.md.
 
+## D-057 — Reference-faithful authored resource landmarks and locked building points
+
+Status: Accepted by explicit owner correction, 2026-10-16; implemented, owner visual review open.
+The owner rejected the D-056/Astra result artistically: a smooth grey terrain
+core with rocks scattered on its edge does not match the original D-053 images.
+The Mac 13/13 EditMode, 9/9 PlayMode and 3/3 contact checks establish technical
+behavior only; they are not appearance acceptance. Preserve those results as
+historical evidence, not as the current target.
+
+Create three coherent compound landmark categories: forest, pale stepped stone
+mass and dark iron excavation. Match the original D-053 composition, volume,
+material and detail closely. Authored fixed local composition is explicitly
+allowed when random assembly harms fidelity; safe seeded world placement may
+remain random. Do not retain a generic relief core underneath a painted version
+or require shape variation at the expense of the reference. The implementation
+may use a coherent bitmap/layered artwork under the existing fixed camera.
+Reduce the previous large objects by approximately 25 percent in linear size;
+visual, ground footprint/collision and local anchor scale together, controlled
+by runtime project data. Existing small gathering nodes are unchanged.
+
+Large landmarks are not gathered with E. Each owns one authored locked local
+building point with a matching type: forest/sawmill, stone/quarry, iron/iron
+mine. This authorizes the spatial/type anchor contract only. Building models,
+construction UI, prices, rates, production, renewal and underground traversal
+are not approved. Existing small trees/stone/ore retain manual E gathering.
+Road, map, targets, camera and economy remain unchanged. D-055 ground collision
+intent remains, with authored contours/trunks replacing arbitrary mesh-derived
+contours where needed. This supersedes D-054's mandatory modular random shape,
+initial size and prohibition of coherent zone images, and D-056's mandated
+procedural relief representation. Source of truth remains
+`gamedesign/features/PROCEDURAL_RESOURCE_DISTRICTS.md`.
+
+## D-058 — Constructible resource generators and categorized bottom build menu
+
+Status: Accepted by explicit owner request, 2026-10-16; implemented on Mac.
+The owner accepted the D-057 appearance ("теперь то, теперь оно") and requested
+the matching sawmill, quarry workshop and iron extraction station as buildable
+generators. Add a simple bottom menu with Towers (existing Rapid/Longshot) and
+Generators (these three buildings). Use their existing locked matching points,
+one building per point. Preserve the accepted landmark artwork and scale.
+
+The owner explicitly delegated provisional prices and production rates. Keep
+them in the production data asset, with the selected cost/output visible in UI.
+Generators consume the shared inventory once at successful construction and
+produce their corresponding resource over active game time. Pause/terminal
+states freeze them, restart clears them, and regeneration invalidates old sites.
+Keep manual E gathering on the original small nodes and the existing tower
+placement/payment/road policy. No logistics, research, upgrades, workers,
+renewal mechanics, selling or persistent/offline production is authorized.
+
+This supersedes D-057's building/production/UI deferral only for this narrow
+prototype. Details: `gamedesign/features/RESOURCE_PRODUCTION_BUILDINGS.md`.
+
+## D-059 — Visible construction sites, red/green ghosts and affordability gating
+
+Status: Accepted by explicit owner request, 2026-10-16.
+The owner reported that construction positions and placement feedback were
+unclear. Mark free generator points in advance with distinct ground icons:
+axe/log for sawmills, pick/stone for quarries and pick/ore for iron mines. Show
+the actual tower or building silhouette semitransparently while positioning,
+green only for a valid purchase location and red when rejected. Include its
+ground outline. No yellow/orange placement state is authorized.
+
+Unaffordable cards must be disabled rather than letting the player select an
+unfunded purchase. Show every price and retain an explanation on hover; use
+the same affordability gate for public selection and existing tower hotkeys.
+Recheck funds at commit. Preserve the existing costs, output rates, placement
+policy, locked points and accepted landmark/building artwork. These are
+readability and input refinements to D-058, not additional building content or
+economy. Details: `gamedesign/features/RESOURCE_PRODUCTION_BUILDINGS.md`.
+
+2026-10-17 appearance feedback: the owner finds the current pad glyphs hard to
+read and requests a minimal vector concept for approval first. D-059 technical
+passes do not establish glyph-art acceptance. The original SVG proposal under
+`art/concepts/placement_icons_2026-10-17/` is preview-only; neither the proposed
+ingot pictogram nor its integration has been accepted yet.
+The parent v1 was subsequently rejected for distorted shapes/proportions. By
+explicit owner request GPT-6 Astra supplied approval_sheet_astra_v1.svg/png in
+that concept directory. It is the current proposal, still awaiting owner art
+approval; neither this concept revision nor technical checks imply acceptance.
+Following owner feedback on diagram tilt/missing safe zones, the current sheet
+is approval_sheet_astra_v2: real projected pad bounds and a dashed proposed
+12% icon inset, with glyph geometry preserved. This is review layout only.
+
+## D-060 — Approved Astra resource-pad vector marks and safe bounds
+
+Status: Accepted by explicit owner instruction, 2026-10-17; implemented on Mac.
+The owner approved approval_sheet_astra_v2 and requested integration plus a
+commit of all accumulated changes. Use the original Astra axe/log, pick/fractured
+stone and pick/metal-bar vector geometry, preserving transparent negative space.
+The bar is a metal pictogram, not a new resource tier or processing mechanic.
+
+Apply the same actual world XY/camera projection to the full point.Clearance,
+inner icon safe bounds and uniformly fitted glyph. Preserve the approved 12%
+layout inset per edge, neutral thin outer contour and subtle dashed inner safe
+border without diagram labels in the game. This inset is an artwork margin,
+not additional collision or a change to construction eligibility. Preserve the
+existing pad positions/sizes, landmark scale, production values, manual E,
+marker lifecycle and red/green placement/affordability contracts.
+
+Source of truth: `gamedesign/features/RESOURCE_PRODUCTION_BUILDINGS.md`.
+Approved visual/source: `art/concepts/placement_icons_2026-10-17/approval_sheet_astra_v2.png`,
+`art/source/placement_icons_astra_v2_2026-10-17.json`.
+
 ## Pending Product Decisions
 
 - Текущая карта Stage 3 — 250×250 по D-049, боевая часть в нижнем левом углу

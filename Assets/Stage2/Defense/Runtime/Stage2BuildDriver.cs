@@ -36,14 +36,26 @@ namespace Not3A.Stage2.Defense
         public SpriteRenderer PreviewRenderer => ghost;
         public bool PointerOverUi { get; private set; }
 
+        public event Action PlacementStarting;
+
+        public void CancelPlacement() { defense?.CancelPlacement(); SyncBuildMode(); }
+
         public void SetPointerBlocker(Func<Vector2, bool> blocker) => pointerBlocker = blocker;
 
         public void SelectAndBeginPlacement(int role)
         {
-            if (defense == null || !defense.SelectRole(role)) return;
+            if (!CanBeginPlacement(role) || !defense.SelectRole(role)) return;
+            PlacementStarting?.Invoke();
             CreateGhost();
             defense.BeginPlacement();
             SyncBuildMode();
+        }
+
+        public bool CanBeginPlacement(int role)
+        {
+            if (defense == null || paused || phase == Stage2BuildPhase.Inactive || role < 0 || role >= defense.RoleCount) return false;
+            var data = defense.GetCatalog(role);
+            return gathering.Economy.Inventory.CanAfford(data.WoodCost, data.StoneCost, data.MetalCost, data.GoldCost);
         }
 
         public bool TryScreenToCell(Vector2 screen, out Vector2Int cell)
@@ -162,13 +174,15 @@ namespace Not3A.Stage2.Defense
                 pointerBlocker(Mouse.current.position.ReadValue());
             var buildPressed = buildAction != null && buildAction.WasPressedThisFrame();
             var cancelPressed = cancelAction != null && cancelAction.WasPressedThisFrame();
-            if (firstRoleAction != null && firstRoleAction.WasPressedThisFrame() && defense.SelectRole(0))
-                CreateGhost();
-            if (secondRoleAction != null && secondRoleAction.WasPressedThisFrame() && defense.SelectRole(1))
-                CreateGhost();
+            // Role shortcuts retain their existing select-only behavior. Neither shortcuts
+            // nor the public HUD action may bypass the full-price gate.
+            if (firstRoleAction != null && firstRoleAction.WasPressedThisFrame() && CanBeginPlacement(0))
+            { PlacementStarting?.Invoke(); defense.SelectRole(0); CreateGhost(); }
+            if (secondRoleAction != null && secondRoleAction.WasPressedThisFrame() && CanBeginPlacement(1))
+            { PlacementStarting?.Invoke(); defense.SelectRole(1); CreateGhost(); }
             // Cancellation wins over confirmation in the same input update.
             if (cancelPressed || (buildPressed && defense.IsPlacing)) defense.CancelPlacement();
-            else if (buildPressed) defense.BeginPlacement();
+            else if (buildPressed) SelectAndBeginPlacement(defense.SelectedRoleIndex);
 
             if (defense.IsPlacing && Mouse.current != null)
             {
@@ -186,8 +200,8 @@ namespace Not3A.Stage2.Defense
                 {
                     ghost.transform.position = mapDefinition.CellToWorld(cell);
                     ghost.color = PreviewResult == PlacementResult.Ready
-                        ? new Color(0.2f, 1f, 0.45f, 0.65f)
-                        : new Color(1f, 0.25f, 0.2f, 0.65f);
+                        ? Stage2PlacementVisuals.Valid
+                        : Stage2PlacementVisuals.Invalid;
                 }
                 if (!cancelPressed && confirmAction != null && confirmAction.WasPressedThisFrame())
                     PreviewResult = defense.TryConfirm(out _);

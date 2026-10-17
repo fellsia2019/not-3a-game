@@ -129,7 +129,9 @@ namespace Not3A.Stage2.Map
             foreach(var direction in Neighbors)
             {
                 var count=0;while(heights.ContainsKey(District.Center+direction*(count+1)))count++;
-                var score=Vector2.Dot(direction,-up)*4+count*.1f;
+                // Descend from the rear lip toward the viewer: a foreground descent
+                // is nearly parallel to the fixed camera and hides its own treads.
+                var score=Vector2.Dot(direction,up)*4+count*.1f;
                 if(count>=3 && score>best){best=score;outward=direction;length=count;}
             }
             MineEntrance=District.Center+outward*length;

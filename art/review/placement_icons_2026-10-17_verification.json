@@ -1,0 +1,85 @@
+{
+  "date": "2026-10-17",
+  "decision": "D-060",
+  "ownerApproval": "Explicit approval of approval_sheet_astra_v2 and request to integrate/commit all accumulated work",
+  "environment": "macOS Unity 6000.6.2f1 ARM64/Metal",
+  "scope": "Approved original Astra vector ground-pad icons, full neutral clearance frame, dashed icon-safe border and 12% per-edge layout inset",
+  "approvedSources": [
+    "art/source/placement_icons_astra_2026-10-17.json",
+    "art/source/placement_icons_astra_v2_2026-10-17.json"
+  ],
+  "implementation": "Code-native mesh converted offline from approved SVGs; true negative spaces; shared XY projection and uniform glyph fit; no bitmap icon/runtime SVG parser/new package",
+  "verification": [
+    {
+      "file": "Artifacts/S3-PLACEMENT-ICONS-20261017/editmode.xml",
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "file": "Artifacts/S3-PLACEMENT-ICONS-20261017/playmode.xml",
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0
+    }
+  ],
+  "independentVisualReview": "Parent inspected all three normal pad frames, all three close views, plus actual generator green/red previews. Forms, holes, inset bounds and relative pad sizes match the approved design.",
+  "unchangedContracts": [
+    "Existing point positions/clearance, scene and map",
+    "Construction costs/output rates, collision and approved landmark/building PNGs",
+    "Red/green preview/affordability gating, marker lifecycle and original small E nodes"
+  ],
+  "nativeFinalState": {
+    "record": "Artifacts/S3-PLACEMENT-ICONS-20261017/manual-qa.json",
+    "freshOrdinaryPlay": "Started without QA grants/buildings; Console initially zero warnings/errors",
+    "userSession": "Owner resumed playing; automation stopped touching Unity UI",
+    "latestConsole": {
+      "errors": 0,
+      "warnings": 1,
+      "warning": "System audio device changed; audio subsystem attempting reset",
+      "attribution": "External device warning; no new glyph/runtime exception"
+    }
+  },
+  "images": [
+    {
+      "source": "Artifacts/S3-PLACEMENT-ICONS-20261017/final/Sawmill-marker-normal.png",
+      "file": "art/review/placement_icons_sawmill_normal_2026-10-17.png",
+      "sha256": "73451a1baf3d2ec1d42c9950fb06e24aa6313743819a8d3e8281725c40cb8c3e"
+    },
+    {
+      "source": "Artifacts/S3-PLACEMENT-ICONS-20261017/final/Sawmill-marker-close.png",
+      "file": "art/review/placement_icons_sawmill_close_2026-10-17.png",
+      "sha256": "92c6949b200aafab278deea33fb11a31397df19399e25145d1b967afa1d5c8df"
+    },
+    {
+      "source": "Artifacts/S3-PLACEMENT-ICONS-20261017/final/Quarry-marker-normal.png",
+      "file": "art/review/placement_icons_quarry_normal_2026-10-17.png",
+      "sha256": "11f62cf0779b9113cb8d41a2d116494666b92affcfe8dded93b7e9587a1707ce"
+    },
+    {
+      "source": "Artifacts/S3-PLACEMENT-ICONS-20261017/final/Quarry-marker-close.png",
+      "file": "art/review/placement_icons_quarry_close_2026-10-17.png",
+      "sha256": "50ee2017f2dd1e34614ff7fdf16d02fb565edae459e784a14c797dd8132cc013"
+    },
+    {
+      "source": "Artifacts/S3-PLACEMENT-ICONS-20261017/final/IronMine-marker-normal.png",
+      "file": "art/review/placement_icons_iron_mine_normal_2026-10-17.png",
+      "sha256": "a851306e5dbc667694416a6d26dd8375d0d5c3cfd4fd88eea2449749401667be"
+    },
+    {
+      "source": "Artifacts/S3-PLACEMENT-ICONS-20261017/final/IronMine-marker-close.png",
+      "file": "art/review/placement_icons_iron_mine_close_2026-10-17.png",
+      "sha256": "b795d3f16244bf09944c704fa7bcf72dbc7aa67bd3b7b89c6593b94588b1017b"
+    }
+  ],
+  "remaining": [
+    "Windows target validation; final checks here are Mac development checks"
+  ],
+  "runtimeProvenance": "art/source/placement_icons_runtime_2026-10-17.json",
+  "artIntegrity": {
+    "protectedExistingArtUnchanged": 38,
+    "sceneDataPackageBaselineUnchanged": 6,
+    "finalFramesByteIdenticalToIndependentlyInspectedCandidates": true
+  },
+  "gitAudit": "All accumulated intended source/assets/docs staged; source whitespace clean; preserved standard Unity .meta empty-field trailing spaces; no generated output/credential files included"
+}

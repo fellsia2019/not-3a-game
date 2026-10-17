@@ -26,9 +26,10 @@ namespace Not3A.Stage2.Map
 
     public sealed class ResourceDistrict
     {
-        internal ResourceDistrict(MapResourceKind kind, Vector2Int center, int seed, List<Vector2Int> cells)
+        internal ResourceDistrict(MapResourceKind kind, Vector2Int center, int seed, List<Vector2Int> cells,
+            bool cutsTerrain = true)
         {
-            Kind = kind; Center = center; Seed = seed;
+            Kind = kind; Center = center; Seed = seed; CutsTerrain = cutsTerrain;
             Cells = cells.AsReadOnly();
             var min = center; var max = center;
             foreach (var cell in cells) { min = Vector2Int.Min(min, cell); max = Vector2Int.Max(max, cell); }
@@ -37,6 +38,7 @@ namespace Not3A.Stage2.Map
         public MapResourceKind Kind { get; }
         public Vector2Int Center { get; }
         public int Seed { get; }
+        public bool CutsTerrain { get; }
         public IReadOnlyList<Vector2Int> Cells { get; }
         public RectInt Bounds { get; }
     }
@@ -48,6 +50,12 @@ namespace Not3A.Stage2.Map
 
         public static IReadOnlyList<ResourceDistrict> Generate(Stage2MapDefinition map,
             ResourceDistrictSettings settings, int seed, Vector2 heroStart)
+            => Generate(map, settings, seed, heroStart, null);
+
+        /// <summary>Authored local footprints keep their composition; only safe origins vary by seed.</summary>
+        public static IReadOnlyList<ResourceDistrict> Generate(Stage2MapDefinition map,
+            ResourceDistrictSettings settings, int seed, Vector2 heroStart,
+            IReadOnlyDictionary<MapResourceKind, IReadOnlyList<Vector2Int>> authoredFootprints)
         {
             if (map == null || !map.PlanarGrid) throw new ArgumentException("A planar map is required.");
             if (settings == null) throw new ArgumentNullException(nameof(settings));
@@ -85,7 +93,13 @@ namespace Not3A.Stage2.Map
                 ResourceDistrict accepted = null;
                 var area = rng.Next(settings.minimumCells, settings.maximumCells + 1);
                 var shapeSeed = rng.Next();
-                var localShape = MakeShape(area, shapeSeed);
+                var authored = authoredFootprints != null && authoredFootprints.TryGetValue(
+                    (MapResourceKind)resource, out _);
+                var localShape = authored
+                    ? new List<Vector2Int>(authoredFootprints[(MapResourceKind)resource])
+                    : MakeShape(area, shapeSeed);
+                if (localShape.Count == 0 || new HashSet<Vector2Int>(localShape).Count != localShape.Count)
+                    throw new ArgumentException("An authored footprint must contain distinct reserved cells.");
                 for (var attempt = 0; attempt < 3000; attempt++)
                 {
                     Vector2Int center;
@@ -107,7 +121,7 @@ namespace Not3A.Stage2.Map
                     if (!valid) continue;
                     var cells = new List<Vector2Int>(area);
                     foreach (var offset in localShape) cells.Add(center + offset);
-                    accepted = new ResourceDistrict((MapResourceKind)resource, center, shapeSeed, cells);
+                    accepted = new ResourceDistrict((MapResourceKind)resource, center, shapeSeed, cells, !authored);
                     foreach (var cell in cells) Reserve(cell, settings.districtSpacing);
                     break;
                 }

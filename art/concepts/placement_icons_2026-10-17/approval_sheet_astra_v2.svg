@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1260" height="1030" viewBox="0 0 1260 1030"><title>Площадки: проекция и поля знака — Astra 02</title><style>text{font-family:Arial,Helvetica,sans-serif}</style><rect width="1260" height="1030" fill="#172120"/><text x="48" y="44" font-size="14" fill="#a5b3a5" font-weight="700" text-anchor="start">РЕСУРСНЫЕ ПЛОЩАДКИ</text><text x="1212" y="44" font-size="14" fill="#a5b3a5" font-weight="700" text-anchor="end">ASTRA · ПРАВКА ПРОЕКЦИИ</text><text x="48" y="90" font-size="34" fill="#eee3c5" font-weight="700" text-anchor="start">Знаки внутри площадок</text><text x="48" y="125" font-size="17" fill="#a9b6ae" font-weight="400" text-anchor="start">Иконки сохранены. Исправлены наклон площадки и отступы от её границ.</text><rect x="48" y="153" width="372" height="370" rx="16" fill="#243030"/><text x="72" y="185" font-size="13" fill="#a5b3a5" font-weight="700" text-anchor="start">01</text><g transform="translate(144 179) scale(0.703125 0.703125)"><g transform="translate(0 0) scale(1.0 1.0)"><defs><mask id="v2_1_cut_1" maskUnits="userSpaceOnUse" x="0" y="0" width="256" height="256" style="mask-type:luminance"><g transform="rotate(28 130 50)">
+<path d="M124 43H136L138 174Q131 180 124 174Z" fill="white"/>
+<path d="M108 33H139L177 21Q185 48 177 77L139 59H108Z" fill="white"/>
+<path d="M126 39H134V52H126Z" fill="black"/>
+<path d="M169 29Q175 49 169 68" fill="none" stroke="black" stroke-width="4"/>
+</g>
+<path d="M64 184H191C217 184 217 232 191 232H64Z" fill="white"/>
+<ellipse cx="64" cy="208" rx="22" ry="24" fill="white"/>
+<ellipse cx="64" cy="208" rx="14" ry="17" fill="none" stroke="black" stroke-width="5"/>
+<path d="M91 196H186" stroke="black" stroke-width="5"/>
+</mask></defs><rect width="256" height="256" fill="#eee3c5" mask="url(#v2_1_cut_1)"/></g></g><text x="234" y="389" font-size="24" fill="#eee3c5" font-weight="700" text-anchor="middle">Лесопилка</text><g transform="translate(110.0 432.0) scale(0.125 0.125)"><g transform="translate(0 0) scale(1.0 1.0)"><defs><mask id="v2_2_cut_1" maskUnits="userSpaceOnUse" x="0" y="0" width="256" height="256" style="mask-type:luminance"><g transform="rotate(28 130 50)">
+<path d="M124 43H136L138 174Q131 180 124 174Z" fill="white"/>
+<path d="M108 33H139L177 21Q185 48 177 77L139 59H108Z" fill="white"/>
+<path d="M126 39H134V52H126Z" fill="black"/>
+<path d="M169 29Q175 49 169 68" fill="none" stroke="black" stroke-width="4"/>
+</g>
+<path d="M64 184H191C217 184 217 232 191 232H64Z" fill="white"/>
+<ellipse cx="64" cy="208" rx="22" ry="24" fill="white"/>
+<ellipse cx="64" cy="208" rx="14" ry="17" fill="none" stroke="black" stroke-width="5"/>
+<path d="M91 196H186" stroke="black" stroke-width="5"/>
+</mask></defs><rect width="256" height="256" fill="#eee3c5" mask="url(#v2_2_cut_1)"/></g></g><text x="126" y="504" font-size="12" fill="#a9b6ae" font-weight="400" text-anchor="middle">32 px</text><g transform="translate(210.0 424.0) scale(0.1875 0.1875)"><g transform="translate(0 0) scale(1.0 1.0)"><defs><mask id="v2_3_cut_1" maskUnits="userSpaceOnUse" x="0" y="0" width="256" height="256" style="mask-type:luminance"><g transform="rotate(28 130 50)">
+<path d="M124 43H136L138 174Q131 180 124 174Z" fill="white"/>
+<path d="M108 33H139L177 21Q185 48 177 77L139 59H108Z" fill="white"/>
+<path d="M126 39H134V52H126Z" fill="black"/>
+<path d="M169 29Q175 49 169 68" fill="none" stroke="black" stroke-width="4"/>
+</g>
+<path d="M64 184H191C217 184 217 232 191 232H64Z" fill="white"/>
+<ellipse cx="64" cy="208" rx="22" ry="24" fill="white"/>
+<ellipse cx="64" cy="208" rx="14" ry="17" fill="none" stroke="black" stroke-width="5"/>
+<path d="M91 196H186" stroke="black" stroke-width="5"/>
+</mask></defs><rect width="256" height="256" fill="#eee3c5" mask="url(#v2_3_cut_1)"/></g></g><text x="234" y="504" font-size="12" fill="#a9b6ae" font-weight="400" text-anchor="middle">48 px</text><g transform="translate(310.0 416.0) scale(0.25 0.25)"><g transform="translate(0 0) scale(1.0 1.0)"><defs><mask id="v2_4_cut_1" maskUnits="userSpaceOnUse" x="0" y="0" width="256" height="256" style="mask-type:luminance"><g transform="rotate(28 130 50)">
+<path d="M124 43H136L138 174Q131 180 124 174Z" fill="white"/>
+<path d="M108 33H139L177 21Q185 48 177 77L139 59H108Z" fill="white"/>
+<path d="M126 39H134V52H126Z" fill="black"/>
+<path d="M169 29Q175 49 169 68" fill="none" stroke="black" stroke-width="4"/>
+</g>
+<path d="M64 184H191C217 184 217 232 191 232H64Z" fill="white"/>
+<ellipse cx="64" cy="208" rx="22" ry="24" fill="white"/>
+<ellipse cx="64" cy="208" rx="14" ry="17" fill="none" stroke="black" stroke-width="5"/>
+<path d="M91 196H186" stroke="black" stroke-width="5"/>
+</mask></defs><rect width="256" height="256" fill="#eee3c5" mask="url(#v2_4_cut_1)"/></g></g><text x="342" y="504" font-size="12" fill="#a9b6ae" font-weight="400" text-anchor="middle">64 px</text><rect x="444" y="153" width="372" height="370" rx="16" fill="#243030"/><text x="468" y="185" font-size="13" fill="#a5b3a5" font-weight="700" text-anchor="start">02</text><g transform="translate(540 179) scale(0.703125 0.703125)"><g transform="translate(0 0) scale(1.0 1.0)"><defs><mask id="v2_5_cut_2" maskUnits="userSpaceOnUse" x="0" y="0" width="256" height="256" style="mask-type:luminance"><g transform="rotate(28 130 50)">
+<path d="M124 43H136L138 174Q131 180 124 174Z" fill="white"/>
+<path d="M49 57 83 39 115 33 145 34 177 43 190 48 185 61 169 55 143 49 116 47 85 49Z" fill="white"/>
+<path d="M123 32H137V50H123Z" fill="white"/>
+<path d="M126 39H134V44H126Z" fill="black"/>
+</g>
+<path d="M55 212 80 182 116 164 148 178 165 212 145 237H75Z M178 217 194 210 211 224 205 237H179L171 229Z" fill="white"/>
+<path d="M82 184 108 202 116 169M108 202 143 181M108 202 91 232M110 203 159 214" fill="none" stroke="black" stroke-width="6" stroke-linejoin="round"/>
+</mask></defs><rect width="256" height="256" fill="#eee3c5" mask="url(#v2_5_cut_2)"/></g></g><text x="630" y="389" font-size="24" fill="#eee3c5" font-weight="700" text-anchor="middle">Каменоломня</text><g transform="translate(506.0 432.0) scale(0.125 0.125)"><g transform="translate(0 0) scale(1.0 1.0)"><defs><mask id="v2_6_cut_2" maskUnits="userSpaceOnUse" x="0" y="0" width="256" height="256" style="mask-type:luminance"><g transform="rotate(28 130 50)">
+<path d="M124 43H136L138 174Q131 180 124 174Z" fill="white"/>
+<path d="M49 57 83 39 115 33 145 34 177 43 190 48 185 61 169 55 143 49 116 47 85 49Z" fill="white"/>
+<path d="M123 32H137V50H123Z" fill="white"/>
+<path d="M126 39H134V44H126Z" fill="black"/>
+</g>
+<path d="M55 212 80 182 116 164 148 178 165 212 145 237H75Z M178 217 194 210 211 224 205 237H179L171 229Z" fill="white"/>
+<path d="M82 184 108 202 116 169M108 202 143 181M108 202 91 232M110 203 159 214" fill="none" stroke="black" stroke-width="6" stroke-linejoin="round"/>
+</mask></defs><rect width="256" height="256" fill="#eee3c5" mask="url(#v2_6_cut_2)"/></g></g><text x="522" y="504" font-size="12" fill="#a9b6ae" font-weight="400" text-anchor="middle">32 px</text><g transform="translate(606.0 424.0) scale(0.1875 0.1875)"><g transform="translate(0 0) scale(1.0 1.0)"><defs><mask id="v2_7_cut_2" maskUnits="userSpaceOnUse" x="0" y="0" width="256" height="256" style="mask-type:luminance"><g transform="rotate(28 130 50)">
+<path d="M124 43H136L138 174Q131 180 124 174Z" fill="white"/>
+<path d="M49 57 83 39 115 33 145 34 177 43 190 48 185 61 169 55 143 49 116 47 85 49Z" fill="white"/>
+<path d="M123 32H137V50H123Z" fill="white"/>
+<path d="M126 39H134V44H126Z" fill="black"/>
+</g>
+<path d="M55 212 80 182 116 164 148 178 165 212 145 237H75Z M178 217 194 210 211 224 205 237H179L171 229Z" fill="white"/>
+<path d="M82 184 108 202 116 169M108 202 143 181M108 202 91 232M110 203 159 214" fill="none" stroke="black" stroke-width="6" stroke-linejoin="round"/>
+</mask></defs><rect width="256" height="256" fill="#eee3c5" mask="url(#v2_7_cut_2)"/></g></g><text x="630" y="504" font-size="12" fill="#a9b6ae" font-weight="400" text-anchor="middle">48 px</text><g transform="translate(706.0 416.0) scale(0.25 0.25)"><g transform="translate(0 0) scale(1.0 1.0)"><defs><mask id="v2_8_cut_2" maskUnits="userSpaceOnUse" x="0" y="0" width="256" height="256" style="mask-type:luminance"><g transform="rotate(28 130 50)">
+<path d="M124 43H136L138 174Q131 180 124 174Z" fill="white"/>
+<path d="M49 57 83 39 115 33 145 34 177 43 190 48 185 61 169 55 143 49 116 47 85 49Z" fill="white"/>
+<path d="M123 32H137V50H123Z" fill="white"/>
+<path d="M126 39H134V44H126Z" fill="black"/>
+</g>
+<path d="M55 212 80 182 116 164 148 178 165 212 145 237H75Z M178 217 194 210 211 224 205 237H179L171 229Z" fill="white"/>
+<path d="M82 184 108 202 116 169M108 202 143 181M108 202 91 232M110 203 159 214" fill="none" stroke="black" stroke-width="6" stroke-linejoin="round"/>
+</mask></defs><rect width="256" height="256" fill="#eee3c5" mask="url(#v2_8_cut_2)"/></g></g><text x="738" y="504" font-size="12" fill="#a9b6ae" font-weight="400" text-anchor="middle">64 px</text><rect x="840" y="153" width="372" height="370" rx="16" fill="#243030"/><text x="864" y="185" font-size="13" fill="#a5b3a5" font-weight="700" text-anchor="start">03</text><g transform="translate(936 179) scale(0.703125 0.703125)"><g transform="translate(0 0) scale(1.0 1.0)"><defs><mask id="v2_9_cut_3" maskUnits="userSpaceOnUse" x="0" y="0" width="256" height="256" style="mask-type:luminance"><g transform="rotate(28 130 50)">
+<path d="M124 43H136L138 174Q131 180 124 174Z" fill="white"/>
+<path d="M49 57 83 39 115 33 145 34 177 43 190 48 185 61 169 55 143 49 116 47 85 49Z" fill="white"/>
+<path d="M123 32H137V50H123Z" fill="white"/>
+<path d="M126 39H134V44H126Z" fill="black"/>
+</g>
+<path d="M57 208 72 181 170 172 199 197 193 230 82 239Z" fill="white"/>
+<path d="M73 184 94 209 195 199M94 209 84 235M60 208 91 210" fill="none" stroke="black" stroke-width="6" stroke-linejoin="round"/>
+</mask></defs><rect width="256" height="256" fill="#eee3c5" mask="url(#v2_9_cut_3)"/></g></g><text x="1026" y="389" font-size="24" fill="#eee3c5" font-weight="700" text-anchor="middle">Железная шахта</text><g transform="translate(902.0 432.0) scale(0.125 0.125)"><g transform="translate(0 0) scale(1.0 1.0)"><defs><mask id="v2_10_cut_3" maskUnits="userSpaceOnUse" x="0" y="0" width="256" height="256" style="mask-type:luminance"><g transform="rotate(28 130 50)">
+<path d="M124 43H136L138 174Q131 180 124 174Z" fill="white"/>
+<path d="M49 57 83 39 115 33 145 34 177 43 190 48 185 61 169 55 143 49 116 47 85 49Z" fill="white"/>
+<path d="M123 32H137V50H123Z" fill="white"/>
+<path d="M126 39H134V44H126Z" fill="black"/>
+</g>
+<path d="M57 208 72 181 170 172 199 197 193 230 82 239Z" fill="white"/>
+<path d="M73 184 94 209 195 199M94 209 84 235M60 208 91 210" fill="none" stroke="black" stroke-width="6" stroke-linejoin="round"/>
+</mask></defs><rect width="256" height="256" fill="#eee3c5" mask="url(#v2_10_cut_3)"/></g></g><text x="918" y="504" font-size="12" fill="#a9b6ae" font-weight="400" text-anchor="middle">32 px</text><g transform="translate(1002.0 424.0) scale(0.1875 0.1875)"><g transform="translate(0 0) scale(1.0 1.0)"><defs><mask id="v2_11_cut_3" maskUnits="userSpaceOnUse" x="0" y="0" width="256" height="256" style="mask-type:luminance"><g transform="rotate(28 130 50)">
+<path d="M124 43H136L138 174Q131 180 124 174Z" fill="white"/>
+<path d="M49 57 83 39 115 33 145 34 177 43 190 48 185 61 169 55 143 49 116 47 85 49Z" fill="white"/>
+<path d="M123 32H137V50H123Z" fill="white"/>
+<path d="M126 39H134V44H126Z" fill="black"/>
+</g>
+<path d="M57 208 72 181 170 172 199 197 193 230 82 239Z" fill="white"/>
+<path d="M73 184 94 209 195 199M94 209 84 235M60 208 91 210" fill="none" stroke="black" stroke-width="6" stroke-linejoin="round"/>
+</mask></defs><rect width="256" height="256" fill="#eee3c5" mask="url(#v2_11_cut_3)"/></g></g><text x="1026" y="504" font-size="12" fill="#a9b6ae" font-weight="400" text-anchor="middle">48 px</text><g transform="translate(1102.0 416.0) scale(0.25 0.25)"><g transform="translate(0 0) scale(1.0 1.0)"><defs><mask id="v2_12_cut_3" maskUnits="userSpaceOnUse" x="0" y="0" width="256" height="256" style="mask-type:luminance"><g transform="rotate(28 130 50)">
+<path d="M124 43H136L138 174Q131 180 124 174Z" fill="white"/>
+<path d="M49 57 83 39 115 33 145 34 177 43 190 48 185 61 169 55 143 49 116 47 85 49Z" fill="white"/>
+<path d="M123 32H137V50H123Z" fill="white"/>
+<path d="M126 39H134V44H126Z" fill="black"/>
+</g>
+<path d="M57 208 72 181 170 172 199 197 193 230 82 239Z" fill="white"/>
+<path d="M73 184 94 209 195 199M94 209 84 235M60 208 91 210" fill="none" stroke="black" stroke-width="6" stroke-linejoin="round"/>
+</mask></defs><rect width="256" height="256" fill="#eee3c5" mask="url(#v2_12_cut_3)"/></g></g><text x="1134" y="504" font-size="12" fill="#a9b6ae" font-weight="400" text-anchor="middle">64 px</text><text x="48" y="566" font-size="15" fill="#a5b3a5" font-weight="700" text-anchor="start">ПЛОЩАДКА В ПРОЕКЦИИ ИГРОВОЙ КАМЕРЫ</text><text x="48" y="594" font-size="16" fill="#a9b6ae" font-weight="400" text-anchor="start">Одинаковая проекция для границы, зоны отступов и знака. Масштаб всех трёх площадок общий.</text><path d="M48 626H89" stroke="#eee3c5" stroke-width="2"/><text x="101" y="631" font-size="14" fill="#eee3c5" font-weight="400" text-anchor="start">Граница площадки под здание</text><path d="M542 626H583" stroke="#9bc5d5" stroke-width="2" stroke-dasharray="6 5"/><text x="595" y="631" font-size="14" fill="#9bc5d5" font-weight="400" text-anchor="start">Внутренняя safe-зона знака — предложение</text><rect x="48" y="655" width="372" height="246" rx="16" fill="#636c57"/><rect x="99.0" y="699.2763160139907" width="270.0" height="147.44736797201853" fill="#75785f" stroke="#eee3c5" stroke-width="2" /><rect x="131.4" y="716.9700001706329" width="205.2" height="112.05999965873409" fill="none" stroke="#9bc5d5" stroke-width="1.7" stroke-dasharray="6 5"/><g transform="translate(172.44 722.5730001535696) scale(0.48093750000000013 0.3939609363002371)"><g transform="translate(0 0) scale(1.0 1.0)"><defs><mask id="v2_13_cut_1" maskUnits="userSpaceOnUse" x="0" y="0" width="256" height="256" style="mask-type:luminance"><g transform="rotate(28 130 50)">
+<path d="M124 43H136L138 174Q131 180 124 174Z" fill="white"/>
+<path d="M108 33H139L177 21Q185 48 177 77L139 59H108Z" fill="white"/>
+<path d="M126 39H134V52H126Z" fill="black"/>
+<path d="M169 29Q175 49 169 68" fill="none" stroke="black" stroke-width="4"/>
+</g>
+<path d="M64 184H191C217 184 217 232 191 232H64Z" fill="white"/>
+<ellipse cx="64" cy="208" rx="22" ry="24" fill="white"/>
+<ellipse cx="64" cy="208" rx="14" ry="17" fill="none" stroke="black" stroke-width="5"/>
+<path d="M91 196H186" stroke="black" stroke-width="5"/>
+</mask></defs><rect width="256" height="256" fill="#eee3c5" mask="url(#v2_13_cut_1)"/></g></g><text x="234" y="883" font-size="12" fill="#ece7cf" font-weight="400" text-anchor="middle">2.25 × 1.5 · размер площадки в мире</text><rect x="444" y="655" width="372" height="246" rx="16" fill="#636c57"/><rect x="490.5" y="695.5901318146903" width="279.0" height="154.81973637061947" fill="#75785f" stroke="#eee3c5" stroke-width="2" /><rect x="523.98" y="714.1685001791647" width="212.04000000000002" height="117.6629996416708" fill="none" stroke="#9bc5d5" stroke-width="1.7" stroke-dasharray="6 5"/><g transform="translate(565.362 720.0516501612482) scale(0.504984375 0.4136589831152489)"><g transform="translate(0 0) scale(1.0 1.0)"><defs><mask id="v2_14_cut_2" maskUnits="userSpaceOnUse" x="0" y="0" width="256" height="256" style="mask-type:luminance"><g transform="rotate(28 130 50)">
+<path d="M124 43H136L138 174Q131 180 124 174Z" fill="white"/>
+<path d="M49 57 83 39 115 33 145 34 177 43 190 48 185 61 169 55 143 49 116 47 85 49Z" fill="white"/>
+<path d="M123 32H137V50H123Z" fill="white"/>
+<path d="M126 39H134V44H126Z" fill="black"/>
+</g>
+<path d="M55 212 80 182 116 164 148 178 165 212 145 237H75Z M178 217 194 210 211 224 205 237H179L171 229Z" fill="white"/>
+<path d="M82 184 108 202 116 169M108 202 143 181M108 202 91 232M110 203 159 214" fill="none" stroke="black" stroke-width="6" stroke-linejoin="round"/>
+</mask></defs><rect width="256" height="256" fill="#eee3c5" mask="url(#v2_14_cut_2)"/></g></g><text x="630" y="883" font-size="12" fill="#ece7cf" font-weight="400" text-anchor="middle">2.325 × 1.575 · размер площадки в мире</text><rect x="840" y="655" width="372" height="246" rx="16" fill="#636c57"/><rect x="936.0" y="717.707237010493" width="180.0" height="110.5855259790139" fill="#75785f" stroke="#eee3c5" stroke-width="2" /><rect x="957.6" y="730.9775001279747" width="136.8" height="84.04499974405056" fill="none" stroke="#9bc5d5" stroke-width="1.7" stroke-dasharray="6 5"/><g transform="translate(979.83 735.1797501151773) scale(0.36070312499999996 0.2954707022251777)"><g transform="translate(0 0) scale(1.0 1.0)"><defs><mask id="v2_15_cut_3" maskUnits="userSpaceOnUse" x="0" y="0" width="256" height="256" style="mask-type:luminance"><g transform="rotate(28 130 50)">
+<path d="M124 43H136L138 174Q131 180 124 174Z" fill="white"/>
+<path d="M49 57 83 39 115 33 145 34 177 43 190 48 185 61 169 55 143 49 116 47 85 49Z" fill="white"/>
+<path d="M123 32H137V50H123Z" fill="white"/>
+<path d="M126 39H134V44H126Z" fill="black"/>
+</g>
+<path d="M57 208 72 181 170 172 199 197 193 230 82 239Z" fill="white"/>
+<path d="M73 184 94 209 195 199M94 209 84 235M60 208 91 210" fill="none" stroke="black" stroke-width="6" stroke-linejoin="round"/>
+</mask></defs><rect width="256" height="256" fill="#eee3c5" mask="url(#v2_15_cut_3)"/></g></g><text x="1026" y="883" font-size="12" fill="#ece7cf" font-weight="400" text-anchor="middle">1.5 × 1.125 · размер площадки в мире</text><text x="48" y="933" font-size="15" fill="#9bc5d5" font-weight="400" text-anchor="start">Safe-зона: отступ 12% с каждой стороны только для рисунка. Это не новая зона коллизии.</text><text x="48" y="961" font-size="14" fill="#a9b6ae" font-weight="400" text-anchor="start">Схема по данным проекта: камера без поворота вбок, сжатие по вертикали ×0,819. Не кадр Unity.</text><text x="48" y="997" font-size="13" fill="#82948b" font-weight="400" text-anchor="start">17.10.2026 · эскиз для согласования · брусок остаётся предложением знака металла</text></svg>

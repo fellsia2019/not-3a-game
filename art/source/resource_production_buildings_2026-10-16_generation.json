@@ -1,0 +1,88 @@
+{
+  "date": "2026-10-16",
+  "generator": "Built-in image_gen.imagegen",
+  "scope": "Three original-reference-derived constructible resource-production buildings for accepted D-057 landmarks",
+  "rights": "Original project-generated D-053 references; no third-party image inputs",
+  "assets": [
+    {
+      "key": "sawmill",
+      "source": "/Users/artemmusket/.codex/generated_images/01a14575-3d7f-7d73-88b5-4ee429ffa178/exec-dad1393b-e2d2-4451-93d3-a93f067a4f9e.png",
+      "file": "art/concepts/resource_production_buildings_2026-10-16/sawmill_v1.png",
+      "reference": "art/concepts/resource_districts_2026-10-16/forest_sawmill.png",
+      "prompt": "Use case: background-extraction / precise-object-edit.\nAsset type: standalone transparent constructible sawmill sprite for the project's fixed isometric game camera.\nInput image 1 is the EDIT TARGET and exact visual authority: the project's own forest_sawmill concept. Extract and faithfully reproduce ONLY its complete small lower-right sawmill/workshop, preserving its terracotta tile roof and stone chimney, timber frame, roof lean-to, working circular saw table and short attached log/plank stacks. This must be the SAME charming detailed painted building, not a redesigned generic building. Keep its exact elevated orthographic view, lighting, chunky detailed volume, warm timber, tiles, stone and original proportions.\nRemove ALL surrounding forest, trees, nursery fence, saplings, large rocks and landscape. Isolate the coherent sawmill building and only a tiny attached foundation/contact shadow on genuine RGBA transparency. No broad earth/grass floor or square ground plate. Its shadow can be soft and close to its footprint. Enlarge and center the extracted building on a square canvas for high detail, keeping the whole roof/chimney/side structures and ground contacts fully visible with 8 percent transparent margins. Show the same camera-facing sides as in the reference, no rotation or mirroring. The building will be overlaid on the exact clearing where it stood; preserve its reference appearance closely. No people, text, interface, watermark, extra machines or modern additions. One complete building asset, not a sheet or collage.",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "visibleBoundsAlpha128": [
+        29,
+        166,
+        1238,
+        1120
+      ],
+      "sha256": "a01f715668ea5f5f1bfaaf5b6d4fa714d7da739109693eda0c787968e7aafa29",
+      "referenceSha256": "3d6e82f5c8221b179376b37c43c478dd07fcad1a460b3e7449851c7ebee12bd6",
+      "runtimeAsset": "Assets/Stage3/ResourceDistricts/Production/sawmill.png",
+      "runtimeSourceIdentityVerified": true,
+      "runtimeMeta": "Assets/Stage3/ResourceDistricts/Production/sawmill.png.meta"
+    },
+    {
+      "key": "quarry",
+      "source": "/Users/artemmusket/.codex/generated_images/01a14575-3d7f-7d73-88b5-4ee429ffa178/exec-60f185fe-bdc7-49e7-a1d0-3cd3d3ecb125.png",
+      "file": "art/concepts/resource_production_buildings_2026-10-16/quarry_v1.png",
+      "reference": "art/concepts/resource_districts_2026-10-16/stone_quarry.png",
+      "prompt": "Use case: background-extraction / precise-object-edit.\nAsset type: standalone transparent constructible quarry workshop sprite for the project's fixed isometric game camera.\nInput image 1 is the EDIT TARGET and exact visual authority: the project's own stone_quarry concept. Extract and faithfully reproduce ONLY the small stonecutters' WORKSHOP at the lower left, not the large quarry itself and not the distant crane. Preserve this exact detailed chunky pale-stone house with its terracotta tiled roof, square stone chimney, heavy wooden roof frame, small shingle-roofed right lean-to, stone-working table, few close cut blocks/tools and attached work equipment. Keep all distinctive materials, detail, original proportions and hand-painted volume. Preserve the exact original elevated orthographic camera, visible front/right sides, warm upper-left light, palette, shadow direction and craftsmanship. Do not reinterpret or simplify it.\nRemove the entire big rock massif/terraces, crane, loose remote block stacks, trees and surrounding landscape. Output only the coherent complete workshop with minimal attached foundation and soft local contact shadow on TRUE RGBA alpha transparency. No broad ground/grass tile, square plate or landscape backdrop. Enlarge and center this extracted workshop on a square canvas with rich clean detail and 8 percent transparent margins, roof and all attached parts uncut. This sprite will sit at its existing lower-left construction pad over the reference-faithful quarry asset. No rotation, mirroring, new architecture, characters, text, labels, UI or watermark. One isolated complete building, not a sheet or collage.",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "visibleBoundsAlpha128": [
+        62,
+        213,
+        1200,
+        1075
+      ],
+      "sha256": "e2058a07c08543c220306fa79e1e2baede0da5c34c88a087fa760e172ead7c3a",
+      "referenceSha256": "5bca18b823e3ffe85b601273615b3e00ea98c23e8150873f0af4e98ce2a1bafc",
+      "runtimeAsset": "Assets/Stage3/ResourceDistricts/Production/quarry.png",
+      "runtimeSourceIdentityVerified": true,
+      "runtimeMeta": "Assets/Stage3/ResourceDistricts/Production/quarry.png.meta"
+    },
+    {
+      "key": "iron_mine",
+      "source": "/Users/artemmusket/.codex/generated_images/01a14575-3d7f-7d73-88b5-4ee429ffa178/exec-fca1c414-46f4-415f-89de-ee22ad3dca87.png",
+      "file": "art/concepts/resource_production_buildings_2026-10-16/iron_mine_v1.png",
+      "reference": "art/concepts/resource_districts_2026-10-16/iron_mine.png",
+      "prompt": "Use case: background-extraction / precise-object-edit.\nAsset type: standalone transparent constructible iron-extraction station sprite for the project's fixed isometric game camera.\nInput image 1 is the EDIT TARGET and exact visual authority: the project's own iron_mine concept. Extract and faithfully preserve ONLY the compact upper-right ABOVE-GROUND mining station: the tall chunky timber hoist/headframe with iron brackets/pulley/rope and loaded ore bucket, together with its adjacent small terracotta-roofed timber/stone winch house and integrated wooden operating platform. Keep these two connected parts as ONE coherent buildable station, preserving their original arrangement and exact relative proportions, detailed wood/iron/stone painting, dark-rust iron ore, tile roof, machinery and original hand-painted volume. Preserve original elevated orthographic camera, lighting, palette and visible sides; no new interpretation, camera rotation or mirroring.\nRemove the entire large surrounding rock rim, mine hole, interior stone stairs/shoring/landings and all forest/landscape. Retain only the station's own minimal close platform/foundation and soft contact shadow on genuine RGBA alpha transparency. No deep shaft or large stone cliff underneath, no broad earth/grass plate, no background. Enlarge and center the complete hoist+house building on a square canvas with 8 percent transparent margins so its top beam, roof, hanging bucket and base all fit. It will be overlaid onto the empty upper-right rim pad of the same iron mine reference. No extra architecture, people, words, UI, watermark, modern equipment or unrelated props. One complete coherent isolated station, not a sheet or collage.",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "visibleBoundsAlpha128": [
+        100,
+        63,
+        1235,
+        1178
+      ],
+      "sha256": "6e44ce532c5835a6aa18f83300bfa694a5502c28971d17be197efcb8696ecf5b",
+      "referenceSha256": "0e8faa3e7bc354fb7162b5fe160e01d39e771ab9e96f8c4ac73181740ea410db",
+      "runtimeAsset": "Assets/Stage3/ResourceDistricts/Production/iron_mine.png",
+      "runtimeSourceIdentityVerified": true,
+      "runtimeMeta": "Assets/Stage3/ResourceDistricts/Production/iron_mine.png.meta"
+    }
+  ],
+  "status": "Three source-derived transparent building sprites integrated with real paid construction, automatic production and the categorized HUD; final Game HUD/front/behind captures independently inspected on Mac.",
+  "verification": "art/review/resource_production_2026-10-16_verification.json"
+}

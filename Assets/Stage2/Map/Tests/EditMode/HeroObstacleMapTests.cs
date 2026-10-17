@@ -66,6 +66,26 @@ namespace Not3A.Stage2.Map.Tests
         }
 
         [Test]
+        public void CloseTrunkWedgeKeepsEverySlidingEndpointOutsideBothCircles()
+        {
+            // Actual authored-forest contact at seed 164033, step 1724.
+            var map = new HeroObstacleMap();
+            map.AddCircle(new Vector2(51.91797f, 27.93774f), .18f);
+            map.AddCircle(new Vector2(52.48926f, 28.42057f), .18f);
+            var position = new Vector2(52.24858f, 28.12521f);
+            Assert.That(map.IsBlocked(position, .2f), Is.False);
+            for (var i = 0; i < 100; i++)
+            {
+                var next = map.Move(position, new Vector2(-.06176030f, -.03294945f), .2f);
+                Assert.That(map.IsBlocked(next, .2f), Is.False);
+                Assert.That(Vector2.Distance(position, next), Is.LessThanOrEqualTo(.071f));
+                position = next;
+            }
+            var reverse = map.Move(position, Vector2.up * .1f, .2f);
+            Assert.That(map.IsBlocked(reverse, .2f), Is.False);
+        }
+
+        [Test]
         public void ReplacementRecoversAnOverlappingSpawnInsideAllowedWorld()
         {
             var map=new HeroObstacleMap();var cells=new List<Vector2Int>();

@@ -992,6 +992,7 @@ MonoBehaviour:
   building: {fileID: 1713031729}
   runDriver: {fileID: 1713031728}
   showDevelopmentHud: 1
+  productionCatalog: {fileID: 11400000, guid: 8b33e006be72d4af9b96dcde279bdfea, type: 2}
 --- !u!114 &1713031728
 MonoBehaviour:
   m_ObjectHideFlags: 0

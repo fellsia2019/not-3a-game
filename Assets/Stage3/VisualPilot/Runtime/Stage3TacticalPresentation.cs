@@ -47,6 +47,8 @@ namespace Not3A.Stage3.VisualPilot
         private Transform heroVisual;
         private GameObject preview;
         private int previewRole = -1;
+        private Material spritePreviewMaterial, meshPreviewMaterial;
+        private Stage2PlacementMark previewFootprint;
         private MaterialPropertyBlock tint;
 
         private IEnumerator Start()
@@ -220,6 +222,8 @@ namespace Not3A.Stage3.VisualPilot
             {
                 if (preview != null) Destroy(preview);
                 preview = new GameObject("Tactical mesh placement preview");
+                if (spritePreviewMaterial == null) spritePreviewMaterial = Stage2PlacementVisuals.Material(true);
+                if (meshPreviewMaterial == null) meshPreviewMaterial = Stage2PlacementVisuals.Material(false);
                 previewRole = defense.SelectedRoleIndex;
                 var model = defense.SelectedCatalog.TowerPrefab.transform.Find("Pilot ground-aligned mesh");
                 var spriteModel = defense.SelectedCatalog.TowerPrefab.GetComponentInChildren<Stage3TowerSprite>(true);
@@ -227,23 +231,24 @@ namespace Not3A.Stage3.VisualPilot
                 {
                     var sprite = Instantiate(spriteModel,preview.transform,false);
                     sprite.Bind(bootstrap.CameraFollow.BoundCamera);
+                    foreach (var renderer in sprite.GetComponentsInChildren<SpriteRenderer>()) renderer.sharedMaterial = spritePreviewMaterial;
                 }
                 else if (model != null) Instantiate(model.gameObject, preview.transform, false);
                 else Solid(preview.transform, "Longshot preview", PrimitiveType.Cylinder,
                     new Vector3(0,0,-.65f), new Vector3(.58f,.65f,.58f), neutral);
-                Solid(preview.transform, "Selected cell", PrimitiveType.Cube,
-                    new Vector3(0,0,-.025f), new Vector3(.96f,.05f,.96f), neutral);
+                previewFootprint = Stage2PlacementVisuals.Outline(preview.transform, Vector2.one * .96f, meshPreviewMaterial, "Selected cell footprint");
+                previewFootprint.transform.localPosition = Vector3.back * .06f;
                 foreach (var renderer in preview.GetComponentsInChildren<MeshRenderer>())
-                    renderer.shadowCastingMode = ShadowCastingMode.Off;
+                { renderer.sharedMaterial = meshPreviewMaterial; renderer.shadowCastingMode = ShadowCastingMode.Off; }
             }
             preview.SetActive(true);
             preview.transform.position = bootstrap.MapDefinition.CellToWorld(defense.PreviewCell.Value);
-            tint.SetColor("_BaseColor", defense.EvaluatePreview() == PlacementResult.Ready
-                ? new Color(.35f,1f,.55f) : new Color(1f,.16f,.12f));
+            var status = defense.EvaluatePreview() == PlacementResult.Ready ? Stage2PlacementVisuals.Valid : Stage2PlacementVisuals.Invalid;
+            tint.SetColor("_Color", status);
             foreach (var renderer in preview.GetComponentsInChildren<MeshRenderer>()) renderer.SetPropertyBlock(tint);
+            previewFootprint.SetTint(new Color(status.r,status.g,status.b,.9f));
             var previewSprite = preview.GetComponentInChildren<Stage3TowerSprite>();
-            if (previewSprite != null) previewSprite.Tint(defense.EvaluatePreview() == PlacementResult.Ready
-                ? new Color(.6f,1f,.7f,.7f) : new Color(1f,.35f,.3f,.7f));
+            if (previewSprite != null) previewSprite.Tint(status);
         }
 
         private void BuildSurface(IReadOnlyList<ResourceDistrict> districts)
@@ -301,7 +306,8 @@ namespace Not3A.Stage3.VisualPilot
             var edgeTriangles = new List<int>();
             var reliefCells=new HashSet<Vector2Int>();
             if(districts!=null)foreach(var district in districts)
-                if(district.Kind!=MapResourceKind.Wood)foreach(var cell in district.Cells)reliefCells.Add(cell);
+                if(district.CutsTerrain && district.Kind!=MapResourceKind.Wood)
+                    foreach(var cell in district.Cells)reliefCells.Add(cell);
             for (var x=map.MinimumCell.x; x<=map.MaximumCell.x; x++)
             for (var y=map.MinimumCell.y; y<=map.MaximumCell.y; y++)
             {
@@ -477,6 +483,8 @@ namespace Not3A.Stage3.VisualPilot
                 composition.Building.Defense.Built -= OnTowerBuilt;
             ReleaseSurface();
             if (preview != null) Destroy(preview);
+            if (spritePreviewMaterial != null) Destroy(spritePreviewMaterial);
+            if (meshPreviewMaterial != null) Destroy(meshPreviewMaterial);
         }
 
         private void ReleaseSurface()

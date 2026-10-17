@@ -13,8 +13,17 @@ changes. Runtime placement, combat and scene wiring remain downstream packages.
 Stage 3 D-019 keeps this payment/occupancy policy. The shared build driver now
 projects mouse rays onto the XY ground plane, which supports both the old
 identity camera and the new fixed inclined camera. The tactical scene replaces
-the displayed sprite ghost with mesh geometry; all approval and spending still
+the generic ghost with its actual current tower model/sprite; all approval and spending still
 come from the same `Stage2Defense` preview/confirm path.
+
+D-059 (2026-10-16) adds the current input/readability contract: dim and disable
+an unaffordable tower card, and reject unfunded role selection/build initiation
+through HUD/public actions or existing B/1/2 shortcuts. Keys 1/2 retain their
+select-only behavior when affordable. The transparent actual-model ghost and
+cell outline are green only for Ready and red otherwise, with no orange/yellow
+state. UI hover hides the world ghost. Funds remain unreserved and must still be
+rechecked at confirmation, including when the balance changes during placement.
+This changes no tower prices, gray-road policy, occupancy or combat rules.
 
 Allow building during preparation and active waves. Reject construction under
 a live enemy and across a step it has already started. Allow construction on

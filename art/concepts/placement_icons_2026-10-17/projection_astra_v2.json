@@ -1,0 +1,64 @@
+{
+  "camera_euler_degrees": [
+    -35.0,
+    0,
+    0
+  ],
+  "projection": "screenX=worldX; screenY=cos(35deg)*worldY, up-positive before SVG Y inversion",
+  "y_scale": 0.8191520442889918,
+  "landmark_scale": 0.75,
+  "pixels_per_world_unit": 120,
+  "safe_inset_fraction_per_edge_proposal": 0.12,
+  "z": "All local diagram geometry on same XY plane. Constant stamp z=-0.25 affects screen translation, not size/shape; coordinates centered on pad.",
+  "runtime_marker_note": "Current Pad uses clearance*.85 and brackets at +/-.48; outer contour here is full ResourceProductionPoint.Clearance, not existing marker brackets.",
+  "measurements": [
+    {
+      "name": "sawmill",
+      "clearance_world": [
+        2.25,
+        1.5
+      ],
+      "safe_area_world": [
+        1.71,
+        1.1400000000000001
+      ],
+      "glyph_artboard_world_side": 1.0260000000000002,
+      "projected_clearance_pixels": [
+        270.0,
+        147.44736797201853
+      ]
+    },
+    {
+      "name": "quarry",
+      "clearance_world": [
+        2.325,
+        1.5750000000000002
+      ],
+      "safe_area_world": [
+        1.7670000000000001,
+        1.197
+      ],
+      "glyph_artboard_world_side": 1.0773000000000001,
+      "projected_clearance_pixels": [
+        279.0,
+        154.81973637061947
+      ]
+    },
+    {
+      "name": "iron_mine",
+      "clearance_world": [
+        1.5,
+        1.125
+      ],
+      "safe_area_world": [
+        1.1400000000000001,
+        0.855
+      ],
+      "glyph_artboard_world_side": 0.7695,
+      "projected_clearance_pixels": [
+        180.0,
+        110.5855259790139
+      ]
+    }
+  ]
+}

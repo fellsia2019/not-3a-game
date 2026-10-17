@@ -1,5 +1,6 @@
 using System;
 using Not3A.Stage2.Defense;
+using Not3A.Stage2.Economy;
 using Not3A.Stage2.Map;
 using Not3A.Stage2.RunState;
 using UnityEngine;
@@ -7,6 +8,8 @@ using UnityEngine.InputSystem;
 
 namespace Not3A.Stage2.Integration
 {
+    public enum Stage2BuildCategory { Towers, Generators }
+
     /// <summary>Scene-owned player HUD and development tools over the existing gameplay rules.</summary>
     [DisallowMultipleComponent, DefaultExecutionOrder(-200)]
     public sealed class Stage2GameHud : MonoBehaviour
@@ -19,7 +22,7 @@ namespace Not3A.Stage2.Integration
         private InputAction toggle;
         private Vector2 scroll;
         private string feedback = "Изменения действуют только в текущем запуске.";
-        private GUIStyle title, text, muted, number, button, smallButton, centered;
+        private GUIStyle title, text, muted, number, button, smallButton, centered, smallButtonText;
         private Texture2D buttonNormal, buttonHover, buttonActive;
         private static readonly Color Ink = new Color(.055f, .085f, .095f, .97f);
         private static readonly Color Edge = new Color(.38f, .46f, .41f);
@@ -31,6 +34,7 @@ namespace Not3A.Stage2.Integration
         public bool DebugPaused { get; private set; }
         public int GameSpeed { get; private set; } = 1;
         public int HeroSpeed { get; private set; } = 1;
+        public Stage2BuildCategory BuildCategory { get; private set; } = Stage2BuildCategory.Towers;
         public float Scale => Mathf.Clamp(Mathf.Min(Screen.width / 1280f, Screen.height / 720f), .75f, 1.35f);
         private float Width => Screen.width / Scale;
         private float Height => Screen.height / Scale;
@@ -45,17 +49,56 @@ namespace Not3A.Stage2.Integration
             get
             {
                 var map = Stage2Minimap.Layout(new Vector2(Screen.width, Screen.height));
-                var left = Mathf.Max(map.xMax / Scale + 16f, (Width - 520f) * .5f);
-                return new Rect(left, Height - 122f, Mathf.Min(520f, Width - left - 16f), 106f);
+                var left = Mathf.Max(map.xMax / Scale + 16f, (Width - 620f) * .5f);
+                return new Rect(left, Height - 194f, Mathf.Min(620f, Width - left - 16f), 178f);
             }
         }
+        public Rect TowersTabRect => new Rect(BuildRect.x + 12f, BuildRect.y + 10f, 132f, 27f);
+        public Rect GeneratorsTabRect => new Rect(BuildRect.x + 152f, BuildRect.y + 10f, 152f, 27f);
+        public Rect BuildChoiceRect(int index)
+        {
+            var count = BuildCategory == Stage2BuildCategory.Towers ? 2 : 3;
+            var width = (BuildRect.width - 24f - (count - 1) * 8f) / count;
+            return new Rect(BuildRect.x + 12f + index * (width + 8f), BuildRect.y + 47f, width, 88f);
+        }
+
+        public void SelectBuildCategory(Stage2BuildCategory category)
+        {
+            if (game == null || (category == Stage2BuildCategory.Generators && game.Production == null)) return;
+            if (BuildCategory == category) return;
+            game.Building.CancelPlacement();
+            game.Production?.CancelPlacement();
+            BuildCategory = category;
+        }
+
+        public void SelectTower(int role)
+        {
+            if (!CanSelectTower(role)) return;
+            SelectBuildCategory(Stage2BuildCategory.Towers);
+            game.Building.SelectAndBeginPlacement(role);
+        }
+
+        public void SelectGenerator(ResourceProductionBuilding building)
+        {
+            if (!CanSelectGenerator(building)) return;
+            SelectBuildCategory(Stage2BuildCategory.Generators);
+            game.Production.SelectAndBeginPlacement(building);
+        }
+
+        public bool CanSelectTower(int role) => game != null && game.Building != null && game.Building.CanBeginPlacement(role);
+        public bool CanSelectGenerator(ResourceProductionBuilding building) =>
+            game != null && game.Production != null && game.Production.CanBeginPlacement(building);
 
         public void Initialize(Stage2SceneBootstrap bootstrap, Stage2GameComposition composition, bool developmentTools)
         {
+            if (game != null && game.Building != null) game.Building.PlacementStarting -= ShowTowerCategory;
             scene = bootstrap;
             game = composition;
             allowDebug = developmentTools;
+            game.Building.PlacementStarting += ShowTowerCategory;
         }
+
+        private void ShowTowerCategory() => BuildCategory = Stage2BuildCategory.Towers;
 
         public void SetDebugOpen(bool value) => DebugOpen = DebugAvailable && value;
 
@@ -138,6 +181,10 @@ namespace Not3A.Stage2.Integration
         private void Update()
         {
             if (toggle != null && toggle.WasPressedThisFrame()) SetDebugOpen(!DebugOpen);
+            if (game != null && game.Building.Defense != null && game.Building.Defense.IsPlacing)
+                BuildCategory = Stage2BuildCategory.Towers;
+            else if (game != null && game.Production != null && game.Production.IsPlacing)
+                BuildCategory = Stage2BuildCategory.Generators;
             // External run-state pause must also freeze hero movement while this UI owns the clock.
             if (ownsClock) ApplyClock();
         }
@@ -168,6 +215,7 @@ namespace Not3A.Stage2.Integration
 
         private void OnDestroy()
         {
+            if (game != null && game.Building != null) game.Building.PlacementStarting -= ShowTowerCategory;
             if (buttonNormal != null) Destroy(buttonNormal);
             if (buttonHover != null) Destroy(buttonHover);
             if (buttonActive != null) Destroy(buttonActive);
@@ -239,21 +287,128 @@ namespace Not3A.Stage2.Integration
             var r = BuildRect;
             Card(r);
             var defense = game.Building.Defense;
-            var selected = defense.SelectedCatalog;
-            Label(new Rect(r.x + 14f, r.y + 9f, r.width - 28f, 23f),
-                defense.IsPlacing ? $"РАЗМЕЩЕНИЕ · {selected.RoleName}" : "ОБОРОНА", title);
-            var half = (r.width - 38f) * .5f;
             GUI.enabled = !DebugPaused && !game.RunDriver.Run.IsPaused;
-            if (GUI.Button(new Rect(r.x + 14f, r.y + 38f, half, 28f), "1 · Rapid", smallButton)) game.Building.SelectAndBeginPlacement(0);
-            if (GUI.Button(new Rect(r.x + 24f + half, r.y + 38f, half, 28f), "2 · Longshot", smallButton)) game.Building.SelectAndBeginPlacement(1);
+            if (GUI.Button(TowersTabRect, "Башни", smallButton)) SelectBuildCategory(Stage2BuildCategory.Towers);
+            var buttonsEnabled = GUI.enabled;
+            GUI.enabled &= game.Production != null;
+            if (GUI.Button(GeneratorsTabRect, "Генераторы", smallButton)) SelectBuildCategory(Stage2BuildCategory.Generators);
+            GUI.enabled = buttonsEnabled;
+            var tab = BuildCategory == Stage2BuildCategory.Towers ? TowersTabRect : GeneratorsTabRect;
+            Fill(new Rect(tab.x, tab.yMax + 3f, tab.width, 2f), Gold);
+            string description;
+            string hoverDescription = null;
+            var inventory = game.Gathering.Economy.Inventory;
+            if (BuildCategory == Stage2BuildCategory.Generators && game.Production != null)
+            {
+                var production = game.Production;
+                for (var i = 0; i < production.Catalog.Entries.Count; i++)
+                {
+                    var entry = production.Catalog.Entries[i];
+                    var choice = BuildChoiceRect(i);
+                    GUI.enabled = buttonsEnabled && CanSelectGenerator(entry.Building);
+                    if (GUI.Button(choice, GUIContent.none, smallButton)) SelectGenerator(entry.Building);
+                    GUI.color = GUI.enabled ? Color.white : new Color(.5f, .5f, .5f, .65f);
+                    DrawSprite(new Rect(choice.x + 6f, choice.y + 6f, 48f, 48f), entry.Sprite);
+                    GUI.color = Color.white;
+                    Label(new Rect(choice.x + 58f, choice.y + 5f, choice.width - 63f, 33f), entry.DisplayName, smallButtonText);
+                    Label(new Rect(choice.x + 58f, choice.y + 42f, choice.width - 63f, 18f),
+                        $"+{entry.OutputAmount} {ResourceName(entry.Resource)} / {entry.IntervalSeconds:0.#} с", muted);
+                    var price = Price(entry.WoodCost, entry.StoneCost, entry.MetalCost, entry.GoldCost);
+                    Label(new Rect(choice.x + 7f, choice.y + 65f, choice.width - 14f, 18f), price, muted);
+                    if (MouseOver(choice)) hoverDescription =
+                        (inventory.CanAfford(entry.WoodCost, entry.StoneCost, entry.MetalCost, entry.GoldCost) ? "" : "Не хватает ресурсов · ") +
+                        entry.DisplayName + ": " + price;
+                    GUI.enabled = buttonsEnabled;
+                    if (production.IsPlacing && production.SelectedBuilding == entry.Building)
+                        Fill(new Rect(choice.x + 2f, choice.yMax - 4f, choice.width - 4f, 2f), Gold);
+                }
+                var selected = production.Catalog.Get(production.SelectedBuilding);
+                description = $"{selected.DisplayName}: {Price(selected.WoodCost, selected.StoneCost, selected.MetalCost, selected.GoldCost)}";
+                Label(new Rect(r.x + 320f, r.y + 14f, r.width - 332f, 22f),
+                    $"Работает: {production.Rules.Buildings.Count}", muted);
+            }
+            else
+            {
+                for (var i = 0; i < defense.RoleCount; i++)
+                {
+                    var entry = defense.GetCatalog(i);
+                    var choice = BuildChoiceRect(i);
+                    GUI.enabled = buttonsEnabled && CanSelectTower(i);
+                    if (GUI.Button(choice, $"{i + 1} · {entry.RoleName}", button)) SelectTower(i);
+                    var price = Price(entry.WoodCost, entry.StoneCost, entry.MetalCost, entry.GoldCost);
+                    Label(new Rect(choice.x + 7f, choice.y + 65f, choice.width - 14f, 18f), price, centered);
+                    if (MouseOver(choice)) hoverDescription =
+                        (inventory.CanAfford(entry.WoodCost, entry.StoneCost, entry.MetalCost, entry.GoldCost) ? "" : "Не хватает ресурсов · ") +
+                        entry.RoleName + ": " + price;
+                    GUI.enabled = buttonsEnabled;
+                    if (defense.SelectedRoleIndex == i)
+                        Fill(new Rect(choice.x + 2f, choice.yMax - 4f, choice.width - 4f, 2f), Gold);
+                }
+                var selected = defense.SelectedCatalog;
+                description = $"{selected.RoleName}: {Price(selected.WoodCost, selected.StoneCost, selected.MetalCost, selected.GoldCost)}";
+                Label(new Rect(r.x + 320f, r.y + 14f, r.width - 332f, 22f), "На серой дороге", muted);
+            }
             GUI.enabled = true;
-            Label(new Rect(r.x + 14f, r.y + 74f, r.width - 28f, 22f),
-                $"{selected.RoleName}: {selected.GoldCost} зол. · {selected.WoodCost} дер. · {selected.StoneCost} кам. · {selected.MetalCost} мет.", muted);
-            var hint = defense.IsPlacing ? PlacementHint(game.Building.PreviewResult) : NearbyResourceHint();
+            Label(new Rect(r.x + 14f, r.y + 147f, r.width - 28f, 22f), hoverDescription ?? description, muted);
+            var hint = game.Production != null && game.Production.IsPlacing ? ProductionHint(game.Production.PreviewResult) :
+                defense.IsPlacing ? PlacementHint(game.Building.PreviewResult) : NearbyResourceHint();
+            if (string.IsNullOrEmpty(hint) && game.Production != null && game.Production.PreviewResult == ProductionPlacementResult.Built)
+                hint = "Генератор построен · добыча поступает автоматически";
+            if (string.IsNullOrEmpty(hint) && BuildCategory == Stage2BuildCategory.Generators)
+                hint = "Выберите генератор, затем его площадку на месторождении";
             if (string.IsNullOrEmpty(hint)) hint = "WASD · движение    B · строить    Колесо · масштаб";
             var hintArea = HintRect;
             Fill(hintArea, Ink);
             Label(hintArea, hint, centered);
+        }
+
+        private bool MouseOver(Rect area)
+        {
+            if (Mouse.current == null) return false;
+            var mouse = Mouse.current.position.ReadValue();
+            return area.Contains(new Vector2(mouse.x, Screen.height - mouse.y) / Scale);
+        }
+
+        private static string ResourceName(MapResourceKind kind) => kind == MapResourceKind.Wood ? "дер." :
+            kind == MapResourceKind.Stone ? "кам." : "мет.";
+
+        private static string Price(int wood, int stone, int metal, int gold)
+        {
+            var result = "";
+            void Append(int value, string name)
+            {
+                if (value <= 0) return;
+                if (result.Length > 0) result += " · ";
+                result += value + " " + name;
+            }
+            Append(gold, "зол."); Append(wood, "дер."); Append(stone, "кам."); Append(metal, "мет.");
+            return result.Length == 0 ? "Бесплатно" : result;
+        }
+
+        private static void DrawSprite(Rect area, Sprite sprite)
+        {
+            if (sprite == null) return;
+            var rect = sprite.rect;
+            var factor = Mathf.Min(area.width / rect.width, area.height / rect.height);
+            var size = rect.size * factor;
+            var fitted = new Rect(area.center - size * .5f, size);
+            GUI.DrawTextureWithTexCoords(fitted, sprite.texture,
+                new Rect(rect.x / sprite.texture.width, rect.y / sprite.texture.height,
+                    rect.width / sprite.texture.width, rect.height / sprite.texture.height));
+        }
+
+        private static string ProductionHint(ProductionPlacementResult result)
+        {
+            switch (result)
+            {
+                case ProductionPlacementResult.Ready: return "ЛКМ · построить на площадке    Esc / ПКМ · отменить";
+                case ProductionPlacementResult.InsufficientResources: return "Недостаточно ресурсов · цена указана внизу";
+                case ProductionPlacementResult.WrongType: return "Здесь нужен генератор другого ресурса";
+                case ProductionPlacementResult.Occupied: return "На этой площадке уже есть генератор";
+                case ProductionPlacementResult.HeroBlocked: return "Отойдите от площадки перед строительством";
+                case ProductionPlacementResult.Inactive: return "Строительство сейчас недоступно";
+                default: return "Наведите на площадку нужного месторождения · Esc / ПКМ отменяет";
+            }
         }
 
         private string NearbyResourceHint()
@@ -354,6 +509,7 @@ namespace Not3A.Stage2.Integration
                 hover = { background = buttonHover, textColor = Color.white },
                 active = { background = buttonActive, textColor = Gold } };
             smallButton = new GUIStyle(button) { fontSize = 14 };
+            smallButtonText = new GUIStyle(text) { fontSize = 14, fontStyle = FontStyle.Bold, wordWrap = true };
         }
 
         private static Texture2D Solid(Color color)

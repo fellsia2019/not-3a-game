@@ -46,6 +46,23 @@ Shader "Not3A/District Geology"
                 o.ground=((world.xy+.5)/4)*_GrassTex_ST.xy+_GrassTex_ST.zw;return o;
             }
             float2 Hash(float2 p) { return frac(sin(float2(dot(p,float2(127.1,311.7)),dot(p,float2(269.5,183.3))))*43758.5453); }
+            half3 Pigment(float2 uv)
+            {
+                // This is a model atlas, not a tileable material. Stay inside one clean
+                // face and mirror continuously; never repeat baked silhouette/shadow edges.
+                float2 mirrored=1-abs(frac(uv*.17)*2-1);
+                return SAMPLE_TEXTURE2D(_StoneTex,sampler_StoneTex,float2(.075,.14)+mirrored*.035).rgb;
+            }
+            float Crack(float2 uv)
+            {
+                float2 cell=floor(uv*.95);float2 f=frac(uv*.95);float a=10,b=10;
+                for(int y=-1;y<=1;y++)for(int x=-1;x<=1;x++)
+                {
+                    float2 d=float2(x,y)+Hash(cell+float2(x,y))-f;float dist=dot(d,d);
+                    if(dist<a){b=a;a=dist;}else b=min(b,dist);
+                }
+                return 1-smoothstep(.008,.032,sqrt(b)-sqrt(a));
+            }
             half4 Frag(Varyings i):SV_Target
             {
                 float radius=_DistrictRevealParameters.x*_ScreenParams.y/max(.01,unity_OrthoParams.y);
@@ -54,19 +71,14 @@ Shader "Not3A/District Geology"
                 float foreground=1-smoothstep(i.hero.z-.20,i.hero.z+.20,i.depth);
                 float reveal=window*foreground*_DistrictHeroWorld.w;
                 if(_RevealPass<.5)clip(.001-reveal);else clip(reveal-.001);
-                // Reuse a painted face inside the project's existing original stone atlas.
-                half3 paint=SAMPLE_TEXTURE2D(_StoneTex,sampler_StoneTex,float2(.16,.09)+frac(i.uv*.23)*.075).rgb;
-                float2 cell=floor(i.uv*.95);float2 f=frac(i.uv*.95);float a=10,b=10;
-                for(int y=-1;y<=1;y++)for(int x=-1;x<=1;x++)
-                {
-                    float2 d=float2(x,y)+Hash(cell+float2(x,y))-f;float dist=dot(d,d);
-                    if(dist<a){b=a;a=dist;}else b=min(b,dist);
-                }
-                float seam=1-smoothstep(.012,.052,sqrt(b)-sqrt(a));
+                float3 normal=normalize(i.normalWS);
+                float3 weights=pow(abs(normal),4);weights/=max(.001,weights.x+weights.y+weights.z);
+                // World-space triplanar pigment avoids per-quad UV switches at cliff lips.
+                half3 paint=Pigment(i.world.yz)*weights.x+Pigment(i.world.xz)*weights.y+Pigment(i.world.xy)*weights.z;
+                float seam=Crack(i.world.yz)*weights.x+Crack(i.world.xz)*weights.y+Crack(i.world.xy)*weights.z;
                 Light sun=GetMainLight(TransformWorldToShadowCoord(i.world));
-                half light=.50h+.50h*saturate(dot(normalize(i.normalWS),sun.direction))*sun.shadowAttenuation;
-                half grain=.96h+.06h*Hash(floor(i.uv*9)).x;
-                half3 color=paint*i.color.rgb*light*grain*lerp(1,.83h,seam);
+                half light=.36h+.64h*saturate(dot(normal,sun.direction))*sun.shadowAttenuation;
+                half3 color=paint*i.color.rgb*light*lerp(1,.79h,seam);
                 half3 grass=SAMPLE_TEXTURE2D(_GrassTex,sampler_GrassTex,i.ground).rgb;
                 color=lerp(grass,color,i.color.a);
                 return half4(color,_RevealPass<.5?1:lerp(1,_DistrictRevealParameters.w,reveal));

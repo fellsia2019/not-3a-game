@@ -1,0 +1,124 @@
+{
+  "date": "2026-10-16",
+  "scope": "Visual correction of latest large forest, stone and iron districts only",
+  "implementation_model": "GPT-6 Astra",
+  "unity": "6000.6.2f1 (770e33f6875c), macOS ARM64/Metal",
+  "tests": {
+    "editmode.xml": {
+      "result": "Passed",
+      "total": "13",
+      "passed": "13",
+      "failed": "0",
+      "skipped": "0",
+      "duration": "10.8873111"
+    },
+    "playmode.xml": {
+      "result": "Passed",
+      "total": "9",
+      "passed": "9",
+      "failed": "0",
+      "skipped": "0",
+      "duration": "74.1286921"
+    },
+    "final-contact.xml": {
+      "result": "Passed",
+      "total": "3",
+      "passed": "3",
+      "failed": "0",
+      "skipped": "0",
+      "duration": "24.1488047"
+    }
+  },
+  "original_files_hash_verified": 240,
+  "original_files_changed": [],
+  "source_concepts": "art/concepts/resource_districts_2026-10-16/",
+  "source_concepts_git_commit": "d0ad1b380d8eef9d3e470692e4bd0cebc061ae42",
+  "changes": [
+    "clean continuous triplanar stone pigment without repeated baked atlas wedges",
+    "smoother terraced bevel at unchanged mesh density",
+    "transparent ground and local reveal layers before painted scenery",
+    "actual surface anchors and fixed-camera relief clearance for stone accents",
+    "readable mine floor and visible connected descending stairs",
+    "restored forest canopy opacity and local ground contrast"
+  ],
+  "shared_frames": [
+    {
+      "kind": "forest",
+      "seed": 164032,
+      "source": "Artifacts/S3-ASTRA-RESOURCE-VISUAL-20261016/final-contact/Wood-164032.png",
+      "path": "art/review/astra_resource_district_forest_164032_2026-10-16.png",
+      "sha256": "aafab9fd2a4a4bdf9ae6273d3c18604b58a90a4dfd822e58418da043edcde065"
+    },
+    {
+      "kind": "forest",
+      "seed": 164033,
+      "source": "Artifacts/S3-ASTRA-RESOURCE-VISUAL-20261016/final-contact/Wood-164033.png",
+      "path": "art/review/astra_resource_district_forest_164033_2026-10-16.png",
+      "sha256": "0390cd975a1bf3082cd60b6394d9e1d833baeae761816aa9b07465e0c1c91057"
+    },
+    {
+      "kind": "stone",
+      "seed": 164032,
+      "source": "Artifacts/S3-ASTRA-RESOURCE-VISUAL-20261016/final-contact/Stone-164032.png",
+      "path": "art/review/astra_resource_district_stone_164032_2026-10-16.png",
+      "sha256": "351a4f379b5085a852a023abfd86542621e67f7d06656a283a51c331affc03cc"
+    },
+    {
+      "kind": "stone",
+      "seed": 164033,
+      "source": "Artifacts/S3-ASTRA-RESOURCE-VISUAL-20261016/final-contact/Stone-164033.png",
+      "path": "art/review/astra_resource_district_stone_164033_2026-10-16.png",
+      "sha256": "bfab8eb9f1de6e3aea37f802e3c96ec3fa44dad707fa830adec334e189da25fa"
+    },
+    {
+      "kind": "metal",
+      "seed": 164032,
+      "source": "Artifacts/S3-ASTRA-RESOURCE-VISUAL-20261016/final-contact/Metal-164032.png",
+      "path": "art/review/astra_resource_district_metal_164032_2026-10-16.png",
+      "sha256": "53fc87433227b216a0b66cc3fff8aa24c02e93574203c752bc072364adc74e9d"
+    },
+    {
+      "kind": "metal",
+      "seed": 164033,
+      "source": "Artifacts/S3-ASTRA-RESOURCE-VISUAL-20261016/final-contact/Metal-164033.png",
+      "path": "art/review/astra_resource_district_metal_164033_2026-10-16.png",
+      "sha256": "ffa420673af462e7f2f775d51d732798b66d617c5b7f7f1c939058b5051f0a16"
+    },
+    {
+      "kind": "stone_contact",
+      "source": "Artifacts/S3-ASTRA-RESOURCE-VISUAL-20261016/final-contact/Stone-contact.png",
+      "path": "art/review/astra_resource_district_stone_contact_2026-10-16.png",
+      "sha256": "816e959743c1fec94f852797df4528cd92d5cb2e40b8c59dc5f3105f8e703e8e"
+    },
+    {
+      "kind": "forest_reveal",
+      "source": "Artifacts/S3-ASTRA-RESOURCE-VISUAL-20261016/final-contact/partial-canopy-reveal.png",
+      "path": "art/review/astra_resource_district_forest_reveal_2026-10-16.png",
+      "sha256": "14ee14d4b5e4ccccdb9e578f10b65288c9304faf4e6766063b7e1cbeebb860e0"
+    }
+  ],
+  "full_camera_scales": [
+    14,
+    10,
+    5,
+    2.5
+  ],
+  "full_scale_frames": "Artifacts/S3-ASTRA-RESOURCE-VISUAL-20261016/candidate3/",
+  "final_contact_frames": "Artifacts/S3-ASTRA-RESOURCE-VISUAL-20261016/final-contact/",
+  "remaining": [
+    "Owner appearance review",
+    "Wider Stage 3 gate",
+    "Windows build/run validation for this correction"
+  ],
+  "git_delivery": "Local working tree changes; references are already on origin/main",
+  "live_review": {
+    "scene": "Assets/Scenes/Stage3Rapid3DGamePilot.unity",
+    "state": "Ordinary Play with camera follow; active Game view",
+    "console_observation_by_GPT6_Astra": {
+      "logs": 9,
+      "warnings": 0,
+      "errors": 0
+    },
+    "log": "Artifacts/S3-ASTRA-RESOURCE-VISUAL-20261016/live-review-final.log"
+  }
+}

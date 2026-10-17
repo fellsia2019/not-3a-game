@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1260" height="1030" viewBox="0 0 1260 1030" role="img"><title>Ресурсные площадки — Astra, эскиз 02</title><style>text{font-family:Arial,Helvetica,sans-serif}</style><rect width="1260" height="1030" fill="#172120"/><text x="48" y="46" font-size="14" fill="#a5b3a5" font-weight="700" text-anchor="start">РЕСУРСНЫЕ ПЛОЩАДКИ</text><text x="1212" y="46" font-size="14" fill="#a5b3a5" font-weight="700" text-anchor="end">ASTRA · ЭСКИЗ 02</text><text x="48" y="91" font-size="34" fill="#eee3c5" font-weight="700" text-anchor="start">Лес · камень · металл</text><text x="48" y="126" font-size="17" fill="#a9b6ae" font-weight="400" text-anchor="start">Прямые рукояти · узнаваемые инструменты · один цвет и прозрачные просветы</text><rect x="48" y="154" width="372" height="464" rx="16" fill="#243030"/><text x="72" y="187" font-size="13" fill="#a5b3a5" font-weight="700" text-anchor="start">01</text><g transform="translate(114 189) scale(0.9375 0.9375)"><defs><mask id="cut_4" maskUnits="userSpaceOnUse" x="0" y="0" width="256" height="256" style="mask-type:luminance"><g transform="rotate(28 130 50)">
+<path d="M124 43H136L138 174Q131 180 124 174Z" fill="white"/>
+<path d="M108 33H139L177 21Q185 48 177 77L139 59H108Z" fill="white"/>
+<path d="M126 39H134V52H126Z" fill="black"/>
+<path d="M169 29Q175 49 169 68" fill="none" stroke="black" stroke-width="4"/>
+</g>
+<path d="M64 184H191C217 184 217 232 191 232H64Z" fill="white"/>
+<ellipse cx="64" cy="208" rx="22" ry="24" fill="white"/>
+<ellipse cx="64" cy="208" rx="14" ry="17" fill="none" stroke="black" stroke-width="5"/>
+<path d="M91 196H186" stroke="black" stroke-width="5"/>
+</mask></defs><rect width="256" height="256" fill="#eee3c5" mask="url(#cut_4)"/></g><text x="234" y="458" font-size="25" fill="#eee3c5" font-weight="700" text-anchor="middle">Лесопилка</text><text x="234" y="485" font-size="15" fill="#a9b6ae" font-weight="400" text-anchor="middle">Топор и бревно</text><path d="M72 505H396" stroke="#41504b"/><g transform="translate(110.0 537.0) scale(0.125 0.125)"><defs><mask id="cut_5" maskUnits="userSpaceOnUse" x="0" y="0" width="256" height="256" style="mask-type:luminance"><g transform="rotate(28 130 50)">
+<path d="M124 43H136L138 174Q131 180 124 174Z" fill="white"/>
+<path d="M108 33H139L177 21Q185 48 177 77L139 59H108Z" fill="white"/>
+<path d="M126 39H134V52H126Z" fill="black"/>
+<path d="M169 29Q175 49 169 68" fill="none" stroke="black" stroke-width="4"/>
+</g>
+<path d="M64 184H191C217 184 217 232 191 232H64Z" fill="white"/>
+<ellipse cx="64" cy="208" rx="22" ry="24" fill="white"/>
+<ellipse cx="64" cy="208" rx="14" ry="17" fill="none" stroke="black" stroke-width="5"/>
+<path d="M91 196H186" stroke="black" stroke-width="5"/>
+</mask></defs><rect width="256" height="256" fill="#eee3c5" mask="url(#cut_5)"/></g><text x="126" y="599" font-size="12" fill="#a9b6ae" font-weight="400" text-anchor="middle">32 px</text><g transform="translate(210.0 529.0) scale(0.1875 0.1875)"><defs><mask id="cut_6" maskUnits="userSpaceOnUse" x="0" y="0" width="256" height="256" style="mask-type:luminance"><g transform="rotate(28 130 50)">
+<path d="M124 43H136L138 174Q131 180 124 174Z" fill="white"/>
+<path d="M108 33H139L177 21Q185 48 177 77L139 59H108Z" fill="white"/>
+<path d="M126 39H134V52H126Z" fill="black"/>
+<path d="M169 29Q175 49 169 68" fill="none" stroke="black" stroke-width="4"/>
+</g>
+<path d="M64 184H191C217 184 217 232 191 232H64Z" fill="white"/>
+<ellipse cx="64" cy="208" rx="22" ry="24" fill="white"/>
+<ellipse cx="64" cy="208" rx="14" ry="17" fill="none" stroke="black" stroke-width="5"/>
+<path d="M91 196H186" stroke="black" stroke-width="5"/>
+</mask></defs><rect width="256" height="256" fill="#eee3c5" mask="url(#cut_6)"/></g><text x="234" y="599" font-size="12" fill="#a9b6ae" font-weight="400" text-anchor="middle">48 px</text><g transform="translate(310.0 521.0) scale(0.25 0.25)"><defs><mask id="cut_7" maskUnits="userSpaceOnUse" x="0" y="0" width="256" height="256" style="mask-type:luminance"><g transform="rotate(28 130 50)">
+<path d="M124 43H136L138 174Q131 180 124 174Z" fill="white"/>
+<path d="M108 33H139L177 21Q185 48 177 77L139 59H108Z" fill="white"/>
+<path d="M126 39H134V52H126Z" fill="black"/>
+<path d="M169 29Q175 49 169 68" fill="none" stroke="black" stroke-width="4"/>
+</g>
+<path d="M64 184H191C217 184 217 232 191 232H64Z" fill="white"/>
+<ellipse cx="64" cy="208" rx="22" ry="24" fill="white"/>
+<ellipse cx="64" cy="208" rx="14" ry="17" fill="none" stroke="black" stroke-width="5"/>
+<path d="M91 196H186" stroke="black" stroke-width="5"/>
+</mask></defs><rect width="256" height="256" fill="#eee3c5" mask="url(#cut_7)"/></g><text x="342" y="599" font-size="12" fill="#a9b6ae" font-weight="400" text-anchor="middle">64 px</text><rect x="444" y="154" width="372" height="464" rx="16" fill="#243030"/><text x="468" y="187" font-size="13" fill="#a5b3a5" font-weight="700" text-anchor="start">02</text><g transform="translate(510 189) scale(0.9375 0.9375)"><defs><mask id="cut_8" maskUnits="userSpaceOnUse" x="0" y="0" width="256" height="256" style="mask-type:luminance"><g transform="rotate(28 130 50)">
+<path d="M124 43H136L138 174Q131 180 124 174Z" fill="white"/>
+<path d="M49 57 83 39 115 33 145 34 177 43 190 48 185 61 169 55 143 49 116 47 85 49Z" fill="white"/>
+<path d="M123 32H137V50H123Z" fill="white"/>
+<path d="M126 39H134V44H126Z" fill="black"/>
+</g>
+<path d="M55 212 80 182 116 164 148 178 165 212 145 237H75Z M178 217 194 210 211 224 205 237H179L171 229Z" fill="white"/>
+<path d="M82 184 108 202 116 169M108 202 143 181M108 202 91 232M110 203 159 214" fill="none" stroke="black" stroke-width="6" stroke-linejoin="round"/>
+</mask></defs><rect width="256" height="256" fill="#eee3c5" mask="url(#cut_8)"/></g><text x="630" y="458" font-size="25" fill="#eee3c5" font-weight="700" text-anchor="middle">Каменоломня</text><text x="630" y="485" font-size="15" fill="#a9b6ae" font-weight="400" text-anchor="middle">Кирка и колотый камень</text><path d="M468 505H792" stroke="#41504b"/><g transform="translate(506.0 537.0) scale(0.125 0.125)"><defs><mask id="cut_9" maskUnits="userSpaceOnUse" x="0" y="0" width="256" height="256" style="mask-type:luminance"><g transform="rotate(28 130 50)">
+<path d="M124 43H136L138 174Q131 180 124 174Z" fill="white"/>
+<path d="M49 57 83 39 115 33 145 34 177 43 190 48 185 61 169 55 143 49 116 47 85 49Z" fill="white"/>
+<path d="M123 32H137V50H123Z" fill="white"/>
+<path d="M126 39H134V44H126Z" fill="black"/>
+</g>
+<path d="M55 212 80 182 116 164 148 178 165 212 145 237H75Z M178 217 194 210 211 224 205 237H179L171 229Z" fill="white"/>
+<path d="M82 184 108 202 116 169M108 202 143 181M108 202 91 232M110 203 159 214" fill="none" stroke="black" stroke-width="6" stroke-linejoin="round"/>
+</mask></defs><rect width="256" height="256" fill="#eee3c5" mask="url(#cut_9)"/></g><text x="522" y="599" font-size="12" fill="#a9b6ae" font-weight="400" text-anchor="middle">32 px</text><g transform="translate(606.0 529.0) scale(0.1875 0.1875)"><defs><mask id="cut_10" maskUnits="userSpaceOnUse" x="0" y="0" width="256" height="256" style="mask-type:luminance"><g transform="rotate(28 130 50)">
+<path d="M124 43H136L138 174Q131 180 124 174Z" fill="white"/>
+<path d="M49 57 83 39 115 33 145 34 177 43 190 48 185 61 169 55 143 49 116 47 85 49Z" fill="white"/>
+<path d="M123 32H137V50H123Z" fill="white"/>
+<path d="M126 39H134V44H126Z" fill="black"/>
+</g>
+<path d="M55 212 80 182 116 164 148 178 165 212 145 237H75Z M178 217 194 210 211 224 205 237H179L171 229Z" fill="white"/>
+<path d="M82 184 108 202 116 169M108 202 143 181M108 202 91 232M110 203 159 214" fill="none" stroke="black" stroke-width="6" stroke-linejoin="round"/>
+</mask></defs><rect width="256" height="256" fill="#eee3c5" mask="url(#cut_10)"/></g><text x="630" y="599" font-size="12" fill="#a9b6ae" font-weight="400" text-anchor="middle">48 px</text><g transform="translate(706.0 521.0) scale(0.25 0.25)"><defs><mask id="cut_11" maskUnits="userSpaceOnUse" x="0" y="0" width="256" height="256" style="mask-type:luminance"><g transform="rotate(28 130 50)">
+<path d="M124 43H136L138 174Q131 180 124 174Z" fill="white"/>
+<path d="M49 57 83 39 115 33 145 34 177 43 190 48 185 61 169 55 143 49 116 47 85 49Z" fill="white"/>
+<path d="M123 32H137V50H123Z" fill="white"/>
+<path d="M126 39H134V44H126Z" fill="black"/>
+</g>
+<path d="M55 212 80 182 116 164 148 178 165 212 145 237H75Z M178 217 194 210 211 224 205 237H179L171 229Z" fill="white"/>
+<path d="M82 184 108 202 116 169M108 202 143 181M108 202 91 232M110 203 159 214" fill="none" stroke="black" stroke-width="6" stroke-linejoin="round"/>
+</mask></defs><rect width="256" height="256" fill="#eee3c5" mask="url(#cut_11)"/></g><text x="738" y="599" font-size="12" fill="#a9b6ae" font-weight="400" text-anchor="middle">64 px</text><rect x="840" y="154" width="372" height="464" rx="16" fill="#243030"/><text x="864" y="187" font-size="13" fill="#a5b3a5" font-weight="700" text-anchor="start">03</text><g transform="translate(906 189) scale(0.9375 0.9375)"><defs><mask id="cut_12" maskUnits="userSpaceOnUse" x="0" y="0" width="256" height="256" style="mask-type:luminance"><g transform="rotate(28 130 50)">
+<path d="M124 43H136L138 174Q131 180 124 174Z" fill="white"/>
+<path d="M49 57 83 39 115 33 145 34 177 43 190 48 185 61 169 55 143 49 116 47 85 49Z" fill="white"/>
+<path d="M123 32H137V50H123Z" fill="white"/>
+<path d="M126 39H134V44H126Z" fill="black"/>
+</g>
+<path d="M57 208 72 181 170 172 199 197 193 230 82 239Z" fill="white"/>
+<path d="M73 184 94 209 195 199M94 209 84 235M60 208 91 210" fill="none" stroke="black" stroke-width="6" stroke-linejoin="round"/>
+</mask></defs><rect width="256" height="256" fill="#eee3c5" mask="url(#cut_12)"/></g><text x="1026" y="458" font-size="25" fill="#eee3c5" font-weight="700" text-anchor="middle">Железная шахта</text><text x="1026" y="485" font-size="15" fill="#a9b6ae" font-weight="400" text-anchor="middle">Кирка и металлический брусок*</text><path d="M864 505H1188" stroke="#41504b"/><g transform="translate(902.0 537.0) scale(0.125 0.125)"><defs><mask id="cut_13" maskUnits="userSpaceOnUse" x="0" y="0" width="256" height="256" style="mask-type:luminance"><g transform="rotate(28 130 50)">
+<path d="M124 43H136L138 174Q131 180 124 174Z" fill="white"/>
+<path d="M49 57 83 39 115 33 145 34 177 43 190 48 185 61 169 55 143 49 116 47 85 49Z" fill="white"/>
+<path d="M123 32H137V50H123Z" fill="white"/>
+<path d="M126 39H134V44H126Z" fill="black"/>
+</g>
+<path d="M57 208 72 181 170 172 199 197 193 230 82 239Z" fill="white"/>
+<path d="M73 184 94 209 195 199M94 209 84 235M60 208 91 210" fill="none" stroke="black" stroke-width="6" stroke-linejoin="round"/>
+</mask></defs><rect width="256" height="256" fill="#eee3c5" mask="url(#cut_13)"/></g><text x="918" y="599" font-size="12" fill="#a9b6ae" font-weight="400" text-anchor="middle">32 px</text><g transform="translate(1002.0 529.0) scale(0.1875 0.1875)"><defs><mask id="cut_14" maskUnits="userSpaceOnUse" x="0" y="0" width="256" height="256" style="mask-type:luminance"><g transform="rotate(28 130 50)">
+<path d="M124 43H136L138 174Q131 180 124 174Z" fill="white"/>
+<path d="M49 57 83 39 115 33 145 34 177 43 190 48 185 61 169 55 143 49 116 47 85 49Z" fill="white"/>
+<path d="M123 32H137V50H123Z" fill="white"/>
+<path d="M126 39H134V44H126Z" fill="black"/>
+</g>
+<path d="M57 208 72 181 170 172 199 197 193 230 82 239Z" fill="white"/>
+<path d="M73 184 94 209 195 199M94 209 84 235M60 208 91 210" fill="none" stroke="black" stroke-width="6" stroke-linejoin="round"/>
+</mask></defs><rect width="256" height="256" fill="#eee3c5" mask="url(#cut_14)"/></g><text x="1026" y="599" font-size="12" fill="#a9b6ae" font-weight="400" text-anchor="middle">48 px</text><g transform="translate(1102.0 521.0) scale(0.25 0.25)"><defs><mask id="cut_15" maskUnits="userSpaceOnUse" x="0" y="0" width="256" height="256" style="mask-type:luminance"><g transform="rotate(28 130 50)">
+<path d="M124 43H136L138 174Q131 180 124 174Z" fill="white"/>
+<path d="M49 57 83 39 115 33 145 34 177 43 190 48 185 61 169 55 143 49 116 47 85 49Z" fill="white"/>
+<path d="M123 32H137V50H123Z" fill="white"/>
+<path d="M126 39H134V44H126Z" fill="black"/>
+</g>
+<path d="M57 208 72 181 170 172 199 197 193 230 82 239Z" fill="white"/>
+<path d="M73 184 94 209 195 199M94 209 84 235M60 208 91 210" fill="none" stroke="black" stroke-width="6" stroke-linejoin="round"/>
+</mask></defs><rect width="256" height="256" fill="#eee3c5" mask="url(#cut_15)"/></g><text x="1134" y="599" font-size="12" fill="#a9b6ae" font-weight="400" text-anchor="middle">64 px</text><text x="48" y="657" font-size="14" fill="#a5b3a5" font-weight="700" text-anchor="start">НАКЛОН НАЗЕМНОЙ МЕТКИ</text><text x="48" y="684" font-size="16" fill="#a9b6ae" font-weight="400" text-anchor="start">Схема при 55°: тот же рисунок, сжатие по вертикали ×0,819. Это не кадр Unity.</text><rect x="48" y="707" width="372" height="224" rx="16" fill="#73765d"/><path d="M80 806  203 729 388 805 264 893Z" fill="#878467"/><g transform="translate(160 729) scale(0.578125 0.47348437499999996)"><defs><mask id="cut_16" maskUnits="userSpaceOnUse" x="0" y="0" width="256" height="256" style="mask-type:luminance"><g transform="rotate(28 130 50)">
+<path d="M124 43H136L138 174Q131 180 124 174Z" fill="white"/>
+<path d="M108 33H139L177 21Q185 48 177 77L139 59H108Z" fill="white"/>
+<path d="M126 39H134V52H126Z" fill="black"/>
+<path d="M169 29Q175 49 169 68" fill="none" stroke="black" stroke-width="4"/>
+</g>
+<path d="M64 184H191C217 184 217 232 191 232H64Z" fill="white"/>
+<ellipse cx="64" cy="208" rx="22" ry="24" fill="white"/>
+<ellipse cx="64" cy="208" rx="14" ry="17" fill="none" stroke="black" stroke-width="5"/>
+<path d="M91 196H186" stroke="black" stroke-width="5"/>
+</mask></defs><rect width="256" height="256" fill="#eee3c5" mask="url(#cut_16)"/></g><text x="234" y="909" font-size="12" fill="#ece7cf" font-weight="400" text-anchor="middle">148 × 121 px · схема проекции</text><rect x="444" y="707" width="372" height="224" rx="16" fill="#73765d"/><path d="M476 806  599 729 784 805 660 893Z" fill="#878467"/><g transform="translate(556 729) scale(0.578125 0.47348437499999996)"><defs><mask id="cut_17" maskUnits="userSpaceOnUse" x="0" y="0" width="256" height="256" style="mask-type:luminance"><g transform="rotate(28 130 50)">
+<path d="M124 43H136L138 174Q131 180 124 174Z" fill="white"/>
+<path d="M49 57 83 39 115 33 145 34 177 43 190 48 185 61 169 55 143 49 116 47 85 49Z" fill="white"/>
+<path d="M123 32H137V50H123Z" fill="white"/>
+<path d="M126 39H134V44H126Z" fill="black"/>
+</g>
+<path d="M55 212 80 182 116 164 148 178 165 212 145 237H75Z M178 217 194 210 211 224 205 237H179L171 229Z" fill="white"/>
+<path d="M82 184 108 202 116 169M108 202 143 181M108 202 91 232M110 203 159 214" fill="none" stroke="black" stroke-width="6" stroke-linejoin="round"/>
+</mask></defs><rect width="256" height="256" fill="#eee3c5" mask="url(#cut_17)"/></g><text x="630" y="909" font-size="12" fill="#ece7cf" font-weight="400" text-anchor="middle">148 × 121 px · схема проекции</text><rect x="840" y="707" width="372" height="224" rx="16" fill="#73765d"/><path d="M872 806  995 729 1180 805 1056 893Z" fill="#878467"/><g transform="translate(952 729) scale(0.578125 0.47348437499999996)"><defs><mask id="cut_18" maskUnits="userSpaceOnUse" x="0" y="0" width="256" height="256" style="mask-type:luminance"><g transform="rotate(28 130 50)">
+<path d="M124 43H136L138 174Q131 180 124 174Z" fill="white"/>
+<path d="M49 57 83 39 115 33 145 34 177 43 190 48 185 61 169 55 143 49 116 47 85 49Z" fill="white"/>
+<path d="M123 32H137V50H123Z" fill="white"/>
+<path d="M126 39H134V44H126Z" fill="black"/>
+</g>
+<path d="M57 208 72 181 170 172 199 197 193 230 82 239Z" fill="white"/>
+<path d="M73 184 94 209 195 199M94 209 84 235M60 208 91 210" fill="none" stroke="black" stroke-width="6" stroke-linejoin="round"/>
+</mask></defs><rect width="256" height="256" fill="#eee3c5" mask="url(#cut_18)"/></g><text x="1026" y="909" font-size="12" fill="#ece7cf" font-weight="400" text-anchor="middle">148 × 121 px · схема проекции</text><text x="48" y="966" font-size="14" fill="#a9b6ae" font-weight="400" text-anchor="start">* Брусок — вариант знака металла для согласования, без новой игровой механики.</text><text x="48" y="998" font-size="13" fill="#82948b" font-weight="400" text-anchor="start">Авторская векторная геометрия · 17.10.2026 · только эскизы, без изменений Unity</text></svg>

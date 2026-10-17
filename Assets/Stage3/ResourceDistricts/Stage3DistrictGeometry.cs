@@ -41,8 +41,8 @@ namespace Not3A.Stage3.VisualPilot
                 distance=Mathf.Sqrt(distance);
                 var edge=Mathf.SmoothStep(0,1,distance/.65f);
                 if(!plan.Heights.ContainsKey(Vector2Int.RoundToInt(p)))edge=0;
-                var ground=-Stage3TacticalPresentation.GrassSurfaceZ(p);
-                var h=HeightAt(p);
+                var ground=-(Grass(p).z+.008f);
+                var h=HeightAt(plan,art,p);
                 points[y*width+x]=Point(p,Mathf.Lerp(ground,h,edge));coverage[y*width+x]=edge;
             }
             var vertexNormals=new Vector3[points.Length];var vertexColors=new Color[points.Length];
@@ -71,8 +71,12 @@ namespace Not3A.Stage3.VisualPilot
                         vertexColors[i],vertexColors[i+width],vertexColors[i+width+1],vertexColors[i+1]);
                 }
             }
-            float HeightAt(Vector2 point)
+            Create("Coherent terraced geology",mesh,art.geologyMaterial,root,cameraForward,art.geologyRevealMaterial);
+        }
+
+        private static float HeightAt(ResourceDistrictLayout plan,Stage3ResourceDistrictArt art,Vector2 point)
             {
+            var metal=plan.District.Kind==MapResourceKind.Metal;
                 foreach(var flight in plan.Stairs)
                     if(Mathf.Abs(point.x-flight.Cell.x)<=.50001f && Mathf.Abs(point.y-flight.Cell.y)<=.50001f)
                         return Mathf.Lerp(flight.Top,flight.Bottom,Mathf.Clamp01(Vector2.Dot(point-(Vector2)flight.Cell,flight.Direction)+.5f));
@@ -84,10 +88,25 @@ namespace Not3A.Stage3.VisualPilot
                 if(!metal && raw<=.45f)return raw;
                 var level=metal?-raw/step:(raw-.45f)/step;
                 level=Mathf.Max(0,level);var whole=Mathf.Floor(level);var fraction=level-whole;
-                var eased=Mathf.SmoothStep(0,1,Mathf.InverseLerp(.38f,.62f,fraction));
+                var eased=Mathf.SmoothStep(0,1,Mathf.InverseLerp(.25f,.75f,fraction));
                 return metal?-(whole+eased)*step:.45f+(whole+eased)*step;
             }
-            Create("Coherent terraced geology",mesh,art.geologyMaterial,root,cameraForward,art.geologyRevealMaterial);
+
+        internal static float SurfaceHeight(ResourceDistrictLayout plan,Stage3ResourceDistrictArt art,Vector2 point)
+        {
+            var distance=float.PositiveInfinity;
+            foreach(var cell in plan.District.Cells)
+            foreach(var direction in new[]{Vector2Int.left,Vector2Int.up,Vector2Int.right,Vector2Int.down})
+            {
+                if(plan.Heights.ContainsKey(cell+direction))continue;
+                var middle=(Vector2)cell+(Vector2)direction*.5f;
+                var tangent=new Vector2(-direction.y,direction.x)*.5f;
+                var a=middle-tangent;var line=tangent*2;
+                var closest=a+line*Mathf.Clamp01(Vector2.Dot(point-a,line));
+                distance=Mathf.Min(distance,Vector2.Distance(point,closest));
+            }
+            var edge=plan.Heights.ContainsKey(Vector2Int.RoundToInt(point))?Mathf.SmoothStep(0,1,distance/.65f):0;
+            return Mathf.Lerp(-(Grass(point).z+.008f),HeightAt(plan,art,point),edge);
         }
 
         private static void AddStair(Buffer mesh,DistrictStair stair,bool metal,int seed,float maximumDepth)
@@ -110,7 +129,7 @@ namespace Not3A.Stage3.VisualPilot
         {
             const float variation=1f;
             var tone=metal?new Color(.53f,.57f,.61f):new Color(1.1f,1.08f,1.02f);
-            if(metal)tone*=Mathf.Lerp(1.05f,.055f,Mathf.Pow(Mathf.Clamp01(-height/maximumDepth),1.2f));
+            if(metal)tone*=Mathf.Lerp(1.05f,.42f,Mathf.Pow(Mathf.Clamp01(-height/maximumDepth),1.2f));
             if(wall)tone*=.82f;
             tone*=variation;tone.a=1;return tone;
         }
@@ -143,8 +162,8 @@ namespace Not3A.Stage3.VisualPilot
                 }
                 distance=Mathf.Sqrt(distance);
                 var noise=Mathf.PerlinNoise(point.x*.9f+(plan.District.Seed&255),point.y*.9f);
-                var alpha=(1-Mathf.SmoothStep(0,1,(distance+noise*.65f)/art.groundBlendWidth))*(wood?.20f:.65f);
-                var color=wood?new Color(.32f,.30f,.16f):new Color(.47f,.44f,.33f);
+                var alpha=(1-Mathf.SmoothStep(0,1,(distance+noise*.65f)/art.groundBlendWidth))*(wood?.72f:.65f);
+                var color=wood?new Color(.24f,.27f,.13f):new Color(.47f,.44f,.33f);
                 color.a=alpha;return color;
             }
         }
@@ -169,6 +188,9 @@ namespace Not3A.Stage3.VisualPilot
             var mesh=buffer.Mesh(name,cameraForward);
             go.AddComponent<MeshFilter>().sharedMesh=mesh;
             var renderer=go.AddComponent<MeshRenderer>();renderer.sharedMaterial=material;
+            // Both transparent apron and local geology reveal precede painted accents.
+            // Opaque geology still uses depth; sort order only resolves transparent layers.
+            renderer.sortingOrder=short.MinValue+(reveal!=null?1:0);
             if(reveal!=null)
             {
                 var indices=mesh.GetTriangles(0);mesh.subMeshCount=2;mesh.SetTriangles(indices,1);

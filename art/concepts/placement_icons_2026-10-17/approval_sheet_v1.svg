@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1260" height="1030" viewBox="0 0 1260 1030" role="img"><title>Ресурсные площадки — эскиз 01</title><style>text{font-family:Arial,Helvetica,sans-serif}</style><rect width="1260" height="1030" fill="#141d20"/><text x="48" y="50" font-size="15" fill="#b9bda9" font-weight="700" text-anchor="start">ЗНАКИ РЕСУРСНЫХ ПЛОЩАДОК</text><text x="48" y="99" font-size="37" fill="#f2e6c5" font-weight="700" text-anchor="start">Лес · камень · металл</text><text x="1212" y="50" font-size="13" fill="#b9bda9" font-weight="700" text-anchor="end">ЭСКИЗ 01 · ДЛЯ АПРУВА</text><text x="48" y="133" font-size="17" fill="#abb5b3" font-weight="400" text-anchor="start">Вектор · один светлый тон · крупные формы и открытые просветы</text><rect x="48" y="166" width="372" height="438" rx="18" fill="#202a2c"/><text x="72" y="202" font-size="13" fill="#a8b6af" font-weight="700" text-anchor="start">01</text><g transform="translate(134 219) scale(2.0 2.0)" color="#fff"><defs><mask id="negative_space_4" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100" style="mask-type:luminance">
+  <path d="M59 23 29 63" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+  <path d="m53 16 10-5q20 3 24 23L75 44Q69 31 53 31L47 25Z" fill="currentColor"/>
+  <path d="M26 69h46q11 0 11 12T72 93H26Z" fill="currentColor"/>
+  <ellipse cx="26" cy="81" rx="12" ry="12" fill="currentColor"/>
+  <ellipse cx="26" cy="81" rx="7" ry="8" fill="none" stroke="#000" stroke-width="3.5"/>
+  <path d="M47 75h23M47 86h16" fill="none" stroke="#000" stroke-width="3.5" stroke-linecap="round"/>
+</mask></defs><rect width="100" height="100" fill="#f2e6c5" mask="url(#negative_space_4)"/></g><text x="234" y="458" font-size="25" fill="#f2e6c5" font-weight="700" text-anchor="middle">Лесопилка</text><text x="234" y="487" font-size="16" fill="#a8b6af" font-weight="400" text-anchor="middle">Топор + бревно</text><path d="M72 508H396" stroke="#3a4849"/><g transform="translate(109.0 527.0) scale(0.32 0.32)" color="#fff"><defs><mask id="negative_space_5" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100" style="mask-type:luminance">
+  <path d="M59 23 29 63" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+  <path d="m53 16 10-5q20 3 24 23L75 44Q69 31 53 31L47 25Z" fill="currentColor"/>
+  <path d="M26 69h46q11 0 11 12T72 93H26Z" fill="currentColor"/>
+  <ellipse cx="26" cy="81" rx="12" ry="12" fill="currentColor"/>
+  <ellipse cx="26" cy="81" rx="7" ry="8" fill="none" stroke="#000" stroke-width="3.5"/>
+  <path d="M47 75h23M47 86h16" fill="none" stroke="#000" stroke-width="3.5" stroke-linecap="round"/>
+</mask></defs><rect width="100" height="100" fill="#f2e6c5" mask="url(#negative_space_5)"/></g><text x="125" y="586" font-size="12" fill="#a8b6af" font-weight="400" text-anchor="middle">32 px</text><g transform="translate(209.0 519.0) scale(0.48 0.48)" color="#fff"><defs><mask id="negative_space_6" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100" style="mask-type:luminance">
+  <path d="M59 23 29 63" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+  <path d="m53 16 10-5q20 3 24 23L75 44Q69 31 53 31L47 25Z" fill="currentColor"/>
+  <path d="M26 69h46q11 0 11 12T72 93H26Z" fill="currentColor"/>
+  <ellipse cx="26" cy="81" rx="12" ry="12" fill="currentColor"/>
+  <ellipse cx="26" cy="81" rx="7" ry="8" fill="none" stroke="#000" stroke-width="3.5"/>
+  <path d="M47 75h23M47 86h16" fill="none" stroke="#000" stroke-width="3.5" stroke-linecap="round"/>
+</mask></defs><rect width="100" height="100" fill="#f2e6c5" mask="url(#negative_space_6)"/></g><text x="233" y="586" font-size="12" fill="#a8b6af" font-weight="400" text-anchor="middle">48 px</text><g transform="translate(309.0 511.0) scale(0.64 0.64)" color="#fff"><defs><mask id="negative_space_7" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100" style="mask-type:luminance">
+  <path d="M59 23 29 63" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+  <path d="m53 16 10-5q20 3 24 23L75 44Q69 31 53 31L47 25Z" fill="currentColor"/>
+  <path d="M26 69h46q11 0 11 12T72 93H26Z" fill="currentColor"/>
+  <ellipse cx="26" cy="81" rx="12" ry="12" fill="currentColor"/>
+  <ellipse cx="26" cy="81" rx="7" ry="8" fill="none" stroke="#000" stroke-width="3.5"/>
+  <path d="M47 75h23M47 86h16" fill="none" stroke="#000" stroke-width="3.5" stroke-linecap="round"/>
+</mask></defs><rect width="100" height="100" fill="#f2e6c5" mask="url(#negative_space_7)"/></g><text x="341" y="586" font-size="12" fill="#a8b6af" font-weight="400" text-anchor="middle">64 px</text><rect x="444" y="166" width="372" height="438" rx="18" fill="#202a2c"/><text x="468" y="202" font-size="13" fill="#a8b6af" font-weight="700" text-anchor="start">02</text><g transform="translate(530 219) scale(2.0 2.0)" color="#fff"><defs><mask id="negative_space_8" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100" style="mask-type:luminance">
+  <path d="M53 25 31 57" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+  <path d="M14 36Q30 13 54 14Q75 15 87 37L68 27Q52 22 37 27Z" fill="currentColor"/>
+
+  <path d="m28 72 17-12 22 5 17 18-8 10H21l-5-9Z" fill="currentColor"/>
+  <path d="m45 63-7 17 17 10M39 80l28-12M39 80l-18 5" fill="none" stroke="#000" stroke-width="3.5" stroke-linejoin="round"/>
+</mask></defs><rect width="100" height="100" fill="#f2e6c5" mask="url(#negative_space_8)"/></g><text x="630" y="458" font-size="25" fill="#f2e6c5" font-weight="700" text-anchor="middle">Каменоломня</text><text x="630" y="487" font-size="16" fill="#a8b6af" font-weight="400" text-anchor="middle">Кирка + камень</text><path d="M468 508H792" stroke="#3a4849"/><g transform="translate(505.0 527.0) scale(0.32 0.32)" color="#fff"><defs><mask id="negative_space_9" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100" style="mask-type:luminance">
+  <path d="M53 25 31 57" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+  <path d="M14 36Q30 13 54 14Q75 15 87 37L68 27Q52 22 37 27Z" fill="currentColor"/>
+
+  <path d="m28 72 17-12 22 5 17 18-8 10H21l-5-9Z" fill="currentColor"/>
+  <path d="m45 63-7 17 17 10M39 80l28-12M39 80l-18 5" fill="none" stroke="#000" stroke-width="3.5" stroke-linejoin="round"/>
+</mask></defs><rect width="100" height="100" fill="#f2e6c5" mask="url(#negative_space_9)"/></g><text x="521" y="586" font-size="12" fill="#a8b6af" font-weight="400" text-anchor="middle">32 px</text><g transform="translate(605.0 519.0) scale(0.48 0.48)" color="#fff"><defs><mask id="negative_space_10" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100" style="mask-type:luminance">
+  <path d="M53 25 31 57" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+  <path d="M14 36Q30 13 54 14Q75 15 87 37L68 27Q52 22 37 27Z" fill="currentColor"/>
+
+  <path d="m28 72 17-12 22 5 17 18-8 10H21l-5-9Z" fill="currentColor"/>
+  <path d="m45 63-7 17 17 10M39 80l28-12M39 80l-18 5" fill="none" stroke="#000" stroke-width="3.5" stroke-linejoin="round"/>
+</mask></defs><rect width="100" height="100" fill="#f2e6c5" mask="url(#negative_space_10)"/></g><text x="629" y="586" font-size="12" fill="#a8b6af" font-weight="400" text-anchor="middle">48 px</text><g transform="translate(705.0 511.0) scale(0.64 0.64)" color="#fff"><defs><mask id="negative_space_11" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100" style="mask-type:luminance">
+  <path d="M53 25 31 57" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+  <path d="M14 36Q30 13 54 14Q75 15 87 37L68 27Q52 22 37 27Z" fill="currentColor"/>
+
+  <path d="m28 72 17-12 22 5 17 18-8 10H21l-5-9Z" fill="currentColor"/>
+  <path d="m45 63-7 17 17 10M39 80l28-12M39 80l-18 5" fill="none" stroke="#000" stroke-width="3.5" stroke-linejoin="round"/>
+</mask></defs><rect width="100" height="100" fill="#f2e6c5" mask="url(#negative_space_11)"/></g><text x="737" y="586" font-size="12" fill="#a8b6af" font-weight="400" text-anchor="middle">64 px</text><rect x="840" y="166" width="372" height="438" rx="18" fill="#202a2c"/><text x="864" y="202" font-size="13" fill="#a8b6af" font-weight="700" text-anchor="start">03</text><g transform="translate(926 219) scale(2.0 2.0)" color="#fff"><defs><mask id="negative_space_12" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100" style="mask-type:luminance">
+  <path d="M53 25 31 57" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+  <path d="M14 36Q30 13 54 14Q75 15 87 37L68 27Q52 22 37 27Z" fill="currentColor"/>
+
+  <path d="m24 64 48 0 14 16-8 13H15L9 80Z" fill="currentColor"/>
+  <path d="M11 80h73M25 65l-7 15 5 13M72 65l6 15-5 13" fill="none" stroke="#000" stroke-width="3.5" stroke-linejoin="round"/>
+</mask></defs><rect width="100" height="100" fill="#f2e6c5" mask="url(#negative_space_12)"/></g><text x="1026" y="458" font-size="25" fill="#f2e6c5" font-weight="700" text-anchor="middle">Железная шахта</text><text x="1026" y="487" font-size="16" fill="#a8b6af" font-weight="400" text-anchor="middle">Кирка + слиток</text><path d="M864 508H1188" stroke="#3a4849"/><g transform="translate(901.0 527.0) scale(0.32 0.32)" color="#fff"><defs><mask id="negative_space_13" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100" style="mask-type:luminance">
+  <path d="M53 25 31 57" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+  <path d="M14 36Q30 13 54 14Q75 15 87 37L68 27Q52 22 37 27Z" fill="currentColor"/>
+
+  <path d="m24 64 48 0 14 16-8 13H15L9 80Z" fill="currentColor"/>
+  <path d="M11 80h73M25 65l-7 15 5 13M72 65l6 15-5 13" fill="none" stroke="#000" stroke-width="3.5" stroke-linejoin="round"/>
+</mask></defs><rect width="100" height="100" fill="#f2e6c5" mask="url(#negative_space_13)"/></g><text x="917" y="586" font-size="12" fill="#a8b6af" font-weight="400" text-anchor="middle">32 px</text><g transform="translate(1001.0 519.0) scale(0.48 0.48)" color="#fff"><defs><mask id="negative_space_14" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100" style="mask-type:luminance">
+  <path d="M53 25 31 57" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+  <path d="M14 36Q30 13 54 14Q75 15 87 37L68 27Q52 22 37 27Z" fill="currentColor"/>
+
+  <path d="m24 64 48 0 14 16-8 13H15L9 80Z" fill="currentColor"/>
+  <path d="M11 80h73M25 65l-7 15 5 13M72 65l6 15-5 13" fill="none" stroke="#000" stroke-width="3.5" stroke-linejoin="round"/>
+</mask></defs><rect width="100" height="100" fill="#f2e6c5" mask="url(#negative_space_14)"/></g><text x="1025" y="586" font-size="12" fill="#a8b6af" font-weight="400" text-anchor="middle">48 px</text><g transform="translate(1101.0 511.0) scale(0.64 0.64)" color="#fff"><defs><mask id="negative_space_15" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100" style="mask-type:luminance">
+  <path d="M53 25 31 57" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+  <path d="M14 36Q30 13 54 14Q75 15 87 37L68 27Q52 22 37 27Z" fill="currentColor"/>
+
+  <path d="m24 64 48 0 14 16-8 13H15L9 80Z" fill="currentColor"/>
+  <path d="M11 80h73M25 65l-7 15 5 13M72 65l6 15-5 13" fill="none" stroke="#000" stroke-width="3.5" stroke-linejoin="round"/>
+</mask></defs><rect width="100" height="100" fill="#f2e6c5" mask="url(#negative_space_15)"/></g><text x="1133" y="586" font-size="12" fill="#a8b6af" font-weight="400" text-anchor="middle">64 px</text><text x="48" y="660" font-size="14" fill="#b9bda9" font-weight="700" text-anchor="start">ПРОЕКЦИЯ НА ЗЕМЛЮ</text><text x="48" y="687" font-size="16" fill="#abb5b3" font-weight="400" text-anchor="start">Схема наземной метки с наклоном камеры 55° — не кадр из игры</text><rect x="48" y="714" width="372" height="244" rx="18" fill="#73775c"/><path d="M72 842  204 741 398 817 266 933Z" fill="#8b8766"/><ellipse cx="77" cy="752" rx="4.800000000000001" ry="3" fill="#aaa68a" opacity=".5"/><ellipse cx="118" cy="765" rx="3.2" ry="2" fill="#aaa68a" opacity=".5"/><ellipse cx="342" cy="756" rx="4.800000000000001" ry="3" fill="#aaa68a" opacity=".5"/><ellipse cx="366" cy="872" rx="6.4" ry="4" fill="#aaa68a" opacity=".5"/><ellipse cx="95" cy="895" rx="4.800000000000001" ry="3" fill="#aaa68a" opacity=".5"/><ellipse cx="308" cy="912" rx="3.2" ry="2" fill="#aaa68a" opacity=".5"/><g transform="translate(170 755) scale(1.28 1.04832)" color="#fff"><defs><mask id="negative_space_16" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100" style="mask-type:luminance">
+  <path d="M59 23 29 63" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+  <path d="m53 16 10-5q20 3 24 23L75 44Q69 31 53 31L47 25Z" fill="currentColor"/>
+  <path d="M26 69h46q11 0 11 12T72 93H26Z" fill="currentColor"/>
+  <ellipse cx="26" cy="81" rx="12" ry="12" fill="currentColor"/>
+  <ellipse cx="26" cy="81" rx="7" ry="8" fill="none" stroke="#000" stroke-width="3.5"/>
+  <path d="M47 75h23M47 86h16" fill="none" stroke="#000" stroke-width="3.5" stroke-linecap="round"/>
+</mask></defs><rect width="100" height="100" fill="#f2e6c5" mask="url(#negative_space_16)"/></g><text x="234" y="933" font-size="12" fill="#e1dfc9" font-weight="400" text-anchor="middle">128 × 105 px · наклон 55°</text><rect x="444" y="714" width="372" height="244" rx="18" fill="#73775c"/><path d="M468 842  600 741 794 817 662 933Z" fill="#8b8766"/><ellipse cx="473" cy="752" rx="4.800000000000001" ry="3" fill="#aaa68a" opacity=".5"/><ellipse cx="514" cy="765" rx="3.2" ry="2" fill="#aaa68a" opacity=".5"/><ellipse cx="738" cy="756" rx="4.800000000000001" ry="3" fill="#aaa68a" opacity=".5"/><ellipse cx="762" cy="872" rx="6.4" ry="4" fill="#aaa68a" opacity=".5"/><ellipse cx="491" cy="895" rx="4.800000000000001" ry="3" fill="#aaa68a" opacity=".5"/><ellipse cx="704" cy="912" rx="3.2" ry="2" fill="#aaa68a" opacity=".5"/><g transform="translate(566 755) scale(1.28 1.04832)" color="#fff"><defs><mask id="negative_space_17" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100" style="mask-type:luminance">
+  <path d="M53 25 31 57" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+  <path d="M14 36Q30 13 54 14Q75 15 87 37L68 27Q52 22 37 27Z" fill="currentColor"/>
+
+  <path d="m28 72 17-12 22 5 17 18-8 10H21l-5-9Z" fill="currentColor"/>
+  <path d="m45 63-7 17 17 10M39 80l28-12M39 80l-18 5" fill="none" stroke="#000" stroke-width="3.5" stroke-linejoin="round"/>
+</mask></defs><rect width="100" height="100" fill="#f2e6c5" mask="url(#negative_space_17)"/></g><text x="630" y="933" font-size="12" fill="#e1dfc9" font-weight="400" text-anchor="middle">128 × 105 px · наклон 55°</text><rect x="840" y="714" width="372" height="244" rx="18" fill="#73775c"/><path d="M864 842  996 741 1190 817 1058 933Z" fill="#8b8766"/><ellipse cx="869" cy="752" rx="4.800000000000001" ry="3" fill="#aaa68a" opacity=".5"/><ellipse cx="910" cy="765" rx="3.2" ry="2" fill="#aaa68a" opacity=".5"/><ellipse cx="1134" cy="756" rx="4.800000000000001" ry="3" fill="#aaa68a" opacity=".5"/><ellipse cx="1158" cy="872" rx="6.4" ry="4" fill="#aaa68a" opacity=".5"/><ellipse cx="887" cy="895" rx="4.800000000000001" ry="3" fill="#aaa68a" opacity=".5"/><ellipse cx="1100" cy="912" rx="3.2" ry="2" fill="#aaa68a" opacity=".5"/><g transform="translate(962 755) scale(1.28 1.04832)" color="#fff"><defs><mask id="negative_space_18" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100" style="mask-type:luminance">
+  <path d="M53 25 31 57" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+  <path d="M14 36Q30 13 54 14Q75 15 87 37L68 27Q52 22 37 27Z" fill="currentColor"/>
+
+  <path d="m24 64 48 0 14 16-8 13H15L9 80Z" fill="currentColor"/>
+  <path d="M11 80h73M25 65l-7 15 5 13M72 65l6 15-5 13" fill="none" stroke="#000" stroke-width="3.5" stroke-linejoin="round"/>
+</mask></defs><rect width="100" height="100" fill="#f2e6c5" mask="url(#negative_space_18)"/></g><text x="1026" y="933" font-size="12" fill="#e1dfc9" font-weight="400" text-anchor="middle">128 × 105 px · наклон 55°</text><text x="48" y="1000" font-size="13" fill="#82918e" font-weight="400" text-anchor="start">Оригинальные SVG-эскизы · 17.10.2026 · ожидают художественного согласования</text></svg>

@@ -20,6 +20,8 @@ namespace Not3A.Stage3.VisualPilot.Tests
 {
     public sealed class Stage3ResourceDistrictTests
     {
+        private static string EvidenceFolder => (Environment.GetEnvironmentVariable("NOT3A_DISTRICT_EVIDENCE")
+            ?? "Artifacts/S3-DISTRICT-REFINEMENT-20261016").TrimEnd(Path.DirectorySeparatorChar,Path.AltDirectorySeparatorChar)+Path.DirectorySeparatorChar;
         private InputTestFixture input;
         private Stage2GameComposition game;
         private Stage2SceneBootstrap scene;
@@ -31,6 +33,8 @@ namespace Not3A.Stage3.VisualPilot.Tests
             (IReadOnlyList<ResourceDistrict>)type.GetProperty("Districts").GetValue(world);
         private GameObject Scenery => GameObject.Find("Procedural resource districts seed " + Seed);
         private HeroObstacleMap Obstacles => (HeroObstacleMap)type.GetProperty("Obstacles").GetValue(world);
+        private IReadOnlyList<ResourceProductionPoint> ProductionPoints =>
+            (IReadOnlyList<ResourceProductionPoint>)type.GetProperty("ProductionPoints").GetValue(world);
 
         [UnitySetUp]
         public IEnumerator Load()
@@ -63,18 +67,20 @@ namespace Not3A.Stage3.VisualPilot.Tests
             hud.SetHeroSpeed(10);hud.SetGameSpeed(10);
             foreach(var district in Districts.Where(d=>d.Kind!=MapResourceKind.Wood).Take(2))
             {
-                var edge=district.Cells.Where(c=>c.y==district.Center.y).OrderBy(c=>c.x).First();
-                var start=(Vector2)edge+Vector2.left*1.4f;
+                var body = Obstacles.Rectangles.Where(r => district.Bounds.Contains(Vector2Int.RoundToInt(r.center)))
+                    .OrderBy(r => r.yMin).First();
+                var edge = new Vector2(body.center.x, body.yMin);
+                var start=(Vector2)edge+Vector2.down*1.4f;
                 Assert.That(Obstacles.IsBlocked(start,mover.CollisionRadius),Is.False);
                 mover.transform.position=start;
                 // A single very long movement cannot jump the whole solid district.
-                mover.MoveBy(Vector2.right*100);
-                Assert.That(mover.transform.position.x,Is.LessThan(edge.x));
-                Assert.That(mover.transform.position.y,Is.EqualTo(start.y).Within(.005f),"A head-on approach must stop, not be redirected past the district.");
+                mover.MoveBy(Vector2.up*100);
+                Assert.That(mover.transform.position.y,Is.LessThan(edge.y));
+                Assert.That(mover.transform.position.x,Is.EqualTo(start.x).Within(.005f),"A head-on approach must stop, not be redirected past the district.");
                 Assert.That(Vector2.Distance(mover.transform.position,edge),Is.LessThan(1.1f));
                 Assert.That(Obstacles.IsBlocked(mover.transform.position,mover.CollisionRadius),Is.False);
                 var contact=(Vector2)mover.transform.position;
-                input.Press(Keyboard.current.dKey);
+                input.Press(Keyboard.current.wKey);
                 for(var i=0;i<8;i++)
                 {
                     yield return null;
@@ -82,7 +88,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
                     Assert.That(Vector2.Distance(mover.transform.position,contact),Is.LessThan(.01f),
                         "Holding movement into the same obstacle must not jitter, teleport or tunnel at x10/x10.");
                 }
-                input.Release(Keyboard.current.dKey);
+                input.Release(Keyboard.current.wKey);
                 // Inspect a reproducible real Game-camera contact frame.
                 mover.transform.position=contact;
                 Debug.Log($"S3_COLLISION_CONTACT kind={district.Kind} hero={contact:F4} edge={edge}");
@@ -135,7 +141,8 @@ namespace Not3A.Stage3.VisualPilot.Tests
             var mover=scene.PlayerMover;var old=Obstacles;
             var oldSnapshot=CollisionSnapshot(old);
             Regenerate(164033);yield return null;
-            var futureSolid=Districts.First(d=>d.Kind==MapResourceKind.Stone).Center;
+            var futureDistrict=Districts.First(d=>d.Kind==MapResourceKind.Stone);
+            var futureSolid=Obstacles.Rectangles.First(r=>futureDistrict.Bounds.Contains(Vector2Int.RoundToInt(r.center))).center;
             Regenerate(164032);yield return null;
             Assert.That(CollisionSnapshot(Obstacles),Is.EqualTo(oldSnapshot));
             mover.transform.position=(Vector2)futureSolid;
@@ -147,8 +154,9 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Assert.That(mover.Obstacles,Is.SameAs(retained));
             Assert.That(mover.transform.position.x,Is.EqualTo(18));Assert.That(mover.transform.position.y,Is.EqualTo(28));
             Assert.That(retained.IsBlocked(mover.transform.position,mover.CollisionRadius),Is.False);
-            foreach(var district in Districts.Where(d=>d.Kind!=MapResourceKind.Wood))
-                foreach(var cell in district.Cells) Assert.That(retained.IsBlocked(cell,.2f),Is.True);
+            foreach (var rect in retained.Rectangles) Assert.That(retained.IsBlocked(rect.center,.2f),Is.True);
+            foreach (var point in ProductionPoints) Assert.That(retained.IsBlocked(point.Position,.2f),Is.False,
+                "The reserved production pad must remain accessible, not part of the solid rock body.");
             var map=scene.MapDefinition;
             for(var y=map.MinimumCell.y;y<=map.MaximumCell.y;y++)
             for(var x=map.MinimumCell.x;x<=map.MaximumCell.x;x++)
@@ -170,14 +178,14 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Regenerate(164032);yield return null;
             var mover=scene.PlayerMover;mover.enabled=false;
             var forest=Districts.First(d=>d.Kind==MapResourceKind.Wood);
-            var plan=((IReadOnlyList<ResourceDistrictLayout>)type.GetProperty("Layouts").GetValue(world)).First(p=>p.District==forest);
             var refresh=(Action<float>)Delegate.CreateDelegate(typeof(Action<float>),world,type.GetMethod("RefreshVisibility"));
             var camera=scene.CameraFollow.BoundCamera;scene.CameraFollow.enabled=false;camera.orthographicSize=5;camera.farClipPlane=300;
             var up=new Vector2(camera.transform.up.x,camera.transform.up.y).normalized;
             var found=false;SpriteRenderer faded=null;Vector2 hiddenPoint=default;
-            foreach(var tree in plan.Trees.OrderByDescending(t=>t.Scale))
+            foreach(var cell in forest.Cells)
             {
-                hiddenPoint=tree.Point+up*(tree.Scale*1.6f);
+                hiddenPoint=cell;
+                if (Obstacles.IsBlocked(hiddenPoint,mover.CollisionRadius)) continue;
                 mover.transform.position=hiddenPoint;
                 camera.transform.position=(Vector3)hiddenPoint-camera.transform.forward*30;
                 foreach(var sprite in Scenery.GetComponentsInChildren<SpriteRenderer>())
@@ -197,8 +205,8 @@ namespace Not3A.Stage3.VisualPilot.Tests
             }
             Assert.That(faded.color.a,Is.InRange(.349f,.45f));
             yield return AssertVisibleHero(camera,"partial-reveal");
-            Directory.CreateDirectory("Artifacts/S3-DISTRICT-REFINEMENT-20261016/");
-            Save(camera,"Artifacts/S3-DISTRICT-REFINEMENT-20261016/partial-canopy-reveal.png");
+            Directory.CreateDirectory(EvidenceFolder);
+            Save(camera,Path.Combine(EvidenceFolder,"partial-canopy-reveal.png"));
             mover.transform.position=(Vector2)forest.Center+Vector2.one*40;
             refresh(1/60f);
             Assert.That(Mathf.Abs(faded.color.a-previous),Is.LessThan(.09f),"Leaving one sample must not restore opacity instantly.");
@@ -238,14 +246,14 @@ namespace Not3A.Stage3.VisualPilot.Tests
                 ",\"mean_cpu_ms\":"+(milliseconds/2000).ToString("F4",CultureInfo.InvariantCulture)+
                 ",\"managed_bytes\":"+bytes+",\"walking_recoveries\":"+(mover.OverlapRecoveryCount-recoveries)+
                 ",\"maximum_step\":"+maximumJump.ToString("F6",CultureInfo.InvariantCulture)+"}";
-            Directory.CreateDirectory("Artifacts/S3-DISTRICT-REFINEMENT-20261016/");
-            File.WriteAllText("Artifacts/S3-DISTRICT-REFINEMENT-20261016/hot-path-profile.json",json);
+            Directory.CreateDirectory(EvidenceFolder);
+            File.WriteAllText(Path.Combine(EvidenceFolder,"hot-path-profile.json"),json);
             yield return null;
         }
 
         private IEnumerator CaptureContact(string name)
         {
-            const string folder="Artifacts/S3-DISTRICT-REFINEMENT-20261016/";Directory.CreateDirectory(folder);
+            var folder=EvidenceFolder;Directory.CreateDirectory(folder);
             var camera=scene.CameraFollow.BoundCamera;scene.CameraFollow.enabled=false;
             camera.orthographicSize=5f;camera.farClipPlane=300;
             camera.transform.position=scene.PlayerMover.transform.position-camera.transform.forward*30f;
@@ -283,22 +291,33 @@ namespace Not3A.Stage3.VisualPilot.Tests
                 ",\"frame_max_ms\":"+frames[119].ToString("F4",CultureInfo.InvariantCulture)+
                 ",\"visibility_p95_ms\":"+visibility[114].ToString("F4",CultureInfo.InvariantCulture)+
                 ",\"movement_p95_ms\":"+movement[114].ToString("F4",CultureInfo.InvariantCulture)+
-                ",\"walking_recoveries\":"+(mover.OverlapRecoveryCount-recoveries)+",\"environment\":\"Windows Unity PlayMode after 40 warmup frames\"}";
-            Directory.CreateDirectory("Artifacts/S3-DISTRICT-REFINEMENT-20261016/");
-            File.WriteAllText("Artifacts/S3-DISTRICT-REFINEMENT-20261016/walking-frame-profile.json",json);
+                ",\"walking_recoveries\":"+(mover.OverlapRecoveryCount-recoveries)+",\"environment\":\""+Application.platform+" Unity PlayMode after 40 warmup frames\"}";
+            Directory.CreateDirectory(EvidenceFolder);
+            File.WriteAllText(Path.Combine(EvidenceFolder,"walking-frame-profile.json"),json);
         }
 
         [UnityTest]
-        public IEnumerator RealSceneUsesModularSpritesAndCachedMinimapWithoutChangingRules()
+        public IEnumerator RealSceneUsesAuthoredCompoundsAndLockedPointsWithoutChangingRules()
         {
             Assert.That(Districts.Count,Is.EqualTo(6));
-            Assert.That(Districts.All(d=>d.Cells.Count>=200 && d.Cells.Count<=300),Is.True);
+            Assert.That(Districts.All(d=>!d.CutsTerrain),Is.True,"Painted landmarks retain intact terrain.");
             var sprites=Scenery.GetComponentsInChildren<SpriteRenderer>();
-            Assert.That(sprites.Length,Is.GreaterThan(35));
-            Assert.That(sprites.Select(s=>s.sprite.name).Distinct().Count(),Is.GreaterThan(10));
-            Assert.That(Scenery.GetComponentsInChildren<MeshFilter>().Length,Is.EqualTo(10),"Hybrid scenery owns six ground aprons and four relief meshes.");
-            foreach(var filter in Scenery.GetComponentsInChildren<MeshFilter>())
-                foreach(var color in filter.sharedMesh.colors)Assert.That(color.a,Is.InRange(0f,1f),"Ground transition alpha must remain valid.");
+            Assert.That(sprites.Length,Is.EqualTo(6),"Each instance retains one coherent approved artwork.");
+            Assert.That(sprites.Select(s=>s.sprite.name).Distinct().Count(),Is.EqualTo(3));
+            Assert.That(Scenery.GetComponentsInChildren<MeshFilter>().Length,Is.Zero,
+                "Rejected geological cores and aprons must not remain under the artwork.");
+            Assert.That(ProductionPoints.Count,Is.EqualTo(Districts.Count));
+            foreach (var point in ProductionPoints)
+            {
+                Assert.That(point.Resource,Is.EqualTo(Districts[point.DistrictIndex].Kind));
+                Assert.That(point.IsLocked,Is.True);
+                Assert.That(Obstacles.IsBlocked(point.Position,scene.PlayerMover.CollisionRadius),Is.False);
+                foreach (ResourceProductionBuilding building in Enum.GetValues(typeof(ResourceProductionBuilding)))
+                    Assert.That(point.Accepts(building),Is.EqualTo(building==point.Building));
+            }
+            foreach (var sprite in sprites)
+                Assert.That(sprite.bounds.size.x,Is.EqualTo(13.5f).Within(.002f),
+                    "The approved eighteen-unit reference width is reduced linearly by the shared 0.75 data scale.");
             Assert.That(Scenery.GetComponentsInChildren<Collider>().Length,Is.Zero);
             Assert.That(scene.MapDefinition.ComputeDeterministicContentHash(),Is.EqualTo("ACB42D4354F114AE"));
             Assert.That(scene.MapDefinition.Size,Is.EqualTo(new Vector2Int(250,250)));
@@ -310,6 +329,47 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Assert.That(game.RunDriver.Run.StartWave(),Is.True);
             Assert.That(game.Enemies.ActiveCount,Is.GreaterThan(0));
             yield return null;
+        }
+
+        [UnityTest]
+        public IEnumerator LockedPadsHaveClearanceAndApproachWhileOnlySmallNodesGatherWithE()
+        {
+            Regenerate(164032); yield return null;
+            var mover = scene.PlayerMover;
+            var economy = game.Gathering.Economy;
+            foreach (var point in ProductionPoints)
+            {
+                var area = point.Clearance;
+                for (var y = 0; y <= 10; y++)
+                for (var x = 0; x <= 10; x++)
+                    Assert.That(Obstacles.IsBlocked(new Vector2(Mathf.Lerp(area.xMin,area.xMax,x/10f),
+                        Mathf.Lerp(area.yMin,area.yMax,y/10f)),mover.CollisionRadius),Is.False,
+                        point.Resource + " needs its complete reserved pad and hero clearance, not only a free center.");
+                var bounds = Districts[point.DistrictIndex].Bounds;
+                var approaches = new[] { new Vector2(point.Position.x,bounds.yMin-2),
+                    new Vector2(point.Position.x,bounds.yMax+2),new Vector2(bounds.xMin-2,point.Position.y),
+                    new Vector2(bounds.xMax+2,point.Position.y) };
+                Assert.That(approaches.Any(from => !Obstacles.IsBlocked(from,mover.CollisionRadius) &&
+                    Vector2.Distance(Obstacles.Move(from,point.Position-from,mover.CollisionRadius),point.Position)<.01f),
+                    Is.True,point.Resource + " must have a real approach from outside its footprint.");
+            }
+            foreach (var point in ProductionPoints.Take(3))
+            {
+                mover.transform.position=point.Position;
+                input.Press(Keyboard.current.eKey);
+                yield return new WaitForSeconds(economy.GetNode(point.Resource).GatherSeconds+.15f);
+                input.Release(Keyboard.current.eKey); yield return null;
+                foreach (MapResourceKind resource in Enum.GetValues(typeof(MapResourceKind)))
+                    Assert.That(economy.Inventory.Get(resource),Is.Zero,"Large landmarks must not participate in E gathering.");
+            }
+            foreach (MapResourceKind resource in Enum.GetValues(typeof(MapResourceKind)))
+            {
+                mover.transform.position=economy.WorldPosition(resource)+Vector2.left*.5f;
+                input.Press(Keyboard.current.eKey);
+                yield return new WaitForSeconds(economy.GetNode(resource).GatherSeconds+.15f);
+                input.Release(Keyboard.current.eKey); yield return null;
+                Assert.That(economy.Inventory.Get(resource),Is.GreaterThan(0),"Existing small nodes retain held-E gathering.");
+            }
         }
 
         [UnityTest]
@@ -335,7 +395,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
         [UnityTest]
         public IEnumerator CaptureTwoSeedsAndKeepHeroReadableInsideForest()
         {
-            const string folder="Artifacts/S3-DISTRICT-REFINEMENT-20261016/";
+            var folder=EvidenceFolder;
             Directory.CreateDirectory(folder);
             var camera=scene.CameraFollow.BoundCamera;
             scene.CameraFollow.enabled=false;
@@ -406,7 +466,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
                 var a=before[y*1280+x];var b=without[y*1280+x];
                 if(Mathf.Abs(a.r-b.r)+Mathf.Abs(a.g-b.g)+Mathf.Abs(a.b-b.b)>24)changed++;
             }
-            const string folder="Artifacts/S3-DISTRICT-REFINEMENT-20261016/";
+            var folder=EvidenceFolder;
             Directory.CreateDirectory(folder);
             foreach(var pair in new[]{(name:stem+"-with-hero.png",pixels:before),(name:stem+"-without-hero.png",pixels:without)})
             {

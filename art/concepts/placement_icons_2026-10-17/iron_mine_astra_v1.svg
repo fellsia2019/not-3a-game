@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img"><title>Железная шахта</title><style>text{font-family:Arial,Helvetica,sans-serif}</style><g transform="translate(0 0) scale(1.0 1.0)"><defs><mask id="cut_3" maskUnits="userSpaceOnUse" x="0" y="0" width="256" height="256" style="mask-type:luminance"><g transform="rotate(28 130 50)">
+<path d="M124 43H136L138 174Q131 180 124 174Z" fill="white"/>
+<path d="M49 57 83 39 115 33 145 34 177 43 190 48 185 61 169 55 143 49 116 47 85 49Z" fill="white"/>
+<path d="M123 32H137V50H123Z" fill="white"/>
+<path d="M126 39H134V44H126Z" fill="black"/>
+</g>
+<path d="M57 208 72 181 170 172 199 197 193 230 82 239Z" fill="white"/>
+<path d="M73 184 94 209 195 199M94 209 84 235M60 208 91 210" fill="none" stroke="black" stroke-width="6" stroke-linejoin="round"/>
+</mask></defs><rect width="256" height="256" fill="#eee3c5" mask="url(#cut_3)"/></g></svg>

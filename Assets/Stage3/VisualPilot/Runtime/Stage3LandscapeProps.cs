@@ -33,7 +33,7 @@ namespace Not3A.Stage3.VisualPilot
             var rockCells = new HashSet<Vector2Int>();
             if (districts != null)
                 foreach (var district in districts)
-                    if (district.Kind != MapResourceKind.Wood)
+                    if (!district.CutsTerrain || district.Kind != MapResourceKind.Wood)
                         foreach (var cell in district.Cells) rockCells.Add(cell);
 
             for (var x = map.MinimumCell.x - BorderDecorationCells;

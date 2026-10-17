@@ -15,6 +15,7 @@ namespace Not3A.Stage2.Economy
         private bool activeRun = true;
         private bool paused;
         private bool buildMode;
+        private bool productionBuildMode;
         private bool requiresRelease;
         private Stage2Economy economy;
 
@@ -72,6 +73,12 @@ namespace Not3A.Stage2.Economy
             }
         }
 
+        public void SetProductionBuildMode(bool value)
+        {
+            productionBuildMode = value;
+            if (value) { economy?.CancelGather(); requiresRelease = true; }
+        }
+
         public void ResetRun()
         {
             economy?.Reset();
@@ -107,7 +114,7 @@ namespace Not3A.Stage2.Economy
             economy.Tick(Time.deltaTime, activeTime);
             var held = gatherAction != null && gatherAction.IsPressed();
             if (!held) requiresRelease = false;
-            var allowed = activeTime && !buildMode && !requiresRelease;
+            var allowed = activeTime && !buildMode && !productionBuildMode && !requiresRelease;
             var nearest = NearestAvailableNode();
             if (!allowed || !held || !nearest.HasValue)
             {

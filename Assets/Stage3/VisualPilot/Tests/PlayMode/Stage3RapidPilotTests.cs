@@ -230,7 +230,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Assert.That(mesh.bounds.max.y,Is.EqualTo(199.5f).Within(.001f));
             var districtWorld=game.GetComponent("Stage3ResourceDistrictWorld");
             var districts=(IReadOnlyList<ResourceDistrict>)districtWorld.GetType().GetProperty("Districts").GetValue(districtWorld);
-            var reliefCells=districts.Where(d=>d.Kind!=MapResourceKind.Wood).Sum(d=>d.Cells.Count);
+            var reliefCells=districts.Where(d=>d.CutsTerrain && d.Kind!=MapResourceKind.Wood).Sum(d=>d.Cells.Count);
             Assert.That(mesh.vertexCount,Is.EqualTo((250*250-reliefCells)*4),
                 "The full world remains covered, with precisely the approved relief footprints cut out of the grass sheet.");
 
@@ -263,7 +263,8 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Assert.That(inventory.Get(MapResourceKind.Wood),Is.EqualTo(wood));
             Assert.That(inventory.Get(MapResourceKind.Stone),Is.EqualTo(stone));
 
-            const string folder="Artifacts/S3-CURVED-ROAD-20261016/";
+            var folder=(System.Environment.GetEnvironmentVariable("NOT3A_DISTRICT_EVIDENCE") ??
+                "Artifacts/S3-CURVED-ROAD-20261016").TrimEnd('/','\\')+"/";
             SaveRoadView(camera,"new-green-land.png",1200,900,folder);
             bootstrap.CameraFollow.enabled=false;
             camera.orthographicSize=150f;

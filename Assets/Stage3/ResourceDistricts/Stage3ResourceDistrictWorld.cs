@@ -26,10 +26,12 @@ namespace Not3A.Stage3.VisualPilot
         private readonly List<Detail> details=new List<Detail>();
         private readonly Dictionary<Sprite,Mask> masks=new Dictionary<Sprite,Mask>();
         private readonly List<ResourceDistrictLayout> layouts=new List<ResourceDistrictLayout>();
+        private readonly List<ResourceProductionPoint> productionPoints=new List<ResourceProductionPoint>();
         private float visibilityClock;
         public int Seed { get; private set; }
         public IReadOnlyList<ResourceDistrict> Districts { get; private set; }
         public IReadOnlyList<ResourceDistrictLayout> Layouts => layouts;
+        public IReadOnlyList<ResourceProductionPoint> ProductionPoints => productionPoints.AsReadOnly();
         public int SpriteCount => details.Count;
         public int CachedMaskCount => masks.Count;
         public HeroObstacleMap Obstacles { get; private set; }
@@ -53,19 +55,121 @@ namespace Not3A.Stage3.VisualPilot
 
         public void Regenerate(int seed)
         {
-            var generated=ResourceDistrictGenerator.Generate(map,art.settings,seed,heroStart);
+            var footprints = new Dictionary<MapResourceKind, IReadOnlyList<Vector2Int>>();
+            foreach (var landmark in art.landmarks)
+                if (landmark.layers.Length > 0) footprints.Add(landmark.kind, LandmarkFootprint(landmark));
+            var generated=ResourceDistrictGenerator.Generate(map,art.settings,seed,heroStart,footprints);
             ClearScenery();Seed=seed;Districts=generated;Obstacles=new HeroObstacleMap();visibilityClock=0;
             scenery=new GameObject("Procedural resource districts seed "+seed);scenery.transform.SetParent(transform,false);
             var up=new Vector2(view.transform.up.x,view.transform.up.y).normalized;
-            foreach(var district in Districts)
+            for (var districtIndex = 0; districtIndex < Districts.Count; districtIndex++)
             {
+                var district = Districts[districtIndex];
+                var landmark = Array.Find(art.landmarks, entry => entry.kind == district.Kind && entry.layers.Length > 0);
+                if (landmark != null) { BuildLandmark(district, landmark, districtIndex); continue; }
                 var layout=new ResourceDistrictLayout(district,art.shape,up);layouts.Add(layout);Build(layout);
             }
+            GetComponent<Stage2GameComposition>()?.Production?.BindWorld(productionPoints, Obstacles);
             mover?.BindObstacles(Obstacles,art.heroCollisionRadius);
             minimap?.SetResourceDistricts(Districts);rebuildLandscape?.Invoke(Districts);
+            var reservedCells = 0; foreach (var district in Districts) reservedCells += district.Cells.Count;
+            var representation = layouts.Count == 0 ? "authored" : productionPoints.Count == 0 ? "hybrid" : "mixed-pilot";
             Debug.Log($"S3_RESOURCE_DISTRICTS_READY seed={Seed} districts={Districts.Count} sprites={SpriteCount} "+
-                $"cells={art.settings.minimumCells}..{art.settings.maximumCells} economyChanges=0 "+
-                $"solidStrips={Obstacles.Rectangles.Count} groundCircles={Obstacles.Circles.Count} hybrid=true masks={masks.Count}");
+                $"reservedCells={reservedCells} economyChanges=0 representation={representation} "+
+                $"solidStrips={Obstacles.Rectangles.Count} groundCircles={Obstacles.Circles.Count} "+
+                $"productionPoints={productionPoints.Count} masks={masks.Count}");
+        }
+
+        private IReadOnlyList<Vector2Int> LandmarkFootprint(Stage3ResourceLandmark definition)
+        {
+            if (definition.groundContour.Length < 3)
+                throw new ArgumentException("Authored landmark needs a ground contour.");
+            var scale = art.landmarkScale;
+            var min = definition.groundContour[0] * scale;
+            var max = min;
+            foreach (var point in definition.groundContour)
+            { min = Vector2.Min(min, point * scale); max = Vector2.Max(max, point * scale); }
+            var half = definition.productionClearance * scale * .5f;
+            var pointCenter = definition.productionPoint * scale;
+            min = Vector2.Min(min, pointCenter - half); max = Vector2.Max(max, pointCenter + half);
+            var cells = new List<Vector2Int>();
+            var clearance = new Rect(pointCenter - half, half * 2);
+            bool InContour(Vector2 point)
+            {
+                var inside = false;
+                var polygon = definition.groundContour;
+                for (var i = 0; i < polygon.Length; i++)
+                {
+                    var a = polygon[i] * scale;
+                    var b = polygon[(i + 1) % polygon.Length] * scale;
+                    if ((a.y > point.y) != (b.y > point.y) &&
+                        point.x < (b.x - a.x) * (point.y - a.y) / (b.y - a.y) + a.x) inside = !inside;
+                }
+                return inside;
+            }
+            // Reserve the authored contour and its future building clearance.
+            // Collision remains independently authored ground areas/trunks, never image alpha.
+            for (var y = Mathf.FloorToInt(min.y); y <= Mathf.CeilToInt(max.y); y++)
+            for (var x = Mathf.FloorToInt(min.x); x <= Mathf.CeilToInt(max.x); x++)
+            {
+                var cell = new Rect(x-.5f,y-.5f,1,1);
+                if (clearance.Overlaps(cell) || InContour(cell.center) ||
+                    InContour(cell.min) || InContour(cell.max) ||
+                    InContour(new Vector2(cell.xMin,cell.yMax)) || InContour(new Vector2(cell.xMax,cell.yMin)))
+                    cells.Add(new Vector2Int(x, y));
+            }
+            return cells;
+        }
+
+        private void BuildLandmark(ResourceDistrict district, Stage3ResourceLandmark definition, int districtIndex)
+        {
+            var root = new GameObject(district.Kind + " authored landmark " + district.Seed).transform;
+            root.SetParent(scenery.transform, false);
+            var scale = art.landmarkScale;
+            var origin = (Vector2)district.Center;
+            foreach (var rect in definition.solidGround)
+                Obstacles.AddRectangle(new Rect(origin + rect.position * scale, rect.size * scale));
+            foreach (var trunk in definition.groundCircles)
+                Obstacles.AddCircle(origin + trunk.center * scale, trunk.radius * scale);
+            productionPoints.Add(new ResourceProductionPoint(districtIndex, district.Kind,
+                origin + definition.productionPoint * scale, definition.productionClearance * scale,
+                definition.productionFacingDegrees));
+            foreach (var layer in definition.layers)
+            {
+                var point = origin + layer.groundAnchor * scale;
+                var sprite = layer.sprite;
+                var factor = layer.width * scale / sprite.bounds.size.x;
+                var renderer = new GameObject(sprite.name).AddComponent<SpriteRenderer>();
+                renderer.transform.SetParent(root, false);
+                renderer.sprite = sprite; renderer.sharedMaterial = art.material;
+                renderer.color = Color.white;
+                renderer.transform.localScale = Vector3.one * factor;
+                var belowPivot = sprite.pivot.y / sprite.pixelsPerUnit * factor;
+                var clearance = belowPivot * Mathf.Abs(view.transform.up.z) /
+                    Mathf.Max(.1f, Mathf.Abs(view.transform.forward.z)) + .08f;
+                var anchor = new Vector3(point.x, point.y, Stage3TacticalPresentation.GrassSurfaceZ(point));
+                renderer.transform.SetPositionAndRotation(anchor - view.transform.forward * clearance, view.transform.rotation);
+                renderer.sortingOrder = layer.groundLayer ? short.MinValue : -Mathf.RoundToInt(point.y * 100);
+                if (layer.groundImageAreas.Length > 0)
+                {
+                    var block = new MaterialPropertyBlock();
+                    var regions = new Vector4[8];
+                    for (var i = 0; i < Mathf.Min(8, layer.groundImageAreas.Length); i++)
+                    {
+                        var region = layer.groundImageAreas[i];
+                        regions[i] = new Vector4(region.xMin, region.yMin, region.xMax, region.yMax);
+                    }
+                    block.SetVectorArray("_LandmarkGroundAreas", regions);
+                    block.SetFloat("_LandmarkGroundAreaCount", Mathf.Min(8, layer.groundImageAreas.Length));
+                    var forward = view.transform.forward;
+                    block.SetVector("_LandmarkGroundPlane", new Vector4(forward.x,forward.y,forward.z,-Stage3TacticalPresentation.GrassVisualLift-.125f));
+                    renderer.SetPropertyBlock(block);
+                }
+                details.Add(new Detail { Renderer = renderer, Color = Color.white,
+                    Center = renderer.transform.TransformPoint(sprite.bounds.center),
+                    Width = sprite.bounds.size.x * factor, Height = sprite.bounds.size.y * factor, Mask = masks[sprite],
+                    GroundImageAreas = layer.groundImageAreas });
+            }
         }
 
         private void Build(ResourceDistrictLayout plan)
@@ -84,6 +188,9 @@ namespace Not3A.Stage3.VisualPilot
                 return;
             }
             Obstacles.AddSolidCells(district.Cells);
+            Vector3[] relief=null;
+            foreach(var filter in root.GetComponentsInChildren<MeshFilter>())
+                if(filter.name=="Coherent terraced geology")relief=filter.sharedMesh.vertices;
             // A few edge accents sit on the structural surface. Interior cliffs belong to the mesh.
             var placed=new List<Vector2>();
             foreach(var cell in district.Cells)
@@ -97,11 +204,18 @@ namespace Not3A.Stage3.VisualPilot
                         if(plan.Heights.TryGetValue(cell+direction,out var neighbor) && plan.Heights[cell]>neighbor+.5f)lip=true;
                 if((!edge && !lip) || rng.NextDouble()>(edge?.78:.22))continue;
                 var point=(Vector2)cell;
+                if(edge && district.Kind==MapResourceKind.Metal)
+                {
+                    var rimOutward=Vector2.zero;
+                    foreach(var direction in new[]{Vector2Int.up,Vector2Int.right,Vector2Int.down,Vector2Int.left})
+                        if(!plan.Heights.ContainsKey(cell+direction))rimOutward+=(Vector2)direction;
+                    if(rimOutward.sqrMagnitude>.01f)point+=rimOutward.normalized*.65f;
+                }
                 var clear=true;foreach(var other in placed)if(Vector2.Distance(point,other)<2.25f){clear=false;break;}
                 if(!clear)continue;placed.Add(point);
                 var scale=(edge?.60f:.40f)+(float)rng.NextDouble()*.28f;
                 var index=rng.Next(3)+(district.Kind==MapResourceKind.Metal?3:0);
-                Add(art.rocks[index],point,scale,rng,root,true,plan.Heights[cell]);
+                Add(art.rocks[index],point,scale,rng,root,true,Stage3DistrictGeometry.SurfaceHeight(plan,art,point),relief);
                 Obstacles.AddCircle(point,scale*art.rockFootprintRadius);
             }
             if(district.Kind!=MapResourceKind.Metal)return;
@@ -114,11 +228,11 @@ namespace Not3A.Stage3.VisualPilot
             Obstacles.AddCircle(hoist,art.hoistFootprintRadius*.8f);
             // The lower shoring/ore are grounded on the deepest connected landing, never scattered midair.
             var landing=district.Center;var height=plan.Heights[landing];
-            Add(art.mineParts[4],(Vector2)landing+up*.15f,.55f,rng,root,false,height);
-            Add(art.mineParts[2],(Vector2)landing+right*.45f,.32f,rng,root,true,height);
+            Add(art.mineParts[4],(Vector2)landing+up*.15f,.55f,rng,root,false,height,relief);
+            Add(art.mineParts[2],(Vector2)landing+right*.45f,.32f,rng,root,true,height,relief);
         }
 
-        private void Add(Sprite sprite,Vector2 point,float scale,System.Random rng,Transform root,bool flip=true,float height=0)
+        private void Add(Sprite sprite,Vector2 point,float scale,System.Random rng,Transform root,bool flip=true,float height=0,Vector3[] relief=null)
         {
             var renderer=new GameObject(sprite.name).AddComponent<SpriteRenderer>();renderer.transform.SetParent(root,false);
             renderer.sprite=sprite;renderer.sharedMaterial=art.material;
@@ -129,7 +243,25 @@ namespace Not3A.Stage3.VisualPilot
             var belowPivot=sprite.pivot.y/sprite.pixelsPerUnit*renderer.transform.localScale.y;
             var clearance=belowPivot*Mathf.Abs(view.transform.up.z)/Mathf.Max(.1f,Mathf.Abs(view.transform.forward.z))+.04f;
             var z=Mathf.Abs(height)>.0001f?-height:Stage3TacticalPresentation.GrassSurfaceZ(point);
-            renderer.transform.SetPositionAndRotation(new Vector3(point.x,point.y,z)-view.transform.forward*clearance,view.transform.rotation);
+            var anchor=new Vector3(point.x,point.y,z);
+            if(relief!=null)
+            {
+                // A camera-facing painted rock has no physical thickness. Push its plane
+                // only in view depth past its own relief envelope, preserving screen position
+                // and the ground/collision anchor. Transparent margins do not participate.
+                var bounds=sprite.bounds;var mask=masks[sprite];
+                foreach(var vertex in relief)
+                {
+                    var relative=vertex-anchor;
+                    var x=Vector3.Dot(relative,view.transform.right)/renderer.transform.localScale.x;
+                    var y=Vector3.Dot(relative,view.transform.up)/renderer.transform.localScale.y;
+                    if(renderer.flipX)x=-x;
+                    var u=(x-bounds.min.x)/bounds.size.x;var v=(y-bounds.min.y)/bounds.size.y;
+                    if(u<0 || u>=1 || v<0 || v>=1 || !mask.Opaque[(int)(v*Mask.Size)*Mask.Size+(int)(u*Mask.Size)])continue;
+                    clearance=Mathf.Max(clearance,-Vector3.Dot(relative,view.transform.forward)+.08f);
+                }
+            }
+            renderer.transform.SetPositionAndRotation(anchor-view.transform.forward*clearance,view.transform.rotation);
             renderer.sortingOrder=-Mathf.RoundToInt(point.y*100);
             var localCenter=sprite.bounds.center;
             if(renderer.flipX)localCenter.x=-localCenter.x;
@@ -141,7 +273,11 @@ namespace Not3A.Stage3.VisualPilot
         {
             masks.Clear();
             var textures=new Dictionary<Texture2D,Color32[]>();
-            foreach(var set in new[]{art.trees,art.rocks,art.mineParts})foreach(var sprite in set)
+            var sprites = new List<Sprite>();
+            foreach (var set in new[] { art.trees, art.rocks, art.mineParts }) sprites.AddRange(set);
+            foreach (var landmark in art.landmarks)
+                foreach (var layer in landmark.layers) sprites.Add(layer.sprite);
+            foreach(var sprite in sprites)
             {
                 var texture=sprite.texture;
                 if(!textures.TryGetValue(texture,out var pixels)){pixels=texture.GetPixels32();textures[texture]=pixels;}
@@ -193,6 +329,10 @@ namespace Not3A.Stage3.VisualPilot
                 if(!screen.Contains(point))continue;
                 var u=(point.x-screen.xMin)/screen.width;var v=(point.y-screen.yMin)/screen.height;
                 if(detail.Renderer.flipX)u=1-u;
+                var ground = false;
+                foreach (var region in detail.GroundImageAreas)
+                    if (region.Contains(new Vector2(u,v))) { ground = true; break; }
+                if (ground) continue;
                 if(detail.Mask.Opaque[Mathf.Clamp((int)(v*Mask.Size),0,Mask.Size-1)*Mask.Size+Mathf.Clamp((int)(u*Mask.Size),0,Mask.Size-1)])return true;
             }
             return false;
@@ -206,7 +346,7 @@ namespace Not3A.Stage3.VisualPilot
                 foreach(var filter in scenery.GetComponentsInChildren<MeshFilter>(true))if(filter.sharedMesh!=null)Destroy(filter.sharedMesh);
                 Destroy(scenery);
             }
-            details.Clear();layouts.Clear();
+            details.Clear();layouts.Clear();productionPoints.Clear();
         }
         private void OnDestroy()
         {
@@ -219,6 +359,7 @@ namespace Not3A.Stage3.VisualPilot
         {
             internal SpriteRenderer Renderer;internal Color Color;internal Vector3 Center;
             internal float Width,Height,Velocity,HoldUntil;internal Mask Mask;
+            internal Rect[] GroundImageAreas = Array.Empty<Rect>();
         }
     }
 }

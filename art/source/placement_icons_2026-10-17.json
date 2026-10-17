@@ -1,0 +1,59 @@
+{
+  "date": "2026-10-17",
+  "status": "Rejected by owner for unrealistic bent forms and incorrect proportions; retained as history, not imported to Unity",
+  "authoring": "Original code-authored SVG path geometry by Codex for this project",
+  "sourceRights": "No external assets, traced references, third-party icon libraries or bitmap inputs. Newly authored project vector artwork.",
+  "scope": "Replacement for unreadable D-059 ground pad glyphs; no gameplay or runtime edits",
+  "proposals": {
+    "sawmill": "Axe plus log",
+    "quarry": "Pickaxe plus faceted stone",
+    "iron_mine": "Pickaxe plus ingot; proposed metal pictogram only"
+  },
+  "preview": {
+    "file": "art/concepts/placement_icons_2026-10-17/approval_sheet_v1.png",
+    "render": "Native macOS SVG Quick Look render; CoreGraphics viewport crop to 1260x1030",
+    "large": "200px nominal SVG view",
+    "small": [
+      32,
+      48,
+      64
+    ],
+    "ground": "Schematic vector ground swatches, 55-degree camera vertical projection factor .819; not a Unity capture"
+  },
+  "verification": [
+    "All SVG XML parsed",
+    "All glyphs contain original vector paths and negative-space masks, no bitmap layers",
+    "Full rendered sheet visually inspected, including small and projected examples"
+  ],
+  "remaining": [
+    "Owner artistic approval/refinement",
+    "Runtime vector conversion and actual scene verification after approval"
+  ],
+  "files": [
+    {
+      "file": "art/concepts/placement_icons_2026-10-17/approval_sheet_v1.png",
+      "sha256": "c71ef166d62281d3a424305f75843774c6198ff92ad601141684404c491c3978"
+    },
+    {
+      "file": "art/concepts/placement_icons_2026-10-17/approval_sheet_v1.svg",
+      "sha256": "0d29938694ed080d2e9320ff9b4d05c7b8157b23fd937bffd84fd7756e1f3d7c"
+    },
+    {
+      "file": "art/concepts/placement_icons_2026-10-17/build_preview.py",
+      "sha256": "b494c047ab8647bd3af6a635dc090b7fc53c7c21e98705c759a26d0c4c976fb3"
+    },
+    {
+      "file": "art/concepts/placement_icons_2026-10-17/iron_mine_v1.svg",
+      "sha256": "a2df592e69c65648a19c6127eb924bbd5ee84b7ec0d6a413d570fc147fcb27c2"
+    },
+    {
+      "file": "art/concepts/placement_icons_2026-10-17/quarry_v1.svg",
+      "sha256": "a924d30cd43ab2112a26dd5a792d62c84a9293bc08259f943d37999f5cbc2d31"
+    },
+    {
+      "file": "art/concepts/placement_icons_2026-10-17/sawmill_v1.svg",
+      "sha256": "4f6f89192417cd8924299978a42390d63f2be2c4e33f73900fadb65d5cebc283"
+    }
+  ],
+  "supersedingProposal": "art/source/placement_icons_astra_2026-10-17.json (awaits owner artistic approval)"
+}

@@ -1,0 +1,100 @@
+{
+  "date": "2026-10-16",
+  "generator": "Built-in image_gen.imagegen",
+  "scope": "Reference-faithful authored large resource landmarks; production buildings separated from deposit art",
+  "input_role": "Project-owned original D-053 artwork used as edit target",
+  "visual_status": "All three authored source edits and final Unity Game-camera views independently inspected against original concepts. Mac technical checks pass; owner appearance acceptance pending.",
+  "assets": [
+    {
+      "key": "stone_landmark_v1",
+      "file": "art/concepts/resource_landmarks_2026-10-16/stone_landmark_v1.png",
+      "generatedSource": "/Users/artemmusket/.codex/generated_images/01a14575-3d7f-7d73-88b5-4ee429ffa178/exec-451f068f-afd2-4e58-af06-70f1bbcf2d70.png",
+      "editTarget": "art/concepts/resource_districts_2026-10-16/stone_quarry.png",
+      "transparentBackground": true,
+      "prompt": "Use case: background-extraction / precise-object-edit.\nAsset type: high-detail game-world quarry landmark sprite, derived faithfully from the project's OWN original illustration.\nInput image 1 is the EDIT TARGET and exact visual authority, not loose inspiration. Preserve its original quarry rather than designing a new quarry.\nPrimary request: isolate the complete connected PALE GRANITE QUARRY as a genuinely transparent RGBA world asset. Keep the exact same fixed orthographic camera, composition, silhouette, stepped layout, chunky hand-painted volume, lighting, palette and fine detail of the supplied image. The large high left/rear rock massif, all the angular cut stone faces, dark narrow cracks, broad descending worked terraces, loose blocks, chips, grassy ledges and contact shadows must remain as shown. Do not replace any of this with a smooth mound or scattered stones. Preserve the sharp layered stone architecture and the painted surface texture at full detail.\nChange only these things: (1) remove the roofed quarry workshop at lower left and the wooden crane/derrick on the right, since those will become separate constructible building assets later; fill their vacated spots with matching bare quarry ground, keeping a clear usable construction pad where the workshop was; no new building, foundations, marker or symbol. (2) remove the distant uniform green backdrop outside the irregular connected quarry/foreground work-pad footprint, making that area truly transparent. Keep the quarry's own close grass tufts, small bushes, loose rocks, local earth, and soft contact shadows attached to its silhouette; transition the outer local ground edge cleanly into alpha with no rectangular ground plate or black/white halo. Remove remote standalone background trees that are not part of this quarry footprint.\nInvariants: no restyling, no camera change, no rearranging or smoothing the rock mass, no reduced detail, no different colors, no extra architecture, no labels/UI/text/watermark. Keep the full connected landmark in frame at approximately the original scale with transparent margins. Preserve reference appearance as closely as possible. Output one coherent detailed quarry cutout, not a sheet or collage.",
+      "rights": "Original project-generated source and derived artwork; no third-party inputs",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "sha256": "7e5aef7b7075a5f6291ef23da86ac182bc6074919bc1281df33d99118271c629",
+      "editTargetSha256": "5bca18b823e3ffe85b601273615b3e00ea98c23e8150873f0af4e98ce2a1bafc",
+      "alphaExtrema": [
+        0,
+        254
+      ],
+      "visibleBoundsAlpha32": [
+        12,
+        10,
+        1524,
+        1001
+      ],
+      "visibleBoundsAlpha128": [
+        13,
+        11,
+        1523,
+        1000
+      ],
+      "runtimeAsset": "Assets/Stage3/ResourceDistricts/Landmarks/StoneLandmark.png",
+      "runtimeSourceIdentityVerified": true,
+      "originalReferenceGitContentVerified": "origin/main at d0ad1b380d8eef9d3e470692e4bd0cebc061ae42"
+    },
+    {
+      "key": "iron_landmark_v1",
+      "file": "art/concepts/resource_landmarks_2026-10-16/iron_landmark_v1.png",
+      "generatedSource": "/Users/artemmusket/.codex/generated_images/01a14575-3d7f-7d73-88b5-4ee429ffa178/exec-605c3dfe-dab8-4c80-b549-c2269f07164f.png",
+      "editTarget": "art/concepts/resource_districts_2026-10-16/iron_mine.png",
+      "transparentBackground": true,
+      "prompt": "Use case: background-extraction / precise-object-edit.\nAsset type: high-detail iron-deposit excavation world-landmark sprite for the project's fixed orthographic camera.\nInput image 1 is the EDIT TARGET, the project's own original iron_mine concept. Preserve this very excavation, rock arrangement and painting; it is the visual authority, not loose inspiration.\nPrimary request: make a genuinely transparent RGBA cutout of the complete connected dark iron-bearing rock massif and deep descending excavation. Keep its original camera, composition, scale, silhouette, charcoal and cool-slate stones with restrained rusty veins, detailed irregular fractured faces, heavy enclosing rim, clear negative depth, and all connected interior stone stairs and wooden landings/shoring. Keep all the subtle painted volume, fine cracks, edge highlights, chips, ore fragments, small close grass/bushes and local contact shadows exactly as closely as possible to the input. The shaft must still look deep, with every descent and landing understandable from this exact elevated view. Do not simplify it into a smooth bowl or generic gray terrain.\nChange only: remove the ABOVE-GROUND timber hoist/headframe, pulley, hanging rope/bucket, and the small red-roofed winch/station house on the upper-right rim; these are future separately built structures. Reconstruct their vacated upper-right rim position as a clear accessible flat rock/earth construction pad of matching material, connected to the outside approach. Keep the existing interior shoring, landings and stairs that are part of the excavation structure. No new station, building marker, arrow or foundation.\nRemove the remote uniform green background outside the connected irregular rock/foreground approach footprint, replacing it with actual transparency; retain close small vegetation and soft grounded edge detail. Keep the complete object fully inside the frame with transparent margins and no rectangular ground tile, black halo or white fringe. Preserve the original hand-painted fantasy-game style, detailed rocks and composition; no camera rotation, restyling, reduced detail, extra props, characters, UI, text or watermark. Output one coherent original-reference-faithful world landmark, not a sheet/collage.",
+      "rights": "Original project-generated source and derived artwork; no third-party inputs",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "sha256": "9e6f34b7eac7f79db8765587869d803c49e631fe2349170d0309fb20146b51f3",
+      "editTargetSha256": "0e8faa3e7bc354fb7162b5fe160e01d39e771ab9e96f8c4ac73181740ea410db",
+      "alphaExtrema": [
+        0,
+        254
+      ],
+      "visibleBoundsAlpha128": [
+        10,
+        19,
+        1510,
+        992
+      ],
+      "runtimeAsset": "Assets/Stage3/ResourceDistricts/Landmarks/IronLandmark.png",
+      "runtimeSourceIdentityVerified": true,
+      "originalReferenceGitContentVerified": "origin/main at d0ad1b380d8eef9d3e470692e4bd0cebc061ae42"
+    },
+    {
+      "key": "forest_landmark_v1",
+      "file": "art/concepts/resource_landmarks_2026-10-16/forest_landmark_v1.png",
+      "generatedSource": "/Users/artemmusket/.codex/generated_images/01a14575-3d7f-7d73-88b5-4ee429ffa178/exec-3ccb9298-2755-4a48-b961-ac030f505077.png",
+      "editTarget": "art/concepts/resource_districts_2026-10-16/forest_sawmill.png",
+      "transparentBackground": true,
+      "prompt": "Use case: background-extraction / precise-object-edit.\nAsset type: coherent high-detail forest resource-landmark sprite for a fixed orthographic fantasy game.\nInput image 1 is the EDIT TARGET: the project's OWN exact original forest_sawmill illustration. Preserve THIS forest composition and painted tree designs, not a new interpretation or loose style match.\nPrimary request: make a genuinely transparent RGBA cutout of the entire connected conifer forest landmark and its natural front clearing. Keep the exact original camera/viewpoint, silhouette, the rich overlapping groups of mature firs, their full painted volume/needled branches/brown trunks, small young trees, saplings and stumps, rock accents, forest floor details and dappled soft contact shadows. Preserve original tree positions and relative sizes, dense mature rear canopy, irregular side groves, connected openings and the bright accessible foreground clearing. Maintain the full reference detail and its cohesive palette and lighting. Do not spread trees into a sparse evenly distributed scatter, do not simplify leaves or make generic low-detail sprites, and do not change the scene layout.\nChange ONLY these items: remove the red-roofed SAWMILL/workshop at lower right, its saw bench/blade, attached log/plank stacks and man-made nursery fence. A sawmill will be a separately constructible asset later. Reconstruct their vacated space as a natural accessible bare-earth/grass clearing with enough free space exactly where the workshop stood. Keep the original young/regrowing firs as natural vegetation, with no farming fence or building marker. Keep all surrounding forest unchanged.\nRemove the remote uniform green backdrop outside the connected forest/clearing/close-ground footprint to TRUE alpha transparency. Retain attached small grass, bushes, stones, dirt paths and soft natural shadows around the irregular perimeter. No large rectangular ground tile, black/white fringe, checkerboard painted into the image or flat background. The whole landmark must fit completely in frame with transparent margins. Preserve original art fidelity, volume, details, framing and color; no new structures, characters, UI, labels, arrows, watermarks or extra tree species. Output one cohesive authored forest landmark, not a collage, modular sheet or separate objects laid out on a grid.",
+      "rights": "Original project-generated source and derived artwork; no third-party inputs",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "sha256": "8f10194d34768911732871244cb396aca01a6cd493606e98148f2e61442d9f01",
+      "editTargetSha256": "3d6e82f5c8221b179376b37c43c478dd07fcad1a460b3e7449851c7ebee12bd6",
+      "alphaExtrema": [
+        0,
+        254
+      ],
+      "visibleBoundsAlpha128": [
+        14,
+        10,
+        1521,
+        979
+      ],
+      "runtimeAsset": "Assets/Stage3/ResourceDistricts/Landmarks/ForestLandmark.png",
+      "runtimeSourceIdentityVerified": true,
+      "originalReferenceGitContentVerified": "origin/main at d0ad1b380d8eef9d3e470692e4bd0cebc061ae42"
+    }
+  ],
+  "verification": "art/review/resource_landmarks_2026-10-16_verification.json"
+}

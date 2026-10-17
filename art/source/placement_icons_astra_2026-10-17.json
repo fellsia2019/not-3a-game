@@ -1,0 +1,78 @@
+{
+  "date": "2026-10-17",
+  "author": "GPT-6 Astra, delegated by the project owner",
+  "status": "Proposal for owner artistic approval only; not imported or runtime-ready",
+  "scope": "Three replacement resource-production pad vector concepts; Unity, scenes, gameplay and previous v1 files unchanged",
+  "authorship_and_rights": "Original SVG geometry authored for this project. No third-party artwork, tracing, downloaded icons, fonts embedded as outlines, or image-generation assets used. Native system fonts are used only for review-sheet labels.",
+  "reviewed_context": [
+    "art/concepts/placement_icons_2026-10-17/approval_sheet_v1.png",
+    "art/concepts/placement_icons_2026-10-17/build_preview.py",
+    "art/review/placement_readability_sawmill_marker_close_2026-10-16.png",
+    "art/review/placement_readability_quarry_marker_close_2026-10-16.png",
+    "art/review/placement_readability_ironmine_marker_close_2026-10-16.png"
+  ],
+  "design": {
+    "tools": "Rigid 28-degree rotation of straight shafts; axe with poll, eye and flared bit; asymmetric pick head with narrow point and short chisel end, without umbrella arc",
+    "resources": "Cylinder/log end-grain; irregular fractured stone plus separate chip; regular metal bar with three broad planes",
+    "metal_note": "Metal bar is a pictogram proposal only, not a new resource type or smelting mechanic",
+    "negative_space": "True alpha via SVG luminance masks, not painted background-colored holes"
+  },
+  "render": {
+    "engine": "macOS Quick Look qlmanage native SVG renderer",
+    "sheet_pixels": [
+      1260,
+      1030
+    ],
+    "small_sizes_px": [
+      32,
+      48,
+      64
+    ],
+    "ground_projection": {
+      "vertical_scale": 0.819,
+      "camera_degrees": 55,
+      "type": "schematic, not live Unity evidence"
+    },
+    "commands": [
+      "python3 art/concepts/placement_icons_2026-10-17/build_astra_preview.py",
+      "qlmanage -t -s 1260 -o /tmp /tmp/not-3a-placement-icons-astra-preview.svg",
+      "/tmp/not-3a-icon-sheet-crop /tmp/not-3a-placement-icons-astra-preview.svg.png art/concepts/placement_icons_2026-10-17/approval_sheet_astra_v1.png"
+    ]
+  },
+  "verification": [
+    "All four SVG files parsed as XML; unique mask IDs",
+    "Native rendered final PNG opened and visually inspected",
+    "Large,32,48,64px and compressed-ground rows inspected",
+    "Final PNG dimensions confirmed1260x1030"
+  ],
+  "remaining": [
+    "Owner artistic approval",
+    "Only after approval: runtime conversion and live fixed-camera readability verification"
+  ],
+  "files": [
+    {
+      "path": "art/concepts/placement_icons_2026-10-17/sawmill_astra_v1.svg",
+      "sha256": "af2f2d17d24eaa4ce6cdc02908cbcf12423e54f2188aa9731ce84da256816f67"
+    },
+    {
+      "path": "art/concepts/placement_icons_2026-10-17/quarry_astra_v1.svg",
+      "sha256": "457e12f2ab5858e8e17962bb04339faf0bbf77e1c86fdbc0d5979a9c9fa0b764"
+    },
+    {
+      "path": "art/concepts/placement_icons_2026-10-17/iron_mine_astra_v1.svg",
+      "sha256": "b171dde12865c4e05bc902e947d55340618113cf66d97313043b3fb553babb75"
+    },
+    {
+      "path": "art/concepts/placement_icons_2026-10-17/approval_sheet_astra_v1.svg",
+      "sha256": "068d8a7777dc1923c96fbb6265c873b05652952b369d6c88c2302b7f966805a4"
+    },
+    {
+      "path": "art/concepts/placement_icons_2026-10-17/approval_sheet_astra_v1.png",
+      "sha256": "ba5c5833679dfb287b16cf748583872794cf54d44d175a20cd41da4dd6b583a5"
+    },
+    {
+      "path": "art/concepts/placement_icons_2026-10-17/build_astra_preview.py",
+      "sha256": "0753a09075d9ad09f6fee7319488414c1def7c5a393fc65e3388d1fe422144f8"
+    }
+  ]
+}

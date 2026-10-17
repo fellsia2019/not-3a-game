@@ -1,0 +1,141 @@
+{
+  "date": "2026-10-16",
+  "decision": "D-057",
+  "scope": "Three coherent fixed-composition resource landmark categories, safe seeded origins; no production buildings/economy/UI added",
+  "environment": "macOS Unity 6000.6.2f1 ARM64 / Metal",
+  "landmarkLinearScale": 0.75,
+  "runtimeInstances": 6,
+  "lockedPointContracts": [
+    "Wood/Sawmill",
+    "Stone/Quarry",
+    "Metal/IronMine"
+  ],
+  "sourceCatalog": "art/source/resource_landmarks_2026-10-16_generation.json",
+  "visualReview": "Final whole/normal/close Game-camera captures and production pads independently inspected against original project-owned D-053 concepts. Fixed artwork composition retains silhouette/material/detail. Human appearance acceptance remains pending.",
+  "tests": [
+    {
+      "file": "Artifacts/S3-AUTHORED-RESOURCE-LANDMARKS-20261016/final-editmode.xml",
+      "result": "Passed",
+      "passed": 27,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "file": "Artifacts/S3-AUTHORED-RESOURCE-LANDMARKS-20261016/final-playmode.xml",
+      "result": "Passed",
+      "passed": 12,
+      "failed": 0,
+      "skipped": 0
+    }
+  ],
+  "verifiedBehavior": [
+    "All six locked production clearances sampled with hero radius and a free approach from outside",
+    "Held E does not gather large landmarks; all three existing small node categories still gather",
+    "Continuous contact including x10/x10 keyboard movement; close-trunk overlap regression fixed",
+    "Seed reproducibility, changed-seed origin variation, restart retention and regeneration cleanup",
+    "Local smooth partial canopy reveal and visible hero on clear construction pads",
+    "Intact terrain, authored map hash and minimap contracts preserved"
+  ],
+  "profile": {
+    "samples": 2000,
+    "total_cpu_ms": 112.8168,
+    "mean_cpu_ms": 0.0564,
+    "managed_bytes": 0,
+    "walking_recoveries": 0,
+    "maximum_step": 0.070002
+  },
+  "preservation": {
+    "protectedFiles": 240,
+    "changed": [],
+    "originalReferencesIdenticalToOriginMain": true,
+    "runtimePngsIdenticalToGeneratedSources": true
+  },
+  "freshStartupCaptureLog": "Artifacts/S3-AUTHORED-RESOURCE-LANDMARKS-20261016/final-live.log",
+  "freshStartupCaptureErrorScan": [],
+  "intermediateHistory": [
+    "playmode.xml:10/12, before head-on fixture update and close-trunk collision fix",
+    "movement-diagnostic.xml:exact overlap reproduction",
+    "stone-iron.log:intermediate Play hot-reload null state, superseded by clean fresh final startup"
+  ],
+  "remaining": [
+    "Human artistic judgement",
+    "Windows verification/build for this revision; technical checks here ran on Mac",
+    "Production building visuals/construction/production are future work"
+  ],
+  "frames": [
+    {
+      "file": "art/review/resource_landmark_forest_164032_2026-10-16.png",
+      "source": "Artifacts/S3-AUTHORED-RESOURCE-LANDMARKS-20261016/final-capture/Wood-164032-5.png",
+      "sha256": "b1a572334d4771c1bad0e916eed5e492264f55ae52a2ad4bbae0ecfa2ed6be47",
+      "view": "Game camera orthographic size 5",
+      "seed": 164032
+    },
+    {
+      "file": "art/review/resource_landmark_forest_164033_2026-10-16.png",
+      "source": "Artifacts/S3-AUTHORED-RESOURCE-LANDMARKS-20261016/final-capture/Wood-164033-5.png",
+      "sha256": "9f8868c5df0812b23ebda62d58c0db758435c341293980dd40dd1a6be061b915",
+      "view": "Game camera orthographic size 5",
+      "seed": 164033
+    },
+    {
+      "file": "art/review/resource_landmark_forest_production_point_2026-10-16.png",
+      "source": "Artifacts/S3-AUTHORED-RESOURCE-LANDMARKS-20261016/final-capture/Wood-production-point.png",
+      "sha256": "8ec829db6dd6526239678519bb36f0a213959713a4585957bd787e146aee200a",
+      "view": "Hero at locked production point"
+    },
+    {
+      "file": "art/review/resource_landmark_stone_164032_2026-10-16.png",
+      "source": "Artifacts/S3-AUTHORED-RESOURCE-LANDMARKS-20261016/final-capture/Stone-164032-5.png",
+      "sha256": "c84941df95e12a301aace6b2fca36614971c598e5e0691eb1c63843ec9b96405",
+      "view": "Game camera orthographic size 5",
+      "seed": 164032
+    },
+    {
+      "file": "art/review/resource_landmark_stone_164033_2026-10-16.png",
+      "source": "Artifacts/S3-AUTHORED-RESOURCE-LANDMARKS-20261016/final-capture/Stone-164033-5.png",
+      "sha256": "8ab2b37a8a13cd43cf5f3d9886422321c42e2cc19cd8e3b2246e3f268bf11d47",
+      "view": "Game camera orthographic size 5",
+      "seed": 164033
+    },
+    {
+      "file": "art/review/resource_landmark_stone_production_point_2026-10-16.png",
+      "source": "Artifacts/S3-AUTHORED-RESOURCE-LANDMARKS-20261016/final-capture/Stone-production-point.png",
+      "sha256": "9e8b240bc9d8c79490238b80918d468968a59b2bd46cfe055f4ed8a16de1e59b",
+      "view": "Hero at locked production point"
+    },
+    {
+      "file": "art/review/resource_landmark_metal_164032_2026-10-16.png",
+      "source": "Artifacts/S3-AUTHORED-RESOURCE-LANDMARKS-20261016/final-capture/Metal-164032-5.png",
+      "sha256": "8f77cab19dfcfa8688452be93cb6b5c23f839ff2424c5717e7c280ff4662ea31",
+      "view": "Game camera orthographic size 5",
+      "seed": 164032
+    },
+    {
+      "file": "art/review/resource_landmark_metal_164033_2026-10-16.png",
+      "source": "Artifacts/S3-AUTHORED-RESOURCE-LANDMARKS-20261016/final-capture/Metal-164033-5.png",
+      "sha256": "347c97d67721b9a02a2e5c17fb55e7a254a6778987a7ce7caefa8f9fa4ff1e73",
+      "view": "Game camera orthographic size 5",
+      "seed": 164033
+    },
+    {
+      "file": "art/review/resource_landmark_metal_production_point_2026-10-16.png",
+      "source": "Artifacts/S3-AUTHORED-RESOURCE-LANDMARKS-20261016/final-capture/Metal-production-point.png",
+      "sha256": "1133f34e07d7bf83d1cf31756d100366dc4113176743122b2c42b38c952dc178",
+      "view": "Hero at locked production point"
+    },
+    {
+      "file": "art/review/resource_landmark_forest_reveal_2026-10-16.png",
+      "source": "Artifacts/S3-AUTHORED-RESOURCE-LANDMARKS-20261016/final-playmode/partial-canopy-reveal.png",
+      "sha256": "fe96d8ba572391cc92e6334176def3cb81cdca8c641c716e15692ca08f727225",
+      "view": "Actual local partial canopy reveal from passing PlayMode test"
+    }
+  ],
+  "git": "Local working tree only; no commit or push",
+  "liveEditorInspection": {
+    "ordinaryPlayRestored": true,
+    "cameraFollowRestored": true,
+    "consoleWarnings": 0,
+    "consoleErrors": 0,
+    "evidence": "GPT-6 Astra visual inspection of final live Unity Console; fresh final-live.log independently scanned by parent"
+  }
+}

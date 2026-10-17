@@ -1,0 +1,93 @@
+{
+  "date": "2026-10-17",
+  "status": "Owner-approved Astra v2 layout/v1 glyphs integrated as native triangle meshes",
+  "approval": "Owner explicitly approved current sheet and requested implementation plus saving all work in a commit; parent owns final commit",
+  "authorship_and_rights": "Original project SVG geometry authored by GPT-6 Astra. No third-party artwork, tracing or bitmap runtime icon; no new packages or converter dependencies. Review provenance remains in placement_icons_astra_2026-10-17.json and placement_icons_astra_v2_2026-10-17.json.",
+  "runtime_contract": {
+    "geometry": "Approved SVG mask is tessellated offline with true transparent holes; source C# arrays only, no runtime SVG parser",
+    "projection": "Uniform ground XY geometry; fixed camera supplies full projection without independent skew",
+    "outer_frame": "Full immutable ResourceProductionPoint.Clearance, thin solid neutral contour kept inside boundary",
+    "inner_frame": "Quiet dashed icon safe-area border inset12percent per side, only art layout",
+    "glyph_fit": "Complete256px square uniformly fitted to0.9*min(inner size); source tool/resource proportions unchanged",
+    "z": -0.25,
+    "material": "Existing isolated PlacementPreview material; built art and red/green previews unchanged",
+    "gameplay": "No changes to points/collision/costs/production/E/reset rules"
+  },
+  "tessellation": {
+    "curve_max_deviation_svg_units": 0.05,
+    "method": "Painter-ordered mask booleans via exact line arrangement and vertical slab triangulation",
+    "icons": [
+      {
+        "source": "art/concepts/placement_icons_2026-10-17/sawmill_astra_v1.svg",
+        "source_sha256": "af2f2d17d24eaa4ce6cdc02908cbcf12423e54f2188aa9731ce84da256816f67",
+        "vertices": 1653,
+        "triangles": 1644
+      },
+      {
+        "source": "art/concepts/placement_icons_2026-10-17/quarry_astra_v1.svg",
+        "source_sha256": "457e12f2ab5858e8e17962bb04339faf0bbf77e1c86fdbc0d5979a9c9fa0b764",
+        "vertices": 870,
+        "triangles": 859
+      },
+      {
+        "source": "art/concepts/placement_icons_2026-10-17/iron_mine_astra_v1.svg",
+        "source_sha256": "b171dde12865c4e05bc902e947d55340618113cf66d97313043b3fb553babb75",
+        "vertices": 762,
+        "triangles": 754
+      }
+    ]
+  },
+  "verification": {
+    "editmode": {
+      "result": "Passed",
+      "total": "3",
+      "passed": "3",
+      "failed": "0",
+      "skipped": "0",
+      "duration": "0.0293425"
+    },
+    "playmode": {
+      "result": "Passed",
+      "total": "6",
+      "passed": "6",
+      "failed": "0",
+      "skipped": "0",
+      "duration": "16.383004"
+    }
+  },
+  "evidence": "Artifacts/S3-PLACEMENT-ICONS-20261017/final/ contains actualGame normal5/close2.5/overview10 for3pads and existing preview regression captures",
+  "files": [
+    {
+      "path": "art/concepts/placement_icons_2026-10-17/sawmill_astra_v1.svg",
+      "sha256": "af2f2d17d24eaa4ce6cdc02908cbcf12423e54f2188aa9731ce84da256816f67"
+    },
+    {
+      "path": "art/concepts/placement_icons_2026-10-17/quarry_astra_v1.svg",
+      "sha256": "457e12f2ab5858e8e17962bb04339faf0bbf77e1c86fdbc0d5979a9c9fa0b764"
+    },
+    {
+      "path": "art/concepts/placement_icons_2026-10-17/iron_mine_astra_v1.svg",
+      "sha256": "b171dde12865c4e05bc902e947d55340618113cf66d97313043b3fb553babb75"
+    },
+    {
+      "path": "art/concepts/placement_icons_2026-10-17/approval_sheet_astra_v2.svg",
+      "sha256": "504b2ea421e66871824e5cf0eaf644147dc531d6cbc01f8b33b5b9d14b3ac89e"
+    },
+    {
+      "path": "art/concepts/placement_icons_2026-10-17/build_runtime_mesh.py",
+      "sha256": "9f602ce61d011afa8dae1d381701bd604b6720555035de1680d0702217084200"
+    },
+    {
+      "path": "Assets/Stage2/Defense/Runtime/Stage2ApprovedPadGeometry.cs",
+      "sha256": "6ea95fb042e8b99c85afd9cd450cc8f3bbf97a1565bf0d0b59ecda7e820517d7"
+    },
+    {
+      "path": "Assets/Stage2/Defense/Runtime/Stage2ApprovedPadGeometry.cs.meta",
+      "sha256": "1be5a0b8cc3744b9d552520c8002c984b74bf07c428c4a28ea600a053a81fb43"
+    },
+    {
+      "path": "Assets/Stage2/Defense/Runtime/Stage2PlacementVisuals.cs",
+      "sha256": "7bfeaf8735e2e361c99c73d39b951ed340bf060efe2597e518102ee5e75c3922"
+    }
+  ]
+}

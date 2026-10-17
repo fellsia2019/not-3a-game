@@ -19,6 +19,80 @@ sprites and markers are temporary gameplay placeholders.
 Не закладывать pixel art как обязательство в новые ассеты. Правила сохраняют
 плоские координаты, а камера, размещение и визуалы уже адаптированы вместе.
 
+## Resource landmarks — current D-057 correction, 2026-10-16
+
+The owner rejected the D-056/Astra smooth terrain core with edge sprites.
+Match the original D-053 images in composition, volume, materials and detail:
+pale angular quarry benches, a dark rust-veined descending iron excavation,
+and overlapping coherent conifer groups with clearings. Authored fixed compound
+artwork is allowed; safe placement may vary by seed. Procedural shape variety
+must not dilute the reference. Coherent layered bitmaps are valid under the
+fixed camera; never leave the rejected generic mesh underneath them. Production
+buildings are separate assets; reserve one typed local point per landmark.
+Scale the large objects and spatial contracts together by about 0.75; original
+small E-gathering nodes are unchanged. The following D-054/D-056 sections are
+historical implementation notes, superseded by this direction.
+
+The owner accepted the D-057 Game appearance on 2026-10-16. D-058 now authorizes
+the three separate buildable production buildings from those same original
+references: timber sawmill, pale-stone quarry workshop and iron headframe/station.
+Their full source prompts and rights are in
+`art/source/resource_production_buildings_2026-10-16_generation.json`. Preserve
+landmark pixels/scale and the fixed view; place each detailed transparent building
+on its existing pad. The bottom menu reuses the current HUD with simple category
+tabs/cards, prices and output intervals; it does not select a new UI stack.
+
+## Construction readability — D-059, 2026-10-16
+
+Current acceptance, D-060 (2026-10-17): the owner approved Astra's corrected
+`approval_sheet_astra_v2` and requested runtime integration. Use the existing
+Astra glyph geometry with transparent cutouts, thin complete neutral pad bounds,
+a subtle dashed inner safe border and approved 12% icon margins. All elements
+share the actual ground-plane camera projection. Implement as vector mesh
+geometry; the approved metal bar is a pictogram only. Runtime integration is
+complete and all three actual pad views were independently inspected. Provenance:
+`art/source/placement_icons_runtime_2026-10-17.json`. This supersedes the
+pending-approval status in the historical review notes below.
+
+Free resource-building sites carry persistent neutral, outlined ground stamps:
+axe and log, pick and fractured stone, or pick and metal bar. They identify the exact
+locked point before the player selects construction. Hide an occupied stamp;
+restore free ones on reset/regeneration. These are original project vector
+meshes in Stage2PlacementVisuals, not imported or traced reference artwork.
+
+During construction, show the actual tower/building silhouette with transparent
+green tint for a valid position and red tint for a rejected position, together
+with a ground footprint outline. Do not add yellow/orange placement states.
+Preview materials are separate from built-object materials. Unaffordable build
+cards are dimmed and disabled, with each price readable and a hover explanation.
+Preserve D-057/D-058 artwork, scale, camera and pad positions.
+
+2026-10-17 owner feedback: the current pad glyphs are hard to recognize; their
+appearance is not accepted. Prepare a minimal vector replacement for approval
+before runtime integration. The first original SVG proposal is under
+`art/concepts/placement_icons_2026-10-17/`: axe/log, pick/stone and pick/ingot.
+The sheet includes 32/48/64 px views and a schematic ground projection. The
+ingot is a proposed metal pictogram, not a new resource or mechanic. These are
+unapproved concepts; the ground row is not a Unity screenshot. The owner then
+rejected approval_sheet_v1: unrealistic bent forms and incorrect proportions.
+The owner explicitly delegated the next revision to GPT-6 Astra. Require
+recognizable tool construction and credible proportions, with restrained vector
+detail; v1 is rejected history, not the baseline to reproduce.
+The Astra glyph sheet is `art/concepts/placement_icons_2026-10-17/approval_sheet_astra_v1.png`:
+straight shafts, a constructed axe/pick head, a fractured irregular rock and a
+regular metal bar. Original vector sources/rights and hashes are recorded in
+`art/source/placement_icons_astra_2026-10-17.json`. Parent inspected the final
+render independently; at that review step, owner approval and integration were pending.
+
+The owner then flagged the arbitrary ground-diagram tilt and missing safe
+areas. Current review is `approval_sheet_astra_v2.png` in the same directory.
+Keep v1 glyph geometry; project the real scaled point clearance, proposed inset
+and glyph with the same actual orthographic XY transform (no decorative diamond
+or independent skew). Full solid bounds mark the reserved pad; a distinct dashed
+inner rectangle proposes 12% icon-layout insets per edge. This is a review-only
+margin, not a new collision or construction rule. Source measurements and
+checks: `art/source/placement_icons_astra_v2_2026-10-17.json`.
+
 ## Procedural resource sprite kit — D-054, 2026-10-16
 
 D-056 revision, owner-selected 2026-10-16: a procedural 3D geological base now

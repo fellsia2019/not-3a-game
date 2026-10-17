@@ -28,6 +28,17 @@ namespace Not3A.Stage2.Map
             circles.Add(new HeroCircleObstacle(center, radius));
         }
 
+        public void AddRectangle(Rect groundArea)
+        {
+            if (groundArea.width <= 0 || groundArea.height <= 0 ||
+                float.IsNaN(groundArea.x) || float.IsNaN(groundArea.y) ||
+                float.IsInfinity(groundArea.x) || float.IsInfinity(groundArea.y))
+                throw new ArgumentOutOfRangeException(nameof(groundArea));
+            rectangles.Add(groundArea);
+        }
+
+        public bool RemoveRectangle(Rect groundArea) => rectangles.Remove(groundArea);
+
         public void AddSolidCells(IEnumerable<Vector2Int> cells)
         {
             // Merge adjacent cells into horizontal strips. Internal cell seams cannot snag movement.
@@ -65,12 +76,22 @@ namespace Not3A.Stage2.Map
                 foreach (var rect in rectangles) SweepRectangle(position, displacement, rect, radius, ref time, ref normal);
                 foreach (var circle in circles)
                     SweepCircle(position, displacement, circle.Center, radius + circle.Radius, ref time, ref normal);
-                if (normal == Vector2.zero) return position + displacement;
+                if (normal == Vector2.zero)
+                {
+                    var end = position + displacement;
+                    // Float roundoff near two tangent contacts must never turn a clear
+                    // sweep origin into an overlapping endpoint on the next frame.
+                    return IsBlocked(end, radius) ? position : end;
+                }
                 var contact = position + displacement * time + normal * Skin;
                 // A second touching obstacle can lie in the direction of the separation normal.
                 // Back off along the known-clear incoming segment in that case.
                 if (IsBlocked(contact, radius))
                     contact = position + displacement * Mathf.Max(0f, time - Skin / displacement.magnitude);
+                // The backed-off point can still round inside a neighbouring circle.
+                // Keep the last verified clear contact; ordinary movement never recovers
+                // by teleporting out of this tight corner on the next frame.
+                if (IsBlocked(contact, radius)) return position;
                 position = contact;
                 displacement *= 1f - time;
                 var inward = Vector2.Dot(displacement, normal);

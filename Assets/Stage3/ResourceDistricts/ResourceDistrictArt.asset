@@ -1792,6 +1792,682 @@ MonoBehaviour:
     maximumTerraces: 4
   randomizeWorldSeed: 1
   fixedWorldSeed: 164032
+  landmarkScale: 0.75
+  landmarks:
+  - kind: 1
+    layers:
+    - sprite: {fileID: 21300000, guid: 2c934663ece614764b139aba350090a4, type: 3}
+      groundAnchor: {x: 0, y: 0}
+      width: 18
+      groundLayer: 0
+      groundImageAreas:
+      - serializedVersion: 2
+        x: 0.14322917
+        y: 0.16992188
+        width: 0.26367188
+        height: 0.21972656
+      - serializedVersion: 2
+        x: 0.2799479
+        y: 0.13574219
+        width: 0.37760416
+        height: 0.10253906
+      - serializedVersion: 2
+        x: 0.546875
+        y: 0.3017578
+        width: 0.24088542
+        height: 0.06347656
+    groundContour:
+    - {x: -8.355469, y: 2.6551847}
+    - {x: -7.2421875, y: -2.6380174}
+    - {x: -3.7265625, y: -4.211672}
+    - {x: 4.125, y: -3.7824936}
+    - {x: 8.4609375, y: -0.9213032}
+    - {x: 8.6953125, y: 3.0843632}
+    - {x: 6.8203125, y: 6.660851}
+    - {x: -0.796875, y: 8.377565}
+    - {x: -6.7734375, y: 6.94697}
+    solidGround:
+    - serializedVersion: 2
+      x: -0.15741958
+      y: -0.49212465
+      width: 1.9966831
+      height: 0.25
+    - serializedVersion: 2
+      x: -0.7447854
+      y: -0.24212465
+      width: 3.403201
+      height: 0.25
+    - serializedVersion: 2
+      x: -1.1307319
+      y: 0.007875353
+      width: 4.6082997
+      height: 0.25
+    - serializedVersion: 2
+      x: -1.5166787
+      y: 0.25787535
+      width: 5.734906
+      height: 0.25
+    - serializedVersion: 2
+      x: -1.9026253
+      y: 0.5078753
+      width: 6.817132
+      height: 0.25
+    - serializedVersion: 2
+      x: -2.2885718
+      y: 0.7578753
+      width: 7.899358
+      height: 0.25
+    - serializedVersion: 2
+      x: -2.6745186
+      y: 1.0078753
+      width: 8.981585
+      height: 0.25
+    - serializedVersion: 2
+      x: -3.0604653
+      y: 1.2578753
+      width: 10.06381
+      height: 0.25
+    - serializedVersion: 2
+      x: -4.1584706
+      y: 1.5078753
+      width: 11.858095
+      height: 0.25
+    - serializedVersion: 2
+      x: -6.0015626
+      y: 1.7578753
+      width: 13.845993
+      height: 0.25
+    - serializedVersion: 2
+      x: -6.7606325
+      y: 2.0078754
+      width: 14.699581
+      height: 0.25
+    - serializedVersion: 2
+      x: -7.199464
+      y: 2.2578754
+      width: 15.23293
+      height: 0.25
+    - serializedVersion: 2
+      x: -7.638295
+      y: 2.5078754
+      width: 15.766279
+      height: 0.25
+    - serializedVersion: 2
+      x: -8.0771265
+      y: 2.7578754
+      width: 16.29963
+      height: 0.25
+    - serializedVersion: 2
+      x: -8.069258
+      y: 3.0078754
+      width: 16.386276
+      height: 0.25
+    - serializedVersion: 2
+      x: -7.9251475
+      y: 3.2578754
+      width: 16.336683
+      height: 0.25
+    - serializedVersion: 2
+      x: -7.781038
+      y: 3.5078754
+      width: 16.12956
+      height: 0.25
+    - serializedVersion: 2
+      x: -7.6369276
+      y: 3.7578754
+      width: 15.749944
+      height: 0.25
+    - serializedVersion: 2
+      x: -7.4928174
+      y: 4.0078754
+      width: 15.370327
+      height: 0.25
+    - serializedVersion: 2
+      x: -7.348707
+      y: 4.2578754
+      width: 14.990711
+      height: 0.25
+    - serializedVersion: 2
+      x: -7.2045975
+      y: 4.5078754
+      width: 14.611095
+      height: 0.25
+    - serializedVersion: 2
+      x: -7.0604873
+      y: 4.7578754
+      width: 14.231478
+      height: 0.25
+    - serializedVersion: 2
+      x: -6.916377
+      y: 5.0078754
+      width: 13.851862
+      height: 0.25
+    - serializedVersion: 2
+      x: -6.772267
+      y: 5.2578754
+      width: 13.472245
+      height: 0.25
+    - serializedVersion: 2
+      x: -6.628157
+      y: 5.5078754
+      width: 13.092629
+      height: 0.25
+    - serializedVersion: 2
+      x: -6.484047
+      y: 5.7578754
+      width: 12.713013
+      height: 0.25
+    - serializedVersion: 2
+      x: -6.3399367
+      y: 6.0078754
+      width: 12.333397
+      height: 0.25
+    - serializedVersion: 2
+      x: -6.1958265
+      y: 6.2578754
+      width: 11.919945
+      height: 0.25
+    - serializedVersion: 2
+      x: -6.051717
+      y: 6.5078754
+      width: 10.501598
+      height: 0.25
+    - serializedVersion: 2
+      x: -5.478775
+      y: 6.7578754
+      width: 8.654421
+      height: 0.25
+    - serializedVersion: 2
+      x: -3.976996
+      y: 7.0078754
+      width: 5.8784046
+      height: 0.25
+    - serializedVersion: 2
+      x: -2.4752166
+      y: 7.2578754
+      width: 3.1023889
+      height: 0.25
+    - serializedVersion: 2
+      x: -0.9734376
+      y: 7.5078754
+      width: 0.32637322
+      height: 0.15439224
+    groundCircles: []
+    productionPoint: {x: -3.7851562, y: -0.7067139}
+    productionClearance: {x: 3.1, y: 2.1}
+    productionFacingDegrees: 0
+  - kind: 2
+    layers:
+    - sprite: {fileID: 21300000, guid: be02c5139cd274c6bb32e22300264f6c, type: 3}
+      groundAnchor: {x: 0, y: 0}
+      width: 18
+      groundLayer: 0
+      groundImageAreas:
+      - serializedVersion: 2
+        x: 0.625
+        y: 0.5361328
+        width: 0.14973958
+        height: 0.23925781
+      - serializedVersion: 2
+        x: 0.7161458
+        y: 0.53125
+        width: 0.07486979
+        height: 0.078125
+      - serializedVersion: 2
+        x: 0.72591144
+        y: 0.43359375
+        width: 0.068359375
+        height: 0.09765625
+      - serializedVersion: 2
+        x: 0.6542969
+        y: 0.375
+        width: 0.07486979
+        height: 0.08300781
+      - serializedVersion: 2
+        x: 0.5859375
+        y: 0.24804688
+        width: 0.104166664
+        height: 0.078125
+    groundContour:
+    - {x: -8.53125, y: 3.799661}
+    - {x: -6.890625, y: -0.20600562}
+    - {x: -1.96875, y: -3.639434}
+    - {x: 1.546875, y: -4.6408505}
+    - {x: 7.40625, y: -3.067196}
+    - {x: 8.6953125, y: 2.7982442}
+    - {x: 6.8203125, y: 6.088613}
+    - {x: 0.7265625, y: 7.9483867}
+    - {x: -4.3125, y: 7.9483867}
+    - {x: -7.828125, y: 5.6594343}
+    solidGround:
+    - serializedVersion: 2
+      x: -1.2268997
+      y: -2.3518984
+      width: 1.5838032
+      height: 0.25
+    - serializedVersion: 2
+      x: -3.257925
+      y: -2.1018984
+      width: 3.8130105
+      height: 0.25
+    - serializedVersion: 2
+      x: -3.5878613
+      y: -1.8518984
+      width: 4.341129
+      height: 0.25
+    - serializedVersion: 2
+      x: -3.9177976
+      y: -1.6018984
+      width: 4.869247
+      height: 0.25
+    - serializedVersion: 2
+      x: -4.247734
+      y: -1.3518984
+      width: 5.3973656
+      height: 0.25
+    - serializedVersion: 2
+      x: -4.57767
+      y: -1.1018984
+      width: 5.925483
+      height: 0.25
+    - serializedVersion: 2
+      x: -4.907606
+      y: -0.85189843
+      width: 6.4536014
+      height: 0.25
+    - serializedVersion: 2
+      x: -5.2375426
+      y: -0.60189843
+      width: 6.98172
+      height: 0.25
+    - serializedVersion: 2
+      x: -5.567479
+      y: -0.35189843
+      width: 7.509838
+      height: 0.25
+    - serializedVersion: 2
+      x: -5.897415
+      y: -0.10189843
+      width: 7.985325
+      height: 0.25
+    - serializedVersion: 2
+      x: -6.227351
+      y: 0.14810157
+      width: 8.429942
+      height: 0.25
+    - serializedVersion: 2
+      x: -6.543631
+      y: 0.39810157
+      width: 8.860904
+      height: 0.25
+    - serializedVersion: 2
+      x: -6.6263337
+      y: 0.64810157
+      width: 9.058288
+      height: 0.25
+    - serializedVersion: 2
+      x: -6.709037
+      y: 0.89810157
+      width: 9.2556715
+      height: 0.25
+    - serializedVersion: 2
+      x: -6.7917395
+      y: 1.1481016
+      width: 9.453055
+      height: 0.25
+    - serializedVersion: 2
+      x: -6.874442
+      y: 1.3981016
+      width: 9.650439
+      height: 0.25
+    - serializedVersion: 2
+      x: -6.957145
+      y: 1.6481016
+      width: 9.782221
+      height: 0.25
+    - serializedVersion: 2
+      x: -7.039848
+      y: 1.8981016
+      width: 9.84217
+      height: 0.25
+    - serializedVersion: 2
+      x: -7.122551
+      y: 2.1481016
+      width: 9.902119
+      height: 0.25
+    - serializedVersion: 2
+      x: -7.2052536
+      y: 2.3981016
+      width: 9.962067
+      height: 0.25
+    - serializedVersion: 2
+      x: -7.2879567
+      y: 2.6481016
+      width: 10.022017
+      height: 0.25
+    - serializedVersion: 2
+      x: -7.3706594
+      y: 2.8981016
+      width: 10.034229
+      height: 0.25
+    - serializedVersion: 2
+      x: -7.4533625
+      y: 3.1481016
+      width: 9.948283
+      height: 0.25
+    - serializedVersion: 2
+      x: -7.536065
+      y: 3.3981016
+      width: 9.862337
+      height: 0.25
+    - serializedVersion: 2
+      x: -7.6187677
+      y: 3.6481016
+      width: 9.77639
+      height: 0.25
+    - serializedVersion: 2
+      x: -7.701471
+      y: 3.8981016
+      width: 9.690444
+      height: 0.25
+    - serializedVersion: 2
+      x: -7.7168713
+      y: 4.148102
+      width: 9.498569
+      height: 0.25
+    - serializedVersion: 2
+      x: -7.419441
+      y: 4.398102
+      width: 8.949092
+      height: 0.25
+    - serializedVersion: 2
+      x: -7.1220107
+      y: 4.648102
+      width: 8.399614
+      height: 0.25
+    - serializedVersion: 2
+      x: -6.8245807
+      y: 4.898102
+      width: 7.8501377
+      height: 0.25
+    - serializedVersion: 2
+      x: -6.52715
+      y: 5.148102
+      width: 7.606531
+      height: 0.25
+    - serializedVersion: 2
+      x: -6.22972
+      y: 5.398102
+      width: 7.468381
+      height: 0.25
+    - serializedVersion: 2
+      x: -5.9322896
+      y: 5.648102
+      width: 7.3302298
+      height: 0.25
+    - serializedVersion: 2
+      x: -5.6348596
+      y: 5.898102
+      width: 7.1920795
+      height: 0.25
+    - serializedVersion: 2
+      x: -5.3374295
+      y: 6.148102
+      width: 7.0539293
+      height: 0.25
+    - serializedVersion: 2
+      x: -5.039999
+      y: 6.398102
+      width: 5.788181
+      height: 0.25
+    - serializedVersion: 2
+      x: -4.742569
+      y: 6.648102
+      width: 3.7500522
+      height: 0.25
+    - serializedVersion: 2
+      x: -4.4451385
+      y: 6.898102
+      width: 1.7119234
+      height: 0.25
+    - serializedVersion: 2
+      x: -4.1954317
+      y: 7.148102
+      width: 0.0008163452
+      height: 0.08498716
+    groundCircles:
+    - center: {x: 7.0546875, y: 3.2274227}
+      radius: 0.9
+    - center: {x: 6.9375, y: 0.08011342}
+      radius: 1.2
+    - center: {x: 5.1796875, y: -3.067196}
+      radius: 1.2
+    - center: {x: 2.484375, y: -3.067196}
+      radius: 0.9
+    - center: {x: 6.234375, y: 4.658018}
+      radius: 1
+    productionPoint: {x: 3.65625, y: 4.5149584}
+    productionClearance: {x: 2, y: 1.5}
+    productionFacingDegrees: 0
+  - kind: 0
+    layers:
+    - sprite: {fileID: 21300000, guid: 92cdae95454b64eebab1be296d805ce8, type: 3}
+      groundAnchor: {x: 0, y: 0}
+      width: 18
+      groundLayer: 0
+      groundImageAreas:
+      - serializedVersion: 2
+        x: 0.56315106
+        y: 0.15039062
+        width: 0.27018228
+        height: 0.25878906
+      - serializedVersion: 2
+        x: 0.57942706
+        y: 0.08203125
+        width: 0.16276042
+        height: 0.13671875
+      - serializedVersion: 2
+        x: 0.46875
+        y: 0.27734375
+        width: 0.084635414
+        height: 0.15136719
+      - serializedVersion: 2
+        x: 0.3450521
+        y: 0.42871094
+        width: 0.110677086
+        height: 0.15625
+      - serializedVersion: 2
+        x: 0.16276042
+        y: 0.66308594
+        width: 0.1171875
+        height: 0.12695312
+      - serializedVersion: 2
+        x: 0.2799479
+        y: 0.2578125
+        width: 0.071614586
+        height: 0.107421875
+      - serializedVersion: 2
+        x: 0.4231771
+        y: 0.4140625
+        width: 0.065104164
+        height: 0.09765625
+      - serializedVersion: 2
+        x: 0.82682294
+        y: 0.46777344
+        width: 0.091145836
+        height: 0.087890625
+    groundContour:
+    - {x: -8.765625, y: 1.6537681}
+    - {x: -7.4765625, y: -1.7796603}
+    - {x: -3.609375, y: -4.0686126}
+    - {x: 3.3046875, y: -4.3547316}
+    - {x: 8.109375, y: -1.0643628}
+    - {x: 8.6953125, y: 2.9413037}
+    - {x: 7.5234375, y: 5.730964}
+    - {x: 4.2421875, y: 7.7337976}
+    - {x: -3.140625, y: 7.6622677}
+    - {x: -6.890625, y: 5.6594343}
+    solidGround: []
+    groundCircles:
+    - center: {x: -7.9101562, y: 1.6537681}
+      radius: 0.24
+    - center: {x: -7.125, y: 0.9384705}
+      radius: 0.24
+    - center: {x: -6.5390625, y: 0.22317293}
+      radius: 0.24
+    - center: {x: -5.8359375, y: -0.49212465}
+      radius: 0.24
+    - center: {x: -5.4257812, y: -0.16308776}
+      radius: 0.24
+    - center: {x: -4.8984375, y: 0.22317293}
+      radius: 0.24
+    - center: {x: -4.4882812, y: 0.9813884}
+      radius: 0.24
+    - center: {x: -3.7265625, y: 1.2245896}
+      radius: 0.24
+    - center: {x: -3.4335938, y: 1.08153}
+      radius: 0.24
+    - center: {x: -2.5195312, y: 0.7381872}
+      radius: 0.24
+    - center: {x: -1.734375, y: 0.6523515}
+      radius: 0.24
+    - center: {x: -0.796875, y: 0.008583658}
+      radius: 0.24
+    - center: {x: -0.328125, y: -0.062946096}
+      radius: 0.24
+    - center: {x: 0.43359375, y: 1.3104253}
+      radius: 0.24
+    - center: {x: 0.9609375, y: 1.08153}
+      radius: 0.24
+    - center: {x: 1.78125, y: 0.22317293}
+      radius: 0.24
+    - center: {x: 2.5664062, y: 0.795411}
+      radius: 0.24
+    - center: {x: 3.421875, y: 1.4391788}
+      radius: 0.24
+    - center: {x: 4.0664062, y: 0.22317293}
+      radius: 0.24
+    - center: {x: 4.59375, y: 1.1530598}
+      radius: 0.24
+    - center: {x: 5.296875, y: -0.7067139}
+      radius: 0.24
+    - center: {x: 5.8476562, y: -0.5779604}
+      radius: 0.24
+    - center: {x: 6.5273438, y: 0.4377622}
+      radius: 0.24
+    - center: {x: 7.7578125, y: 0.22317293}
+      radius: 0.24
+    - center: {x: 8.285156, y: -0.34906512}
+      radius: 0.24
+    - center: {x: -7.1835938, y: 4.68663}
+      radius: 0.24
+    - center: {x: -6.421875, y: 3.1988108}
+      radius: 0.24
+    - center: {x: -6, y: 3.399094}
+      radius: 0.24
+    - center: {x: -5.3671875, y: 3.1129751}
+      radius: 0.24
+    - center: {x: -4.8984375, y: 2.9413037}
+      radius: 0.24
+    - center: {x: -4.1015625, y: 2.6551847}
+      radius: 0.24
+    - center: {x: -3.4335938, y: 2.5407372}
+      radius: 0.24
+    - center: {x: -2.6132812, y: 3.771049}
+      radius: 0.24
+    - center: {x: -1.8867188, y: 3.141587}
+      radius: 0.24
+    - center: {x: -0.796875, y: 2.6551847}
+      radius: 0.24
+    - center: {x: -0.12890625, y: 3.728131}
+      radius: 0.24
+    - center: {x: 0.66796875, y: 3.8711905}
+      radius: 0.24
+    - center: {x: 1.4882812, y: 3.5135417}
+      radius: 0.24
+    - center: {x: 2.3671875, y: 3.427706}
+      radius: 0.24
+    - center: {x: 3.1289062, y: 4.3003693}
+      radius: 0.24
+    - center: {x: 3.890625, y: 2.5836549}
+      radius: 0.24
+    - center: {x: 4.6523438, y: 3.2274227}
+      radius: 0.24
+    - center: {x: 5.4140625, y: 3.5135417}
+      radius: 0.24
+    - center: {x: 6.1171875, y: 2.81255}
+      radius: 0.24
+    - center: {x: 6.8203125, y: 3.184505}
+      radius: 0.24
+    - center: {x: 7.5234375, y: 3.2274227}
+      radius: 0.24
+    - center: {x: 8.519531, y: 2.569349}
+      radius: 0.24
+    - center: {x: -6.0703125, y: 6.017083}
+      radius: 0.24
+    - center: {x: -5.578125, y: 6.5177917}
+      radius: 0.24
+    - center: {x: -4.8984375, y: 6.303202}
+      radius: 0.24
+    - center: {x: -3.7851562, y: 6.8039107}
+      radius: 0.24
+    - center: {x: -2.6367188, y: 6.117225}
+      radius: 0.24
+    - center: {x: -1.9335938, y: 5.9741654}
+      radius: 0.24
+    - center: {x: -1.21875, y: 5.516375}
+      radius: 0.24
+    - center: {x: -0.2109375, y: 5.3733153}
+      radius: 0.24
+    - center: {x: 0.65625, y: 6.303202}
+      radius: 0.24
+    - center: {x: 1.4882812, y: 6.446262}
+      radius: 0.24
+    - center: {x: 2.3671875, y: 6.94697}
+      radius: 0.24
+    - center: {x: 3.3046875, y: 6.94697}
+      radius: 0.24
+    - center: {x: 4.3007812, y: 7.0900297}
+      radius: 0.24
+    - center: {x: 5.1796875, y: 5.945554}
+      radius: 0.24
+    - center: {x: 6.1757812, y: 5.587905}
+      radius: 0.24
+    - center: {x: 7.03125, y: 5.6308227}
+      radius: 0.24
+    - center: {x: -2.0273438, y: 2.3690658}
+      radius: 0.24
+    - center: {x: -3.2578125, y: 0.29470268}
+      radius: 0.24
+    - center: {x: -3.9609375, y: -0.7067139}
+      radius: 0.24
+    - center: {x: -4.8398438, y: -1.7081305}
+      radius: 0.14
+    - center: {x: -4.546875, y: -2.6380174}
+      radius: 0.14
+    - center: {x: -4.0195312, y: -3.1387258}
+      radius: 0.14
+    - center: {x: -3.0234375, y: -1.7796603}
+      radius: 0.14
+    - center: {x: -2.3789062, y: -2.208839}
+      radius: 0.14
+    - center: {x: -1.8515625, y: -2.738159}
+      radius: 0.14
+    - center: {x: -1.4179688, y: -1.4935412}
+      radius: 0.14
+    - center: {x: -0.9140625, y: -2.5378757}
+      radius: 0.14
+    - center: {x: -0.26953125, y: -2.0657792}
+      radius: 0.14
+    - center: {x: 0.4921875, y: -2.723853}
+      radius: 0.14
+    - center: {x: 1.0429688, y: -2.709547}
+      radius: 0.14
+    - center: {x: 1.8398438, y: -3.668046}
+      radius: 0.14
+    productionPoint: {x: 3.2460938, y: -1.565071}
+    productionClearance: {x: 3, y: 2}
+    productionFacingDegrees: 0
   trees:
   - {fileID: -1925984817659770762}
   - {fileID: 6942974162092409170}

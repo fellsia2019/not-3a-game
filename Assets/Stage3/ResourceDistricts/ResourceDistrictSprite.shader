@@ -26,6 +26,9 @@ Shader "Not3A/Resource District Sprite"
             float4 _DistrictRevealParameters;
             CBUFFER_START(UnityPerMaterial)
             half4 _Color;
+            float4 _LandmarkGroundAreas[8];
+            float4 _LandmarkGroundPlane;
+            float _LandmarkGroundAreaCount;
             CBUFFER_END
             struct Attributes
             {
@@ -41,6 +44,7 @@ Shader "Not3A/Resource District Sprite"
                 half4 color : COLOR;
                 float4 screenPos : TEXCOORD1;
                 float3 heroView : TEXCOORD2;
+                float3 positionWS : TEXCOORD3;
                 UNITY_VERTEX_OUTPUT_STEREO
             };
             Varyings Vert(Attributes input)
@@ -51,6 +55,7 @@ Shader "Not3A/Resource District Sprite"
                 Varyings output;
                 UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(output);
                 output.positionCS = TransformObjectToHClip(input.positionOS);
+                output.positionWS = TransformObjectToWorld(input.positionOS);
                 output.screenPos = ComputeScreenPos(output.positionCS);
                 float4 heroClip = TransformWorldToHClip(_DistrictHeroWorld.xyz);
                 float4 heroScreen = ComputeScreenPos(heroClip);
@@ -60,17 +65,37 @@ Shader "Not3A/Resource District Sprite"
                 output.color = input.color * _Color * unity_SpriteColor;
                 return output;
             }
-            half4 Frag(Varyings input) : SV_Target
+            struct FragmentOutput { half4 color : SV_Target; float depth : SV_Depth; };
+            FragmentOutput Frag(Varyings input)
             {
                 half4 color = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, input.uv);
                 float2 delta=(input.screenPos.xy/input.screenPos.w-input.heroView.xy)*_ScreenParams.xy;
                 float radius=_DistrictRevealParameters.x*_ScreenParams.y/max(.01,unity_OrthoParams.y);
                 float window=1-smoothstep(radius*(1-_DistrictRevealParameters.y),radius,length(delta));
+                float ground = 0;
+                for(int i=0;i<(int)_LandmarkGroundAreaCount;i++)
+                {
+                    float4 area=_LandmarkGroundAreas[i];
+                    float2 edge=min(input.uv-area.xy,area.zw-input.uv);
+                    ground=max(ground,smoothstep(0,.012,min(edge.x,edge.y)));
+                }
                 // Vertex/per-renderer alpha is the local opacity target, not a whole-object erase.
                 color.rgb*=input.color.rgb;
-                color.a*=lerp(1,max(_DistrictRevealParameters.w,input.color.a),window*_DistrictHeroWorld.w);
+                color.a*=lerp(1,max(_DistrictRevealParameters.w,input.color.a),window*_DistrictHeroWorld.w*(1-ground));
                 clip(color.a - .005h);
-                return color;
+                FragmentOutput output;
+                output.color=color;
+                output.depth=input.positionCS.z;
+                if(ground>0)
+                {
+                    // Slide only in view depth: artwork pixels keep their exact screen position,
+                    // while a painted clearing sits beneath the hero instead of masking them.
+                    float3 forward=_LandmarkGroundPlane.xyz;
+                    float distance=(_LandmarkGroundPlane.w-input.positionWS.z)/forward.z;
+                    float4 clipPosition=TransformWorldToHClip(input.positionWS+forward*distance);
+                    output.depth=lerp(output.depth,clipPosition.z/clipPosition.w,ground);
+                }
+                return output;
             }
             ENDHLSL
         }

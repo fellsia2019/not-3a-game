@@ -1,12 +1,85 @@
 # Feature: Procedural Resource Districts
 
-Status: D-054 generation, D-055 collision and D-056 hybrid refinement implemented
-and Windows-verified; owner-selected 2026-10-16. Appearance review remains open.
-Owner/workstream: current Stage 3 Map/Integration/Art chat.
-Surface: pure footprint/structural layout, scenery/relief/ground/visibility,
-scene binding, hero collision diagnostics, minimap and tests.
-Dependencies: current planar map, fixed orthographic camera, original sprite
-kit and original painted stone/grass pigments. No new package/assembly.
+Status: D-057 implemented and appearance accepted by the owner, 2026-10-16.
+The previous D-056/Astra appearance remains rejected. D-058 adds separate
+buildable generators/menu in `RESOURCE_PRODUCTION_BUILDINGS.md`; the spatial
+and accepted artwork contracts below remain authoritative for the landmarks.
+Owner/workstream: GPT-6 Astra, Stage 3 Map/Integration/Art; runtime and canonical
+docs. Parent owns new image generation/provenance outside Assets. Dependency:
+reference-faithful artwork must be inspected before runtime art wiring.
+
+## Current D-057 brief — supersedes historical representation below
+
+Use the three original D-053 PNGs as the visual targets. The stone reference
+has a high rear/left mass, broad descending extraction benches, pale angular
+vertical faces, fractures, loose chips and restrained grass islands. The mine
+has a heavy rust-veined dark rock ring around a deep negative space, with
+readable successive inner ledges/stairs. The forest has overlapping mature
+conifer groups, exposed trunks, young trees and connected sunlit clearings.
+Future production buildings shown in those pictures remain separate work.
+
+The smallest boundary is an authored compound definition in the existing art
+data: fixed local visual layers/elements, ground contour or trunk circles,
+and one local locked production point with its resource/building type. A plain
+seeded placement plan chooses safe world origins without shuffling that local
+composition. The scene-owned world binds visuals, collision, reveal and minimap
+from the same transformed definition. No production manager or economy/UI API
+is introduced. Existing small-node E gathering does not include these landmarks.
+A typed point is a reservation/attachment contract, not a build command.
+
+A shared data-controlled 0.75 linear scale applies to visual dimensions, ground
+footprint/collision and point offset/clearance together relative to the previous
+large-object size. Small manual nodes are excluded. Retain reset/regenerate
+semantics and all map/road/objective reservations. Fixed artwork orientation
+matches the camera; random placement is sufficient and shape variation optional.
+
+First prove a coherent quarry artwork in the actual Game camera. No rejected
+procedural geology, old aprons or terrain hole may duplicate or show through
+an authored painted landmark. A bitmap carrying the depth illusion can sit
+above intact ground; transparency outside the ground contact must blend into
+the existing surface. The forest needs independently occludable groups/trunks
+where the hero can pass; a single flattened image must not turn its clearings
+into walls. Authored stone/iron remain solid at their actual ground contours.
+
+Acceptance is visual first: original-vs-Game whole-object, zoom 5 and 2.5 for
+seeds 164032/164033 must preserve the reference's silhouette, main volume,
+material and detail hierarchy. Then verify scaled collision/anchor alignment,
+matching type and deterministic placement, small-node gathering unchanged,
+reset/regeneration cleanup, hero contact/reveal and Console with no new errors.
+The previous 13/9/3 passes are technical history only and are explicitly not
+visual acceptance. Owner appearance judgement remains required.
+
+## D-057 implemented contract
+
+The three `Landmarks/*.png` runtime imports preserve the generated RGBA source
+bytes and fixed-camera composition. Source prompts, original-reference hashes
+and output hashes are in `art/source/resource_landmarks_2026-10-16_generation.json`.
+`ResourceDistrictArt.asset` owns `landmarkScale`, authored layers, ground contours,
+solid strips/trunk circles, depth regions and local point/clearance/facing.
+`Stage3ResourceLandmarkBuilder` is an explicit import/review utility; it does not
+rewrite the saved scene. Runtime values are serialized in that art asset.
+
+`ResourceDistrictGenerator` places the scaled authored footprint with the existing
+seed/reservation rules. `CutsTerrain=false` leaves intact ground; the authored
+branch creates no procedural core, apron or scattered edge modules. Local grass
+props are excluded beneath the reserved landmark footprint. Mineral solids use
+authored ground strips; forest passages use individual authored trunk circles.
+All spatial data and artwork share the same scale and world origin.
+
+`ResourceProductionPoint` exposes district index, resource/matching building type,
+world position, world clearance, facing, locked status and exact type acceptance.
+It is read-only spatial data. No building/economy action consumes it yet. Each
+full clearance is tested with hero radius, with an unobstructed approach from
+outside the landmark. Existing manual nodes alone continue E gathering.
+
+Authored image regions place clearings at ground depth without moving or altering
+the source pixels. Feathered depth boundaries let the hero stand on the production
+pad; foreground art retains local eased partial reveal. Fixed camera is part of
+this representation contract; arbitrary camera rotation is not supported.
+The explicit Capture Live Districts menu captures two seeds at whole/5/2.5 zoom
+and production pads, then restores seed, hero, camera and follow state.
+
+## Historical D-054–D-056 implementation (superseded where D-057 differs)
 
 ## Accepted outcome and boundary
 
@@ -44,7 +117,7 @@ ResourceDistrictLayout consumes the footprint and shape settings:
   with combined crown size and a variable gap. A winding opening remains clear.
 - Stone levels follow distance from the edge and a coherent seeded ridge; they
   are not independent random heights per sprite. Several broad levels remain.
-- Iron levels descend into the footprint. A foreground approach is selected
+- Iron levels descend into the footprint. A rear-rim approach visible from the fixed camera is selected
   before stairs are created. Each stair tile's top/bottom matches its successive
   landings and orientation; decoration cannot occupy a stair tile.
 
@@ -83,8 +156,25 @@ separate partial-alpha material only within that region. The latter discards
 unneeded fragments before expensive shading. The base casts its full shadow;
 the partial overlay does not duplicate it. Faces are ordered once for the
 fixed camera; no per-frame mesh sorting or arbitrary camera-rotation support.
-The painted stone face reuses an interior region of the existing original
-StoneResourceSourceAlbedo atlas; source pixels are not edited.
+The painted stone pigment samples only a clean interior patch of the original
+StoneResourceSourceAlbedo model atlas, with continuous mirrored triplanar
+projection. Repeating the previous atlas crop also repeated baked silhouette
+shading as dark wedges and rectangular seams; flat-pigment diagnostic renders
+confirmed this on Mac as well as the saved Windows frames. Source pixels are
+not edited. The terrace transition spans enough existing samples to avoid a
+comb-shaped bevel without increasing mesh density.
+
+Ground aprons sort behind painted scenery, so their transparent color cannot
+wash over trees or rim rocks. Rock anchors sample the same interpolated height
+as the relief; mine rim accents stand at the grass lip. Painted relief accents
+use a one-time depth clearance against their own relief vertices inside the
+opaque sprite mask, preserving screen position and collision anchors while
+preventing cliffs from slicing through the flat billboard. Mine depth retains
+readable material values at the lowest landing. The descending stair route
+starts on the rear lip: the old foreground descent was nearly parallel to the
+fixed view and hid its own treads. Tree positions, crown gaps and collision
+remain as accepted in D-056; improved forest floor contrast is local to its
+apron, with no change to the shared grass texture.
 
 ## Stable obstruction reveal and movement
 
@@ -118,6 +208,11 @@ art/source/procedural_resource_districts_2026-10-16_generation.json. D-053 full
 concepts remain visual references. All art is original project-generated work;
 no third-party pictures become runtime assets. D-056 reuses these PNGs and the
 existing original stone/grass pigments without source-image edits.
+
+Tools > Stage 3 > Resource Districts > Capture Live Districts is an explicit
+Play-mode-only review command. It records both fixture seeds at overview,
+normal and close camera sizes under Artifacts/S3-DISTRICT-REVIEWS, then restores
+the prior seed, hero and camera state. It does not poll files or author assets.
 
 Tools > Stage 3 > Resource Districts > Build Sprite Kit And Wire imports the
 sprite kit and preserves subasset identity. Update Hybrid Data creates/binds
@@ -185,3 +280,20 @@ Final full-suite/profile/build results: Artifacts/S3-DISTRICT-REFINEMENT-2026101
 shared frames/JSON: art/review/resource_district_hybrid_*. All 123 preexisting
 review/settings files and original sprite PNG bytes hash-verified unchanged.
 Owner appearance review and the wider Stage 3 gate remain open.
+
+
+2026-10-16 Astra visual correction: all three D-053 references and both-seed
+Windows captures were compared with fresh Mac/Metal Game-camera renders.
+Controlled no-shadow and flat-pigment captures isolated the baked-atlas wedges;
+local apron/reveal ordering and billboard/relief intersections were also fixed.
+Mac verification: generator/layout EditMode 13/13 (including 80 stair-layout
+seeds), district PlayMode 9/9; final contact/reveal/capture 3/3 after the last
+transparent-order correction. Captures cover seeds 164032/164033 at orthographic
+sizes 14, 10, normal 5 and close 2.5, contact and paired hero visibility. The
+existing two-seed/lifecycle/collision/reveal assertions remain intact. 2,000
+controlled steps report zero managed allocation and recovery jumps; 120 local
+Editor walking frames p95 0.4933 ms, maximum 3.7328 ms. No GPU/FPS guarantee is
+inferred. Evidence: Artifacts/S3-ASTRA-RESOURCE-VISUAL-20261016/ and new shared
+art/review/astra_resource_district_* frames. The original PNGs, old manual nodes,
+scene/map, packages/settings and historical captures are preserved. No new
+Windows build was performed; owner's appearance review remains open.

@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d134b16e48ebe47cdbdc5b5100a5d772, type: 3}
+  m_Name: ProductionCatalog
+  m_EditorClassIdentifier: Not3A.Stage2.Economy::Not3A.Stage2.Economy.Stage2ProductionCatalog
+  entries:
+  - building: 0
+    displayName: "\u041B\u0435\u0441\u043E\u043F\u0438\u043B\u043A\u0430"
+    woodCost: 6
+    stoneCost: 3
+    metalCost: 0
+    goldCost: 0
+    outputAmount: 1
+    intervalSeconds: 5
+    sprite: {fileID: 21300000, guid: f5138de7cf1a34147875ca1a7d6c0660, type: 3}
+    visualWidth: 3
+    footprintSize: {x: 1.4, y: 0.8}
+  - building: 1
+    displayName: "\u041A\u0430\u043C\u0435\u043D\u043E\u043B\u043E\u043C\u043D\u044F"
+    woodCost: 5
+    stoneCost: 6
+    metalCost: 0
+    goldCost: 0
+    outputAmount: 1
+    intervalSeconds: 7
+    sprite: {fileID: 21300000, guid: 4891673c41f3e44c3b91bf03cb637981, type: 3}
+    visualWidth: 2.8
+    footprintSize: {x: 1.4, y: 0.8}
+  - building: 2
+    displayName: "\u0416\u0435\u043B\u0435\u0437\u043D\u0430\u044F \u0448\u0430\u0445\u0442\u0430"
+    woodCost: 6
+    stoneCost: 8
+    metalCost: 3
+    goldCost: 0
+    outputAmount: 1
+    intervalSeconds: 10
+    sprite: {fileID: 21300000, guid: d81b5b566e6c44b1eb0dfd6afdb668bd, type: 3}
+    visualWidth: 2.8
+    footprintSize: {x: 1.4, y: 0.8}
+  spriteMaterial: {fileID: 2100000, guid: 9f0c9dc121241944e9892c77fdb19dda, type: 2}

@@ -72,6 +72,7 @@ namespace Not3A.Stage2.Defense
         public Vector2Int? PreviewCell => previewCell;
         public int RoleCount => catalogs.Count;
         public int SelectedRoleIndex => selectedCatalogIndex;
+        public Stage2DefenseCatalog GetCatalog(int index) => catalogs[index];
         public Stage2DefenseCatalog SelectedCatalog => catalogs[selectedCatalogIndex];
 
         public bool SelectRole(int index)

@@ -1,0 +1,177 @@
+{
+  "date": "2026-10-16",
+  "decision": "D-059",
+  "environment": "macOS Unity 6000.6.2f1 ARM64/Metal",
+  "scope": "Persistent typed free-pad ground stamps, transparent actual-model red/green construction ghosts and unaffordable card/input gating",
+  "verification": [
+    {
+      "file": "Artifacts/S3-PLACEMENT-READABILITY-20261016/final-editmode.xml",
+      "passed": 19,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "file": "Artifacts/S3-PLACEMENT-READABILITY-20261016/final-playmode.xml",
+      "passed": 21,
+      "failed": 0,
+      "skipped": 0
+    }
+  ],
+  "independentVisualReview": "Parent inspected real Game frames for three distinct markers, both tower silhouettes and all three generator ghosts in green/red, plus disabled HUD at forest and mine. Source PNGs and accepted landmark scale/positions preserved.",
+  "verifiedContracts": [
+    "Six free typed stamps without entering build mode; no colliders or E interaction",
+    "Neutral hovered matching stamp hides under preview outline; returns on cancel/UI hover",
+    "Occupied stamps disappear and all free stamps return on run reset/world regeneration",
+    "Actual tower and generator silhouettes use isolated transparent materials; rendered background transmission measured, not only renderer alpha",
+    "Ready green; rejected location red; no yellow/orange placement state",
+    "Unaffordable cards are dimmed, display prices and cannot start placement; hover explains price deficit",
+    "HUD/public selection/B/1/2 share full-cost gate; commit rechecks late balance changes",
+    "Existing payment, collision, active-time production, pause/reset and pointer exclusion remain"
+  ],
+  "artProvenance": {
+    "glyphs": "Original code-authored vector geometry in Assets/Stage2/Defense/Runtime/Stage2PlacementVisuals.cs; no external artwork or traced sources",
+    "previewShader": "Assets/Stage2/Defense/Resources/PlacementPreview.shader",
+    "protectedPreProductionArtUnchanged": 38,
+    "runtimeProductionArt": [
+      {
+        "file": "Assets/Stage3/ResourceDistricts/Production/sawmill.png",
+        "sha256": "a01f715668ea5f5f1bfaaf5b6d4fa714d7da739109693eda0c787968e7aafa29",
+        "source": "art/concepts/resource_production_buildings_2026-10-16/sawmill_v1.png"
+      },
+      {
+        "file": "Assets/Stage3/ResourceDistricts/Production/quarry.png",
+        "sha256": "e2058a07c08543c220306fa79e1e2baede0da5c34c88a087fa760e172ead7c3a",
+        "source": "art/concepts/resource_production_buildings_2026-10-16/quarry_v1.png"
+      },
+      {
+        "file": "Assets/Stage3/ResourceDistricts/Production/iron_mine.png",
+        "sha256": "6e44ce532c5835a6aa18f83300bfa694a5502c28971d17be197efcb8696ecf5b",
+        "source": "art/concepts/resource_production_buildings_2026-10-16/iron_mine_v1.png"
+      }
+    ]
+  },
+  "manualVerification": {
+    "file": "Artifacts/S3-PLACEMENT-READABILITY-20261016/manual-ui-verification.json",
+    "result": "Native disabled-card click stayed inactive; funded selection and real pad purchase created one sawmill, wood100→94 and stone100→97, hid its stamp; Towers/Rapid and Esc worked.",
+    "captureLimit": "Native pad interaction completed purchase before stationary green capture. All five green silhouettes are supported by final actual Game renders and pixel tests.",
+    "finalState": "Fresh ordinary Play, normal follow/default inventory, no QA buildings; Generators tab open, placement off; native Console 0 warnings/0 errors.",
+    "log": "Artifacts/S3-PLACEMENT-READABILITY-20261016/ordinary-play.log"
+  },
+  "images": [
+    {
+      "source": "Artifacts/S3-PLACEMENT-READABILITY-20261016/game/IronMine-green.png",
+      "file": "art/review/placement_readability_ironmine_green_2026-10-16.png",
+      "sha256": "bfd34652346e37bb01053b42858bf7d0e91cbff8daed7cccc0bc129be8f7e144"
+    },
+    {
+      "source": "Artifacts/S3-PLACEMENT-READABILITY-20261016/game/IronMine-marker-close.png",
+      "file": "art/review/placement_readability_ironmine_marker_close_2026-10-16.png",
+      "sha256": "63e353de6040af4afabd911729371fe6c0e80ccb665fbeb1d08c1974f1f55188"
+    },
+    {
+      "source": "Artifacts/S3-PLACEMENT-READABILITY-20261016/game/IronMine-marker-normal.png",
+      "file": "art/review/placement_readability_ironmine_marker_normal_2026-10-16.png",
+      "sha256": "05cbd17c883daeb0b3ddfbd5b40d7696743d6eb70da0196730d0a46b24ef5ab4"
+    },
+    {
+      "source": "Artifacts/S3-PLACEMENT-READABILITY-20261016/game/IronMine-marker-overview.png",
+      "file": "art/review/placement_readability_ironmine_marker_overview_2026-10-16.png",
+      "sha256": "d26abe01f9410f5847a8cfa595deefe0c5c7fa11f3c6d9b4499f92411c052fff"
+    },
+    {
+      "source": "Artifacts/S3-PLACEMENT-READABILITY-20261016/game/IronMine-red-blocked.png",
+      "file": "art/review/placement_readability_ironmine_red_blocked_2026-10-16.png",
+      "sha256": "477883f20ed5ed55fa79170b83d24dda98d1891c19efaae0a4b097141e9a0943"
+    },
+    {
+      "source": "Artifacts/S3-PLACEMENT-READABILITY-20261016/game/Quarry-green.png",
+      "file": "art/review/placement_readability_quarry_green_2026-10-16.png",
+      "sha256": "108bd413845f378a8a6260cfad91b711b656ab2136cd7e2ecfbf355066cef63a"
+    },
+    {
+      "source": "Artifacts/S3-PLACEMENT-READABILITY-20261016/game/Quarry-marker-close.png",
+      "file": "art/review/placement_readability_quarry_marker_close_2026-10-16.png",
+      "sha256": "1cd5a3a57730aa96bc9c8e29b8ed4b8b694a9bfb0db8d4dc4e061b319074848d"
+    },
+    {
+      "source": "Artifacts/S3-PLACEMENT-READABILITY-20261016/game/Quarry-marker-normal.png",
+      "file": "art/review/placement_readability_quarry_marker_normal_2026-10-16.png",
+      "sha256": "be10d3b7fe60c2461876fe34b63403b4734ef69ccce92163bd6b0a8dedcf1cc0"
+    },
+    {
+      "source": "Artifacts/S3-PLACEMENT-READABILITY-20261016/game/Quarry-marker-overview.png",
+      "file": "art/review/placement_readability_quarry_marker_overview_2026-10-16.png",
+      "sha256": "4baf409b040df4345a952a9bfab17153cb55d372bb099d0d2aef67f205af5768"
+    },
+    {
+      "source": "Artifacts/S3-PLACEMENT-READABILITY-20261016/game/Quarry-red-blocked.png",
+      "file": "art/review/placement_readability_quarry_red_blocked_2026-10-16.png",
+      "sha256": "7ad779f2717ae3bdb3d31516be3eb2853c7d50cc48fc6cab19542c42c42c2ee7"
+    },
+    {
+      "source": "Artifacts/S3-PLACEMENT-READABILITY-20261016/game/Sawmill-green.png",
+      "file": "art/review/placement_readability_sawmill_green_2026-10-16.png",
+      "sha256": "e278c2060f0e0b0b93c491fcdc0e490e3ad77874b890696cca37e478ca9c450a"
+    },
+    {
+      "source": "Artifacts/S3-PLACEMENT-READABILITY-20261016/game/Sawmill-marker-close.png",
+      "file": "art/review/placement_readability_sawmill_marker_close_2026-10-16.png",
+      "sha256": "d3e11ab3477dcc44d6b1705ef2f34ca5b9bef6ec15e5736a58bf4dd66536e840"
+    },
+    {
+      "source": "Artifacts/S3-PLACEMENT-READABILITY-20261016/game/Sawmill-marker-normal.png",
+      "file": "art/review/placement_readability_sawmill_marker_normal_2026-10-16.png",
+      "sha256": "34d9e8131e8344dd5fc83800922837ebcf865c4108c4dd4d2285e7cbf4ac718a"
+    },
+    {
+      "source": "Artifacts/S3-PLACEMENT-READABILITY-20261016/game/Sawmill-marker-overview.png",
+      "file": "art/review/placement_readability_sawmill_marker_overview_2026-10-16.png",
+      "sha256": "789663baf8f2677ae40bd908e50defa8fe6889097838d4b5a2e72cf36aab5269"
+    },
+    {
+      "source": "Artifacts/S3-PLACEMENT-READABILITY-20261016/game/Sawmill-red-blocked.png",
+      "file": "art/review/placement_readability_sawmill_red_blocked_2026-10-16.png",
+      "sha256": "911ca5b7a444e01de791946b2d77a86ab2614579d05460cf608c218a66cdc040"
+    },
+    {
+      "source": "Artifacts/S3-PLACEMENT-READABILITY-20261016/game/Tower0-green.png",
+      "file": "art/review/placement_readability_tower0_green_2026-10-16.png",
+      "sha256": "e70ead297801eed0b51f70955b85ba9b89e8a50526ed43385f4329853545b82e"
+    },
+    {
+      "source": "Artifacts/S3-PLACEMENT-READABILITY-20261016/game/Tower0-red.png",
+      "file": "art/review/placement_readability_tower0_red_2026-10-16.png",
+      "sha256": "723389946abb0cb4a56f0090bbbdeff1746dd1d50cff8496d0e716886a043b8b"
+    },
+    {
+      "source": "Artifacts/S3-PLACEMENT-READABILITY-20261016/game/Tower1-green.png",
+      "file": "art/review/placement_readability_tower1_green_2026-10-16.png",
+      "sha256": "75b57da741bd267e916846c887bbb2c0e1ac83c263bb31537911f62e174a5d56"
+    },
+    {
+      "source": "Artifacts/S3-PLACEMENT-READABILITY-20261016/game/Tower1-red.png",
+      "file": "art/review/placement_readability_tower1_red_2026-10-16.png",
+      "sha256": "0340edcc7c6422b088bc1c0892c710c4b3b2cdbf1dda1b333562ce151b27339b"
+    },
+    {
+      "source": "Artifacts/S3-PLACEMENT-READABILITY-20261016/live/IronMine-disabled-hud.png",
+      "file": "art/review/placement_readability_ironmine_disabled_hud_2026-10-16.png",
+      "sha256": "16c6c4427dd04a89c9ec07ae829f63c0078e315ebbb1748b974331337488468a"
+    },
+    {
+      "source": "Artifacts/S3-PLACEMENT-READABILITY-20261016/live/Quarry-disabled-hud.png",
+      "file": "art/review/placement_readability_quarry_disabled_hud_2026-10-16.png",
+      "sha256": "041ee4f9d3c651afd1ce7acd6ed27d7773ed06ee36722f6283cabdfa36994b1e"
+    },
+    {
+      "source": "Artifacts/S3-PLACEMENT-READABILITY-20261016/live/Sawmill-disabled-hud.png",
+      "file": "art/review/placement_readability_sawmill_disabled_hud_2026-10-16.png",
+      "sha256": "756258bb19d27d556ef2208878d3c4e0cefc8bc0427baf5d7c0fb5391ce77320"
+    }
+  ],
+  "remaining": [
+    "Owner appearance/feel judgement",
+    "Windows target validation; these checks are Mac development validation"
+  ],
+  "git": "Authorized changes remain uncommitted; no commit/push requested"
+}

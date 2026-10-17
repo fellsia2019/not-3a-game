@@ -23,6 +23,9 @@ namespace Not3A.Stage2.Integration
         [SerializeField] private Stage2RunDriver runDriver;
         [SerializeField] private bool showDevelopmentHud = true;
 
+        [SerializeField] private Stage2ProductionCatalog productionCatalog;
+        public Stage2ProductionDriver Production { get; private set; }
+
         private Stage2GameHud hud;
         private Stage2Navigation navigation;
         private Stage2EnemyGroup enemies;
@@ -82,6 +85,12 @@ namespace Not3A.Stage2.Integration
             building.SetEnemyProtection(enemies.IsCellProtected);
             if (!runDriver.Configure(runCatalog, gathering, building, hero, navigation, enemies))
                 return BindingError("RunConfigureFailed");
+            if (productionCatalog != null)
+            {
+                if (!productionCatalog.TryValidate(out reason)) return BindingError($"InvalidProductionCatalog {reason}");
+                Production = gameObject.AddComponent<Stage2ProductionDriver>();
+                Production.Configure(productionCatalog, bootstrap, this);
+            }
             if (!CreateResourceMarkers()) return false;
             IsInitialized = true;
             hud = GetComponent<Stage2GameHud>();

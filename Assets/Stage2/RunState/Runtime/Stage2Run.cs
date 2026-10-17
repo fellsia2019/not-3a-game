@@ -54,6 +54,7 @@ namespace Not3A.Stage2.RunState
         public bool IsTerminal => Phase == Stage2RunPhase.Won || Phase == Stage2RunPhase.Lost;
         public bool SpawningFinished => spawningFinished;
         public event Action Changed;
+        public event Action Reset;
 
         public void Tick(float elapsedSeconds)
         {
@@ -126,6 +127,7 @@ namespace Not3A.Stage2.RunState
             spawnRemaining = 0f;
             spawningFinished = false;
             SyncDefense();
+            Reset?.Invoke();
             Changed?.Invoke();
         }
 

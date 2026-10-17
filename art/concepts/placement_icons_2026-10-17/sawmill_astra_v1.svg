@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img"><title>Лесопилка</title><style>text{font-family:Arial,Helvetica,sans-serif}</style><g transform="translate(0 0) scale(1.0 1.0)"><defs><mask id="cut_1" maskUnits="userSpaceOnUse" x="0" y="0" width="256" height="256" style="mask-type:luminance"><g transform="rotate(28 130 50)">
+<path d="M124 43H136L138 174Q131 180 124 174Z" fill="white"/>
+<path d="M108 33H139L177 21Q185 48 177 77L139 59H108Z" fill="white"/>
+<path d="M126 39H134V52H126Z" fill="black"/>
+<path d="M169 29Q175 49 169 68" fill="none" stroke="black" stroke-width="4"/>
+</g>
+<path d="M64 184H191C217 184 217 232 191 232H64Z" fill="white"/>
+<ellipse cx="64" cy="208" rx="22" ry="24" fill="white"/>
+<ellipse cx="64" cy="208" rx="14" ry="17" fill="none" stroke="black" stroke-width="5"/>
+<path d="M91 196H186" stroke="black" stroke-width="5"/>
+</mask></defs><rect width="256" height="256" fill="#eee3c5" mask="url(#cut_1)"/></g></svg>

@@ -92,6 +92,65 @@ namespace Not3A.Stage2.Map.Tests
                 new ResourceDistrictSettings {minimumCells=300,maximumCells=200},12,Hero));
         }
 
+        [Test]
+        public void AuthoredFootprintsKeepCompositionWhileSeedChangesSafePlacement()
+        {
+            var shape = new List<Vector2Int>();
+            for (var y = -4; y <= 4; y++)
+            for (var x = -5; x <= 5; x++)
+                if (x * x / 36f + y * y / 25f <= 1) shape.Add(new Vector2Int(x, y));
+            var authored = new Dictionary<MapResourceKind, IReadOnlyList<Vector2Int>>
+            {
+                [MapResourceKind.Wood] = shape,
+                [MapResourceKind.Stone] = shape,
+                [MapResourceKind.Metal] = shape
+            };
+            var map = Map;
+            var hash = map.ComputeDeterministicContentHash();
+            var settings = new ResourceDistrictSettings();
+            var a = ResourceDistrictGenerator.Generate(map, settings, 164032, Hero, authored);
+            var b = ResourceDistrictGenerator.Generate(map, settings, 164032, Hero, authored);
+            var c = ResourceDistrictGenerator.Generate(map, settings, 164033, Hero, authored);
+            Assert.That(a.Select(d => d.Center), Is.EqualTo(b.Select(d => d.Center)));
+            Assert.That(a.Select(d => d.Center), Is.Not.EqualTo(c.Select(d => d.Center)));
+            var occupied = new HashSet<Vector2Int>();
+            foreach (var district in a.Concat(c))
+            {
+                Assert.That(district.CutsTerrain, Is.False, "Painted depth must not leave a terrain hole.");
+                Assert.That(district.Cells.Select(p => p - district.Center), Is.EqualTo(shape));
+                foreach (var cell in district.Cells)
+                {
+                    Assert.That(map.Contains(cell), Is.True);
+                    Assert.That(map.GetSurface(cell), Is.EqualTo(MapSurfaceKind.Forest));
+                    for (var dx = -settings.roadClearance; dx <= settings.roadClearance; dx++)
+                    for (var dy = -settings.roadClearance; dy <= settings.roadClearance; dy++)
+                    {
+                        var near = cell + new Vector2Int(dx, dy);
+                        if (map.Contains(near)) Assert.That(map.GetSurface(near), Is.EqualTo(MapSurfaceKind.Forest));
+                    }
+                    for (var i = 0; i < map.ResourceRegionCount; i++)
+                        Assert.That(Chebyshev(cell, map.GetResourceRegion(i).Anchor), Is.GreaterThan(settings.anchorClearance));
+                }
+            }
+            foreach (var district in a)
+            foreach (var cell in district.Cells) Assert.That(occupied.Add(cell), Is.True);
+            Assert.That(map.ComputeDeterministicContentHash(), Is.EqualTo(hash));
+        }
+
+        [TestCase(MapResourceKind.Wood, ResourceProductionBuilding.Sawmill)]
+        [TestCase(MapResourceKind.Stone, ResourceProductionBuilding.Quarry)]
+        [TestCase(MapResourceKind.Metal, ResourceProductionBuilding.IronMine)]
+        public void LockedProductionReservationAcceptsOnlyItsResourceBuilding(
+            MapResourceKind resource, ResourceProductionBuilding expected)
+        {
+            var point = new ResourceProductionPoint(2, resource, new Vector2(12, 18), new Vector2(3, 2), 0);
+            Assert.That(point.IsLocked, Is.True);
+            Assert.That(point.Building, Is.EqualTo(expected));
+            foreach (ResourceProductionBuilding candidate in Enum.GetValues(typeof(ResourceProductionBuilding)))
+                Assert.That(point.Accepts(candidate), Is.EqualTo(candidate == expected));
+            Assert.That(point.Clearance.Contains(point.Position), Is.True);
+        }
+
         private static int Chebyshev(Vector2Int a,Vector2Int b)=>Mathf.Max(Mathf.Abs(a.x-b.x),Mathf.Abs(a.y-b.y));
     }
 }

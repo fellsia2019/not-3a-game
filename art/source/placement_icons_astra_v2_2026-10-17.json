@@ -1,0 +1,134 @@
+{
+  "date": "2026-10-17",
+  "author": "GPT-6 Astra",
+  "status": "Owner review only; runtime integration not authorized by this revision",
+  "revision_of": "art/source/placement_icons_astra_2026-10-17.json",
+  "scope": "Correct the projection and safe-area presentation only; all3original glyphSVGs and previous sheet unchanged",
+  "rights": "Original project SVG art from Astra v1 reused without geometry changes; no third-party art or imagegen",
+  "geometry": {
+    "camera_euler_degrees": [
+      -35.0,
+      0,
+      0
+    ],
+    "projection": "screenX=worldX; screenY=cos(35deg)*worldY, up-positive before SVG Y inversion",
+    "y_scale": 0.8191520442889918,
+    "landmark_scale": 0.75,
+    "pixels_per_world_unit": 120,
+    "safe_inset_fraction_per_edge_proposal": 0.12,
+    "z": "All local diagram geometry on same XY plane. Constant stamp z=-0.25 affects screen translation, not size/shape; coordinates centered on pad.",
+    "runtime_marker_note": "Current Pad uses clearance*.85 and brackets at +/-.48; outer contour here is full ResourceProductionPoint.Clearance, not existing marker brackets.",
+    "measurements": [
+      {
+        "name": "sawmill",
+        "clearance_world": [
+          2.25,
+          1.5
+        ],
+        "safe_area_world": [
+          1.71,
+          1.1400000000000001
+        ],
+        "glyph_artboard_world_side": 1.0260000000000002,
+        "projected_clearance_pixels": [
+          270.0,
+          147.44736797201853
+        ]
+      },
+      {
+        "name": "quarry",
+        "clearance_world": [
+          2.325,
+          1.5750000000000002
+        ],
+        "safe_area_world": [
+          1.7670000000000001,
+          1.197
+        ],
+        "glyph_artboard_world_side": 1.0773000000000001,
+        "projected_clearance_pixels": [
+          279.0,
+          154.81973637061947
+        ]
+      },
+      {
+        "name": "iron_mine",
+        "clearance_world": [
+          1.5,
+          1.125
+        ],
+        "safe_area_world": [
+          1.1400000000000001,
+          0.855
+        ],
+        "glyph_artboard_world_side": 0.7695,
+        "projected_clearance_pixels": [
+          180.0,
+          110.5855259790139
+        ]
+      }
+    ]
+  },
+  "verification": [
+    "Old6 source/render files match original provenance SHA256",
+    "New sheet valid SVG XML with unique mask IDs",
+    "Native Quick Look SVG render opened and inspected",
+    "Complete256x256 glyph artboard lies strictly inside proposed safe area; safe area strictly inside actual clearance",
+    "All3shapes use identical per-world-unit projection; no yaw, roll, skew or arbitrary diamond",
+    "Native PNG dimensions1260x1030",
+    "Unity data/scene read-only; no runtime tests applicable"
+  ],
+  "render_commands": [
+    "python3 art/concepts/placement_icons_2026-10-17/build_astra_preview_v2.py",
+    "qlmanage -t -s1260 -o/tmp /tmp/not-3a-placement-icons-astra-v2-preview.svg",
+    "/tmp/not-3a-icon-sheet-crop /tmp/not-3a-placement-icons-astra-v2-preview.svg.png art/concepts/placement_icons_2026-10-17/approval_sheet_astra_v2.png"
+  ],
+  "read_only_project_inputs": [
+    {
+      "path": "Assets/Stage2/Defense/Runtime/Stage2PlacementVisuals.cs",
+      "sha256": "067434c4f3de659bb922e9d9123d769bc45b764f37d478b243816c0e85352b07"
+    },
+    {
+      "path": "Assets/Stage2/Map/Runtime/ResourceProductionPoint.cs",
+      "sha256": "7be9d654efc771f6f5acbf945bc94c52e55d3b7004a93354c67837d4bdf33f4c"
+    },
+    {
+      "path": "Assets/Stage2/Integration/Runtime/Stage2CameraFollow.cs",
+      "sha256": "2eaf3e0f2be10cf6a3f13e26af531057134eea093b7560e73480aa81a5501501"
+    },
+    {
+      "path": "Assets/Stage3/ResourceDistricts/Stage3ResourceDistrictWorld.cs",
+      "sha256": "3ccea3817b87bd331b878b540ec87dfef252fd86544bd081fad3674b07dccc11"
+    },
+    {
+      "path": "Assets/Stage3/ResourceDistricts/ResourceDistrictArt.asset",
+      "sha256": "c51715c5b17a7e3709e6fc6f58f7138753fa81c1389a0231e059d6047f5b18c2"
+    },
+    {
+      "path": "Assets/Scenes/Stage3Rapid3DGamePilot.unity",
+      "sha256": "b940ab88be8850fad9ec484c9e9a4ae0d702b21a2c9d9182b96eaffff454d710"
+    }
+  ],
+  "files": [
+    {
+      "path": "art/concepts/placement_icons_2026-10-17/approval_sheet_astra_v2.svg",
+      "sha256": "504b2ea421e66871824e5cf0eaf644147dc531d6cbc01f8b33b5b9d14b3ac89e"
+    },
+    {
+      "path": "art/concepts/placement_icons_2026-10-17/approval_sheet_astra_v2.png",
+      "sha256": "9344fbe2a863327da9bb5cd39306cfef8acd3aa85b1b937fbd08c00b11c80ba9"
+    },
+    {
+      "path": "art/concepts/placement_icons_2026-10-17/build_astra_preview_v2.py",
+      "sha256": "b88edbd9425e0db489d2e0460340e6eb0218cbff74a041e117d21dea6ac7e5f6"
+    },
+    {
+      "path": "art/concepts/placement_icons_2026-10-17/projection_astra_v2.json",
+      "sha256": "92e55858a42d9e03b03d7e17bbe5faa27bf6a6cdf27dd4b12fd86743b826accc"
+    }
+  ],
+  "remaining": [
+    "Owner approval of diagram and12%icon layout inset",
+    "Future separately authorized runtime implementation and actualGame inspection"
+  ]
+}
