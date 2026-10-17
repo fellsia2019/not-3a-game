@@ -19,6 +19,55 @@ sprites and markers are temporary gameplay placeholders.
 Не закладывать pixel art как обязательство в новые ассеты. Правила сохраняют
 плоские координаты, а камера, размещение и визуалы уже адаптированы вместе.
 
+## Research workshop and ground teleport circles — D-063, 2026-10-17
+
+The owner accepted research_workshop_v1's appearance: warm timber/pale stone/
+terracotta architecture, books, plans and measuring instruments. Preserve that
+approved concept. Its unchanged PNG is imported as the runtime workshop sprite,
+with a visible-bottom pivot, front-foot registration and separate ground collision.
+The player now places it through the Research build tab; preview and completed
+building share that exact registration. It is not preplaced on the base.
+
+The owner rejected teleport_pair_v1's upright arches and explicitly requested
+teleportation circles drawn directly on the ground. All rune/line geometry is
+horizontal and flush with the surface, with an open center for the hero.
+Both endpoints use the SAME appearance. Large circles and symmetric round nodes
+remain the visual structure. The owner found v3's circle-only treatment too bare
+and supplied a decorative magic-seal reference: add geometric connections, a
+few bold invented glyphs and arc accents while retaining clear large shapes
+at ordinary zoom. Tiny inscriptions and excessive bloom remain unsuitable.
+No upright portal membrane, arch, pillar or platform.
+Approved for the game: teleport_circles_v4_seal, one original ornamental master pattern.
+The unchanged source is projected by an XY ground mesh that conforms to grass
+height. The Ground Teleport Seal shader removes the source's opaque dark background
+and supplies a thin contact outline; no solid square is used beneath the markings.
+Do not make separate fresh/weathered variants for base and found locations.
+
+Preserve the fixed orthographic view, upright supports, readable ground contact
+and silhouette/footprint fit. Runtime source copies/materials and footprint/scale
+data are in Assets/Stage3/WorldTravel/. The base seal appears after research;
+the remote seal uses exactly the same material. Both are static markings.
+Actual gameplay renders at normal/close/overview zoom are verification evidence
+in art/review/. The city and NPCs are future context;
+the owner explicitly said not to create the city now.
+
+References: `../art/concepts/research_and_travel_2026-10-17/`.
+Full prompts, original sources, rights and hashes:
+`../art/source/research_and_travel_2026-10-17_generation.json`.
+User composition reference: `../art/references/teleport_seal_user_reference_2026-10-17.png`.
+External source/license is not supplied: inspiration only, never runtime-ready
+or traced artwork. Generated v4 uses original geometry and invented symbols.
+
+## Throne destruction and rewind — D-062, 2026-10-17
+
+The defended object remains the blue throne/soul objective; the red portal
+remains the enemy entrance. For the approved defeat transition, rays emerge
+from the destroyed throne and intensify until the entire screen is white by
+the end of the destruction. A readable «Повторить» action follows. Keep the
+fixed tactical view and accepted landmark identity. The animation duration and
+rendering method are not chosen yet. This is an approved target, not an
+implemented effect; see `features/STAGE2_RUN_STATE.md` for retry semantics.
+
 ## Resource landmarks — current D-057 correction, 2026-10-16
 
 The owner rejected the D-056/Astra smooth terrain core with edge sprites.
@@ -41,6 +90,23 @@ Their full source prompts and rights are in
 landmark pixels/scale and the fixed view; place each detailed transparent building
 on its existing pad. The bottom menu reuses the current HUD with simple category
 tabs/cards, prices and output intervals; it does not select a new UI stack.
+
+## Tower placement — D-061, 2026-10-17
+
+The owner requested cell divisions on the gray zone during tower selection and
+a 45-degree turn of both current towers. Use actual ground cell bounds with
+restrained contrasting lines, only while tower construction is active. Depicted
+Rapid/Longshot bodies face along the grid axes; never lean the billboard or rotate
+the camera to approximate object yaw. Preview and built forms share the same
+edited sprite set. Keep original V2 art and Longshot spoon/stone. Source, complete
+prompts and rights: `art/source/tower_grid_facing_2026-10-17.json`.
+
+Owner follow-up: register the visible base at the front/lower edge of its cell,
+with a small inset; transparent PNG padding must not lift it away from that edge.
+Uniformly fit the full body silhouette, including roof eaves, inside the cell's
+width so immediately adjacent towers have a visible gap. The shared preview and
+built artwork, contact shadow and articulated parts must agree. Preserve upright
+proportions and the loaded stone's size when it becomes a flying projectile.
 
 ## Construction readability — D-059, 2026-10-16
 

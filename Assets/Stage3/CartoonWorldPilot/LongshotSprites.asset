@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!213 &-7826761614680054550
+--- !u!213 &-1330499034385393060
 Sprite:
   serializedVersion: 2
   m_ObjectHideFlags: 0
@@ -233,15 +233,23 @@ MonoBehaviour:
   m_Name: LongshotSprites
   m_EditorClassIdentifier: Assembly-CSharp::Not3A.Stage3.VisualPilot.Stage3TowerSpriteSet
   frames:
-  - {fileID: 1567442590061861748}
+  - {fileID: 8031887783013557533}
   releasePixels:
   - {x: 185, y: 215}
   - {x: 65, y: 218}
   - {x: 69, y: 94}
   - {x: 185, y: 125}
-  spoon: {fileID: 4016833895797904459}
-  stone: {fileID: -7826761614680054550}
---- !u!213 &1567442590061861748
+  spoon: {fileID: 8455481290141465194}
+  stone: {fileID: -1330499034385393060}
+  bodyVisibleBounds:
+    serializedVersion: 2
+    x: -0.73634505
+    y: -0.1841062
+    width: 1.4740461
+    height: 1.2475828
+  cellWidth: 0.92
+  frontInset: 0.02
+--- !u!213 &8031887783013557533
 Sprite:
   serializedVersion: 2
   m_ObjectHideFlags: 0
@@ -252,13 +260,13 @@ Sprite:
   m_Rect:
     serializedVersion: 2
     x: 0
-    y: 512
-    width: 512
-    height: 512
-  m_Offset: {x: 0, y: -140}
+    y: 0
+    width: 1254
+    height: 1254
+  m_Offset: {x: 0, y: -342.2353}
   m_Border: {x: 0, y: 0, z: 0, w: 0}
-  m_PixelsToUnits: 310.30304
-  m_Pivot: {x: 0.5, y: 0.2265625}
+  m_PixelsToUnits: 737.426
+  m_Pivot: {x: 0.5, y: 0.2270851}
   m_Extrude: 0
   m_PackingTag: 
   m_RenderDataKey:
@@ -267,7 +275,7 @@ Sprite:
   m_SpriteAtlas: {fileID: 0}
   m_RD:
     serializedVersion: 4
-    texture: {fileID: 2800000, guid: ac9b0c1d7a6ef4245bf575621165d156, type: 3}
+    texture: {fileID: 2800000, guid: 8cfdad6308d394f558a340277e780d24, type: 3}
     alphaTexture: {fileID: 0}
     secondaryTextures: []
     m_SubMeshes:
@@ -343,7 +351,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 333353bf9959a33f000000003333533f9959a33f00000000333353bf6666bfbe000000003333533f6666bfbe000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 4caa59bf983ca83f000000004caa593f983ca83f000000004caa59bfd0b6c5be000000004caa593fd0b6c5be000000000000000000000000000000000000000000000000000000000000000000000000
     m_Bindpose: []
     m_BlendShapes:
       vertices: []
@@ -353,17 +361,17 @@ Sprite:
     textureRect:
       serializedVersion: 2
       x: 0
-      y: 512
-      width: 512
-      height: 512
+      y: 0
+      width: 1254
+      height: 1254
     textureRectOffset: {x: 0, y: 0}
     atlasRectOffset: {x: -1, y: -1}
     settingsRaw: 3072
-    uvTransform: {x: 310.30304, y: 256, z: 310.30304, w: 628}
+    uvTransform: {x: 737.426, y: 627, z: 737.426, w: 284.7647}
     downscaleMultiplier: 1
   m_AtlasRD:
     serializedVersion: 4
-    texture: {fileID: 2800000, guid: ac9b0c1d7a6ef4245bf575621165d156, type: 3}
+    texture: {fileID: 2800000, guid: 8cfdad6308d394f558a340277e780d24, type: 3}
     alphaTexture: {fileID: 0}
     secondaryTextures: []
     m_SubMeshes:
@@ -439,7 +447,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 333353bf9959a33f000000003333533f9959a33f00000000333353bf6666bfbe000000003333533f6666bfbe000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 4caa59bf983ca83f000000004caa593f983ca83f000000004caa59bfd0b6c5be000000004caa593fd0b6c5be000000000000000000000000000000000000000000000000000000000000000000000000
     m_Bindpose: []
     m_BlendShapes:
       vertices: []
@@ -449,19 +457,19 @@ Sprite:
     textureRect:
       serializedVersion: 2
       x: 0
-      y: 512
-      width: 512
-      height: 512
+      y: 0
+      width: 1254
+      height: 1254
     textureRectOffset: {x: 0, y: 0}
     atlasRectOffset: {x: -1, y: -1}
     settingsRaw: 3072
-    uvTransform: {x: 310.30304, y: 256, z: 310.30304, w: 628}
+    uvTransform: {x: 737.426, y: 627, z: 737.426, w: 284.7647}
     downscaleMultiplier: 1
   m_PhysicsShape: []
   m_Bones: []
   m_ScriptableObjects: []
   m_SpriteID: 
---- !u!213 &4016833895797904459
+--- !u!213 &8455481290141465194
 Sprite:
   serializedVersion: 2
   m_ObjectHideFlags: 0

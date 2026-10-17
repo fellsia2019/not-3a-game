@@ -89,7 +89,7 @@ namespace Not3A.Stage3.VisualPilot
                 body.GetComponent<MeshRenderer>().forceRenderingOff=true;
                 var painted=new GameObject("Painted stone projectile");
                 painted.transform.SetParent(body,false);
-                painted.transform.localScale=Vector3.one/.28f;
+                painted.transform.localScale=towerArt.LoadedStoneScale/.28f;
                 flight.Sprite=painted.AddComponent<SpriteRenderer>();
                 flight.Sprite.sprite=towerArt.LoadedStoneSprite;
                 flight.Sprite.sharedMaterial=towerArt.Body.sharedMaterial;

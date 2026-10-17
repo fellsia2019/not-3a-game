@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Not3A.Stage2.Integration
 {
-    public enum Stage2MinimapMarkerKind { Wood, Stone, Metal, Tower, Enemy, Portal, Throne, Hero }
+    public enum Stage2MinimapMarkerKind { Wood, Stone, Metal, Tower, Enemy, Portal, Throne, Hero, Research, Teleport }
 
     public readonly struct Stage2MinimapMarker
     {
@@ -29,12 +29,17 @@ namespace Not3A.Stage2.Integration
         private Texture2D arrow;
         private GUIStyle textStyle;
         private GUIStyle titleStyle;
+        private Vector2? researchPosition, baseTeleportPosition, worldTeleportPosition;
         private static readonly Color Ink = new Color(.07f, .10f, .09f, 1f);
         private static readonly Color Gold = new Color(.72f, .65f, .42f, 1f);
 
         public Texture2D Terrain => terrain;
         public Texture2D DistrictTerrain => districtTerrain;
         public IReadOnlyList<Stage2MinimapMarker> Markers => markers;
+        public void SetWorldTravelMarkers(Vector2? research, Vector2? baseCircle, Vector2? worldCircle)
+        {
+            researchPosition=research; baseTeleportPosition=baseCircle; worldTeleportPosition=worldCircle;
+        }
         public Rect PanelRect => Layout(new Vector2(Screen.width, Screen.height));
         public Rect MapRect => MapArea(PanelRect, bootstrap.MapDefinition.Size);
 
@@ -145,6 +150,9 @@ namespace Not3A.Stage2.Integration
             markers.Add(new Stage2MinimapMarker(Stage2MinimapMarkerKind.Portal, bootstrap.EntranceMarker.position));
             markers.Add(new Stage2MinimapMarker(Stage2MinimapMarkerKind.Throne, bootstrap.ThroneMarker.position));
             markers.Add(new Stage2MinimapMarker(Stage2MinimapMarkerKind.Hero, bootstrap.PlayerMover.transform.position));
+            if (researchPosition.HasValue) markers.Add(new Stage2MinimapMarker(Stage2MinimapMarkerKind.Research, researchPosition.Value));
+            if (baseTeleportPosition.HasValue) markers.Add(new Stage2MinimapMarker(Stage2MinimapMarkerKind.Teleport, baseTeleportPosition.Value));
+            if (worldTeleportPosition.HasValue) markers.Add(new Stage2MinimapMarker(Stage2MinimapMarkerKind.Teleport, worldTeleportPosition.Value));
         }
 
         private void BuildTerrain()
@@ -258,11 +266,14 @@ namespace Not3A.Stage2.Integration
                 case Stage2MinimapMarkerKind.Portal: color = new Color(.95f, .27f, .25f); size = 12f; break;
                 case Stage2MinimapMarkerKind.Throne: symbol = diamond; color = new Color(.35f, .85f, 1f); size = 14f; break;
                 case Stage2MinimapMarkerKind.Hero: symbol = arrow; color = Color.white; size = 12f; break;
+                case Stage2MinimapMarkerKind.Research: symbol = Texture2D.whiteTexture; color = new Color(.96f,.83f,.46f); size = 8f; break;
+                case Stage2MinimapMarkerKind.Teleport: color = new Color(.83f,.72f,1f); size = 10f; break;
             }
             size *= scale;
             Symbol(point, symbol, size + 3f, Ink);
             Symbol(point, symbol, size, color);
             if (kind == Stage2MinimapMarkerKind.Portal) Symbol(point, circle, size * .45f, Ink);
+            if (kind == Stage2MinimapMarkerKind.Teleport) Symbol(point, circle, size * .6f, Ink);
             if (kind == Stage2MinimapMarkerKind.Throne) Symbol(point, diamond, size * .4f, Color.white);
         }
 

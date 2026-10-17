@@ -18,6 +18,7 @@ namespace Not3A.Stage3.VisualPilot
         [SerializeField] private Material grass;
         [SerializeField] private Stage3RoadsideArt roadsideArt;
         [SerializeField] private Stage3ResourceDistrictArt resourceDistrictArt;
+        [SerializeField] private Stage3WorldTravelData worldTravelData;
         [SerializeField] private Material grassVerge;
         [SerializeField] private Material paving;
         [SerializeField] private Material neutral;
@@ -38,12 +39,16 @@ namespace Not3A.Stage3.VisualPilot
         [SerializeField] private Material flowerCenters;
         private Stage2SceneBootstrap bootstrap;
         private Stage2GameComposition composition;
+        private Stage3WorldTravel worldTravel;
         private GameObject terrain;
         private Mesh terrainMesh;
         private GameObject grassEdge;
         private Mesh grassEdgeMesh;
         private GameObject borderGround;
         private Mesh borderMesh;
+        private GameObject constructionGrid;
+        private Mesh constructionGridMesh;
+        private Material constructionGridMaterial;
         private Transform heroVisual;
         private GameObject preview;
         private int previewRole = -1;
@@ -61,6 +66,11 @@ namespace Not3A.Stage3.VisualPilot
             var minimap = GetComponent<Stage2Minimap>();
             if (minimap == null) minimap = gameObject.AddComponent<Stage2Minimap>();
             minimap.Initialize(bootstrap, composition);
+            if (worldTravelData != null)
+            {
+                worldTravel = gameObject.AddComponent<Stage3WorldTravel>();
+                worldTravel.Initialize(worldTravelData, bootstrap, composition, minimap);
+            }
             Stage3ResourceDistrictWorld districtWorld = null;
             if (resourceDistrictArt != null)
             {
@@ -68,12 +78,9 @@ namespace Not3A.Stage3.VisualPilot
                 districtWorld.Initialize(bootstrap.MapDefinition, resourceDistrictArt,
                     bootstrap.CameraFollow.BoundCamera, bootstrap.PlayerMover.transform, minimap, RebuildLandscape);
             }
-            else RebuildLandscape(null);
+            else { worldTravel?.BindWorld(null); RebuildLandscape(null); }
             Stage3RoadsideDecoration.Build(bootstrap.MapDefinition,transform,roadsideArt,bootstrap.CameraFollow.BoundCamera,
-                new[] {(Vector2)bootstrap.EntranceMarker.position,(Vector2)bootstrap.ThroneMarker.position,
-                    composition.Gathering.Economy.WorldPosition(MapResourceKind.Wood),
-                    composition.Gathering.Economy.WorldPosition(MapResourceKind.Stone),
-                    composition.Gathering.Economy.WorldPosition(MapResourceKind.Metal)});
+                LandscapeClearances());
             HideSprites(bootstrap.PlayerMover.gameObject);
             heroVisual = Solid(bootstrap.PlayerMover.transform, "Hero scale marker", PrimitiveType.Capsule,
                 new Vector3(0,0,-.43f), new Vector3(.38f,.43f,.38f), hero);
@@ -141,15 +148,37 @@ namespace Not3A.Stage3.VisualPilot
         {
             ReleaseSurface();
             BuildSurface(districts);
+            BuildConstructionGrid();
             Stage3LandscapeProps.Clear(transform);
+            BuildSiteProps(districts);
+        }
+
+        public void RefreshSiteClearances()
+        {
+            Stage3LandscapeProps.Clear(transform);
+            BuildSiteProps(GetComponent<Stage3ResourceDistrictWorld>()?.Districts);
+        }
+
+        private void BuildSiteProps(IReadOnlyList<ResourceDistrict> districts)
+        {
             Stage3LandscapeProps.Build(bootstrap.MapDefinition, transform,
-                new[] {
-                    (Vector2)bootstrap.EntranceMarker.position,
-                    (Vector2)bootstrap.ThroneMarker.position,
-                    composition.Gathering.Economy.WorldPosition(MapResourceKind.Wood),
-                    composition.Gathering.Economy.WorldPosition(MapResourceKind.Stone),
-                    composition.Gathering.Economy.WorldPosition(MapResourceKind.Metal)
-                }, grassBlades, flowerPetals, flowerCenters, GrassVisualLift, districts);
+                LandscapeClearances(), grassBlades, flowerPetals, flowerCenters, GrassVisualLift, districts);
+        }
+
+        private Vector2[] LandscapeClearances()
+        {
+            var points = new List<Vector2> { bootstrap.EntranceMarker.position, bootstrap.ThroneMarker.position,
+                composition.Gathering.Economy.WorldPosition(MapResourceKind.Wood),
+                composition.Gathering.Economy.WorldPosition(MapResourceKind.Stone),
+                composition.Gathering.Economy.WorldPosition(MapResourceKind.Metal) };
+            if (worldTravel != null)
+                foreach (var point in worldTravel.SitePositions)
+                {
+                    points.Add(point);
+                    points.Add(point + Vector2.left * .75f); points.Add(point + Vector2.right * .75f);
+                    points.Add(point + Vector2.up * .75f); points.Add(point + Vector2.down * .75f);
+                }
+            return points.ToArray();
         }
 
         private void OnTowerBuilt(Stage2Tower tower)
@@ -212,6 +241,9 @@ namespace Not3A.Stage3.VisualPilot
         {
             var driver = composition.Building;
             var defense = driver.Defense;
+            // Keep the whole legal construction area visible even while the pointer
+            // is on the selected HUD card; only the cursor ghost hides over UI.
+            if (constructionGrid != null) constructionGrid.SetActive(defense.IsPlacing);
             if (driver.PreviewRenderer != null) driver.PreviewRenderer.enabled = false;
             if (!defense.IsPlacing || !defense.PreviewCell.HasValue || driver.PointerOverUi)
             {
@@ -249,6 +281,64 @@ namespace Not3A.Stage3.VisualPilot
             previewFootprint.SetTint(new Color(status.r,status.g,status.b,.9f));
             var previewSprite = preview.GetComponentInChildren<Stage3TowerSprite>();
             if (previewSprite != null) previewSprite.Tint(status);
+        }
+
+        private void BuildConstructionGrid()
+        {
+            var map = bootstrap.MapDefinition;
+            var vertices = new List<Vector3>();
+            var colors = new List<Color>();
+            var triangles = new List<int>();
+            bool BuildCell(Vector2Int cell) => map.Contains(cell) &&
+                map.GetSurface(cell)==MapSurfaceKind.InvasionCorridor &&
+                map.IsBuildable(cell) && map.IsWalkable(cell) &&
+                cell!=map.EnemyEntrance && cell!=map.Throne;
+            void Strip(Vector2 cell, Vector2 a, Vector2 b, float width, Color color)
+            {
+                var normal = new Vector2(-(b-a).y, (b-a).x).normalized * width*.5f;
+                var first = vertices.Count;
+                foreach (var point in new[] { a-normal, b-normal, b+normal, a+normal })
+                {
+                    var world = map.CellCoordinatesToWorld(cell + point);
+                    vertices.Add(new Vector3(world.x, world.y, -.045f));
+                    colors.Add(color);
+                }
+                triangles.AddRange(new[] { first,first+1,first+2,first,first+2,first+3 });
+            }
+            for (var y=map.MinimumCell.y; y<=map.MaximumCell.y; y++)
+            for (var x=map.MinimumCell.x; x<=map.MaximumCell.x; x++)
+            {
+                var cell = new Vector2Int(x,y);
+                if (!BuildCell(cell)) continue;
+                var corners = new[] { new Vector2(-.499f,-.499f),new Vector2(.499f,-.499f),
+                    new Vector2(.499f,.499f),new Vector2(-.499f,.499f) };
+                var neighbors = new[] { Vector2Int.down,Vector2Int.right,Vector2Int.up,Vector2Int.left };
+                for (var edge=0; edge<4; edge++)
+                {
+                    var shared=BuildCell(cell+neighbors[edge]);
+                    // Each shared boundary is drawn once, rather than two cell frames.
+                    if(shared && (edge==1 || edge==2)) continue;
+                    var a=corners[edge]; var b=corners[(edge+1)%4];
+                    // Outer strokes remain inside the road, including reserved holes.
+                    var inset=shared?Vector2.zero:new Vector2(-(b-a).y,(b-a).x).normalized*.018f;
+                    Strip(cell,a+inset,b+inset,.035f,new Color(.10f,.13f,.13f,.72f));
+                    Strip(cell,a+inset,b+inset,.012f,new Color(.91f,.95f,.91f,.82f));
+                }
+            }
+            constructionGridMesh = new Mesh { name="Tower construction cell grid", indexFormat=IndexFormat.UInt32 };
+            constructionGridMesh.SetVertices(vertices); constructionGridMesh.SetColors(colors);
+            constructionGridMesh.SetUVs(0,new List<Vector2>(new Vector2[vertices.Count]));
+            constructionGridMesh.SetTriangles(triangles,0); constructionGridMesh.RecalculateBounds();
+            constructionGridMaterial = Stage2PlacementVisuals.Material(false);
+            constructionGridMaterial.renderQueue=(int)RenderQueue.Transparent-10;
+            constructionGrid = new GameObject("Tower construction cell grid");
+            constructionGrid.transform.SetParent(transform,false);
+            constructionGrid.AddComponent<MeshFilter>().sharedMesh=constructionGridMesh;
+            var renderer=constructionGrid.AddComponent<MeshRenderer>();
+            renderer.sharedMaterial=constructionGridMaterial;
+            renderer.sortingOrder=-30000;
+            renderer.shadowCastingMode=ShadowCastingMode.Off; renderer.receiveShadows=false;
+            constructionGrid.SetActive(false);
         }
 
         private void BuildSurface(IReadOnlyList<ResourceDistrict> districts)
@@ -487,6 +577,12 @@ namespace Not3A.Stage3.VisualPilot
             if (meshPreviewMaterial != null) Destroy(meshPreviewMaterial);
         }
 
+        private void OnDisable()
+        {
+            if (constructionGrid != null) constructionGrid.SetActive(false);
+            if (preview != null) preview.SetActive(false);
+        }
+
         private void ReleaseSurface()
         {
             if (terrain != null) { terrain.SetActive(false);Destroy(terrain); }
@@ -495,6 +591,10 @@ namespace Not3A.Stage3.VisualPilot
             if (grassEdgeMesh != null) Destroy(grassEdgeMesh);
             if (borderGround != null) { borderGround.SetActive(false);Destroy(borderGround); }
             if (borderMesh != null) Destroy(borderMesh);
+            if (constructionGrid != null) { constructionGrid.SetActive(false); Destroy(constructionGrid); }
+            if (constructionGridMesh != null) Destroy(constructionGridMesh);
+            if (constructionGridMaterial != null) Destroy(constructionGridMaterial);
+            constructionGrid=null; constructionGridMesh=null; constructionGridMaterial=null;
             terrain=null;terrainMesh=null;grassEdge=null;grassEdgeMesh=null;borderGround=null;borderMesh=null;
         }
     }

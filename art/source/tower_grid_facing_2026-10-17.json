@@ -1,0 +1,50 @@
+{
+  "date": "2026-10-17",
+  "tool": "built-in image_gen.imagegen",
+  "authorization": "Owner requested construction grid on gray road and a 45-degree yaw correction for both existing towers.",
+  "rights": "Edits of original project-generated tower artwork. No external asset or third-party license imported.",
+  "prompts": {
+    "Rapid": "Use case: precise-object-edit. Asset type: replacement transparent game sprite for the existing Rapid wooden watchtower. The attached image is the EDIT TARGET, an original project asset. Rotate this SAME tower exactly 45 degrees around its VERTICAL axis so the near corner now becomes a FRONT FACE centered toward the viewer. It must now be a straight-on orthographic FRONT elevation with the same elevated fixed game camera: see the roof top and front, keep all vertical posts perfectly vertical, and the front horizontal beams, front eaves and square foundation edges horizontal in the image. The front two feet stand at the same image y, with rear feet behind them. Do not rotate or tilt the flat image in screen space. Preserve the tower identity, proportions, height, timber construction, red pagoda roof with gold finial, gray iron braces and rivets, pale stone individual footings and tiny grass. Preserve the existing clean inked soft cartoon fantasy artwork style, colors, detail, orthographic scale and soft upper-left lighting. Change only the object's horizontal facing angle. Isolated single complete tower, centered full height with all roof and feet visible, transparent RGBA background, no background glow, no scenery, no labels or grid. Keep the same portrait 2:3 composition and similar padding.",
+    "Longshot": "Use case: precise-object-edit. Asset type: replacement transparent foundation/base sprite for the existing Longshot catapult game tower. The attached original project sprite sheet is the EDIT TARGET. Use the TOP LEFT catapult foundation/base as the sole object to edit. Rotate this SAME foundation and its rigid wooden winch/A-frame exactly 45 degrees around its VERTICAL axis so its shield-bearing FRONT FACE is now straight-on facing the viewer, centered horizontally. The square stone foundation front edge and wooden axle must now be horizontal; front left and front right posts have matching image y; side edges recede straight upward into the image. Keep vertical stone posts upright and maintain the original elevated orthographic view and upper-left light. This is a yaw rotation of the depicted object, not a rotation of the flat picture. Preserve all design, proportions, red shield with pale fleur-de-lis, wood, rope coils, iron hardware, stonework, small ground grass and the original clean inked soft cartoon fantasy style. Output ONE centered square sprite of this rotated empty foundation/A-frame ONLY, on genuine transparent RGBA, with 7 percent padding. Omit the detachable throwing spoon/arm and loaded projectile: they remain separate animated sprites in the game. Do not output a sheet, duplicates, labels, ground tile, background glow or new features.",
+    "RapidRoofCorrection": "Use case: precise-object-edit. Input is the EDIT TARGET: the just-edited original Rapid tower. The lower wooden BODY and feet are now correctly facing front. Correct ONE remaining rotation error: the RED SQUARE HIP ROOF is still seen corner-on (a pointed V-shaped front eave). Turn the roof itself 45 degrees around the vertical central axis to match the already front-facing wooden building. Its NEAR EAVE MUST NOW BE ONE STRAIGHT HORIZONTAL LINE from front-left eave corner to front-right eave corner, not a V. The triangular red front roof slope is symmetric and flat in the same frontal plane, viewed from the existing elevated orthographic camera; roof sides recede straight back and never form a center front protruding corner. The gold finial is directly above the center. This is the same square pagoda hip roof, NOT a gable roof or a new roof design. Preserve the correct frontal timber body, braces, railings, stone feet, gold details, outline style, red/wood colors, overall scale, lighting and portrait padding. Do not rotate the image or lean posts. Remove any glow/background; the sprite must have a genuinely fully transparent background and cutouts. ONE complete isolated tower, no labels."
+  },
+  "processing": "Original generated RGBA PNG bytes copied unchanged. Authored sprite coordinates preserve the Longshot axle and separate spoon/stone geometry. Following owner feedback about the cell gap and overlap, Unity stores robust visible bounds (ignoring isolated alpha specks), uniformly fits the whole body width inside one cell and registers the visible bottom at its front edge. Preview and built towers share this fit; contact shadows and projectile release scale follow it. No raster pixels were edited for this correction.",
+  "assets": [
+    {
+      "edit_target": "Assets/Stage3/CartoonWorldPilot/RapidGroundedV2.png",
+      "generated": "/Users/artemmusket/.codex/generated_images/01a14a81-c0c1-7371-a0f2-e324f8767934/exec-f4f68148-8d9e-4d69-b0e3-8057ad2e4b8a.png",
+      "asset": "Assets/Stage3/CartoonWorldPilot/RapidGridFacing.png",
+      "sha256": "1658cc61d5db66e5a9003381a3e460d9cd14e5092bff8cfd699171dfb510b6aa",
+      "edit_target_sha256": "cae693cb952a3fbdae635111137fdf1bebc7d8a7b8d7e4047f9873f5c1074d26",
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "transparent_corner_alpha": 0,
+      "visible_bounds_alpha128": [
+        38,
+        19,
+        985,
+        1440
+      ]
+    },
+    {
+      "edit_target": "Assets/Stage3/CartoonWorldPilot/LongshotPartsV2.png",
+      "generated": "/Users/artemmusket/.codex/generated_images/01a14a81-c0c1-7371-a0f2-e324f8767934/exec-3ade8ba7-23a8-4e8b-a878-faabfea8f7c7.png",
+      "asset": "Assets/Stage3/CartoonWorldPilot/LongshotGridFacing.png",
+      "sha256": "2df043e7d81ccb080102194f3dd9cc990bfa30e1be91e282fff5cb82d28a8786",
+      "edit_target_sha256": "32c637c60e4f6832805460599a7572140428c8b9df56793230daf63b34915b45",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "transparent_corner_alpha": 0,
+      "visible_bounds_alpha128": [
+        83,
+        185,
+        1172,
+        1195
+      ]
+    }
+  ]
+}

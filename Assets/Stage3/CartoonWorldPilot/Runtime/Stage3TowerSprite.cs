@@ -10,13 +10,14 @@ namespace Not3A.Stage3.VisualPilot
         [SerializeField] private SpriteRenderer body;
         private Camera viewCamera;
         private SpriteRenderer spoon, stone;
-        private Vector2 aim = new Vector2(1,1).normalized;
+        private Vector2 aim = Vector2.up; // Rest bearing follows the 45-degree grid-facing correction.
         private float pitch = 52f;
         private bool loaded = true;
         public bool IsLayered => artwork.IsLayered;
         public Transform SpoonTransform => spoon == null ? null : spoon.transform;
         public bool LoadedVisible => stone != null && stone.enabled;
         public Sprite LoadedStoneSprite => artwork.Stone;
+        public Vector3 LoadedStoneScale => stone.transform.lossyScale;
         public int Direction { get; private set; }
         public int Pose { get; private set; }
         public bool IsCatapult => artwork.IsCatapult;
@@ -115,11 +116,23 @@ namespace Not3A.Stage3.VisualPilot
         {
             if (viewCamera == null || body == null || body.sprite == null) return;
             body.transform.rotation = viewCamera.transform.rotation;
-            var depth = body.sprite.pivot.y/body.sprite.pixelsPerUnit;
+            var bounds = artwork.BodyVisibleBounds;
+            var fitted = bounds.width > 0f && artwork.CellWidth > 0f;
+            var scale = fitted ? artwork.CellWidth/bounds.width : 1f;
+            body.transform.localScale = Vector3.one*scale;
+            // Register the visible feet, not the padded PNG pivot, at the cell's
+            // front edge. One uniform scale also keeps the spoon and stone in proportion.
+            var position = fitted
+                ? Anchor.position+Vector3.down*(.5f-artwork.FrontInset)-
+                    viewCamera.transform.right*(bounds.center.x*scale)-
+                    viewCamera.transform.up*(bounds.yMin*scale)
+                : Anchor.position+Vector3.back*.025f;
+            var depth = fitted ? Mathf.Max(0f,bounds.yMin-body.sprite.bounds.min.y)*scale
+                : body.sprite.pivot.y/body.sprite.pixelsPerUnit;
             var clearance = depth*Mathf.Abs(viewCamera.transform.up.z)/
                 Mathf.Max(.1f,Mathf.Abs(viewCamera.transform.forward.z))+.03f;
-            body.transform.position = Anchor.position+Vector3.back*.025f-
-                viewCamera.transform.forward*clearance;
+            // Depth-only clearance avoids terrain clipping without shifting screen registration.
+            body.transform.position = position-viewCamera.transform.forward*clearance;
             body.sortingOrder = -Mathf.RoundToInt(Anchor.position.y*100f);
             if(!IsLayered) return;
             EnsureParts();

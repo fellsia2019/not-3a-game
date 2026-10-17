@@ -10,6 +10,270 @@ D-017: каждый новый Stage 2–7 ведёт новый агент в �
 в `reports/development-roadmap.html`; внутри stage мелкие задачи не дробятся
 по агентам. На переходе обновляются этот handoff и канонический план.
 
+### 2026-10-17 — Documentation and repository handoff
+
+- Owner/workstream: this chat, docs / Git handoff. Owner requested documentation
+  update and push of the accumulated session changes to the existing main branch.
+- README and both HTML overviews now match D-062/D-063: survival/world identity,
+  current tower readability, generators, player-built free workshop, E research
+  and paired ground circles. Durable docs distinguish working runtime from the
+  pending defeat rewind, research tuning, future city/NPC/trade and Windows QA.
+- Verification: existing final runtime baseline remains macOS/Metal PlayMode
+  46/46; this handoff changes documentation only. HTML nesting, unique IDs,
+  navigation anchors and local source/image links checked statically; whitespace,
+  new Unity asset/meta pairs and retained image hashes checked before commit.
+  No new build or Unity gate claimed. Local Artifacts/build/cache output stays
+  excluded; original art, runtime data, source provenance and review frames are
+  part of the repository handoff. Earlier handoffs remain historical evidence.
+
+### 2026-10-17 — D-063 player-built Research Workshop
+
+- Owner/workstream: this chat, Research / construction menu / travel. Requested
+  order: build the workshop personally, then study Teleportation; owner explicitly
+  selected free construction for now. Existing research/travel and art are dependencies.
+- Delivered: Research tab and workshop card in the existing HUD. No workshop,
+  collision or marker exists at start. LMB places one workshop on free green
+  ground, with a matching sprite/footprint preview; Esc/RMB cancels. Placement
+  rejects road/borders, hero, resource districts/pads, solids, manual resources
+  and reserved circle/landmark sites. Safe front approach is checked. Construction
+  does not research automatically; E at the actual building creates the base seal.
+  Building/tower/generator modes are exclusive; pause/debug/terminal cancel the
+  preview, UI clicks cannot place through panels, held clicks cannot build twice.
+  ResetRun/regeneration remove the workshop and clear research/discovery.
+- Contracts/files: Stage3TravelState owns WorkshopBuilt; Stage3WorldTravel and
+  its Construction partial own lifecycle/placement/visuals. HUD receives narrow
+  scene callbacks, retaining the existing assembly boundary/UI stack. Production
+  exposes PlacementStarting for cancellation, and tactical presentation refreshes
+  ground clutter after placement. WorldTravelBuilder live review opens Research
+  with no QA workshop/research/resources granted. No scene/data/package/art changes.
+- Verification: macOS/Metal PlayMode **46/46** passed (101.29 s), including nine
+  construction/travel scenarios plus HUD/menu/minimap, existing placement,
+  production, resource-world collision/regeneration and gather/win/loss/restart.
+  Logs/results: Artifacts/S3-WORKSHOP-BUILD-20261017/final.*. Protected scene,
+  WorldTravelData, packages, tower sprite sets and source/runtime art hashes match
+  the pre-task baseline. New Unity source keeps its meta. No new attributable
+  compiler/shader/runtime errors in the passing run.
+  Interactive Editor shows Research/card/free construction with no ready building;
+  Console 0 warnings / 0 errors. Fresh Game view left open for owner construction;
+  actual menu frame: art/review/workshop_build_menu_2026-10-17.png.
+- Remaining: research prices/durations and new technologies are separate design
+  choices. D-062 snapshot/rewind must later include workshop placement and unlocks.
+  Windows player validation remains degraded: this installation has only Mac
+  standalone support. City/NPC/trade remain future.
+
+### 2026-10-17 — D-063 research-gated ground-circle pair in game
+
+- Owner/workstream: this chat, Research / World travel / Stage 3 presentation.
+  Owned surface: Assets/Stage3/WorldTravel/, narrow hooks in tactical presentation,
+  resource-world regeneration, E gathering cancellation, HUD hint and minimap.
+  Dependencies: existing run lifecycle, safe green ground, fixed camera, approved
+  workshop/v4 source art. Other active surfaces and package/tower data preserved.
+- Delivered: ready base workshop; E at its front studies «Телепортация» once.
+  Base circle and marker appear only after research, as explicitly required by
+  the owner. Physically find the remote circle, then E at either center travels
+  both ways; release E before another action. Shared v4 material conforms to
+  ground height, removes opaque source background, has no circle collision.
+  Pause/terminal/construction/debug block interaction; blocked arrivals reject
+  travel. ResetRun/regeneration clear research/discovery; workshop owns one solid
+  footprint. Current research/travel are instant/free prototype rules.
+- Wiring: Stage3Rapid3DGamePilot > Stage3TacticalPresentation.worldTravelData
+  references Assets/Stage3/WorldTravel/WorldTravelData.asset. Data owns the art,
+  layout and radii. Tools > Stage 3 > World Travel > Build and Wire restores the
+  art/data reference outside Play; Open Live Review starts beside the workshop
+  without granting research/resources. Only one serialized scene field added.
+- Verification: macOS/Metal PlayMode **38/38** passed (87.83 s), including six
+  travel scenarios, minimap, placement/build menu, production, resource-world
+  regeneration/collision and gather/full-win/loss/restart regressions. Actual
+  camera renders before/after research and at three zooms passed contrast/no
+  opaque-square checks; saved as art/review/world_travel_*.png. Logs/results:
+  Artifacts/S3-WORLD-TRAVEL-20261017/regression.*. Source/runtime PNG hashes match;
+  protected packages/tower prefabs/sprite sets/resource art match pre-task hashes.
+  No new attributable runtime/shader/compiler errors in the passing run.
+  Interactive Editor E confirmed the base seal appears after study; Console
+  0 warnings / 0 errors. Game view left open beside the workshop after research.
+- Remaining: player construction of the workshop, prices/durations and further
+  research are separate design choices. D-062 wave snapshot/rewind is still
+  pending and must include this progress when implemented. Windows player/shader
+  validation is degraded: this Unity installation has only MacStandaloneSupport;
+  no Windows module was installed for this change. City/NPC/trade remain future.
+
+### 2026-10-17 — D-063 ornamental teleport seal from owner reference
+
+- Owner/workstream: this chat, Art concepts / docs. Owner found circle-only v3
+  too bare and supplied a magic-seal image. Keep the shared ground-circle role
+  and distant readability; add a more attractive geometric composition.
+- Delivered: original teleport_circles_v4_seal.png with round hierarchy, links,
+  arcs and a few large glyphs. User reference archived as inspiration only with
+  unknown external source/license; no tracing/runtime reference-pixel use.
+  Canonical spec/art/vision/plan and D-063 updated, older images retained.
+- Verification: generated through built-in imagegen; subject/composition/margins
+  inspected. Original selected bytes, dimensions and all prior hashes checked;
+  prompt, input-role and rights recorded in the source manifest. Docs/links
+  checked. No runtime/scene/Inspector changes or Unity tests for this concept.
+- Remaining: owner review of v4; exact ground projection, symmetry and actual
+  gameplay-scale readability during asset preparation. Research/travel runtime
+  and D-062 rewind remain pending; city remains future.
+
+### 2026-10-17 — D-063 universal simple-circle teleport reference
+
+- Owner/workstream: this chat, Art concepts / design docs. Owner requested one
+  identical appearance for both endpoints and a simpler pattern readable from
+  the distant isometric camera: large outer circle, symmetric circles of varying
+  diameter around it, circles at the center. Existing style/camera are dependencies.
+- Delivered: teleport_circles_v3_simple.png, one circle-only design for both
+  endpoints. No fresh/weathered variation. A first generated attempt had excess
+  bloom; the selected revision uses separated outlines and restrained glow on
+  an opaque quiet preview background. Canonical spec/art/vision/plan and D-063
+  record the current direction; source manifest preserves both prompts and status.
+- Verification: selected image visually inspected for simple circular hierarchy,
+  horizontal marking and no tiny glyphs; original PNG/hash/mode/dimensions checked.
+  Earlier selected art bytes unchanged; docs/links checked. Concept only, no
+  runtime asset/scene/code/Inspector changes or new Unity tests.
+- Remaining: owner review of v3; exact symmetry, footprint and actual gameplay
+  scale/readability to verify during asset preparation, then research/travel
+  integration. Workshop appearance remains accepted; city remains future.
+
+### 2026-10-17 — D-063 appearance correction: ground teleport circles
+
+- Owner/workstream: this chat, Art concepts / design docs. Owner accepted the
+  Research Workshop appearance and rejected the vertical teleport arches;
+  requested teleport circles drawn flat on the ground. Scope depends on the
+  existing cartoon style and fixed tactical view; no runtime migration.
+- Delivered: teleport_circles_v2.png shows a fresh base diagram and matching
+  weathered world diagram, both entirely horizontal with ground-level glow,
+  visible centers and no arch/pedestal. Renamed current concept to «Круги
+  телепортации». Canonical briefs/vision/art/plan and D-063 record the correction;
+  generation manifest records workshop approval and v1 rejection explicitly.
+- Verification: generated through built-in imagegen, visually inspected for
+  flat surface markings and complete diagrams. Original RGBA v2 bytes, prompt,
+  source path, transparency and SHA-256 saved; approved workshop and rejected
+  v1 hashes unchanged. Docs/links checked. No Unity code/scene/Inspector changes
+  or tests; existing game session and previous work preserved.
+- Remaining: owner review of circle v2; final asset preparation and research/
+  teleport runtime briefs/implementation remain pending. City remains future.
+
+### 2026-10-17 — D-063 research and world travel (concepts prepared)
+
+- Owner/workstream: this chat, Game Design / Art concepts. Owned surface: two
+  feature briefs, canonical docs and original concept references/provenance.
+  Dependencies: D-062 world/rewind direction and current cartoon art vocabulary.
+- Authorization/acceptance: name and design a research building for future
+  buildings/towers; generate travel-gate references for a research-opened base
+  endpoint and a discovered world endpoint. The owner clarified that the city
+  does not exist and must not be created now; merchant/NPCs are future context.
+  Both proposals must be readable in the current style without changing runtime.
+- Delivered: «Исследовательская мастерская» with books/plans/instruments;
+  matching base/world «Путевые врата» reference sheet. First research
+  «Телепортация» and discovering the remote endpoint before travel are proposed
+  first-slice rules. RESEARCH.md and WORLD_TELEPORTS.md distinguish those from
+  accepted intent and open implementation choices. Vision/plan/art/D-063 updated.
+- Verification: both built-in imagegen outputs inspected for subject, style,
+  full silhouettes and absence of a city/NPC scene. Original RGBA PNG bytes
+  copied unchanged into art/concepts/research_and_travel_2026-10-17/; alpha,
+  dimensions and SHA-256 checked. Prompts/rights/source paths are recorded in
+  art/source/research_and_travel_2026-10-17_generation.json. Docs checked for
+  local references and whitespace. No Unity runtime, package, scene or Inspector
+  changes/tests; live game and previous work preserved.
+- Remaining: owner visual review, resolve the minimal research/travel rules and
+  parameters before implementation, then verify research/access/placement/safe
+  arrival/retry integration. D-062 rewind remains pending. City art/scene/NPCs
+  and trade remain explicitly future work; no city was generated here.
+
+### 2026-10-17 — D-062 survival/world identity and defeat rewind (design recorded)
+
+- Owner/workstream: this chat, Game Design / Run state contract. Owned surface:
+  canonical vision/plan/decisions, agent facts, existing run-state spec and art
+  direction. Dependencies: current finite Run state, snapshot consumers and HUD.
+- Accepted intent: tower defense combined with survival, huge-world exploration
+  and base development. Exact world size and additional survival systems remain
+  open. Owner corrected the wording: red portal spawns enemies; blue throne is
+  defended. Destroying the throne emits light rays, ending in a white screen
+  and «Повторить». Retry restores the state immediately before the failed wave
+  started and gives its full preparation timer for either manual or timed start;
+  repeated attempts are unlimited. Owner selected this snapshot boundary over
+  restoring the beginning of the preceding preparation.
+- Deliverable/acceptance: confirmed intent and current runtime are distinguished;
+  D-062 supersedes the old peripheral-world framing and whole-run defeat retry.
+  Existing STAGE2_RUN_STATE.md defines restoration scope, integration surfaces
+  and observable runtime checks; no duplicate feature or architecture document.
+- Verification: inspected StartWave/ResetRun, driver, production Reset consumer
+  and HUD; checked documentation links and whitespace. This pass changes docs
+  only. No new Unity run or functional retry validation is claimed; live Unity
+  and previous tower-grid/fit changes are preserved. No scene/Inspector wiring.
+- Remaining: runtime snapshot/restore plus defeat presentation/HUD implementation
+  and EditMode/PlayMode validation; define the minimum survival/world slice and
+  scale approach before commercial scope is fixed. No new packages, content
+  counts, automation chain or persistent meta system are approved here.
+
+### 2026-10-17 — D-061 follow-up: tower cell registration (implemented)
+
+- Owner/workstream: this chat, Stage 3 Integration/Art. User reported a large
+  vertical base offset and overlap between adjacent towers in the first result.
+  Owned surface: shared tower sprite fit, contact shadows and stone handoff.
+- Dependencies/acceptance: existing unit-cell anchors and camera, shared paid/
+  preview art and layered catapult. Visible feet meet the front cell edge, full
+  body/roof width leaves a gap between immediate neighbors at normal/near zoom,
+  preview matches purchase and projectile release preserves stone size.
+- Behavior/contracts: Stage3TowerSpriteSet stores robust visible body bounds and
+  fit settings; the cartoon builder updates both existing sets/prefabs and their
+  shadows. Stage3TowerSprite applies uniform fit and front-edge registration;
+  Stage3CombatPresentation carries loaded stone scale into flight. Original PNGs,
+  logical anchors, gameplay data and scene wiring are unchanged. Existing sets
+  were refreshed; no manual Inspector action or scene migration is needed.
+- Verification: Mac/Metal PlayMode 14/14, no failures/skips or new attributable
+  errors. Actual pixel bounds of a dense four-tower row and both previews meet
+  cell sides/front at zoom 5/2.5; final frames inspected. Placement lifecycle,
+  paid build/reset, HUD, four bearings, combat and stone release all pass.
+  Initial run was 13/14: the new near-zoom capture placed its cursor over HUD;
+  corrected the test setup, then the complete final suite passed.
+- Evidence: Artifacts/S3-TOWER-CELL-FIT-20261017/{final-playmode.xml,final/,
+  verification.json}; art/review/tower_cell_fit_*2026-10-17.png. Canonical
+  tactical spec, art direction, plan and D-061 reflect the corrected contract.
+- Remaining: owner visual review and Windows target validation. No push or
+  commit requested; changes remain local.
+- Live handoff: ordinary Stage3Rapid3DGamePilot Play reopened without QA grants;
+  Game view visible, startup Console checked at zero errors and zero warnings.
+
+### 2026-10-17 — D-061 tower construction grid and 45-degree facing (implemented)
+
+- Owner/workstream: this chat, continuing Stage 3 Integration/Art. Owns the
+  tactical tower grid, Rapid/Longshot sprite facing/import and relevant checks.
+- Authorization: owner requested visible cells on the gray zone when selecting
+  a tower and a 45-degree turn of both existing towers because placement looks
+  sideways. Existing billboards require the depicted object to change yaw;
+  rotating the flat sprite would lean the tower. Use edited sibling artwork.
+- Dependencies: current planar map/buildability masks, Defense placement state,
+  shared preview/built sprite sets and existing layered Longshot animation.
+- Acceptance: grid matches actual gray build cells only and follows selection,
+  cancellation, pause/reset and generator switching; both tower bodies face
+  along the grid in preview and after purchase, with upright posts, matching
+  scale/contact and working shots. No new attributable Console errors. Preserve
+  gameplay data, camera, map, pad art and original tower sources.
+- Behavior/files: Stage3TacticalPresentation creates one cached ground mesh and
+  material over real buildable road cells, with shared edges drawn once and
+  no marks on green/reserved cells. It follows Defense placement state even
+  over HUD and hides on cancel/pause/reset/generator selection. The cartoon
+  builder's narrow Refresh Tower Facing imports sibling RapidGridFacing and
+  LongshotGridFacing PNGs into existing sets/prefabs; original opaque height
+  and front-foot offsets were retained initially (superseded by the cell-fit
+  follow-up above after owner feedback). Stage3TowerSprite's initial aim follows
+  the new resting bearing; actual targeting and separate spoon/stone remain.
+- Verification: final Mac/Metal PlayMode 13/13, zero failures/skips. Legal-cell
+  vertices and actual render contrast; both preview/built identities, bounds
+  and upright alignment; menu/HUD/affordability/exclusive modes/pause/reset;
+  repeated paid construction, four bearings and both attacks/releases/impacts.
+  Final normal/close/overview grid and both built-tower renders independently
+  inspected. No new attributable Console errors. Scene/catalog/package values
+  and original PNGs remain unchanged; no scene or Inspector migration.
+- Evidence: Artifacts/S3-TOWER-GRID-20261017/{final-playmode.xml,final/,
+  verification.json}; shared art/review/*grid*2026-10-17.png. Full original-edit
+  prompts/source rights/PNG hashes: art/source/tower_grid_facing_2026-10-17.json.
+- Remaining: owner visual review and Windows target validation. Technical checks
+  do not pre-approve the edited artwork. Changes remain local; no push requested.
+- Live handoff: Stage3Rapid3DGamePilot reopened in ordinary Play with normal
+  starting inventory, both paid showcase towers and no review grants. Game view
+  is visible; Console shows zero errors and zero warnings after startup.
+
 ### 2026-10-17 — D-060 approved Astra pad icons (implemented)
 
 - Authorization: owner approved approval_sheet_astra_v2 and explicitly requested

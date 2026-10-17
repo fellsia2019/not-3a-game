@@ -1,5 +1,77 @@
 # Feature: Stage 2 Run State And Cadence
 
+## Current Product Target — D-062, 2026-10-17
+
+Owner/workstream: Game Design / Run state integration. The owner clarified the
+large-world survival/TD concept and approved the retry rule below. This section
+is the current target; the Stage 2 implementation and verification below remain
+the historical finite-run baseline. The target rewind is **not implemented**.
+
+### Accepted player behavior
+
+- Red portal is the enemy entrance; blue throne is the defended objective.
+- When the throne is destroyed, light rays emerge from it and intensify until
+  the screen is fully white. A readable «Повторить» action then permits retry.
+  Destruction must not leave the normal world simulation running under the
+  presentation. The transition must finish while gameplay is stopped.
+- Capture the state immediately before each actual wave launch, before its first
+  enemy or shot. Manual early start and automatic timer expiry use the same
+  checkpoint boundary. This is not the beginning of the preceding preparation.
+- Retry restores that snapshot: the same generated world, hero position,
+  inventory, resource stock/recovery, tower placement/health and objective
+  health, and production buildings/progress. It removes the failed attempt's
+  enemies, projectiles, effects and temporary actions. It must not combine
+  resources, kills or construction from the failed future with restored state.
+- Return to Preparation for the **failed wave**, with its full configured
+  preparation duration. The old remaining timer and manual early-start time do
+  not reduce it. Objective and tower health come from the snapshot, not a new
+  full-run initialization. The restored world supports ordinary gathering,
+  building and the next manual/timed launch.
+- Every subsequent wave launch establishes its own current pre-launch snapshot,
+  including another attempt at the same wave after preparing differently.
+  Repeated defeats can be retried without an attempt limit.
+
+The extra preparation is intentional. Resetting the failed future prevents
+keeping its rewards or duplicating stock; the player can use each new
+preparation to change the defense. How this affects difficulty requires live
+play rather than an unapproved retry penalty or resource cap.
+
+### Existing surfaces and integration work
+
+`Stage2Run.StartWave()` currently owns both start paths but stores no snapshot.
+`Stage2Run.ResetRun()` clears Defense/Navigation/Economy and selects wave one;
+`Stage2RunDriver.ResetRun()` also resets gathering and hero position.
+`Stage2ProductionDriver` currently clears production on the normal Reset event.
+`Stage2GameHud.DrawOutcome()` offers «Новый забег [R]» through the same full reset.
+These existing entry points do not satisfy «Повторить» and must not be relabeled
+without implementing coherent restoration of their consumers.
+
+Dependencies: Run state, Defense/Navigation occupancy, Economy/resource recovery,
+hero/gathering lifecycle, production buildings and collision, combat cleanup,
+objective presentation and HUD. Preserve scene/asset references and current
+authored gameplay data. The snapshot's storage shape is an implementation choice
+to resolve when that work begins; no disk save system or huge-world architecture
+is selected by this concept pass. Full reset can remain an explicitly separate
+development operation; it must not be silently substituted for loss retry.
+
+### Observable acceptance for implementation
+
+- A manual early launch and a launch after timer expiry both retry the failed
+  wave, including a wave after the first, with its full authored preparation.
+- The restored world matches the pre-launch state. Damage, destroyed/bought
+  towers, resource spending/gains and production changes during the failed
+  attempt are undone together; restored buildings and occupied cells agree.
+- Production/gathering/recovery freeze during defeat and resume from restored
+  progress, without duplicate income, old attacks or held-input replay.
+- A second failure/retry works after changing the defense in the new preparation;
+  progression to the following wave creates the next checkpoint correctly.
+- Actual rays-to-white presentation completes with gameplay stopped and leaves
+  a working, visible «Повторить» action. The retry clears the defeat transition.
+- Relevant EditMode/PlayMode checks and scene wiring are verified with no new
+  attributable Console errors. No such runtime verification is claimed yet.
+
+## Historical Implemented Baseline
+
 Status: S2-WAV-02 complete and wired by S2-INT-02; S2-QA-01 qualified the
 Windows baseline on 2026-09-24. The human subsequently delegated the cadence
 trial choice and implementation under S2-WAV-01/P-004; the multi-wave follow-up

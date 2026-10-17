@@ -23,8 +23,13 @@ a better option instead of implementing it silently.
 ## Project Facts And Scope
 
 - Unity `6000.6.2f1`, URP, Input System; Windows/Steam is the only MVP target.
-- The core is gather -> invest -> defend -> recover/upgrade -> repeat.
+- Product intent is tower defense combined with survival, exploration of a huge
+  world and base development (D-062). The core is explore/gather -> invest ->
+  defend -> recover/develop -> repeat. The current short run is a prototype.
 - The throne is the loss-critical objective. Resources are wood, stone, metal.
+- D-062 approves defeat rewind to the snapshot immediately before the failed
+  wave starts, plus its full preparation timer, for manual and timed starts.
+  This is an accepted target contract, not implemented runtime behavior yet.
 - The hero has no combat role; they gather resources and construct defenses.
 - Tutorial flow and tool-tier progression are post-MVP.
 - Factorio-style automation/logistics and persistent roguelite progression are

@@ -1151,20 +1151,178 @@ Source of truth: `gamedesign/features/RESOURCE_PRODUCTION_BUILDINGS.md`.
 Approved visual/source: `art/concepts/placement_icons_2026-10-17/approval_sheet_astra_v2.png`,
 `art/source/placement_icons_astra_v2_2026-10-17.json`.
 
+## D-061 — Tower construction cells and grid-aligned tower facing
+
+Accepted 2026-10-17. The owner requested visible cell divisions on the gray
+invasion zone when selecting a tower, and a 45-degree turn of all current tower
+art because the existing corner-facing placement looks sideways.
+
+Show the actual gray, walkable/buildable cell boundaries during tower placement,
+including while the selected card is under the pointer. Hide them on cancel,
+pause/end/reset and generator selection. Grass and reserved cells do not gain
+construction marks. Occupancy, hero/enemy protection and full-price checks retain
+their existing red/green cursor feedback and rules.
+
+Rapid and Longshot now use edited sibling front-facing body sprites with the
+depicted object turned around its vertical axis. Upright posts remain upright;
+the fixed camera and game grid do not rotate. Preserve original tower files,
+and Longshot's separate spoon/stone animation.
+Preview and built towers share the same sprite set. No controls, tower types,
+prices, collision or map changes are authorized by this visual correction.
+
+Owner follow-up, same day: the first integration retained the previous size and
+foot offset, leaving a large lower-cell gap and overlapping neighboring towers.
+This supersedes retaining that height/registration: fit the complete visible body
+width within one cell and anchor its visible bottom at the front cell edge with
+a small inset. Scale uniformly, keep preview/built registration identical, fit
+the contact shadow and preserve the separate stone's size through release.
+
+## D-062 — Large-world survival TD and time rewind after throne loss
+
+Status: accepted by explicit owner clarification, 2026-10-17. Concept and retry
+contract recorded; runtime implementation remains pending.
+
+The product combines tower defense with survival, exploration of a huge world
+and base development. RimWorld and Factorio are references for world scale and
+development; the owner gave approximate alternative cell counts, not an exact
+map requirement. Current 250×250 bounds remain prototype data. World size,
+population, additional survival systems and the minimum commercial slice need
+their own concrete scope; no new architecture or content counts are chosen here.
+
+The owner corrected the initial wording: the red portal remains the enemy
+entrance; the blue throne remains the defended, loss-critical objective. The
+hero has been sent to protect it, for a reason left unspecified. On destruction,
+light rays emerge from the throne and build to a fully white screen, followed
+by a readable «Повторить» action. No extra lore is established.
+
+The owner explicitly selected a snapshot immediately before the failed wave
+starts, with the full preparation timer on retry. Both manual early start and
+automatic timer expiry establish the same kind of checkpoint before the first
+spawn. Retry restores world/resources/buildings/hero from that checkpoint,
+returns to Preparation for the failed wave, and grants its full configured
+preparation duration. It does not use the remaining or previously skipped
+preparation time, or reset to the beginning of the game. Attempts are unlimited.
+An infinite sequence of different waves and cross-session saves are not decided
+by this clarification. Detailed target: gamedesign/features/STAGE2_RUN_STATE.md.
+
+This supersedes treating the huge-world/survival layer as merely a distant
+optional direction in GAME_VISION, D-032's assumption that the unchanged short
+finite TD run defines the complete commercial scope, and whole-run reset as
+the target player-facing defeat retry. Historical first-playable acceptance and
+the current reset implementation remain evidence, not proof of this new loop.
+D-004's limits on Factorio-style logistics/automation and persistent roguelite
+meta, D-006's non-combat hero/tools and D-007's tutorial scope remain in force.
+
+## D-063 — Research workshop, paired travel gates and future city
+
+Status: direction and concept preparation authorized by the owner, 2026-10-17.
+First images are proposals; no final visual or runtime implementation approved
+by their generation alone.
+
+The next peaceful building being designed is a research building. The owner
+delegated naming; current name is «Исследовательская мастерская». Research
+opens further buildings, towers and possibly other capabilities. Exact unlocks,
+costs, durations, placement and UI rules are not yet selected. This moves the
+research-building direction from a generic later candidate into active design;
+it does not modify the implemented D-058 generators or invent new tower roles.
+
+The owner also requested imagegen references for travel between two gates on
+the same map: a base-side teleport accessible through research and a second
+teleport found in the world. «Путевые врата» is the proposed travel name;
+«Телепортация» as the first research and visiting the world-side gate before
+first travel are recommendations for the initial slice, not settled runtime
+rules. Whether base gates exist dormant or are constructed after research is
+still open. Keep both roles distinct from the enemy portal and defended throne.
+
+The future world-side destination can be a city with a merchant and other NPCs.
+The owner's follow-up corrected speech recognition: **the city does not yet
+exist and must not be created now**. Treat it as future context only; no city
+scene, city concept generation, NPC set or trade economy is authorized now.
+
+Original concept images and full generation records:
+art/concepts/research_and_travel_2026-10-17/ and
+art/source/research_and_travel_2026-10-17_generation.json.
+Active briefs: gamedesign/features/RESEARCH.md and WORLD_TELEPORTS.md.
+Future research/travel state must participate in D-062's world rewind. This
+concept pass does not introduce persistent roguelite meta or a logistics system.
+
+Owner appearance follow-up, 2026-10-17: «Исследовательская мастерская пойдет»
+accepts the first research-workshop concept appearance. The paired upright
+teleport arches are rejected. Teleports must be **circles drawn horizontally
+on the ground**, with ground-plane markings rather than a vertical portal like
+the enemy entrance. This supersedes the proposed gate shape and «Путевые врата»
+wording; use «Круги телепортации». Workshop pixels are preserved. A new paired
+ground-circle v2 reference is prepared for review; its generation does not
+establish visual acceptance or runtime integration.
+
+Further owner clarification, 2026-10-17: no appearance difference is wanted
+between base and world teleports; use the same visual. The ground-circle idea
+is broadly suitable, but the owner requests another reference composed of one
+large circle, symmetric circles of different diameters on its circumference,
+and circles at the center. Small ornate details are unsuitable at the game's
+zoomed-out isometric view. This supersedes the fresh/weathered distinction
+and rune-heavy v2 treatment. V3 is a simple universal circle-only proposal with
+restrained glow. Exact projected geometry and in-game readability remain for
+asset preparation/verification; the new image is not yet visually accepted.
+
+Owner reference follow-up, 2026-10-17: the circle-only v3 is too bare. The owner
+provided an ornamental circular magic-seal reference and requested a more
+attractive design. This relaxes the circle-only restriction: round hierarchy
+can include geometric links, arc accents and a few bold invented symbols.
+Previous shared appearance, ground-plane orientation and zoomed-out readability
+remain required. V4 is an original master-pattern proposal; final acceptance,
+ground projection and gameplay-scale verification remain pending.
+The supplied reference is archived in art/references/teleport_seal_user_reference_2026-10-17.png
+as inspiration only, with external source/license unknown; do not trace it or
+use its pixels as runtime artwork. Prompts/rights are in the generation record.
+
+Owner approval and implementation clarification, 2026-10-17: «Да, теперь оно.
+Approve. делай теперь это в игре» accepts v4 and authorizes the playable slice.
+The base circle must **appear only after studying it in the Research Workshop**;
+it is not a visible dormant endpoint before research. Both endpoints use v4.
+This supersedes the earlier pending-approval and open base-activation wording.
+
+First implemented slice: one ready workshop at the base, contextual E performs
+the one-time «Телепортация» research and makes the base circle visible. Personally
+discover the remote circle before paired travel. E inside either circle moves
+the hero to its counterpart with a safe-arrival check and requires release before
+another trip. Research/travel are currently instant and free for this prototype;
+workshop construction, research prices/durations and additional technologies
+remain open. They work in preparation/wave and are blocked by pause, terminal,
+construction and debug UI. Full ResetRun/world regeneration clears progress.
+Future D-062 snapshot integration remains pending with the rewind itself.
+The city/NPC boundary remains unchanged. Runtime data and original image copies:
+Assets/Stage3/WorldTravel/; contracts: RESEARCH.md and WORLD_TELEPORTS.md.
+
+Owner construction follow-up, 2026-10-17: add the Research Workshop to the build
+menu so the player constructs it before studying Teleportation. Owner selected
+«Пока бесплатно» for its construction. This supersedes the ready base workshop
+in the previous slice. The Research tab offers one workshop; it is placed on
+free green ground with preview/LMB and Esc/RMB cancellation, without overlapping
+hero, road, resource districts, solids or reserved teleport/landmark sites.
+Research remains a separate E action at the constructed workshop. Full reset
+or world regeneration removes the workshop/collision/marker and clears unlocks.
+Other placement modes are exclusive. No additional technology or currency added.
+
 ## Pending Product Decisions
 
 - Текущая карта Stage 3 — 250×250 по D-049, боевая часть в нижнем левом углу
   по D-050, форма дороги уточнена рисунком и подтверждением D-051.
+  По D-062 продукт включает выживание, огромный мир и развитие базы; точный
+  размер, состав систем и минимальный проверяемый коммерческий срез открыты.
   Темп длинного маршрута и будущие места исследования/добычи ещё оцениваются.
   Три волны — текущий кандидат, не окончательный баланс. Старые размеры и
   P-004/P-008 анализы остаются историческими свидетельствами в feature specs.
 - D-039–D-041 повторно проверяют спрайтовое производство для выбранных объектов;
-  D-027 остаётся историческим решением о 3D, камера сохраняется. Состав коммерческого
-  MVP принят D-032; вид каждой следующей модели и бюджет массового
+  D-027 остаётся историческим решением о 3D, камера сохраняется. Прежний состав
+  MVP D-032 уточняется по D-062; вид каждой следующей модели и бюджет массового
   производства открыты.
 - Финальный UI stack и необходимость сохранения незаконченного забега
   решаются, когда начнётся соответствующая работа. Старые P-005/P-006 не
-  блокируют первый играбельный билд.
+  блокируют первый играбельный билд. D-062 утверждает снимок для повтора волны
+  в текущей игре; сохранение между запусками приложения этим не определено.
 - Позднее отдельно определить правила мирных зданий на зелёной зоне,
-  исследований и улучшений. Прежний P-007 о tool progression остаётся поздней
-  идеей. Бриф второго врага S2-AI-01 не является активным заданием.
+  исследований и улучшений. По D-063 первый срез мастерской и пары кругов
+  внедрён вместе со строительством мастерской; дальнейшие исследования, город и торговля
+  ещё открыты. Прежний P-007 о tool progression остаётся поздней идеей.
+  Бриф второго врага S2-AI-01 не является активным заданием.

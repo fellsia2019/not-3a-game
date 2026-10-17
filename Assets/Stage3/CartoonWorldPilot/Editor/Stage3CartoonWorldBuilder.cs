@@ -114,6 +114,18 @@ namespace Not3A.Stage3.VisualPilot.Editor
             AssetDatabase.SaveAssets();
         }
 
+        [MenuItem("Tools/Stage 3/Cartoon World/Refresh Tower Facing")]
+        public static void RefreshTowerFacing()
+        {
+            if (EditorApplication.isPlayingOrWillChangePlaymode)
+                throw new InvalidOperationException("Stop Play before refreshing tower artwork.");
+            Directory.CreateDirectory(Evidence);
+            BuildTower(false);
+            BuildTower(true);
+            AssetDatabase.SaveAssets();
+            Debug.Log("S3_TOWER_FACING_READY: Rapid and Longshot face along grid axes; original art and gameplay data preserved.");
+        }
+
         private static void BuildRoadside()
         {
             var path=Folder+"RoadsideArt.asset";
@@ -156,29 +168,46 @@ namespace Not3A.Stage3.VisualPilot.Editor
         private static Stage2Tower BuildTower(bool catapult)
         {
             var name=catapult ? "Longshot" : "Rapid";
-            var texture=AssetDatabase.LoadAssetAtPath<Texture2D>(Folder+(catapult?"LongshotPartsV2.png":"RapidGroundedV2.png"));
+            var originalPath=Folder+(catapult?"LongshotPartsV2.png":"RapidGroundedV2.png");
+            var facingPath=Folder+name+"GridFacing.png";
+            Import(originalPath,true);
+            Import(facingPath,true);
+            var original=AssetDatabase.LoadAssetAtPath<Texture2D>(originalPath);
+            var texture=AssetDatabase.LoadAssetAtPath<Texture2D>(facingPath);
             var setPath=Folder+name+"Sprites.asset";
             var set=AssetDatabase.LoadAssetAtPath<Stage3TowerSpriteSet>(setPath);
             if (set == null) { set=ScriptableObject.CreateInstance<Stage3TowerSpriteSet>(); AssetDatabase.CreateAsset(set,setPath); }
             foreach(var previous in AssetDatabase.LoadAllAssetsAtPath(setPath).OfType<Sprite>()) Object.DestroyImmediate(previous,true);
             var count=1;
-            var width=catapult?texture.width/3:texture.width;
-            var height=catapult?texture.height/2:texture.height;
+            var width=texture.width;
+            var height=texture.height;
             var pixels=texture.GetPixels32();
+            var originalWidth=catapult?original.width/3:original.width;
+            var originalHeight=catapult?original.height/2:original.height;
+            var originalPixels=original.GetPixels32();
+            int originalBottom=originalHeight,originalTop=-1;
+            for(var py=0;py<originalHeight;py++)
+            for(var px=0;px<originalWidth;px++)
+                if(originalPixels[((catapult?originalHeight:0)+py)*original.width+px].a>=128)
+                { originalBottom=Mathf.Min(originalBottom,py); originalTop=Mathf.Max(originalTop,py); }
+            if(originalTop<0) throw new InvalidOperationException("Empty original tower artwork.");
+            var originalPixelsPerUnit=originalWidth/(catapult?1.65f:1.45f);
             var sprites=new Sprite[count];
             var report="";
             for(var index=0;index<count;index++)
             {
-                int x=0, y=catapult?height:0;
+                int x=0, y=0;
                 int bottom=height, top=-1;
                 for(var py=0;py<height;py++)
                 for(var px=0;px<width;px++)
                     if(pixels[(y+py)*texture.width+x+px].a>=128) { bottom=Mathf.Min(bottom,py); top=Mathf.Max(top,py); }
                 if(top<0) throw new InvalidOperationException("Empty tower frame "+index);
-                // Register every foundation at its planted front foot. Row padding is
-                // deliberately ignored; the source artwork is preserved byte-for-byte.
-                var pivot=new Vector2(.5f,(bottom+(catapult?95f:150f))/height);
-                var sprite=Sprite.Create(texture,new Rect(x,y,width,height),pivot,width/(catapult?1.65f:1.45f),0,SpriteMeshType.FullRect);
+                // Retain the authored local coordinates used by the articulated axle.
+                // Final width and ground registration come from visible bounds below.
+                var pixelsPerUnit=originalPixelsPerUnit*(top-bottom+1f)/(originalTop-originalBottom+1f);
+                var footOffset=(catapult?95f:150f)/originalPixelsPerUnit;
+                var pivot=new Vector2(.5f,(bottom+footOffset*pixelsPerUnit)/height);
+                var sprite=Sprite.Create(texture,new Rect(x,y,width,height),pivot,pixelsPerUnit,0,SpriteMeshType.FullRect);
                 sprite.name=name+"_"+index/6+"_"+index%6;
                 AssetDatabase.AddObjectToAsset(sprite,set);
                 sprites[index]=sprite;
@@ -186,12 +215,16 @@ namespace Not3A.Stage3.VisualPilot.Editor
             }
             set.Configure(sprites,catapult ? new[] {
                 new Vector2(185,215),new Vector2(65,218),new Vector2(69,94),new Vector2(185,125)
-            } : new[] {new Vector2(width*.61f,height*.63f)});
+            } : new[] {new Vector2(width*.5f,height*.65f)});
+            const float cellWidth=.92f, frontInset=.02f;
+            var visibleBounds=VisibleBodyBounds(pixels,width,height,sprites[0]);
+            set.ConfigureCellFit(visibleBounds,cellWidth,frontInset);
+            report+=$"visibleBounds={visibleBounds} cellWidth={cellWidth} frontInset={frontInset}\n";
             if(catapult)
             {
-                var spoon=Sprite.Create(texture,new Rect(0,0,512,512),new Vector2(145f/512f,140f/512f),480f,0,SpriteMeshType.FullRect);
+                var spoon=Sprite.Create(original,new Rect(0,0,512,512),new Vector2(145f/512f,140f/512f),480f,0,SpriteMeshType.FullRect);
                 spoon.name="Longshot separate spoon"; AssetDatabase.AddObjectToAsset(spoon,set);
-                var stone=Sprite.Create(texture,new Rect(512,0,512,512),new Vector2(250f/512f,260f/512f),740f,0,SpriteMeshType.FullRect);
+                var stone=Sprite.Create(original,new Rect(512,0,512,512),new Vector2(250f/512f,260f/512f),740f,0,SpriteMeshType.FullRect);
                 stone.name="Longshot loaded stone"; AssetDatabase.AddObjectToAsset(stone,set);
                 set.ConfigureParts(spoon,stone);
             }
@@ -218,7 +251,9 @@ namespace Not3A.Stage3.VisualPilot.Editor
                 Set(view,"artwork",set); Set(view,"body",renderer);
                 var shadow=root.transform.Find("Tower contact shadow");
                 if(shadow==null) { shadow=new GameObject("Tower contact shadow").transform; shadow.SetParent(root.transform,false); }
-                shadow.localPosition=new Vector3(-.16f,-.02f,-.014f);
+                var shadowScale=cellWidth/(2f*.80f);
+                shadow.localScale=Vector3.one*shadowScale;
+                shadow.localPosition=new Vector3(0f,-(.5f-frontInset)+.47f*shadowScale,-.014f);
                 var filter=shadow.GetComponent<MeshFilter>(); if(filter==null) filter=shadow.gameObject.AddComponent<MeshFilter>();
                 filter.sharedMesh=ContactShadow();
                 var shade=shadow.GetComponent<MeshRenderer>(); if(shade==null) shade=shadow.gameObject.AddComponent<MeshRenderer>();
@@ -238,7 +273,28 @@ namespace Not3A.Stage3.VisualPilot.Editor
             AssetDatabase.SaveAssets();
             var importer=(TextureImporter)AssetImporter.GetAtPath(AssetDatabase.GetAssetPath(texture));
             importer.isReadable=false; importer.SaveAndReimport();
+            var originalImporter=(TextureImporter)AssetImporter.GetAtPath(originalPath);
+            originalImporter.isReadable=false; originalImporter.SaveAndReimport();
             return AssetDatabase.LoadAssetAtPath<Stage2Tower>(prefabPath);
+        }
+
+        private static Rect VisibleBodyBounds(Color32[] pixels,int width,int height,Sprite sprite)
+        {
+            var rows=new int[height]; var columns=new int[width];
+            for(var y=0;y<height;y++)
+            for(var x=0;x<width;x++)
+                if(pixels[y*width+x].a>=128) { rows[y]++; columns[x]++; }
+            // Ignore isolated alpha specks in otherwise transparent padding.
+            var minRow=Mathf.Max(4,Mathf.CeilToInt(width*.005f));
+            var minColumn=Mathf.Max(4,Mathf.CeilToInt(height*.005f));
+            var left=Array.FindIndex(columns,n=>n>=minColumn);
+            var right=Array.FindLastIndex(columns,n=>n>=minColumn)+1;
+            var bottom=Array.FindIndex(rows,n=>n>=minRow);
+            var top=Array.FindLastIndex(rows,n=>n>=minRow)+1;
+            if(left<0||bottom<0) throw new InvalidOperationException("Empty tower body bounds.");
+            return new Rect((left-sprite.pivot.x)/sprite.pixelsPerUnit,
+                (bottom-sprite.pivot.y)/sprite.pixelsPerUnit,
+                (right-left)/sprite.pixelsPerUnit,(top-bottom)/sprite.pixelsPerUnit);
         }
 
         private static Mesh ContactShadow()

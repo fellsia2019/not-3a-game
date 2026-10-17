@@ -88,6 +88,12 @@ namespace Not3A.Stage2.Economy
             requiresRelease = true;
         }
 
+        public void CancelGatherUntilRelease()
+        {
+            economy?.CancelGather();
+            requiresRelease = true;
+        }
+
         private void Start()
         {
             if (economy == null) Initialize();

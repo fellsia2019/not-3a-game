@@ -36,6 +36,7 @@ namespace Not3A.Stage2.Integration
         public ProductionPlacementResult PreviewResult { get; private set; } = ProductionPlacementResult.NotPlacing;
         public int PreviewPointIndex { get; private set; } = -1;
         public bool PointerOverUi { get; private set; }
+        public event Action PlacementStarting;
 
         public void Configure(Stage2ProductionCatalog catalog, Stage2SceneBootstrap scene, Stage2GameComposition game)
         {
@@ -75,6 +76,7 @@ namespace Not3A.Stage2.Integration
         public void SelectAndBeginPlacement(ResourceProductionBuilding building)
         {
             if (!CanBeginPlacement(building)) return;
+            PlacementStarting?.Invoke();
             towers.CancelPlacement(); CancelPlacement(); SelectedBuilding = building; IsPlacing = true;
             gathering.SetProductionBuildMode(true);
             if (previewMaterial == null) previewMaterial = Stage2PlacementVisuals.Material(true);

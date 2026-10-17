@@ -70,6 +70,7 @@ namespace Not3A.Stage3.VisualPilot
                 var layout=new ResourceDistrictLayout(district,art.shape,up);layouts.Add(layout);Build(layout);
             }
             GetComponent<Stage2GameComposition>()?.Production?.BindWorld(productionPoints, Obstacles);
+            GetComponent<Stage3WorldTravel>()?.BindWorld(this);
             mover?.BindObstacles(Obstacles,art.heroCollisionRadius);
             minimap?.SetResourceDistricts(Districts);rebuildLandscape?.Invoke(Districts);
             var reservedCells = 0; foreach (var district in Districts) reservedCells += district.Cells.Count;

@@ -1069,6 +1069,7 @@ MonoBehaviour:
   grass: {fileID: 2100000, guid: 3e47862674a3d1640867ba36ff1b531e, type: 2}
   roadsideArt: {fileID: 11400000, guid: 310c8b9a266bc6c4588e750311b5b412, type: 2}
   resourceDistrictArt: {fileID: 11400000, guid: 2082af4303c4cb641bb377000e3ef385, type: 2}
+  worldTravelData: {fileID: 11400000, guid: 2bc931d347fa04b1aa927ae591a3689d, type: 2}
   grassVerge: {fileID: 2100000, guid: 93a8ded8e963fbb4aac5ffcf6e751b0f, type: 2}
   paving: {fileID: 2100000, guid: 376956b732db1da41a7471c2ceaeda62, type: 2}
   neutral: {fileID: 2100000, guid: 97e5c758d5c8c824ea232cefcf1334f0, type: 2}

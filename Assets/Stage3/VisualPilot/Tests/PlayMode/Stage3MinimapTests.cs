@@ -93,6 +93,8 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Assert.That(Count(Stage2MinimapMarkerKind.Tower), Is.Zero);
             Assert.That(Count(Stage2MinimapMarkerKind.Enemy), Is.Zero);
             Assert.That(minimap.Markers.Count, Is.EqualTo(6));
+            Assert.That(Count(Stage2MinimapMarkerKind.Research), Is.Zero);
+            Assert.That(Count(Stage2MinimapMarkerKind.Teleport), Is.Zero);
             Assert.That(Count(Stage2MinimapMarkerKind.Portal), Is.EqualTo(1));
             Assert.That(Count(Stage2MinimapMarkerKind.Throne), Is.EqualTo(1));
             Assert.That(Object.FindObjectsByType<Stage2Minimap>().Length, Is.EqualTo(1));

@@ -146,11 +146,119 @@ namespace Not3A.Stage3.VisualPilot.Tests
                 foreach(var sprite in sprites) AssertGhost(sprite,true);
                 Assert.That(preview.GetComponentInChildren<Stage2PlacementMark>(),Is.Not.Null);
                 Save(camera,Path.Combine(Evidence,"Tower"+role+"-green.png")); AssertTransparency(preview);
+                Assert.That(sprites[0].sprite.texture.name,Is.EqualTo(role==0?"RapidGridFacing":"LongshotGridFacing"));
+                var previewSprite=sprites[0].sprite;
+                var previewSize=sprites[0].bounds.size;
                 Point(Production.Rules.Points[0].Position); yield return null; yield return null;
                 Assert.That(game.Building.PreviewResult,Is.EqualTo(PlacementResult.InvalidCell));
                 foreach(var sprite in sprites) AssertGhost(sprite,false);
                 Save(camera,Path.Combine(Evidence,"Tower"+role+"-red.png"));
+                Point(map.CellToWorld(cell)); yield return null; yield return null;
+                Assert.That(game.Building.Defense.TryConfirm(out var built),Is.EqualTo(PlacementResult.Ready));
+                yield return null;
+                var builtBody=built.transform.Find("Tower artwork").GetComponent<SpriteRenderer>();
+                Assert.That(builtBody.sprite,Is.SameAs(previewSprite));
+                Assert.That(builtBody.bounds.size,Is.EqualTo(previewSize));
+                Assert.That(Quaternion.Angle(builtBody.transform.rotation,camera.transform.rotation),Is.LessThan(.001f));
                 game.Building.CancelPlacement(); yield return null;
+                Save(camera,Path.Combine(Evidence,"Tower"+role+"-built.png"));
+                game.RunDriver.ResetRun(); Fund(); yield return null;
+            }
+        }
+        [UnityTest] public IEnumerator TowerGridCoversOnlyGrayBuildCellsAndFollowsConstructionLifecycle()
+        {
+            Fund();
+            var grid=scene.transform.Find("Tower construction cell grid");
+            Assert.That(grid,Is.Not.Null);
+            Assert.That(grid.gameObject.activeSelf,Is.False);
+            Assert.That(grid.GetComponentsInChildren<Collider>().Length,Is.Zero);
+            Assert.That(grid.GetComponentsInChildren<Collider2D>().Length,Is.Zero);
+            var map=scene.MapDefinition;
+            var mesh=grid.GetComponent<MeshFilter>().sharedMesh;
+            Assert.That(mesh.vertexCount,Is.GreaterThan(0));
+            foreach(var vertex in mesh.vertices)
+            {
+                var cell=map.WorldToCell(grid.TransformPoint(vertex));
+                Assert.That(map.Contains(cell)&&map.GetSurface(cell)==MapSurfaceKind.InvasionCorridor&&
+                    map.IsWalkable(cell)&&map.IsBuildable(cell)&&cell!=map.EnemyEntrance&&cell!=map.Throne,Is.True,
+                    "Grid strokes must remain inside real legal road cells, excluding grass and reserved landmarks.");
+            }
+            var focus=map.WorldToCell(mesh.vertices[0]); Point(map.CellToWorld(focus));
+            game.Building.SelectAndBeginPlacement(0); yield return null; yield return null;
+            Assert.That(grid.gameObject.activeSelf,Is.True);
+            var visible=Render(camera,640,450);
+            grid.gameObject.SetActive(false); var hidden=Render(camera,640,450);
+            Assert.That(visible.Zip(hidden,(a,b)=>Mathf.Abs(a.r-b.r)+Mathf.Abs(a.g-b.g)+Mathf.Abs(a.b-b.b))
+                .Count(delta=>delta>.12f),Is.GreaterThan(100),"Actual construction lines must be readable over painted paving.");
+            yield return null;
+            Save(camera,Path.Combine(Evidence,"Tower-grid-normal.png"));
+            camera.orthographicSize=2.5f; Save(camera,Path.Combine(Evidence,"Tower-grid-close.png"));
+            camera.orthographicSize=10; Save(camera,Path.Combine(Evidence,"Tower-grid-overview.png"));
+            camera.orthographicSize=5;
+            var hud=game.GetComponent<Stage2GameHud>(); var ui=hud.BuildRect.center*hud.Scale;
+            input.Set(Mouse.current.position,new Vector2(ui.x,Screen.height-ui.y)); yield return null;
+            Assert.That(game.Building.PointerOverUi,Is.True);
+            Assert.That(grid.gameObject.activeSelf,Is.True,"Selecting a card already reveals the whole grid.");
+            game.Building.CancelPlacement(); yield return null;
+            Assert.That(grid.gameObject.activeSelf,Is.False);
+            Production.SelectAndBeginPlacement(ResourceProductionBuilding.Sawmill); yield return null;
+            Assert.That(grid.gameObject.activeSelf,Is.False,"Generators use their own locked pads.");
+            game.Building.SelectAndBeginPlacement(1); yield return null;
+            Assert.That(Production.IsPlacing,Is.False); Assert.That(grid.gameObject.activeSelf,Is.True);
+            game.RunDriver.SetPaused(true); yield return null;
+            Assert.That(grid.gameObject.activeSelf,Is.False);
+            game.RunDriver.SetPaused(false); game.Building.SelectAndBeginPlacement(0); yield return null;
+            Assert.That(grid.gameObject.activeSelf,Is.True);
+            game.RunDriver.ResetRun(); yield return null;
+            Assert.That(grid.gameObject.activeSelf,Is.False);
+        }
+        [UnityTest] public IEnumerator AdjacentTowerSilhouettesFitCellsAndMeetTheirFrontEdgeAtBothZooms()
+        {
+            Fund();
+            var map=scene.MapDefinition;
+            var row=new Vector2Int[5]; var found=false;
+            for(var y=map.MinimumCell.y;y<=map.MaximumCell.y&&!found;y++)
+            for(var x=map.MinimumCell.x;x<=map.MaximumCell.x-4;x++)
+            {
+                var cells=Enumerable.Range(0,5).Select(i=>new Vector2Int(x+i,y)).ToArray();
+                if(!cells.All(c=>map.Contains(c)&&map.GetSurface(c)==MapSurfaceKind.InvasionCorridor&&
+                    map.IsBuildable(c)&&map.IsWalkable(c)&&c!=map.EnemyEntrance&&c!=map.Throne&&
+                    map.Contains(c+Vector2Int.down)&&map.GetSurface(c+Vector2Int.down)==MapSurfaceKind.InvasionCorridor)) continue;
+                row=cells; found=true; break;
+            }
+            Assert.That(found,Is.True,"A dense five-cell construction row must exist in the fixed map seed.");
+            scene.PlayerMover.transform.position=map.CellToWorld(row[0])+Vector2.down*3;
+            var built=new GameObject[4]; var roles=new[]{1,0,0,1};
+            for(var i=0;i<4;i++)
+            {
+                Fund(); Point(map.CellToWorld(row[i+1])); game.Building.SelectAndBeginPlacement(roles[i]);
+                yield return null; yield return null;
+                Assert.That(game.Building.Defense.TryConfirm(out var tower),Is.EqualTo(PlacementResult.Ready));
+                built[i]=tower.gameObject;
+            }
+            foreach(var zoom in new[]{5f,2.5f})
+            {
+                camera.orthographicSize=zoom;
+                // Pick away from HUD, then frame the row synchronously for offscreen renders.
+                Point(map.CellToWorld(row[0]));
+                Fund(); game.Building.SelectAndBeginPlacement(0); yield return null; yield return null;
+                var preview=GameObject.Find("Tactical mesh placement preview");
+                Assert.That(preview,Is.Not.Null);
+                Assert.That(game.Building.PreviewResult,Is.EqualTo(PlacementResult.Ready));
+                camera.transform.position=(Vector3)map.CellToWorld(row[2])+Vector3.up*.5f-camera.transform.forward*30;
+                Save(camera,Path.Combine(Evidence,"Tower-adjacent-row-"+zoom+".png"));
+                var previous=AssertCellSilhouette(preview,map.CellToWorld(row[0]),"preview "+zoom);
+                for(var i=0;i<4;i++)
+                {
+                    var pixels=AssertCellSilhouette(built[i],map.CellToWorld(row[i+1]),"tower "+i+" zoom "+zoom);
+                    Assert.That(pixels.xMin-previous.xMax,Is.GreaterThan(1f),"Adjacent rendered silhouettes must have a visible gap.");
+                    previous=pixels;
+                }
+                Point(map.CellToWorld(row[0])); game.Building.SelectAndBeginPlacement(1); yield return null; yield return null;
+                preview=GameObject.Find("Tactical mesh placement preview");
+                Assert.That(preview,Is.Not.Null);
+                camera.transform.position=(Vector3)map.CellToWorld(row[2])+Vector3.up*.5f-camera.transform.forward*30;
+                AssertCellSilhouette(preview,map.CellToWorld(row[0]),"Longshot preview "+zoom);
             }
         }
         [UnityTest] public IEnumerator PublicAndShortcutAffordabilityGatesAndLateBalanceCheckPreventPurchase()
@@ -173,6 +281,40 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Assert.That(ghost.sharedMaterial.shader.name,Is.EqualTo("Not3A/Placement Preview"));
             Assert.That(ghost.color,Is.EqualTo(valid?Stage2PlacementVisuals.Valid:Stage2PlacementVisuals.Invalid));
             Assert.That(ghost.color.a,Is.InRange(.45f,.55f));
+        }
+        private Rect AssertCellSilhouette(GameObject root,Vector3 anchor,string label)
+        {
+            const int width=1280,height=900;
+            var sprites=root.GetComponentsInChildren<SpriteRenderer>().Where(r=>r.enabled).ToArray();
+            var layers=sprites.Select(r=>r.gameObject.layer).ToArray();
+            var mask=camera.cullingMask; var clear=camera.clearFlags; var background=camera.backgroundColor; var aspect=camera.aspect;
+            try
+            {
+                foreach(var sprite in sprites) sprite.gameObject.layer=31;
+                camera.cullingMask=1<<31; camera.clearFlags=CameraClearFlags.SolidColor; camera.backgroundColor=Color.black;
+                camera.aspect=(float)width/height;
+                var colors=Render(camera,width,height);
+                var rows=new int[height]; var columns=new int[width];
+                for(var y=0;y<height;y++) for(var x=0;x<width;x++)
+                    if(colors[y*width+x].maxColorComponent>.12f) { rows[y]++; columns[x]++; }
+                var left=Array.FindIndex(columns,n=>n>=3); var right=Array.FindLastIndex(columns,n=>n>=3)+1;
+                var bottom=Array.FindIndex(rows,n=>n>=3); var top=Array.FindLastIndex(rows,n=>n>=3)+1;
+                Assert.That(left,Is.GreaterThanOrEqualTo(0),label+" must render visible artwork.");
+                var cellLeft=camera.WorldToViewportPoint(anchor+Vector3.left*.5f).x*width;
+                var cellRight=camera.WorldToViewportPoint(anchor+Vector3.right*.5f).x*width;
+                var foot=camera.WorldToViewportPoint(anchor+Vector3.down*.48f).y*height;
+                Assert.That(left,Is.GreaterThanOrEqualTo(cellLeft+1f),label+" crosses the left cell boundary.");
+                Assert.That(right,Is.LessThanOrEqualTo(cellRight-1f),label+" crosses the right cell boundary.");
+                Assert.That(Mathf.Abs(bottom-foot),Is.LessThan(3f),label+" must touch the front edge without a vertical gap.");
+                File.AppendAllText(Path.Combine(Evidence,"cell-silhouettes.txt"),
+                    $"{label}: pixels=[{left},{bottom},{right},{top}] cellX=[{cellLeft},{cellRight}] expectedFoot={foot}\n");
+                return Rect.MinMaxRect(left,bottom,right,top);
+            }
+            finally
+            {
+                for(var i=0;i<sprites.Length;i++) sprites[i].gameObject.layer=layers[i];
+                camera.cullingMask=mask; camera.clearFlags=clear; camera.backgroundColor=background; camera.aspect=aspect;
+            }
         }
         private void AssertTransparency(GameObject root)
         {

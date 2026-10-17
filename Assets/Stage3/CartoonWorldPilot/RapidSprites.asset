@@ -1,24 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 549ddb55bcb5c51458ceb0677f150f06, type: 3}
-  m_Name: RapidSprites
-  m_EditorClassIdentifier: Assembly-CSharp::Not3A.Stage3.VisualPilot.Stage3TowerSpriteSet
-  frames:
-  - {fileID: 4500958356071147494}
-  releasePixels:
-  - {x: 624.64, y: 967.68}
-  spoon: {fileID: 0}
-  stone: {fileID: 0}
---- !u!213 &4500958356071147494
+--- !u!213 &-9164204543257580675
 Sprite:
   serializedVersion: 2
   m_ObjectHideFlags: 0
@@ -32,10 +14,10 @@ Sprite:
     y: 0
     width: 1024
     height: 1536
-  m_Offset: {x: 0, y: -584}
+  m_Offset: {x: 0, y: -527.78485}
   m_Border: {x: 0, y: 0, z: 0, w: 0}
-  m_PixelsToUnits: 706.20685
-  m_Pivot: {x: 0.5, y: 0.119791664}
+  m_PixelsToUnits: 678.97156
+  m_Pivot: {x: 0.5, y: 0.15639007}
   m_Extrude: 0
   m_PackingTag: 
   m_RenderDataKey:
@@ -44,7 +26,7 @@ Sprite:
   m_SpriteAtlas: {fileID: 0}
   m_RD:
     serializedVersion: 4
-    texture: {fileID: 2800000, guid: 5e5ee50ff0416dd48b2fea64efa30987, type: 3}
+    texture: {fileID: 2800000, guid: 53b2bc37604144c518676bb2763e8693, type: 3}
     alphaTexture: {fileID: 0}
     secondaryTextures: []
     m_SubMeshes:
@@ -120,7 +102,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 9a9939bfce0cf53f000000009a99393fce0cf53f000000009a9939bf676685be000000009a99393f676685be000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 7f0b41bf2b48f43f000000007f0b413f2b48f43f000000007f0b41bf5024b5be000000007f0b413f5024b5be000000000000000000000000000000000000000000000000000000000000000000000000
     m_Bindpose: []
     m_BlendShapes:
       vertices: []
@@ -136,11 +118,11 @@ Sprite:
     textureRectOffset: {x: 0, y: 0}
     atlasRectOffset: {x: -1, y: -1}
     settingsRaw: 3072
-    uvTransform: {x: 706.20685, y: 512, z: 706.20685, w: 184}
+    uvTransform: {x: 678.97156, y: 512, z: 678.97156, w: 240.21515}
     downscaleMultiplier: 1
   m_AtlasRD:
     serializedVersion: 4
-    texture: {fileID: 2800000, guid: 5e5ee50ff0416dd48b2fea64efa30987, type: 3}
+    texture: {fileID: 2800000, guid: 53b2bc37604144c518676bb2763e8693, type: 3}
     alphaTexture: {fileID: 0}
     secondaryTextures: []
     m_SubMeshes:
@@ -216,7 +198,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 9a9939bfce0cf53f000000009a99393fce0cf53f000000009a9939bf676685be000000009a99393f676685be000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 7f0b41bf2b48f43f000000007f0b413f2b48f43f000000007f0b41bf5024b5be000000007f0b413f5024b5be000000000000000000000000000000000000000000000000000000000000000000000000
     m_Bindpose: []
     m_BlendShapes:
       vertices: []
@@ -232,9 +214,35 @@ Sprite:
     textureRectOffset: {x: 0, y: 0}
     atlasRectOffset: {x: -1, y: -1}
     settingsRaw: 3072
-    uvTransform: {x: 706.20685, y: 512, z: 706.20685, w: 184}
+    uvTransform: {x: 678.97156, y: 512, z: 678.97156, w: 240.21515}
     downscaleMultiplier: 1
   m_PhysicsShape: []
   m_Bones: []
   m_ScriptableObjects: []
   m_SpriteID: 
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 549ddb55bcb5c51458ceb0677f150f06, type: 3}
+  m_Name: RapidSprites
+  m_EditorClassIdentifier: Assembly-CSharp::Not3A.Stage3.VisualPilot.Stage3TowerSpriteSet
+  frames:
+  - {fileID: -9164204543257580675}
+  releasePixels:
+  - {x: 512, y: 998.39996}
+  spoon: {fileID: 0}
+  stone: {fileID: 0}
+  bodyVisibleBounds:
+    serializedVersion: 2
+    x: -0.69811463
+    y: -0.21240234
+    width: 1.3947566
+    height: 2.0913982
+  cellWidth: 0.92
+  frontInset: 0.02

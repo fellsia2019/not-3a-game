@@ -8,7 +8,8 @@ using UnityEngine.InputSystem;
 
 namespace Not3A.Stage2.Integration
 {
-    public enum Stage2BuildCategory { Towers, Generators }
+    public enum Stage2BuildCategory { Towers, Generators, Research }
+    public enum Stage2WorkshopBuildStatus { Unavailable, Ready, Placing, Built }
 
     /// <summary>Scene-owned player HUD and development tools over the existing gameplay rules.</summary>
     [DisallowMultipleComponent, DefaultExecutionOrder(-200)]
@@ -22,6 +23,15 @@ namespace Not3A.Stage2.Integration
         private InputAction toggle;
         private Vector2 scroll;
         private string feedback = "Изменения действуют только в текущем запуске.";
+        public string WorldInteractionHint { get; set; }
+        private Sprite workshopIcon;
+        private Func<Stage2WorkshopBuildStatus> workshopStatus;
+        private Action beginWorkshop, cancelWorkshop;
+        public Stage2WorkshopBuildStatus WorkshopStatus => workshopStatus?.Invoke() ?? Stage2WorkshopBuildStatus.Unavailable;
+        public bool CanSelectWorkshop => WorkshopStatus == Stage2WorkshopBuildStatus.Ready || WorkshopStatus == Stage2WorkshopBuildStatus.Placing;
+        // The Stage 3 scene supplies its construction actions without coupling this assembly to its artwork/runtime.
+        public void BindWorkshopConstruction(Sprite icon, Func<Stage2WorkshopBuildStatus> status, Action begin, Action cancel)
+        { workshopIcon = icon; workshopStatus = status; beginWorkshop = begin; cancelWorkshop = cancel; }
         private GUIStyle title, text, muted, number, button, smallButton, centered, smallButtonText;
         private Texture2D buttonNormal, buttonHover, buttonActive;
         private static readonly Color Ink = new Color(.055f, .085f, .095f, .97f);
@@ -53,11 +63,17 @@ namespace Not3A.Stage2.Integration
                 return new Rect(left, Height - 194f, Mathf.Min(620f, Width - left - 16f), 178f);
             }
         }
-        public Rect TowersTabRect => new Rect(BuildRect.x + 12f, BuildRect.y + 10f, 132f, 27f);
-        public Rect GeneratorsTabRect => new Rect(BuildRect.x + 152f, BuildRect.y + 10f, 152f, 27f);
+        private Rect TabRect(int index)
+        {
+            var width = (BuildRect.width - 24f - 16f) / 3f;
+            return new Rect(BuildRect.x + 12f + index * (width + 8f), BuildRect.y + 10f, width, 27f);
+        }
+        public Rect TowersTabRect => workshopIcon != null ? TabRect(0) : new Rect(BuildRect.x + 12f, BuildRect.y + 10f, 132f, 27f);
+        public Rect GeneratorsTabRect => workshopIcon != null ? TabRect(1) : new Rect(BuildRect.x + 152f, BuildRect.y + 10f, 152f, 27f);
+        public Rect ResearchTabRect => TabRect(2);
         public Rect BuildChoiceRect(int index)
         {
-            var count = BuildCategory == Stage2BuildCategory.Towers ? 2 : 3;
+            var count = BuildCategory == Stage2BuildCategory.Towers ? 2 : BuildCategory == Stage2BuildCategory.Research ? 1 : 3;
             var width = (BuildRect.width - 24f - (count - 1) * 8f) / count;
             return new Rect(BuildRect.x + 12f + index * (width + 8f), BuildRect.y + 47f, width, 88f);
         }
@@ -65,9 +81,11 @@ namespace Not3A.Stage2.Integration
         public void SelectBuildCategory(Stage2BuildCategory category)
         {
             if (game == null || (category == Stage2BuildCategory.Generators && game.Production == null)) return;
+            if (category == Stage2BuildCategory.Research && workshopIcon == null) return;
             if (BuildCategory == category) return;
             game.Building.CancelPlacement();
             game.Production?.CancelPlacement();
+            cancelWorkshop?.Invoke();
             BuildCategory = category;
         }
 
@@ -89,6 +107,13 @@ namespace Not3A.Stage2.Integration
         public bool CanSelectGenerator(ResourceProductionBuilding building) =>
             game != null && game.Production != null && game.Production.CanBeginPlacement(building);
 
+        public void SelectWorkshop()
+        {
+            if (!CanSelectWorkshop) return;
+            SelectBuildCategory(Stage2BuildCategory.Research);
+            beginWorkshop?.Invoke();
+        }
+
         public void Initialize(Stage2SceneBootstrap bootstrap, Stage2GameComposition composition, bool developmentTools)
         {
             if (game != null && game.Building != null) game.Building.PlacementStarting -= ShowTowerCategory;
@@ -98,7 +123,7 @@ namespace Not3A.Stage2.Integration
             game.Building.PlacementStarting += ShowTowerCategory;
         }
 
-        private void ShowTowerCategory() => BuildCategory = Stage2BuildCategory.Towers;
+        private void ShowTowerCategory() { cancelWorkshop?.Invoke(); BuildCategory = Stage2BuildCategory.Towers; }
 
         public void SetDebugOpen(bool value) => DebugOpen = DebugAvailable && value;
 
@@ -185,6 +210,8 @@ namespace Not3A.Stage2.Integration
                 BuildCategory = Stage2BuildCategory.Towers;
             else if (game != null && game.Production != null && game.Production.IsPlacing)
                 BuildCategory = Stage2BuildCategory.Generators;
+            else if (WorkshopStatus == Stage2WorkshopBuildStatus.Placing)
+                BuildCategory = Stage2BuildCategory.Research;
             // External run-state pause must also freeze hero movement while this UI owns the clock.
             if (ownsClock) ApplyClock();
         }
@@ -293,12 +320,30 @@ namespace Not3A.Stage2.Integration
             GUI.enabled &= game.Production != null;
             if (GUI.Button(GeneratorsTabRect, "Генераторы", smallButton)) SelectBuildCategory(Stage2BuildCategory.Generators);
             GUI.enabled = buttonsEnabled;
-            var tab = BuildCategory == Stage2BuildCategory.Towers ? TowersTabRect : GeneratorsTabRect;
+            if (workshopIcon != null && GUI.Button(ResearchTabRect, "Исследования", smallButton)) SelectBuildCategory(Stage2BuildCategory.Research);
+            var tab = BuildCategory == Stage2BuildCategory.Towers ? TowersTabRect :
+                BuildCategory == Stage2BuildCategory.Research ? ResearchTabRect : GeneratorsTabRect;
             Fill(new Rect(tab.x, tab.yMax + 3f, tab.width, 2f), Gold);
             string description;
             string hoverDescription = null;
             var inventory = game.Gathering.Economy.Inventory;
-            if (BuildCategory == Stage2BuildCategory.Generators && game.Production != null)
+            if (BuildCategory == Stage2BuildCategory.Research && workshopIcon != null)
+            {
+                var choice = BuildChoiceRect(0);
+                GUI.enabled = buttonsEnabled && CanSelectWorkshop;
+                if (GUI.Button(choice, GUIContent.none, smallButton)) SelectWorkshop();
+                GUI.enabled = buttonsEnabled;
+                DrawSprite(new Rect(choice.x + 8f, choice.y + 4f, 78f, 78f), workshopIcon);
+                Label(new Rect(choice.x + 94f, choice.y + 8f, choice.width - 102f, 24f), "Исследовательская мастерская", smallButtonText);
+                Label(new Rect(choice.x + 94f, choice.y + 37f, choice.width - 102f, 20f), "Открывает исследование Телепортации", muted);
+                Label(new Rect(choice.x + 94f, choice.y + 63f, choice.width - 102f, 18f),
+                    WorkshopStatus == Stage2WorkshopBuildStatus.Built ? "Построена" : "Бесплатно", muted);
+                if (WorkshopStatus == Stage2WorkshopBuildStatus.Placing)
+                    Fill(new Rect(choice.x + 2f, choice.yMax - 4f, choice.width - 4f, 2f), Gold);
+                description = WorkshopStatus == Stage2WorkshopBuildStatus.Built ?
+                    "Подойдите к мастерской и нажмите E для исследования" : "Место постройки — свободная зелёная земля";
+            }
+            else if (BuildCategory == Stage2BuildCategory.Generators && game.Production != null)
             {
                 var production = game.Production;
                 for (var i = 0; i < production.Catalog.Entries.Count; i++)
@@ -324,7 +369,7 @@ namespace Not3A.Stage2.Integration
                 }
                 var selected = production.Catalog.Get(production.SelectedBuilding);
                 description = $"{selected.DisplayName}: {Price(selected.WoodCost, selected.StoneCost, selected.MetalCost, selected.GoldCost)}";
-                Label(new Rect(r.x + 320f, r.y + 14f, r.width - 332f, 22f),
+                if (workshopIcon == null) Label(new Rect(r.x + 320f, r.y + 14f, r.width - 332f, 22f),
                     $"Работает: {production.Rules.Buildings.Count}", muted);
             }
             else
@@ -346,7 +391,7 @@ namespace Not3A.Stage2.Integration
                 }
                 var selected = defense.SelectedCatalog;
                 description = $"{selected.RoleName}: {Price(selected.WoodCost, selected.StoneCost, selected.MetalCost, selected.GoldCost)}";
-                Label(new Rect(r.x + 320f, r.y + 14f, r.width - 332f, 22f), "На серой дороге", muted);
+                if (workshopIcon == null) Label(new Rect(r.x + 320f, r.y + 14f, r.width - 332f, 22f), "На серой дороге", muted);
             }
             GUI.enabled = true;
             Label(new Rect(r.x + 14f, r.y + 147f, r.width - 28f, 22f), hoverDescription ?? description, muted);
@@ -413,6 +458,8 @@ namespace Not3A.Stage2.Integration
 
         private string NearbyResourceHint()
         {
+            if (!string.IsNullOrEmpty(WorldInteractionHint))
+                return DebugPaused ? "Игра на паузе · продолжить в дебаг-меню" : WorldInteractionHint;
             var economy = game.Gathering.Economy;
             var best = game.Gathering.Catalog.InteractionRange;
             var result = "";

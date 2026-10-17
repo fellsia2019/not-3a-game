@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-17",
+  "owner_requirement": "Build workshop from menu before studying Teleportation; construction free for now.",
+  "scene": "Assets/Scenes/Stage3Rapid3DGamePilot.unity",
+  "PlayMode": {
+    "total": "46",
+    "passed": "46",
+    "failed": "0",
+    "duration": "101.2897303"
+  },
+  "platform": "Unity 6000.6.2f1 / macOS / Metal",
+  "results": "Artifacts/S3-WORKSHOP-BUILD-20261017/final.xml",
+  "log": "Artifacts/S3-WORKSHOP-BUILD-20261017/final.log",
+  "protected_hashes_match": {
+    "Assets/Scenes/Stage3Rapid3DGamePilot.unity": true,
+    "Assets/Stage3/WorldTravel/WorldTravelData.asset": true,
+    "Packages/manifest.json": true,
+    "Packages/packages-lock.json": true,
+    "Assets/Stage3/CartoonWorldPilot/RapidSprites.asset": true,
+    "Assets/Stage3/CartoonWorldPilot/LongshotSprites.asset": true,
+    "Assets/Stage3/ResourceDistricts/ResourceDistrictArt.asset": true,
+    "Assets/Stage3/WorldTravel/ResearchWorkshop.png": true,
+    "Assets/Stage3/WorldTravel/TeleportSeal.png": true
+  },
+  "runtime_art_bytes_changed": false,
+  "scene_or_data_migration": "None. Uses existing worldTravelData scene field.",
+  "interactive_editor": {
+    "observed": "Research tab, approved workshop icon, Free label, no initial workshop or research. Game view left open before construction.",
+    "frame": "art/review/workshop_build_menu_2026-10-17.png",
+    "console": "0 warnings / 0 errors"
+  },
+  "coverage": [
+    "mouse placement and preview/built registration",
+    "zero-cost inventory preservation and one workshop",
+    "research requires constructed workshop; base seal only after E study",
+    "road/hero/resource/circle/obstacle/border rejection",
+    "UI click-through prevention; Esc/RMB and same-frame cancellation",
+    "tower/generator exclusivity; pause/debug/terminal/reset/regeneration",
+    "existing gathering, world collision, production, win/loss/restart and teleport pair"
+  ],
+  "windows_validation": "Degraded: only MacStandaloneSupport installed; Windows player not rebuilt.",
+  "remaining": [
+    "Research prices/durations/new technologies pending design.",
+    "D-062 snapshot/rewind including constructed workshop/unlocks pending.",
+    "City/NPC/trade remain future."
+  ]
+}

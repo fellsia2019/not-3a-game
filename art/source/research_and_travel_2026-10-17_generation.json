@@ -1,0 +1,185 @@
+{
+  "date": "2026-10-17",
+  "status": "Workshop appearance and teleport seal v4 approved by owner and integrated in Stage3Rapid3DGamePilot. Base circle appears only after research. Earlier variants retained as history.",
+  "tool": "Built-in image_gen.imagegen",
+  "authorization": "Owner requested design of a research building (name delegated), new building/tower unlocks and imagegen references for a paired base/world teleport. Owner clarified that the city does not exist yet and must not be created now. Owner subsequently approved v4 and explicitly requested implementation in game, then clarified that the base circle appears after workshop research. Owner follow-up: put workshop in build menu before research; selected «Пока бесплатно» for construction.",
+  "rights": "Generated project concepts are original model outputs. The owner-provided v4 reference has no supplied external source/license and is retained for inspiration only, not runtime use. V4 uses an original arrangement and invented glyphs rather than traced reference pixels or exact symbols.",
+  "style_reviewed_by_agent": [
+    "art/concepts/resource_production_buildings_2026-10-16/sawmill_v1.png",
+    "art/review/tower_cell_fit_close_2026-10-17.png",
+    "art/references/teleport_seal_user_reference_2026-10-17.png"
+  ],
+  "actual_image_inputs": "No image paths were explicitly passed to generation tools. Project style and the owner-provided v4 inspiration reference were visually reviewed by the agent and informed the text prompts.",
+  "background": "Earlier workshop/v1/v2 selected images retain their generated RGBA transparency; v3 and v4 are opaque pattern references on quiet ground-color backgrounds. Original selected PNG bytes preserved unchanged.",
+  "assets": [
+    {
+      "key": "research_workshop",
+      "generated": "/Users/artemmusket/.codex/generated_images/01a14a81-c0c1-7371-a0f2-e324f8767934/exec-e9a5f9b6-5c9e-4537-bb33-f03b259c928a.png",
+      "file": "art/concepts/research_and_travel_2026-10-17/research_workshop_v1.png",
+      "prompt": "Use case: stylized-concept.\nAsset type: original project concept art for a constructible Research Workshop in an existing cartoon isometric fantasy survival / tower defense game. PREVIEW ONLY, not a finished sprite.\nPrimary request: ONE coherent compact research workshop, unmistakably a place for studying plans and discovering new buildings, towers and teleportation. No city or NPC scene.\nStyle/medium: richly detailed clean hand-painted CARTOON 2D game building, warm restrained dark-brown ink outlines, chunky rounded timber and stone volumes with painted shading. Match a cozy fantasy settlement game whose existing buildings have honey-brown heavy wood framing, pale warm-gray granite foundations, dark wrought-iron straps and curved terracotta red roof tiles. Clear material separation and readable silhouette at gameplay zoom. Not pixel art, photorealism, low-poly/clay or cinematic realism.\nArchitecture and research cues: a modest timber-and-stone study house on its own close foundation, a welcoming front porch with an open workbench holding one large open book, rolled plans and a compact brass measuring instrument. An arched window reveals a few book shelves; a small brass armillary instrument near the roof gives a clear research silhouette. All props attached tightly to the one building; no scattered scene dressing. It must read as a research workshop rather than a sawmill, forge, defensive tower or temple.\nCamera: elevated fixed ORTHOGRAPHIC tactical view about 55 degrees above the ground, visible roof and front face, upright verticals, horizontal front eaves, symmetric front bearing aligned with game-grid axes. No vanishing-point perspective, horizon or sky. Gentle upper-left daylight and a small soft contact shadow.\nComposition: one complete centered building on a genuinely transparent RGBA background with generous empty padding around all edges. Fully show its roof, instrument and ground contacts. No broad grass/earth plate, floating island or scenery.\nConstraints: original artwork, no third-party asset references, no people, no NPCs, no city, no UI, text, letters, labels, logos or watermark. No modern laboratory gear, machinery, conveyor networks, red enemy portal or blue protected throne. Do not draw a technology tree.",
+      "dimensions": [
+        1319,
+        1192
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        9,
+        1263,
+        1174
+      ],
+      "sha256": "3e0e6f8e8c84e7b9f63eda4f094971fabc0d95c12db284fee75dda3cc751d57e",
+      "visible_bounds_alpha128": [
+        172,
+        12,
+        1237,
+        1170
+      ],
+      "edge_alpha_max": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "status": "Appearance approved by owner, 2026-10-17; integrated with the approved research/travel slice in Stage3Rapid3DGamePilot.",
+      "runtime_file": "Assets/Stage3/WorldTravel/ResearchWorkshop.png",
+      "runtime_sha256": "3e0e6f8e8c84e7b9f63eda4f094971fabc0d95c12db284fee75dda3cc751d57e",
+      "runtime_preparation": "Original PNG bytes unchanged. Unity import and runtime rendering only."
+    },
+    {
+      "key": "teleport_pair",
+      "generated": "/Users/artemmusket/.codex/generated_images/01a14a81-c0c1-7371-a0f2-e324f8767934/exec-c4b2f913-d2c8-4441-8e24-20a6cf71e956.png",
+      "file": "art/concepts/research_and_travel_2026-10-17/teleport_pair_v1.png",
+      "prompt": "Use case: stylized-concept.\nAsset type: ONE paired visual-design reference sheet for a linked friendly teleport system in an existing cartoon isometric fantasy survival / tower defense game. PREVIEW ONLY.\nPrimary request: show TWO corresponding teleport gates as the two members of one pair: an intact player-base gate and an ancient gate discovered in the world. Their matching ring geometry, distinctive small inset rune motifs and calm luminous aperture must make the connection clear. They are travel structures. The game's existing enemy entrance is a dark stone red vortex and must remain visually distinct; the protected blue soul-throne must not be depicted.\nStyle/medium: richly detailed clean hand-painted CARTOON 2D game environment art, chunky rounded stone blocks, restrained warm dark-brown outlines and painted volume. Pale warm-gray granite, aged bronze/brass fittings, gentle turquoise energy with warm gold highlights. Harmonize with honey-brown timber, terracotta roofs and painted pale stone in a cozy fantasy settlement game. Not pixel art, photorealistic, low-poly/clay, neon sci-fi or cinematic realism.\nDesign: each portal is a walk-through upright oval stone ring with a low grounded stone threshold and a broad clear approachable opening. Calm translucent luminous energy, readable simple rune carving and a restrained paired bronze ornament; no violent dark red swirl, spikes, skulls or defensive weapons. Player-base version has orderly intact stone and neat bronze fittings. Discovered-world version has the SAME functioning structure with surface weathering, sparse moss and a little close vegetation, not a broken ruin and not a different machine. These visual differences are concept proposals only.\nCamera: identical fixed elevated ORTHOGRAPHIC tactical view about 55 degrees above ground, same front-facing grid-aligned bearing and scale for both gates. Show ring depth and top surfaces; keep verticals upright. Gentle upper-left daylight, small soft contact shadows.\nComposition: landscape sheet with exactly two complete isolated specimens in a balanced side-by-side comparison and a wide empty gap. Each gate fully visible with generous margins, no clipping. Genuine transparent RGBA background, only close foundations, no full landscape. No lines or arrows connecting the gates.\nConstraints: original art, no city, streets, shops, people, NPCs, monsters or extra buildings. No blue soul orb/throne, no red enemy portal, no technology tree, no UI, text, lettering, labels, numbers, logo or watermark.",
+      "dimensions": [
+        1983,
+        793
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        17,
+        1969,
+        793
+      ],
+      "sha256": "2a9770b1627f2f9d8ce09ddabc5a7b7c862bc372dd1d13fc1f1a7de25b9d1793",
+      "visible_bounds_alpha128": [
+        84,
+        22,
+        1904,
+        767
+      ],
+      "edge_alpha_max": [
+        1,
+        0,
+        0,
+        1
+      ],
+      "status": "Rejected by owner, 2026-10-17: vertical arches do not match the requested circle drawn on the ground.",
+      "superseded_by": "art/concepts/research_and_travel_2026-10-17/teleport_circles_v2.png"
+    },
+    {
+      "key": "teleport_circles_v2",
+      "generated": "/Users/artemmusket/.codex/generated_images/01a14a81-c0c1-7371-a0f2-e324f8767934/exec-88706e8a-8b21-4863-880b-bd7e37fd477f.png",
+      "file": "art/concepts/research_and_travel_2026-10-17/teleport_circles_v2.png",
+      "status": "Ground-circle direction broadly accepted. Owner requested identical base/world appearance and another, simpler reference made only of large circles for zoomed-out readability.",
+      "prompt": "Use case: stylized-concept.\nAsset type: original paired concept reference for GROUND TELEPORTATION CIRCLES in an existing cartoon isometric fantasy survival / tower defense game. Revised geometry requested by the owner. PREVIEW ONLY.\nPrimary request: exactly TWO matching magic teleport circles DRAWN FLAT DIRECTLY ON THE GROUND, one maintained base circle and one weathered circle discovered in the world. A character would stand INSIDE the flat diagram to teleport. The entirety of each teleport is a horizontal ground marking.\nShape and ground contact: thin hand-drawn luminous chalk / engraved linework in concentric circles, radial ticks, restrained geometric connections and original invented rune marks, all lying flush on the same flat surface as the surrounding paving/earth. The physical marking is flat with essentially zero height. The elevated camera must see the circles as ground-aligned ellipses, not upright circles. Keep the center open and walkable. Crisp enough to read at gameplay zoom. Only a gentle glow hugging the drawn lines at ground level.\nStyle: richly detailed clean hand-painted CARTOON 2D fantasy game environment art, chunky painted paving, warm restrained dark-brown outlines, muted olive grass, pale warm-gray stone and earthy paths. Soft turquoise and pale gold luminous chalk lines. Match cozy timber-and-terracotta project buildings. No photorealism, pixel art, low-poly/clay or cinematic rendering.\nPair: both use exactly the same recognizable diagram. The base circle is freshly drawn on ordinary flat worn paving. The discovered circle is the same surface-level diagram on aged ground with a little grass or moss around its outer perimeter and some faded strokes. Both must clearly read as usable ground circles. These surface variations are proposals, not gameplay repair requirements.\nCamera: identical fixed elevated ORTHOGRAPHIC tactical view about 55 degrees above ground, same bearing and scale for both. No horizon, sky or perspective vanishing point. Gentle upper-left daylight.\nComposition: a wide landscape reference sheet with two complete isolated ground circles side by side, broad clear gap and generous margins. Include only a modest irregular patch of paving/earth under each diagram to demonstrate its flat orientation; its edge blends into genuine RGBA transparency. Not floating islands, square cutaway tiles or raised stone platforms. Whole circles and their ground markings must be visible without cropping.\nAbsolute constraints: NO upright portal, NO arch, NO doorway, NO standing ring, NO stone gate posts, NO vertical energy membrane, NO vertical light pillar, NO hovering ring, NO raised pedestal, NO altar, NO central crystal. No red enemy portal or blue soul-throne. No city, buildings, characters, NPCs or scenery. No UI, labels, text, real-world occult/religious symbols, logos or watermark. Only two flat diagrams drawn on the ground.",
+      "dimensions": [
+        1916,
+        821
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        0,
+        1916,
+        821
+      ],
+      "visible_bounds_alpha128": [
+        29,
+        44,
+        1893,
+        775
+      ],
+      "sha256": "ebf4c4ca3b974aed589749c87036f9cb03df66634cc6bbf095502ce668d5e38a",
+      "superseded_as_current_proposal_by": "art/concepts/research_and_travel_2026-10-17/teleport_circles_v3_simple.png"
+    },
+    {
+      "key": "teleport_circles_v3_simple",
+      "generated": "/Users/artemmusket/.codex/generated_images/01a14a81-c0c1-7371-a0f2-e324f8767934/exec-742cb388-d757-46f5-b9fe-16ed07e57bbe.png",
+      "file": "art/concepts/research_and_travel_2026-10-17/teleport_circles_v3_simple.png",
+      "status": "Previous concept: owner found circle-only treatment too bare and supplied a decorative magical-seal reference. Superseded by v4 as current proposal.",
+      "prompt": "Use case: stylized-concept.\nAsset type: one clean SIMPLE ground-teleport reference for a zoomed-out isometric fantasy game, proposed variant v3. One identical design will be used at base and in the world.\nScene: completely plain, uniform muted dark olive-gray background representing a flat ground plane. NO terrain texture, paving, props, gradients, fog, vignette or mottling. Opaque reference canvas, not a transparency cutout.\nDiagram: ONLY twelve circular outlines in a sparse symmetric arrangement. ONE large outer circle. EIGHT satellite circles centered on its circumference at evenly spaced 45-degree intervals: four medium circles at cardinal positions, four smaller circles at diagonal positions, alternating medium/small and exactly matching their opposite counterpart. THREE nested concentric circles at the exact center, separated by generous empty gaps. No other marks. The geometry has exact fourfold rotational symmetry in the ground plane.\nProjection: the entire diagram lies flat on one horizontal surface. Orthographic elevated game view: the outer circle projects to an ellipse about 80 percent as tall as wide. Every single satellite and inner circle has that SAME ellipse aspect ratio. Equal circles remain exactly equal at front/back/left/right: no perspective scaling or depth-size changes.\nStrokes: crisp clean, moderately bold, smooth pale turquoise chalk/light outlines, identical stroke width throughout. The interiors and spaces between outlines show the EXACT SAME solid background. VERY faint narrow glow only immediately next to each line; sharp readable edge. No thick bloom, colored blobs, filled disks, double outlines, white halos, splatter, speckles or noisy eroded edges. One stroke per circumference. The design must remain clear at 96-128 pixels wide.\nComposition: ONE complete centered teleport design on a square canvas, with generous EMPTY margin of at least 12 percent around the OUTERMOST satellite edges. No clipping. No second copy, comparison panels or base/world variants.\nStyle: restrained simple fantasy-game ground marking, coherent large geometric shapes. No runes, symbols, letters, ticks, stars, triangles, compass points, mandalas, filigree, decorative border or tiny detail. No vertical portal, arch, walls, platform, central object, city, people, buildings, UI, labels, numbers, logos or watermark.",
+      "transparent_background": false,
+      "purpose": "Circle-only zoomed-out readability proposal; no fresh/weathered endpoint variation. Opaque neutral ground-color background for concept legibility.",
+      "discarded_attempt": {
+        "generated": "/Users/artemmusket/.codex/generated_images/01a14a81-c0c1-7371-a0f2-e324f8767934/exec-c189aaad-1596-485f-ae90-019dcb4878fe.png",
+        "prompt": "Use case: stylized-concept.\nAsset type: ONE simple ground teleport-circle design for a zoomed-out isometric fantasy game. New reference variation, not a pair. The base and world teleports will use this EXACT SAME design.\nPrimary request: a sparse, bold geometric diagram made ONLY OF CIRCLES, drawn horizontally on the ground, legible when reduced to about 96-128 pixels wide. Prior ornate rune art was too detailed. Prioritize the large simple shapes.\nExact geometric hierarchy: ONE large outer circular outline. Along its circumference place EIGHT satellite circles in a perfectly symmetric repeating arrangement: four medium-size circles at the cardinal positions and four smaller circles at the diagonal positions, alternating medium/small at even angular intervals. Opposite satellite circles must have identical size. Their centers sit on the circumference of the outer circle. In the CENTER place THREE simple nested concentric circles with generous spacing, clearly distinct from the outer outline. Maintain perfect 90-degree rotational symmetry before camera projection.\nLine language: broad smooth uniform luminous pale turquoise-white strokes, clear separated geometry, soft restrained glow very close to the lines. No more marks beyond these twelve circles. No runes, writing, ticks, tiny dots, stars, compass diamonds, triangles, mandalas, decorative borders, filigree or texture within the diagram. No little symbols inserted into the satellite circles. Do not fill the circles; preserve the transparent open interiors. Quiet fantasy magic, not neon signage or a sci-fi dashboard.\nCamera and orientation: the whole diagram lies FLAT in ONE HORIZONTAL GROUND PLANE. Fixed elevated orthographic tactical/isometric view about 55 degrees above ground. Every circle is consistently foreshortened into an ellipse by this same camera; the satellite circles and center circles share exactly the same ground plane. No upright rings, arch, portal wall, standing posts, hovering parts, pillars or pedestal.\nComposition: one complete centered diagram filling most of a square canvas with at least 10 percent transparent padding, on genuine transparent RGBA. Only the lines and a very subtle glow, no ground patch or landscape. Do not draw a stone platform, pavement tiles or moss. This is one universal teleport marking with no fresh/old or base/world variants.\nStyle: clean minimal fantasy game ground marking, gently hand-painted edges but mathematically coherent large geometry. Readable at ordinary zoomed-out gameplay scale, not an elaborate close-up illustration. No lettering, labels, UI, logos, watermark, characters, city or buildings.",
+        "reason": "Excess bloom filled the gaps and edge padding was insufficient. Kept only at original generated location; not selected as project deliverable."
+      },
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGB",
+      "alpha_extrema": null,
+      "sha256": "79b9216185d278a8d3c0c1ab61669afb29de356c572e8962f8d7a9a1179504b9",
+      "superseded_as_current_proposal_by": "art/concepts/research_and_travel_2026-10-17/teleport_circles_v4_seal.png"
+    },
+    {
+      "key": "teleport_circles_v4_seal",
+      "generated": "/Users/artemmusket/.codex/generated_images/01a14a81-c0c1-7371-a0f2-e324f8767934/exec-692f371e-5965-491a-9385-92de96e6098d.png",
+      "file": "art/concepts/research_and_travel_2026-10-17/teleport_circles_v4_seal.png",
+      "status": "Explicitly approved for runtime by owner, 2026-10-17: «Да, теперь оно. Approve. делай теперь это в игре.» Base circle must appear after workshop research.",
+      "prompt": "Use case: stylized-concept.\nAsset type: ONE original ground teleportation seal reference for a stylized isometric fantasy survival / tower defense game. New design v4. Base and discovered teleport use the exact SAME appearance.\nPrimary request: an attractive magical seal with a balanced geometric composition: broad circular bands, round sigil nodes, elegant connecting lines and a few bold invented glyphs. It should feel like a crafted fantasy teleport diagram, richer than plain concentric circles, yet legible in a zoomed-out game. The visual inspiration is a decorative circular occult-style geometric diagram; create an ORIGINAL arrangement and new invented symbols, not a traced or copied emblem.\nComposition hierarchy: a strong double outer circular rim; six clearly spaced round satellite nodes arranged symmetrically around an inner circumference, with three larger nodes alternating with three smaller nodes so the pattern repeats with exact threefold symmetry in the ground plane. The larger nodes each contain one simple bold original curved glyph; the smaller nodes remain mostly open. At the center use a nested circular seal with two or three substantial concentric contours and an open small center. Connect the main nodes with a restrained triangular network of straight lines and three matching broad curved arc segments. Keep generous negative space and avoid a dense web. All major round shapes must remain visually distinct.\nFantasy finish: silvery ivory main strokes, very subtle pale violet secondary arcs and restrained cool turquoise glow along the lines. Slightly organic painted-light edges, clean crafted curves, softly luminous, evocative of a hand-drawn magic seal rather than a modern interface. Main circles are bolder than connecting lines, but even secondary lines must survive a small gameplay view. Only a handful of large decorative marks, no micro-lettering, rows of tiny ticks, dotted ornaments, fine calligraphy or texture. No readable words, alphabet copied from the reference, real-world religious/occult symbols, names, logo or watermark.\nOrientation: the entire design is drawn FLAT on ONE horizontal ground plane. Fixed elevated ORTHOGRAPHIC tactical/isometric camera, no perspective size changes. All circles share the same foreshortening into ellipses, with symmetric equal components at opposite positions. No upright portal, arch, door, pillars, physical medallions, pedestal, hovering parts or vertical energy sheet.\nCanvas: one complete centered seal on a simple quiet uniform dark muted olive-charcoal ground-color background, with generous clear margins outside the outermost strokes. Opaque concept reference. No paving details, masonry platform, moss patch, physical border, scenic objects or cast shadows. No second design or fresh/weathered variations.\nReadability constraint: aim for the overall silhouette, main round nodes and central seal to read at about 128 pixels wide; ornament should support these large forms. Avoid both a bare circle-only wire diagram and an intricate close-up mandala. No bloom flooding the open spaces, noisy halos or glowing filled disks. No buildings, city, people, NPCs, UI or caption text.",
+      "transparent_background": false,
+      "purpose": "Original decorative pattern reference. Ground-plane projection and distant gameplay readability require asset-preparation checks.",
+      "inspiration_reference": {
+        "supplied_path": "/var/folders/6z/v3jhgqhn2s79gfqdl56_lhc40000gn/T/codex-clipboard-82db1bf3-c554-4ba6-b94a-882b9b2203fe.png",
+        "file": "art/references/teleport_seal_user_reference_2026-10-17.png",
+        "role": "Owner-provided composition inspiration only: circular bands, round nodes and connecting geometry. No tracing or exact symbol reproduction.",
+        "rights": "Original external source/license not supplied. Retained as design inspiration only, not a licensed runtime asset.",
+        "explicitly_passed_to_generation_tool": false,
+        "sha256": "a89801dffda630834e610841bae0e86e5e94bd5fe2804b63453718b3734f0628"
+      },
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGB",
+      "alpha_extrema": null,
+      "sha256": "e00e1049a597ef28d2c9682def4c96d11d9cd80074b9c071394d987e4f1b2e76",
+      "runtime_file": "Assets/Stage3/WorldTravel/TeleportSeal.png",
+      "runtime_sha256": "e00e1049a597ef28d2c9682def4c96d11d9cd80074b9c071394d987e4f1b2e76",
+      "runtime_preparation": "Original PNG bytes unchanged. Unity import and runtime rendering only."
+    }
+  ],
+  "style_reviewed_sha256": {
+    "art/concepts/resource_production_buildings_2026-10-16/sawmill_v1.png": "a01f715668ea5f5f1bfaaf5b6d4fa714d7da739109693eda0c787968e7aafa29",
+    "art/review/tower_cell_fit_close_2026-10-17.png": "2e69f443a9675151078630240477c603ddaea64152bd4c07eb8165ab3fbe03a0",
+    "art/references/teleport_seal_user_reference_2026-10-17.png": "a89801dffda630834e610841bae0e86e5e94bd5fe2804b63453718b3734f0628"
+  },
+  "validation_note": "Selected concept bytes and dimensions are verified. Earlier transparent images retain faint alpha1 padding; v3/v4 are opaque reference patterns. Exact ground-plane geometry and actual gameplay-scale readability are not yet runtime-tested.",
+  "owner_feedback": "Research workshop accepted. Teleport must be a circle drawn horizontally on the ground, not a vertical portal like the enemy entrance.",
+  "owner_feedback_v3": "No difference between base and found-world teleport. Request another reference: one large circle, symmetric circles of differing diameters along its circumference, and circles at the center. Reduce small detail for zoomed-out isometric gameplay.",
+  "owner_feedback_v4": "Circle-only v3 is too bare. Owner provided a decorative circular magic-seal reference and requested a more attractive design. Keep earlier distant-isometric readability and shared appearance constraints.",
+  "runtime_integration": {
+    "scene": "Assets/Scenes/Stage3Rapid3DGamePilot.unity",
+    "data": "Assets/Stage3/WorldTravel/WorldTravelData.asset",
+    "seal_background": "Opaque source background removed only by Not3A/Ground Teleport Seal shader; original approved bitmap preserved. Shared ground-plane mesh material at both endpoints.",
+    "research_gate": "Player builds the workshop from the Research tab on free green ground (currently free, owner-approved), then E at its front studies Teleportation and reveals the base circle. No workshop preplaced. Remote circle must be personally discovered.",
+    "external_reference_use": "Inspiration only; owner reference pixels are not imported under Assets."
+  }
+}

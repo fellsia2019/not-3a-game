@@ -1037,6 +1037,8 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Assert.That(painted,Is.Not.Null);
             Assert.That(painted.enabled,Is.True);
             Assert.That(painted.sprite,Is.SameAs(stone.sprite),"Release must retain the painted loaded stone identity.");
+            Assert.That(Vector3.Distance(painted.transform.lossyScale,stone.transform.lossyScale),Is.LessThan(.001f),
+                "The fitted tower's stone must retain its size when it leaves the cup.");
             var motion=catapult.GetComponent("Stage3TowerShotMotion");
             var release=(Vector3)motion.GetType().GetProperty("ReleasePosition").GetValue(motion);
             Assert.That(Vector3.Distance(projectile.transform.position,release),Is.LessThan(.002f));

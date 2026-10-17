@@ -21,6 +21,8 @@ Preparation/Wave run state and existing tower placement.
 The owner accepted the D-057 landmark appearance and requested three matching
 constructible generators plus a simple bottom menu. Its categories are Towers
 (existing Rapid/Longshot) and Generators (sawmill, quarry, iron mine). The owner
+later added a Research tab for the player-built workshop under D-063/RESEARCH.md;
+the three generator entries and their prices/rates remain unchanged. The owner
 explicitly delegated provisional construction prices and production rates.
 Those values live in `Assets/Stage3/ResourceDistricts/Production/ProductionCatalog.asset`.
 This is a narrow prototype exception to the former production deferral. It
@@ -86,9 +88,12 @@ serialized production catalog; old scenes without it retain their existing flow.
 `Stage3ResourceDistrictWorld` binds current points/obstacles after generation.
 The narrow run Reset event lets direct rule-level resets clear production too.
 
-The existing `Stage2GameHud` owns both categories; no UI-stack/package change.
+The existing `Stage2GameHud` owns these categories plus the D-063 Research tab;
+no UI-stack/package change.
 `Stage2BuildDriver.PlacementStarting` coordinates existing tower input with
-generator cancellation. Gathering combines the two placement flags.
+generator cancellation. `Stage2ProductionDriver.PlacementStarting` also lets
+workshop placement yield before generator input takes ownership. All three
+construction modes are exclusive; workshop uses the existing non-tower gather block.
 
 D-059 uses original code-authored vector ground glyphs in
 `Stage2PlacementVisuals`, plus an isolated transparent PlacementPreview shader.

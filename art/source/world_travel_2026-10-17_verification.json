@@ -1,0 +1,46 @@
+{
+  "date": "2026-10-17",
+  "scene": "Assets/Scenes/Stage3Rapid3DGamePilot.unity",
+  "verification": {
+    "platform": "macOS / Metal / Unity 6000.6.2f1",
+    "PlayMode": {
+      "total": "38",
+      "passed": "38",
+      "failed": "0",
+      "duration": "87.8328437"
+    },
+    "results": "Artifacts/S3-WORLD-TRAVEL-20261017/regression.xml",
+    "log": "Artifacts/S3-WORLD-TRAVEL-20261017/regression.log",
+    "render_contrast": [
+      "zoom=5 changedPixels=15311",
+      "zoom=2.5 changedPixels=56748",
+      "zoom=10 changedPixels=4228",
+      "zoom=5 changedPixels=15311",
+      "zoom=2.5 changedPixels=56748",
+      "zoom=10 changedPixels=4228"
+    ],
+    "interactive_editor": {
+      "observed": "Live Game view opened beside workshop. Before E: base circle absent and research hint visible. After actual keyboard E: base circle appeared, researched hint and minimap marker visible.",
+      "console": "0 warnings / 0 errors in Unity Console after research.",
+      "log": "Artifacts/S3-WORLD-TRAVEL-20261017/editor-review.log",
+      "left_open": "Play Mode beside the workshop after verifying research."
+    }
+  },
+  "protected_hashes_match": {
+    "Packages/manifest.json": true,
+    "Packages/packages-lock.json": true,
+    "Assets/Stage3/CartoonWorldPilot/RapidSprites.asset": true,
+    "Assets/Stage3/CartoonWorldPilot/LongshotSprites.asset": true,
+    "Assets/Stage3/CartoonWorldPilot/RapidCartoon.prefab": true,
+    "Assets/Stage3/CartoonWorldPilot/LongshotCartoon.prefab": true,
+    "Assets/Stage3/ResourceDistricts/ResourceDistrictArt.asset": true
+  },
+  "approved_png_bytes_preserved": true,
+  "scene_change": "One worldTravelData asset reference added.",
+  "windows_validation": "Degraded: installed PlaybackEngines only MacStandaloneSupport. No Windows module installed.",
+  "remaining": [
+    "Workshop player construction and research prices/durations pending design.",
+    "D-062 rewind/snapshot including research/discovery pending.",
+    "City/NPC/trade future."
+  ]
+}

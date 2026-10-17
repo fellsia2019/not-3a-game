@@ -396,6 +396,46 @@ Development Build: 0 errors / 7 warnings. `Tools > Stage 3 > Cartoon World >
 Open Live Review` starts ordinary preparation framed on the towers and
 objectives; Space starts the wave. This framing is Editor-only and not saved.
 
+## Tower placement readability — D-061, 2026-10-17
+
+During tower selection, show a contrasting ground grid over actual gray road
+build cells. It follows the existing unit-cell snapping, remains visible when
+the pointer is over HUD, and hides with cancel/pause/end/reset or switching to a
+generator. Forest, portal/objective reservations and non-buildable cells are
+excluded. Existing red/green silhouettes continue to show transient legality.
+
+`Stage3TacticalPresentation` owns one cached mesh/material per landscape build,
+drawn above paving and below tower sprites, without colliders or navigation
+changes. It is released/rebuilt with the landscape; no scene wiring is required.
+
+`RapidGridFacing.png` and `LongshotGridFacing.png` are original-image edits with
+45-degree yaw-corrected front views, rather than tilted billboard transforms.
+`Stage3CartoonWorldBuilder.RefreshTowerFacing` imports only the two tower sets
+and prefabs. After owner feedback on the first integration's vertical gap and
+overlapping neighboring bodies, the set stores robust visible body bounds and
+cell-fit settings. Import ignores isolated alpha specks in transparent padding.
+`Stage3TowerSprite` uniformly fits the whole body width (including roof) within
+one cell, then registers its visible bottom at the front edge with a small inset.
+Depth clearance changes only camera depth, keeping that screen contact fixed.
+The logical cell anchor stays unchanged; preview and built towers share this fit.
+Contact shadows fit the same cell. Longshot keeps its original separate spoon
+and stone; both scale with the body, and `Stage3CombatPresentation` carries the
+loaded stone's world scale into flight. Camera, map, original PNGs and gameplay
+values remain. Existing sets/prefabs are updated in place; no manual wiring.
+Full prompts, source rights and hashes: `art/source/tower_grid_facing_2026-10-17.json`.
+Mac/Metal final verification: 14/14 PlayMode, zero failures/skips. Checks cover legal
+gray-cell geometry, visible rendered line contrast, selection/HUD hover/cancel,
+generator switching, pause/reset, both shared preview/built sprites and bounds,
+repeated paid placement, four aiming directions and both projectile/impact flows.
+The follow-up renders a dense Longshot/Rapid/Rapid/Longshot row plus previews of
+both types, measuring actual silhouette pixels against cell sides and front at
+normal/near zoom; it also checks loaded-to-flight stone scale. Final row captures
+were inspected at both zooms. No new attributable Console errors. Evidence:
+`Artifacts/S3-TOWER-CELL-FIT-20261017/{final-playmode.xml,final/}` and
+`art/review/tower_cell_fit_*2026-10-17.png`; initial grid evidence remains in
+`Artifacts/S3-TOWER-GRID-20261017/`. Owner visual acceptance and Windows target
+validation remain; no scene or Inspector migration is required.
+
 ## D-042 — Revised terrain and planted articulated sprite towers
 
 D-041's first rendered result was rejected. D-042 authorizes original V2 turf,
