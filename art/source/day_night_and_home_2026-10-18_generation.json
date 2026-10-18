@@ -1,0 +1,113 @@
+{
+  "date": "2026-10-18",
+  "decision": "D-065",
+  "tool": "built-in image_gen",
+  "status": "Owner-approved C/B/night implemented by GPT-6 Astra; passing game-rule/visual checks and Windows full-HUD startup. Current-prototype acceptance, not final survival balance.",
+  "runtime_ready": true,
+  "rights": "Original project-generated artwork; no third-party licensed images or traced content. Lighting sketch uses an original project gameplay render.",
+  "workflow": "Main agent generates bitmaps; owner approves appearance; GPT-6 Astra implements all visuals and inspects actual game frames. Runtime copies preserve pixels; Unity sprite metadata supplies atlas slices/pivots.",
+  "approval": {
+    "hero": "C, versatile fantasy hero; bow is only initial equipment; future magic/other weapons are not implemented.",
+    "dwelling": "B",
+    "night": "Approved cool blue readable night concept.",
+    "mechanics": "20 active minutes per day; night ends after all horde enemies die; continuing growing nights; dwelling costs10wood, localE skips only remaining day and awards no skipped-time production."
+  },
+  "concepts": [
+    {
+      "key": "hero",
+      "source": "C:/Users/MushketCO/.codex/generated_images/01a14e0e-739c-70e2-8aab-de1d764026a0/exec-1520e376-aff1-49ce-b7ac-5e50dd734436.png",
+      "file": "hero_options_v1.png",
+      "prompt": "Use case: stylized-concept.\nAsset type: approval-only character reference sheet for the controllable hero of an existing isometric fantasy survival / exploration / tower-defense game.\nPrimary request: propose three original readable HERO APPEARANCE alternatives, labeled only A, B and C. This is concept approval, not a final sprite atlas.\nThe hero explores, gathers wood/stone/metal, constructs defenses and fights with a simple bow. Make a practical adult human adventurer with a bow, quiver and compact gathering pack; avoid a heavily armored soldier, royal knight or magic caster. Vary the practical clothing and silhouette between the three alternatives, without implying classes, powers or equipment progression.\nStyle: soft painted cartoon fantasy game art, solid readable volumes, restrained clean dark contour, warm earthy timber/leather/cloth vocabulary consistent with a world of ochre wooden watchtowers, pale stone bases, red tiled roofs and green grassy paving. Polished game artwork, not pixel art, not photorealism, no copied game character.\nComposition: a clean wide reference board on a quiet neutral backdrop, three equal columns A/B/C. One large full-body standing front three-quarter character in each column, all feet visible and matching scale. Below each, show that SAME character as a small in-game elevated orthographic view from a fixed camera, with a simple bow-ready pose. Keep silhouettes distinct at small size; bow and hands must be anatomically coherent. No scenery, enemies, UI, stats, skill tree, extra weapons, dramatic action effects, branding, watermark or text beyond A/B/C.",
+      "role": "Original character appearance choices A/B/C; approval-only.",
+      "project_copy": "art/concepts/day_night_and_home_2026-10-18/hero_options_v1.png",
+      "sha256": "ACA93F656EB95B9B5ADCF257A22A21EBA0224B5E5CD289772B5A38D3A94AEE2B",
+      "size": [
+        1536,
+        1024
+      ]
+    },
+    {
+      "key": "home",
+      "source": "C:/Users/MushketCO/.codex/generated_images/01a14e0e-739c-70e2-8aab-de1d764026a0/exec-897fac05-f9b1-41a8-92b8-8e61c485a981.png",
+      "file": "dwelling_options_v1.png",
+      "prompt": "Use case: stylized-concept.\nAsset type: approval-only housing building reference board for an existing isometric fantasy survival / exploration / tower-defense game.\nPrimary request: two original small BUILDABLE DWELLING alternatives, labeled only A and B. The player uses the dwelling to rest until the next night and face the horde; it is a modest personal home, not a defensive tower or research workshop. Do not depict skipping the night.\nA: compact rustic timber cabin with a simple pitched roof, plainly visible front door and a small front step.\nB: compact timber-frame cottage with pale plaster infill and a simple pitched roof, plainly visible front door and a small front step.\nBoth: warm wooden construction, restrained stone footing, simple believable handmade details. Match the existing soft painted cartoon fantasy game vocabulary: readable chunky volumes, warm ochre timber, pale stone, muted terracotta roof tones and clean dark edge definition. Preserve a modest inexpensive early-game feel, not a grand inn or mansion.\nComposition: polished wide comparison board on a quiet neutral background, two equal columns A/B. One whole isolated building per column, matching scale, all feet in frame, slightly elevated fixed orthographic view. The broad front and doorway face the camera directly, with horizontal front beams and upright walls, like existing front-facing tower sprites. Enough roof-top visibility for the established overhead game view, no diagonal yaw. Beneath each large example include a smaller view of the same building at distant gameplay scale. Clear entrance, readable ground contact, no encircling terrain chunk, no attached fence or gameplay footprint drawn into art. No tower weapons, research books or magic machinery, character, UI, price, clock, moon/sun icon, watermark, or text beyond A/B.",
+      "role": "Original front-facing dwelling alternatives A/B; approval-only.",
+      "project_copy": "art/concepts/day_night_and_home_2026-10-18/dwelling_options_v1.png",
+      "sha256": "20DEDFB1A85F39AE600707BEFEA1C87A91F13C5F95A358D1A54E964B92DD3B74",
+      "size": [
+        1536,
+        1024
+      ]
+    },
+    {
+      "key": "lighting",
+      "source": "C:/Users/MushketCO/.codex/generated_images/01a14e0e-739c-70e2-8aab-de1d764026a0/exec-f4f885c1-c16e-41b6-8696-2ba1208ca4ca.png",
+      "file": "day_night_lighting_v1.png",
+      "prompt": "Use case: lighting-weather.\nAsset type: approval-only day/night lighting reference for the existing game scene.\nEdit target: the supplied original project gameplay screenshot. Preserve its exact camera, composition, paving, grass, portal, blue soul objective, watchtower, catapult, skeletons and every asset identity. Change ONLY time-of-day lighting/color treatment. No new objects or interface.\nPrimary request: a clean two-panel horizontal before/after board, left labeled DAY and right labeled NIGHT, each panel containing the complete same screenshot with matching framing. Day retains the input's warm readable daylight. Night is a cool blue twilight/night treatment with soft moonlit readable ground and silhouettes; the red portal and blue soul objective retain clearly localized emissive color. Keep the night comfortably playable at ordinary zoom: road edges, skeletons and tower silhouettes must remain legible; no black crushed shadows, fog, stars overlay, huge bloom, new lantern props or cinematic darkness. Soft painted cartoon fantasy art remains intact. Only labels DAY and NIGHT outside the scene, no other text. This is a visual direction sketch, not evidence of implemented game lighting.",
+      "role": "Lighting-only concept edit of original project screenshot; approval-only.",
+      "references": [
+        "art/review/astra_world_game_overview.png"
+      ],
+      "project_copy": "art/concepts/day_night_and_home_2026-10-18/day_night_lighting_v1.png",
+      "sha256": "AA0D5946998B976568D69EE735E74E59FF16B2329A843909D9C0869591447C35",
+      "size": [
+        2172,
+        724
+      ]
+    }
+  ],
+  "runtime_generations": [
+    {
+      "key": "hero",
+      "original_generated_path": "C:/Users/MushketCO/.codex/generated_images/01a14e0e-739c-70e2-8aab-de1d764026a0/exec-13a1539b-9430-4132-aaba-c50b51873f58.png",
+      "project_source": "art/concepts/day_night_and_home_2026-10-18/hero_C_body_walk_v1.png",
+      "runtime_copy": "Assets/Stage3/DayNight/HeroCBody.png",
+      "prompt": "Use case: identity-preserve.\nEdit target/reference: approved hero appearance C, ONLY the rightmost column and its small lower gameplay figure in the supplied concept sheet. Re-create this approved character as a game sprite atlas, removing equipment into a separate future layer. This is an original project character.\nAsset type: transparent BODY-only animation sprite atlas. Exactly 4 equal columns by 4 equal rows in a square canvas, no spacing between cells, no labels or visible grid; target 2048x2048.\nCharacter invariants: tied dark hair, short beard, blue-gray scarf, short blue travel coat with restrained trim, cream sleeves, olive trousers, brown boots, leather belt/pouches, compact travel backpack. A versatile fantasy adventurer, not a fixed archer class. NO bow, arrows, quiver, weapon, tool, magic or magical effects in ANY body frame.\nFixed elevated orthographic game camera about55 degrees above ground, matching C's lower gameplay preview; upright stylized human proportions, soft painted cartoon game art, readable solid volumes and edges, not photoreal or pixel art.\nRows: row1 walks/faces screen-right; row2 walks away/up (back visible); row3 walks/faces screen-left; row4 walks toward viewer/down (face visible). Each row is a coherent four-frame walk cycle: left-foot contact, passing, right-foot contact, passing. SAME identity, outfit, body size, lighting, head/body proportions and equipment-free hands across ALL16 frames. The equipment hand rests near the waist; arms move only gently. Both boots completely visible, identical ground baseline and center in EVERY equal cell, generous consistent transparent margins (about40px at 512px cell size). Whole character height about400px per512px cell. Preserve continuity, do not add poses or enlarge any frame.\nGenuinely transparent background. No ground, cast shadows, sheets, captions, letters, border, watermark or cropped limbs.",
+      "reference": "art/concepts/day_night_and_home_2026-10-18/hero_options_v1.png",
+      "reference_role": "Approved C appearance only; equipment removed to a separate layer.",
+      "sha256": "525E1C06C3DF2A21E5DE717DE2041DB9221A2CC1C130E447CFAA27FFDA19BC3C",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "runtime_copy_sha256": "525E1C06C3DF2A21E5DE717DE2041DB9221A2CC1C130E447CFAA27FFDA19BC3C",
+      "unchanged_runtime_copy": true
+    },
+    {
+      "key": "bow",
+      "original_generated_path": "C:/Users/MushketCO/.codex/generated_images/01a14e0e-739c-70e2-8aab-de1d764026a0/exec-ac5d5427-2af8-4a11-a4e9-5f569757f76d.png",
+      "project_source": "art/concepts/day_night_and_home_2026-10-18/hero_C_bow_directions_v1.png",
+      "runtime_copy": "Assets/Stage3/DayNight/HeroCBows.png",
+      "prompt": "Use case: precise-object-edit.\nReference: supplied hero options sheet, ONLY the simple starter bow carried by character C at right. Re-create this bow alone as detachable game equipment for the approved versatile hero C. Do NOT include the character.\nAsset type: genuinely transparent equipment sprite strip, exactly FOUR equal square cells in ONE horizontal row (target2048x512), no gaps, grid or labels.\nOne simple wooden recurved bow per cell. Match approved C's restrained wooden bow and soft painted cartoon game style. Fixed elevated orthographic view about55degrees above ground. Cell order: weapon oriented as held by a character facing screen-right, facing away/up, facing screen-left, facing toward viewer/down. Grip point at EXACT center of each cell, same object size in each, whole limbs and thin taut string fully visible, ample transparent margin.\nOnly bows. No hands, arms, person, arrow, quiver, extra weapon, magic, background, ground, cast shadow, text, border or watermark.",
+      "reference": "art/concepts/day_night_and_home_2026-10-18/hero_options_v1.png",
+      "reference_role": "Approved C's provisional starter bow, not a fixed character class.",
+      "sha256": "E46D79E4B64194BAF4E1087879DE96BF924EF0F32D139D63FE9A69E60A0CA851",
+      "size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "runtime_copy_sha256": "E46D79E4B64194BAF4E1087879DE96BF924EF0F32D139D63FE9A69E60A0CA851",
+      "unchanged_runtime_copy": true
+    },
+    {
+      "key": "home",
+      "original_generated_path": "C:/Users/MushketCO/.codex/generated_images/01a14e0e-739c-70e2-8aab-de1d764026a0/exec-9bd0cd7e-7644-4693-87ef-339bcce03add.png",
+      "project_source": "art/concepts/day_night_and_home_2026-10-18/dwelling_B_front_v1.png",
+      "runtime_copy": "Assets/Stage3/DayNight/DwellingB.png",
+      "prompt": "Use case: precise-object-edit.\nReference/edit target: supplied approved dwelling concept sheet, ONLY B, the right-hand cream-plaster cottage. Re-create its exact approved appearance as ONE isolated transparent game building, not a sheet.\nInvariants: cream plaster with warm timber framing, orange-red tiled gable roof, pale stone foundation and chimney, right-hand wooden front door with two small steps, small left warm window, upper shuttered window, small right hanging lantern. Match B's proportions, materials, palette and soft painted cartoon game art.\nOrientation: broad front directly faces the viewer like the approved current towers. Roof ridge centered, all front beams horizontal, posts vertical, no diagonal yaw or perspective convergence. Elevated fixed orthographic game view about55degrees above ground with roof-top visibility.\nComposition: entire single building centered with generous genuinely transparent padding; all roof edges, chimney, foundation and bottom steps fully visible. Neutral daylight with small restrained warm window/lantern centers usable in day and night.\nNo comparison sheet, A, other house, label, text, grid, border, ground, terrain island, cast shadow, people, new props or scenery.",
+      "reference": "art/concepts/day_night_and_home_2026-10-18/dwelling_options_v1.png",
+      "reference_role": "Approved front-facing B cottage.",
+      "sha256": "F6D434494F87457B6E8BEA0CCE940F496D9F3F0B5737CD27143F9D56E0845F76",
+      "size": [
+        1312,
+        1199
+      ],
+      "mode": "RGBA",
+      "runtime_copy_sha256": "F6D434494F87457B6E8BEA0CCE940F496D9F3F0B5737CD27143F9D56E0845F76",
+      "unchanged_runtime_copy": true
+    }
+  ],
+  "verification": "art/source/day_night_2026-10-18_verification.json"
+}

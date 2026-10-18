@@ -1,0 +1,79 @@
+{
+  "date": "2026-10-18",
+  "scope": "Hero C planted idle/breathing and corrected right/left bow artwork; no new runtime interface",
+  "unity": "6000.6.2f1",
+  "scene": "Assets/Scenes/Stage3Rapid3DGamePilot.unity",
+  "import": {
+    "method": "Not3A.Stage3.VisualPilot.Editor.Stage3DayNightArtBuilder.BuildHeroMotion",
+    "exit_code": 0,
+    "log": "Artifacts/S3-HERO-MOTION-20261018/import.log",
+    "marker": "S3_HERO_MOTION_ART_READY"
+  },
+  "tests": {
+    "platform": "PlayMode",
+    "result": "Passed",
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "filters": [
+      "Not3A.Stage3.VisualPilot.Tests.Stage3HeroMotionVisualTests",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3HeroHordeVisualTests"
+    ],
+    "xml": "Artifacts/S3-HERO-MOTION-20261018/playmode.xml",
+    "log": "Artifacts/S3-HERO-MOTION-20261018/playmode.log"
+  },
+  "observations": {
+    "visual_owner_review": "Astra inspected 8 side-walking frames, 8 idle inhale/exhale frames and arrow close/overview. Accepted hand registration, correct bow/string silhouette, planted soles and paused breathing.",
+    "breath_scale_peak_to_peak": 0.014,
+    "neutral_idle_directions": 4,
+    "second_horde_live_enemies": 120,
+    "visible_overview": 82,
+    "visible_arrow_pixels": 1172,
+    "graphics": "Direct3D11, NVIDIA GeForce GTX 1060 6GB"
+  },
+  "build": {
+    "method": "Not3A.Stage3.VisualPilot.Editor.Stage3DayNightSliceBuilder.BuildHeroMotionPlayer",
+    "exit_code": 0,
+    "path": "Builds/WindowsHeroMotion/Not3AHeroMotion.exe",
+    "sha256": "6833A3B986DA4ACF7EF8B009BAE7136A01BE3734071D9DDC57B3DD115830536A",
+    "bytes_reported_by_unity": 408304605,
+    "log": "Artifacts/S3-HERO-MOTION-20261018/build.log",
+    "startup": "Player launched, responsive, startup/gameplay/tactical/dwelling readiness markers present; no attributable game errors. Only our launched review process was stopped; user's earlier player preserved.",
+    "player_log": "Artifacts/S3-HERO-MOTION-20261018/player.log"
+  },
+  "evidence": [
+    {
+      "path": "art/review/hero_motion_walk_right_2026-10-18.png",
+      "sha256": "873D358FF33B163152FC05A2AF5CF1ED5E99CF6E54E88723F15E3EC614BC98D7"
+    },
+    {
+      "path": "art/review/hero_motion_walk_left_2026-10-18.png",
+      "sha256": "B9AFCB66C1A3BEEED228D8A2D4D4C71B398A93A07DAC7C2344DF2DA08A80882B"
+    },
+    {
+      "path": "art/review/hero_motion_idle_right_inhale_2026-10-18.png",
+      "sha256": "9AA0290B2629658D5F67B1F1ACF09FF50A43722241FD0DAF345F255BD9D2D7FF"
+    },
+    {
+      "path": "art/review/hero_motion_idle_right_exhale_2026-10-18.png",
+      "sha256": "E681B634747FCD67D4E42582FF6CA061A9F24ECB6DF397B1687D772A97EFAB68"
+    },
+    {
+      "path": "art/review/hero_motion_idle_left_2026-10-18.png",
+      "sha256": "C0BFCB28E83A2363A37B485CD7BDAFB2ED441FE631DA3988E4363C418B621F5B"
+    },
+    {
+      "path": "art/review/hero_motion_arrow_close_2026-10-18.png",
+      "sha256": "BDC81408125DDA516D820CC7E748584B7464790D495E9E1E9532449D1A6CA85E"
+    }
+  ],
+  "limitations": [
+    "Four neutral standing sprites + procedural breathing, not a new hand-drawn multi-frame idle or string-draw attack cycle.",
+    "Camera render evidence excludes HUD; QA manually moves the actor, keeping approved camera rotation.",
+    "Horde setup advances first wave with QA kills; authored second-wave spawning/movement/bow tuning unchanged. Not natural full survival play or performance benchmark.",
+    "Opt-in screenshot from hidden Windows player was black and rejected as visual evidence. Actual rendered verification uses D3D11 PlayMode frames.",
+    "Existing crowd overlap and future hero health/death remain unchanged.",
+    "Runtime UI retains old HUD; the new C interface is concept-only."
+  ],
+  "provenance": "art/source/hero_motion_2026-10-18_generation.json"
+}

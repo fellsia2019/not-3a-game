@@ -1304,14 +1304,169 @@ Research remains a separate E action at the constructed workshop. Full reset
 or world regeneration removes the workshop/collision/marker and clears unlocks.
 Other placement modes are exclusive. No additional technology or currency added.
 
+## D-064 — Hero bow, passive wooden barricade and dense horde prototype
+
+Status: implemented and verified as a provisional slice, 2026-10-18.
+
+The owner approved a first slice with an automatic bow targeting the nearest
+enemy in range, a non-attacking wooden road barricade, an easy first wave
+that the hero can clear, and dense later hordes that require defenses.
+Provisional bow statistics, barricade cost/health and horde count/cadence are
+explicitly delegated to the implementer, with gameplay verification.
+Portal enemies continue toward the throne and attack blocking defenses;
+only future open-world enemies target the hero. Hero health/death belongs
+to that later slice. Respawning at the throne is a recommendation, not an
+accepted penalty or restore rule. The pending D-062 rewind remains separate.
+
+The owner approved barricade A (blunt timber palisade), explicitly requiring
+its front to face the camera as current towers do. It occupies an ordinary
+gray road cell, redirects routes, has health and can be destroyed on full
+blockage, and never attacks. Existing maze/siege/placement transactions remain.
+All visual decisions/appearance and visual Unity work are delegated to GPT-6
+Astra after owner-approved ImageGen sketches; the main agent performs ImageGen
+and nonvisual gameplay integration. The existing hero marker remains temporary;
+no final archer artwork is authorized without its own approved sketch.
+
+Day/night, ruins/world enemies, discovered blueprints researched at the workshop
+and tutorial quests are follow-up work. About twenty minutes of daylight and
+nightly hordes were discussed, not selected as current runtime cadence.
+There is no forced scripted second-wave defeat or tutorial lock in this slice.
+This supersedes D-006's non-combat hero restriction; its tool-scope limits remain.
+Contracts: gamedesign/features/HERO_COMBAT.md and WOODEN_BARRICADES.md.
+Verification and remaining limits: production/WORKSTREAMS.md, 2026-10-18 handoff;
+art/source/hero_combat_slice_2026-10-18_verification.json. Current enemy movement
+still forms an overlapping column; a wide multi-row horde is not implemented.
+
+## D-065 — Continuing days, night hordes and buildable dwelling
+
+Status: implemented and verified as a prototype, 2026-10-18.
+
+The owner requested about twenty minutes of daytime for exploration and
+preparation, followed by a night horde. Clarified: night ends immediately after
+the whole horde is defeated; only day can be skipped. After the first three
+nights, days continue and hordes grow. The former finite three-wave victory
+remains a legacy prototype contract, not the current Stage 3 survival loop.
+
+The player builds a dwelling on free green ground for ten wood. E at the door
+immediately ends the remaining day without awarding skipped-time production.
+At night rest is unavailable. Ordinary active time and pause retain the shared
+game clock; the normal remote early-wave button/Space no longer skips a day.
+Development force-start remains available for QA. Prices and horde tuning live
+in Unity data; future wave rewind is still the separate pending D-062 contract.
+
+The owner selected ImageGen hero C, dwelling B and the cool readable night
+concept in art/concepts/day_night_and_home_2026-10-18/. C is a versatile fantasy
+hero, not an archer class. The bow is initial equipment, separate from body art;
+future magic/other weapon development is intended but not implemented here.
+All visual implementation and actual-frame QA belong to GPT-6 Astra after this
+approval. The main agent owns ImageGen and nonvisual logic/integration.
+Contract: gamedesign/features/DAY_NIGHT.md. Source/approval/provenance:
+art/source/day_night_and_home_2026-10-18_generation.json.
+Verification/limits: art/source/day_night_2026-10-18_verification.json and the
+current production/WORKSTREAMS.md handoff. Manual survival balance remains open.
+
+## D-066 — Fantasy player-interface concepts and separate windows
+
+Date: 2026-10-18. Status: accepted direction and runtime implementation approved.
+
+The owner requested ImageGen prototypes before Unity UI implementation and
+assigned all visual decisions/implementation to GPT-6 Astra. Separate windows
+serve inventory/equipment, construction, research, hero development and a
+pannable/zoomable regional map. Visible buttons complement shortcuts; the
+working proposal is I / B / P / O / M respectively.
+
+The future HUD has compact resource icons/counts upper left, day plus ordinary
+HH:MM upper right, a local minimap lower left and a compact hero console with
+window buttons above it. The owner removed the night countdown and throne HP
+from that HUD; throne health belongs above its world object. Local E prompts
+remain, including the existing day-only home skip. These are target layouts,
+not runtime changes in the prototype task.
+
+The first charcoal-panel style was explicitly rejected. Complete redesign of
+both maps and HUD was then authorized, replacing the earlier request to keep
+the prototype minimap. Of three original fantasy ImageGen directions, the owner
+selected C «Лунный фарфор»: pearl ceramic, muted plum, silver, turquoise and
+curving crescent/petal silhouettes. This approves the visual theme; window
+layout sheets and exact dimensions remain review proposals.
+
+Inventory slot/capacity examples and the unnamed development-node diagram do
+not define new mechanics. Current weapon stats may illustrate the compact
+hero console; hero HP/mana/XP are not invented. Example 08:30 does not choose
+the clock mapping or sunrise/sunset rules. Research remains local at the built
+workshop; no remote research, prices/times/queue or extra technologies are
+authorized. Keep existing approved world assets when implementing thumbnails.
+
+Follow-up: the owner explicitly authorized implementation of the window
+concepts, then required a fullwidth lower HUD extending from the minimap to the
+right screen edge. The hero/bow/stats block becomes narrow with vertical stats;
+future ability slots occupy the middle, and red HP / blue mana / orange XP
+reserves occupy the right. The owner explicitly approved both new ImageGen
+fullwidth normal and construction sketches: «Да, внедряй оба варианта».
+
+Construction is a nonmodal ribbon replacing lower hero/status contents while
+the five window buttons remain above. It has Defense/Production/Base categories,
+actual building cards and selected-building details. Selecting a card begins
+world placement while keeping the ribbon open. B opens the ribbon without
+automatically selecting a tower. All window changes cancel stale placement.
+HP/mana/XP and ability slots show unavailable reserves; no mechanics/values,
+skills, levels or inventory capacity are invented. Existing IMGUI is retained.
+
+Contract: gamedesign/features/PLAYER_INTERFACE.md. Source prompts/rights and
+approvals: art/source/interface_runtime_2026-10-18_generation.json. Existing
+world art is reused; generated interface thumbnail variations are not new
+world-asset approval.
+
+## D-067 — In-world clock and daylight during an overrunning horde
+
+Date: 2026-10-18. Status: accepted clarification of D-065 during UI integration.
+
+The player approved ordinary in-world hours: twenty active preparation minutes
+normally progress from 08:00 to 20:00. Night advances at the same speed. They
+explicitly rejected stopping at 07:59: an uncleared horde can continue through
+08:00 into daylight. They confirmed no overlapping hordes and clarified that
+the home cannot skip time while any horde is ongoing.
+
+The earlier D-065 early-clearance contract remains: winning before morning
+advances to dawn. If clearance happens after dawn, retain the forward-moving
+clock and begin the full twenty-minute preparation period; do not rewind hours.
+The following horde therefore may start later than 20:00 in this exceptional
+case. Local early day skip advances to night without simulating production.
+Pause freezes the clock. Reset returns to calendar day 1 at 08:00.
+
+Run preparation/active-horde phases continue to own spawning/rest availability;
+the clock owns displayed hours/calendar day and daylight. Daylight does not
+start a second preparation or horde behind an unfinished one. No horde tuning,
+hard time limit, forced kill, new survival statistic or night skip is introduced.
+Contract: gamedesign/features/DAY_NIGHT.md and PLAYER_INTERFACE.md.
+
+## D-068 — Correct interface proportions, safe areas and pointer-centered map zoom
+
+Date: 2026-10-18. Status: accepted user correction of D-066 implementation.
+
+The owner rejected the first runtime result: serif typography, stretched raster
+ornaments, displaced icons, insufficient content/screen padding and missing
+hover feedback. Keep the approved lunar-porcelain direction and existing UI
+stack, but use a legible Cyrillic sans-serif font, preserve decoration/icon
+proportions, provide safe content bounds and visible interactive states.
+This directly authorizes corrections to the approved layout; no new art
+direction or gameplay system is introduced. Astra owns their visual execution.
+
+The hero must be unmistakable on the map. Mouse-wheel map zoom retains the
+world position under the pointer; a two-touch pinch uses its moving midpoint.
+Existing world bounds still constrain panning. Plus/minus buttons retain their
+center-based behavior. These controls do not move the world camera or hero.
+Contract and verification: gamedesign/features/PLAYER_INTERFACE.md.
+
 ## Pending Product Decisions
+
 
 - Текущая карта Stage 3 — 250×250 по D-049, боевая часть в нижнем левом углу
   по D-050, форма дороги уточнена рисунком и подтверждением D-051.
   По D-062 продукт включает выживание, огромный мир и развитие базы; точный
   размер, состав систем и минимальный проверяемый коммерческий срез открыты.
   Темп длинного маршрута и будущие места исследования/добычи ещё оцениваются.
-  Три волны — текущий кандидат, не окончательный баланс. Старые размеры и
+  Первые три авторские орды продолжаются усиливающимися ночами по D-065;
+  параметры остаются пробными. Старые размеры и
   P-004/P-008 анализы остаются историческими свидетельствами в feature specs.
 - D-039–D-041 повторно проверяют спрайтовое производство для выбранных объектов;
   D-027 остаётся историческим решением о 3D, камера сохраняется. Прежний состав

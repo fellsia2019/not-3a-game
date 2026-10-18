@@ -1,0 +1,142 @@
+{
+  "date": "2026-10-18",
+  "decision": "D-068",
+  "scope": "Correct the owner-rejected D-066 runtime presentation without changing the approved lunar-porcelain direction; anchor map zoom to the pointer/pinch midpoint.",
+  "authorization": "Owner explicitly requested sans-serif, proportional frames/icons, safe areas, hover states, distinct hero marker and cursor-centered zoom. Existing C style remained approved; these are implementation corrections, no new ImageGen artwork or gameplay mechanics.",
+  "ownership": "GPT-6 Astra: all visual layout/rendering/font/states and map marker. Parent: nonvisual map math/input, QA capture/build/docs. QA agent: behavioral tests and narrow safety assertions.",
+  "platform": "Unity 6000.6.2f1 / Windows x64 / Direct3D11 / NVIDIA GTX 1060 6GB",
+  "user_reference_sha256": {
+    "art/references/interface_rejection_full_2026-10-18.png": "61BFC60ADAA19B2F9F6966D196948683BD7BE0BD3603498E936433D9BA178980",
+    "art/references/interface_rejection_crop_2026-10-18.png": "34F7494C47B98664161D4022395497C5C41B0EE4A5049D9A18188025B53C1C73"
+  },
+  "implementation": [
+    "Segoe UI with Arial/Liberation Sans fallback; no font files redistributed.",
+    "Five vertical rendering bands preserve corners/central jewels at one isotropic scale; only connectors stretch; shared edges snap to pixels to prevent cracks.",
+    "Screen and decoration-safe content bounds; resource icons/counts, inventory, weapon preview, hero description and construction use available interior.",
+    "Shared controls render hover, pressed, selected and disabled styles; native GUI.Button still owns clicks.",
+    "Distinct ring/triangle hero marker and clamped large-map label; minimap retains an unlabelled marker.",
+    "MapPointToWorld and ZoomMapAt preserve off-center world anchors; wheel uses current GUI pointer. World boundaries constrain edge anchors. Existing +/- stay centered.",
+    "Real Touchscreen control state drives one-finger pan and two-finger pinch at the moving midpoint; window lifecycle resets gesture state."
+  ],
+  "tests": {
+    "report": "Artifacts/S3-INTERFACE-CORRECTION-20261018/playmode.xml",
+    "total": 16,
+    "passed": 16,
+    "failed": 0,
+    "coverage": [
+      "Seven interface cases: windows/modal safety, fresh paid placement, map lifecycle, two asymmetric cursor zoom anchors, zoom limits/invalid values/world bounds and synthetic moving-pinch/single-touch pan.",
+      "Four existing building-menu and five HUD/debug regressions. Geometry assertions updated to user-requested safe margins; input/payment checks retained."
+    ],
+    "anchor_error_evidence": "Artifacts/S3-INTERFACE-CORRECTION-20261018/map-cursor-anchor.txt",
+    "maximum_tested_world_anchor_error": 7.62939453E-06,
+    "timing": "16/16 passed before later rendering-only compact-badge/pixel-edge/hover-source/hero-label refinements; native click logic and map math/gesture code were unchanged. Final code compiled in V4 and actual frames verified."
+  },
+  "visual_qa": {
+    "owner": "GPT-6 Astra",
+    "result": "PASS for requested correction on 1280x720,1600x900,1920x1080",
+    "final_backbuffer_sizes_verified": [
+      "1280x720",
+      "1600x900",
+      "1920x1080"
+    ],
+    "final_native_png_count": 39,
+    "method": "Cumulative visual review: V2/V3 fixed core/window frames, V3 proved hover through real Input System pointer state, V4 final Inventory on all three sizes plus final 1600 HUD/construction/hover. V4 sole visual delta removes clipped optional dashes in empty reserve slots; all 39 final V4 captures retained.",
+    "rejected_history": "Initial D-066 visual PASS missed defects identified by owner. Correction V1 rejected for frame cracks, hero-note clipping and unproven hover. V2 fixed rendering but native cursor warp still did not update input state. No prior screenshot was overwritten.",
+    "hover_method": "Opt-in QA logs requested/actual Mouse.position and queues pointer-position-only Input System events when native warp does not update it. Actual game renderer/shared controls, no UI-state override or synthetic mouse clicks. Background input policy restored. See hover-pointers.txt per size.",
+    "capture": "Actual visible Development player OnGUI backbuffer; public window navigation; no camera changes, resources, buildings, kills or time jumps injected.",
+    "capture_sha256": {
+      "Artifacts/S3-INTERFACE-CORRECTION-20261018/visible-1280x720-v4/Construction.png": "3E1B2177D855F8AD9771056BCFEAF804A5D10EB0A8D73F1103CFF463F86FF170",
+      "Artifacts/S3-INTERFACE-CORRECTION-20261018/visible-1280x720-v4/DisabledBuildSelect.png": "108CC2DA18C2781787586B8B4CF0BADAB475F4776C7CEE73702A5FBBAF8BCF2E",
+      "Artifacts/S3-INTERFACE-CORRECTION-20261018/visible-1280x720-v4/Hero.png": "DDB302B5ABB107A39F6E963E1828DF61D5DB3907ED4B677278EAE8119299AC4C",
+      "Artifacts/S3-INTERFACE-CORRECTION-20261018/visible-1280x720-v4/HoverBuildSelect.png": "4407CAD29DA136C018E78469589845D6F1B8985EEBD3992EB6890A25585FF988",
+      "Artifacts/S3-INTERFACE-CORRECTION-20261018/visible-1280x720-v4/HoverBuildTab.png": "88464E1581E2A17990A659CFF79036D1BCD0432674A6486FAC09A065BE8F81FE",
+      "Artifacts/S3-INTERFACE-CORRECTION-20261018/visible-1280x720-v4/HoverClose.png": "4D423EC14F1BB3B234CEE4E55379FDAA52C9E3678B2047C99966316B95A49698",
+      "Artifacts/S3-INTERFACE-CORRECTION-20261018/visible-1280x720-v4/HoverMapZoom.png": "2ADE25A0308918B5882C45D47A9D68477884EECF6309EEFF1F322EEEE3B14334",
+      "Artifacts/S3-INTERFACE-CORRECTION-20261018/visible-1280x720-v4/HoverMenu.png": "1AA3B92E7D52E51D4A71CBE65982CFD2A48477008C6D7FBB8CAEED860FEAF437",
+      "Artifacts/S3-INTERFACE-CORRECTION-20261018/visible-1280x720-v4/HoverWorkshop.png": "524E6A8564DAD90392EEC4E678305F808CBDBC0F1D4F8F7223D998FBA94D777C",
+      "Artifacts/S3-INTERFACE-CORRECTION-20261018/visible-1280x720-v4/Inventory.png": "8891E511E829D38E4033F5268991A1EF7190D70932CAE6B2E9A9560039305104",
+      "Artifacts/S3-INTERFACE-CORRECTION-20261018/visible-1280x720-v4/Map.png": "6A1A4EFBD619CDA31C5D4F6CF6632079DCCA0A35D53F0633D933D5FDC2BE6558",
+      "Artifacts/S3-INTERFACE-CORRECTION-20261018/visible-1280x720-v4/None.png": "87EB4B08AF76AC32D1E9A0061DEB91A731E69FD99EBDF074D6986A9469D807E0",
+      "Artifacts/S3-INTERFACE-CORRECTION-20261018/visible-1280x720-v4/Research.png": "621FF54CC36D55B915D5C28F1EDFAF92D8C95A3E7E89D2D45D60124D2BB6FCC9",
+      "Artifacts/S3-INTERFACE-CORRECTION-20261018/visible-1600x900-v4/Construction.png": "9B90915C9E51D92777521E563DE1D451DEAFA8E657754E37D07BEC6881C61FB4",
+      "Artifacts/S3-INTERFACE-CORRECTION-20261018/visible-1600x900-v4/DisabledBuildSelect.png": "C5896CCF99726B3A59C6145ED630E3FE56F63E8CF4397DD70016C2230ED9344E",
+      "Artifacts/S3-INTERFACE-CORRECTION-20261018/visible-1600x900-v4/Hero.png": "44554D08EFC1F0771BDBD12742476C684083011E90D562B1C3D81E512BDFC463",
+      "Artifacts/S3-INTERFACE-CORRECTION-20261018/visible-1600x900-v4/HoverBuildSelect.png": "120EBFDC83B1D67E0AB0EC7A4B221B13BA74AD79FBD2DDABD801B2409C8C8121",
+      "Artifacts/S3-INTERFACE-CORRECTION-20261018/visible-1600x900-v4/HoverBuildTab.png": "790ED9F99592AED5486111156E8619051E3B53153EABF4651476DEDD863BF1A9",
+      "Artifacts/S3-INTERFACE-CORRECTION-20261018/visible-1600x900-v4/HoverClose.png": "E7F55B0895D1589FBDF811A28FACAB15B961F69052EF5001BCB50879FBB62B81",
+      "Artifacts/S3-INTERFACE-CORRECTION-20261018/visible-1600x900-v4/HoverMapZoom.png": "95194BCE605F10D2D4A28B6C4C2F64E7B2BB427468A7BEE2A4B34177030C35B1",
+      "Artifacts/S3-INTERFACE-CORRECTION-20261018/visible-1600x900-v4/HoverMenu.png": "50F1CC3E467573A8923EA498DF55B5261C1CE8FB53D30F356AB74C5AC8826AEF",
+      "Artifacts/S3-INTERFACE-CORRECTION-20261018/visible-1600x900-v4/HoverWorkshop.png": "93EE45BD5B383A9EB5306563A6EBCCE371602A177FFCE8561E0CDCA468ABEA1F",
+      "Artifacts/S3-INTERFACE-CORRECTION-20261018/visible-1600x900-v4/Inventory.png": "DECA114C3B180BFBBFF0C7EAB8CB408F2EF583DAF6B0A09EFB8A9839DD1B01E3",
+      "Artifacts/S3-INTERFACE-CORRECTION-20261018/visible-1600x900-v4/Map.png": "C5DC95E59D726040FE2F2BA81AB078F6E14CAC351CA6E6CB22FD8738A78B88E2",
+      "Artifacts/S3-INTERFACE-CORRECTION-20261018/visible-1600x900-v4/None.png": "98FE3DADE9640FA35F2E98E82A35D7F3FC7F84C33F7BA006B3FADA85AA8EB8F5",
+      "Artifacts/S3-INTERFACE-CORRECTION-20261018/visible-1600x900-v4/Research.png": "6497A20F04970781660C86114B11BE1D9AC5A4BDE34BA5BEEFEDC6382D045E44",
+      "Artifacts/S3-INTERFACE-CORRECTION-20261018/visible-1920x1080-v4/Construction.png": "8BEE6CD03BC438C78146C14C599F1ABAF89D3DEF0B9C87AAD4A0D9034B0E6821",
+      "Artifacts/S3-INTERFACE-CORRECTION-20261018/visible-1920x1080-v4/DisabledBuildSelect.png": "16F007EE3387DFE8C5D440D788CDEE8575E2BBE9DCA3C971338737566F527048",
+      "Artifacts/S3-INTERFACE-CORRECTION-20261018/visible-1920x1080-v4/Hero.png": "F3EE45A54EDFA713B403B10FDBA25A07D9D116CDF54BAE5A5E04C42BDCD74B72",
+      "Artifacts/S3-INTERFACE-CORRECTION-20261018/visible-1920x1080-v4/HoverBuildSelect.png": "11384E35DEF09F528B8C9E9C2325E47D24C9C5A6A49B714EF9856F272348C94E",
+      "Artifacts/S3-INTERFACE-CORRECTION-20261018/visible-1920x1080-v4/HoverBuildTab.png": "0A41CE7CD768837D5402564C80F2575B8FBAAE7FCF99CA8E99BA271D69DC1418",
+      "Artifacts/S3-INTERFACE-CORRECTION-20261018/visible-1920x1080-v4/HoverClose.png": "06D710BEA9A65F0B89C4C126072692B7D798C750F0E7C3EF357EC74855735CD0",
+      "Artifacts/S3-INTERFACE-CORRECTION-20261018/visible-1920x1080-v4/HoverMapZoom.png": "22681D8C4C719B0494825CCB60A1580E620E08A03B5575072067486FBE3CFC1C",
+      "Artifacts/S3-INTERFACE-CORRECTION-20261018/visible-1920x1080-v4/HoverMenu.png": "074861886DA9D575E13772466E050C7162BA047B1A25BB5365C596D9AA54E0DD",
+      "Artifacts/S3-INTERFACE-CORRECTION-20261018/visible-1920x1080-v4/HoverWorkshop.png": "AA4E4AF1D87E5B28E48DF3D783406568FB55216F05A6704105E3FDCFB300C2DF",
+      "Artifacts/S3-INTERFACE-CORRECTION-20261018/visible-1920x1080-v4/Inventory.png": "A5C6790669CF21DF68BF9A92B36F17DCD2D5F5CA458DBA8BA53BCCAD52BD9DA7",
+      "Artifacts/S3-INTERFACE-CORRECTION-20261018/visible-1920x1080-v4/Map.png": "816EC87C7A8740147D0D8FDEAE2E5180B57BE03EE634C4921B9F1CE1B2EBFB1C",
+      "Artifacts/S3-INTERFACE-CORRECTION-20261018/visible-1920x1080-v4/None.png": "EDEDC78F794BE2CD83C5F061219AF1F8671185319E0E1AA87373B85E73127699",
+      "Artifacts/S3-INTERFACE-CORRECTION-20261018/visible-1920x1080-v4/Research.png": "6EA4A99772884E55CCB8B0D08877B5C02F25952C1BA2205A0FBD7EC4068FA361"
+    },
+    "exported_review_sha256": {
+      "art/review/player_interface_corrected_none_2026-10-18.png": "98FE3DADE9640FA35F2E98E82A35D7F3FC7F84C33F7BA006B3FADA85AA8EB8F5",
+      "art/review/player_interface_corrected_construction_2026-10-18.png": "9B90915C9E51D92777521E563DE1D451DEAFA8E657754E37D07BEC6881C61FB4",
+      "art/review/player_interface_corrected_inventory_2026-10-18.png": "DECA114C3B180BFBBFF0C7EAB8CB408F2EF583DAF6B0A09EFB8A9839DD1B01E3",
+      "art/review/player_interface_corrected_research_2026-10-18.png": "6497A20F04970781660C86114B11BE1D9AC5A4BDE34BA5BEEFEDC6382D045E44",
+      "art/review/player_interface_corrected_hero_2026-10-18.png": "44554D08EFC1F0771BDBD12742476C684083011E90D562B1C3D81E512BDFC463",
+      "art/review/player_interface_corrected_map_2026-10-18.png": "C5DC95E59D726040FE2F2BA81AB078F6E14CAC351CA6E6CB22FD8738A78B88E2",
+      "art/review/player_interface_corrected_hovermenu_2026-10-18.png": "50F1CC3E467573A8923EA498DF55B5261C1CE8FB53D30F356AB74C5AC8826AEF",
+      "art/review/player_interface_corrected_hoverclose_2026-10-18.png": "E7F55B0895D1589FBDF811A28FACAB15B961F69052EF5001BCB50879FBB62B81",
+      "art/review/player_interface_corrected_hovermapzoom_2026-10-18.png": "95194BCE605F10D2D4A28B6C4C2F64E7B2BB427468A7BEE2A4B34177030C35B1",
+      "art/review/player_interface_corrected_hoverbuildselect_2026-10-18.png": "120EBFDC83B1D67E0AB0EC7A4B221B13BA74AD79FBD2DDABD801B2409C8C8121",
+      "art/review/player_interface_corrected_disabledbuildselect_2026-10-18.png": "C5896CCF99726B3A59C6145ED630E3FE56F63E8CF4397DD70016C2230ED9344E"
+    }
+  },
+  "windows": {
+    "path": "Builds/WindowsInterface/Not3AInterface.exe",
+    "build_log": "Artifacts/S3-INTERFACE-CORRECTION-20261018/build-v4.log",
+    "build_report_total_bytes": 431450912,
+    "final_player_pid": 13640,
+    "responding": true,
+    "readiness_markers_pass_all_three_players": true,
+    "error_pattern_hits": {
+      "import.log": 0,
+      "build-v4.log": 0,
+      "player-1280x720-v4.log": 0,
+      "player-1600x900-v4.log": 0,
+      "player-1920x1080-v4.log": 0
+    }
+  },
+  "integrity": {
+    "original_generated_pngs_byte_identical": {
+      "Assets/Stage3/PlayerInterface/Art/LunarFrames.png": "BF88682DCD3E17BF4854402FFFDC233D81FFA733EF2B0441A381E3928DC57AA4",
+      "Assets/Stage3/PlayerInterface/Art/LunarIcons.png": "39FAAEA99E03D3281D365F39DE8DBC5D58771C334D5DD003041E79578B178C23",
+      "Assets/Stage3/PlayerInterface/Art/ApprovedHudPortraitSource.png": "5BFA43988FF25D9A9A9753A882D5F250A295403AB2360DDE36455FC120D38F04"
+    },
+    "runtime_sha256": {
+      "Assets/Stage3/PlayerInterface/LunarInterfaceArt.asset": "ED2F8B406FFA5ADB713B6E3DAB8018D13A633130274347BD9A2D96AE0BBBFE83",
+      "Assets/Scenes/Stage3Rapid3DGamePilot.unity": "8460B9701392D2D9DD02EBCA750AEC5CDFD8EAAF29F29D3AA662C53CB215DBB0",
+      "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.cs": "3635197FDA0D95B62241A08C050806880A98CDDB61DB69A1818D413866421585",
+      "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.MapInput.cs": "B6C00C8A3A494EB8F91C6B54FE5157CA05652AA5189CCD2BC28576183E7630F1",
+      "Builds/WindowsInterface/Not3AInterface.exe": "6833A3B986DA4ACF7EF8B009BAE7136A01BE3734071D9DDC57B3DD115830536A",
+      "Builds/WindowsInterface/Not3AInterface_Data/Managed/Assembly-CSharp.dll": "04EAFD3CF4E7A0D4B91A845E50A783CD1DB4E0B7D9D45194C67F6A42709BEFC1"
+    },
+    "missing_ui_meta": 0,
+    "protected_tracked_diffs": 0,
+    "protected_scope": "Packages, ProjectSettings and prior tracked review images unchanged; all previous untracked review images preserved. No Git mutation performed."
+  },
+  "limits": [
+    "Hover evidence uses automated pointer-only Input System events, not a physical hand moving the mouse. Pressed visual branch is code-reviewed but has no separate mouse-down screenshot.",
+    "Pinch/single-touch verified with synthetic InputTestFixture Touchscreen events; no physical touch hardware playthrough.",
+    "No separate complete manual mouse drag/wheel survival session claimed; map navigation math, event routing and camera isolation verified by code/tests.",
+    "Existing inactive inventory storage, abilities, HP/mana/XP and development reserves remain inactive. No new survival/rewind/balance mechanics."
+  ],
+  "source_generation_manifest": "art/source/interface_runtime_2026-10-18_generation.json"
+}

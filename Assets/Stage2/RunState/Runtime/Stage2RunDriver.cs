@@ -112,7 +112,7 @@ namespace Not3A.Stage2.RunState
                 ResetRun();
                 return;
             }
-            if (startWaveAction != null && startWaveAction.WasPressedThisFrame()) run.StartWave();
+            if (!run.ContinuousDays && startWaveAction != null && startWaveAction.WasPressedThisFrame()) run.StartWave();
             run.Tick(Time.deltaTime);
         }
 

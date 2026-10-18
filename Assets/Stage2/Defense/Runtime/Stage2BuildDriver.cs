@@ -30,6 +30,9 @@ namespace Not3A.Stage2.Defense
         private Stage2BuildPhase phase = Stage2BuildPhase.Inactive;
         private bool paused;
         private Func<Vector2, bool> pointerBlocker;
+        private Func<bool> inputBlocker;
+        public bool UseBuildShortcut { get; set; } = true;
+        public void SetInputBlocker(Func<bool> blocker) => inputBlocker = blocker;
 
         public Stage2Defense Defense => defense;
         public PlacementResult PreviewResult { get; private set; } = PlacementResult.NotPlacing;
@@ -53,7 +56,7 @@ namespace Not3A.Stage2.Defense
 
         public bool CanBeginPlacement(int role)
         {
-            if (defense == null || paused || phase == Stage2BuildPhase.Inactive || role < 0 || role >= defense.RoleCount) return false;
+            if (defense == null || paused || (inputBlocker?.Invoke() ?? false) || phase == Stage2BuildPhase.Inactive || role < 0 || role >= defense.RoleCount) return false;
             var data = defense.GetCatalog(role);
             return gathering.Economy.Inventory.CanAfford(data.WoodCost, data.StoneCost, data.MetalCost, data.GoldCost);
         }
@@ -172,7 +175,14 @@ namespace Not3A.Stage2.Defense
             if (defense == null) return;
             PointerOverUi = Mouse.current != null && pointerBlocker != null &&
                 pointerBlocker(Mouse.current.position.ReadValue());
-            var buildPressed = buildAction != null && buildAction.WasPressedThisFrame();
+            if (inputBlocker?.Invoke() ?? false)
+            {
+                defense.CancelPlacement();
+                PreviewResult = PlacementResult.NotPlacing;
+                SyncBuildMode();
+                return;
+            }
+            var buildPressed = UseBuildShortcut && buildAction != null && buildAction.WasPressedThisFrame();
             var cancelPressed = cancelAction != null && cancelAction.WasPressedThisFrame();
             // Role shortcuts retain their existing select-only behavior. Neither shortcuts
             // nor the public HUD action may bypass the full-price gate.

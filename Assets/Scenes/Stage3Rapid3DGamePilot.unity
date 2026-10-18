@@ -254,7 +254,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 54c05309de37b51409b0a39a5bdfbe3b, type: 3}
-  m_Name: 
+  m_Name:
   m_EditorClassIdentifier: Not3A.Stage2.Integration::Not3A.Stage2.Integration.Stage2PlayerMover
   mapDefinition: {fileID: 11400000, guid: d4ba9d0d3c262af4aa7a973e0b4aded0, type: 2}
   speed: 4.2
@@ -417,7 +417,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2158a932f382a7841b4f66862e04ed4f, type: 3}
-  m_Name: 
+  m_Name:
   m_EditorClassIdentifier: Not3A.Stage2.Map::Not3A.Stage2.Map.Stage2MapDebugRenderer
   mapDefinition: {fileID: 11400000, guid: d4ba9d0d3c262af4aa7a973e0b4aded0, type: 2}
   sortingOrder: -1000
@@ -612,7 +612,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
-  m_Name: 
+  m_Name:
   m_EditorClassIdentifier: Unity.RenderPipelines.Core.Runtime::UnityEngine.Rendering.Volume
   m_IsGlobal: 1
   priority: 0
@@ -696,7 +696,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cfbd09bd8fcc1da478866dfc8c0f0f26, type: 3}
-  m_Name: 
+  m_Name:
   m_EditorClassIdentifier: Not3A.Stage2.Integration::Not3A.Stage2.Integration.Stage2CameraFollow
   target: {fileID: 200527826}
   mapDefinition: {fileID: 11400000, guid: d4ba9d0d3c262af4aa7a973e0b4aded0, type: 2}
@@ -788,7 +788,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
-  m_Name: 
+  m_Name:
   m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalCameraData
   m_RenderShadows: 1
   m_RequiresDepthTextureOption: 2
@@ -930,6 +930,10 @@ GameObject:
   - component: {fileID: 1713031727}
   - component: {fileID: 1713031731}
   - component: {fileID: 1713031732}
+  - component: {fileID: 1713031733}
+  - component: {fileID: 1713031736}
+  - component: {fileID: 1713031735}
+  - component: {fileID: 1713031734}
   m_Layer: 0
   m_Name: Stage 2 Scene Composition
   m_TagString: Untagged
@@ -947,7 +951,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 14d6abf7af1718249a2e74e8a04c857e, type: 3}
-  m_Name: 
+  m_Name:
   m_EditorClassIdentifier: Not3A.Stage2.Integration::Not3A.Stage2.Integration.Stage2SceneBootstrap
   mapDefinition: {fileID: 11400000, guid: d4ba9d0d3c262af4aa7a973e0b4aded0, type: 2}
   mapDebugRenderer: {fileID: 741638370}
@@ -980,14 +984,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 963d3f9862b0dea4eae7278c4718c4dc, type: 3}
-  m_Name: 
+  m_Name:
   m_EditorClassIdentifier: Not3A.Stage2.Integration::Not3A.Stage2.Integration.Stage2GameComposition
   bootstrap: {fileID: 1713031725}
   economyCatalog: {fileID: 11400000, guid: 258f3ddcb677467caa9f9d27794ca00b, type: 2}
   defenseCatalog: {fileID: 11400000, guid: 9c7ec6c2461c65a4f9b6b179083f55e5, type: 2}
   longshotCatalog: {fileID: 11400000, guid: 42ce5fc86401cce478acb5d920ad0802, type: 2}
+  barricadeCatalog: {fileID: 11400000, guid: b164ed9435e975240a833910eca900f2, type: 2}
+  heroCombatCatalog: {fileID: 11400000, guid: 5d9a4396a92739d4eb36d11eff686383, type: 2}
   enemyCatalog: {fileID: 11400000, guid: bf4bec7be7071644b9d2e344a1da20ce, type: 2}
-  runCatalog: {fileID: 11400000, guid: 3dd74bf7c75f2c349bfabd6e16159ec7, type: 2}
+  runCatalog: {fileID: 11400000, guid: 71813e70656f4794193057b9e12c8aa2, type: 2}
   gathering: {fileID: 1713031730}
   building: {fileID: 1713031729}
   runDriver: {fileID: 1713031728}
@@ -1003,7 +1009,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 13e6775d273196d43bba62d4b18f635d, type: 3}
-  m_Name: 
+  m_Name:
   m_EditorClassIdentifier: Not3A.Stage2.RunState::Not3A.Stage2.RunState.Stage2RunDriver
   catalog: {fileID: 0}
   gathering: {fileID: 0}
@@ -1019,7 +1025,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cacfe18f13c80cf4aaf7a462433b3469, type: 3}
-  m_Name: 
+  m_Name:
   m_EditorClassIdentifier: Not3A.Stage2.Defense::Not3A.Stage2.Defense.Stage2BuildDriver
   mapDefinition: {fileID: 11400000, guid: d4ba9d0d3c262af4aa7a973e0b4aded0, type: 2}
   catalog: {fileID: 11400000, guid: 9c7ec6c2461c65a4f9b6b179083f55e5, type: 2}
@@ -1037,7 +1043,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bc8e08ee02b54b9f9a4ce69d3fbc0a30, type: 3}
-  m_Name: 
+  m_Name:
   m_EditorClassIdentifier: Not3A.Stage2.Economy::Not3A.Stage2.Economy.Stage2GatheringDriver
   mapDefinition: {fileID: 11400000, guid: f0a41b28e7c44a81b9f9063bb95d610e, type: 2}
   catalog: {fileID: 11400000, guid: 258f3ddcb677467caa9f9d27794ca00b, type: 2}
@@ -1052,7 +1058,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9366cc402f2627349a58615293c2e4ec, type: 3}
-  m_Name: 
+  m_Name:
   m_EditorClassIdentifier: Assembly-CSharp::Not3A.Stage3.VisualPilot.Stage3RapidShowcase
 --- !u!114 &1713031732
 MonoBehaviour:
@@ -1064,7 +1070,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c00fc19239b9feb4099fc4b0e15e76f7, type: 3}
-  m_Name: 
+  m_Name:
   m_EditorClassIdentifier: Assembly-CSharp::Not3A.Stage3.VisualPilot.Stage3TacticalPresentation
   grass: {fileID: 2100000, guid: 3e47862674a3d1640867ba36ff1b531e, type: 2}
   roadsideArt: {fileID: 11400000, guid: 310c8b9a266bc6c4588e750311b5b412, type: 2}
@@ -1075,6 +1081,9 @@ MonoBehaviour:
   neutral: {fileID: 2100000, guid: 97e5c758d5c8c824ea232cefcf1334f0, type: 2}
   skeletonSpritePrefab: {fileID: 763945700462305914, guid: 314ff6be53da7d84cae4ca8e08cf7b74, type: 3}
   hero: {fileID: 2100000, guid: d0480edf504220341bc3dadb23e5fc64, type: 2}
+  heroArt: {fileID: 11400000, guid: dcddb0780ea52464ca5002e079dde12d, type: 2}
+  enableDayNightPresentation: 1
+  dayNightGround: {fileID: 2100000, guid: ede9f35d49cba7640aa47764f85c6e7a, type: 2}
   throne: {fileID: 2100000, guid: 0342ee97dcc348a4f85bad908241c66b, type: 2}
   soulSpherePrefab: {fileID: 4850326595736964010, guid: a4d7a4f5ad29a0949b612f75addfa2a3, type: 3}
   entrance: {fileID: 2100000, guid: 2dcb44fa1d7fdda4ea6622d4f322c462, type: 2}
@@ -1088,6 +1097,56 @@ MonoBehaviour:
   grassBlades: {fileID: 2100000, guid: 93c4357dca704c17b6c0bb21ffa257f9, type: 2}
   flowerPetals: {fileID: 2100000, guid: 6c4fcdfd46df4ffeb7fc74fd82bb4860, type: 2}
   flowerCenters: {fileID: 2100000, guid: eaf1cb5b1bb14d0abab5a858e8547880, type: 2}
+--- !u!114 &1713031733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1713031724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e340c3a4a9cbe224096c22940145b397, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::Not3A.Stage3.VisualPilot.Stage3Dwelling
+  catalog: {fileID: 11400000, guid: 7c3c8b6f9262cc145972b3b1acd6d663, type: 2}
+--- !u!114 &1713031734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1713031724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f41f0b7a82153341894188f9478f4e8, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::Not3A.Stage3.PlayerInterface.Stage3InterfaceCapture
+--- !u!114 &1713031735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1713031724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b769bd9f7ad70a4bad677785eefc5a0, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::Not3A.Stage3.PlayerInterface.Stage3PlayerInterfaceBinding
+--- !u!114 &1713031736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1713031724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ff3449767603d64e8dc529d61084c60, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::Not3A.Stage3.PlayerInterface.Stage3FantasyHud
+  art: {fileID: 11400000, guid: 36ac126d1e3e3fd4bb1bb9aec1e800d8, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

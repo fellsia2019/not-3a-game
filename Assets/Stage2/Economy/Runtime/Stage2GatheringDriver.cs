@@ -18,11 +18,15 @@ namespace Not3A.Stage2.Economy
         private bool productionBuildMode;
         private bool requiresRelease;
         private Stage2Economy economy;
+        private System.Func<bool> inputBlocker;
+        public void SetInputBlocker(System.Func<bool> blocker) => inputBlocker = blocker;
 
         public Stage2MapDefinition MapDefinition => mapDefinition;
         public Stage2EconomyCatalog Catalog => catalog;
         public Transform Player => player;
         public Stage2Economy Economy => economy;
+        public bool IsInteracting => buildMode || productionBuildMode ||
+            (gatherAction != null && gatherAction.IsPressed());
 
         public void Configure(Stage2MapDefinition definition, Stage2EconomyCatalog data, Transform playerTransform)
         {
@@ -119,6 +123,12 @@ namespace Not3A.Stage2.Economy
             var activeTime = activeRun && !paused;
             economy.Tick(Time.deltaTime, activeTime);
             var held = gatherAction != null && gatherAction.IsPressed();
+            if (inputBlocker?.Invoke() ?? false)
+            {
+                economy.CancelGather();
+                requiresRelease |= held;
+                return;
+            }
             if (!held) requiresRelease = false;
             var allowed = activeTime && !buildMode && !productionBuildMode && !requiresRelease;
             var nearest = NearestAvailableNode();

@@ -33,19 +33,29 @@ namespace Not3A.Stage2.RunState
         [SerializeField, Min(1)] private int throneHealth = 5;
         // Empty on legacy assets: the original serialized fields remain a one-wave fallback.
         [SerializeField] private Stage2WaveDefinition[] waves = Array.Empty<Stage2WaveDefinition>();
+        [SerializeField] private bool continuousDays;
+        [SerializeField, Min(1)] private int additionalEnemiesPerNight = 60;
 
         public float PreparationSeconds => GetWave(0).PreparationSeconds;
         public int EnemyCount => GetWave(0).EnemyCount;
         public float SpawnInterval => GetWave(0).SpawnInterval;
         public int ThroneHealth => throneHealth;
         public int WaveCount => waves != null && waves.Length > 0 ? waves.Length : 1;
+        public bool ContinuousDays => continuousDays;
 
         public Stage2WaveDefinition GetWave(int index)
         {
-            if (index < 0 || index >= WaveCount) throw new ArgumentOutOfRangeException(nameof(index));
-            return waves != null && waves.Length > 0 ? waves[index] :
+            if (index < 0 || (!continuousDays && index >= WaveCount)) throw new ArgumentOutOfRangeException(nameof(index));
+            var authored = waves != null && waves.Length > 0 ? waves[Math.Min(index, waves.Length - 1)] :
                 new Stage2WaveDefinition(preparationSeconds, enemyCount, spawnInterval);
+            if (index < WaveCount) return authored;
+            var count = Math.Min(int.MaxValue, authored.EnemyCount +
+                (long)(index - WaveCount + 1) * additionalEnemiesPerNight);
+            return new Stage2WaveDefinition(authored.PreparationSeconds, (int)count, authored.SpawnInterval);
         }
+
+        public void ConfigureContinuousDays(bool enabled, int extraEnemiesPerNight = 60)
+        { continuousDays = enabled; additionalEnemiesPerNight = extraEnemiesPerNight; }
 
         public void ConfigureWaves(Stage2WaveDefinition[] sequence, int hitPoints)
         {
@@ -65,9 +75,9 @@ namespace Not3A.Stage2.RunState
 
         public bool TryValidate(out string reason)
         {
-            if (throneHealth <= 0)
+            if (throneHealth <= 0 || (continuousDays && additionalEnemiesPerNight <= 0))
             {
-                reason = "Throne health must be positive.";
+                reason = "Throne health and continuous-night enemy growth must be positive.";
                 return false;
             }
             for (var index = 0; index < WaveCount; index++)

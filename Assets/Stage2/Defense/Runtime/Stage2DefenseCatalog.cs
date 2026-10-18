@@ -12,9 +12,10 @@ namespace Not3A.Stage2.Defense
         [SerializeField, Min(0)] private int metalCost = 1;
         [SerializeField, Min(0)] private int goldCost;
         [SerializeField, Min(1)] private int towerHealth = 10;
+        [SerializeField] private bool canAttack = true;
         [SerializeField, Min(0.01f)] private float attackRange = 4.25f;
         [SerializeField, Min(0.01f)] private float fireInterval = 0.45f;
-        [SerializeField, Min(1)] private int attackDamage = 1;
+        [SerializeField, Min(0)] private int attackDamage = 1;
         [SerializeField, Min(0)] private float splashRadiusCells;
         [SerializeField, Min(0)] private float projectileFlightSeconds;
 
@@ -25,6 +26,7 @@ namespace Not3A.Stage2.Defense
         public int MetalCost => metalCost;
         public int GoldCost => goldCost;
         public int TowerHealth => towerHealth;
+        public bool CanAttack => canAttack;
         public float AttackRange => attackRange;
         public float FireInterval => fireInterval;
         public int AttackDamage => attackDamage;
@@ -35,7 +37,7 @@ namespace Not3A.Stage2.Defense
             => Configure(prefab, wood, stone, metal, health, 4.25f, 0.45f, 1);
 
         public void Configure(Stage2Tower prefab, int wood, int stone, int metal, int health,
-            float range, float interval, int damage, int gold = 0)
+            float range, float interval, int damage, int gold = 0, bool attacks = true)
         {
             towerPrefab = prefab;
             woodCost = wood;
@@ -46,6 +48,7 @@ namespace Not3A.Stage2.Defense
             attackRange = range;
             fireInterval = interval;
             attackDamage = damage;
+            canAttack = attacks;
         }
 
         public bool TryValidate(out string reason)
@@ -56,12 +59,12 @@ namespace Not3A.Stage2.Defense
                 woodCost + (long)stoneCost + metalCost + goldCost == 0 || towerHealth <= 0 ||
                 attackRange <= 0f || float.IsNaN(attackRange) || float.IsInfinity(attackRange) ||
                 fireInterval <= 0f || float.IsNaN(fireInterval) || float.IsInfinity(fireInterval) ||
-                attackDamage <= 0 || splashRadiusCells < 0f ||
+                (canAttack ? attackDamage <= 0 : attackDamage != 0) || splashRadiusCells < 0f ||
                 float.IsNaN(splashRadiusCells) || float.IsInfinity(splashRadiusCells) ||
                 projectileFlightSeconds < 0f || float.IsNaN(projectileFlightSeconds) ||
                 float.IsInfinity(projectileFlightSeconds))
             {
-                reason = "Inactive tower prefab, positive cost/health and finite positive attack values are required.";
+                reason = "Inactive defense prefab, positive cost/health, finite attack values and zero damage for passive defenses are required.";
                 return false;
             }
             reason = string.Empty;

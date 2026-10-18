@@ -22,6 +22,8 @@ namespace Not3A.Stage3.VisualPilot
                 Debug.LogError("S3_RAPID_GAME_ERROR: Stage 2 game composition was not initialized.", this);
                 yield break;
             }
+            // Continuing survival days are an ordinary fresh game, not the old two-tower art showcase.
+            if (composition.RunDriver.Run.ContinuousDays) yield break;
 
             var defense = composition.Building.Defense;
             var inventory = composition.Gathering.Economy.Inventory;

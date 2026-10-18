@@ -1347,7 +1347,9 @@ namespace Not3A.Stage3.VisualPilot.Tests
                 }
                 else Assert.That(Mathf.Abs(heroViewport.x-.5f), Is.GreaterThan(.1f),
                     "At the playable edge the camera must stop centering the hero.");
-                var heroBounds=GameObject.Find("Hero scale marker").GetComponent<Renderer>().bounds;
+                var heroVisual=GameObject.Find("Hero C body") ?? GameObject.Find("Hero scale marker");
+                Assert.That(heroVisual,Is.Not.Null);
+                var heroBounds=heroVisual.GetComponent<Renderer>().bounds;
                 for(var vertex=0;vertex<8;vertex++)
                 {
                     var point=camera.WorldToViewportPoint(new Vector3(
@@ -1442,7 +1444,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             var economy = composition.Gathering.Economy;
             var defense = composition.Building.Defense;
             var run = composition.RunDriver.Run;
-            var towers = new Stage2Tower[3];
+            var towers = new Stage2Tower[4];
             for (var index = 0; index < 2; index++)
             {
                 Assert.That(defense.SelectRole(index == 1 ? 1 : 0), Is.True);
@@ -1485,14 +1487,16 @@ namespace Not3A.Stage3.VisualPilot.Tests
                 for (var step = 0; step < 2000 && run.Phase == Stage2RunPhase.Wave; step++)
                 {
                     run.Tick(0.2f);
-                    for (var index = composition.Enemies.ActiveCount - 1; index >= 0; index--)
-                        composition.Enemies.GetEnemy(index).Tick(0.2f);
+                    for (var index = composition.Enemies.ActiveCount - 1; index >= 0 && !run.IsTerminal; index--)
+                        if (index < composition.Enemies.ActiveCount) composition.Enemies.GetEnemy(index).Tick(0.2f);
+                    composition.HeroCombat?.Tick(.2f);
                     foreach (var tower in towers) if (tower != null && tower.IsAlive) tower.Tick(0.2f);
                 }
                 if (wave == 1)
                 {
                     Assert.That(run.Phase, Is.EqualTo(Stage2RunPhase.Preparation));
                     Assert.That(economy.Inventory.Gold, Is.GreaterThanOrEqualTo(5));
+                    var earnedGoldBeforePurchase = economy.Inventory.Gold;
                     economy.Tick(economy.GetNode(MapResourceKind.Wood).RecoverySeconds, true);
                     Assert.That(defense.SelectRole(0), Is.True);
                     for (var unit = 0; unit < 2; unit++)
@@ -1506,17 +1510,40 @@ namespace Not3A.Stage3.VisualPilot.Tests
                     defense.SetPreviewCell(composition.GetComponent<Stage2SceneBootstrap>()
                         .MapDefinition.Throne+new Vector2Int(-4,3));
                     Assert.That(defense.TryConfirm(out towers[2]), Is.EqualTo(PlacementResult.Ready));
-                    Assert.That(economy.Inventory.Gold, Is.EqualTo(1));
+                    Assert.That(economy.Inventory.Gold, Is.EqualTo(earnedGoldBeforePurchase - defense.GetCatalog(0).GoldCost));
+                    // Dense D-064 hordes need the second artillery tower; gather its actual price.
+                    var artillery = defense.GetCatalog(1);
+                    foreach (var kind in new[] { MapResourceKind.Wood, MapResourceKind.Stone })
+                    {
+                        var required = kind == MapResourceKind.Wood ? artillery.WoodCost : artillery.StoneCost;
+                        while (economy.Inventory.Get(kind) < required)
+                        {
+                            var node = economy.GetNode(kind);
+                            if (node.IsDepleted) economy.Tick(node.RecoverySeconds, true);
+                            Assert.That(economy.AdvanceGather(kind, economy.WorldPosition(kind), true, node.GatherSeconds, true), Is.True);
+                        }
+                    }
+                    defense.SelectRole(1);
+                    var throneCell = composition.GetComponent<Stage2SceneBootstrap>().MapDefinition.Throne;
+                    for (var y = 3; y >= -3 && towers[3] == null; y--)
+                        for (var x = -2; x >= -4 && towers[3] == null; x--)
+                        {
+                            defense.BeginPlacement(); defense.SetPreviewCell(throneCell + new Vector2Int(x, y));
+                            if (defense.EvaluatePreview() == PlacementResult.Ready)
+                                Assert.That(defense.TryConfirm(out towers[3]), Is.EqualTo(PlacementResult.Ready));
+                        }
+                    Assert.That(towers[3], Is.Not.Null);
                 }
                 if (wave < run.WaveCount)
                 {
                     Assert.That(run.Phase, Is.EqualTo(Stage2RunPhase.Preparation));
-                    Assert.That(defense.TowerCount, Is.EqualTo(3));
+                    Assert.That(defense.TowerCount, Is.EqualTo(4));
                     Assert.That(economy.Inventory.Get(MapResourceKind.Wood), Is.Zero);
                 }
             }
-            Assert.That(run.Phase, Is.EqualTo(Stage2RunPhase.Won),
-                "The authored map must allow a paid defense to finish the complete sequence.");
+            Assert.That(run.Phase, Is.EqualTo(run.ContinuousDays ? Stage2RunPhase.Preparation : Stage2RunPhase.Won),
+                "The authored map must allow a paid defense to clear its first three hordes.");
+            if (run.ContinuousDays) Assert.That(run.WaveNumber, Is.EqualTo(4));
             Assert.That(run.ThroneHealth, Is.GreaterThan(0));
             var bootstrap=composition.GetComponent<Stage2SceneBootstrap>();
             var outcomeFrame=CapturePortal(bootstrap);

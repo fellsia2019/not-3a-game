@@ -18,6 +18,7 @@ namespace Not3A.Stage2.Integration
         private Stage2PlayerMover hero;
         private Camera view;
         private Stage2MapDefinition map;
+        private Stage2GameComposition composition;
         private HeroObstacleMap obstacles;
         private Func<Vector2, bool> pointerBlocker;
         private readonly List<GameObject> visuals = new List<GameObject>();
@@ -40,6 +41,7 @@ namespace Not3A.Stage2.Integration
 
         public void Configure(Stage2ProductionCatalog catalog, Stage2SceneBootstrap scene, Stage2GameComposition game)
         {
+            composition = game;
             Catalog = catalog; map = scene.MapDefinition; hero = scene.PlayerMover; view = scene.CameraFollow.BoundCamera;
             gathering = game.Gathering; towers = game.Building; run = game.RunDriver.Run; pointerBlocker = game.ContainsScreenPoint;
             Rules = new Stage2Production(catalog, gathering.Economy.Inventory);
@@ -164,7 +166,8 @@ namespace Not3A.Stage2.Integration
             visuals.Clear(); Rules?.Reset();
             foreach (var mark in padMarkers) if (mark != null) mark.gameObject.SetActive(true);
         }
-        private bool Active => run != null && !run.IsPaused && !run.IsTerminal;
+        private bool Active => run != null && !run.IsPaused && !run.IsTerminal &&
+            (composition == null || !composition.PlayerInputBlocked);
         private void SyncActivity()
         {
             Rules?.SetActive(Active);

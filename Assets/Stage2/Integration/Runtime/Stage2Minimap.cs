@@ -34,6 +34,7 @@ namespace Not3A.Stage2.Integration
         private static readonly Color Gold = new Color(.72f, .65f, .42f, 1f);
 
         public Texture2D Terrain => terrain;
+        public bool SuppressPresentation { get; set; }
         public Texture2D DistrictTerrain => districtTerrain;
         public IReadOnlyList<Stage2MinimapMarker> Markers => markers;
         public void SetWorldTravelMarkers(Vector2? research, Vector2? baseCircle, Vector2? worldCircle)
@@ -78,7 +79,7 @@ namespace Not3A.Stage2.Integration
         }
 
         // GUI uses top-left pixels; Input System uses bottom-left pixels.
-        public bool ContainsScreenPoint(Vector2 screen) => isActiveAndEnabled && terrain != null &&
+        public bool ContainsScreenPoint(Vector2 screen) => !SuppressPresentation && isActiveAndEnabled && terrain != null &&
             PanelRect.Contains(new Vector2(screen.x, Screen.height - screen.y));
 
         public static Rect Layout(Vector2 screen)
@@ -202,7 +203,7 @@ namespace Not3A.Stage2.Integration
 
         private void OnGUI()
         {
-            if (terrain == null || composition == null || !composition.IsInitialized || Event.current.type != EventType.Repaint) return;
+            if (SuppressPresentation || terrain == null || composition == null || !composition.IsInitialized || Event.current.type != EventType.Repaint) return;
             var oldColor = GUI.color;
             var oldDepth = GUI.depth;
             GUI.color = Color.white;

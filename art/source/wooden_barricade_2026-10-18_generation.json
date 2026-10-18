@@ -1,0 +1,52 @@
+{
+  "date": "2026-10-18",
+  "purpose": "Approval-only non-attacking wooden road barricade concept alternatives for the authorized first hero-combat / barricade / horde gameplay slice.",
+  "status": "Owner-approved A front view implemented by GPT-6 Astra and verified in actual D3D11 camera frames. Concept comparison sheet is not a runtime asset.",
+  "workflow": "Owner instruction: create sketches with built-in ImageGen; after explicit appearance approval, delegate all visual decisions and Unity visual implementation to GPT-6 Astra. Main agent owns image generation and nonvisual gameplay integration.",
+  "source_type": "Original text-only built-in image_gen generation. No third-party image input. Existing project screenshots inspected for stylistic context.",
+  "external_reference_pixels_used": false,
+  "runtime_ready": false,
+  "sha256": "DF8AC7C81CDDDC70D6748F016D4824EDFBF0D98EE788D71D26068F52F65ED6AD",
+  "original_generated_path": "C:\\Users\\MushketCO\\.codex\\generated_images\\01a14e0e-739c-70e2-8aab-de1d764026a0\\exec-8f4529d9-ae6a-4cc8-9c23-bcd820fc824d.png",
+  "project_concept": "art/concepts/wooden_barricade_2026-10-18/wooden_barricade_options_v1.png",
+  "choices": {
+    "A": "Blunt timber palisade",
+    "B": "Braced plank wall"
+  },
+  "prompt": "Use case: stylized-concept.\nAsset type: approval-only concept sheet for a wooden road-blocking defensive wall in an existing isometric fantasy tower-defense game.\nPrimary request: propose TWO clear alternatives of the SAME non-attacking wooden barricade. It blocks an occupied construction cell and channels walking enemies into a zigzag; it has absolutely no damage, weapons or trap function.\nArt style: original soft cartoon fantasy game artwork, painterly clean materials and readable volumetric shapes, restrained dark edge lines, warm golden-brown timber, subtle woodgrain, iron details kept minimal. Similar visual vocabulary to a compact timber watchtower with a red tiled roof and pale stone footing, but the barricade itself has NO roof, tower, platform, arrows or weapon. Not pixel art, not photorealistic, not greybox geometry.\nComposition: one polished landscape comparison board on a quiet neutral background. Two equal columns labeled ONLY A and B. At top of each column show one fully visible single wall module close-up from a fixed elevated isometric/orthographic game camera. Underneath show a SMALL short L-shaped continuous run of the exact same module on muted grey paving, with very subtle square placement-cell outlines, to demonstrate connected maze construction. Keep generous separation and all objects wholly in frame. Each module is compact, fits within one square ground cell, shares the same scale, upright stance and camera angle, and is clearly lower and cheaper than an attack tower.\nA: a stout rustic wall of closely fitted vertical timber posts, BLUNT/flat tops, two horizontal binding beams, convincing joined construction.\nB: a stout plank wall with heavier end posts and a clearly readable timber cross-brace, BLUNT tops, convincing joined construction.\nBoth options feel like inexpensive early-game wooden defenses and can stand side by side without overlapping neighboring cells. No sharpened spikes, thorns, damaging stakes, blades, firing apertures, soldiers, characters, UI, prices, text beyond A/B, glow or decorative magic. Maintain original project-friendly cartoon proportions. This is a design preview for the owner's approval, not a runtime sprite atlas.",
+  "rights": "Original project-generated concept; no externally licensed artwork incorporated.",
+  "approval": {
+    "date": "2026-10-18",
+    "choice": "A",
+    "owner_text": "А - но учитывай что они должны стоять лицом к камере, как сейчас башни"
+  },
+  "runtime_generation": {
+    "tool": "built-in image_gen",
+    "original_generated_path": "C:\\Users\\MushketCO\\.codex\\generated_images\\01a14e0e-739c-70e2-8aab-de1d764026a0\\exec-4dcd79ea-a191-4cf5-b632-6f85b03194a8.png",
+    "project_concept": "art/concepts/wooden_barricade_2026-10-18/wooden_barricade_A_front.png",
+    "runtime_copy": "Assets/Stage3/Barricades/WoodenBarricadeA.png",
+    "sha256": "94FF0125C3BFC4E6CD608EFCB6E265E16A621711FE457E9E4CD31690A927EBA8",
+    "size": [
+      1536,
+      1024
+    ],
+    "alpha": true,
+    "prompt": "Use case: precise-object-edit.\nCreate a clean transparent runtime game-sprite version of ONLY the approved wooden barricade A from reference image 1.\nInput images: image 1 is the APPROVED design reference (use A, left column only). Image 2 is a camera-facing and game-style reference only, showing the current game's front-facing towers. Do not copy its background or towers.\nChange the depicted orientation of A: its broad FRONT must face straight toward the viewer, like the current towers in reference image 2. Both horizontal timber braces must be exactly horizontal in the image, end posts vertical, symmetrical front view with no diagonal yaw and no perspective convergence. Retain a slight elevated orthographic view sufficient to see the flat post tops and shallow wall thickness. Do not deliver an angled isometric side view of the wall.\nSubject: one complete short non-attacking wooden palisade module, blunt fitted timber posts, two horizontal braces, heavier end posts, small dark iron cuffs/bolts and pale stone foot blocks as in A. Same warm golden-brown painted cartoon timber, clean dark edge definition, readable grain and convincing construction. Width about 1.25 to 1.4 times total height, clearly lower and cheaper than an attack tower.\nComposition: a SINGLE isolated entire module, centered with generous transparent padding and all feet fully visible. Transparent alpha background. No ground, paving, floor, grid, contact-shadow patch, scenery, text, letters, border, collage or alternate views. No B's diagonal cross-brace, no pointed spikes, weapons, roof, platform, guards or damage effects. Preserve A's design and palette while correcting the camera orientation. Original artwork for a game, not pixel art or photographic.",
+    "references": [
+      "art/concepts/wooden_barricade_2026-10-18/wooden_barricade_options_v1.png",
+      "art/review/tower_cell_fit_normal_2026-10-17.png"
+    ],
+    "reference_roles": [
+      "Owner-approved A design",
+      "Current camera-facing orientation, style only"
+    ],
+    "runtime_ready": true,
+    "implementation_owner": "GPT-6 Astra",
+    "verification": "art/source/hero_combat_slice_2026-10-18_verification.json",
+    "review_sha256": {
+      "art/review/wooden_barricade_A_neutral_close_2026-10-18.png": "6B19BA70BDDDAEAC7A063E6C64D085F72D7B3E944995AEE1BE67D40191DFA9E1",
+      "art/review/wooden_barricade_A_cell_fit_normal_2026-10-18.png": "93924AA220991742A6F792D346396D726E9A8767F298E7AE352122E35468EE3A",
+      "art/review/wooden_barricade_A_cell_fit_close_2026-10-18.png": "3EA59A33481E9F56CA952CB7212FC9372F9FABC61C598D53C2FA1EA4B6483827"
+    }
+  }
+}

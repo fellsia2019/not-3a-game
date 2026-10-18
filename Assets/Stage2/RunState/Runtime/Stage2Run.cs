@@ -9,7 +9,7 @@ namespace Not3A.Stage2.RunState
 {
     public enum Stage2RunPhase { Preparation, Wave, Won, Lost }
 
-    /// <summary>Finite wave sequence. UI and scene bindings observe Changed; they do not own rules.</summary>
+    /// <summary>Authored waves with optional continuing days. UI observes Changed; it does not own rules.</summary>
     public sealed class Stage2Run : IDisposable
     {
         private readonly Stage2RunCatalog catalog;
@@ -48,7 +48,16 @@ namespace Not3A.Stage2.RunState
         public int WaveIndex { get; private set; }
         public int WaveNumber => WaveIndex + 1;
         public int WaveCount => catalog.WaveCount;
-        public bool IsFinalWave => WaveNumber == WaveCount;
+        public bool ContinuousDays => catalog.ContinuousDays;
+        public bool IsDay => ContinuousDays && Phase == Stage2RunPhase.Preparation;
+        public bool IsNight => ContinuousDays && Phase == Stage2RunPhase.Wave;
+        public double WorldMinutes { get; private set; } = 8d * 60d;
+        public int CalendarDay => (int)Math.Floor(WorldMinutes / 1440d) + 1;
+        public int ClockHour => (int)(WorldMinutes % 1440d) / 60;
+        public int ClockMinute => (int)(WorldMinutes % 60d);
+        public bool IsNightTime => ContinuousDays && (ClockHour < 8 || ClockHour >= 20);
+        public float PreparationDuration => catalog.GetWave(WaveIndex).PreparationSeconds;
+        public bool IsFinalWave => !ContinuousDays && WaveNumber == WaveCount;
         public int WaveEnemyCount => catalog.GetWave(WaveIndex).EnemyCount;
         public bool IsPaused { get; private set; }
         public bool IsTerminal => Phase == Stage2RunPhase.Won || Phase == Stage2RunPhase.Lost;
@@ -61,6 +70,7 @@ namespace Not3A.Stage2.RunState
             if (elapsedSeconds < 0f || float.IsNaN(elapsedSeconds) || float.IsInfinity(elapsedSeconds))
                 throw new ArgumentOutOfRangeException(nameof(elapsedSeconds));
             if (disposed || IsPaused || IsTerminal || elapsedSeconds == 0f) return;
+            if (ContinuousDays) WorldMinutes += elapsedSeconds * 720d / Math.Max(1d, PreparationDuration);
             enemies.TickShots(elapsedSeconds);
             if (IsTerminal) return;
             if (Phase == Stage2RunPhase.Preparation)
@@ -89,6 +99,9 @@ namespace Not3A.Stage2.RunState
         public bool StartWave()
         {
             if (disposed || IsPaused || Phase != Stage2RunPhase.Preparation) return false;
+            // Local day skip advances the clock only; no skipped-time simulation is credited.
+            if (ContinuousDays && !IsNightTime)
+                WorldMinutes = Math.Floor(WorldMinutes / 1440d) * 1440d + 20d * 60d;
             Phase = Stage2RunPhase.Wave;
             PreparationRemaining = 0f;
             var wave = catalog.GetWave(WaveIndex);
@@ -121,6 +134,7 @@ namespace Not3A.Stage2.RunState
             Phase = Stage2RunPhase.Preparation;
             IsPaused = false;
             WaveIndex = 0;
+            WorldMinutes = 8d * 60d;
             PreparationRemaining = catalog.PreparationSeconds;
             ThroneHealth = catalog.ThroneHealth;
             remainingToSpawn = 0;
@@ -167,6 +181,13 @@ namespace Not3A.Stage2.RunState
                 return;
             }
 
+            // An early victory brings dawn. A horde that already reached morning
+            // preserves the forward-moving clock and still earns full preparation.
+            if (ContinuousDays && IsNightTime)
+            {
+                var morning = Math.Floor(WorldMinutes / 1440d) * 1440d + 8d * 60d;
+                WorldMinutes = morning > WorldMinutes ? morning : morning + 1440d;
+            }
             WaveIndex++;
             Phase = Stage2RunPhase.Preparation;
             PreparationRemaining = catalog.GetWave(WaveIndex).PreparationSeconds;

@@ -1,0 +1,127 @@
+{
+  "date": "2026-10-18",
+  "follow_up": "Historical first implementation report: the owner subsequently rejected stretched ornaments, serif font, icon placement, safe areas and absent hover. D-068 corrections and the current verification are recorded in art/source/interface_correction_2026-10-18_verification.json.",
+  "decisions": [
+    "D-066",
+    "D-067"
+  ],
+  "scope": "Approved lunar-porcelain fullwidth normal HUD, nonmodal construction ribbon, I/P/O/M windows, input binding and continuous clock clarification.",
+  "platform": "Unity 6000.6.2f1 / Windows x64 / Direct3D11 / NVIDIA GTX 1060 6GB",
+  "tests": {
+    "editmode": {
+      "report": "Artifacts/S3-PLAYER-INTERFACE-20261018/editmode.xml",
+      "total": 13,
+      "passed": 13,
+      "failed": 0
+    },
+    "playmode_reports": [
+      {
+        "report": "Artifacts/S3-PLAYER-INTERFACE-20261018/playmode-final.xml",
+        "total": 34,
+        "passed": 31,
+        "failed": 3
+      },
+      {
+        "report": "Artifacts/S3-PLAYER-INTERFACE-20261018/playmode-targeted.xml",
+        "total": 13,
+        "passed": 12,
+        "failed": 1
+      },
+      {
+        "report": "Artifacts/S3-PLAYER-INTERFACE-20261018/playmode-lastcase.xml",
+        "total": 1,
+        "passed": 1,
+        "failed": 0
+      },
+      {
+        "report": "Artifacts/S3-PLAYER-INTERFACE-20261018/playmode-navigation-final.xml",
+        "total": 4,
+        "passed": 4,
+        "failed": 0
+      },
+      {
+        "report": "Artifacts/S3-PLAYER-INTERFACE-20261018/playmode-v2.xml",
+        "total": 4,
+        "passed": 4,
+        "failed": 0
+      }
+    ],
+    "distinct_latest_case_count": 35,
+    "distinct_latest_failures": 0,
+    "aggregation": "The latest result per full test name in report order is used; this is 35 distinct passing cases across broad/focused runs, not a single 35-case final suite.",
+    "final_functional": "4/4 focused interface cases passed after minimap late-binding, navigation geometry and all V2 visual changes. V3 only restores GUI enabled/color before drawing disabled-button labels; click state, geometry and gameplay are unchanged. V3 compiled in the Windows build and its actual button frame passed Astra review.",
+    "coverage": [
+      "Real I/B/P/O/M toggle, exclusivity, Escape and menu geometry; world remains unpaused.",
+      "Nonmodal building, UI click/wheel/held-click isolation and fresh paid world confirmation.",
+      "Modal movement, gathering, workshop E and placement isolation; fresh E after closing.",
+      "Map API pan, zoom, recenter without world camera movement; reset and regeneration cleanup.",
+      "Existing production, construction, research/travel, combat and day/night regressions.",
+      "Clock runs past dawn during an unfinished horde; actual lighting changes while local rest and overlapping horde launch remain blocked."
+    ]
+  },
+  "visual_qa": {
+    "owner": "GPT-6 Astra",
+    "result": "PASS for approved prototype interface",
+    "method": "Astra accepted V2 normal HUD and four windows, then V3 construction after the last disabled-label contrast fix. Parent inspected all six V2 frames and V3 construction. Final six V3 full backbuffer PNGs are retained.",
+    "rejected_history": "visible-v1 contained duplicate minimap, dark circular shader output, clipped controls, square portrait and double map frame; rejected and corrected. V2 construction disabled label was then corrected for V3.",
+    "capture": "Visible 1600x900 Development player, actual world and OnGUI; opt-in helper switches public window actions, then returns to None. No resources, building grants, kills, camera changes or clock jumps injected.",
+    "review_sha256": {
+      "art/review/player_interface_hud_2026-10-18.png": "637EB5E29798F357D75B3DCFB03FE22FE3E94C8BE80D70EDEFDA7A9460049C08",
+      "art/review/player_interface_construction_2026-10-18.png": "9B7510B0BCB4CCA379B13ED38C169E6E4139C2B5F831868F61C4A6274433C4C8",
+      "art/review/player_interface_inventory_2026-10-18.png": "5842F3372DC224F6057A70D06E7EF4C121272D3ACC7C1C2BA183E13B470C01AB",
+      "art/review/player_interface_research_2026-10-18.png": "B8523A913825597B406F6368C50A9738F20FA8CE8150BA30022C8C422A750898",
+      "art/review/player_interface_hero_2026-10-18.png": "37F90E11093AD297D4E3646A958B0DC77B89FE4629CFA88B58E78B285EBA46CD",
+      "art/review/player_interface_map_2026-10-18.png": "D2152F5AF8A72E880164B61CDD1546C50AEBE8FC13F2CE334C18C62CB4D6F15F"
+    }
+  },
+  "windows": {
+    "path": "Builds/WindowsInterface/Not3AInterface.exe",
+    "build_log": "Artifacts/S3-PLAYER-INTERFACE-20261018/build-v3.log",
+    "player_log": "Artifacts/S3-PLAYER-INTERFACE-20261018/player-visible-v3.log",
+    "build_report_total_bytes": 431439467,
+    "executable_bytes": 667136,
+    "visible_player_pid": 20748,
+    "responding": true,
+    "markers": {
+      "S2_INT_STARTUP_OK": true,
+      "S2_INT_GAMEPLAY_READY": true,
+      "S3_TACTICAL_VIEW_READY": true,
+      "S3_PLAYER_INTERFACE_READY": true,
+      "S3_PLAYER_INTERFACE_CAPTURES_READY": true
+    },
+    "error_pattern_hits": {
+      "reimport-v2.log": 0,
+      "playmode-v2.log": 0,
+      "build-v3.log": 0,
+      "player-visible-v3.log": 0
+    }
+  },
+  "integrity": {
+    "original_generated_pngs_byte_identical": {
+      "Assets/Stage3/PlayerInterface/Art/LunarFrames.png": "BF88682DCD3E17BF4854402FFFDC233D81FFA733EF2B0441A381E3928DC57AA4",
+      "Assets/Stage3/PlayerInterface/Art/LunarIcons.png": "39FAAEA99E03D3281D365F39DE8DBC5D58771C334D5DD003041E79578B178C23",
+      "Assets/Stage3/PlayerInterface/Art/ApprovedHudPortraitSource.png": "5BFA43988FF25D9A9A9753A882D5F250A295403AB2360DDE36455FC120D38F04"
+    },
+    "runtime_asset_scene_executable_sha256": {
+      "Assets/Stage3/PlayerInterface/LunarInterfaceArt.asset": "E55A0BBE18383BAFA003878124F3C176F1D8E581EE0A9D2972D00F1FE90CE230",
+      "Assets/Scenes/Stage3Rapid3DGamePilot.unity": "8460B9701392D2D9DD02EBCA750AEC5CDFD8EAAF29F29D3AA662C53CB215DBB0",
+      "Builds/WindowsInterface/Not3AInterface.exe": "6833A3B986DA4ACF7EF8B009BAE7136A01BE3734071D9DDC57B3DD115830536A"
+    },
+    "missing_ui_meta": 0,
+    "protected_tracked_diffs": 0,
+    "protected_scope": "Packages, ProjectSettings and prior tracked art/review unchanged. No Git mutation performed for interface implementation."
+  },
+  "method_limits": [
+    "Map navigation API and camera independence tested; actual human mouse drag/scroll through IMGUI was not separately played through. Static player frames verify presentation.",
+    "Some integration tests use controlled ticks, resource grants, QA kills or development speed for isolated setup; visible player captures do not.",
+    "No manual twenty-minute survival run, long-run balance or crowd-performance certification is claimed.",
+    "Health, mana, experience, abilities, item storage and hero development are explicitly unavailable visual reserves."
+  ],
+  "remaining": [
+    "Future item inventory/equipment behavior, skills and hero health/mana/experience mechanics.",
+    "World throne-health indicator.",
+    "D-062 defeat rewind, including clock state; current R still resets the full run.",
+    "Manual survival pacing, later-horde crowd/performance and Stage3 external-player gate."
+  ],
+  "generation_manifest": "art/source/interface_runtime_2026-10-18_generation.json"
+}

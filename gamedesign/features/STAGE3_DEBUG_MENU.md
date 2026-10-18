@@ -27,12 +27,14 @@ usable, restores the selected game speed on resume and clears on restart.
 The component restores the prior global timeScale on disable/scene exit.
 No save format, new currency or balance preset is introduced.
 
-The normal player HUD remains present in non-development builds: resource
-counts, wave/preparation, throne health, early wave start, tower choice and
-selected price, actionable gathering/build hints, victory/defeat and restart.
-Dark opaque panels, restrained gold/colored accents and readable hierarchy
-replace the overlapping development readout and terminal warning box. Source
-stock/distance tables and internal placement enums leave the player screen.
+The normal player HUD remains present in non-development builds. Current
+Stage3 uses D-066/D-068 lunar porcelain, sans-serif and safe content bounds:
+resource counts, day/ordinary clock, normal hero dock or nonmodal B construction,
+I/P/O/M windows and useful local hints. Global throne health/countdown and
+ordinary remote wave start are removed. PLAYER_INTERFACE.md owns this surface.
+The original dark-panel Stage2GameHud drawing remains a legacy fallback when
+the new scene-local presentation is not bound; it is not the current visual
+target. Source stock/distance tables and internal placement enums stay hidden.
 Nearby gathering hints appear only for a reachable available source; placement
 failures receive player-facing text. The passive minimap keeps its current role.
 Debug controls are absent when Debug.isDebugBuild is false or the existing

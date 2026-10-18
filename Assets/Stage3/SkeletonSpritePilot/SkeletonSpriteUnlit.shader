@@ -19,6 +19,7 @@ Shader "Not3A/Skeleton Sprite Unlit"
             #pragma vertex Vert
             #pragma fragment Frag
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+            #include "Assets/Stage3/DayNight/Shaders/DayNightColor.hlsl"
             TEXTURE2D(_MainTex);
             SAMPLER(sampler_MainTex);
             CBUFFER_START(UnityPerMaterial)
@@ -38,6 +39,7 @@ Shader "Not3A/Skeleton Sprite Unlit"
             {
                 half4 color = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, input.uv) * input.color;
                 clip(color.a - .005h);
+                color.rgb = Not3ADayNight(color.rgb,0);
                 return color;
             }
             ENDHLSL

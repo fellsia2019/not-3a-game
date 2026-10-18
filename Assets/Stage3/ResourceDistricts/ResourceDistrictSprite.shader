@@ -20,6 +20,7 @@ Shader "Not3A/Resource District Sprite"
             #pragma fragment Frag
             #pragma multi_compile_instancing
             #include "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/Core2D.hlsl"
+            #include "Assets/Stage3/DayNight/Shaders/DayNightColor.hlsl"
             TEXTURE2D(_MainTex);
             SAMPLER(sampler_MainTex);
             float4 _DistrictHeroWorld;
@@ -81,6 +82,7 @@ Shader "Not3A/Resource District Sprite"
                 }
                 // Vertex/per-renderer alpha is the local opacity target, not a whole-object erase.
                 color.rgb*=input.color.rgb;
+                color.rgb=Not3ADayNight(color.rgb,0);
                 color.a*=lerp(1,max(_DistrictRevealParameters.w,input.color.a),window*_DistrictHeroWorld.w*(1-ground));
                 clip(color.a - .005h);
                 FragmentOutput output;

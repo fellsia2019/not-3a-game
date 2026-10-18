@@ -164,7 +164,7 @@ namespace Not3A.Stage3.VisualPilot
             circle.transform.position = point; circle.GetComponent<MeshFilter>().sharedMesh = mesh;
         }
 
-        private bool Active => ready && game != null && !game.RunDriver.Run.IsTerminal && !game.RunDriver.Run.IsPaused && Time.timeScale > 0f;
+        private bool Active => ready && game != null && !game.PlayerInputBlocked && !game.RunDriver.Run.IsTerminal && !game.RunDriver.Run.IsPaused && Time.timeScale > 0f;
         private bool InteractionAllowed => Active && !IsPlacingWorkshop && !game.Building.Defense.IsPlacing &&
             (game.Production == null || !game.Production.IsPlacing) && (hud == null || !hud.DebugOpen);
 

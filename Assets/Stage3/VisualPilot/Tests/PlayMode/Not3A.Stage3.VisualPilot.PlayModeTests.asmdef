@@ -3,6 +3,7 @@
   "rootNamespace": "Not3A.Stage3.VisualPilot.Tests",
   "references": [
     "Not3A.Stage2.Map",
+    "Not3A.Stage2.Navigation",
     "Not3A.Stage2.Integration",
     "Not3A.Stage2.Economy",
     "Not3A.Stage2.Defense",

@@ -1,0 +1,105 @@
+{
+  "date": "2026-10-18",
+  "decision": "D-064",
+  "scope": "Automatic nearest-target hero bow, passive wooden road barricade A, solo-clearable first wave and dense later hordes requiring attacking defenses.",
+  "scene": "Assets/Scenes/Stage3Rapid3DGamePilot.unity",
+  "platform": "Unity 6000.6.2f1 / Windows / Direct3D11 / NVIDIA GeForce GTX 1060 6GB",
+  "tests": {
+    "defense_editmode": {
+      "result": "Passed",
+      "total": "19",
+      "passed": "19",
+      "failed": "0",
+      "skipped": "0",
+      "duration": "0,1816159"
+    },
+    "broad_regression": {
+      "result": "Failed(Child)",
+      "total": "95",
+      "passed": "94",
+      "failed": "1",
+      "skipped": "0",
+      "duration": "304,638565"
+    },
+    "final_focused_playmode": {
+      "result": "Passed",
+      "total": "9",
+      "passed": "9",
+      "failed": "0",
+      "skipped": "0",
+      "duration": "85,0222524"
+    },
+    "final_corrected_horde_visual": {
+      "result": "Passed",
+      "total": "1",
+      "passed": "1",
+      "failed": "0",
+      "skipped": "0",
+      "duration": "10,9821021"
+    },
+    "broad_failure_resolution": "TacticalView_PaidDefenseWinsFullRunAndRestarts was updated to buy a second Longshot at its actual gathered price for the new hordes, and passed in final-playmode.xml. Enemy loop now handles terminal clearing; reward assertion uses actual earned-gold delta. No broad 95/95 rerun is claimed.",
+    "visual_correction": "The first passing structural render still hid the hero behind the portal. Astra moved only QA staging beside/in front of the portal, added visible hero/arrow pixel assertions, reran 1/1 and inspected final images. Runtime art, combat values, spawns and camera angle were unchanged."
+  },
+  "policy_evidence_latest": {
+    "second-horde-unrestricted-bow": "second-horde-unrestricted-bow: phase=Lost, seconds=119,50, peak=114, bowShots=132, defenses=0, throne=0",
+    "first-wave-bow-only": "first-wave-bow-only: phase=Preparation, seconds=27,75, peak=1, bowShots=24, defenses=0, throne=5",
+    "second-horde-paid-defenses": "second-horde-paid-defenses: phase=Preparation, seconds=18,45, peak=32, bowShots=40, defenses=10, throne=5",
+    "final-horde-paid-defenses": "final-horde-paid-defenses: phase=Won, seconds=22,75, peak=51, bowShots=61, defenses=10, throne=5",
+    "second-horde-six-passive-walls-and-bow": "second-horde-six-passive-walls-and-bow: phase=Lost, seconds=119,50, peak=114, bowShots=132, defenses=6, throne=0"
+  },
+  "policy_limits": [
+    "Manual .05-second ticks of actual scene/run/enemy/hero/defense rules. Automated policies, not natural player input or universal balance proof.",
+    "First-wave policy positions hero near the portal and uses no materials or towers.",
+    "Later solo policy grants unrestricted access to every target by following the oldest enemy with zero travel cost; it still loses.",
+    "Passive-only policy buys six walls using an explicit six-wood QA allowance; it still loses.",
+    "Mixed-defense policy receives 20 wood / 14 stone after the first wave, buys two Rapid / two Longshot / six walls, and uses ordinary earned gold. This does not validate gathering/travel pacing.",
+    "The separate paid-defense regression gathers actual material prices and wins; it is not a manual real-time playthrough."
+  ],
+  "data_asset_sha256_at_verification": {
+    "Assets/Stage3/CombatSlice/HeroBow.asset": "1533DFD9BF060FD5452E81B06F6D343CBE794FE8A10EA49D1CA01ED0D0067BB4",
+    "Assets/Stage3/CombatSlice/HordeRun.asset": "2212C941DAED4778B454D272688D947EBD4BFDA7BBD3C2B2DC9BF100D09544A1",
+    "Assets/Stage3/Barricades/WoodenBarricadeCatalog.asset": "B60941FF89E3E42522ABD5F7802A8E5E2B7DDFEB7D1C01330ACA3C0361ECD886"
+  },
+  "visual_qa": {
+    "owner": "GPT-6 Astra after owner approval of ImageGen A with front facing camera",
+    "result": "PASS for current prototype readability",
+    "review_sha256": {
+      "art/review/wooden_barricade_A_neutral_close_2026-10-18.png": "6B19BA70BDDDAEAC7A063E6C64D085F72D7B3E944995AEE1BE67D40191DFA9E1",
+      "art/review/wooden_barricade_A_cell_fit_normal_2026-10-18.png": "93924AA220991742A6F792D346396D726E9A8767F298E7AE352122E35468EE3A",
+      "art/review/wooden_barricade_A_cell_fit_close_2026-10-18.png": "3EA59A33481E9F56CA952CB7212FC9372F9FABC61C598D53C2FA1EA4B6483827",
+      "art/review/hero_bow_horde_overview_2026-10-18.png": "98BAE6888B69118F1D5B7E4DC22DF61C2E2B18AFC5405D260CE825CFA90427EF",
+      "art/review/hero_bow_arrow_close_2026-10-18.png": "B32A894F2A34D7E9DB89C1D8ADB73F398CE0D83645DB54BBC7F25EA369B097F7"
+    },
+    "horde_setup": "LOCAL PRESENTATION QA, not a performance benchmark or natural first-wave playthrough.\nFirst wave advanced with immediate QA kills only; authored second-wave spawning, movement and hero bow values unchanged.\nsecond-wave seconds=15,50; live=120; visible overview=82; hero shots=15; defenses=0; arrow progress=0,278; visible arrow pixels=1177; overview zoom=10,00; close zoom=2.5; rotation=(325.00, 0.00, 0.00); graphics=NVIDIA GeForce GTX 1060 6GB/Direct3D11; full screenshot=not requested: batchmode has no reliable full Game-view backbuffer\n",
+    "horde_observation": "Hero marker and real arrow are visible at body height, pointed at nearest skeleton. Actual population is a tightly overlapping single-file column, not a wide multi-row horde.",
+    "barricade_observation": "Shared built/preview registration, upright camera-facing front, width .90 cell, front inset .02. Approximate measured gap 8px normal / 17px close; feet differ by less than one pixel.",
+    "limits": "Real Editor camera renders on Windows/D3D11; no complete HUD/Windows-player screenshot. HUD behavior/bounds checked by PlayMode regressions. First-wave instant kills are used only to stage horde presentation, not bow-balance evidence. Not a performance benchmark."
+  },
+  "windows_player": {
+    "build": "Succeeded, exit 0, Windows x64 Development, saved scene without regeneration",
+    "path": "Builds/Windows/Not3AStage3RapidPilot.exe",
+    "build_log": "Artifacts/S3-HERO-COMBAT-20261018/build.log",
+    "player_log": "Artifacts/S3-HERO-COMBAT-20261018/windows-player.log",
+    "minimum_observed_seconds": 60,
+    "responding": true,
+    "readiness_markers": [
+      "S2_INT_STARTUP_OK",
+      "S2_INT_GAMEPLAY_READY",
+      "S3_TACTICAL_VIEW_READY"
+    ],
+    "game_errors_exceptions_detected": false,
+    "limits": "Launch/readiness smoke; manual player combat, final performance and complete Windows visual gate remain open. Existing obsolete Unity API/package warnings were not addressed."
+  },
+  "wiring": "Stage3HeroCombatSliceBuilder.BuildAndWire binds optional heroCombatCatalog, barricadeCatalog and separate runCatalog; no manual Inspector work. Existing Stage 2 data/assets remain unchanged.",
+  "source_manifest": "art/source/wooden_barricade_2026-10-18_generation.json",
+  "source_runtime_png_hashes_match": true,
+  "tracked_legacy_review_images_unchanged": true,
+  "review_recovery": "Legacy screenshot tests overwrote fourteen prior tracked review images. New captures were preserved under local Artifacts/legacy-regression-captures; only those fourteen paths were restored from HEAD with explicit owner approval. New approved art/review files retained.",
+  "remaining": [
+    "Manual balance and resource/travel pacing; wide enemy formation/crowd overlap.",
+    "Hero still uses the existing cyan marker; final archer art requires approved ImageGen sketch and Astra implementation.",
+    "World enemies, hero health/death, day/night, ruins/loot, blueprints/research progression and tutorial are follow-up.",
+    "D-062 wave rewind remains unimplemented; runtime reset still restarts the whole run.",
+    "Stage 3 external player gate remains open."
+  ]
+}

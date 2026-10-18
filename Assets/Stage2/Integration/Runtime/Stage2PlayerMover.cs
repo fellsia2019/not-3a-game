@@ -18,6 +18,8 @@ namespace Not3A.Stage2.Integration
         private float movementMultiplier = 1f;
         private HeroObstacleMap obstacles;
         private float collisionRadius = .2f;
+        private System.Func<bool> inputBlocker;
+        public void SetInputBlocker(System.Func<bool> blocker) => inputBlocker = blocker;
 
         public Stage2MapDefinition MapDefinition => mapDefinition;
         public float Speed => speed;
@@ -96,7 +98,7 @@ namespace Not3A.Stage2.Integration
 
         private void Update()
         {
-            if (mapDefinition == null || moveAction == null)
+            if (mapDefinition == null || moveAction == null || (inputBlocker?.Invoke() ?? false))
             {
                 return;
             }

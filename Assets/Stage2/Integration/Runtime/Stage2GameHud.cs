@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 
 namespace Not3A.Stage2.Integration
 {
-    public enum Stage2BuildCategory { Towers, Generators, Research }
+    public enum Stage2BuildCategory { Towers, Generators, Research, Home }
     public enum Stage2WorkshopBuildStatus { Unavailable, Ready, Placing, Built }
 
     /// <summary>Scene-owned player HUD and development tools over the existing gameplay rules.</summary>
@@ -23,7 +23,28 @@ namespace Not3A.Stage2.Integration
         private InputAction toggle;
         private Vector2 scroll;
         private string feedback = "Изменения действуют только в текущем запуске.";
+        private Func<Vector2, bool> playerPresentation;
+        private Func<Rect> playerResourcesRect, playerBuildRect, playerStatusRect;
+        public bool HasPlayerPresentation => playerPresentation != null;
+        public void BindPlayerPresentation(Func<Vector2, bool> pointerHitTest, Func<Rect> resources = null,
+            Func<Rect> construction = null, Func<Rect> status = null)
+        {
+            playerPresentation = pointerHitTest;
+            playerResourcesRect = resources; playerBuildRect = construction; playerStatusRect = status;
+        }
         public string WorldInteractionHint { get; set; }
+        public string DwellingInteractionHint { get; set; }
+        private Sprite dwellingIcon;
+        private Func<Stage2WorkshopBuildStatus> dwellingStatus;
+        private Func<bool> canSelectDwelling;
+        private Action beginDwelling, cancelDwelling;
+        private int dwellingWoodCost;
+        public Stage2WorkshopBuildStatus DwellingStatus => dwellingStatus?.Invoke() ?? Stage2WorkshopBuildStatus.Unavailable;
+        public bool CanSelectDwelling => canSelectDwelling?.Invoke() ?? false;
+        public void BindDwellingConstruction(Sprite icon, Func<Stage2WorkshopBuildStatus> status,
+            Func<bool> canSelect, Action begin, Action cancel, int woodCost)
+        { dwellingIcon = icon; dwellingStatus = status; canSelectDwelling = canSelect;
+            beginDwelling = begin; cancelDwelling = cancel; dwellingWoodCost = woodCost; }
         private Sprite workshopIcon;
         private Func<Stage2WorkshopBuildStatus> workshopStatus;
         private Action beginWorkshop, cancelWorkshop;
@@ -49,8 +70,8 @@ namespace Not3A.Stage2.Integration
         private float Width => Screen.width / Scale;
         private float Height => Screen.height / Scale;
         public Rect DebugRect => new Rect(Width - 408f, 132f, 392f, Height - 148f);
-        public Rect ResourcesRect => new Rect(16f, 16f, Mathf.Min(476f, Width * .55f - 24f), 70f);
-        public Rect StatusRect => new Rect(Width - 320f, 16f, 304f, 98f);
+        public Rect ResourcesRect => playerResourcesRect?.Invoke() ?? new Rect(16f, 16f, Mathf.Min(476f, Width * .55f - 24f), 70f);
+        public Rect StatusRect => playerStatusRect?.Invoke() ?? new Rect(Width - 320f, 16f, 304f, 98f);
         public Rect DebugButtonRect => new Rect(Width - 146f, 120f, 130f, 32f);
         public Rect OutcomeRect => new Rect((Width - 400f) * .5f, (Height - 220f) * .42f, 400f, 220f);
         public Rect HintRect => new Rect(BuildRect.x, BuildRect.y - 35f, BuildRect.width, 27f);
@@ -58,6 +79,7 @@ namespace Not3A.Stage2.Integration
         {
             get
             {
+                if (playerBuildRect != null) return playerBuildRect();
                 var map = Stage2Minimap.Layout(new Vector2(Screen.width, Screen.height));
                 var left = Mathf.Max(map.xMax / Scale + 16f, (Width - 620f) * .5f);
                 return new Rect(left, Height - 194f, Mathf.Min(620f, Width - left - 16f), 178f);
@@ -65,15 +87,18 @@ namespace Not3A.Stage2.Integration
         }
         private Rect TabRect(int index)
         {
-            var width = (BuildRect.width - 24f - 16f) / 3f;
+            var count = dwellingIcon != null ? 4 : 3;
+            var width = (BuildRect.width - 24f - (count - 1) * 8f) / count;
             return new Rect(BuildRect.x + 12f + index * (width + 8f), BuildRect.y + 10f, width, 27f);
         }
-        public Rect TowersTabRect => workshopIcon != null ? TabRect(0) : new Rect(BuildRect.x + 12f, BuildRect.y + 10f, 132f, 27f);
-        public Rect GeneratorsTabRect => workshopIcon != null ? TabRect(1) : new Rect(BuildRect.x + 152f, BuildRect.y + 10f, 152f, 27f);
+        public Rect TowersTabRect => workshopIcon != null || dwellingIcon != null ? TabRect(0) : new Rect(BuildRect.x + 12f, BuildRect.y + 10f, 132f, 27f);
+        public Rect GeneratorsTabRect => workshopIcon != null || dwellingIcon != null ? TabRect(1) : new Rect(BuildRect.x + 152f, BuildRect.y + 10f, 152f, 27f);
         public Rect ResearchTabRect => TabRect(2);
+        public Rect DwellingTabRect => TabRect(3);
         public Rect BuildChoiceRect(int index)
         {
-            var count = BuildCategory == Stage2BuildCategory.Towers ? 2 : BuildCategory == Stage2BuildCategory.Research ? 1 : 3;
+            var count = BuildCategory == Stage2BuildCategory.Towers ? Mathf.Max(1, game?.Building?.Defense?.RoleCount ?? 2) :
+                BuildCategory == Stage2BuildCategory.Research || BuildCategory == Stage2BuildCategory.Home ? 1 : 3;
             var width = (BuildRect.width - 24f - (count - 1) * 8f) / count;
             return new Rect(BuildRect.x + 12f + index * (width + 8f), BuildRect.y + 47f, width, 88f);
         }
@@ -82,10 +107,12 @@ namespace Not3A.Stage2.Integration
         {
             if (game == null || (category == Stage2BuildCategory.Generators && game.Production == null)) return;
             if (category == Stage2BuildCategory.Research && workshopIcon == null) return;
+            if (category == Stage2BuildCategory.Home && dwellingIcon == null) return;
             if (BuildCategory == category) return;
             game.Building.CancelPlacement();
             game.Production?.CancelPlacement();
             cancelWorkshop?.Invoke();
+            cancelDwelling?.Invoke();
             BuildCategory = category;
         }
 
@@ -114,6 +141,13 @@ namespace Not3A.Stage2.Integration
             beginWorkshop?.Invoke();
         }
 
+        public void SelectDwelling()
+        {
+            if (!CanSelectDwelling) return;
+            SelectBuildCategory(Stage2BuildCategory.Home);
+            beginDwelling?.Invoke();
+        }
+
         public void Initialize(Stage2SceneBootstrap bootstrap, Stage2GameComposition composition, bool developmentTools)
         {
             if (game != null && game.Building != null) game.Building.PlacementStarting -= ShowTowerCategory;
@@ -123,7 +157,7 @@ namespace Not3A.Stage2.Integration
             game.Building.PlacementStarting += ShowTowerCategory;
         }
 
-        private void ShowTowerCategory() { cancelWorkshop?.Invoke(); BuildCategory = Stage2BuildCategory.Towers; }
+        private void ShowTowerCategory() { cancelWorkshop?.Invoke(); cancelDwelling?.Invoke(); BuildCategory = Stage2BuildCategory.Towers; }
 
         public void SetDebugOpen(bool value) => DebugOpen = DebugAvailable && value;
 
@@ -188,9 +222,13 @@ namespace Not3A.Stage2.Integration
         // Input System coordinates are bottom-left pixels; layout is top-left scaled GUI units.
         public bool ContainsScreenPoint(Vector2 screen)
         {
-            if (!isActiveAndEnabled || game == null || !game.IsInitialized) return false;
+            if (game == null || !game.IsInitialized) return false;
             var point = new Vector2(screen.x, Screen.height - screen.y) / Scale;
             var run = game.RunDriver.Run;
+            if (playerPresentation != null)
+                return (isActiveAndEnabled && DebugAvailable && (DebugOpen ? DebugRect : DebugButtonRect).Contains(point)) ||
+                    (isActiveAndEnabled && run.IsTerminal && OutcomeRect.Contains(point)) || playerPresentation(screen);
+            if (!isActiveAndEnabled) return false;
             return ResourcesRect.Contains(point) || StatusRect.Contains(point) ||
                 (DebugAvailable && (DebugOpen ? DebugRect : DebugButtonRect).Contains(point)) ||
                 (run.IsTerminal && OutcomeRect.Contains(point)) ||
@@ -212,6 +250,8 @@ namespace Not3A.Stage2.Integration
                 BuildCategory = Stage2BuildCategory.Generators;
             else if (WorkshopStatus == Stage2WorkshopBuildStatus.Placing)
                 BuildCategory = Stage2BuildCategory.Research;
+            else if (DwellingStatus == Stage2WorkshopBuildStatus.Placing)
+                BuildCategory = Stage2BuildCategory.Home;
             // External run-state pause must also freeze hero movement while this UI owns the clock.
             if (ownsClock) ApplyClock();
         }
@@ -257,14 +297,17 @@ namespace Not3A.Stage2.Integration
             var enabled = GUI.enabled;
             GUI.matrix = Matrix4x4.Scale(Vector3.one * Scale);
             GUI.color = Color.white;
-            DrawResources();
-            DrawStatus();
+            if (playerPresentation == null)
+            {
+                DrawResources();
+                DrawStatus();
+            }
             if (game.RunDriver.Run.IsTerminal) DrawOutcome();
-            else if (!DebugOpen) DrawBuild();
+            else if (!DebugOpen && playerPresentation == null) DrawBuild();
             if (DebugAvailable)
             {
                 if (DebugOpen) DrawDebug();
-                else if (GUI.Button(DebugButtonRect, "ДЕБАГ  ·  F3", smallButton)) SetDebugOpen(true);
+                else if (playerPresentation == null && GUI.Button(DebugButtonRect, "ДЕБАГ  ·  F3", smallButton)) SetDebugOpen(true);
             }
             GUI.enabled = enabled;
             GUI.color = color;
@@ -294,18 +337,26 @@ namespace Not3A.Stage2.Integration
             var r = StatusRect;
             var run = game.RunDriver.Run;
             Card(r);
-            Label(new Rect(r.x + 14f, r.y + 10f, 150f, 23f), $"ВОЛНА  {run.WaveNumber} / {run.WaveCount}", title);
+            Label(new Rect(r.x + 14f, r.y + 10f, 150f, 23f), run.ContinuousDays ?
+                $"{(run.IsNight ? "НОЧЬ" : "ДЕНЬ")}  {run.WaveNumber}" : $"ВОЛНА  {run.WaveNumber} / {run.WaveCount}", title);
             Label(new Rect(r.x + 177f, r.y + 13f, 115f, 20f), $"ТРОН  {run.ThroneHealth}/{run.ThroneMaximum}", text);
             var health = new Rect(r.x + 177f, r.y + 37f, 110f, 4f);
             Fill(health, Edge);
             Fill(new Rect(health.x, health.y, health.width * run.ThroneHealth / run.ThroneMaximum, health.height), Gold);
             var state = DebugPaused || run.IsPaused ? "Пауза" : run.Phase == Stage2RunPhase.Preparation
-                ? $"Подготовка · {Mathf.CeilToInt(run.PreparationRemaining)} сек."
+                ? run.ContinuousDays ? $"До ночи  {Mathf.CeilToInt(run.PreparationRemaining) / 60:00}:{Mathf.CeilToInt(run.PreparationRemaining) % 60:00}" :
+                    $"Подготовка · {Mathf.CeilToInt(run.PreparationRemaining)} сек."
                 : run.Phase == Stage2RunPhase.Wave ? $"Врагов на карте: {run.ActiveEnemies}"
                 : run.Phase == Stage2RunPhase.Won ? "Трон защищён" : "Трон разрушен";
             Label(new Rect(r.x + 14f, r.y + 35f, 160f, 20f), state, muted);
-            GUI.enabled = run.Phase == Stage2RunPhase.Preparation && !run.IsPaused && !DebugPaused;
-            if (GUI.Button(new Rect(r.x + 14f, r.y + 62f, 276f, 27f), "Начать волну  [Space]", smallButton)) StartNextWave();
+            if (run.ContinuousDays)
+                Label(new Rect(r.x + 14f, r.y + 62f, 276f, 27f), run.IsNight ?
+                    "Рассвет — после уничтожения всей орды" : "E у входа в жилище · ждать ночи", centered);
+            else
+            {
+                GUI.enabled = run.Phase == Stage2RunPhase.Preparation && !run.IsPaused && !DebugPaused;
+                if (GUI.Button(new Rect(r.x + 14f, r.y + 62f, 276f, 27f), "Начать волну  [Space]", smallButton)) StartNextWave();
+            }
             GUI.enabled = true;
         }
 
@@ -315,19 +366,40 @@ namespace Not3A.Stage2.Integration
             Card(r);
             var defense = game.Building.Defense;
             GUI.enabled = !DebugPaused && !game.RunDriver.Run.IsPaused;
-            if (GUI.Button(TowersTabRect, "Башни", smallButton)) SelectBuildCategory(Stage2BuildCategory.Towers);
+            if (GUI.Button(TowersTabRect, defense.RoleCount > 2 ? "Оборона" : "Башни", smallButton)) SelectBuildCategory(Stage2BuildCategory.Towers);
             var buttonsEnabled = GUI.enabled;
             GUI.enabled &= game.Production != null;
             if (GUI.Button(GeneratorsTabRect, "Генераторы", smallButton)) SelectBuildCategory(Stage2BuildCategory.Generators);
             GUI.enabled = buttonsEnabled;
             if (workshopIcon != null && GUI.Button(ResearchTabRect, "Исследования", smallButton)) SelectBuildCategory(Stage2BuildCategory.Research);
+            if (dwellingIcon != null && GUI.Button(DwellingTabRect, "Жилище", smallButton)) SelectBuildCategory(Stage2BuildCategory.Home);
             var tab = BuildCategory == Stage2BuildCategory.Towers ? TowersTabRect :
-                BuildCategory == Stage2BuildCategory.Research ? ResearchTabRect : GeneratorsTabRect;
+                BuildCategory == Stage2BuildCategory.Research ? ResearchTabRect :
+                BuildCategory == Stage2BuildCategory.Home ? DwellingTabRect : GeneratorsTabRect;
             Fill(new Rect(tab.x, tab.yMax + 3f, tab.width, 2f), Gold);
             string description;
             string hoverDescription = null;
             var inventory = game.Gathering.Economy.Inventory;
-            if (BuildCategory == Stage2BuildCategory.Research && workshopIcon != null)
+            if (BuildCategory == Stage2BuildCategory.Home && dwellingIcon != null)
+            {
+                var choice = BuildChoiceRect(0);
+                GUI.enabled = buttonsEnabled && CanSelectDwelling;
+                if (GUI.Button(choice, GUIContent.none, smallButton)) SelectDwelling();
+                GUI.color = GUI.enabled || DwellingStatus == Stage2WorkshopBuildStatus.Built ? Color.white : new Color(.5f,.5f,.5f,.65f);
+                DrawSprite(new Rect(choice.x + 8f, choice.y + 4f, 78f, 78f), dwellingIcon);
+                GUI.color = Color.white;
+                Label(new Rect(choice.x + 94f, choice.y + 8f, choice.width - 102f, 24f), "Жилище героя", smallButtonText);
+                Label(new Rect(choice.x + 94f, choice.y + 37f, choice.width - 102f, 20f), "Позволяет дождаться ночи у входа", muted);
+                Label(new Rect(choice.x + 94f, choice.y + 63f, choice.width - 102f, 18f),
+                    DwellingStatus == Stage2WorkshopBuildStatus.Built ? "Построено" : Price(dwellingWoodCost,0,0,0), muted);
+                GUI.enabled = buttonsEnabled;
+                if (DwellingStatus == Stage2WorkshopBuildStatus.Placing)
+                    Fill(new Rect(choice.x + 2f, choice.yMax - 4f, choice.width - 4f, 2f), Gold);
+                description = DwellingStatus == Stage2WorkshopBuildStatus.Built ?
+                    "Днём: E у входа · ночью ожидание недоступно" :
+                    $"Одно жилище · {dwellingWoodCost} дерева · свободная зелёная земля";
+            }
+            else if (BuildCategory == Stage2BuildCategory.Research && workshopIcon != null)
             {
                 var choice = BuildChoiceRect(0);
                 GUI.enabled = buttonsEnabled && CanSelectWorkshop;
@@ -379,18 +451,20 @@ namespace Not3A.Stage2.Integration
                     var entry = defense.GetCatalog(i);
                     var choice = BuildChoiceRect(i);
                     GUI.enabled = buttonsEnabled && CanSelectTower(i);
-                    if (GUI.Button(choice, $"{i + 1} · {entry.RoleName}", button)) SelectTower(i);
+                    var label = i < 2 ? $"{i + 1} · {entry.RoleName}" : entry.RoleName;
+                    if (GUI.Button(choice, label, button)) SelectTower(i);
                     var price = Price(entry.WoodCost, entry.StoneCost, entry.MetalCost, entry.GoldCost);
                     Label(new Rect(choice.x + 7f, choice.y + 65f, choice.width - 14f, 18f), price, centered);
                     if (MouseOver(choice)) hoverDescription =
                         (inventory.CanAfford(entry.WoodCost, entry.StoneCost, entry.MetalCost, entry.GoldCost) ? "" : "Не хватает ресурсов · ") +
-                        entry.RoleName + ": " + price;
+                        entry.RoleName + ": " + price + (entry.CanAttack ? "" : " · блокирует путь, без урона");
                     GUI.enabled = buttonsEnabled;
                     if (defense.SelectedRoleIndex == i)
                         Fill(new Rect(choice.x + 2f, choice.yMax - 4f, choice.width - 4f, 2f), Gold);
                 }
                 var selected = defense.SelectedCatalog;
-                description = $"{selected.RoleName}: {Price(selected.WoodCost, selected.StoneCost, selected.MetalCost, selected.GoldCost)}";
+                description = $"{selected.RoleName}: {Price(selected.WoodCost, selected.StoneCost, selected.MetalCost, selected.GoldCost)}" +
+                    (selected.CanAttack ? "" : " · блокирует путь, без урона");
                 if (workshopIcon == null) Label(new Rect(r.x + 320f, r.y + 14f, r.width - 332f, 22f), "На серой дороге", muted);
             }
             GUI.enabled = true;
@@ -458,6 +532,8 @@ namespace Not3A.Stage2.Integration
 
         private string NearbyResourceHint()
         {
+            if (!string.IsNullOrEmpty(DwellingInteractionHint))
+                return DebugPaused ? "Игра на паузе · продолжить в дебаг-меню" : DwellingInteractionHint;
             if (!string.IsNullOrEmpty(WorldInteractionHint))
                 return DebugPaused ? "Игра на паузе · продолжить в дебаг-меню" : WorldInteractionHint;
             var economy = game.Gathering.Economy;

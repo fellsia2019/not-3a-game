@@ -453,7 +453,9 @@ namespace Not3A.Stage3.VisualPilot.Tests
 
         private IEnumerator AssertVisibleHero(Camera camera,string stem)
         {
-            var marker=scene.PlayerMover.transform.Find("Hero scale marker").GetComponent<Renderer>();
+            var visual=scene.PlayerMover.transform.Find("Hero C body") ?? scene.PlayerMover.transform.Find("Hero scale marker");
+            Assert.That(visual,Is.Not.Null);
+            var marker=visual.GetComponent<Renderer>();
             yield return null;
             var before=ReadFrame(camera);marker.enabled=false;
             Color32[] without;

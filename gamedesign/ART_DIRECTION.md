@@ -1,9 +1,75 @@
 # Art Direction
 
+## Player interface — D-066, approved implementation, 2026-10-18
+
+D-068 correction: the owner rejected the first runtime frame proportions and
+serif typography. Keep C materials, but use Cyrillic sans-serif, proportional
+jewels/corners/icons, decoration-safe content padding, screen margins and clear
+interactive states. The earlier runtime visual PASS missed these defects.
+Use separate stretchable connectors and fixed-aspect decorative bands.
+
+The owner rejected the old charcoal panels/white outlines and authorized a
+complete fantasy redesign, including minimap and large map. They selected
+ImageGen direction C, «Лунный фарфор»: pearl ceramic, muted plum enamel,
+silver edges, restrained turquoise accents, curved crescent/petal silhouettes.
+GPT-6 Astra owns layout and visual implementation after concrete concept review.
+Do not reinterpret this as another recolor of generic rectangular panels.
+Preserve readable content and compact HUD scale; reduce oversized empty surfaces.
+The owner approved implementation of the window sheets and both updated
+fullwidth HUD sketches. The normal lower console contains a narrow vertical
+weapon-stat block, future abilities and red/blue/orange status reserves. B
+replaces it with a nonmodal construction ribbon. The local minimap and all
+five windows use actual world/catalog data. HP/mana/XP/ability mechanics remain
+unimplemented. See features/PLAYER_INTERFACE.md and the original PNGs in
+art/concepts/interface_2026-10-18/. Generated window thumbnails are illustrative;
+existing approved building/teleport artwork keeps its identity in implementation.
+Runtime component atlas sources and full prompts are recorded in
+art/source/interface_runtime_2026-10-18_generation.json. Original pixels are
+preserved; Unity-native sprite rectangles, nine-slice borders and circular
+sampling supply the scalable UI. Font rendering uses installed Windows fonts,
+with no copied font files. Daylight follows D-067 clock time, including an
+uncleared horde after 08:00; spawning/rest remain governed by run phase.
+
+Hero C idle/bow correction preserves the accepted character: four planted-foot
+neutral directional sprites plus restrained breathing, separate physically
+correct side bows with a straight undrawn string, and grip registration for
+walking/standing. No newly drawn multi-frame idle or string-draw attack cycle.
+Sources and provenance: art/source/hero_motion_2026-10-18_generation.json.
+
 Status: target look clarified by the player, 2026-09-25. Current Stage 2
 sprites and markers are temporary gameplay placeholders.
 
 ## Target
+
+Owner workflow, 2026-10-18: all visual decisions, appearance and visual Unity
+implementation belong to GPT-6 Astra after the owner approves ImageGen sketches.
+The main agent generates the sketches; an image proposal alone is not approval.
+For D-064 the owner approved wooden barricade A, explicitly facing the camera
+like current towers. Its original approved sheet and transparent front sprite
+are in art/concepts/wooden_barricade_2026-10-18/. Astra uses the existing billboard,
+one-cell fit and matched preview/built front-foot registration. No new camera
+angle is selected. D-065 below selects the hero appearance.
+See features/WOODEN_BARRICADES.md.
+
+## Hero C, dwelling B and night — D-065, 2026-10-18
+
+Owner approved hero C (blue travel clothing, tied dark hair, short beard),
+dwelling B (cream plaster/timber/terracotta cottage, front facing the camera)
+and the cool-blue readable night comparison. Sources are in
+art/concepts/day_night_and_home_2026-10-18/; full prompts, approvals, rights and
+hashes are in art/source/day_night_and_home_2026-10-18_generation.json.
+
+C is a versatile developing fantasy hero. The starter bow is separate equipment,
+not a class identity or a permanent part of the body sprite. Do not introduce
+unapproved magic effects, skill UI or weapon progression. Astra imports the
+unchanged transparent body atlas, separate equipment and approved house, fits
+the existing camera/feet and supplies readable motion. Keep the house's actual
+door approach aligned with its collision and matching preview/built form.
+
+Night changes world lighting/color while preserving road/enemy silhouettes,
+HUD contrast and localized portal/objective/window glow. The concept is visual
+direction, not implementation evidence. Astra verifies actual day/night/dawn
+frames; no new camera angle or environment replacement is approved.
 
 Мягкая мультяшная fantasy-графика в изометрическом виде с читаемыми объёмами;
 ориентир по настроению — Dota 2 и её пользовательские TD-карты. Не копировать

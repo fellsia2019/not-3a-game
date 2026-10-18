@@ -188,7 +188,16 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Assert.That(hud.AddGold(100), Is.False);
             Assert.That(hud.AddAllResources(100), Is.False);
             Assert.That(hud.ResourcesRect.width, Is.GreaterThan(200));
-            Assert.That(hud.BuildRect.xMax, Is.LessThan(Screen.width / hud.Scale));
+            var playerUi = game.GetComponent("Stage3FantasyHud"); Assert.That(playerUi, Is.Not.Null);
+            var dock = (Rect)playerUi.GetType().GetProperty("BottomRect").GetValue(playerUi);
+            var map = (Rect)playerUi.GetType().GetProperty("MinimapRect").GetValue(playerUi);
+            Assert.That(dock.xMin, Is.GreaterThanOrEqualTo(map.xMax));
+            var safeScreen = (Rect)playerUi.GetType().GetProperty("SafeScreenRect").GetValue(playerUi);
+            Assert.That(dock.xMin, Is.GreaterThanOrEqualTo(safeScreen.xMin));
+            Assert.That(dock.yMin, Is.GreaterThanOrEqualTo(safeScreen.yMin));
+            Assert.That(dock.xMax, Is.EqualTo(safeScreen.xMax).Within(.01f));
+            Assert.That(dock.yMax, Is.LessThanOrEqualTo(safeScreen.yMax + .01f));
+            Assert.That(hud.BuildRect.xMax * hud.Scale, Is.EqualTo(dock.xMax).Within(.01f));
             yield return null;
         }
     }

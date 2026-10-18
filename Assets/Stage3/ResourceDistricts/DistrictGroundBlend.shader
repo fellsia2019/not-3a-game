@@ -12,6 +12,7 @@ Shader "Not3A/District Ground Blend"
             #pragma vertex Vert
             #pragma fragment Frag
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+            #include "Assets/Stage3/DayNight/Shaders/DayNightColor.hlsl"
             TEXTURE2D(_GrassTex);SAMPLER(sampler_GrassTex);
             CBUFFER_START(UnityPerMaterial)
             float4 _GrassTex_ST;
@@ -22,7 +23,7 @@ Shader "Not3A/District Ground Blend"
             half4 Frag(Varyings i):SV_Target
             {
                 half3 grass=SAMPLE_TEXTURE2D(_GrassTex,sampler_GrassTex,i.uv).rgb;
-                return half4(lerp(grass,grass*.45h+i.color.rgb*.55h,.65h),i.color.a);
+                return half4(Not3ADayNight(lerp(grass,grass*.45h+i.color.rgb*.55h,.65h),0),i.color.a);
             }
             ENDHLSL
         }

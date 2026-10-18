@@ -10,6 +10,211 @@ D-017: каждый новый Stage 2–7 ведёт новый агент в �
 в `reports/development-roadmap.html`; внутри stage мелкие задачи не дробятся
 по агентам. На переходе обновляются этот handoff и канонический план.
 
+### 2026-10-18 — D-068 interface proportions and map interaction correction
+
+- Owners: Astra core owns scalable frame drawing, sans-serif font, HUD/build
+  padding and shared interactive states; Astra windows owns safe content and
+  clear hero marker. Parent owns cursor/pinch map math/input, capture/build/docs.
+  QA owns focused map behavior and narrow safety assertions. Dependencies:
+  existing D-066 interface art, actual minimap, UI input protection and scene.
+- The owner's annotated runtime frames invalidate the prior presentation PASS
+  as a quality gate: stretched jewels, displaced icons, serif font, no hover
+  and insufficient safe areas require correction within the approved C style.
+- Acceptance: proportional ornaments/icons; sans-serif Cyrillic; content and
+  screen padding at 1280x720, 1600x900 and 1920x1080; visible control states;
+  distinct hero marker; anchored cursor/pinch zoom with unchanged world camera;
+  existing UI placement/input regressions pass and fresh Windows frames reviewed.
+- Delivered/contracts: core uses Segoe UI/Arial, proportional five-band frame
+  drawing with shared pixel edges, safe content/screen bounds and shared states.
+  All windows and build/HUD content use safe interiors; inventory preview is
+  static and empty reserve slots no longer contain clipped dashes. Map marker
+  is a distinct ring/triangle with a large-map label. MapInput.cs adds inverse
+  projection, anchored zoom and Touchscreen pan/pinch; wheel routes to the
+  cursor anchor while +/- stay centered. Existing click/local-E/economy rules
+  remain. Existing scene binding requires no manual Inspector migration.
+- Verification: PlayMode 16/16. Cursor anchor error <0.000008 world units,
+  bounds/invalid values/no camera movement and synthetic moving pinch/pan pass.
+  Windows V4 built and started at all three exact backbuffer sizes; 39 final
+  native screenshots retained. Astra accepted core states/geometry and all
+  windows, including final Inventory on every size. V1/V2 evidence was rejected
+  for seams, description/empty-slot clipping and unproven hover, then corrected.
+  Hover evidence uses pointer-only Input System events and actual renderer,
+  with requested/actual position logs; pressed has no separate down capture,
+  and no physical touch/manual complete wheel playthrough is claimed.
+- Handoff/evidence: Artifacts/S3-INTERFACE-CORRECTION-20261018/ and
+  art/source/interface_correction_2026-10-18_verification.json. Final 1600 player
+  left open on normal HUD. Original PNG bytes and prior reviews preserved;
+  packages/settings unchanged, asset/meta pairs complete, no Git mutation.
+  Future gameplay reserves, D-062 rewind and Stage3 external-player gate remain.
+- Repository handoff: the owner requested documentation update and publication
+  of the accumulated D-064–D-068 work. README/vision and the existing HTML
+  summaries now point to the current interface/day-night behavior. Runtime
+  sources, assets/meta, original-art provenance and selected review images are
+  included; Builds/ and raw Artifacts/ remain local ignored output.
+
+### 2026-10-18 — D-066 runtime lunar interface / D-067 clock clarification
+
+- Owners/surfaces: GPT-6 Astra owns PlayerInterface presentation, construction
+  ribbon, four window partials, original-art importer and circular shader.
+  Parent owns optional Stage 2 input/legacy-render bindings, clock, saved scene,
+  verification/build/capture and docs; QA agent owns focused UI integration
+  scenarios and old assertions updated to the approved B/fullwidth contract.
+  Dependencies: current hero C, wallet/build catalogs, live minimap, workshop,
+  production/home local input and continuous Run state.
+- Accepted/delivered: owner approved actual window implementation and both
+  updated fullwidth ImageGen sketches. I/B/P/O/M toggle one panel; B replaces
+  lower hero contents with a nonmodal build ribbon and retains world placement.
+  Narrow vertical bow stats, future ability slots and red/blue/orange status
+  reserves fill the normal dock. Menus remain accessible above open windows.
+  Inventory reads current wallet/equipment; research reads actual local-E
+  Teleportation state; the real map pans/zooms/recenters without moving camera.
+  Item storage, skills, HP/mana/XP progression are explicitly inactive reserves.
+- Contracts/files: PlayerInterfaceBinding opts in through narrow blockers and
+  legacy Rect/render delegates. Old minimap drawing is suppressed while terrain/
+  markers keep updating; existing development/outcome controls remain. Original
+  generated PNGs are copied byte-for-byte; native sprite bounds/borders and
+  circular/keyed shader sampling render the UI. Existing world sprites are reused.
+  BuildAndWire binds three scene-local components; BuildWindowsPlayer targets
+  Builds/WindowsInterface/Not3AInterface.exe without rebuilding the world.
+- D-067: Run.WorldMinutes/CalendarDay/ClockHour/ClockMinute/IsNightTime display
+  ordinary hours. Early victory advances to dawn; a still-active horde can pass
+  08:00 into daylight. Clearing after dawn preserves forward time and grants
+  full preparation. No wave overlap or in-horde home skip. Pause/reset retain
+  their existing meanings. NightCondition optionally binds lighting to clock.
+- Verification: EditMode Run 13/13; PlayMode latest results cover 35 distinct
+  cases, all passing across broad/focused runs (broad31/34; targeted12/13;
+  corrected legacy B expectation1/1; final navigation4/4). Broad failures were
+  stale geometry/B assumptions and map initialization/regeneration cleanup,
+  now corrected and checked. Actual lighting/rest test proves daylight during
+  an unfinished horde without time skip/overlap. XML/logs:
+  Artifacts/S3-PLAYER-INTERFACE-20261018/. Final UI 4/4 also checks late-bound
+  legacy minimap suppression. First Windows frames were rejected for duplicate
+  minimap, dark circular output, clipped small controls, square portrait and
+  double map frame; all corrected. Astra accepted V2 HUD/four windows and V3
+  construction after the last disabled-label contrast-only fix. V3 Windows
+  build/startup succeeded, player responds and readiness markers pass without
+  compiler/shader/game exceptions. Six new immutable full-player review PNGs:
+  art/review/player_interface_*_2026-10-18.png. Pan/zoom/recenter APIs are tested;
+  separate human IMGUI drag/scroll playthrough is not claimed.
+- Sources: art/source/interface_runtime_2026-10-18_{generation,verification}.json;
+  features/PLAYER_INTERFACE.md, DAY_NIGHT.md and D-066/D-067 own current rules.
+  Remaining: later real item/ability/status/progression mechanics, world
+  throne-health indicator, manual
+  survival pacing/crowd behavior and D-062 rewind including WorldMinutes.
+
+### 2026-10-18 — Hero C motion correction / D-066 interface concepts
+
+- Owners/surfaces: GPT-6 Astra owns HeroAvatar/HeroArt, hero-only art import,
+  focused visual tests and interface art/layouts. Primary agent owns ImageGen,
+  verification/build orchestration and canonical docs. Dependencies: approved
+  hero C, separate bow/grip, fixed camera, existing HUD/catalogs/workshop/map.
+- Delivered motion: four planted directional idle sprites with restrained
+  breathing and corrected right/left bows with straight undrawn strings;
+  walking and standing hand registration remain separate. BuildHeroMotion
+  adds only two PNGs/subassets to the existing HeroArt; scene binding remains
+  valid. BuildHeroMotionPlayer writes a separate WindowsHeroMotion build so
+  the user's already-running day/night player is preserved.
+- Verification: import succeeded; focused D3D11 PlayMode 2/2, with 8 walking
+  frames, 8 idle extremes, pause/sole-pivot checks and an actual hero arrow
+  alongside the authored second horde (120 live / 82 visible). Astra inspected
+  all frames and accepted the scoped correction. Windows x64 Development
+  build succeeded and startup/readiness markers passed without game errors.
+  Hidden-player screenshot was black and rejected; visual evidence is actual
+  PlayMode camera rendering, excluding HUD. No full manual survival run claimed.
+  Six new immutable review PNGs: art/review/hero_motion_*_2026-10-18.png.
+  Prompts/hashes/limits: art/source/hero_motion_2026-10-18_{generation,verification}.json;
+  local XML/logs/frames: Artifacts/S3-HERO-MOTION-20261018/.
+- Interface: old charcoal style explicitly rejected; owner selected C lunar
+  porcelain from three original fantasy directions. Compact-HUD revision and
+  all five separate-window concepts generated; full minimap redesign allowed.
+  Astra reviewed all sheets. PLAYER_INTERFACE.md / D-066 own requirements;
+  art/concepts/interface_2026-10-18/ contains originals and
+  art/source/interface_2026-10-18_generation.json contains full provenance.
+  The C theme is approved; individual layouts/scales await owner feedback.
+  No runtime HUD, inventory, progression or map controls changed in this task.
+- Remaining: concrete UI layout approval, smaller HUD proportions/cartographic
+  simplification and later Astra implementation with approved mechanics/clock
+  contract. Inventory/equipment/development content is schematic. Motion uses
+  planted sprites + breathing; an actual string-draw attack cycle is separate.
+  Existing enemy overlap, rewind and future hero health/death remain unchanged.
+
+### 2026-10-18 — D-065 day/night / dwelling / versatile hero C
+
+- Owner/surfaces: current chat owns Run cadence/endless growth, dwelling
+  placement/payment/local E, scene wiring and canonical docs. GPT-6 Astra owns
+  approved C/B/lighting presentation, HUD, shaders, asset importers and visual QA.
+  Dependencies: D-064, shared Run/EnemyGroup/Defense, gathering/production,
+  green-ground collision, workshop/teleport sites and fixed camera.
+- Accepted: twenty active minutes per day; night ends only after its horde is
+  resolved. Days continue past the initial three hordes. A player-built home
+  costs ten wood; E at its door skips only day, without skipped-time income.
+  C is a versatile fantasy hero, with a separate starter bow; magic/other weapon
+  mechanics are future work. Owner approved hero C, dwelling B and readable blue
+  night ImageGen references before Astra implementation.
+- Contracts/files: RunCatalog.ContinuousDays + later-night growth; Run.IsDay/
+  IsNight/PreparationDuration and legacy Space gating. Stage3Dwelling/Catalog
+  own placement/collision/input and prepared-art payment; DwellingPresentation
+  binds a Home card and local hint. Hero body/equipment and day/night shaders
+  use unchanged generated PNGs under Stage3/DayNight. DayNightSliceBuilder wires
+  optional presentation references and the dwelling in Stage3Rapid3DGamePilot.
+  Legacy finite Stage 2 scenes keep old behavior. Survival starts bypass the
+  old automatic two-tower showcase grants. Contract: features/DAY_NIGHT.md.
+- Verification: RunState/Defense EditMode 30/30, focused PlayMode 39/39 including
+  actual E-gathered purchase, atomic payment/collision, UI/held/cancel input,
+  local day-only rest with no income, five continuing nights and resets. After
+  the final visual-only blue-tint/window-mask correction, visual PlayMode 1/1.
+  Astra approved real day/night/dawn, four hero directions and grip-based arrow;
+  original generated pixels preserved, Sprite metadata retains subasset IDs.
+  Windows x64 Development build succeeded; responsive startup beyond 60s with
+  all four readiness markers, no showcase grants and no game errors. Opt-in
+  full-player fresh-start screenshot includes IMGUI without grants/framing/time
+  jumps. Protected packages/settings/prior review and asset/meta pairs checked.
+  Local XML/logs: Artifacts/S3-DAY-NIGHT-20261018/. Exact method/limits and hashes:
+  art/source/day_night_2026-10-18_verification.json. Timer/long-run checks use
+  controlled ticks/QA kills; material gathering is actual E input at dev x10.
+- Remaining: manual survival pacing/balance and later-night crowd/performance
+  (existing single-file overlap remains); D-062 rewind, world combat/hero death,
+  magic/other weapons, ruins/blueprints/tutorial. Current R resets to day1;
+  Stage 3 external player gate remains open.
+
+### 2026-10-18 — D-064 hero bow / passive barricade / horde slice
+
+- Owner/surfaces: current chat owns gameplay, optional composition bindings,
+  separate Stage 3 run/bow data and canonical docs. GPT-6 Astra owns approved
+  A barricade assets, HUD/presentation and visual QA; ImageGen supplied the
+  owner-approved front-facing artwork. Existing Defense/Navigation/EnemyGroup,
+  Run lifecycle, gathering and protected HUD are the dependencies.
+- Delivered: automatic nearest-target bow while moving; pause, E, construction,
+  debug and terminal states suppress firing. Portal enemies retain throne/blocker
+  targets. Paid passive road walls redirect routes, never shoot and are breached
+  on full blockage. First wave is solo-clearable; later hordes exceed solo bow
+  capacity. Scene Stage3Rapid3DGamePilot binds HeroBow/HordeRun and the barricade
+  catalog through Stage3HeroCombatSliceBuilder; no manual Inspector wiring.
+  Legacy Stage 2 data, packages, camera and existing tower artwork are preserved.
+- Contracts: Stage2HeroCombat{,Catalog,Driver}, optional GameComposition fields,
+  DefenseCatalog/Stage2Tower.CanAttack, Gathering.IsInteracting; assets under
+  Stage3/CombatSlice and Stage3/Barricades. HERO_COMBAT.md, WOODEN_BARRICADES.md,
+  D-064 and the canonical plan describe the accepted slice.
+- Verification: Defense EditMode 19/19; final focused PlayMode 9/9 and corrected
+  real-camera visual check 1/1. Broad regression 94/95; the sole failing old
+  paid-defense policy was adapted to dense hordes and passed in final 9/9.
+  Solo and six-wall-only policies lose; 2 Rapid + 2 Longshot + 6 walls win both
+  later hordes with throne intact, using a declared post-first-wave QA allowance
+  of 20 wood / 14 stone and ordinary earned gold. This is policy evidence,
+  not a universal balance or gathering/travel-time result.
+  Astra verified preview/built cell fit and visible actual hero arrow with
+  120 live enemies / 82 visible. Camera renders omit HUD; HUD regressions pass.
+  Windows x64 Development build succeeded; D3D11 live startup remained responsive
+  beyond 60 seconds, all three readiness markers present, no game errors.
+  Existing obsolete-API/package warnings remain. Art/meta/hash and whitespace
+  checks pass; earlier tracked review images were restored with owner approval.
+  Summary: art/source/hero_combat_slice_2026-10-18_verification.json;
+  local XML/logs: Artifacts/S3-HERO-COMBAT-20261018/.
+- Remaining: manual play/balance, overlapping single-file enemy movement, final
+  archer art, world enemies/hero health/death, day/night, ruins/loot/blueprints,
+  research progression and tutorial. D-062 rewind remains unimplemented; full
+  restart is still the runtime behavior. Stage 3 external player gate remains open.
+
 ### 2026-10-17 — Documentation and repository handoff
 
 - Owner/workstream: this chat, docs / Git handoff. Owner requested documentation

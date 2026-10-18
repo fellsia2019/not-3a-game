@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 549ddb55bcb5c51458ceb0677f150f06, type: 3}
+  m_Name: WoodenBarricadeSprites
+  m_EditorClassIdentifier: Assembly-CSharp::Not3A.Stage3.VisualPilot.Stage3TowerSpriteSet
+  frames:
+  - {fileID: 21300000, guid: 303ea06bed38fa34f8e7b44ea3d570c4, type: 3}
+  releasePixels:
+  - {x: 0, y: 0}
+  spoon: {fileID: 0}
+  stone: {fileID: 0}
+  bodyVisibleBounds:
+    serializedVersion: 2
+    x: -0.55371094
+    y: 0.17285156
+    width: 1.1083984
+    height: 0.6591797
+  cellWidth: 0.9
+  frontInset: 0.02

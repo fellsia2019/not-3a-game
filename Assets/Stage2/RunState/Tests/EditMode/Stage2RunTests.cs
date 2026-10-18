@@ -302,5 +302,122 @@ namespace Not3A.Stage2.RunState.Tests
             run.ResetRun();
             Assert.That(economy.Inventory.Gold, Is.EqualTo(5));
         }
+
+        [Test]
+        public void ContinuousDays_KeepWorldAndAdvanceBeyondAuthoredSequenceWithGrowingNights()
+        {
+            run.Dispose();
+            data.ConfigureWaves(new[] { new Stage2WaveDefinition(1200f, 2, .1f),
+                new Stage2WaveDefinition(1200f, 3, .1f), new Stage2WaveDefinition(1200f, 4, .1f) }, 2);
+            data.ConfigureContinuousDays(true, 2);
+            run = new Stage2Run(data, navigation, economy, defense, enemies);
+            economy.Inventory.TryAdd(MapResourceKind.Wood, 7);
+            var expectedCounts = new[] { 2, 3, 4, 6, 8, 10 };
+            for (var day = 0; day < expectedCounts.Length; day++)
+            {
+                Assert.That(run.IsDay, Is.True);
+                Assert.That(run.PreparationRemaining, Is.EqualTo(1200f));
+                Assert.That(run.PreparationDuration, Is.EqualTo(1200f));
+                Assert.That(run.WaveEnemyCount, Is.EqualTo(expectedCounts[day]));
+                Assert.That(run.IsFinalWave, Is.False);
+                run.SetPaused(true); run.Tick(1200f);
+                Assert.That(run.PreparationRemaining, Is.EqualTo(1200f));
+                run.SetPaused(false); run.Tick(1199f);
+                Assert.That(run.IsDay, Is.True);
+                run.Tick(1f);
+                Assert.That(run.IsNight, Is.True);
+                Assert.That(run.StartWave(), Is.False, "A night cannot be skipped or relaunched.");
+                run.Tick(10f);
+                Assert.That(run.SpawningFinished, Is.True);
+                Assert.That(enemies.ActiveCount, Is.EqualTo(expectedCounts[day]));
+                for (var i = enemies.ActiveCount - 1; i >= 0; i--)
+                { var enemy = enemies.GetEnemy(i); enemy.TakeDamage(enemy.Health); }
+                Assert.That(run.WaveNumber, Is.EqualTo(day + 2));
+                Assert.That(run.IsTerminal, Is.False);
+                Assert.That(economy.Inventory.Get(MapResourceKind.Wood), Is.EqualTo(7));
+            }
+            run.ResetRun();
+            Assert.That(run.IsDay, Is.True);
+            Assert.That(run.WaveNumber, Is.EqualTo(1));
+            Assert.That(run.PreparationRemaining, Is.EqualTo(1200f));
+            Assert.That(economy.Inventory.Get(MapResourceKind.Wood), Is.Zero);
+        }
+
+        [Test]
+        public void Clock_DaySkipAndEarlyVictoryAdvanceToNightAndNextMorningWithoutIncome()
+        {
+            ConfigureClockRun();
+            Assert.That(run.ClockHour, Is.EqualTo(8));
+            Assert.That(run.CalendarDay, Is.EqualTo(1));
+            run.Tick(600f);
+            Assert.That(run.ClockHour, Is.EqualTo(14));
+            var clock = run.WorldMinutes;
+            run.SetPaused(true); run.Tick(600f);
+            Assert.That(run.WorldMinutes, Is.EqualTo(clock));
+            Assert.That(run.StartWave(), Is.False);
+            run.SetPaused(false);
+            var gold = economy.Inventory.Gold;
+            Assert.That(run.StartWave(), Is.True);
+            Assert.That(run.ClockHour, Is.EqualTo(20));
+            Assert.That(economy.Inventory.Gold, Is.EqualTo(gold));
+            run.Tick(10f);
+            for (var i = enemies.ActiveCount - 1; i >= 0; i--)
+            { var enemy = enemies.GetEnemy(i); enemy.TakeDamage(enemy.Health); }
+            Assert.That(run.IsDay, Is.True);
+            Assert.That(run.ClockHour, Is.EqualTo(8));
+            Assert.That(run.CalendarDay, Is.EqualTo(2));
+            Assert.That(run.PreparationRemaining, Is.EqualTo(1200f));
+            run.ResetRun();
+            Assert.That(run.ClockHour, Is.EqualTo(8));
+            Assert.That(run.CalendarDay, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void Clock_OverrunningHordeContinuesPastDawnWithoutOverlapOrBackwardTime()
+        {
+            ConfigureClockRun();
+            Assert.That(run.StartWave(), Is.True);
+            run.Tick(1200f);
+            Assert.That(run.ClockHour, Is.EqualTo(8));
+            Assert.That(run.CalendarDay, Is.EqualTo(2));
+            Assert.That(run.IsNightTime, Is.False);
+            Assert.That(run.Phase, Is.EqualTo(Stage2RunPhase.Wave));
+            Assert.That(enemies.ActiveCount, Is.EqualTo(2));
+            Assert.That(run.StartWave(), Is.False);
+            run.Tick(300f);
+            Assert.That(run.ClockHour, Is.EqualTo(11));
+            var clock = run.WorldMinutes;
+            for (var i = enemies.ActiveCount - 1; i >= 0; i--)
+            { var enemy = enemies.GetEnemy(i); enemy.TakeDamage(enemy.Health); }
+            Assert.That(run.WorldMinutes, Is.EqualTo(clock));
+            Assert.That(run.PreparationRemaining, Is.EqualTo(1200f));
+            run.Tick(1199f);
+            Assert.That(run.IsDay, Is.True);
+            Assert.That(enemies.ActiveCount, Is.Zero);
+            run.Tick(1f);
+            Assert.That(run.IsNight, Is.True);
+            Assert.That(run.IsNightTime, Is.True);
+            Assert.That(run.ClockHour, Is.EqualTo(23));
+        }
+
+        private void ConfigureClockRun()
+        {
+            run.Dispose();
+            data.ConfigureWaves(new[] { new Stage2WaveDefinition(1200f, 2, .1f) }, 2);
+            data.ConfigureContinuousDays(true, 1);
+            run = new Stage2Run(data, navigation, economy, defense, enemies);
+        }
+
+        [Test]
+        public void ContinuousGrowth_ValidatesAndDoesNotOverflowOrChangeFiniteLegacy()
+        {
+            data.ConfigureContinuousDays(true, 0);
+            Assert.That(data.TryValidate(out _), Is.False);
+            data.ConfigureContinuousDays(true, int.MaxValue);
+            Assert.That(data.TryValidate(out _), Is.True);
+            Assert.That(data.GetWave(100).EnemyCount, Is.EqualTo(int.MaxValue));
+            data.ConfigureContinuousDays(false);
+            Assert.Throws<System.ArgumentOutOfRangeException>(() => data.GetWave(1));
+        }
     }
 }

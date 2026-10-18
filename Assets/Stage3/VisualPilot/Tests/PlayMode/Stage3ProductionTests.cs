@@ -123,8 +123,19 @@ namespace Not3A.Stage3.VisualPilot.Tests
         [UnityTest] public IEnumerator KeyboardTowerSelectionCancelsGeneratorAndNeitherModeLeaksGathering()
         {
             production.SelectAndBeginPlacement(ResourceProductionBuilding.Sawmill); Assert.That(production.IsPlacing, Is.True);
+            var playerUi = game.GetComponent("Stage3FantasyHud"); Assert.That(playerUi, Is.Not.Null);
+            Assert.That(playerUi.GetType().GetProperty("ActiveWindow").GetValue(playerUi).ToString(), Is.EqualTo("Construction"));
             input.Press(Keyboard.current.bKey); yield return null;
-            Assert.That(production.IsPlacing, Is.False); Assert.That(game.Building.Defense.IsPlacing, Is.True);
+            Assert.That(playerUi.GetType().GetProperty("ActiveWindow").GetValue(playerUi).ToString(), Is.EqualTo("None"));
+            Assert.That(production.IsPlacing, Is.False);
+            Assert.That(game.Building.Defense.IsPlacing, Is.False, "Closing the construction ribbon cancels placement.");
+            input.Release(Keyboard.current.bKey); yield return null;
+            input.Press(Keyboard.current.bKey); yield return null;
+            Assert.That(playerUi.GetType().GetProperty("ActiveWindow").GetValue(playerUi).ToString(), Is.EqualTo("Construction"));
+            Assert.That(game.Building.Defense.IsPlacing, Is.False, "B opens the construction ribbon without selecting a tower.");
+            playerUi.GetType().GetMethod("SetBuildGroup").Invoke(playerUi, new object[] { 0 });
+            Assert.That((bool)playerUi.GetType().GetMethod("ActivateBuildChoice").Invoke(playerUi, new object[] { 0 }), Is.True);
+            Assert.That(game.Building.Defense.IsPlacing, Is.True, "Selecting the actual tower card begins placement.");
             input.Release(Keyboard.current.bKey); production.SelectAndBeginPlacement(ResourceProductionBuilding.Quarry);
             Assert.That(game.Building.Defense.IsPlacing, Is.False);
             input.Press(Keyboard.current.digit1Key); yield return null; Assert.That(production.IsPlacing, Is.False);

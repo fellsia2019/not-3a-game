@@ -1,0 +1,102 @@
+{
+  "date": "2026-10-18",
+  "decision": "D-065",
+  "scope": "Continuing twenty-minute days, night hordes until cleared, ten-wood home with local day-only rest, approved versatile hero C / dwelling B / readable night.",
+  "platform": "Unity6000.6.2f1 / Windows / NVIDIA GeForceGTX1060 6GB / Direct3D11",
+  "tests": {
+    "run_state_defense_editmode": {
+      "total": "30",
+      "passed": "30",
+      "failed": "0",
+      "skipped": "0",
+      "duration": "0,3602183"
+    },
+    "focused_playmode_and_regressions": {
+      "total": "39",
+      "passed": "39",
+      "failed": "0",
+      "skipped": "0",
+      "duration": "205,8838235"
+    },
+    "final_lighting_and_visual_playmode": {
+      "total": "1",
+      "passed": "1",
+      "failed": "0",
+      "skipped": "0",
+      "duration": "5,2274141"
+    }
+  },
+  "coverage": [
+    "1200 active seconds; paused timer; expiry starts one horde; ordinary Space cannot start remotely.",
+    "Continuing days beyond three authored nights, strictly increasing provisional counts, no finite victory; finite legacy compatibility and overflow validation.",
+    "Ordinary fresh start with zero showcase towers, home or granted materials, checked before test reset.",
+    "Actual E wood gathering with recovery pays for the ten-wood home without material/gold grants (development x10 time to shorten QA).",
+    "Valid placement charges once and adds one ground obstacle; road/hero/NaN rejected; entrance remains accessible.",
+    "Actual UI/world mouse clicks, held clicks, same-frame cancel, and construction exclusivity; pause/debug/reset/regeneration cleanup.",
+    "Local E skips only day. Rest does not advance saved production/recovery or award resources. Night rest and held-E dawn replay reject.",
+    "Actual continuing scenario clears first five nights and reaches day6, retaining home; growth beyond the old final wave.",
+    "Existing hero bow, passive wall siege, bounded paid defense, HUD, workshop/research/travel and production regressions.",
+    "Actual hero/equipment/arrow, matched house preview/built, day/night/dawn, portal and four directions rendered on D3D11."
+  ],
+  "method_limits": [
+    "Timer boundaries and long-run progression use manual ticks/QA kills of the real scene rules, not a twenty-minute manual player session.",
+    "House visual setup grants ten resources for framing; actual material gathering/purchase has a separate passing keyboard test.",
+    "Direction art snapshots use manual actor movement. Camera renders omit IMGUI; Windows fresh-start full-frame capture verifies the player HUD separately.",
+    "The first 39-case run precedes the final blue-tint/window-mask refinement; the final 1/1 verifies that refinement and capture-helper compilation. Runtime gameplay logic was unchanged.",
+    "Arrow review frame comes from the 39-case run before final tint; final night palette is established by the final dwelling/portal frames.",
+    "This is not universal survival balance, a manual full playthrough or a late-night crowd/performance benchmark."
+  ],
+  "visual_qa": {
+    "owner": "GPT-6 Astra after owner-approved ImageGen C/B/night",
+    "result": "PASS for current prototype, including full Windows day HUD",
+    "review_sha256": {
+      "art/review/day_night_dwelling_dawn_2026-10-18.png": "00C26B246D541DDC5A66EEFDF360BDB4C454635C3AC79215CDAE32A1EB8EAD22",
+      "art/review/day_night_dwelling_day_2026-10-18.png": "C60AE75100E6A77247033157595020F78AA1ABDB8EA8A83B023F576C6F2FA3C2",
+      "art/review/day_night_dwelling_night_2026-10-18.png": "9DF4AD0C510249C3EB47E79BCDF01CE71A320257AD4B7C6A3079F3CB86190556",
+      "art/review/day_night_hero_C_arrow_2026-10-18.png": "DF96E59C7FF33B1C1FF952B2D113FB238BD580E528A1F2EEAF4DAA7CED2B0835",
+      "art/review/day_night_hero_C_back_2026-10-18.png": "AAB67C801EA296F3188204248E6988A29C695AF82E5C0703FDEE4EEF6E375C7A",
+      "art/review/day_night_hero_C_front_2026-10-18.png": "ECCA8BC4027C737F34DAA98F0E8B2B4D30E467D5EBEBC1636B5594424DFC13DD",
+      "art/review/day_night_hero_C_left_2026-10-18.png": "15E0EE1AFCA975F256204DF7482D774FD28BBC616CF12FB9C651E5AAA619FBD3",
+      "art/review/day_night_hero_C_right_2026-10-18.png": "CA935395B0734D5B2A27A16E17221D86220FCB093535CADDC61C355C948508A8",
+      "art/review/day_night_portal_night_2026-10-18.png": "BB56A4242D4BEFB5231138916E541FEF8D6A4D5067B5E5053BBAD10319541D89",
+      "art/review/day_night_windows_day_hud_2026-10-18.png": "2CF8AA7FF82BDADEFCB48387C7DEF0FC96A8493E446F64CE3D4F39C9C0BB8B81"
+    },
+    "scene_render_context": "Actual scene camera renders; batch captures exclude IMGUI HUD. QA granted 10 resources for placement, no new gameplay values.\nReal day->home rest->night->QA first-horde kills->dawn. Four direction snapshots are manual actor motion for art registration.\nhouse site=(55.00, 7.00); unchanged camera rotation=(325.00, 0.00, 0.00); day luminance=0,510; night=0,259; dawn=0,510; graphics=Direct3D11\n",
+    "observation": "Complete versatile hero C in four directions, independent starter bow and grip-based arrow. Front-facing B with matched preview/built foot registration. Readable blue night, localized warm window/lantern, red portal and cyan objective; dawn restores daylight.",
+    "atlas_processing": "Original pixels retained. Unity Sprite rect/pivot metadata follows actual transparent row gaps/isolated bow alpha groups; existing subasset IDs preserved on rebuild."
+  },
+  "windows_player": {
+    "build": "Succeeded, exit0, saved scene Windowsx64 Development; no world/camera regeneration.",
+    "path": "Builds/WindowsDayNight/Not3ADayNight.exe",
+    "minimum_observed_seconds": 60,
+    "responding": true,
+    "readiness_markers": [
+      "S2_INT_STARTUP_OK",
+      "S2_INT_GAMEPLAY_READY",
+      "S3_TACTICAL_VIEW_READY",
+      "S3_DWELLING_READY"
+    ],
+    "no_showcase_grants": true,
+    "game_errors_exceptions_detected": false,
+    "full_frame": "Artifacts/S3-DAY-NIGHT-20261018/windows-day-hud.png",
+    "full_frame_sha256": "2CF8AA7FF82BDADEFCB48387C7DEF0FC96A8493E446F64CE3D4F39C9C0BB8B81",
+    "capture_setup": "Opt-in Development-only NOT3A_DAY_NIGHT_CAPTURE after ordinary readiness; no grants, framing, time jump or scripted input. Full ScreenCapture includes IMGUI.",
+    "limits": "Startup/readiness and full day HUD capture, not a manual twenty-minute session or complete Windows night playthrough."
+  },
+  "wiring": "Stage3DayNightSliceBuilder.BuildAndWire -> continuing HordeRun, Stage3Dwelling.catalog, TacticalPresentation.heroArt / enableDayNightPresentation / dayNightGround. No manual Inspector steps.",
+  "data_and_scene_sha256_at_verification": {
+    "Assets/Stage3/CombatSlice/HordeRun.asset": "6EFAAD4FD0ACCF1367CBC09EB77304A32B119C434730C0D72183DBFEDD31E330",
+    "Assets/Stage3/DayNight/DwellingCatalog.asset": "B3B1D798F1FB4A15FE0E468EC5FDB280FC02D15FEE4848C4445BE455379A2E2F",
+    "Assets/Stage3/DayNight/HeroArt.asset": "8BE338C5DA74DAA6463C2A6CDA87200074EC4E9D9A79C9ED7B52F1568B162795",
+    "Assets/Scenes/Stage3Rapid3DGamePilot.unity": "B561EFD8ED2B3D762ED3A865FCDC13F77BF9337DB7E1353DCA30F791CDF8CB51"
+  },
+  "generation_manifest": "art/source/day_night_and_home_2026-10-18_generation.json",
+  "protected_packages_project_settings_and_prior_review_unchanged": true,
+  "remaining": [
+    "Manual survival pacing/balance and later-night population/performance.",
+    "Existing enemies overlap in a single-file column; no wide formation added.",
+    "World combat, hero health/death, magic/other weapons, ruins/blueprints and tutorial are future work.",
+    "D-062 defeat rewind remains unimplemented; R resets the full run to day1.",
+    "Stage3 external-player gate remains open."
+  ]
+}

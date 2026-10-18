@@ -24,6 +24,9 @@ namespace Not3A.Stage3.VisualPilot
         [SerializeField] private Material neutral;
         [SerializeField] private Stage3SkeletonSprite skeletonSpritePrefab;
         [SerializeField] private Material hero;
+        [SerializeField] private Stage3HeroArt heroArt;
+        [SerializeField] private bool enableDayNightPresentation;
+        [SerializeField] private Material dayNightGround;
         [SerializeField] private Material throne;
         [SerializeField] private GameObject soulSpherePrefab;
         [SerializeField] private Material entrance;
@@ -82,8 +85,11 @@ namespace Not3A.Stage3.VisualPilot
             Stage3RoadsideDecoration.Build(bootstrap.MapDefinition,transform,roadsideArt,bootstrap.CameraFollow.BoundCamera,
                 LandscapeClearances());
             HideSprites(bootstrap.PlayerMover.gameObject);
-            heroVisual = Solid(bootstrap.PlayerMover.transform, "Hero scale marker", PrimitiveType.Capsule,
-                new Vector3(0,0,-.43f), new Vector3(.38f,.43f,.38f), hero);
+            if (heroArt != null && heroArt.IsValid)
+                bootstrap.PlayerMover.gameObject.AddComponent<Stage3HeroAvatar>().Initialize(heroArt,composition,bootstrap.CameraFollow.BoundCamera);
+            else
+                heroVisual = Solid(bootstrap.PlayerMover.transform, "Hero scale marker", PrimitiveType.Capsule,
+                    new Vector3(0,0,-.43f), new Vector3(.38f,.43f,.38f), hero);
             UpdateHeroGroundHeight(true);
             HideSprites(bootstrap.ThroneMarker.gameObject);
             if (soulSpherePrefab != null)
@@ -141,6 +147,8 @@ namespace Not3A.Stage3.VisualPilot
             foreach (var tower in FindObjectsByType<Stage2Tower>(FindObjectsSortMode.None)) OnTowerBuilt(tower);
             composition.Building.Defense.Built += OnTowerBuilt;
             gameObject.AddComponent<Stage3CombatPresentation>().Initialize(composition, neutral);
+            if (enableDayNightPresentation)
+                gameObject.AddComponent<Stage3DayNightPresentation>().Initialize(composition,dayNightGround);
             Debug.Log("S3_TACTICAL_VIEW_READY elevation=55 planarGrid=true heightAxis=-Z");
         }
 

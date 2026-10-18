@@ -44,6 +44,33 @@ namespace Not3A.Stage2.Defense.Tests
         }
 
         [Test]
+        public void PassiveBarricadeCostsWoodOccupiesCellNeverFiresAndReleasesOnDestruction()
+        {
+            var passive = Object.Instantiate(catalog);
+            passive.Configure(catalog.TowerPrefab, 1, 0, 0, 12, 1f, 1f, 0, 0, false);
+            Assert.That(passive.TryValidate(out var reason), Is.True, reason);
+            defense.ResetRun();
+            defense = new Stage2Defense(map, navigation, inventory, passive,
+                () => map.CellToWorld(map.Throne), () => Object.Instantiate(passive.TowerPrefab));
+            defense.SetRunState(Stage2BuildPhase.Preparation, false);
+            var attackRequests = 0;
+            defense.SetAttackTarget((_, _, _, _, _) => { attackRequests++; return true; });
+            inventory.TryAdd(MapResourceKind.Wood, 1);
+            defense.BeginPlacement();
+            defense.SetPreviewCell(Vector2Int.zero);
+            Assert.That(defense.TryConfirm(out var wall), Is.EqualTo(PlacementResult.Ready));
+            Assert.That(wall.CanAttack, Is.False);
+            Assert.That(inventory.Get(MapResourceKind.Wood), Is.Zero);
+            Assert.That(navigation.OccupiedCount, Is.EqualTo(1));
+            wall.Tick(100f);
+            Assert.That(attackRequests, Is.Zero);
+            wall.TakeDamage(passive.TowerHealth);
+            Assert.That(navigation.OccupiedCount, Is.Zero);
+            Assert.That(defense.TowerCount, Is.Zero);
+            Object.DestroyImmediate(passive);
+        }
+
+        [Test]
         public void BaselineTower_HitsNearestLivingEnemyAtInterval_AndPauseFreezesCooldown()
         {
             foreach (var kind in new[] { MapResourceKind.Wood, MapResourceKind.Stone, MapResourceKind.Metal })

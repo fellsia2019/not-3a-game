@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-18",
+  "generator": "Built-in image_gen__imagegen",
+  "owner": "GPT-6 Astra — hero presentation; primary agent — ImageGen and verification",
+  "approval": "Owner approved hero C in D-065 and explicitly requested idle animation and corrected side bows. No redesign of hero identity.",
+  "rights": "Original ImageGen-generated artwork using the project's own approved generated C references; no external pixels, tracing or unlicensed assets. Original source bytes preserved.",
+  "assets": [
+    {
+      "source": "art/concepts/hero_motion_2026-10-18/hero_C_idle_v1.png",
+      "runtime": "Assets/Stage3/DayNight/HeroCIdle.png",
+      "sha256": "CF81A7FD758AE22A299A01D953523CAD883A5861F363D059B6349D71FB53252A",
+      "prompt": "Use case: identity-preserve.\nAsset type: matching neutral-idle body sprite atlas for the existing approved hero C. This is correction/animation support, no character redesign.\nReference image1 (existing C body atlas) is the exact identity/wardrobe/rendering reference. Reference image2 (concept options) ONLY character C at the right may supplement identity.\nExactly FOUR isolated full-body sprites in a square 2x2 equal-cell transparent atlas. Target2048x2048, generous transparent gutters between cells. Top-left faces screen RIGHT; top-right faces AWAY/back; bottom-left LEFT; bottom-right TOWARD/front. Fixed elevated orthographic game camera about55degrees, matching existing body atlas.\nSame adult traveler C in every cell: tied dark hair, short beard, blue scarf/short blue coat, cream sleeves, olive trousers, brown boots and compact brown backpack. Versatile fantasy traveler, not a fixed class.\nQuiet RELAXED STANDING idle. BOTH boots planted on the SAME ground baseline within every cell, balanced weight, knees relaxed. NO WALKING STEP, no raised foot or knee, no contact/stride pose. Hands at relaxed carrying height; forward visible hand closed to hold a separate piece of equipment. NO weapon, bow, arrow, quiver, tool or magic in these body images. Preserve approved outfit/proportions/age/face/materials and soft painted dimensional cartoon rendering exactly.\nIdentical scale and sole alignment in each cell; whole head and both boots visible with ample transparent margin. No overlap, ground, cast shadow, background, drawn grid, text, letters or extra figures. Genuine transparency."
+    },
+    {
+      "source": "art/concepts/hero_motion_2026-10-18/hero_C_bow_sides_v1.png",
+      "runtime": "Assets/Stage3/DayNight/HeroCBowSides.png",
+      "sha256": "1439499EA53D9945FBB8FECF6662DC3AB193F8A566BA69FFED8B61D7ED08E877",
+      "prompt": "Use case: precise-object-edit.\nAsset type: two corrected SIDE-VIEW starter-bow equipment sprites for the existing game hero. Transparent 2x1 horizontal atlas, target2048x1024, equal half-cells with generous clear gutters, exactly TWO bows.\nReference: existing bow strip for warm wood, leather-wrapped grip and small metal binding MATERIALS ONLY. Its faulty side curve/string geometry MUST NOT be copied. This is a physical correction of the existing simple starter bow, not a weapon redesign.\nLEFT HALF, for hero facing RIGHT: vertical wooden bow, the wooden GRIP is the RIGHTMOST central point. Upper/lower limb tips sit to the LEFT of grip. ONE TAUT UNDRAWN STRAIGHT VERTICAL string joins the two limb tips on the LEFT (archer side). Curved wooden body makes a capital-D-like outline convex toward RIGHT, with a straight string line closing its left side.\nRIGHT HALF, for hero facing LEFT: mirror this geometry exactly: wooden grip LEFTMOST, limb tips and straight undrawn vertical string to RIGHT.\nThe string is a SINGLE STRAIGHT LINE connecting tips; absolutely NO triangular/V-shaped drawn string, NO pullback apex, NO extra string point, NO string passing through the grip. No arrow, hand or person. Slim bow for relaxed carry, same approved soft painted cartoon fantasy materials. Same size/full-height framing in both cells, all limbs visible, no perspective skew, background, shadow, labels, border or watermark. Genuine transparent background."
+    }
+  ],
+  "import": "Stage3DayNightArtBuilder.BuildHeroMotion; new original PNGs + subassets in existing HeroArt.asset; existing scene reference and other artwork preserved.",
+  "method": "Four planted neutral directional sprites, subtle breathing around sole pivot; corrected side bows with straight undrawn strings and registered carrying hands. Weapon remains separate."
+}

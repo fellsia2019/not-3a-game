@@ -16,6 +16,8 @@ namespace Not3A.Stage2.Integration
         [SerializeField] private Stage2EconomyCatalog economyCatalog;
         [SerializeField] private Stage2DefenseCatalog defenseCatalog;
         [SerializeField] private Stage2DefenseCatalog longshotCatalog;
+        [SerializeField] private Stage2DefenseCatalog barricadeCatalog;
+        [SerializeField] private Stage2HeroCombatCatalog heroCombatCatalog;
         [SerializeField] private Stage2EnemyCatalog enemyCatalog;
         [SerializeField] private Stage2RunCatalog runCatalog;
         [SerializeField] private Stage2GatheringDriver gathering;
@@ -25,10 +27,12 @@ namespace Not3A.Stage2.Integration
 
         [SerializeField] private Stage2ProductionCatalog productionCatalog;
         public Stage2ProductionDriver Production { get; private set; }
+        public Stage2HeroCombatDriver HeroCombat { get; private set; }
 
         private Stage2GameHud hud;
         private Stage2Navigation navigation;
         private Stage2EnemyGroup enemies;
+        private System.Func<bool> playerInputBlocker;
         private readonly GameObject[] resourceMarkers = new GameObject[3];
 
         public bool IsInitialized { get; private set; }
@@ -37,6 +41,8 @@ namespace Not3A.Stage2.Integration
         public Stage2GatheringDriver Gathering => gathering;
         public Stage2BuildDriver Building => building;
         public Stage2RunDriver RunDriver => runDriver;
+        public bool PlayerInputBlocked => playerInputBlocker?.Invoke() ?? false;
+        public void BindPlayerInputBlocker(System.Func<bool> blocker) => playerInputBlocker = blocker;
 
         public void Configure(Stage2SceneBootstrap sceneBootstrap,
             Stage2EconomyCatalog economyData, Stage2DefenseCatalog defenseData,
@@ -67,6 +73,10 @@ namespace Not3A.Stage2.Integration
             if (!economyCatalog.TryValidate(out var reason)) return BindingError($"InvalidEconomyCatalog {reason}");
             if (!defenseCatalog.TryValidate(out reason)) return BindingError($"InvalidDefenseCatalog {reason}");
             if (!longshotCatalog.TryValidate(out reason)) return BindingError($"InvalidLongshotCatalog {reason}");
+            if (barricadeCatalog != null && !barricadeCatalog.TryValidate(out reason))
+                return BindingError($"InvalidBarricadeCatalog {reason}");
+            if (heroCombatCatalog != null && !heroCombatCatalog.TryValidate(out reason))
+                return BindingError($"InvalidHeroCombatCatalog {reason}");
             if (!enemyCatalog.TryValidate(out reason)) return BindingError($"InvalidEnemyCatalog {reason}");
             if (!runCatalog.TryValidate(out reason)) return BindingError($"InvalidRunCatalog {reason}");
 
@@ -78,7 +88,9 @@ namespace Not3A.Stage2.Integration
             gathering.Configure(map, economyCatalog, hero);
             if (gathering.Economy == null)
                 return BindingError("EconomyConfigureFailed");
-            if (!building.Configure(map, defenseCatalog, new[] { longshotCatalog },
+            var additionalDefense = barricadeCatalog == null ? new[] { longshotCatalog } :
+                new[] { longshotCatalog, barricadeCatalog };
+            if (!building.Configure(map, defenseCatalog, additionalDefense,
                     gathering, hero, camera, navigation))
                 return BindingError("DefenseConfigureFailed");
             enemies = new Stage2EnemyGroup(map, navigation, enemyCatalog);
@@ -96,6 +108,11 @@ namespace Not3A.Stage2.Integration
             hud = GetComponent<Stage2GameHud>();
             if (hud == null) hud = gameObject.AddComponent<Stage2GameHud>();
             hud.Initialize(bootstrap, this, showDevelopmentHud);
+            if (heroCombatCatalog != null)
+            {
+                HeroCombat = gameObject.AddComponent<Stage2HeroCombatDriver>();
+                HeroCombat.Configure(heroCombatCatalog, this);
+            }
             building.SetPointerBlocker(ContainsScreenPoint);
             bootstrap.CameraFollow.SetPointerBlocker(ContainsScreenPoint);
             Debug.Log($"S2_INT_GAMEPLAY_READY map={map.name} hash={navigation.MapHash}", this);
@@ -104,6 +121,7 @@ namespace Not3A.Stage2.Integration
 
         public bool ContainsScreenPoint(Vector2 screen)
         {
+            if (PlayerInputBlocked) return true;
             if (hud != null && hud.ContainsScreenPoint(screen)) return true;
             var minimap = GetComponent<Stage2Minimap>();
             return minimap != null && minimap.ContainsScreenPoint(screen);

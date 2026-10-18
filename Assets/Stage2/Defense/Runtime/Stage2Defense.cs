@@ -172,7 +172,8 @@ namespace Not3A.Stage2.Defense
                 if (prepared == null || prepared.gameObject.activeInHierarchy)
                     return PlacementResult.CreationFailed;
                 prepared.Configure(cell, catalog.TowerHealth, catalog.AttackRange,
-                    catalog.FireInterval, catalog.AttackDamage, catalog.SplashRadiusCells, catalog.ProjectileFlightSeconds);
+                    catalog.FireInterval, catalog.AttackDamage, catalog.SplashRadiusCells, catalog.ProjectileFlightSeconds,
+                    catalog.CanAttack);
                 prepared.SetAttackTarget(attackTarget);
                 prepared.SetAttackActive(attackActive);
                 prepared.transform.position = map.CellToWorld(cell);

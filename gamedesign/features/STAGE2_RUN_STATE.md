@@ -1,5 +1,12 @@
 # Feature: Stage 2 Run State And Cadence
 
+Current Stage 3 runtime update — D-065, 2026-10-18: the optional ContinuousDays
+catalog maps Preparation/Wave to day/night and continues with growing hordes.
+The normal remote Space control is disabled for that scene; local dwelling rest
+uses the same StartWave boundary as timer expiry. Legacy finite catalogs retain
+the baseline below. Current contract/verification: `DAY_NIGHT.md`.
+The D-062 rewind target below remains unimplemented, including for night defeat.
+
 ## Current Product Target — D-062, 2026-10-17
 
 Owner/workstream: Game Design / Run state integration. The owner clarified the

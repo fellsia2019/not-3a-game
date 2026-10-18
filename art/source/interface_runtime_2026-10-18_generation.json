@@ -1,0 +1,64 @@
+{
+  "date": "2026-10-18",
+  "generator": "Built-in image_gen__imagegen",
+  "visual_owner": "GPT-6 Astra",
+  "purpose": "Approved lunar-porcelain runtime player interface",
+  "approval": {
+    "prior_theme": "C lunar porcelain selected in D-066",
+    "updated_layout": "Owner explicitly approved BOTH new fullwidth normal HUD and nonmodal construction ribbon: «Да, внедряй оба варианта».",
+    "future_reserves": "Owner requested future abilities and red HP / blue mana / orange experience. Slots and bars are presentation reserves; no new mechanics or numeric status values were approved."
+  },
+  "rights": "Original generated artwork. References are the project's own generated/approved C interface, character and building art. No external interface pixels or traced commercial assets. Original PNG bytes preserved; Unity sprite rectangles, borders and shader sampling define rendering without raster edits.",
+  "sources": [
+    {
+      "path": "art/concepts/interface_runtime_2026-10-18/fullwidth_hud_C_v3.png",
+      "sha256": "5BFA43988FF25D9A9A9753A882D5F250A295403AB2360DDE36455FC120D38F04",
+      "prompt": "Create an original updated 16:9 gameplay HUD concept in the approved lunar-porcelain style: pearl ceramic, plum enamel, slim silver crescent/petal edges, tiny turquoise insets. Preserve the actual grassy isometric world and hero. Small resources upper left; compact «День 1 / 08:30» upper right. Bottom-left local minimap remains. CRITICAL: the bottom console begins immediately RIGHT of the minimap and extends ALL THE WAY TO THE RIGHT SCREEN EDGE, with no empty strip beyond it. Keep its height compact ~125 px in 1600×900. Five compact access buttons I Вещи / B Стройка / P Исследования / O Герой / M Карта sit directly ABOVE this console. Inside fullwidth console: LEFT about 24% contains a small hero C portrait, separate small bow icon, «Лук», and compact VERTICAL equipment stats «Урон 2», «Радиус 5,5», «Интервал 1,1 с». CENTER about 46% contains a tidy row of original empty plum-and-pearl ability/action slots, clearly unassigned, no spells or item icons. RIGHT about 30% contains THREE elegant slender horizontal tracks: red «Здоровье —», blue «Мана —», orange «Опыт —». These are explicitly future UI reserves: no numeric amounts, no level, no percentages, no fully filled bars. Use subdued tinted tracks with dashes so unavailable is clear. Rich beautiful curved fantasy materials, NOT black rectangles; typography clean and readable. Small external caption «Эскиз HUD · умения и шкалы пока не подключены». Do not invent gameplay systems or change world art.",
+      "refs": [
+        "art/concepts/interface_2026-10-18/fantasy_hud_C_compact_v2.png"
+      ],
+      "status": "Owner-approved layout"
+    },
+    {
+      "path": "art/concepts/interface_runtime_2026-10-18/fullwidth_build_C_v1.png",
+      "sha256": "FED1776C920CA900CC419516756A94717E2B26347CEE6A5760E10ACBFF948016",
+      "prompt": "Same 16:9 gameplay frame, world, small upper resource/day-time widgets, bottom-left local minimap and five menu buttons. Match the approved lunar-porcelain fantasy style: pearl ceramic, plum enamel, slim silver crescent/petal edges, tiny turquoise insets. Show B Стройка selected. The ENTIRE fullwidth lower console to the RIGHT of the minimap is now REPLACED by a NONMODAL BUILDING RIBBON reaching the RIGHT SCREEN EDGE; no big central window, no hero portrait, no weapon stats, no ability slots or HP/mana/XP tracks in this mode. Keep battlefield clear. Upper band inside ribbon: category tabs «Оборона», «Производство», «База»; Оборона selected. Beneath: three compact illustrated cards «Rapid», «Longshot», «Частокол», with original project-style watchtower/catapult/wooden barrier thumbnails. Exact prices with resource icons: Rapid gold5 wood2 stone1; Longshot wood2 stone5; Частокол wood1. Card content readable and comfortably spaced. To the RIGHT use remaining ribbon width for selected Rapid detail: small thumbnail, title, repeated price and compact action «Выбрать», then tiny placement hints «ЛКМ · поставить» / «Esc · отменить». No dead empty right panel. Pearl/plum/silver/turquoise lunar-porcelain artistry, curved edges, subtle carved details, no black-card UI, no invented prices, timers or tower stats. This is a visual proposal only. Caption «Эскиз · строительство на нижней панели».",
+      "refs": [
+        "art/concepts/interface_runtime_2026-10-18/fullwidth_hud_C_v3.png",
+        "art/concepts/interface_2026-10-18/fantasy_build_research_C_v2.png"
+      ],
+      "status": "Owner-approved layout"
+    },
+    {
+      "path": "art/concepts/interface_runtime_2026-10-18/lunar_frames_v1.png",
+      "sha256": "BF88682DCD3E17BF4854402FFFDC233D81FFA733EF2B0441A381E3928DC57AA4",
+      "runtime": "Assets/Stage3/PlayerInterface/Art/LunarFrames.png",
+      "prompt": "Original production-ready UI component atlas, 2048×2048 transparent RGBA, orthographic front view, NO game screenshot, NO text, NO numbers, NO letters, NO icons or portraits. Match approved C rich pearl ceramic, muted plum enamel, silver crescent/petal silhouettes and restrained turquoise gems. Arrange 2 columns × 3 rows with large transparent separation and NO overlaps. TOP LEFT: elegant large rectangular window frame with curved sculpted corners and a calm EMPTY PALE PEARL CENTER, suitable for nine-slice stretching; ornate detail concentrated at corners, long edges simple. TOP RIGHT: matching thin small inset content-panel frame with pale pearl center, simple stretchable edges. MIDDLE LEFT: compact horizontal plum-enamel button with curved pearl/silver perimeter, blank center. MIDDLE RIGHT: same button SELECTED with turquoise accent, blank center. BOTTOM LEFT: round local-map bezel with FULLY TRANSPARENT INNER CIRCLE, pearl/plum/silver rim, no symbols. BOTTOM RIGHT: empty round portrait/equipment medallion with FULLY TRANSPARENT INNER CIRCLE. Flat forward-facing UI art, crisp alpha, no cast shadow outside shapes, no filled background, no checkerboard drawn into image, no labels. All six pieces isolated; margins at least 40px. Preserve refined fantasy form rather than simple rectangles.",
+      "refs": [
+        "art/concepts/interface_2026-10-18/fantasy_hud_C_compact_v2.png"
+      ],
+      "transparent_background": true,
+      "status": "Astra inspected component bounds/alpha; native sliced runtime art"
+    },
+    {
+      "path": "art/concepts/interface_runtime_2026-10-18/lunar_icons_v1.png",
+      "sha256": "39FAAEA99E03D3281D365F39DE8DBC5D58771C334D5DD003041E79578B178C23",
+      "runtime": "Assets/Stage3/PlayerInterface/Art/LunarIcons.png",
+      "prompt": "Original transparent RGBA UI ICON ATLAS 2048×1024, front-facing painterly fantasy icons in approved lunar-porcelain visual language. Exactly TWO ROWS × SIX COLUMNS, each icon isolated centered in its own equally sized invisible cell, at least20% transparent padding, no text/numbers/borders/cell lines, NO tile background. TOP ROW left-to-right: gold coin stack; wood logs; pale stone pieces; silver iron ingot; leather inventory pouch; construction hammer. BOTTOM ROW left-to-right: open research book; neutral universal hero silhouette medallion; folded map; curved wooden starter bow; small sun; simple close X made of silver. Strong legible silhouettes, refined warm materials and subtle pearl/plum/turquoise accents, no excessive glow, no extra objects, no repeated icons. These are production UI icons, transparent outside each object; not a concept sheet over scenery. Do not add any abilities, potions or spells.",
+      "refs": [
+        "art/concepts/interface_2026-10-18/fantasy_hud_C_compact_v2.png"
+      ],
+      "transparent_background": true,
+      "status": "Astra inspected icon bounds/alpha; native sprite metadata"
+    }
+  ],
+  "runtime": {
+    "art_asset": "Assets/Stage3/PlayerInterface/LunarInterfaceArt.asset",
+    "importer": "Not3A.Stage3.PlayerInterface.Editor.Stage3FantasyHudArtImporter.Import",
+    "portrait": "Native crop of original owner-approved fullwidth HUD portrait; entire source bytes copied as ApprovedHudPortraitSource.png.",
+    "other_art": "Current approved tower/palisade/home/workshop/ground-seal source assets are reused; generated concept thumbnail changes are not new world-art approval.",
+    "font": "D-068 replaced the rejected serif font with OS dynamic Segoe UI / Arial / Liberation Sans fallback; no font files copied or redistributed.",
+    "implementation": "Scene-local IMGUI retained; no UI-stack/package migration. D-068 five-band frame rendering preserves fixed-aspect ornaments, stretches connectors and shares pixel-aligned segment boundaries. Original sprite metadata/circular shader, mipmaps/trilinear and linear-to-gamma UI output remain.",
+    "visual_acceptance": "The owner rejected defects missed by the initial Astra runtime review. D-068 correction verified at 1280x720,1600x900,1920x1080 with final V4 captures and Input System hover evidence. Current evidence: art/source/interface_correction_2026-10-18_verification.json."
+  }
+}

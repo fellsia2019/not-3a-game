@@ -23,6 +23,7 @@ Shader "Not3A/District Geology"
             #pragma multi_compile_fragment _ _SHADOWS_SOFT
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+            #include "Assets/Stage3/DayNight/Shaders/DayNightColor.hlsl"
             TEXTURE2D(_StoneTex); SAMPLER(sampler_StoneTex);
             TEXTURE2D(_GrassTex); SAMPLER(sampler_GrassTex);
             float4 _DistrictHeroWorld;
@@ -81,6 +82,7 @@ Shader "Not3A/District Geology"
                 half3 color=paint*i.color.rgb*light*lerp(1,.79h,seam);
                 half3 grass=SAMPLE_TEXTURE2D(_GrassTex,sampler_GrassTex,i.ground).rgb;
                 color=lerp(grass,color,i.color.a);
+                color=Not3ADayNight(color,0);
                 return half4(color,_RevealPass<.5?1:lerp(1,_DistrictRevealParameters.w,reveal));
             }
             ENDHLSL

@@ -49,7 +49,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
         {
             hud.AddAllResources(100); hud.AddGold(100);
             Assert.That(hud.BuildCategory, Is.EqualTo(Stage2BuildCategory.Towers));
-            Assert.That(game.Building.Defense.RoleCount, Is.EqualTo(2));
+            Assert.That(game.Building.Defense.RoleCount, Is.EqualTo(3));
             hud.SelectBuildCategory(Stage2BuildCategory.Generators);
             Assert.That(game.Production.Catalog.Entries.Count, Is.EqualTo(3));
             foreach (var entry in game.Production.Catalog.Entries)
@@ -120,9 +120,17 @@ namespace Not3A.Stage3.VisualPilot.Tests
             hud.AddAllResources(100);
             hud.SelectGenerator(ResourceProductionBuilding.Sawmill);
             var bar = hud.BuildRect;
-            var map = game.GetComponent<Stage2Minimap>();
-            Assert.That(bar.xMin * hud.Scale, Is.GreaterThan(map.PanelRect.xMax));
-            Assert.That(bar.xMax * hud.Scale, Is.LessThan(Screen.width));
+            var playerUi = game.GetComponent("Stage3FantasyHud"); Assert.That(playerUi, Is.Not.Null);
+            var dock = (Rect)playerUi.GetType().GetProperty("BottomRect").GetValue(playerUi);
+            var map = (Rect)playerUi.GetType().GetProperty("MinimapRect").GetValue(playerUi);
+            Assert.That(dock.xMin, Is.GreaterThanOrEqualTo(map.xMax));
+            var safeScreen = (Rect)playerUi.GetType().GetProperty("SafeScreenRect").GetValue(playerUi);
+            Assert.That(dock.xMin, Is.GreaterThanOrEqualTo(safeScreen.xMin));
+            Assert.That(dock.yMin, Is.GreaterThanOrEqualTo(safeScreen.yMin));
+            Assert.That(dock.xMax, Is.EqualTo(safeScreen.xMax).Within(.01f));
+            Assert.That(dock.yMax, Is.LessThanOrEqualTo(safeScreen.yMax + .01f));
+            Assert.That(bar.xMin * hud.Scale, Is.EqualTo(dock.xMin).Within(.01f));
+            Assert.That(bar.xMax * hud.Scale, Is.EqualTo(dock.xMax).Within(.01f));
             var point = hud.BuildChoiceRect(0).center * hud.Scale;
             var screen = new Vector2(point.x, Screen.height - point.y);
             Assert.That(game.ContainsScreenPoint(screen), Is.True);
@@ -138,7 +146,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Assert.That(game.Production.PointerOverUi, Is.True);
             Assert.That(game.Production.Rules.Buildings.Count, Is.Zero, "A menu click must never build behind the panel.");
             Assert.That(camera.orthographicSize, Is.EqualTo(zoom).Within(.01f));
-            var mapPoint = map.PanelRect.center;
+            var mapPoint = map.center;
             Assert.That(game.ContainsScreenPoint(new Vector2(mapPoint.x, Screen.height - mapPoint.y)), Is.True);
             for (var i = 0; i < 3; i++) Assert.That(game.Gathering.Economy.Inventory.Get((MapResourceKind)i), Is.EqualTo(100));
         }

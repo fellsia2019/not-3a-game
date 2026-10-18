@@ -30,6 +30,7 @@ namespace Not3A.Stage3.VisualPilot
             public float Age, Radius;
         }
         private Stage2GameComposition composition;
+        private Stage3HeroAvatar heroAvatar;
         private Material material;
         private Mesh arrowMesh, stoneMesh;
         private readonly Dictionary<Stage2Shot, Flight> flights = new Dictionary<Stage2Shot, Flight>();
@@ -43,6 +44,7 @@ namespace Not3A.Stage3.VisualPilot
         public void Initialize(Stage2GameComposition owner, Material source)
         {
             composition = owner;
+            heroAvatar = owner.GetComponent<Stage2SceneBootstrap>().PlayerMover.GetComponent<Stage3HeroAvatar>();
             capturePrefix = Environment.GetEnvironmentVariable("NOT3A_COMBAT_CAPTURE");
             material = new Material(source) { name = "Shared combat effects" };
             material.SetColor("_BaseColor", Color.white);
@@ -57,6 +59,7 @@ namespace Not3A.Stage3.VisualPilot
 
         private void Bind(Stage2Tower tower)
         {
+            if (!tower.CanAttack) return;
             var motion = tower.GetComponent<Stage3TowerShotMotion>();
             if (motion != null) return;
             motion = tower.gameObject.AddComponent<Stage3TowerShotMotion>();
@@ -67,7 +70,10 @@ namespace Not3A.Stage3.VisualPilot
         private void Launch(Stage2Shot shot)
         {
             var stone = shot.SplashRadiusCells > 0f;
-            var start = (Vector3)shot.Origin + Vector3.back * (stone ? 1.45f : 1.12f);
+            // Hero equipment and tower motion each supply their visible release socket.
+            var start = (Vector3)shot.Origin + Vector3.back * (stone ? 1.45f : .43f);
+            if (!stone && heroAvatar != null && Vector2.Distance(shot.Origin,heroAvatar.transform.position)<.01f)
+                start = heroAvatar.ReleasePosition;
             float releaseSeconds=0f;
             Stage3TowerSprite towerArt=null;
             foreach (var motion in motions)

@@ -24,6 +24,7 @@ Shader "Not3A/Landmark Sprite Flow"
             #pragma vertex Vert
             #pragma fragment Frag
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+            #include "Assets/Stage3/DayNight/Shaders/DayNightColor.hlsl"
             TEXTURE2D(_MainTex); SAMPLER(sampler_MainTex);
             CBUFFER_START(UnityPerMaterial)
                 half4 _Color;
@@ -68,6 +69,9 @@ Shader "Not3A/Landmark Sprite Flow"
                     art.rgb *= 1 + flame*.13*sin(flow*7+input.uv.y*24);
                 }
                 art *= input.color;
+                half luminous = _Kind < .5 ? saturate((art.r-max(art.g,art.b))*5) :
+                    saturate((min(art.g,art.b)-art.r)*5);
+                art.rgb = Not3ADayNight(art.rgb,luminous);
                 clip(art.a - .005h);
                 return art;
             }

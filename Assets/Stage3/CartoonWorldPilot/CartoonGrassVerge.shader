@@ -18,6 +18,7 @@ Shader "Not3A/Cartoon Grass Verge"
             #pragma vertex Vert
             #pragma fragment Frag
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+            #include "Assets/Stage3/DayNight/Shaders/DayNightColor.hlsl"
             TEXTURE2D(_BaseMap); SAMPLER(sampler_BaseMap);
             CBUFFER_START(UnityPerMaterial)
             float4 _BaseMap_ST;
@@ -41,6 +42,7 @@ Shader "Not3A/Cartoon Grass Verge"
                 float noise=.5+.20*sin(p.x*1.31+p.y*1.87)+.15*sin(p.x*3.71-p.y*2.11);
                 float threshold=.18+noise*.55;
                 color.a*=smoothstep(threshold-.045,threshold+.045,input.alpha);
+                color.rgb=Not3ADayNight(color.rgb,0);
                 return color;
             }
             ENDHLSL

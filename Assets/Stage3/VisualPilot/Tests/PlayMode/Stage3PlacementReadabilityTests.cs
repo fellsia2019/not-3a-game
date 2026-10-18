@@ -261,6 +261,82 @@ namespace Not3A.Stage3.VisualPilot.Tests
                 AssertCellSilhouette(preview,map.CellToWorld(row[0]),"Longshot preview "+zoom);
             }
         }
+        [UnityTest] public IEnumerator BarricadeGhostAndAdjacentModulesShareCellFitAndNeverBindAttackMotion()
+        {
+            Fund();
+            var defense=game.Building.Defense;
+            var hud=game.GetComponent<Stage2GameHud>();
+            Assert.That(defense.RoleCount,Is.EqualTo(3));
+            Assert.That(defense.GetCatalog(2).CanAttack,Is.False);
+            var choice=hud.BuildChoiceRect(2);
+            Assert.That(choice.xMin,Is.GreaterThan(hud.BuildChoiceRect(1).xMax));
+            Assert.That(choice.xMax,Is.LessThan(hud.BuildRect.xMax));
+            var hudPoint=new Vector2(choice.center.x*hud.Scale,Screen.height-choice.center.y*hud.Scale);
+            Assert.That(hud.ContainsScreenPoint(hudPoint),Is.True,"Third card must retain HUD input protection.");
+
+            var map=scene.MapDefinition;
+            Vector2Int[] row=null;
+            for(var y=map.MinimumCell.y;y<=map.MaximumCell.y&&row==null;y++)
+            for(var x=map.MinimumCell.x;x<=map.MaximumCell.x-4;x++)
+            {
+                var cells=Enumerable.Range(0,5).Select(i=>new Vector2Int(x+i,y)).ToArray();
+                if(!cells.All(c=>map.Contains(c)&&map.GetSurface(c)==MapSurfaceKind.InvasionCorridor&&
+                    map.IsBuildable(c)&&map.IsWalkable(c)&&c!=map.EnemyEntrance&&c!=map.Throne&&
+                    map.Contains(c+Vector2Int.down)&&map.GetSurface(c+Vector2Int.down)==MapSurfaceKind.InvasionCorridor)) continue;
+                row=cells; break;
+            }
+            Assert.That(row,Is.Not.Null);
+            scene.PlayerMover.transform.position=map.CellToWorld(row[0])+Vector2.down*3;
+            var built=new GameObject[4];
+            var roles=new[]{2,2,0,1};
+            for(var i=0;i<roles.Length;i++)
+            {
+                Point(map.CellToWorld(row[i+1])); hud.SelectTower(roles[i]);
+                yield return null; yield return null;
+                var ghost=GameObject.Find("Tactical mesh placement preview");
+                Assert.That(ghost,Is.Not.Null);
+                var ghostBody=ghost.GetComponentsInChildren<SpriteRenderer>().First(r=>r.enabled);
+                var ghostSprite=ghostBody.sprite;
+                var ghostScale=ghostBody.transform.lossyScale;
+                var ghostPosition=ghostBody.transform.position;
+                Assert.That(defense.TryConfirm(out var tower),Is.EqualTo(PlacementResult.Ready));
+                built[i]=tower.gameObject;
+                yield return null;
+                var body=tower.GetComponentsInChildren<SpriteRenderer>().First(r=>r.enabled);
+                Assert.That(body.sprite,Is.SameAs(ghostSprite));
+                Assert.That(Vector3.Distance(body.transform.lossyScale,ghostScale),Is.LessThan(.001f));
+                Assert.That(Vector3.Distance(body.transform.position,ghostPosition),Is.LessThan(.001f));
+                Assert.That(Quaternion.Angle(body.transform.rotation,camera.transform.rotation),Is.LessThan(.01f));
+                if(roles[i]!=2) continue;
+                Assert.That(body.sprite.texture.name,Is.EqualTo("WoodenBarricadeA"),"Approved artwork must not fall back to a tower mesh.");
+                Assert.That(tower.CanAttack,Is.False);
+                Assert.That(tower.GetComponent("Stage3TowerShotMotion"),Is.Null);
+            }
+            foreach(var zoom in new[]{5f,2.5f})
+            {
+                camera.orthographicSize=zoom;
+                Point(map.CellToWorld(row[0])); hud.SelectTower(2);
+                yield return null; yield return null;
+                var preview=GameObject.Find("Tactical mesh placement preview");
+                Assert.That(preview,Is.Not.Null);
+                AssertGhost(preview.GetComponentsInChildren<SpriteRenderer>().First(r=>r.enabled),true);
+                camera.transform.position=(Vector3)map.CellToWorld(row[2])+Vector3.up*.5f-camera.transform.forward*30;
+                Save(camera,Path.Combine(Evidence,"Barricade-adjacent-row-"+zoom+".png"));
+                var previous=AssertCellSilhouette(preview,map.CellToWorld(row[0]),"barricade preview "+zoom);
+                for(var i=0;i<built.Length;i++)
+                {
+                    var pixels=AssertCellSilhouette(built[i],map.CellToWorld(row[i+1]),"barricade mixed row "+i+" zoom "+zoom);
+                    Assert.That(pixels.xMin-previous.xMax,Is.GreaterThan(1f));
+                    previous=pixels;
+                }
+            }
+            input.Set(Mouse.current.position,hudPoint); yield return null; yield return null;
+            Assert.That(game.Building.PointerOverUi,Is.True);
+            Assert.That(GameObject.Find("Tactical mesh placement preview"),Is.Null,"Ghost hides over the third protected card.");
+            defense.CancelPlacement(); yield return null;
+            Save(camera,Path.Combine(Evidence,"Barricade-neutral-close.png"));
+        }
+
         [UnityTest] public IEnumerator PublicAndShortcutAffordabilityGatesAndLateBalanceCheckPreventPurchase()
         {
             foreach(var entry in Production.Catalog.Entries)

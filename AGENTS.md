@@ -30,7 +30,13 @@ a better option instead of implementing it silently.
 - D-062 approves defeat rewind to the snapshot immediately before the failed
   wave starts, plus its full preparation timer, for manual and timed starts.
   This is an accepted target contract, not implemented runtime behavior yet.
-- The hero has no combat role; they gather resources and construct defenses.
+- D-064 adds a nearest-target automatic hero bow. Portal enemies still target
+  the throne/blockers; future open-world enemies target the hero. Hero health
+  and death are outside the current bow/barricade/horde slice.
+- D-065 adds twenty-minute active days and night hordes until fully cleared.
+  Days continue after the initial sequence. A paid green-ground dwelling skips
+  only the remaining day via local E, with no skipped-time production.
+  Hero C is versatile; the bow is initial equipment, not a fixed class.
 - Tutorial flow and tool-tier progression are post-MVP.
 - Factorio-style automation/logistics and persistent roguelite progression are
   post-MVP until the basic loop is proven.
@@ -75,6 +81,11 @@ values belong in project data assets once implemented, not in competing Markdown
 tables.
 
 ## UI And Visuals
+
+- All visual decisions/appearance and visual implementation are assigned to
+  GPT-6 Astra. First create sketches through ImageGen, obtain the owner's
+  appearance approval, then delegate their visual Unity implementation to Astra.
+  The main agent performs ImageGen and nonvisual gameplay integration.
 
 - Treat reference images as inspiration only; never ship or trace unlicensed
   material. Record source and license before any asset becomes runtime-ready.
