@@ -136,7 +136,7 @@ namespace Not3A.Stage2.Economy.Tests
         }
 
         [Test]
-        public void ManualToolReachUsesClosePerKindGapsAndLeavesLegacySceneRangeUnchanged()
+        public void ManualToolReachWidensLargerMineralsAndLeavesTreeAndLegacyRangesUnchanged()
         {
             var legacy = new Stage2Economy(map, catalog);
             Assert.That(legacy.IsInRange(legacy.GetNode(MapResourceKind.Wood),
@@ -154,10 +154,10 @@ namespace Not3A.Stage2.Economy.Tests
             model.ReplaceAdditionalNodes(new[] { tree, rock });
             Assert.That(model.IsInRange(tree, point + Vector2.up * .55f), Is.True);
             Assert.That(model.IsInRange(tree, point + Vector2.up * .7f), Is.False);
-            Assert.That(model.IsInRange(rock, rockPoint + Vector2.right * 1.4f), Is.True);
-            Assert.That(model.IsInRange(rock, rockPoint + Vector2.right * 1.5f), Is.False);
-            Assert.That(model.NearestAvailableNode(rockPoint + Vector2.right * 1.4f), Is.SameAs(rock));
-            Assert.That(model.NearestAvailableNode(rockPoint + Vector2.right * 1.5f), Is.Null);
+            Assert.That(model.IsInRange(rock, rockPoint + Vector2.right * 1.9f), Is.True);
+            Assert.That(model.IsInRange(rock, rockPoint + Vector2.right * 2f), Is.False);
+            Assert.That(model.NearestAvailableNode(rockPoint + Vector2.right * 1.9f), Is.SameAs(rock));
+            Assert.That(model.NearestAvailableNode(rockPoint + Vector2.right * 2f), Is.Null);
         }
 
         [Test]
@@ -170,11 +170,11 @@ namespace Not3A.Stage2.Economy.Tests
                 map.WorldToCell(point), point, Stage2ResourceSize.Medium, 1.1f,
                 stageHarvestRadii: new[] { 1.1f, 1f, .85f, .7f });
             model.ReplaceAdditionalNodes(new[] { node });
-            Assert.That(model.IsInRange(node, point + Vector2.right * 1.4f), Is.True);
+            Assert.That(model.IsInRange(node, point + Vector2.right * 1.8f), Is.True);
             for (var i = 0; i < 31; i++) model.AdvanceGather(node, point, true, .8f, true);
             Assert.That(node.InteractionRadius, Is.EqualTo(.7f));
             Assert.That(node.HarvestRadius, Is.EqualTo(1.1f), "Placement must retain the maximum recovering footprint.");
-            Assert.That(model.IsInRange(node, point + Vector2.right * 1.4f), Is.False);
+            Assert.That(model.IsInRange(node, point + Vector2.right * 1.8f), Is.False);
             Assert.That(model.IsInRange(node, point + Vector2.right * 1f), Is.True);
             node.Reset(); Assert.That(node.InteractionRadius, Is.EqualTo(1.1f));
         }
@@ -193,6 +193,32 @@ namespace Not3A.Stage2.Economy.Tests
             Assert.Throws<ArgumentException>(() => model.ReplaceAdditionalNodes(new[] { replacement, replacement }));
             Assert.That(model.Nodes.Last(), Is.SameAs(replacement), "Rejected replacement is atomic.");
             Assert.That(model.Inventory.Get(MapResourceKind.Wood), Is.Zero);
+        }
+
+        [TestCase(MapResourceKind.Stone, Stage2ResourceSize.Medium, .75f)]
+        [TestCase(MapResourceKind.Stone, Stage2ResourceSize.Large, 1f)]
+        [TestCase(MapResourceKind.Metal, Stage2ResourceSize.Medium, .75f)]
+        [TestCase(MapResourceKind.Metal, Stage2ResourceSize.Large, 1f)]
+        public void LargerMineralComfortReachFollowsAllStockStagesFromEverySide(MapResourceKind kind, Stage2ResourceSize size, float gap)
+        {
+            catalog.ConfigureManualResources(new Stage2ManualResourceSettings());
+            var model = new Stage2Economy(map, catalog);
+            var point = map.CellToWorld(new Vector2Int(90, 90));
+            var node = new Stage2ResourceNode(new Stage2ResourceSettings(kind, 120, .8f, 30f),
+                map.WorldToCell(point), point, size, 1.1f, stageHarvestRadii: new[] { 1.1f, 1f, .85f, .7f });
+            model.ReplaceAdditionalNodes(new[] { node });
+            foreach (var remaining in new[] { 120, 80, 50, 10 })
+            {
+                while (node.Remaining > remaining) model.AdvanceGather(node, point, true, .8f, true);
+                model.CancelGather();
+                foreach (var side in new[] { Vector2.left, Vector2.up, Vector2.right, Vector2.down })
+                {
+                    var comfortable = point + side * (node.InteractionRadius + gap);
+                    Assert.That(model.IsInRange(node, comfortable), Is.True);
+                    Assert.That(model.NearestAvailableNode(comfortable), Is.SameAs(node));
+                    Assert.That(model.IsInRange(node, point + side * (node.InteractionRadius + gap + .2f)), Is.False);
+                }
+            }
         }
     }
 }

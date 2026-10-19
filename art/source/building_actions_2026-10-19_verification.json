@@ -1,0 +1,77 @@
+{
+  "date": "2026-10-19T12:37:28.281713+00:00",
+  "decision": "D-079",
+  "scope": "Tower/barricade paid upgrade, equal-role/equal-level drag merge, invested half-refund sale, preparation-only move; approved D-078 native UI unchanged.",
+  "test_results": {
+    "EditMode": {
+      "passed": 76,
+      "total": 76,
+      "xml": "Artifacts/S3-BUILDING-ACTIONS-20261019/editmode.xml"
+    },
+    "PlayMode": {
+      "passed_unique": 28,
+      "total_unique": 28,
+      "first_run": "26/28; two test fixtures corrected: legacy gold expectation and offscreen HUD-covered drag destination",
+      "correction_run": "2/2",
+      "consolidated": "Artifacts/S3-BUILDING-ACTIONS-20261019/playmode-consolidated.json"
+    }
+  },
+  "player": {
+    "platform": "macOS Metal Development",
+    "build_log": "Artifacts/S3-BUILDING-ACTIONS-20261019/build-final.log",
+    "path": "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app",
+    "bytes": 521537305,
+    "native_click_proof": "Artifacts/S3-BUILDING-ACTIONS-20261019/1600x900-native/verification.txt",
+    "native_actions": [
+      "Upgrade: level1 to2, real payment/stat update",
+      "Sell: actual removal, exact refund, cleared card"
+    ],
+    "final_frames": {
+      "1280x720": "Artifacts/S3-BUILDING-ACTIONS-20261019/final-1280x720",
+      "1600x900": "Artifacts/S3-BUILDING-ACTIONS-20261019/final-1600x900",
+      "1920x1080": "Artifacts/S3-BUILDING-ACTIONS-20261019/final-1920x1080"
+    },
+    "final_frame_count": 30,
+    "attributable_console_errors": 0,
+    "disposable_setup": "Opt-in environment capture. Test stock, real catalog towers, fixed camera; not a natural playthrough. Cleans on completion."
+  },
+  "visual_review": {
+    "owner": "GPT-6 Astra",
+    "initial_result": "PASS at720p/900p/1080p; max-level hint corrected in binding",
+    "final_maximum_hint": "PASS at1280x720,1600x900,1920x1080; no remaining visual defects"
+  },
+  "wiring": "Existing references; no new scene/Inspector wiring. Upgrade rows default empty for legacy catalogs. Three active Stage3 catalogs gain rows; only Stage3 Rapid gold construction surcharge removed.",
+  "protected_surfaces": {
+    "baseline_existing_files": 1041,
+    "protected_files": 123,
+    "modified_protected": [],
+    "missing_baseline": []
+  },
+  "source_sha256": {
+    "Assets/Stage2/Defense/Runtime/Stage2Defense.cs": "abddb2a9fa22ec8d7667256bfa8a79839d6a53cdbf086edcee85d262280bbef0",
+    "Assets/Stage2/Defense/Runtime/Stage2DefenseCatalog.cs": "0a364a218631f6e6ea5934666d2bfa0c708215c7c43fc7d655473989b2f6ee87",
+    "Assets/Stage2/Defense/Runtime/Stage2Tower.cs": "977f882b62957079625ef9805fd22fb2505016b17223c36d4640c7bed18816c3",
+    "Assets/Stage2/Defense/Tests/EditMode/Stage2TowerUpgradeTests.cs": "4bd5846eb4e885d160fb4df36ae85fdc005c85bf215446ed9f224c3101f9555a",
+    "Assets/Stage2/Economy/Runtime/Stage2Economy.cs": "56020b0a233ae7f24d70fa829a87ac7e64c415bcf04e8d00292a6c3406d93b79",
+    "Assets/Stage2/Economy/Runtime/Stage2ResourceCost.cs": "c0fa3baf3b6368d56bf7dc141ebc96d57addcc121e29e615d170580904b310d9",
+    "Assets/Stage3/Barricades/WoodenBarricadeCatalog.asset": "b19fd30deb4b7b0e083715a1e7a433f8a591ddbd5d85ea28d3424759e37d41fd",
+    "Assets/Stage3/CartoonWorldPilot/LongshotCartoonCatalog.asset": "c2a42885fe234c481b1ded9a164310bf397a27c97fa9d5173d856a750f1c67e0",
+    "Assets/Stage3/CartoonWorldPilot/RapidCartoonCatalog.asset": "2860d90a8aca0d98bbb9e4c56776a29b76a9f400f36134bd18ae3aa082a983a0",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3BuildingActionReview.cs": "73c30d2ccbcf9c8c6d4cde982cd32ad443a739653042c304fcab986abb58dc25",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Selection.cs": "05ca568127b9f689d12a54548e6ecf0a862d10084aee3552257b063a29ef24fb",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3InterfaceCapture.cs": "241ca57c7f6a5e4d40c7312ff0a457eeecb8efe9092fca6597d9decaacd93bba",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3PlayerInterfaceBinding.DragPresentation.cs": "0560848abd41dfe5137f41da1cd3c8588e1d8c1f965ab0b50d9901d692c3bb69",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3PlayerInterfaceBinding.Selection.cs": "d45dd933342ea7ceb491fef7763baed0ee6f581049fc6309cc526fe6b179d650",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3PlayerInterfaceBinding.cs": "d8e57702957d67223e5cc64c4cbfb8c78717e671fb80c7f7351f571cdb01f94e",
+    "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3DefeatRewindTests.cs": "969d22e78dbe61a7141c489aa0af7527fcdd4d4d704a2f2a24a1f26a07bcbb18",
+    "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3HudTests.cs": "125f09dc88b887882186a16b4fdd26451a4c575d8e3615066638de57e2c1e559",
+    "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3PlayerInterfaceTests.cs": "6cc53175418a920a481ddd3cda7afff42e6eb56889c008ffc8091bc7f7866c58"
+  },
+  "representative_frame": "art/review/building_actions_game_2026-10-19.png",
+  "representative_sha256": "c25dda34540c1f720da1fc8d8d4f4892d01a0360949c01c615517864ea6c63ed",
+  "remaining": [
+    "Windows build/player unverified: local WindowsStandaloneSupport module absent.",
+    "Other building upgrades, permanent cap/balance, per-level art and research unlocks are future slices.",
+    "No commit or push requested for this slice."
+  ]
+}

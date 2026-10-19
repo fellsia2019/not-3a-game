@@ -1,0 +1,100 @@
+{
+  "date": "2026-10-19",
+  "decision": "D-073",
+  "status": "Implemented repairs, scoped tests and actual Mac/Metal player qualified; progression concept delivered",
+  "behavior": [
+    "EnemyGroup validates its read-only map/navigation once and configures each enemy through an internal narrow path. Standalone Configure retains full map/hash guards; every spawn retains cell/catalog guards.",
+    "Medium/large mineral interaction uses separate authored reach gaps; collision, reserve, +1 per strike, target selection, trees, small nodes and legacy catalog remain coherent.",
+    "Hero progression is a requested concept only; owner confirmed cursor Blink and four distance ranks. Proposed spells, XP, professions, scale conversion and new UI are not implemented."
+  ],
+  "diagnosis": "The full road already completed at 30/60/240 Hz. Full map validation repeated during every enemy spawn, blocking the same main thread that moves all creeps.",
+  "editor_measurement_before": {
+    "mode": "Editor Mono, actual saved 250x250 road, eight fresh enemies, no pooling",
+    "validation_mean_ms": 40.5385125,
+    "hash_mean_ms": 0.028,
+    "spawn_mean_ms": 40.8067625,
+    "spawn_max_ms": 42.1141
+  },
+  "editor_measurement_after": {
+    "mode": "Editor Mono, actual saved 250x250 road, eight fresh enemies, no pooling",
+    "validation_mean_ms": 40.534975,
+    "hash_mean_ms": 0.02625,
+    "spawn_mean_ms": 0.2754375,
+    "spawn_max_ms": 1.4394
+  },
+  "measurement_limit": "Local Editor Mono timing observations, eight fresh enemies each, not hardware-independent budgets or a complete-frame FPS benchmark. Actual-player measurement recorded separately.",
+  "tests": [
+    {
+      "scope": "Pre-fix full actual road, no blockers, 30/60/240 Hz",
+      "xml": "Artifacts/S3-MOVEMENT-REACH-20261019/repro.xml",
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "duration_seconds": 1.0273155
+    },
+    {
+      "scope": "WavesAI, Navigation, Economy and RunState",
+      "xml": "Artifacts/S3-MOVEMENT-REACH-20261019/editmode.xml",
+      "passed": 91,
+      "failed": 0,
+      "skipped": 0,
+      "duration_seconds": 3.0413934
+    },
+    {
+      "scope": "Live enemy/siege, manual resource E/collision/markers, day-night, defeat retry and run regression",
+      "xml": "Artifacts/S3-MOVEMENT-REACH-20261019/playmode.xml",
+      "passed": 31,
+      "failed": 0,
+      "skipped": 0,
+      "duration_seconds": 82.803968
+    }
+  ],
+  "player": {
+    "result": "PASS",
+    "build_log": "Artifacts/S3-MOVEMENT-REACH-20261019/build-mac.log",
+    "capture_directory": "Artifacts/S3-MOVEMENT-REACH-20261019/player-captures",
+    "platform": "Mac Development / Metal",
+    "backbuffer": [
+      1600,
+      900
+    ],
+    "world_seed": 164032,
+    "horde_context": "Actual Mac development player, automatic Enemy.Update movement at game speed 1.\nDisposable QA: initial stock-free wave cleared through scheduled-spawn ticks/explicit kills solely to reach the authored second horde. No forced movement, arrivals, route edits or time-scale acceleration in the observed horde.\nEight fresh spawns, no pooling: mean=0.1039ms max=0.7712ms (actual player; no budget assertion).\nPASS 120 actual enemies spawned through the normal RunDriver cadence; lead displacement=35.263, longest stationary active-time sample=0.0000s; all plans reach throne.\n",
+    "resource_context": "Actual development-player Game backbuffer 1600x900; Metal.\nDisposable opt-in QA: synthetic Input System WASD/E; camera/hero setup and model strikes for depletion. No physical keyboard claim. Run reset afterward.\nStone Medium: contact distance=1.9000; footing=1.1000; exact marker/E; +1; no overlap recovery.\nStone Large: contact distance=2.6000; footing=1.8000; exact marker/E; +1; no overlap recovery.\nMetal Medium: contact distance=1.9000; footing=1.1000; exact marker/E; +1; no overlap recovery.\nMetal Large: contact distance=2.6000; footing=1.8000; exact marker/E; +1; no overlap recovery.\nFour medium/large stone/ore approaches keep 0.6 world units of free space beyond hero collision. Real E +1 and exact overhead marker PASS; no resource collision/raster change.\n",
+    "captured_frames": 10,
+    "final_log_has_warnings_errors_exceptions": false,
+    "left_open": "Normal fresh run after temporary QA cleanup; native CUA screenshot confirms ordinary HUD."
+  },
+  "wiring": "ManualEconomy.asset adds medium/large reach fields; default values also live in Stage2ManualResourceSettings. Existing catalogs/builders preserve tuning; no scene or Inspector wiring change. Serialized names remain intact; the Stage3 catalog explicitly authors both new fields and existing builders preserve them.",
+  "preservation": "All pre-existing uncommitted D-062 work retained. No new package, global manager, pooling or pathfinding replacement. Runtime artwork unchanged.",
+  "concept": "gamedesign/features/HERO_PROGRESSION.md",
+  "references": [
+    "https://support.lastepoch.com/hc/en-us/articles/46363203944859-Skill-Specialization",
+    "https://www.newworld.com/en-gb/news/articles/character-progression"
+  ],
+  "remaining": [
+    "Windows build/runtime not qualified on the current Mac; build module absent.",
+    "Progression proposal and appearance need review before gameplay/UI implementation.",
+    "Stage 3 external-player gate and full game balance remain open."
+  ],
+  "visual_review": {
+    "reviewer": "GPT-6 Astra",
+    "result": "ACCEPT; all eight final resource frames reviewed. Feet outside mineral; BACK work pose/tool contact consistent, unique readable overhead pick. No art/pose edits required.",
+    "limits": "Shown bottom approaches to full-state Stone/Metal Medium/Large at zoom5; all-direction/all-stock-stage reach is covered separately by EditMode, not claimed as a fresh visual review of all states."
+  },
+  "retained_frame": {
+    "path": "art/review/mineral_comfort_reach_game_2026-10-19.png",
+    "actual_player_source": "Artifacts/S3-MOVEMENT-REACH-20261019/player-captures/resources/harvest-Stone-Large.png",
+    "sha256": "cf32eba9dab3c921c7a26b8b3b6ac5a4aeb5291670245aeb05dfb76d89c8be77"
+  },
+  "qualified_source_sha256": {
+    "Assets/Stage2/WavesAI/Runtime/Stage2Enemy.cs": "ffff14e2cebc59bead00404cd2d42ba8235b7bb561643abb1decc8fb0559d70a",
+    "Assets/Stage2/WavesAI/Runtime/Stage2EnemyGroup.cs": "6e6a462aca54aa30952dad18ae707497129b31263054883407e1984d758daaee",
+    "Assets/Stage2/Economy/Runtime/Stage2Economy.cs": "eb3aa12218a489a7f3f5e130e0648bac7f047637a25bce33ab2dbeb61f0b8da3",
+    "Assets/Stage2/Economy/Runtime/Stage2ManualResourceGenerator.cs": "8f40fdfb75f44462a9f60935e0a14c3b183d810c55739846e2205811e40130f9",
+    "Assets/Stage3/ResourceSpritePilot/ManualEconomy.asset": "b74e8343b071a0f6d2c516de147f305c69d849223574ae4bb801d67145be6b84",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3MovementReachReview.cs": "8787d0d03045782959f34b097c573c853a180f76a95feb2aff247e7977ace44c",
+    "Assets/Stage3/ResourceSpritePilot/Stage3ResourceInteractionReview.cs": "03fec729a8724d75408957c097ed0c47dc595b04be82192e57391ffdeee1026d"
+  },
+  "prior_defeat_qualified_sources_byte_identical": true
+}

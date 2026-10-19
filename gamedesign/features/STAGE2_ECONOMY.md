@@ -1,5 +1,28 @@
 # Feature: Stage 2 Resource Lifecycle
 
+## D-075 target economy — not implemented
+
+Первичное строительство оплачивается **деревом, камнем и металлом**,
+без золота. Поздние ресурсы возможны после отдельного выбора. Улучшения
+зданий и исследования могут включать ресурсы и золото; золото также нужно
+для будущей торговли. Последнее уточнение владельца разрешает золото
+в апгрейдах, не отменяя ресурсную цену новой постройки.
+
+Золото с подтверждённых убийств остаётся источником дохода. Точные цены,
+баланс дохода/расхода и стоимость технологий ещё не выбраны. Кузница,
+мастерская, развитие башен и трона дают конечные полезные расходы без
+введения новой валюты/налога. Хижине не придумывать ап ради одного расхода.
+
+Текущий Rapid всё ещё требует золото, а мастерская бесплатна — это старый
+прототип, который нужно явно перенастроить в активных данных/проверках
+при реализации D-075. Текущая награда за kill и исторические Stage 2
+фикстуры не объявляются уже мигрированными этим текстом.
+
+Продажа башни за 50% предложена от фактически вложенных материалов/золота,
+без неутверждённого курса обмена. Учёт затрат при слиянии/апе и snapshot
+согласуется с TOWER_UPGRADES.md. Автодобыча/инструменты и награды мира:
+RESOURCE_PRODUCTION_BUILDINGS.md и EQUIPMENT_AND_RUNES.md.
+
 Status: S2-ECO-01 human-accepted and S2-ECO-02 implemented, 2026-09-24;
 P-003 resolved by D-013.
 Owner/workstream: Economy / Design, current Stage 2 dialogue.
@@ -46,8 +69,10 @@ run Stage3ManualResourceBuilder.BuildAllApproved in the Editor; it preserves
 existing catalog tuning, apart from the explicit initial footprint migration.
 Small mineral widths retain the old source scale; their harvesting footprint
 grows with size. Ordinary trees interact at the trunk, without a mineral radius.
-The manual catalog uses a close tool-reach gap per resource kind; legacy
-Stage2 keeps its existing interaction distance. Mineral visuals register their
+D-073 gives medium and large minerals their own more comfortable tool-reach
+gaps in the manual catalog. Small minerals, trees and legacy Stage2 retain
+their existing interaction distances. Footings and reserve counts do not grow
+with reach; both E and its marker use the same surface-distance test. Mineral visuals register their
 footprint center to the logical node rather than placing their front edge at
 that center. These distances and registration keep strikes near the source.
 InteractionRadius follows four authored stock-stage radii copied from the same

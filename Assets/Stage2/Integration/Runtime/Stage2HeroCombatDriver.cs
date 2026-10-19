@@ -8,18 +8,21 @@ namespace Not3A.Stage2.Integration
     {
         private Stage2GameComposition game;
         private Stage2Run run;
+        private Stage2HeroCombat.Snapshot checkpoint;
         public Stage2HeroCombat Rules { get; private set; }
         public Stage2HeroCombatCatalog Catalog { get; private set; }
         public bool AutomaticTick { get; set; } = true;
 
         public void Configure(Stage2HeroCombatCatalog catalog, Stage2GameComposition owner)
         {
-            if (run != null) run.Reset -= ResetCombat;
+            if (run != null) Unbind();
             game = owner;
             Catalog = catalog;
             Rules = new Stage2HeroCombat(catalog, owner.Enemies.TryHitNearest);
             run = owner.RunDriver.Run;
             run.Reset += ResetCombat;
+            run.BeforeWaveStarted += CaptureCheckpoint;
+            run.Rewound += RestoreCheckpoint;
         }
 
         public void Tick(float elapsed)
@@ -33,6 +36,10 @@ namespace Not3A.Stage2.Integration
 
         private void Update() { if (AutomaticTick) Tick(Time.deltaTime); }
         private void ResetCombat() => Rules?.Reset();
-        private void OnDestroy() { if (run != null) run.Reset -= ResetCombat; }
+        private void CaptureCheckpoint() => checkpoint = Rules.CaptureSnapshot();
+        private void RestoreCheckpoint() => Rules.RestoreSnapshot(checkpoint);
+        private void Unbind()
+        { run.Reset -= ResetCombat; run.BeforeWaveStarted -= CaptureCheckpoint; run.Rewound -= RestoreCheckpoint; }
+        private void OnDestroy() { if (run != null) Unbind(); }
     }
 }

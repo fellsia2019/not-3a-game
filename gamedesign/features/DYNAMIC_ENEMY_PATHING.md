@@ -25,6 +25,21 @@ Depends on: D-002, D-006, D-009, D-010, D-011; grid, tower placement,
 health/damage
 Decision links: `production/DECISIONS.md` D-009–D-011
 
+## Spawn validation correction D-073
+
+The current 250×250 road remains connected; full-route checks at 30/60/240
+steps per second reach the throne. The hitch diagnosis found that every
+Stage2Enemy.Configure repeated full map validation on the main thread. The
+actual saved-road Editor measurement was about 41 ms per spawn, enough to
+stall all actors while dense hordes are being created. The group already
+validates the same read-only map/navigation when constructed.
+
+Stage2EnemyGroup now uses an internal configuration path after that validation.
+It still checks each spawn cell and enemy catalog, while the public standalone
+Configure retains full map/hash guards. No navigation policy, speed, wave count,
+siege target or pooling system changes. Map replacement still requires a new
+navigation/group owner. Final qualification is recorded in WORKSTREAMS.md.
+
 ## Player Outcome
 
 Игрок использует башни не только как оружие, но и как стены: короткий прямой

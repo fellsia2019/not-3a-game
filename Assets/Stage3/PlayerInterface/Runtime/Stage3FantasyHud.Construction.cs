@@ -17,15 +17,6 @@ namespace Not3A.Stage3.PlayerInterface
         }
 
         public int BuildGroup => buildGroup;
-        public Rect BuildSelectButtonRect
-        {
-            get
-            {
-                var r=PanelContentRect(BottomRect);var s=UiScale;
-                var details=new Rect(r.x+r.width*.69f,r.y,r.width*.31f,r.height);
-                return new Rect(details.x,details.yMax-48f*s,Mathf.Min(150f*s,details.width*.44f),42f*s);
-            }
-        }
         public void SetBuildGroup(int index)
         {
             index=Mathf.Clamp(index,0,2); if(index==buildGroup) return;
@@ -35,13 +26,13 @@ namespace Not3A.Stage3.PlayerInterface
         }
         public Rect BuildTabRect(int index)
         {
-            var r=PanelContentRect(BottomRect); var width=Mathf.Min(180f*UiScale,(r.width*.68f-16f*UiScale)/3f);
+            var r=ConstructionContentRect; var width=Mathf.Min(180f*UiScale,(r.width*.68f-16f*UiScale)/3f);
             return new Rect(r.x+index*(width+5f*UiScale),r.y,width,38f*UiScale);
         }
         public Rect BuildChoiceRect(int index)
         {
             var count=buildGroup==0?Mathf.Max(1,game?.Building?.Defense?.RoleCount??3):buildGroup==1?Mathf.Max(1,game?.Production?.Catalog?.Entries.Count??3):2;
-            var r=PanelContentRect(BottomRect);var total=r.width*.68f-16f*UiScale;var width=(total-(count-1)*8f*UiScale)/count;
+            var r=ConstructionContentRect;var total=r.width*.68f-16f*UiScale;var width=(total-(count-1)*8f*UiScale)/count;
             return new Rect(r.x+index*(width+8f*UiScale),r.y+44f*UiScale,width,r.height-44f*UiScale);
         }
         public bool ActivateBuildChoice(int index)
@@ -51,7 +42,7 @@ namespace Not3A.Stage3.PlayerInterface
         }
         private void DrawConstructionRibbon()
         {
-            var outer=BottomRect;var s=UiScale;DrawPanel(outer);var r=PanelContentRect(outer);
+            var s=UiScale;var r=ConstructionContentRect;
             var names=new[]{"Оборона","Производство","База"};
             for(var i=0;i<3;i++) if(Button(BuildTabRect(i),names[i],buildGroup==i)) SetBuildGroup(i);
             var cards=GetBuildCards();
@@ -73,8 +64,8 @@ namespace Not3A.Stage3.PlayerInterface
             Label(new Rect(details.x,details.y,details.width,25f*s),selected.Name,21,TextAnchor.MiddleLeft);
             Label(new Rect(details.x,details.y+29f*s,details.width,24f*s),selected.Price,15);
             Label(new Rect(details.x,details.y+55f*s,details.width,35f*s),selected.Detail,13,TextAnchor.UpperLeft,true);
-            if(Button(BuildSelectButtonRect,"Выбрать",false,selected.Enabled)) selected.Select?.Invoke();
-            Label(new Rect(details.x+details.width*.47f,details.yMax-48f*s,details.width*.53f,46f*s),"ЛКМ · поставить\nEsc · отменить",13,TextAnchor.MiddleLeft,true);
+            Label(new Rect(details.x,details.yMax-48f*s,details.width,46f*s),
+                "Клик по карточке · выбрать\nЛКМ · поставить · Esc · отменить",13,TextAnchor.MiddleLeft,true);
         }
 
         private List<BuildCard> GetBuildCards()

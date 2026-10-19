@@ -1,0 +1,128 @@
+{
+  "date": "2026-10-19",
+  "decision": "D-076",
+  "status": "superseded_by_owner_D077_revision",
+  "tool": "built-in image_gen.imagegen",
+  "fallback_cli": false,
+  "visual_owner": "GPT-6 Astra",
+  "purpose": "Building selection and compact card above current HUD; no runtime implementation",
+  "base_reference": "/Users/artemmusket/game-dev/not-3a-game/art/review/fullscreen_interface_hud_2026-10-18.png",
+  "building_identity_reference": "/Users/artemmusket/game-dev/not-3a-game/art/review/tower_cell_fit_normal_2026-10-17.png",
+  "objective_identity_reference": "/Users/artemmusket/game-dev/not-3a-game/Assets/Stage3/LandmarkSpritePilot/SoulObjectiveCartoon.png",
+  "data_sources": [
+    "Assets/Stage3/CartoonWorldPilot/RapidCartoonCatalog.asset",
+    "Assets/Stage3/ResourceDistricts/Production/ProductionCatalog.asset",
+    "Assets/Stage3/CombatSlice/HordeRun.asset"
+  ],
+  "prompts": {
+    "A": "Use case: precise-object-edit.\nAsset type: high-fidelity fantasy game UI approval mockup, one complete 16:9 game frame.\nInput image 1 is the edit target and exact composition/style reference: an actual 1600×900 frame of our game with the approved Lunar Porcelain HUD. Input image 2 is ONLY a reference for the small wooden Rapid watchtower with orange-red tiled roof and its paving; do NOT copy its obsolete HUD, debug grid, cyan capsule, or camera.\nPrimary request: add a compact selected-building card ABOVE the existing bottom HUD and ABOVE its row of I/B/P/O/M icon buttons, with a clear gap. The existing minimap, full-width bottom hero HUD, resource strip, clock, five navigation icons and their letter badges must stay in their exact original positions, proportions and look. Keep hero identity, field, lighting and camera. Add just one small illustrative Rapid tower matching image 2 in the world near the hero, on a small grey-paved patch, with a subtle turquoise selection mark around its base. Do not add other buildings, menus or screens. This is a concept overlay, not a new environment design.\nStyle: precisely match input 1's ivory pearl porcelain, plum enamel, fine warm-silver edging, turquoise jewel accents and restrained fantasy filigree. Clean Cyrillic sans-serif, readable dark-plum text. Ornament must not invade text/button padding. No dark generic tech panels, no extra currency, no red-gold redesign.\nActual current tower figures for display: damage 1, range 4.25, interval 0.45 seconds, health 10/10. Tower level I is proposed concept content, not evidence of implemented leveling.\nCard text (verbatim Russian): \"Rapid\", \"Уровень I\", \"Урон 1\", \"Дальность 4,25\", \"Интервал 0,45 с\", \"Здоровье 10/10\". Three labeled actions: \"Улучшить\", \"Переместить\", \"Продать\". Tiny secondary captions \"Цена —\" and \"Возврат 50%\" near the corresponding actions. Use the dash for unchosen upgrade cost, never invent prices. Small close × at card upper right.\nAdd one discreet top-center editorial label \"КОНЦЕПТ\" and a small variant label in the open world, outside the HUD. These labels clarify this is an approval sketch. No new hotkeys, no fullscreen building window, no dimming veil, no full-width second HUD, no duplicate navigation. Preserve lower HUD completely. Output a single clear game-frame mockup, not a collage, no device frame.\nVariant A — horizontal compact card. At the reference 1600×900 scale, card bounds approximately x300..860, y475..650: about 560×175, immediately above the left part of navigation while keeping minimap untouched. Thumbnail/name at left, two-column compact stats at right, three actions in one lower row. Keep significant world visible around the compact rectangle. Exact editorial variant caption: \"А · Горизонтальная карточка\".",
+    "B": "Use case: precise-object-edit.\nAsset type: high-fidelity fantasy game UI approval mockup, one complete 16:9 game frame.\nInput image 1 is the edit target and exact composition/style reference: an actual 1600×900 frame of our game with the approved Lunar Porcelain HUD. Input image 2 is ONLY a reference for the small wooden Rapid watchtower with orange-red tiled roof and its paving; do NOT copy its obsolete HUD, debug grid, cyan capsule, or camera.\nPrimary request: add a compact selected-building card ABOVE the existing bottom HUD and ABOVE its row of I/B/P/O/M icon buttons, with a clear gap. The existing minimap, full-width bottom hero HUD, resource strip, clock, five navigation icons and their letter badges must stay in their exact original positions, proportions and look. Keep hero identity, field, lighting and camera. Add just one small illustrative Rapid tower matching image 2 in the world near the hero, on a small grey-paved patch, with a subtle turquoise selection mark around its base. Do not add other buildings, menus or screens. This is a concept overlay, not a new environment design.\nStyle: precisely match input 1's ivory pearl porcelain, plum enamel, fine warm-silver edging, turquoise jewel accents and restrained fantasy filigree. Clean Cyrillic sans-serif, readable dark-plum text. Ornament must not invade text/button padding. No dark generic tech panels, no extra currency, no red-gold redesign.\nActual current tower figures for display: damage 1, range 4.25, interval 0.45 seconds, health 10/10. Tower level I is proposed concept content, not evidence of implemented leveling.\nCard text (verbatim Russian): \"Rapid\", \"Уровень I\", \"Урон 1\", \"Дальность 4,25\", \"Интервал 0,45 с\", \"Здоровье 10/10\". Three labeled actions: \"Улучшить\", \"Переместить\", \"Продать\". Tiny secondary captions \"Цена —\" and \"Возврат 50%\" near the corresponding actions. Use the dash for unchosen upgrade cost, never invent prices. Small close × at card upper right.\nAdd one discreet top-center editorial label \"КОНЦЕПТ\" and a small variant label in the open world, outside the HUD. These labels clarify this is an approval sketch. No new hotkeys, no fullscreen building window, no dimming veil, no full-width second HUD, no duplicate navigation. Preserve lower HUD completely. Output a single clear game-frame mockup, not a collage, no device frame.\nVariant B — vertical compact card. At the reference 1600×900 scale, card bounds approximately x1220..1580, y400..650: about 360×250 at the right edge, keeping minimap/navigation and the center of the field visible. Thumbnail beside title at top, stats below in two columns, a broad primary upgrade action, then two smaller move/sell actions. Preserve the same palette and typography as A; the alternative is spatial structure, not a different art direction. Exact editorial variant caption: \"Б · Карточка справа\".",
+    "A2": "Use case: precise-object-edit. This is a targeted repair of a UI approval concept. Edit the supplied image ONLY in the tiny WORLD region immediately to the left of the red-roof Rapid tower. Remove the unwanted catapult/Longshot machine and fill its space with the existing grey paving. Leave exactly ONE wooden Rapid watchtower in the world, retaining its original red roof, hero, turquoise selection mark, camera and all other scene details. Preserve the complete horizontal Rapid card, all its text, ornament and geometry, the top labels, bottom hero HUD, minimap, navigation and resource/clock elements EXACTLY as in this image. Do not resize/reposition anything. No new UI or stats. The desired correction is ONLY removal of the extra machine next to the selected Rapid. One complete same-aspect game-frame concept, opaque background.",
+    "B2": "Use case: precise-object-edit. Asset: compact selected-building UI concept for approval. Edit this supplied game-frame concept in just the selected-building card area and its variant label. Keep the world/hero/tower/selection, minimap, full-width lower HUD, five I/B/P/O/M icons, resource strip and clock unchanged. Targeted correction: the right-hand Rapid card is too tall; compress it into a genuinely COMPACT vertical card above HUD, roughly 360×250 in the original 1600×900 scale. Bounds normalized: x0.76..0.98 of image width and y0.44..0.72 of image height. Its BOTTOM must be above the navigation row with a visible gap. Do NOT leave a tall panel reaching up toward clock. Use a small 52px thumbnail beside title \"Rapid\" and \"Уровень I\"; then a compact 2-by-2 grid with exact \"Урон 1\", \"Дальность 4,25\", \"Интервал 0,45 с\", \"Здоровье 10/10\". Omit the redundant green health bar to save space. Compact primary button \"Улучшить\" with caption \"Цена —\"; a small final row \"Переместить\", \"Продать\" with \"Возврат 50%\". Small close ×, no overlaps or clipped Cyrillic. Preserve matching pearl/plum/silver/turquoise styling and readable text. Restore the original small \"F3 · Отладка\" chip at upper right below clock. Move the editorial caption \"Б · Карточка справа\" into the open top-center area directly below \"КОНЦЕПТ\", not on top of the debug chip. Do not add new menus, hotkeys, data, prices or extra towers. Output same 16:9 whole game frame.",
+    "C": "Use case: ui-mockup.\nAsset type: polished approval contact sheet of building-selection card contents for our fantasy game.\nInput image 1 is a reference for the APPROVED EXISTING Lunar Porcelain HUD style and a proposed horizontal selected-building card. Use only its pearl/plum/silver/turquoise styling, card border weight and typography. Do not reproduce its world, HUD, labels, game screenshot or characters.\nPrimary request: a clean landscape 3:2 presentation board with SIX compact cards in a precise 2-column × 3-row grid. Spacious margins and gutters, consistent card geometry, no overlap. Plain very light neutral background. Large readable Russian Cyrillic sans-serif. Each ivory card has modest corner ornament, a small simple type glyph, thin separator, dark plum text, plum main action and subtle secondary action. No gigantic building illustrations, no newly designed forge building, no new currencies/hotkeys.\nBoard title (verbatim): \"Карточки зданий — концепт\".\nSmall subtitle: \"Будущие действия · цены ещё не выбраны\".\nCard 1 (top left), normal tower with a turquoise hover edge ONLY around the move button:\n\"Rapid\" / \"Уровень I\"; \"Урон 1\", \"Дальность 4,25\", \"Интервал 0,45 с\", \"Здоровье 10/10\".\nActions \"Улучшить\", \"Переместить\", \"Продать\". Captions \"Цена —\", \"Возврат 50%\".\nCard 2 (top right), research workshop:\n\"Исследовательская мастерская\" / \"Уровень I\"; short current technology label \"Телепортация\".\nMain action \"Исследования\"; secondary \"Улучшить\"; caption \"Цена —\".\nCard 3 (middle left), forge:\n\"Кузница\" / \"Уровень I\"; \"Предел качества F\".\nMain \"Открыть ковку\"; secondary \"Улучшить\"; \"Цена —\". Only a small anvil glyph, not a building model.\nCard 4 (middle right), production:\n\"Лесопилка\" / \"Уровень I\"; \"Выход 1 дерево\", \"Интервал 5 с\".\nActions \"Улучшить\", \"Исследования\"; \"Цена —\". Small log/axe glyph.\nCard 5 (bottom left), objective:\n\"Трон\"; \"Здоровье 5/5\", \"Усиление 0/3\", \"Предел: 3 улучшения\".\nAction \"Усилить +5 HP\"; \"Цена —\". Small blue dome glyph.\nCard 6 (bottom right), tower disabled-state example:\n\"Rapid\" / \"Уровень I\"; same stats \"Урон 1\", \"Дальность 4,25\", \"Интервал 0,45 с\", \"Здоровье 10/10\".\n\"Улучшить\" button visibly disabled/desaturated with clear line \"Недостаточно ресурсов\". Other actions \"Переместить\", \"Продать\" remain normal. Caption \"Возврат 50%\".\nRequire exact legible text, no repeated/misspelled labels, preserve all card padding. Do not invent numeric costs or upgrade stat gains. Numeric tower/sawmill/base-throne figures are current data, but levels/upgrade functions are conceptual. This is a UI approval board, never claim a runtime screenshot. No SS quality. No extra cards, no full-screen inventory UI or new buildings.",
+    "C2": "Use case: precise-object-edit. Input image 1 is the card concept sheet edit target. Input image 2 is the EXISTING approved game throne/soul objective identity, a cyan soul orb on grey rune stone under a translucent blue dome. Make exactly ONE local correction: replace the palace/castle illustration inside the circular medallion of the BOTTOM-LEFT \"Трон\" card with a faithful small thumbnail of input 2 (grey stone base, soul sphere and blue dome). It must be recognizable as that existing objective, not a castle, shrine building or golden palace. Preserve the medallion frame, every other card/icon, the entire six-card layout, all colors, lettering and numeric figures EXACTLY. Do not change text or typography. Same board size/aspect, opaque background. This is a concept sheet, not a runtime asset redesign."
+  },
+  "outputs": [
+    {
+      "id": "A",
+      "source": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-2d0aef70-43ff-4884-9649-cd6a30fc3b6a.png",
+      "file": "art/concepts/building_selection_2026-10-19/card_A_horizontal_v2.png",
+      "sha256": "be4beccb46f80571af9a735edb07e985c509b50fbf1bb6d74f67159a47ca32c6",
+      "bytes": 2405793,
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "id": "B",
+      "source": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-750600d9-df95-4bf5-8390-56429da9efc8.png",
+      "file": "art/concepts/building_selection_2026-10-19/card_B_right_v2.png",
+      "sha256": "028575c5e74afcfff741745aa8744ab4577426a03e27a98fcb9ce36bd994c838",
+      "bytes": 2359192,
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "id": "contents",
+      "source": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-1724b70f-31c6-4ddd-95cd-b29a8b9cfce3.png",
+      "file": "art/concepts/building_selection_2026-10-19/building_cards_states_v2.png",
+      "sha256": "821102c64e067592823dbb15bc84d2c2bf7a3bab87d50a90a0d497c1e9a9c05f",
+      "bytes": 2034975,
+      "width": 1536,
+      "height": 1024
+    }
+  ],
+  "discarded_attempts": [
+    {
+      "id": "A1",
+      "source": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-4dac85c8-e88d-40b4-a7ca-24f74fcd65bc.png",
+      "reason": "ImageGen added unwanted catapult beside Rapid; corrected by A2"
+    },
+    {
+      "id": "B1",
+      "source": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-b8b49b72-cf86-42da-9a34-c78ab4c7aadd.png",
+      "reason": "Right-hand card excessively tall; corrected by B2"
+    },
+    {
+      "id": "C1",
+      "source": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-74d9d264-7a1e-4801-a35d-17888d2c2f9e.png",
+      "reason": "Throne icon drifted into a palace; C2 restored existing soul/dome identity"
+    }
+  ],
+  "invariants": [
+    "Existing minimap and full-width lower HUD retained as composition references",
+    "I/B/P/O/M row remains accessible",
+    "No full-screen construction window",
+    "Stats from actual current catalogs; future prices use a dash",
+    "Mockups are generated concepts, not runtime screenshots or asset migrations"
+  ],
+  "runtime_ready": false,
+  "owner_approval": null,
+  "source_rights": "Only existing project screenshots/assets supplied as references; generated approval concepts. No third-party artwork or traced external references.",
+  "caveats": [
+    "ImageGen redraws screenshot pixels; these are not exact runtime captures",
+    "Future upgrade/forge/level actions illustrated, not implemented",
+    "Final UI must reuse native existing chrome and original gameplay assets"
+  ],
+  "base_reference_sha256": "864d42911f61f1d99dbe9179b5a688f533489d91dc7ec29701da397f11e14677",
+  "building_identity_reference_sha256": "0a7ac5b08c8c3f1d54ee2d9c49f78cac1c938ce25a012882625e79e5af5334da",
+  "objective_identity_reference_sha256": "f2012b736a6ac218a2df2860a4694c8464375f55584a701a17716ea0d845b665",
+  "retention": "Only three final requested PNGs copied into the project; discarded attempts stay outside workspace.",
+  "visual_review": {
+    "reviewer": "GPT-6 Astra",
+    "date": "2026-10-19",
+    "result": "suitable_for_owner_layout_and_content_approval",
+    "recommendation": "A",
+    "blocking_defects": [],
+    "notes": [
+      "Both candidates keep lower HUD/navigation and minimap accessible.",
+      "Cyrillic and current Rapid values checked: 1 / 4.25 / 0.45 s / 10 HP.",
+      "Sheet throne +5 HP means +5 maximum HP, not healing; final label must state maximum.",
+      "No drag/merge, next-level preview, actual prices or runtime behavior qualified.",
+      "Owner has not approved any candidate yet."
+    ]
+  },
+  "attempt_inputs": {
+    "A": [
+      "/Users/artemmusket/game-dev/not-3a-game/art/review/fullscreen_interface_hud_2026-10-18.png",
+      "/Users/artemmusket/game-dev/not-3a-game/art/review/tower_cell_fit_normal_2026-10-17.png"
+    ],
+    "B": [
+      "/Users/artemmusket/game-dev/not-3a-game/art/review/fullscreen_interface_hud_2026-10-18.png",
+      "/Users/artemmusket/game-dev/not-3a-game/art/review/tower_cell_fit_normal_2026-10-17.png"
+    ],
+    "A2": [
+      "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-4dac85c8-e88d-40b4-a7ca-24f74fcd65bc.png"
+    ],
+    "B2": [
+      "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-b8b49b72-cf86-42da-9a34-c78ab4c7aadd.png"
+    ],
+    "C": [
+      "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-2d0aef70-43ff-4884-9649-cd6a30fc3b6a.png"
+    ],
+    "C2": [
+      "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-74d9d264-7a1e-4801-a35d-17888d2c2f9e.png",
+      "/Users/artemmusket/game-dev/not-3a-game/Assets/Stage3/LandmarkSpritePilot/SoulObjectiveCartoon.png"
+    ]
+  },
+  "superseded_by": "art/source/unified_hud_2026-10-19_generation.json"
+}

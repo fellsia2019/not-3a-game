@@ -1,7 +1,28 @@
+using System;
+using Not3A.Stage2.Economy;
 using UnityEngine;
 
 namespace Not3A.Stage2.Defense
 {
+    [Serializable]
+    public struct Stage2TowerUpgrade
+    {
+        [SerializeField] private Stage2ResourceCost cost;
+        [SerializeField, Min(1)] private int health;
+        [SerializeField, Min(0.01f)] private float range, interval;
+        [SerializeField, Min(0)] private int damage;
+        public Stage2ResourceCost Cost => cost;
+        public int Health => health;
+        public float Range => range;
+        public float Interval => interval;
+        public int Damage => damage;
+        public Stage2TowerUpgrade(Stage2ResourceCost cost, int health, float range, float interval, int damage)
+        { this.cost = cost; this.health = health; this.range = range; this.interval = interval; this.damage = damage; }
+        public bool IsValid(bool attacks) => cost.IsValid && !cost.IsZero && health > 0 &&
+            float.IsFinite(range) && range > 0 && float.IsFinite(interval) && interval > 0 &&
+            (attacks ? damage > 0 : damage == 0);
+    }
+
     [CreateAssetMenu(menuName = "Not 3A/Stage 2/Defense Catalog")]
     public sealed class Stage2DefenseCatalog : ScriptableObject
     {
@@ -18,6 +39,7 @@ namespace Not3A.Stage2.Defense
         [SerializeField, Min(0)] private int attackDamage = 1;
         [SerializeField, Min(0)] private float splashRadiusCells;
         [SerializeField, Min(0)] private float projectileFlightSeconds;
+        [SerializeField] private Stage2TowerUpgrade[] upgrades = Array.Empty<Stage2TowerUpgrade>();
 
         public Stage2Tower TowerPrefab => towerPrefab;
         public string RoleName => roleName;
@@ -32,6 +54,17 @@ namespace Not3A.Stage2.Defense
         public int AttackDamage => attackDamage;
         public float SplashRadiusCells => splashRadiusCells;
         public float ProjectileFlightSeconds => projectileFlightSeconds;
+        public Stage2ResourceCost BuildCost => new Stage2ResourceCost(woodCost, stoneCost, metalCost, goldCost);
+        public int MaximumLevel => 1 + (upgrades?.Length ?? 0);
+        public bool TryGetUpgrade(int currentLevel, out Stage2TowerUpgrade upgrade)
+        {
+            upgrade = default;
+            if (currentLevel < 1 || currentLevel >= MaximumLevel) return false;
+            upgrade = upgrades[currentLevel - 1];
+            return true;
+        }
+        public void ConfigureUpgrades(params Stage2TowerUpgrade[] tiers)
+            => upgrades = tiers == null ? Array.Empty<Stage2TowerUpgrade>() : (Stage2TowerUpgrade[])tiers.Clone();
 
         public void Configure(Stage2Tower prefab, int wood, int stone, int metal, int health)
             => Configure(prefab, wood, stone, metal, health, 4.25f, 0.45f, 1);
@@ -67,6 +100,9 @@ namespace Not3A.Stage2.Defense
                 reason = "Inactive defense prefab, positive cost/health, finite attack values and zero damage for passive defenses are required.";
                 return false;
             }
+            foreach (var upgrade in upgrades ?? Array.Empty<Stage2TowerUpgrade>())
+                if (!upgrade.IsValid(canAttack))
+                { reason = "Upgrade rows require positive prices/health, finite attack values and role-compatible damage."; return false; }
             reason = string.Empty;
             return true;
         }

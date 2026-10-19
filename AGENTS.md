@@ -29,15 +29,55 @@ a better option instead of implementing it silently.
 - The throne is the loss-critical objective. Resources are wood, stone, metal.
 - D-062 approves defeat rewind to the snapshot immediately before the failed
   wave starts, plus its full preparation timer, for manual and timed starts.
-  This is an accepted target contract, not implemented runtime behavior yet.
+  Runtime retry restores that checkpoint; continuing days return to its dawn
+  without skipped-time income. Full reset is a separate development operation.
 - D-064 adds a nearest-target automatic hero bow. Portal enemies still target
   the throne/blockers; future open-world enemies target the hero. Hero health
   and death are outside the current bow/barricade/horde slice.
-- D-065 adds twenty-minute active days and night hordes until fully cleared.
+- Current D-065 runtime adds twenty-minute active days and night hordes until fully cleared.
   Days continue after the initial sequence. A paid green-ground dwelling skips
   only the remaining day via local E, with no skipped-time production.
   Hero C is versatile; the bow is initial equipment, not a fixed class.
-- Tutorial flow and tool-tier progression are post-MVP.
+- D-074 target supersedes both runtime time skips: no dwelling day skip and no
+  early dawn after victory. Required night hordes grow; daytime gates repeatedly
+  farm the last cleared tier. This revised cycle is design only; see
+  gamedesign/features/PORTAL_CONTROL.md and its checkpoint prerequisites.
+- Tutorial flow remains post-MVP. D-074 confirms hero cap 100 and low-splash
+  exploration combat; dense matched-tier hordes require towers. Proposed
+  ability/passive/profession counts are in HERO_PROGRESSION.md, not shipped.
+  Equipment levels 1–100/ranks F–SSS and separate hero/tower runes are the
+  target; rune counts, stacking and gathering category remain proposals in
+  EQUIPMENT_AND_RUNES.md. Do not treat design tables as runtime data.
+- D-075 target ends the campaign after three distinct strong bosses. Boss
+  venue is undecided. TD is the main combat XP/gold source; world camps offer
+  less XP and better loot chances. Bosses/world combat are not implemented.
+- D-075 equipment has six combat slots (head/chest/arms/legs/weapon/shield),
+  levels 1–100 and eight qualities F/E/D/C/B/A/S/SSS: no SS or current SSSS.
+  Forge crafting/reforging includes pickaxes/axes; production buildings and
+  workshop also advance. Throne has exactly three max-HP upgrades of +5.
+- D-075 new construction costs only wood/stone/metal. Upgrades/research may
+  also use gold; trade is another sink. D-079 removes Stage3 Rapid gold.
+  Historical Stage2 Rapid and the free workshop remain legacy data.
+- D-078 selects owned buildings in the world and displays a long card above
+  the HUD with live stats; the workshop links to the existing research page.
+  D-079 activates tower/barricade resource upgrades, matching-type/equal-level
+  merging and half-investment sale. Empty-cell movement is preparation-only;
+  other building upgrades remain planned. See TOWER_UPGRADES.md.
+- D-080 removes the redundant build Select button: a catalogue card chooses its
+  blueprint directly. Finished buildings can be selected/dragged with B open;
+  their press cancels an armed draft before any payment. The selected strip
+  appears on release/drag, above the construction dock as well as the hero dock.
+- D-077 supersedes the compact-card geometry: one continuous bottom HUD
+  integrates minimap/hero/nav/abilities/status; a full-width selected-building
+  strip docks directly above. No Move button: world drag handles movement/
+  compatible merging. The v3 appearance was returned for D-078 revision.
+- D-078 puts a narrow full-width nav ribbon between selected strip and main
+  dock. Reserve room for potentially ten spells; final equipped count is open.
+  Labels are HP/MP/XP, with colored numeric tracks. Until real hero sources
+  exist, 0/0 + «Не открыто» is an inactive UI fallback, not game balance.
+  Owner-approved v4 is implemented by Astra using native assets; live selection/
+  input binding is integrated. Local Mac verification is recorded in
+  art/source/hud_v4_2026-10-19_verification.json; Windows remains unverified.
 - Factorio-style automation/logistics and persistent roguelite progression are
   post-MVP until the basic loop is proven.
 - Follow `gamedesign/GAME_VISION.md` for the current scope and non-goals. Do not

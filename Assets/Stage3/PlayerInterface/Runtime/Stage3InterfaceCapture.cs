@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.IO;
+using System.Text;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Not3A.Stage2.Integration;
@@ -11,11 +12,117 @@ using UnityEngine.Rendering.Universal;
 
 namespace Not3A.Stage3.PlayerInterface
 {
-    /// <summary>Opt-in development-only captures of real OnGUI windows; no gameplay grants or camera edits.</summary>
+    /// <summary>Opt-in development-player captures; specialized QA scenarios declare their temporary setup.</summary>
     public sealed class Stage3InterfaceCapture : MonoBehaviour
     {
+        private string startupDirectory;
+        private int startupFrames;
+        private readonly StringBuilder startupReport = new StringBuilder();
+        private bool startupFailed;
+
+        // Observe the first actual game-camera render, before a coroutine can skip
+        // over the very startup frame this review is intended to qualify.
+        private void Awake()
+        {
+            var directory=Environment.GetEnvironmentVariable("NOT3A_STARTUP_CAPTURE_DIRECTORY");
+            if(!Debug.isDebugBuild || Application.isBatchMode || string.IsNullOrWhiteSpace(directory) ||
+                !Path.IsPathFullyQualified(directory)) return;
+            startupDirectory=directory;Directory.CreateDirectory(directory);
+            startupReport.AppendLine("Actual development player: first eight game-camera renders, no warm-up frames skipped.");
+            RenderPipelineManager.beginCameraRendering+=ObserveStartup;
+        }
+
+        private void ObserveStartup(ScriptableRenderContext context,Camera camera)
+        {
+            var scene=GetComponent<Stage2SceneBootstrap>();
+            if(scene==null || camera!=scene.CameraFollow.BoundCamera || startupFrames>=8) return;
+            startupFrames++;
+            var game=GetComponent<Stage2GameComposition>();var hud=GetComponent<Stage3FantasyHud>();
+            var presentation=GetComponent<Stage3TacticalPresentation>();
+            var hero=scene.PlayerMover.GetComponent<Stage3HeroAvatar>();
+            bool Visible(SpriteRenderer body) => body!=null && body.enabled && body.gameObject.activeInHierarchy && body.sprite!=null;
+            bool LegacyHidden(Transform marker,string name)
+            {
+                var child=marker.Find(name);var renderer=child!=null?child.GetComponent<SpriteRenderer>():null;
+                return renderer!=null && !renderer.enabled;
+            }
+            var heroReady=hero!=null && Visible(hero.Body);
+            var throne=scene.ThroneMarker.GetComponentInChildren<Stage3LandmarkSprite>();
+            var portal=scene.EntranceMarker.GetComponentInChildren<Stage3LandmarkSprite>();
+            var landmarksReady=throne!=null && Visible(throne.Body) && portal!=null && Visible(portal.Body);
+            var hidden=LegacyHidden(scene.PlayerMover.transform,"Cyan Non-Combat Hero Block") &&
+                LegacyHidden(scene.ThroneMarker,"Gold Throne Block") &&
+                LegacyHidden(scene.EntranceMarker,"Orange Entrance Diamond") &&
+                !scene.MapDebugRenderer.GetComponent<MeshRenderer>().enabled;
+            foreach(var kind in new[]{"Wood","Stone","Metal"})
+            {
+                var marker=transform.Find(kind+" Resource Marker");
+                if(marker==null) {hidden=false;continue;}
+                foreach(var body in marker.GetComponentsInChildren<SpriteRenderer>())
+                    if(body.transform.parent==marker && body.enabled) hidden=false;
+            }
+            var minimap=GetComponent<Stage2Minimap>();var legacy=GetComponent<Stage2GameHud>();
+            var hudReady=hud!=null && hud.IsReady && !hud.IsModalOpen &&
+                legacy!=null && legacy.HasPlayerPresentation && minimap!=null && minimap.SuppressPresentation;
+            var ready=game!=null && game.IsInitialized && presentation!=null && presentation.IsInitialized &&
+                heroReady && landmarksReady && hidden && hudReady;
+            startupFailed|=!ready;
+            startupReport.AppendLine($"render={startupFrames} unityFrame={Time.frameCount} ready={ready} "+
+                $"hero={heroReady} landmarks={landmarksReady} legacyHidden={hidden} hud={hudReady}");
+            if(startupFrames==1 || startupFrames==2 || startupFrames==8)
+                ScreenCapture.CaptureScreenshot(Path.Combine(startupDirectory,$"render-{startupFrames:D2}.png"));
+            if(startupFrames==8) RenderPipelineManager.beginCameraRendering-=ObserveStartup;
+        }
+
+        private void OnDestroy() => RenderPipelineManager.beginCameraRendering-=ObserveStartup;
+
         private IEnumerator Start()
         {
+            if(startupDirectory!=null)
+            {
+                var deadline=Time.realtimeSinceStartup+15f;
+                while(startupFrames<8 && Time.realtimeSinceStartup<deadline) yield return null;
+                yield return null; // Let the last scheduled screenshot finish.
+                File.WriteAllText(Path.Combine(startupDirectory,"verification.txt"),startupReport.ToString());
+                if(startupFailed || startupFrames<8) Debug.LogError("S3_DIRECT_START_REVIEW_FAILED "+startupDirectory);
+                else Debug.Log("S3_DIRECT_START_REVIEW_OK "+startupDirectory);
+                yield break;
+            }
+            var walkDirectory = Environment.GetEnvironmentVariable("NOT3A_WALK_PROFILE_DIRECTORY");
+            if (Debug.isDebugBuild && !Application.isBatchMode && !string.IsNullOrWhiteSpace(walkDirectory) &&
+                Path.IsPathFullyQualified(walkDirectory))
+            {
+                yield return Stage3MovementReachReview.CaptureWalking(gameObject, walkDirectory);
+                yield break;
+            }
+            var actionsDirectory = Environment.GetEnvironmentVariable("NOT3A_BUILDING_ACTIONS_CAPTURE_DIRECTORY");
+            if (Debug.isDebugBuild && !Application.isBatchMode && !string.IsNullOrWhiteSpace(actionsDirectory) &&
+                Path.IsPathFullyQualified(actionsDirectory))
+            {
+                yield return Stage3BuildingActionReview.Capture(gameObject, actionsDirectory);
+                yield break;
+            }
+            var selectionDirectory = Environment.GetEnvironmentVariable("NOT3A_BUILDING_SELECTION_CAPTURE_DIRECTORY");
+            if (Debug.isDebugBuild && !Application.isBatchMode && !string.IsNullOrWhiteSpace(selectionDirectory) &&
+                Path.IsPathFullyQualified(selectionDirectory))
+            {
+                yield return Stage3BuildingSelectionReview.Capture(gameObject, selectionDirectory);
+                yield break;
+            }
+            var movementDirectory = Environment.GetEnvironmentVariable("NOT3A_MOVEMENT_REACH_CAPTURE_DIRECTORY");
+            if (Debug.isDebugBuild && !Application.isBatchMode && !string.IsNullOrWhiteSpace(movementDirectory) &&
+                Path.IsPathFullyQualified(movementDirectory))
+            {
+                yield return Stage3MovementReachReview.Capture(gameObject, movementDirectory);
+                yield break;
+            }
+            var defeatDirectory = Environment.GetEnvironmentVariable("NOT3A_DEFEAT_CAPTURE_DIRECTORY");
+            if (Debug.isDebugBuild && !Application.isBatchMode && !string.IsNullOrWhiteSpace(defeatDirectory) &&
+                Path.IsPathFullyQualified(defeatDirectory))
+            {
+                yield return Stage3DefeatReview.Capture(gameObject, defeatDirectory);
+                yield break;
+            }
             var interactionDirectory = Environment.GetEnvironmentVariable("NOT3A_RESOURCE_INTERACTION_CAPTURE_DIRECTORY");
             if (Debug.isDebugBuild && !Application.isBatchMode && !string.IsNullOrWhiteSpace(interactionDirectory) &&
                 Path.IsPathFullyQualified(interactionDirectory))
@@ -78,9 +185,9 @@ namespace Not3A.Stage3.PlayerInterface
                 yield return CaptureHover(directory, "HoverBuildTab", hud.BuildTabRect(0));
                 hud.SetBuildGroup(2);
                 yield return CaptureHover(directory, "HoverWorkshop", hud.BuildChoiceRect(0));
-                yield return CaptureHover(directory, "HoverBuildSelect", hud.BuildSelectButtonRect);
+                yield return CaptureHover(directory, "HoverWorkshopCard", hud.BuildChoiceRect(0));
                 hud.SetBuildGroup(0);
-                yield return CaptureHover(directory, "DisabledBuildSelect", hud.BuildSelectButtonRect);
+                yield return CaptureHover(directory, "DisabledTowerCard", hud.BuildChoiceRect(0));
             }
             hud.SetWindow(Stage3PlayerWindow.None);
             File.WriteAllText(Path.Combine(directory,"context.txt"),

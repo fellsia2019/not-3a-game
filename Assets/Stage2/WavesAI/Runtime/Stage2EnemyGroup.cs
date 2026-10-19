@@ -145,7 +145,7 @@ namespace Not3A.Stage2.WavesAI
             var enemy = UnityEngine.Object.Instantiate(catalog.EnemyPrefab);
             try
             {
-                enemy.Configure(map, navigation, catalog, startCell);
+                enemy.ConfigureFromValidatedGroup(map, navigation, catalog, startCell);
                 enemy.SetPaused(paused);
                 enemy.ReachedThrone += OnReachedThrone;
                 enemy.Removed += OnRemoved;

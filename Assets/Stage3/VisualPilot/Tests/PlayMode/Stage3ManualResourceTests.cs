@@ -54,7 +54,8 @@ namespace Not3A.Stage3.VisualPilot.Tests
             finally { Object.DestroyImmediate(source); }
         }
 
-        private (Stage2ResourceNode node, Vector2 start, Vector2 inward) ClearApproach(MapResourceKind kind, Stage2ResourceSize size)
+        private (Stage2ResourceNode node, Vector2 start, Vector2 inward) ClearApproach(MapResourceKind kind, Stage2ResourceSize size,
+            bool requireComfortableRange = false)
         {
             var economy = game.Gathering.Economy;
             foreach (var node in economy.Nodes.Where(n => n.Resource == kind && n.Size == size && !n.IsDepleted))
@@ -64,6 +65,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
                 if (radius <= 0f) continue;
                 var start = node.WorldPosition + outward * (radius + scene.PlayerMover.CollisionRadius + .6f);
                 if (scene.PlayerMover.Obstacles.IsBlocked(start, scene.PlayerMover.CollisionRadius)) continue;
+                if (requireComfortableRange && economy.NearestAvailableNode(start) != node) continue;
                 var contact = scene.PlayerMover.Obstacles.Move(start, -outward * .7f, scene.PlayerMover.CollisionRadius);
                 if (Mathf.Abs(Vector2.Distance(contact, node.WorldPosition) - radius - scene.PlayerMover.CollisionRadius) > .01f ||
                     economy.NearestAvailableNode(contact) != node) continue;
@@ -144,6 +146,32 @@ namespace Not3A.Stage3.VisualPilot.Tests
                 Assert.That(hero.Obstacles.IsBlocked(hero.transform.position, hero.CollisionRadius), Is.False);
                 Assert.That(hero.OverlapRecoveryCount, Is.EqualTo(recoveries), "Ordinary contact cannot teleport through a resource.");
                 Assert.That(game.Gathering.InteractionTarget, Is.SameAs(choice.node));
+                var before = game.Gathering.Economy.Inventory.Get(kind);
+                input.Press(keyboard.eKey);
+                for (var i = 0; i < 100 && game.Gathering.Economy.Inventory.Get(kind) == before; i++) yield return null;
+                input.Release(keyboard.eKey); yield return null;
+                Assert.That(game.Gathering.Economy.Inventory.Get(kind), Is.EqualTo(before + 1));
+            }
+        }
+
+        [UnityTest]
+        public IEnumerator LargerMineralsAcceptRealEWithClearSpaceBeforeCollision()
+        {
+            foreach (var kind in new[] { MapResourceKind.Stone, MapResourceKind.Metal })
+            foreach (var size in new[] { Stage2ResourceSize.Medium, Stage2ResourceSize.Large })
+            {
+                var choice = ClearApproach(kind, size, true);
+                var hero = scene.PlayerMover;
+                hero.transform.position = choice.start;
+                scene.CameraFollow.SnapToTarget();
+                yield return null; yield return null;
+                Assert.That(Vector2.Distance(hero.transform.position, choice.node.WorldPosition) - Radius(choice.node),
+                    Is.GreaterThan(.75f), "E must work well before the hero touches the mineral.");
+                Assert.That(hero.Obstacles.IsBlocked(hero.transform.position, hero.CollisionRadius), Is.False);
+                Assert.That(game.Gathering.InteractionTarget, Is.SameAs(choice.node));
+                var marker = game.GetComponent("Stage3ResourceInteractionMarker");
+                Assert.That(Read<bool>(marker, "IsVisible"), Is.True);
+                Assert.That(Read<Stage2ResourceNode>(marker, "Target"), Is.SameAs(choice.node));
                 var before = game.Gathering.Economy.Inventory.Get(kind);
                 input.Press(keyboard.eKey);
                 for (var i = 0; i < 100 && game.Gathering.Economy.Inventory.Get(kind) == before; i++) yield return null;
@@ -239,6 +267,23 @@ namespace Not3A.Stage3.VisualPilot.Tests
                 Assert.That(game.Gathering.InteractionTarget, Is.Null);
                 Assert.That(Read<bool>(marker, "IsVisible"), Is.False);
                 scene.CameraFollow.enabled = follow;
+            }
+        }
+
+        [UnityTest]
+        public IEnumerator ResourceFootingStaysRegisteredAfterAnchorAndCameraChanges()
+        {
+            game.SetPaused(true);scene.CameraFollow.enabled=false;
+            var component=View(game.Gathering.Economy.Nodes.First(n=>n.Resource==MapResourceKind.Stone && n.Size==Stage2ResourceSize.Medium));
+            var body=Read<SpriteRenderer>(component,"Body");var camera=scene.CameraFollow.BoundCamera;
+            foreach(var rotation in new[]{camera.transform.rotation,Quaternion.Euler(52,0,25)})
+            {
+                camera.transform.rotation=rotation;component.transform.position+=Vector3.right*2f;
+                yield return null;yield return null;
+                Assert.That(Quaternion.Angle(body.transform.rotation,rotation),Is.LessThan(.001f));
+                var actual=(Vector2)camera.WorldToScreenPoint(body.transform.position);
+                var expected=(Vector2)camera.WorldToScreenPoint(component.transform.position+Vector3.back*.025f);
+                Assert.That(Vector2.Distance(actual,expected),Is.LessThan(.01f),"Billboard pivot remains on its ground anchor after cache invalidation.");
             }
         }
 

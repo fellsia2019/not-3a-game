@@ -1,4 +1,5 @@
 using System;
+using Not3A.Stage2.Economy;
 using UnityEngine;
 
 namespace Not3A.Stage2.Defense
@@ -20,7 +21,14 @@ namespace Not3A.Stage2.Defense
 
         public Vector2Int Cell { get; private set; }
         public int Health => health;
+        public int MaximumHealth { get; private set; }
+        public float CooldownRemaining => fireRemaining;
+        public int Level { get; private set; } = 1;
+        public Stage2ResourceCost Invested { get; private set; }
+        internal int RoleIndex { get; set; }
         public float AttackRange => attackRange;
+        public int AttackDamage => attackDamage;
+        public float FireInterval => fireInterval;
         public bool CanAttack => canAttack;
         public bool IsAlive => !removed && health > 0;
         public event Action<Stage2Tower> Removed;
@@ -34,6 +42,7 @@ namespace Not3A.Stage2.Defense
                 throw new ArgumentOutOfRangeException(nameof(maximumHealth));
             Cell = cell;
             health = maximumHealth;
+            MaximumHealth = maximumHealth;
             attackRange = range;
             fireInterval = interval;
             attackDamage = damage;
@@ -42,10 +51,28 @@ namespace Not3A.Stage2.Defense
             projectileFlightSeconds = flightSeconds;
             fireRemaining = 0f;
             removed = false;
+            Level = 1;
+            Invested = default;
         }
 
         internal void SetAttackTarget(Func<Vector2, float, int, float, float, bool> target) => attackTarget = target;
         internal void SetAttackActive(bool active) => attackActive = active;
+        internal void RestoreState(int savedHealth, float cooldown)
+        { health = Mathf.Clamp(savedHealth, 1, MaximumHealth); fireRemaining = cooldown; }
+        internal void SetProgression(int level, Stage2ResourceCost invested)
+        { Level = level; Invested = invested; }
+        internal void ApplyUpgrade(Stage2TowerUpgrade upgrade, Stage2ResourceCost invested,
+            double healthFraction, float cooldownFraction)
+        {
+            Level++;
+            Invested = invested;
+            MaximumHealth = upgrade.Health;
+            health = Mathf.Clamp((int)Math.Floor(healthFraction * MaximumHealth + .000001d), 1, MaximumHealth);
+            attackRange = upgrade.Range; fireInterval = upgrade.Interval; attackDamage = upgrade.Damage;
+            fireRemaining = Mathf.Max(0f, cooldownFraction * fireInterval);
+        }
+        internal void MoveTo(Vector2Int cell, Vector3 position) { Cell = cell; transform.position = position; }
+        internal void Retire() { health = 0; gameObject.SetActive(false); RemoveOnce(); }
 
         public void Tick(float elapsedSeconds)
         {

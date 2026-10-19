@@ -24,6 +24,8 @@ namespace Not3A.Stage2.Economy
         [Min(0f)] public float mediumHarvestRadius = 1.1f;
         [Min(0f)] public float largeHarvestRadius = 1.8f;
         [Min(.01f)] public float mineralInteractionRange = .35f;
+        [Min(.01f)] public float mediumMineralInteractionRange = .85f;
+        [Min(.01f)] public float largeMineralInteractionRange = 1.1f;
         [Min(.01f)] public float treeInteractionRange = .6f;
         [Min(.01f)] public float treeTrunkCollisionRadius = .18f;
         public float[] stoneHarvestRadii = Array.Empty<float>();
@@ -35,7 +37,8 @@ namespace Not3A.Stage2.Economy
             treeGroupRadius >= treeSpacing && Positive(groupSpacing) && Positive(depositSpacing) &&
             Positive(edgeMargin) && Positive(roadClearance) && Nonnegative(smallHarvestRadius) &&
             Nonnegative(mediumHarvestRadius) && Nonnegative(largeHarvestRadius) &&
-            Positive(mineralInteractionRange) && Positive(treeInteractionRange) && Positive(treeTrunkCollisionRadius) &&
+            Positive(mineralInteractionRange) && Positive(mediumMineralInteractionRange) &&
+            Positive(largeMineralInteractionRange) && Positive(treeInteractionRange) && Positive(treeTrunkCollisionRadius) &&
             treeTrunkCollisionRadius < treeInteractionRange &&
             ValidRadii(stoneHarvestRadii) && ValidRadii(oreHarvestRadii);
         private static bool Count(int value) => value >= 0 && value <= 1000;
@@ -44,6 +47,10 @@ namespace Not3A.Stage2.Economy
 
         public float Radius(Stage2ResourceSize size) => size == Stage2ResourceSize.Large ? largeHarvestRadius :
             size == Stage2ResourceSize.Medium ? mediumHarvestRadius : smallHarvestRadius;
+
+        public float MineralInteractionRange(Stage2ResourceSize size) => size == Stage2ResourceSize.Large
+            ? largeMineralInteractionRange : size == Stage2ResourceSize.Medium
+                ? mediumMineralInteractionRange : mineralInteractionRange;
 
         public static int HarvestState(float fraction) => fraction > .75f ? 0 : fraction > .5f ? 1 : fraction > .15f ? 2 : 3;
 

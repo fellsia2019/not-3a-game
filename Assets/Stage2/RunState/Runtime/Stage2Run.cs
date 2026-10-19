@@ -21,6 +21,15 @@ namespace Not3A.Stage2.RunState
         private float spawnRemaining;
         private bool spawningFinished;
         private bool disposed;
+        private sealed class Checkpoint
+        {
+            public int Wave, Health;
+            public double Minutes;
+            public Stage2Economy.Snapshot Economy;
+            public Stage2Defense.Snapshot Defense;
+        }
+        private Checkpoint checkpoint;
+        private bool rewinding;
 
         public Stage2Run(Stage2RunCatalog data, Stage2Navigation sharedNavigation,
             Stage2Economy sharedEconomy, Stage2Defense sharedDefense, Stage2EnemyGroup group)
@@ -33,6 +42,7 @@ namespace Not3A.Stage2.RunState
             enemies = group ?? throw new ArgumentNullException(nameof(group));
             enemies.ReachedThrone += OnReachedThrone;
             enemies.EnemyRemoved += OnEnemyRemoved;
+            economy.NodesChanged += InvalidateCheckpoint;
             defense.SetAttackTarget(enemies.TryHitNearest);
             Phase = Stage2RunPhase.Preparation;
             PreparationRemaining = catalog.PreparationSeconds;
@@ -64,6 +74,11 @@ namespace Not3A.Stage2.RunState
         public bool SpawningFinished => spawningFinished;
         public event Action Changed;
         public event Action Reset;
+        public event Action BeforeWaveStarted;
+        public event Action Rewound;
+        public event Action<int> ThroneDamaged;
+        public bool CanRetry => !disposed && !rewinding && Phase == Stage2RunPhase.Lost &&
+            checkpoint != null && economy.MatchesSnapshot(checkpoint.Economy);
 
         public void Tick(float elapsedSeconds)
         {
@@ -99,6 +114,9 @@ namespace Not3A.Stage2.RunState
         public bool StartWave()
         {
             if (disposed || IsPaused || Phase != Stage2RunPhase.Preparation) return false;
+            checkpoint = new Checkpoint { Wave = WaveIndex, Health = ThroneHealth, Minutes = WorldMinutes,
+                Economy = economy.CaptureSnapshot(), Defense = defense.CaptureSnapshot() };
+            BeforeWaveStarted?.Invoke(); // Same boundary for timer expiry and local/manual launch, before any spawn.
             // Local day skip advances the clock only; no skipped-time simulation is credited.
             if (ContinuousDays && !IsNightTime)
                 WorldMinutes = Math.Floor(WorldMinutes / 1440d) * 1440d + 20d * 60d;
@@ -127,6 +145,7 @@ namespace Not3A.Stage2.RunState
         public void ResetRun()
         {
             if (disposed) return;
+            InvalidateCheckpoint();
             enemies.ResetRun();
             defense.ResetRun();
             navigation.Reset(); // Always invalidates the old run's plan generation.
@@ -145,19 +164,46 @@ namespace Not3A.Stage2.RunState
             Changed?.Invoke();
         }
 
+        public void InvalidateCheckpoint() => checkpoint = null;
+
+        public bool RetryFailedWave()
+        {
+            if (!CanRetry) return false;
+            rewinding = true;
+            try
+            {
+                if (!defense.RestoreSnapshot(checkpoint.Defense)) return false;
+                enemies.ResetRun();
+                economy.RestoreSnapshot(checkpoint.Economy);
+                WaveIndex = checkpoint.Wave; ThroneHealth = checkpoint.Health;
+                // A full continuing-day preparation starts at dawn, with no skipped-time income.
+                WorldMinutes = ContinuousDays ? Math.Floor(checkpoint.Minutes / 1440d) * 1440d + 8d * 60d : checkpoint.Minutes;
+                Phase = Stage2RunPhase.Preparation; IsPaused = false;
+                PreparationRemaining = PreparationDuration;
+                remainingToSpawn = 0; spawnRemaining = 0f; spawningFinished = false;
+                Rewound?.Invoke();
+                SyncDefense(); Changed?.Invoke();
+                return true;
+            }
+            finally { rewinding = false; }
+        }
+
         public void Dispose()
         {
             if (disposed) return;
             disposed = true;
             enemies.ReachedThrone -= OnReachedThrone;
             enemies.EnemyRemoved -= OnEnemyRemoved;
+            economy.NodesChanged -= InvalidateCheckpoint;
             defense.SetAttackTarget(null);
         }
 
         private void OnReachedThrone(int damage)
         {
             if (disposed || Phase != Stage2RunPhase.Wave || damage <= 0) return;
+            var before = ThroneHealth;
             ThroneHealth = Mathf.Max(0, ThroneHealth - damage);
+            ThroneDamaged?.Invoke(before - ThroneHealth);
             if (ThroneHealth == 0) End(Stage2RunPhase.Lost);
             else Changed?.Invoke();
         }

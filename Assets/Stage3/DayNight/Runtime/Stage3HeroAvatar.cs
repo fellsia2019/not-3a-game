@@ -37,6 +37,7 @@ namespace Not3A.Stage3.VisualPilot
             body = Part("Hero C body"); bow = Part("Starter bow equipment");
             game.Enemies.ShotLaunched += OnShot;
             game.RunDriver.Run.Reset += ResetVisual;
+            game.RunDriver.Run.Rewound += ResetVisual;
             BindEconomy();
             Apply();
         }
@@ -165,7 +166,8 @@ namespace Not3A.Stage3.VisualPilot
         private void OnDestroy()
         {
             if (game != null && game.Enemies != null) game.Enemies.ShotLaunched -= OnShot;
-            if (game != null && game.RunDriver != null) game.RunDriver.Run.Reset -= ResetVisual;
+            if (game != null && game.RunDriver != null)
+            { game.RunDriver.Run.Reset -= ResetVisual; game.RunDriver.Run.Rewound -= ResetVisual; }
             if (economy != null) economy.NodeGathered -= OnGathered;
         }
     }

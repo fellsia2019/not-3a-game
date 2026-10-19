@@ -16,7 +16,7 @@ namespace Not3A.Stage3.VisualPilot
     /// <summary>Opt-in disposable development-player check of physical approaches and the actual overhead marker.</summary>
     public static class Stage3ResourceInteractionReview
     {
-        public static IEnumerator Capture(GameObject owner, string directory)
+        public static IEnumerator Capture(GameObject owner, string directory, bool comfortableMinerals = false)
         {
             var game = owner.GetComponent<Stage2GameComposition>();
             while (game == null || !game.IsInitialized || game.Gathering.Economy.Nodes.Count <= 3) yield return null;
@@ -45,17 +45,21 @@ namespace Not3A.Stage3.VisualPilot
                 foreach (var size in new[] { Stage2ResourceSize.Small, Stage2ResourceSize.Medium, Stage2ResourceSize.Large })
                 {
                     if (kind == MapResourceKind.Wood && size != Stage2ResourceSize.Small) continue;
-                    var choice = Approach(economy, collisions, hero, kind, size);
+                    if (comfortableMinerals && (kind == MapResourceKind.Wood || size == Stage2ResourceSize.Small)) continue;
+                    var choice = Approach(economy, collisions, hero, kind, size, comfortableMinerals: comfortableMinerals);
                     hero.transform.position = choice.start;
                     Frame(camera, choice.node.WorldPosition, 5f);
                     InputSystem.QueueStateEvent(keyboard, new KeyboardState()); yield return null;
                     var recoveryCount = hero.OverlapRecoveryCount;
-                    InputSystem.QueueStateEvent(keyboard, new KeyboardState(choice.key));
+                    InputSystem.QueueStateEvent(keyboard, comfortableMinerals ? new KeyboardState() : new KeyboardState(choice.key));
                     for (var i = 0; i < 30; i++) yield return null;
                     InputSystem.QueueStateEvent(keyboard, new KeyboardState()); yield return null; yield return null;
                     var distance = Vector2.Distance(hero.transform.position, choice.node.WorldPosition);
-                    Require(Mathf.Abs(distance - collisions.ColliderRadius(choice.node) - hero.CollisionRadius) < .01f,
-                        kind + " " + size + " stops at footing");
+                    if (comfortableMinerals)
+                        Require(distance - collisions.ColliderRadius(choice.node) - hero.CollisionRadius > .55f,
+                            kind + " " + size + " harvests without touching footing");
+                    else Require(Mathf.Abs(distance - collisions.ColliderRadius(choice.node) - hero.CollisionRadius) < .01f,
+                            kind + " " + size + " stops at footing");
                     Require(hero.OverlapRecoveryCount == recoveryCount, "No collision recovery teleport");
                     Require(marker.IsVisible && marker.Target == choice.node && game.Gathering.InteractionTarget == choice.node,
                         "Marker uses exact E target");
@@ -67,10 +71,22 @@ namespace Not3A.Stage3.VisualPilot
                     }
                     var before = economy.Inventory.Get(kind);
                     InputSystem.QueueStateEvent(keyboard, new KeyboardState(Key.E));
+                    if (comfortableMinerals)
+                    {
+                        for (var i = 0; i < 25; i++) yield return null;
+                        yield return Shot(directory, $"harvest-{kind}-{size}");
+                    }
                     for (var i = 0; i < 100 && economy.Inventory.Get(kind) == before; i++) yield return null;
                     InputSystem.QueueStateEvent(keyboard, new KeyboardState()); yield return null;
-                    Require(economy.Inventory.Get(kind) == before + 1, "E pays one at physical contact");
+                    Require(economy.Inventory.Get(kind) == before + 1, "E pays one at the chosen distance");
                     context.AppendLine($"{kind} {size}: contact distance={distance:F4}; footing={collisions.ColliderRadius(choice.node):F4}; exact marker/E; +1; no overlap recovery.");
+                }
+                if (comfortableMinerals)
+                {
+                    context.AppendLine("Four medium/large stone/ore approaches keep 0.6 world units of free space beyond hero collision. Real E +1 and exact overhead marker PASS; no resource collision/raster change.");
+                    File.WriteAllText(Path.Combine(directory, "context.txt"), context.ToString());
+                    Debug.Log("S3_RESOURCE_COMFORT_CAPTURE_COMPLETE " + directory);
+                    yield break;
                 }
                 var tree = Approach(economy, collisions, hero, MapResourceKind.Wood, Stage2ResourceSize.Small, true);
                 hero.transform.position = tree.node.WorldPosition + Vector2.up * .45f;
@@ -107,7 +123,7 @@ namespace Not3A.Stage3.VisualPilot
 
         private static (Stage2ResourceNode node, Vector2 start, Key key) Approach(Stage2Economy economy,
             Stage3ManualResourceCollisions collisions, Stage2PlayerMover hero, MapResourceKind kind, Stage2ResourceSize size,
-            bool isolatedTree = false)
+            bool isolatedTree = false, bool comfortableMinerals = false)
         {
             foreach (var node in economy.Nodes.Where(n => n.Resource == kind && n.Size == size && !n.IsDepleted))
             {
@@ -117,6 +133,7 @@ namespace Not3A.Stage3.VisualPilot
                     var radius = collisions.ColliderRadius(node);
                     var start = node.WorldPosition + direction * (radius + hero.CollisionRadius + .6f);
                     if (hero.Obstacles.IsBlocked(start, hero.CollisionRadius)) continue;
+                    if (comfortableMinerals && economy.NearestAvailableNode(start) != node) continue;
                     var contact = hero.Obstacles.Move(start, -direction * .7f, hero.CollisionRadius);
                     if (Mathf.Abs(Vector2.Distance(contact, node.WorldPosition) - radius - hero.CollisionRadius) > .01f ||
                         economy.NearestAvailableNode(contact) != node) continue;

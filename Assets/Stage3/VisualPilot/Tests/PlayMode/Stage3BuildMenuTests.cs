@@ -123,7 +123,10 @@ namespace Not3A.Stage3.VisualPilot.Tests
             var playerUi = game.GetComponent("Stage3FantasyHud"); Assert.That(playerUi, Is.Not.Null);
             var dock = (Rect)playerUi.GetType().GetProperty("BottomRect").GetValue(playerUi);
             var map = (Rect)playerUi.GetType().GetProperty("MinimapRect").GetValue(playerUi);
-            Assert.That(dock.xMin, Is.GreaterThanOrEqualTo(map.xMax));
+            Assert.That(map.xMin, Is.GreaterThanOrEqualTo(dock.xMin));
+            Assert.That(map.xMax, Is.LessThanOrEqualTo(dock.xMax));
+            Assert.That(map.yMin, Is.GreaterThanOrEqualTo(dock.yMin));
+            Assert.That(map.yMax, Is.LessThanOrEqualTo(dock.yMax));
             var safeScreen = (Rect)playerUi.GetType().GetProperty("SafeScreenRect").GetValue(playerUi);
             Assert.That(dock.xMin, Is.GreaterThanOrEqualTo(safeScreen.xMin));
             Assert.That(dock.yMin, Is.GreaterThanOrEqualTo(safeScreen.yMin));

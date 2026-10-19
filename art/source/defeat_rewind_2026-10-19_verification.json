@@ -1,0 +1,107 @@
+{
+  "date": "2026-10-19",
+  "decision": "D-062",
+  "status": "Implemented and locally qualified on macOS/Metal; final actual-frame visual acceptance by GPT-6 Astra",
+  "unity": "6000.6.2f1",
+  "starting_commit": "fc2c5eb0c85ea7dbb5fa1b7b0d5471949213cfda",
+  "scope": "In-memory pre-wave checkpoint, full preparation retry and approved temporary throne damage / fatal whiteout / lunar retry presentation.",
+  "tests": [
+    {
+      "scope": "RunState / Economy / Defense",
+      "xml": "Artifacts/S3-DEFEAT-REWIND-20261019/editmode.xml",
+      "passed": 60,
+      "failed": 0,
+      "skipped": 0,
+      "duration_seconds": 1.0585401,
+      "start_utc": "2026-10-19 07:13:35Z"
+    },
+    {
+      "scope": "New cross-system rewind cases",
+      "xml": "Artifacts/S3-DEFEAT-REWIND-20261019/playmode-rewind.xml",
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "duration_seconds": 21.2842881,
+      "start_utc": "2026-10-19 07:14:27Z"
+    },
+    {
+      "scope": "Existing run / manual resources / travel / production / interface / days",
+      "xml": "Artifacts/S3-DEFEAT-REWIND-20261019/playmode-regression.xml",
+      "passed": 46,
+      "failed": 0,
+      "skipped": 0,
+      "duration_seconds": 157.3258309,
+      "start_utc": "2026-10-19 07:16:28Z"
+    },
+    {
+      "scope": "Final four cross-system rewind/presentation cases after timing patch, including 800ms preceding-frame stall",
+      "xml": "Artifacts/S3-DEFEAT-REWIND-20261019/playmode-rewind-final.xml",
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0,
+      "duration_seconds": 29.1730321,
+      "start_utc": "2026-10-19 07:37:02Z"
+    }
+  ],
+  "player": {
+    "platform": "macOS Development / Metal",
+    "backbuffer": [
+      1600,
+      900
+    ],
+    "world_seed": 164032,
+    "build_log": "Artifacts/S3-DEFEAT-REWIND-20261019/build-mac.log",
+    "capture_directory": "Artifacts/S3-DEFEAT-REWIND-20261019/player-captures",
+    "qa_setup": "Opt-in disposable scenario; actual enemy arrivals, injected initial stock/camera/hero arrangement and synthetic R. Native CUA pointer verifies button separately. Not a natural or full twenty-minute playthrough.",
+    "final_result": "PASS",
+    "native_pointer_retry": "PASS; CUA click on the observed final button, followed by checkpoint assertion and restored frame",
+    "qa_assertions": 14,
+    "captured_frames": 17,
+    "log_has_warnings_errors_exceptions": false,
+    "left_open": "Normal fresh run after disposable QA cleanup"
+  },
+  "preservation": {
+    "existing_runtime_pngs_byte_identical": 66,
+    "existing_scene_prefab_package_project_settings_changes": false,
+    "new_assets_keep_meta": true,
+    "no_new_packages_managers_or_save_system": true
+  },
+  "wiring": "Existing Stage3TacticalPresentation binds the narrow presenter after the original soul dome. Resources/Stage3DefeatSettings supplies shader/timings. Existing Run BeforeWaveStarted/Rewound events bind scene-owned restoration; no scene or Inspector migration.",
+  "limits": [
+    "Windows player/shader qualification unavailable: Windows build module absent on this Mac.",
+    "No cross-session disk save; no huge-world architecture change.",
+    "Balance of the extra preparation and Stage 3 external-player gate remain open."
+  ],
+  "concept": "art/source/defeat_rewind_2026-10-19_generation.json",
+  "retained_frames": [
+    {
+      "path": "art/review/defeat_fracture_game_2026-10-19.png",
+      "actual_player_source": "Artifacts/S3-DEFEAT-REWIND-20261019/player-captures/12-visible-fatal-fracture.png",
+      "sha256": "14ca7dd55e859e3d58d5785c82932d67ea1835fbcf70874e6b5de874ffd33773"
+    },
+    {
+      "path": "art/review/defeat_retry_game_2026-10-19.png",
+      "actual_player_source": "Artifacts/S3-DEFEAT-REWIND-20261019/player-captures/14-visible-retry.png",
+      "sha256": "ac3e2992b0f80678b2add728aaa9be678bb50ba63ac38e6a5bbe8887189b64ad"
+    }
+  ],
+  "unique_qualified_cases": {
+    "EditMode": 60,
+    "PlayMode": 50,
+    "note": "46 unchanged regression cases plus final four rewind cases; original three rewind cases were also run before the timing patch. Scoped qualification, not a fresh whole-project test run."
+  },
+  "qa_corrections": "Initial fixture failures were pending-spawn setup and a missing helper import, fixed before passing suites. Actual capture exposed stale preceding-frame delta consuming new hit pulses; presenter/shader timing fixed and qualified by the added 800ms-stall case. Capture now prepares heavy-hit enemies before measuring simultaneous actual contacts.",
+  "visual_review": {
+    "reviewer": "GPT-6 Astra",
+    "initial_17_frames": "Accepted flame origin/Y orientation, fading, intensity increase, offscreen rules, fatal angular breakup, pure white and lunar UI; identified heavy-hit timing evidence gap subsequently fixed.",
+    "final_after_timing_patch": "ACCEPT: final 01/02/03/04/10/11/12/14 inspected. Correct soul origin/Y, complete decay, stronger independent overlaid pulses, angular fatal breakup without gameplay HUD and readable proportional lunar retry. No remaining visual blocker; Windows not validated."
+  },
+  "qualified_source_sha256": {
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3DefeatPresentation.cs": "9cbd87f1f578763a49164fe4cd9d1781176d19688d99fa5399c5dd810e9fbffc",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3DefeatSettings.cs": "710f520e465e37eda2f0b74b8678ea25d1b9ab0aa0e6a4eda215211132519408",
+    "Assets/Stage3/PlayerInterface/ThroneFracture.shader": "df01638a6111ddddd3ac47bd53d4e0d93e9b99b0ee644a4009a2844fcdb853fe",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Defeat.cs": "08ce5948d7b1c97dbbb5653586de755899307aaa6f6128a953223a025fc97956",
+    "Assets/Stage3/PlayerInterface/Resources/Stage3DefeatSettings.asset": "044f59371430051b9ab2e357945b13f1955579caa00143e31e553720e20ba224",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3DefeatReview.cs": "6db2bef9a5b27ada78c561d2e29dae9cc50ed67b264ade455138a8a703da4381"
+  }
+}

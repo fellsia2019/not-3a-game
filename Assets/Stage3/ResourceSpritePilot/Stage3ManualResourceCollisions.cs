@@ -43,11 +43,12 @@ namespace Not3A.Stage3.VisualPilot
             economy.NodeGathered += OnGathered;
         }
 
-        private void LateUpdate()
+        public void RefreshNow()
         {
             if (obstacles == null || hero == null) return;
             foreach (var entry in footprints) Sync(entry);
         }
+        private void LateUpdate() => RefreshNow();
 
         private void OnGathered(Stage2ResourceNode node)
         {

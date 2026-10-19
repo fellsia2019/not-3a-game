@@ -1179,8 +1179,9 @@ the contact shadow and preserve the separate stone's size through release.
 
 ## D-062 — Large-world survival TD and time rewind after throne loss
 
-Status: accepted by explicit owner clarification, 2026-10-17. Concept and retry
-contract recorded; runtime implementation remains pending.
+Status: accepted by explicit owner clarification, 2026-10-17. Runtime retry
+implemented and locally qualified on macOS/Metal, 2026-10-19. Windows remains
+unqualified; evidence: art/source/defeat_rewind_2026-10-19_verification.json.
 
 The product combines tower defense with survival, exploration of a huge world
 and base development. RimWorld and Factorio are references for world scale and
@@ -1212,6 +1213,18 @@ the target player-facing defeat retry. Historical first-playable acceptance and
 the current reset implementation remain evidence, not proof of this new loop.
 D-004's limits on Factorio-style logistics/automation and persistent roguelite
 meta, D-006's non-combat hero/tools and D-007's tutorial scope remain in force.
+
+Owner follow-up, 2026-10-19: each actual HP loss emits white radial dome rays
+and screen fractures. The owner approved the generated storyboard, requiring
+nonfatal fractures to disappear quickly. Total damage strengthens future
+pulses. Show fractures only while the dome is visible; every hit, including
+offscreen hits, gives a small short screen shake. Fatal whiteout and retry work
+from any camera position. Logical camera/follow/picking remain stable.
+Continuing-day retry grants the full normal morning preparation for the same
+failed night; no skipped-time income. Capture all currently implemented world
+owners, including dwelling, workshop/unlocks, individual resource stock and
+production progress. Source concept/provenance:
+art/source/defeat_rewind_2026-10-19_generation.json.
 
 ## D-063 — Research workshop, paired travel gates and future city
 
@@ -1553,6 +1566,355 @@ foreground fade does not disable either. Hide the marker during UI/build/pause
 and terminal blocking. Reuse approved native tool vectors and the lunar HUD
 palette; no new art concept or tool/progression controls are introduced.
 
+## D-073 — Creep spawn stalls, mineral reach and hero progression direction
+
+Date: 2026-10-19. Status: owner requested the two bug repairs and delegated a
+hero progression concept. Repairs are implemented and locally qualified on
+Mac/Metal; the progression roster remains proposed. Evidence:
+art/source/movement_reach_2026-10-19_verification.json.
+
+Remove unintended creep stops without bypassing road routing, siege or pause.
+Medium and large stone/ore must be harvestable at a comfortable distance from
+their actual current footprint; collision, stock, reward and exact E-marker
+selection stay coherent. Small nodes/trees and legacy scenes keep their reach.
+
+The owner activates design of hero abilities, passives and separate gathering /
+exploration advancement. Confirmed: level-one Blink is a short cursor-targeted
+spell, with four example distance ranks 300/500/800/1000 and further improvement.
+Existing travel circles remain separate. Five or six active slots including
+Blink are permitted; the concrete six-spell roster, starting-point rules,
+profession rewards, experience curve and scale conversion are proposed in
+gamedesign/features/HERO_PROGRESSION.md. Those choices are not shipped mechanics or an
+approved appearance. Future tool advancement is now an active design topic;
+this does not introduce cities, crafting tiers, hero health or permanent meta.
+
+The proposed progression must participate in the existing D-062 pre-wave
+checkpoint; failed-attempt XP or purchases cannot survive a retry. Visual
+implementation still follows owner-approved ImageGen and GPT-6 Astra ownership.
+
+## D-074 — Level-100 progression, exploration combat and daytime gates
+
+Equipment-slot/quality proposals below are historical: D-075 replaces eight
+combat slots with six and removes SS, leaving eight quality steps. D-075 also
+activates forge/base/tower advancement. Read the later decision for current scope.
+
+Date: 2026-10-19. Status: owner direction accepted; detailed budgets and new
+runtime contracts below are design proposals. No XP/gates/items/rune runtime
+is delivered by this decision. Supersedes the D-073 proposed AoE spell roster
+and the target behavior of both D-065 clock skips; existing implementation
+remains until a verified replacement.
+
+Accepted owner requirements:
+
+- Hero level cap is 100 for the current scope, expandable later. Hero magic
+  deals modest mainly single-target damage with minimal splash for exploration
+  encounters; towers handle dense comparable night hordes. Existing level-one
+  cursor Blink direction/range ranks 300/500/800/1000 stay accepted.
+- Night hordes continue and become stronger by threat level, later potentially
+  more numerous. After clearing a tier, daytime gates may be opened/closed
+  repeatedly to emit that same tier continuously for XP. The stream closes
+  automatically before the next required night; exact lead time is open.
+- Owner explicitly confirms removing **both** clock skips: dwelling day rest
+  and the early jump to dawn on a night victory. Do not silently replace the
+  dwelling's removed action with healing, storage or respawn.
+- Future cleared ruins automatically grant random loot such as equipment,
+  blueprints, temporary buff scrolls and permanent runes. Equipment has levels
+  1–100 and qualities F through SSS. Hero and tower runes are separate;
+  gathering runes are supported as a possible additional category.
+
+Recommended scope, not accepted counts: 12 four-rank actives with six equipped
+including Blink; 48 three-rank passive nodes; three professions with 12
+three-rank nodes each. Free Blink I plus 99 hero points makes choices necessary.
+Proposed rune library: 40 types (16 hero / 16 tower / 8 gathering/exploration),
+nine qualities F/E/D/C/B/A/S/SS/SSS, no rune levels, best learned quality per
+type instead of unlimited permanent stacking. Eight combat equipment slots
+and two separate working tools are proposed, not approved UI changes.
+
+Proposed gate safeguards: closing stops only new spawns; living enemies remain,
+cadence persists through toggles, concurrent farming population is bounded.
+19:30 cutoff before 20:00 night is a candidate, not tuned fact. XP/drops from
+old tiers do not become endgame rewards solely from hero level. Night duration
+without skips requires pacing evidence. The next mandatory horde does not
+silently accumulate behind an unfinished required horde.
+
+D-062 night retry remains accepted. Daytime loss timing and snapshots with
+already living farm enemies require an explicit extension before runtime work.
+XP, items, rune learning, rewards/random state and professions must rewind
+together; permanent runes are current-world progression, not cross-world meta.
+Future hero death in ruins needs a separate rule. New appearance still follows
+ImageGen approval and GPT-6 Astra ownership.
+
+Canonical contracts: gamedesign/features/HERO_PROGRESSION.md,
+PORTAL_CONTROL.md and EQUIPMENT_AND_RUNES.md. The only implementation sequence
+is the D-074 block in gamedesign/DEVELOPMENT_PLAN.md. The 100-level planning
+ceiling does not automatically make the entire catalogue a next-build/MVP gate.
+
+## D-075 — Three-boss victory and hero/base advancement
+
+Date: 2026-10-19. Status: accepted owner direction with proposed implementation
+details. Design only; no boss, forge, selection or upgrade runtime is delivered.
+Supersedes earlier candidate equipment slots/SS quality and deferral of these
+named progression topics. Existing technical scenes remain the baseline.
+
+Accepted requirements and clarifications:
+
+- Three distinct large, strong bosses are the campaign goal; defeating all
+  three ends the game. The owner has not chosen world encounters versus
+  separate portal summons. Names, order, levels, mechanics and replay rule
+  are not assigned by this decision.
+- TD is the main combat XP source through many enemies; open-world camps/
+  ruins give less XP and higher valuable-drop chances. Equipment/weapon drops
+  exist in the target for both portal and world enemies. Higher quality is
+  rarer. Bandits/orcs/undead are examples, not three required new factions.
+- Six combat slots: helmet, chest, arms, legs, weapon, shield. Bow is physical,
+  staff is magical. Owner explicitly confirms item level 1–100 remains separate
+  from quality. Sequence: F/E/D/C/B/A/S/SSS; **no SS**, maximum **SSS** now.
+  SSSS is not current content. Shield compatibility/handedness remains open.
+- Rune direction D-074 is retained with eight qualities, not nine. Owner art
+  brief: stone fantasy shield-like runes; F grey, intermediate palette includes
+  red without an assigned rank, S gold, SSS exceptionally rich gold. Other
+  palette/SSS details require a sketch, not inferred approval.
+- Forge begins at F and upgrades its quality limit. It creates gear/weapons
+  and reforges an existing item step by step up to that limit. Crafting/better
+  pickaxes and axes is explicitly included, distinct from profession mastery.
+  “Heavenly forge” is a possible later presentation, not an approved appearance.
+- Sawmill/quarry/iron-mine production should be upgradeable. Existing workshop
+  research plus paid local installation is recommended; an extra upgrade-only
+  building has not been chosen. Workshop itself also advances; hut purpose/
+  upgrades remain undecided.
+- New tower types require buying research from a city merchant, then studying
+  it in the player's workshop. Purchase, study and paid construction are
+  distinct; cities/merchants and additional tower count remain future work.
+- Towers support **both paid upgrading and drag merging** of two equal-level
+  towers. Clicking selects a built object; towers expose stats, upgrade, move
+  and sale at **50%**. Same-type merging and refund accounting are proposals.
+- All own buildings need a compact nonmodal card above HUD, with actual relevant
+  stats, supported upgrades and a link to their full-screen functional section.
+  Workshop links to Research; forging page is a proposed new context screen.
+  This is an explicit addition to D-069's full-screen page/world-building split.
+- Initial construction costs wood/stone/metal, **not gold**. The owner's later
+  clarification permits **gold plus resources for upgrades and research**;
+  trade is another sink. Gold from creeps remains income. Do not misread the
+  earlier resource-only statement as prohibiting gold in all improvements.
+- Throne has exactly **three max-HP upgrades, +5 each**, +15 over the initial
+  maximum. Current-health transfer and prices are not specified by the owner.
+
+Proposed budgets: five levels per tower type, six forge stages (quality caps
+F/D/B/A/S/SSS), five production stages and three workshop stages. These are
+recommendations, unlike the confirmed three throne upgrades. The D-074
+12/48/36 ability/talent budget stays a concept; rune budget stays 40 types
+(16 hero / 16 tower / 8 gathering/exploration), now 320 quality combinations.
+Specific percentages, recipes, costs, unlocks and runtime catalogs are not fixed.
+
+Proposed safeguards: real invested-cost ledger for half refunds after paid
+upgrades/merges, state-preserving move and HP/cooldown transfer, atomic payments,
+no reward duplication/quality reroll through D-062. Forge/tool/production/
+workshop stages and throne count/current/max HP join that same world snapshot.
+Boss attempt/simultaneous outcome rules require a separate explicit contract.
+Source of truth: BOSSES_AND_VICTORY.md, EQUIPMENT_AND_RUNES.md,
+TOWER_UPGRADES.md, RESEARCH.md, RESOURCE_PRODUCTION_BUILDINGS.md,
+OBJECTIVES.md, PLAYER_INTERFACE.md and STAGE2_ECONOMY.md.
+
+Astra reviewed a textual card brief and proposed layout/SSS treatment only;
+no ImageGen sheet, new asset or actual-frame qualification was produced.
+Owner approval of future sketches precedes Astra's visual implementation.
+DEVELOPMENT_PLAN.md contains the only current ordered implementation sequence.
+
+## D-076 — Building selection first, ImageGen approval before Astra implementation
+
+Appearance candidates below were sent back for D-077 revision, not approved.
+The selection-first priority and ImageGen-before-implementation workflow remain.
+
+Date: 2026-10-19. Status: owner prioritization/workflow accepted; appearance
+choice pending. Start with selection and the above-HUD building card before
+the prior progression-first sequence. Produce ImageGen sketches, present them
+for approval, then implement through GPT-6 Astra. No approval is inferred from
+generating or internally reviewing a picture.
+
+Candidates: horizontal A, right-card B and shared building-content/state sheet
+in art/concepts/building_selection_2026-10-19/. Full built-in-tool prompts,
+references and hashes are in art/source/building_selection_2026-10-19_generation.json.
+PLAYER_INTERFACE.md owns the approval state and input/content contract;
+DEVELOPMENT_PLAN.md owns the reordered current work. These images do not
+implement upgrades/merging or authorize unchosen prices/extra buildings.
+
+## D-077 — One continuous HUD and drag-only building movement
+
+Date: 2026-10-19. Status: owner layout/input direction accepted; new ImageGen
+appearance still pending approval. Replaces the compact/floating D-076 card
+geometry and the separate Move button proposed under D-075.
+
+The bottom HUD must be one continuous large surface: minimap, hero/weapon,
+navigation icons, ability reserves and status inside a shared backing/frame,
+without world gaps or floating navigation. Selecting a building adds a long
+strip of the same width immediately above, with purposeful use of its width.
+Keep the current Lunar Porcelain style and original game identity.
+
+Remove the Move button. Dragging the world building is the movement input;
+drop on a compatible equal-level tower is merging. Valid empty-cell drop,
+incompatible/cancel handling and phase/health/cost rules remain governed by
+TOWER_UPGRADES.md; a picture does not implement any of those operations.
+
+Two v3 states (normal and selected) are in
+art/concepts/building_selection_2026-10-19/hud_unified_{normal,selected}_v3.png.
+Full prompts, reference rights/hashes and Astra review are in
+art/source/unified_hud_2026-10-19_generation.json. Astra found both suitable
+to show; selected stack is taller than the brief's guide, so owner should
+judge world coverage. Owner has not approved v3; no implementation yet.
+No new prices, slots, abilities or gameplay values are assigned here.
+
+## D-078 — Separate navigation ribbon and numeric, vivid hero bars
+
+Date: 2026-10-19. Status: owner revision requirements and v4 appearance
+approved explicitly («Утверждаю v4»). Supersedes navigation placement/five-slot geometry of
+D-077 v3, while retaining the continuous HUD and world-drag input direction.
+
+From top to bottom: full-width selected-building strip, narrow full-width
+I/B/P/O/M ribbon, main minimap/hero/spells/status dock. The main center is for
+spells and must accommodate possible expansion to ten; ten simultaneously
+equipped spells and new hotkeys are not confirmed by this capacity request.
+
+Owner follow-up during implementation: visible labels are **HP / MP / XP**,
+not the full words. Match approved v4 proportions, ornamented adjoining frames,
+medallion sizes and beveled bars; the simplified first runtime is not final.
+
+Health/mana/experience have pleasant vivid colored fills and current/maximum
+numbers. The concept uses red HP, cyan-blue mana, orange XP. Sample values
+80/100, 45/60, 350/1000 are explicitly illustrative, not runtime tuning.
+These hero systems are not implemented; implementation must use real data.
+
+Two built-in ImageGen v4 states and full prompts/references/hashes/Astra review:
+art/source/hud_ribbon_2026-10-19_generation.json. Astra found both suitable
+for owner review; owner then approved v4 on 2026-10-19. Astra implemented the
+native appearance and main chat integrated selection/input/live data. The
+owner returned the first simplified runtime for closer v4 conformity, now
+corrected. HP/MP/XP display disabled 0/0 + «Не открыто» until actual sources
+exist. Upgrade/sale buttons are disabled; move/merge remains a separate slice.
+25 PlayMode tests, native pointer buttons, Mac build and three-resolution
+player frames are recorded in art/source/hud_v4_2026-10-19_verification.json.
+No scene/data/art migration; Windows qualification is unavailable locally.
+
+## D-079 — Activate tower and barricade upgrade, merge and sale
+
+Date: 2026-10-19. Status: owner-requested runtime implemented and locally
+qualified; scope clarified as towers and barricades for this upgrade slice.
+D-078 approved appearance stays. Evidence: art/source/building_actions_2026-10-19_verification.json.
+
+The selected card buys a level for resources; dragging two equal-level towers
+merges them, and sale returns half the cost. Implementation uses matching type
+as well as level, retaining the recipient cell. Actual construction/upgrade
+investments of both donors are combined; refunds floor each currency separately,
+without conversion. A removed object cannot pay again. Paid upgrades and merging
+preserve health fraction and attack readiness; merging keeps the slower readiness
+of the two. Already launched projectiles keep their original attack values.
+
+The current safe movement rule is free empty-cell drag during preparation only;
+merge/paid upgrade/sale also work during an active wave. Invalid/cancelled drops
+leave both world and inventory unchanged. Pause, terminal state, modal pages and
+reset/rewind cancel drag. These implementation choices are provisional gameplay
+rules, not a broader approval of moving siege blockers during combat.
+
+Runtime tier rows/prices live in the three existing active Stage3 defense catalog
+assets. They currently provide five editable prototype levels, not a permanent
+content cap or a newly approved balance curve. Stage3 Rapid construction is
+explicitly migrated from legacy five-gold surcharge to material-only pricing;
+Stage2 historical catalogs/scenes and their tests retain their original prices.
+No new research gate or per-level art. Other building upgrades remain planned.
+Level, HP, cooldown, cell and actual investments participate in D-062 rewind.
+
+## D-080 — One-click build cards and world selection with construction open
+
+Date: 2026-10-19. Status: owner correction implemented; native player flow passed.
+Final three-resolution Astra visual review passed; evidence and handoff:
+art/source/construction_selection_fix_2026-10-19_verification.json.
+The separate «Выбрать» button in defense/production/base is redundant: clicking
+a build card already selects its blueprint. Remove the extra button.
+
+Construction is nonmodal. A finished owned building can be selected and dragged
+while its dock stays open; the existing selected strip is displayed above it.
+Clicking a finished building takes priority over an armed blueprint, cancelling
+all draft kinds before any placement driver can pay/create behind its silhouette.
+Clicking empty ground with an armed blueprint continues normal placement. Modal
+pages/pause/loss still block world actions; UI presses cannot become world drags.
+
+D-079 previous qualification omitted the ordinary build-with-dock-open path;
+its rule/closed-dock action checks do not prove this repaired input path. Add
+actual pointer tests and native catalogue→select→move→merge→upgrade→sell coverage
+with B open. Native testing exposed down/move/up coalesced in a single Update;
+retain the press origin from Input System events so fast gestures still work.
+FastMouse merging is disabled while this scene binding owns input and its previous
+runtime setting is restored on disable/unbind. Serialized InputSettings do not change.
+No changes to tower prices, levels or combat/rewind rules.
+
+## D-081 — Blue merge preview and silver tower levels
+
+Date: 2026-10-19. Status: direct owner appearance instruction implemented.
+Valid tower-on-tower merge feedback is light blue, distinct from green ordinary
+construction. Invalid drops retain red feedback. Existing matching-type/equal-level
+eligibility and all upgrade transactions are unchanged.
+
+Built towers display a small gray/silver metal tag above their visible silhouette,
+labelled Level 1, Level 2, etc., using the actual current level. It stays readable
+through camera zoom and updates after either paid upgrade or merge. No new tier
+classification, ranks, tower artwork or progression rules are introduced.
+This is the owner's concrete correction to existing v4 presentation; Astra owns
+its native visual implementation and actual-frame review.
+Local qualification: 4/4 focused PlayMode, Mac/Metal build and 45 actual player
+frames at 720p/900p/1080p with zoom 2.5/5/10. Windows remains unverified.
+Evidence: art/source/tower_merge_levels_2026-10-19_verification.json.
+
+## D-082 — Compact silver LVL tags and generated upgrade icon
+
+Date: 2026-10-19. Status: implemented and locally qualified, performance limits below. Supersedes D-081 tag text,
+size and flat-gray finish; keeps its blue merge semantics and actual-level source.
+Use LVL N with smaller type/padding and a bright reflective silver tag. Upgrade
+uses the original generated silver/cyan chevron explicitly approved by the owner
+(«Да, внедряй»), replacing the code-drawn arrow inside the existing action frame.
+ImageGen provenance: art/source/upgrade_icon_2026-10-19_generation.json.
+
+The owner also reports periodic stalls during hero traversal. Profile sustained
+movement in the actual player, including world/GUI/allocations/render wait, before
+selecting a fix. Existing rendering, collision and gameplay contracts must hold;
+no chunk-loading or other architecture is inferred from the symptom alone.
+The owner confirms ordinary walking, not F3 acceleration. Measured fixes cache
+unchanged HUD content/bevels and resource sprite state. PC quality now uses
+vSyncCount=1 to pace presentation at the display refresh rate instead of an
+unbounded render loop; Mobile quality is unchanged. This does not establish
+that every platform-specific presentation stall is eliminated. Evidence and
+remaining qualification: art/source/tower_lvl_performance_2026-10-19_verification.json.
+
+## D-083 — Immediate prototype startup without visible graybox
+
+Date: 2026-10-19. Status: implemented and locally qualified.
+The owner defers main menu/loading interaction to preserve quick iteration.
+The player still enters the game directly, without an extra Play action.
+Fix the existing startup order so final approved world and HUD are prepared
+before the first game-camera render. Legacy primitive/marker/debug presentation
+must not flash; runtime procedural generation remains supported. No new visual
+design, global loading manager or blanket shader-warmup requirement is approved.
+The current Stage3 playable scene is also first in ordinary Editor Build Settings;
+legacy Stage2/Stage1 entries and explicit-path tests remain available.
+Five focused PlayMode cases pass; three fresh Mac/Metal processes pass all24
+initial camera-render observations beginning at Unity frame1. Astra first/eighth
+frame review passes at720p/900p/1080p. Windows remains unverified without module.
+Evidence: art/source/direct_start_2026-10-19_verification.json.
+
+## D-084 — Deferred scorched landscape and night-lit invasion runes
+
+Date: 2026-10-19. Status: owner direction accepted for a distant visual pass,
+after the necessary gameplay functionality is in place; not current runtime work.
+Rework the landscape and enemy invasion road. The road should read as scorched,
+undead-corrupted earth, with etched rune markings along its entire length.
+At night these runes glow red. This concerns the invasion route's ground
+markings, separately from collectible equipment/progression runes.
+
+Exact landscape treatment, rune artwork and glow intensity are deferred to
+ImageGen sketches, owner appearance approval and GPT-6 Astra implementation.
+Current route geometry, navigation, building rules and runtime art remain as
+they are until that work is activated; no new layout is specified here.
+Canonical ordering: gamedesign/DEVELOPMENT_PLAN.md; visual brief:
+gamedesign/ART_DIRECTION.md. No new menu/loading work is introduced.
+
 ## Pending Product Decisions
 
 
@@ -1564,6 +1926,9 @@ palette; no new art concept or tool/progression controls are introduced.
   Первые три авторские орды продолжаются усиливающимися ночами по D-065;
   параметры остаются пробными. Старые размеры и
   P-004/P-008 анализы остаются историческими свидетельствами в feature specs.
+  D-074 задаёт новый целевой цикл без пропусков и с дневным фармом; cutoff,
+  темп ночи, живые остатки перед checkpoint и дневное поражение ещё требуют
+  окончательного контракта и реализации. Старый D-065 пока работает в билде.
 - D-039–D-041 повторно проверяют спрайтовое производство для выбранных объектов;
   D-027 остаётся историческим решением о 3D, камера сохраняется. Прежний состав
   MVP D-032 уточняется по D-062; вид каждой следующей модели и бюджет массового
@@ -1575,5 +1940,10 @@ palette; no new art concept or tool/progression controls are introduced.
 - Позднее отдельно определить правила мирных зданий на зелёной зоне,
   исследований и улучшений. По D-063 первый срез мастерской и пары кругов
   внедрён вместе со строительством мастерской; дальнейшие исследования, город и торговля
-  ещё открыты. Прежний P-007 о tool progression остаётся поздней идеей.
+  ещё открыты. P-007 о tool progression перешёл в активный концепт D-073/D-074;
+  runtime ещё не добавлен. Бюджет каталога/очков, пределы рун, совместимость
+  щита, правила move/слияния/возврата и исход смерти героя ещё открыты.
+  Шесть мест/восемь качеств, оба способа апа башен и три апа трона приняты
+  по D-075. Место боя с боссами, цены/ступени кузницы/мастерской/генераторов
+  и параметры нового дерева технологий требуют следующего среза.
   Бриф второго врага S2-AI-01 не является активным заданием.

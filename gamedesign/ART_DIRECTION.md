@@ -1,5 +1,190 @@
 # Art Direction
 
+## D-084 deferred landscape and invasion-road revision, 2026-10-19
+
+Owner direction for a distant pass AFTER necessary gameplay functionality:
+rework the landscape and replace the invasion route's ordinary road treatment
+with scorched, undead-corrupted earth. Etched rune markings follow the full
+length of the enemy road; at night they glow red. These environmental markings
+are separate from collectible runes. Preserve fixed-isometric readability of
+enemies, construction and terrain boundaries when choosing the glow.
+
+No current asset replacement, route-geometry change or immediate art production.
+Exact landscape treatment, rune motif and glow strength require later ImageGen
+sketches, owner approval, then GPT-6 Astra implementation. Sequence lives in
+DEVELOPMENT_PLAN.md; this section records visual intent only.
+
+## D-083 first-frame presentation repair, 2026-10-19
+
+No new appearance or art: preserve the approved world/HUD while preventing
+legacy graybox sprites/debug ground and unbound HUD from reaching the first
+render. The owner explicitly keeps direct prototype startup without menu or
+interactive loading. Astra owns existing TacticalPresentation lifecycle only;
+actual first-render frames are required for qualification, without warm-up skips.
+Final Astra visual PASS: actual first/eighth frames at720p/900p/1080p already
+contain the finished world/hero/minimap/HUD, without legacy graphics, duplicate
+UI or new overlaps. Evidence: art/source/direct_start_2026-10-19_verification.json.
+
+## D-082 smaller silver LVL tags and generated upgrade icon, 2026-10-19
+
+Owner rejects the large D-081 Level tags and asks for shorter LVL, smaller text/
+padding and reflective silver. Current Astra revision: 48×17 UI units, font 11
+(minimum 9px at 720p), 4-unit gap above silhouette; bright bands/white highlight/
+dark lower edge, eight fills with cached live-level labels. No tier classes.
+
+The owner explicitly approved the original ImageGen silver/cyan chevron:
+«Да, внедряй». Source and full prompt: art/source/upgrade_icon_2026-10-19_generation.json.
+Runtime consumes the unchanged PNG as a max256 sprite, inside the existing upgrade
+medallion; layout/availability remain v4. No tracing or third-party source.
+
+Measured HUD costs also justify an appearance-preserving bounded cache for the
+existing bevels. Pixel colors retain the Metal conversion; resize/destruction
+releases textures. Actual normal-HUD frames must verify color/edges before closure.
+Final Astra actual-frame PASS: ruby HP, deep cyan-blue MP and warm orange XP
+retain their color and beveled silver edges. Approved PNG and compact LVL tags
+pass card states/zoom 2.5–10 at 720p/900p/1080p; review is recorded in
+art/source/tower_lvl_performance_2026-10-19_verification.json. One representative
+actual frame is retained; intermediate captures remain ignored QA artifacts.
+
+## D-081 merge feedback and silver level tags, 2026-10-19
+
+The owner directly requests light blue for a compatible tower-on-tower merge;
+green remains ordinary construction/movement and red remains invalid. Finished
+towers carry compact gray/silver metal tags with Level 1, Level 2, etc. No tier
+classification or per-level tower artwork. Reuse the existing native HUD palette
+and code geometry; tags remain readable at fixed screen size above the actual
+visible silhouette through zoom, without capturing input or drawing over modals.
+Astra owns this concrete visual correction to approved v4 and actual-frame review.
+Final Astra visual PASS: blue/green/red remain distinct; silver Level 1/2/5
+tags read at 720p and keep their screen size at zoom 2.5–10. Rapid, Longshot
+and barricade anchors clear the HUD. No further revisions required. Evidence:
+art/source/tower_merge_levels_2026-10-19_verification.json.
+
+## D-080 construction-selection correction, 2026-10-19
+
+Direct owner correction removes the redundant Select button from all B groups;
+existing card clicks already choose blueprints. The former button space contains
+the existing control hint. The approved v4 selected strip also sits above the
+construction dock, preserving frame geometry and native art. No new sketch or
+raster asset is needed for this requested removal and restoration of the existing
+card behavior. Astra owns these two HUD partials and final actual-frame review.
+Final Astra review PASS: all B groups at720p/900p/1080p and selected strip/native
+move/merge/upgrade above B; no overlap or clipping, no visual revisions required.
+Evidence: art/source/construction_selection_fix_2026-10-19_verification.json.
+
+## D-078 navigation ribbon and vivid numeric bars, 2026-10-19
+
+Current owner revision: selected-building strip above a separate narrow
+full-width I/B/P/O/M ribbon above the main dock. All three touch and share
+continuous Lunar Porcelain framing. Main center reserves room for potentially
+ten spells, illustrated by 2×5 empty slots; equipped-skill count is unapproved.
+No Move button. Reuse original hero, bow, Rapid and native ornaments.
+
+Owner follow-up: labels must read HP, MP, XP. First runtime simplified the
+approved image too far: restore adjoining native ornamental frames, larger
+minimap/portrait/spell medallions, beveled status tracks and illustrated card
+stats/actions. Keep the common backing and actual game-art identity.
+
+HP is ruby red, mana cyan-blue, XP warm orange, with restrained gradients and
+crisp highlights. Current/maximum numbers remain legible on full/empty track.
+Concept examples are 80/100 at80%, 45/60 at75%, 350/1000 at35%, explicitly
+labelled illustrative outside the HUD. These are not approved gameplay values.
+
+Two built-in ImageGen v4 frames: hud_ribbon_normal_v4.png and
+hud_ribbon_selected_v4.png in art/concepts/building_selection_2026-10-19/.
+Astra reviewed both: correct stack, ten reserves, readable color/numbers,
+consistent dock positions, no blocking defects. Owner explicitly approved v4
+on 2026-10-19. Astra implemented the native runtime and corrected the first
+simplified version: three adjoining ornamented frames, larger medallions,
+HP/MP/XP bevels and card stat/action illustrations. Hero values remain an
+explicit disabled 0/0 state until gameplay sources exist. No raster artwork
+is imported from the approval screenshot; new bevels/glyphs are code-native.
+Prompts/references/hashes/review: art/source/hud_ribbon_2026-10-19_generation.json.
+Actual frames, qualification and Astra review: art/source/hud_v4_2026-10-19_verification.json.
+Astra final actual-frame review passed at all three resolutions; no blockers.
+Two representative player images are in art/review/hud_v4_game_2026-10-19.png
+and art/review/building_card_v4_game_2026-10-19.png; remaining QA stays in Artifacts.
+
+## D-077 historical unified HUD, revised by D-078, 2026-10-19
+
+Owner replaces the compact/floating D-076 candidates with a single full-width
+bottom dock: minimap, hero/weapon, I/B/P/O/M, five existing ability reserves
+and status placeholders share one continuous porcelain backing/outer frame.
+The selected-building strip spans the same width immediately above and touches
+the lower dock; no world gap or detached navigation. Remove the Move button;
+dragging the world building handles movement/compatible merging.
+
+Astra supplied the new brief and reviewed two built-in ImageGen v3 states:
+hud_unified_normal_v3.png and hud_unified_selected_v3.png in
+art/concepts/building_selection_2026-10-19/. Both are suitable to show, with no
+blocking visual defect. Selected stack is taller than the brief's guide and
+needs owner judgment on world coverage; it is not an approved pixel layout.
+Keep the Lunar Porcelain palette/current identity, use original assets in
+implementation. No native UI, gameplay or data is changed by these pictures.
+
+Source/prompts/hashes/review: art/source/unified_hud_2026-10-19_generation.json.
+Owner approval is pending; Astra implementation follows that approval.
+
+## D-076 selection-card ImageGen candidates, 2026-10-19
+
+Historical alternatives, sent back for D-077 revision; not the active layout.
+
+Two final in-context layout candidates and a content/state board are saved in
+art/concepts/building_selection_2026-10-19/. They follow Astra's brief and use
+the existing actual Lunar Porcelain HUD as the primary reference. A is a low
+horizontal card above the left navigation; B is a compact right card. Both
+are proposals awaiting owner approval, not approved runtime appearances.
+
+The board illustrates the shared chrome for tower/workshop/forge/sawmill/
+throne and disabled-upgrade state. Existing Rapid and soul/dome identity
+references are preserved as direction; final native thumbnails should use
+original project art. No palace replacement or second world building is
+authorized by discarded generation attempts.
+
+Record: art/source/building_selection_2026-10-19_generation.json, including
+full prompts, references, corrections and final file hashes. Only three final
+requested PNGs are retained in the repository. Generated screenshot pixels
+are illustrative, not evidence of exact HUD geometry or live behavior.
+Owner chooses layout/content before Astra implements; no Unity changes now.
+
+## D-075 owner rune and building-card brief, 2026-10-19
+
+Owner requests stone fantasy shield-like rune shapes. The quality sequence
+is F/E/D/C/B/A/S/SSS, with no SS. F is plain grey; intermediate qualities
+include red, without an assigned rank yet; S is gold and SSS is exceptionally
+rich gold. Other colors and exact SSS treatment remain open. This records
+the owner's brief, not a new approved asset or generated reference.
+
+Astra's unapproved SSS proposal retains stone/gold with a three-ray crown in
+the silhouette and light gold inlay, making the top quality distinct beyond
+brightness. Owner approval of an ImageGen sheet is still needed before this
+proposal becomes runtime art. Do not infer approval from the wording here.
+
+Owner also requests a compact selected-building card above the HUD with
+relevant stats, available upgrades and a link to its full-screen section.
+Astra proposes the existing lunar-porcelain palette and a horizontal card
+to the right of the minimap, above the HUD/navigation. Functional contents,
+input and proposed page destinations are in features/PLAYER_INTERFACE.md.
+This is a design brief only. ImageGen approval precedes Astra's visual Unity
+implementation; preserve existing sprites, camera and native UI stack.
+
+## D-062 throne damage and defeat rewind, 2026-10-19
+
+Owner approved the ImageGen storyboard with a transient-feedback correction:
+white radial light fissures originate at the visible dome's soul on each actual
+HP loss, fade away completely, and grow stronger on subsequent lower-HP hits.
+Offscreen damage gives only a small short render-view shake. Opaque fullscreen
+pages count as hiding the dome. Logical camera transform/follow/picking stay
+stable. No permanent fracture overlay or forced camera jump.
+
+Fatal damage grows bright angular screen fragments into solid white wherever
+the camera is; then the existing lunar palette and native ornaments present
+«Ещё одна попытка» and «Повторить волну». GPT-6 Astra owns appearance and actual
+frame review. Concept is illustrative only; original throne/enemies stay in
+runtime. Procedural shader/UI reuse existing materials rather than shipping
+the storyboard as a screen texture. Timings live in Stage3DefeatSettings.asset.
+Source/approval/prompt: art/source/defeat_rewind_2026-10-19_generation.json.
+
 ## D-072 overhead harvest marker, 2026-10-18
 
 Reuse the approved sawmill/quarry native SVG tool silhouettes (tool-only mask)

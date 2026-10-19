@@ -1,5 +1,19 @@
 # Feature: Continuing Days, Night Hordes And Dwelling
 
+## New target — D-074, not implemented
+
+Владелец подтвердил отмену обоих пропусков: дом больше не заканчивает день,
+ранняя победа не переводит часы к рассвету. Ночью приходит обязательная
+усиливающаяся орда; днём можно многократно открывать/закрывать непрерывный
+поток последнего пройденного уровня. Предночная отсечка 30 игровых минут,
+обработка затянувшейся орды и дневной checkpoint предложены для проверки.
+Закрытие не удаляет уже вышедших врагов. Дом сохраняется, следующая его
+функция не выбрана. Текущая длинная ночь требует проверки темпа без пропуска.
+Полный новый контракт: `PORTAL_CONTROL.md`; последовательность внедрения —
+`../DEVELOPMENT_PLAN.md`. Ниже описано ещё работающее старое поведение.
+
+## Implemented prototype baseline
+
 Status: D-065 implemented and verified as a prototype, 2026-10-18.
 D-067 clock/daylight clarification is included in the D-066 interface integration.
 Owner: current chat owns Run cadence, dwelling transaction/input and wiring;
@@ -7,7 +21,7 @@ GPT-6 Astra owns all visuals, HUD, hero/equipment and actual-frame QA.
 Dependencies: D-064 bow/hordes, shared Run/Defense/EnemyGroup, gathering,
 production, green-ground collision, workshop/travel sites and fixed camera.
 
-## Accepted player behavior
+## Implemented player behavior — D-065/D-067
 
 Each preparation gives about twenty active game minutes for exploration and
 gathering. Expiry starts the next portal horde. Winning early advances the clock
@@ -63,8 +77,11 @@ Stage3DayNightSliceBuilder.BuildAndWire imports approved art, migrates the Stage
 run data once and binds the dwelling/hero/night material in the saved scene.
 It preserves later data tuning. BuildWindowsPlayer builds this saved scene into
 Builds/WindowsDayNight/ without regenerating camera or world artwork.
-D-062 rewind remains separate and unimplemented; its future snapshot must include
-day/night, D-067 WorldMinutes, dwelling and weapon state. Current R still resets the entire run.
+D-062 retry is implemented in the shared pre-launch boundary. It restores the
+failed night’s world, dwelling, weapon cooldown and checkpoint day, then starts
+that day at dawn with full preparation. Rewinding WorldMinutes grants no income
+or recovery ticks. After the white transition, R retries; development full reset
+remains separate. Contract and qualification: `STAGE2_RUN_STATE.md`.
 
 ## Observable acceptance
 

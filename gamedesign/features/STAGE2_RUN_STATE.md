@@ -1,22 +1,66 @@
 # Feature: Stage 2 Run State And Cadence
 
+## D-075 campaign/base-growth target — not implemented
+
+Campaign victory requires three distinct defeated bosses; ordinary night
+clearance is not final victory. See BOSSES_AND_VICTORY.md. The boss venue,
+hero death/retry and simultaneous final-boss/throne outcome need an explicit
+rule before integration. Existing finite scenes retain their historical end.
+
+D-079 runtime snapshots include tower type/level/health/cooldown/cell and actual
+investments; paid upgrades, merges, moves and sales rewind together with inventory.
+Selection and drag are transient and clear on retry. This extension is verified
+by a real-scene failed-wave retry test.
+
+Future snapshots must also include item/tool instances, forge/workshop/generator
+stages, purchased/studied new research and boss flags/rewards once implemented.
+Throne has exactly three target max-HP upgrades of +5; preserve count and actual
+current/maximum HP when that slice ships. See OBJECTIVES.md. These future systems
+are not supported by current D-062 runtime yet.
+
+## New cadence/checkpoint target — D-074, not implemented
+
+PORTAL_CONTROL.md defines the proposed daytime farm stream beside mandatory
+night hordes and the accepted removal of both clock skips. HERO_PROGRESSION.md
+and EQUIPMENT_AND_RUNES.md define future state that joins the snapshot.
+Night defeat retains D-062 full preparation; daytime-stream defeat needs its
+own agreed checkpoint/time rule. The proposed rule restores the pre-open world
+and actual opening time, not a free full day.
+
+Living farm enemies and their attacks may precede the night launch or next
+opening. The implementation below assumes no prior living enemy population;
+it cannot erase those actors as failed-future cleanup. Before enabling farming,
+extend capture/restore for those actors and reward/random state, XP, professions,
+equipment and learned runes. Preserve pre-checkpoint rewards, discard failed
+future rewards, and prevent duplicate grants or reward rerolls through defeat.
+This is a documented dependency, not delivered support for daytime checkpoints.
+
 Current Stage 3 runtime update — D-065, 2026-10-18: the optional ContinuousDays
 catalog maps Preparation/Wave to day/night and continues with growing hordes.
 The normal remote Space control is disabled for that scene; local dwelling rest
 uses the same StartWave boundary as timer expiry. Legacy finite catalogs retain
 the baseline below. Current contract/verification: `DAY_NIGHT.md`.
-The D-062 rewind target below remains unimplemented, including for night defeat.
+The D-062 rewind implementation below is active, including night defeat.
 
-## Current Product Target — D-062, 2026-10-17
+## Implemented Night Retry Contract — D-062, 2026-10-17
 
 Owner/workstream: Game Design / Run state integration. The owner clarified the
 large-world survival/TD concept and approved the retry rule below. This section
 is the current target; the Stage 2 implementation and verification below remain
-the historical finite-run baseline. The target rewind is **not implemented**.
+the historical finite-run baseline. Runtime retry is implemented and locally
+qualified on macOS/Metal, 2026-10-19; Windows qualification remains open.
 
 ### Accepted player behavior
 
 - Red portal is the enemy entrance; blue throne is the defended objective.
+- Owner visual clarification, 2026-10-19: every actual HP loss emits a brief
+  white radial fracture pulse from the dome's soul when it is in view, plus a
+  small short screen shake. Nonfatal fractures fade completely; accumulated
+  damage scales the next pulse, never permanent screen obstruction. Offscreen
+  damage shakes the view without fractures at a false onscreen origin. Logical
+  camera/follow/picking remain unchanged. Fatal whiteout works from anywhere.
+  Owner approved the ImageGen storyboard with these changes. Copy: «Ещё одна
+  попытка», «Вернитесь к подготовке и измените исход», «Повторить волну».
 - When the throne is destroyed, light rays emerge from it and intensify until
   the screen is fully white. A readable «Повторить» action then permits retry.
   Destruction must not leave the normal world simulation running under the
@@ -34,6 +78,12 @@ the historical finite-run baseline. The target rewind is **not implemented**.
   not reduce it. Objective and tower health come from the snapshot, not a new
   full-run initialization. The restored world supports ordinary gathering,
   building and the next manual/timed launch.
+- Continuing-day retry begins at the checkpoint day's normal morning with a
+  full preparation; world/resource/building state comes from immediately before
+  launch. Clock rewind grants no production or recovery ticks.
+- Include dwelling, workshop position, teleport research and discovery, mineral
+  stock stages, and hero/tower cooldowns. Cancel incomplete gathering, placement
+  and failed-future effects; require fresh E release before further interaction.
 - Every subsequent wave launch establishes its own current pre-launch snapshot,
   including another attempt at the same wave after preparing differently.
   Repeated defeats can be retried without an attempt limit.
@@ -45,20 +95,23 @@ play rather than an unapproved retry penalty or resource cap.
 
 ### Existing surfaces and integration work
 
-`Stage2Run.StartWave()` currently owns both start paths but stores no snapshot.
+`Stage2Run.StartWave()` owns both start paths. The active implementation captures
+Economy/Defense and notifies narrow hero/production/dwelling/travel owner handlers
+before the first spawn. `RetryFailedWave()` is distinct from full reset; the
+driver gates R and the button until the white transition/UI is ready.
 `Stage2Run.ResetRun()` clears Defense/Navigation/Economy and selects wave one;
 `Stage2RunDriver.ResetRun()` also resets gathering and hero position.
 `Stage2ProductionDriver` currently clears production on the normal Reset event.
-`Stage2GameHud.DrawOutcome()` offers «Новый забег [R]» through the same full reset.
-These existing entry points do not satisfy «Повторить» and must not be relabeled
-without implementing coherent restoration of their consumers.
+The old «Новый забег [R]» loss path is replaced by coherent retry; the won-run
+and development reset actions retain full reset explicitly.
+Full reset stays a separate development operation. World regeneration
+invalidates an older checkpoint instead of applying it to a different world.
 
 Dependencies: Run state, Defense/Navigation occupancy, Economy/resource recovery,
 hero/gathering lifecycle, production buildings and collision, combat cleanup,
 objective presentation and HUD. Preserve scene/asset references and current
-authored gameplay data. The snapshot's storage shape is an implementation choice
-to resolve when that work begins; no disk save system or huge-world architecture
-is selected by this concept pass. Full reset can remain an explicitly separate
+authored gameplay data. The snapshot stays in memory in the existing plain C# owners; no disk save
+system or huge-world architecture is introduced. Full reset can remain an explicitly separate
 development operation; it must not be silently substituted for loss retry.
 
 ### Observable acceptance for implementation
@@ -75,7 +128,20 @@ development operation; it must not be silently substituted for loss retry.
 - Actual rays-to-white presentation completes with gameplay stopped and leaves
   a working, visible «Повторить» action. The retry clears the defeat transition.
 - Relevant EditMode/PlayMode checks and scene wiring are verified with no new
-  attributable Console errors. No such runtime verification is claimed yet.
+  attributable Console errors.
+
+Qualification, 2026-10-19: 60/60 scoped EditMode; 46/46 existing regression
+PlayMode plus final 4/4 cross-system retry/presentation cases (50 unique cases),
+including real arrivals after an intentionally stalled 800 ms frame. New hit and
+fatal clocks do not inherit pre-event frame time. Actual Mac Development/Metal
+1600×900 player confirms temporary visible-dome pulses, stronger accumulated
+damage, offscreen shake only, fatal whiteout from both views and repeated R
+retry; a native pointer click also restores the checkpoint. This is disposable
+QA setup, not a natural full-day playthrough or balance acceptance. Existing
+scene/prefab/package references are unchanged; TacticalPresentation binds the
+presenter and Resources/Stage3DefeatSettings provides authored shader/timings,
+with no Inspector migration. Full record: art/source/defeat_rewind_2026-10-19_verification.json.
+Windows module is unavailable on the current Mac; Stage 3 gate stays open.
 
 ## Historical Implemented Baseline
 

@@ -1,0 +1,340 @@
+{
+  "date": "2026-10-19",
+  "decision": "D-082",
+  "scope": "Compact reflective silver LVL tags, owner-approved generated upgrade icon, measured HUD/resource-sprite cost reductions and PC display pacing. No gameplay/prices/tier changes.",
+  "implementation": {
+    "visual_owner": "GPT-6 Astra",
+    "badges": "48x17 UI units, LVL N, font11/min9 at720p, 4-unit silhouette gap, 8 silver/highlight fills and cached live-level strings; existing visibility/HUD/input filtering.",
+    "icon": "Original unchanged built-in ImageGen RGBA PNG, owner explicitly approved Да, внедряй; max256 sRGB Sprite with alpha/mips/trilinear, existing medallion and disabled tint; load once through Resources.",
+    "provenance": "art/source/upgrade_icon_2026-10-19_generation.json",
+    "nonvisual": "Bounded GUIContent and bevel texture caches; reused 9-slice arrays; unchanged resource/clock/bow strings; minimap glyph cache; static sprite transform/state write suppression and orthographic equivalent foreground overlap.",
+    "frame_pacing": "ProjectSettings/QualitySettings.asset PC vSyncCount0->1. Uses display refresh; not a hardcoded60FPS cap. Mobile unchanged.",
+    "qa": "Development-only opt-in CaptureWalking. Actual MoveBy/collisions or normal mover Update driven by native CUA keys. No image capture/file writes during measured frames; preallocated sample arrays; restores setup after observation.",
+    "wiring": "No scene, Inspector, prefab, package or gameplay migration. New Resources Sprite plus .meta."
+  },
+  "tests": {
+    "unique_PlayMode_passed": 11,
+    "cases": {
+      "Not3A.Stage3.VisualPilot.Tests.Stage3ManualResourceTests.DepletionChangesMineralSpritesAndRecoveryRestoresWithoutPayment": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3ManualResourceTests.DepletionOpensTheSiteAndRecoveryWaitsForTheHeroToLeaveBeforeBlockingAgain": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3ManualResourceTests.EverySourceSizeBlocksSweptMovementAndRemainsHarvestableAtItsContactEdge": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3ManualResourceTests.ForegroundOrdinaryTreeFadesOnlyWhileItCoversTheHero": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3ManualResourceTests.ResourceFootingStaysRegisteredAfterAnchorAndCameraChanges": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3PlayerInterfaceTests.SelectedCardUsesLivePricesUpgradesToCapAndPaysSaleOnce": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3PlayerInterfaceTests.UnifiedHudContainsMinimapTenReservesAndSeparateProtectedRibbon": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3PlayerInterfaceTests.WorldDragMergesVisibleTowerAndEscapeOrModalCancelsWithoutPayment": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3PlayerInterfaceTests.WorldSelectionShowsLiveTowerHealthClearsOnRemovalAndRejectsHeldUiDrag": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3ResourceDistrictTests.ForestMovementAndVisibilityHotPathDoNotAllocateOrRecoverByTeleporting": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3PlayerInterfaceTests.SyntheticTouchGesturePansAndPinchesAroundItsMovingMidpoint": "Passed"
+    },
+    "reports": [
+      "Artifacts/S3-LVL-MOVEMENT-20261019/playmode.xml",
+      "Artifacts/S3-LVL-MOVEMENT-20261019/playmode-footing.xml",
+      "Artifacts/S3-LVL-MOVEMENT-20261019/playmode-ui-final.xml"
+    ],
+    "qualification": "First new footing test used a tree-only GroupId filter for a Stone fixture and failed setup; corrected to StoneMedium, rerun passed. Unique latest results above; not an 11/11 single XML run."
+  },
+  "player": {
+    "platform": "macOS Metal Development",
+    "build": "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app",
+    "build_log": "Artifacts/S3-LVL-MOVEMENT-20261019/build-release-review.log",
+    "bytes": 521919911,
+    "appearance_build_log": "Artifacts/S3-LVL-MOVEMENT-20261019/build-present-profile.log",
+    "appearance_note": "Same visual/runtime code, preceding final PC vSync-only quality change. 45 action frames, actual rules API transactions, not native mouse qualification in this slice.",
+    "action_resolutions": [
+      "1280x720",
+      "1600x900",
+      "1920x1080"
+    ],
+    "action_frames": 45,
+    "zoom": [
+      2.5,
+      5,
+      10
+    ],
+    "action_reports": [
+      "Artifacts/S3-LVL-MOVEMENT-20261019/actions720/verification.txt",
+      "Artifacts/S3-LVL-MOVEMENT-20261019/actions1600/verification.txt",
+      "Artifacts/S3-LVL-MOVEMENT-20261019/actions1080/verification.txt"
+    ],
+    "attributable_errors_exceptions": 0,
+    "existing_warning": "URP Gaussian/Bokeh DOF stripped/not-supported warnings predate this change.",
+    "normal_player": "Reopened without QA environment; current HUD and ordinary startup visually inspected through native CUA. No new exceptions; ready markers present."
+  },
+  "performance": {
+    "hardware": "Apple M3 local MacBook Air, Metal,1600x900, same fixed world seed164032, zoom5, full HUD. Local observations; no universal hardware budget.",
+    "comparison": "45s ordinary scripted route, approx189m, uncapped before/after. Final source has only additional opt-in profiler counters and PC vSync quality relative to final-auto; no runtime compute changes. Baseline before already had compact badges but no profiled HUD/resource fix.",
+    "before": {
+      "frame_ms": {
+        "p50": 6.000128,
+        "p95": 7.690214,
+        "max": 28.18446
+      },
+      "GC Allocated In Frame": {
+        "p50": 20076.0,
+        "p95": 21636.0,
+        "max": 25608.0
+      },
+      "GC.Collect": {
+        "p50": 0.0,
+        "p95": 0.0,
+        "max": 1.4339579999999998
+      },
+      "Stage3.HUD": {
+        "p50": 3.1435009999999997,
+        "p95": 3.901084,
+        "max": 6.805791999999999
+      },
+      "Stage3.ResourceSprites": {
+        "p50": 1.1449259999999999,
+        "p95": 1.384545,
+        "max": 2.535799
+      },
+      "GUI.Repaint": {
+        "p50": 5.676749,
+        "p95": 7.05375,
+        "max": 12.603373999999999
+      },
+      "GPU Frame Time": {
+        "p50": 5.035875,
+        "p95": 6.386416,
+        "max": 8.713999
+      },
+      "Hero.GroundMovement": {
+        "p50": 0.15104199999999998,
+        "p95": 0.18529199999999998,
+        "max": 0.355417
+      },
+      "Gfx.WaitForPresentOnGfxThread": {
+        "p50": 0.000125,
+        "p95": 0.000459,
+        "max": 0.014083
+      },
+      "frames_over_33_34ms": 0
+    },
+    "after_uncapped": {
+      "frame_ms": {
+        "p50": 2.99871,
+        "p95": 3.39504,
+        "max": 28.933546
+      },
+      "GC Allocated In Frame": {
+        "p50": 5404.0,
+        "p95": 5924.0,
+        "max": 11456.0
+      },
+      "GC.Collect": {
+        "p50": 0.0,
+        "p95": 0.0,
+        "max": 0.944542
+      },
+      "Stage3.HUD": {
+        "p50": 1.5768339999999998,
+        "p95": 1.647209,
+        "max": 8.794459
+      },
+      "Stage3.ResourceSprites": {
+        "p50": 0.3225,
+        "p95": 0.345256,
+        "max": 1.34772
+      },
+      "GUI.Repaint": {
+        "p50": 2.891458,
+        "p95": 3.025792,
+        "max": 17.274959
+      },
+      "GPU Frame Time": {
+        "p50": 2.442875,
+        "p95": 2.795916,
+        "max": 8.770415999999999
+      },
+      "Hero.GroundMovement": {
+        "p50": 0.109083,
+        "p95": 0.119,
+        "max": 0.6805
+      },
+      "Gfx.WaitForPresentOnGfxThread": {
+        "p50": 0.000125,
+        "p95": 0.00045799999999999997,
+        "max": 0.002166
+      },
+      "frames_over_33_34ms": 0
+    },
+    "collections_45s": {
+      "before": 131,
+      "after": 74
+    },
+    "native_final": {
+      "seconds": 85,
+      "distance_m": 226.866,
+      "passes": 3,
+      "input": "Actual CUA D18s, A18s, D18s; ordinary1x normal mover.Update, no forced displacement. Camera follows.",
+      "overlap_recoveries": 0,
+      "moving_frames": 3241,
+      "moving": {
+        "frame_ms": {
+          "p50": 16.666163,
+          "p95": 16.967084,
+          "max": 17.68475
+        },
+        "GC Allocated In Frame": {
+          "p50": 5577.0,
+          "p95": 5993.0,
+          "max": 11737.0
+        },
+        "GC.Collect": {
+          "p50": 0.0,
+          "p95": 0.0,
+          "max": 1.459292
+        },
+        "Stage3.HUD": {
+          "p50": 2.649459,
+          "p95": 2.907208,
+          "max": 4.870876
+        },
+        "Stage3.ResourceSprites": {
+          "p50": 0.5627449999999999,
+          "p95": 0.648546,
+          "max": 1.1411719999999999
+        },
+        "GUI.Repaint": {
+          "p50": 4.845333999999999,
+          "p95": 5.295542,
+          "max": 8.943833
+        },
+        "GPU Frame Time": {
+          "p50": 6.521833,
+          "p95": 8.207625,
+          "max": 12.892166
+        },
+        "Hero.GroundMovement": {
+          "p50": 0.18170799999999998,
+          "p95": 0.210667,
+          "max": 0.429208
+        },
+        "Gfx.WaitForPresentOnGfxThread": {
+          "p50": 0.00020899999999999998,
+          "p95": 0.000417,
+          "max": 0.014249999999999999
+        },
+        "Semaphore.WaitForSignal": {
+          "p50": 13.798041,
+          "p95": 14.752543,
+          "max": 15.827164999999999
+        },
+        "frames_over_33_34ms": 0
+      },
+      "entire_capture": {
+        "frame_ms": {
+          "p50": 16.666163,
+          "p95": 17.16629,
+          "max": 99.807337
+        },
+        "GC Allocated In Frame": {
+          "p50": 5577.0,
+          "p95": 5976.0,
+          "max": 11737.0
+        },
+        "GC.Collect": {
+          "p50": 0.0,
+          "p95": 0.0,
+          "max": 1.459292
+        },
+        "Stage3.HUD": {
+          "p50": 2.580124,
+          "p95": 2.8925419999999997,
+          "max": 6.900333
+        },
+        "Stage3.ResourceSprites": {
+          "p50": 0.560704,
+          "p95": 0.651679,
+          "max": 1.538502
+        },
+        "GUI.Repaint": {
+          "p50": 4.707666,
+          "p95": 5.279084,
+          "max": 12.859
+        },
+        "GPU Frame Time": {
+          "p50": 6.304708,
+          "p95": 8.87725,
+          "max": 15.529166
+        },
+        "Hero.GroundMovement": {
+          "p50": 0.16616699999999998,
+          "p95": 0.20975,
+          "max": 0.429208
+        },
+        "Gfx.WaitForPresentOnGfxThread": {
+          "p50": 0.00025,
+          "p95": 0.00045799999999999997,
+          "max": 0.014249999999999999
+        },
+        "Semaphore.WaitForSignal": {
+          "p50": 13.878293,
+          "p95": 14.995251999999999,
+          "max": 88.992087
+        },
+        "frames_over_33_34ms": 4
+      }
+    },
+    "limits": [
+      "An earlier native75s profile had one1020.5ms frame,996.9ms in Gfx.WaitForPresentOnGfxThread, zero GC collection. It did not recur in subsequent uncapped or paced runs; root cause unconfirmed. No assertion that all stalls are fixed.",
+      "Final85s capture includes four stationary/input-boundary outliers33-100ms. Kept in entire_capture; zero moving frames above33.34ms. Do not present moving-only maximum as whole-capture maximum.",
+      "Accelerated10x intermediate stress reached76ms; actual zoom5 because direct size was reset by follow target. Zoom control in subsequent fixture uses camera gesture API.",
+      "Mono GC.GetAllocatedBytesForCurrentThread returns unsupported zero in this player. Native GC Allocated In Frame used instead. Some available draw-count counters return zero; no claim based on those.",
+      "No memory streaming rewrite: static world/resource population created at startup, mip streaming disabled. Presentation wait does not prove resource loading."
+    ],
+    "full_report": "Artifacts/S3-LVL-MOVEMENT-20261019/profile-comparison.json",
+    "raw_profiles": [
+      "before",
+      "no-hud",
+      "after",
+      "stress",
+      "final-auto",
+      "native-wasd",
+      "native-present-uncapped",
+      "native-present-vsync",
+      "native-final-paced"
+    ]
+  },
+  "visual_review": {
+    "owner": "GPT-6 Astra",
+    "normal_HUD": "PASS: restored ruby HP, deep cyan-blue MP, warm orange XP; bevel/silver edges/cyan jewels and numeric0/0 intact.",
+    "900p_actions": "PASS all eight reviewed frames: approved PNG enabled/disabled, compact reflective LVL live updates/zoom2.5-10, v4 card/HUD and blue/green/red intact.",
+    "boundary_resolutions": "PASS: five frames each at720p/1080p; LVL min9px readable, compact metallic highlights, PNG distinct, prices/refund/preview clear and HUDv4 preserved. All three resolutions accepted; no visual blockers.",
+    "status": "Final PASS; no source edits after review."
+  },
+  "protection": {
+    "count": 170,
+    "changed": [
+      "ProjectSettings/QualitySettings.asset"
+    ],
+    "new_files": [
+      "Assets/Stage3/PlayerInterface/Resources/Stage3UpgradeSilverCyan.png",
+      "Assets/Stage3/PlayerInterface/Resources/Stage3UpgradeSilverCyan.png.meta"
+    ]
+  },
+  "source_sha256": {
+    "Assets/Stage3/ResourceSpritePilot/Stage3ResourceSprite.cs": "f12784de7d2a4e2819558cd50fcee623f8e41b59f2942dc6443b216129ceec34",
+    "Assets/Stage3/PlayerInterface/Resources/Stage3UpgradeSilverCyan.png": "c464353b6f211681cace6cb94ae51cb74b922663fc293d45ea3616996b6c030e",
+    "Assets/Stage3/PlayerInterface/Resources/Stage3UpgradeSilverCyan.png.meta": "d93848c30dc1c0a5a82fc7fcf9f675a39e7753553205c9c892782c36ee003822",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3MovementReachReview.cs": "3efb2bbfca7c65096899c70a6d89ce566ff40d179d5e330d32a45b6b39fc508a",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Ornaments.cs": "6d42ad4e613b635ded8efb42524e202c7a33bd3305089003a847f103d32eb36a",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.cs": "565b0e18a218b3bbd9c012b1eaf3b8f05075c9766215ba78ef667b62b4313930",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3PlayerInterfaceBinding.cs": "46528b1a2588690bacbbff7749318d947d02772a49c6a3ff20858c892badf461",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Selection.cs": "491fe7e70d96fd8d35c215d64d8d772f313aed3d95f9ff59f043c702a787933b",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Inventory.cs": "87444ef270100c018c1a52146dd7ac3d9a369e57ac8a4e59562b59fd4c637bd4",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3InterfaceCapture.cs": "66e5f722cb03f747409bf2098dbab3e5180fc4ec46768c135e8b321dfed198bb",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Map.cs": "b8d4e9296fe72360c689125af517178d11e2e5f817d3532bbb115dccb3819c77",
+    "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3ManualResourceTests.cs": "a0d2a2a024654e958bd7a133dce29166e3bb84ca191d5c585146ab30fbcc0861",
+    "ProjectSettings/QualitySettings.asset": "70c715fda9b9c9f0ffaee6887df1749ba94f3c7f51dc906050f89e0ad9cb5177"
+  },
+  "representative_frame": "art/review/tower_lvl_upgrade_game_2026-10-19.png",
+  "representative_sha256": "a6bb2d37bec2a2c59a695b0a1104cbd62797109765d8fbcbf563a1676eaccb38",
+  "remaining": [
+    "Rare Metal presentation-wait root cause unconfirmed.",
+    "Windows runtime/performance unverified: Windows build module absent.",
+    "Other hardware budgets, tower tiers/per-level art and unrelated gameplay outside this slice."
+  ]
+}

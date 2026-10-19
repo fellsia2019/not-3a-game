@@ -46,6 +46,8 @@ MonoBehaviour:
     mediumHarvestRadius: 1.1
     largeHarvestRadius: 1.8
     mineralInteractionRange: 0.35
+    mediumMineralInteractionRange: 0.85
+    largeMineralInteractionRange: 1.1
     treeInteractionRange: 0.6
     treeTrunkCollisionRadius: 0.18
     stoneHarvestRadii:

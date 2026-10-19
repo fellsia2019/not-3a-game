@@ -30,6 +30,7 @@ namespace Not3A.Stage2.Integration
         private const int MaskSize = 96;
         private readonly Dictionary<Sprite, bool[]> masks = new Dictionary<Sprite, bool[]>();
         private InputAction confirm, cancel;
+        private Stage2Production.Snapshot checkpoint;
         public Stage2ProductionCatalog Catalog { get; private set; }
         public Stage2Production Rules { get; private set; }
         public bool IsPlacing { get; private set; }
@@ -38,6 +39,14 @@ namespace Not3A.Stage2.Integration
         public int PreviewPointIndex { get; private set; } = -1;
         public bool PointerOverUi { get; private set; }
         public event Action PlacementStarting;
+
+        public GameObject GetBuiltVisual(Stage2ProductionBuilding building)
+        {
+            if (Rules == null || building == null) return null;
+            for (var i = 0; i < Rules.Buildings.Count; i++)
+                if (ReferenceEquals(Rules.Buildings[i], building)) return i < visuals.Count ? visuals[i] : null;
+            return null;
+        }
 
         public void Configure(Stage2ProductionCatalog catalog, Stage2SceneBootstrap scene, Stage2GameComposition game)
         {
@@ -59,6 +68,8 @@ namespace Not3A.Stage2.Integration
             }
             towers.PlacementStarting += CancelPlacement;
             run.Reset += ResetRun;
+            run.BeforeWaveStarted += CaptureCheckpoint;
+            run.Rewound += RestoreCheckpoint;
             run.Changed += SyncActivity;
             SyncActivity();
         }
@@ -165,6 +176,22 @@ namespace Not3A.Stage2.Integration
             foreach (var instance in visuals) if (instance != null) { instance.SetActive(false); Destroy(instance); }
             visuals.Clear(); Rules?.Reset();
             foreach (var mark in padMarkers) if (mark != null) mark.gameObject.SetActive(true);
+            checkpoint = null;
+        }
+        private void CaptureCheckpoint() => checkpoint = Rules?.CaptureSnapshot();
+        private void RestoreCheckpoint()
+        {
+            var saved = checkpoint;
+            ResetRun();
+            if (saved == null) return;
+            Rules.RestoreSnapshot(saved);
+            foreach (var building in Rules.Buildings)
+            {
+                var instance = CreateVisual(building.Entry, Rules.Points[building.PointIndex],
+                    "Production " + building.Entry.Building, Catalog.SpriteMaterial);
+                obstacles.AddRectangle(building.Footprint); visuals.Add(instance); instance.SetActive(true);
+            }
+            SyncMarkers();
         }
         private bool Active => run != null && !run.IsPaused && !run.IsTerminal &&
             (composition == null || !composition.PlayerInputBlocked);
@@ -183,7 +210,11 @@ namespace Not3A.Stage2.Integration
         private void OnDestroy()
         {
             if (towers != null) towers.PlacementStarting -= CancelPlacement;
-            if (run != null) { run.Reset -= ResetRun; run.Changed -= SyncActivity; }
+            if (run != null)
+            {
+                run.Reset -= ResetRun; run.Changed -= SyncActivity;
+                run.BeforeWaveStarted -= CaptureCheckpoint; run.Rewound -= RestoreCheckpoint;
+            }
             ResetRun(); ClearMarkers();
             if (previewMaterial != null) Destroy(previewMaterial);
             if (groundMaterial != null) Destroy(groundMaterial);

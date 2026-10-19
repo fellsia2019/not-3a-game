@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using Not3A.Stage2.Defense;
 using Not3A.Stage2.Economy;
@@ -11,6 +10,7 @@ namespace Not3A.Stage3.VisualPilot
 {
     /// <summary>One flat XY rules plane, real height along -Z, one shared tactical camera.
     /// Temporary actor solids are scale references, not final character/content production.</summary>
+    [DefaultExecutionOrder(-500)]
     public sealed class Stage3TacticalPresentation : MonoBehaviour
     {
         public const int NonWalkableBorderCells = 128;
@@ -62,14 +62,16 @@ namespace Not3A.Stage3.VisualPilot
         private readonly List<GameObject> manualVisuals = new List<GameObject>();
         private Vector2 manualHeroStart;
         private bool manualResourcesReady;
+        public bool IsInitialized { get; private set; }
 
-        private IEnumerator Start()
+        private void Start()
         {
             tint = new MaterialPropertyBlock();
-            yield return null;
             bootstrap = GetComponent<Stage2SceneBootstrap>();
             composition = GetComponent<Stage2GameComposition>();
-            if (bootstrap == null || composition == null || !composition.IsInitialized) yield break;
+            // Bootstrap Awake has completed. Build the approved world before HUD binding
+            // (-300) and the first camera render, without exposing the saved graybox.
+            if (bootstrap == null || composition == null || !composition.Initialize()) return;
             manualHeroStart = bootstrap.PlayerMover.transform.position;
             var minimap = GetComponent<Stage2Minimap>();
             if (minimap == null) minimap = gameObject.AddComponent<Stage2Minimap>();
@@ -104,7 +106,11 @@ namespace Not3A.Stage3.VisualPilot
             {
                 var objective = Instantiate(soulSpherePrefab, bootstrap.ThroneMarker, false);
                 var sprite = objective.GetComponent<Stage3LandmarkSprite>();
-                if (sprite != null) sprite.Bind(composition.RunDriver, bootstrap.CameraFollow.BoundCamera);
+                if (sprite != null)
+                {
+                    sprite.Bind(composition.RunDriver, bootstrap.CameraFollow.BoundCamera);
+                    gameObject.AddComponent<Stage3DefeatPresentation>().Bind(bootstrap.CameraFollow.BoundCamera, composition.RunDriver, sprite);
+                }
             }
             else
             {
@@ -135,6 +141,7 @@ namespace Not3A.Stage3.VisualPilot
             gameObject.AddComponent<Stage3CombatPresentation>().Initialize(composition, neutral);
             if (enableDayNightPresentation)
                 gameObject.AddComponent<Stage3DayNightPresentation>().Initialize(composition,dayNightGround);
+            IsInitialized = true;
             Debug.Log("S3_TACTICAL_VIEW_READY elevation=55 planarGrid=true heightAxis=-Z");
         }
 

@@ -1,5 +1,14 @@
 # Feature: Stage 2 Tower Choice
 
+## D-075 target — not implemented
+
+Дальнейшие типы открываются через покупку исследования у торговца города
+и изучение в своей мастерской. Для существующих/новых башен нужны уровни,
+платный ап и слияние; см. TOWER_UPGRADES.md. Новые постройки за ресурсы,
+апы могут включать золото. Характеристики, уровни и учёт вложений входят
+в checkpoint. Число новых ролей не выбрано. Две роли/старые цены ниже
+остаются проверенным runtime, а не уже внедрённым деревом развития.
+
 Status: S2-DEF-02 Defense delivery complete, 2026-09-25; Longshot revised by
 D-028 in Stage 3.
 Owner: Defense. Integration exclusively owns the Stage 2 scene.

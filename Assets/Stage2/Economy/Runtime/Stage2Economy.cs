@@ -7,12 +7,39 @@ namespace Not3A.Stage2.Economy
 {
     public sealed class Stage2Inventory
     {
+        public readonly struct State
+        {
+            internal readonly int Wood, Stone, Metal, Gold;
+            internal State(int wood, int stone, int metal, int gold)
+            { Wood = wood; Stone = stone; Metal = metal; Gold = gold; }
+        }
         private readonly int[] amounts = new int[3];
         private int gold;
         public event Action Changed;
 
         public int Get(MapResourceKind kind) => amounts[Index(kind)];
         public int Gold => gold;
+
+        public bool CanAfford(Stage2ResourceCost cost) => cost.IsValid && CanAfford(cost.Wood, cost.Stone, cost.Metal, cost.Gold);
+        public bool TrySpend(Stage2ResourceCost cost) => cost.IsValid && TrySpend(cost.Wood, cost.Stone, cost.Metal, cost.Gold);
+        public bool CanCredit(Stage2ResourceCost cost) => cost.IsValid &&
+            cost.Wood <= int.MaxValue - amounts[0] && cost.Stone <= int.MaxValue - amounts[1] &&
+            cost.Metal <= int.MaxValue - amounts[2] && cost.Gold <= int.MaxValue - gold;
+        public bool TryCredit(Stage2ResourceCost cost)
+        {
+            if (!CanCredit(cost)) return false;
+            if (cost.IsZero) return true;
+            amounts[0] += cost.Wood; amounts[1] += cost.Stone; amounts[2] += cost.Metal; gold += cost.Gold;
+            Changed?.Invoke();
+            return true;
+        }
+
+        public State CaptureState() => new State(amounts[0], amounts[1], amounts[2], gold);
+        public void RestoreState(State state)
+        {
+            amounts[0] = state.Wood; amounts[1] = state.Stone; amounts[2] = state.Metal; gold = state.Gold;
+            Changed?.Invoke();
+        }
 
         public bool TryAddGold(int amount)
         {
@@ -145,10 +172,27 @@ namespace Not3A.Stage2.Economy
             Remaining = Capacity;
             RecoveryRemaining = 0f;
         }
+
+        internal void RestoreStock(int remaining, float recovery)
+        { Remaining = remaining; RecoveryRemaining = recovery; }
     }
 
     public sealed class Stage2Economy
     {
+        public sealed class Snapshot
+        {
+            internal readonly Stage2ResourceNode[] Nodes;
+            internal readonly int[] Remaining;
+            internal readonly float[] Recovery;
+            internal readonly Stage2Inventory.State Inventory;
+            internal Snapshot(Stage2Economy owner)
+            {
+                Nodes = owner.nodes.ToArray(); Remaining = new int[Nodes.Length]; Recovery = new float[Nodes.Length];
+                for (var i = 0; i < Nodes.Length; i++)
+                { Remaining[i] = Nodes[i].Remaining; Recovery[i] = Nodes[i].RecoveryRemaining; }
+                Inventory = owner.Inventory.CaptureState();
+            }
+        }
         private readonly Stage2MapDefinition map;
         private readonly int startingGold;
         private readonly Stage2ResourceNode[] anchors = new Stage2ResourceNode[3];
@@ -197,6 +241,21 @@ namespace Not3A.Stage2.Economy
         public Stage2ResourceNode CurrentNode { get; private set; }
         public IReadOnlyList<Stage2ResourceNode> Nodes => nodeView;
 
+        public Snapshot CaptureSnapshot() => new Snapshot(this);
+        public bool MatchesSnapshot(Snapshot snapshot)
+        {
+            if (snapshot == null || snapshot.Nodes.Length != nodes.Count) return false;
+            for (var i = 0; i < nodes.Count; i++) if (!ReferenceEquals(nodes[i], snapshot.Nodes[i])) return false;
+            return true;
+        }
+        public void RestoreSnapshot(Snapshot snapshot)
+        {
+            if (!MatchesSnapshot(snapshot)) throw new ArgumentException("Snapshot belongs to a different resource world.", nameof(snapshot));
+            CancelGather();
+            for (var i = 0; i < nodes.Count; i++) nodes[i].RestoreStock(snapshot.Remaining[i], snapshot.Recovery[i]);
+            Inventory.RestoreState(snapshot.Inventory);
+        }
+
         public Stage2ResourceNode GetNode(MapResourceKind kind)
         {
             if (kind < MapResourceKind.Wood || kind > MapResourceKind.Metal)
@@ -225,7 +284,7 @@ namespace Not3A.Stage2.Economy
             (InteractionRange(node) + node.InteractionRadius) * (InteractionRange(node) + node.InteractionRadius);
 
         private float InteractionRange(Stage2ResourceNode node) => manualResources == null ? interactionRange :
-            node.Resource == MapResourceKind.Wood ? manualResources.treeInteractionRange : manualResources.mineralInteractionRange;
+            node.Resource == MapResourceKind.Wood ? manualResources.treeInteractionRange : manualResources.MineralInteractionRange(node.Size);
 
         public Stage2ResourceNode NearestAvailableNode(Vector2 playerWorld)
         {

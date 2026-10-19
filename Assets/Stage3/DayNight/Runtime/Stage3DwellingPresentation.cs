@@ -17,6 +17,8 @@ namespace Not3A.Stage3.VisualPilot
         private Stage2PlacementMark footprint;
         private Material previewMaterial, outlineMaterial;
 
+        public SpriteRenderer BuiltVisual => built != null ? built.GetComponent<SpriteRenderer>() : null;
+
         public void Initialize(Stage3Dwelling owner, Stage3DwellingCatalog catalog, Camera camera)
         {
             dwelling = owner; data = catalog; view = camera;

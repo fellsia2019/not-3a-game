@@ -25,6 +25,8 @@ namespace Not3A.Stage3.VisualPilot
         private Stage3DwellingPresentation presentation;
         private InputAction interact, confirm, cancel;
         private bool requiresRelease = true, confirmRequiresRelease = true;
+        private bool checkpointBuilt;
+        private Vector2 checkpointPosition;
 
         public Stage3DwellingCatalog Catalog => catalog;
         public bool IsReady { get; private set; }
@@ -67,6 +69,8 @@ namespace Not3A.Stage3.VisualPilot
             game.Building.PlacementStarting += CancelPlacement;
             if (game.Production != null) game.Production.PlacementStarting += CancelPlacement;
             game.RunDriver.Run.Reset += ResetDwelling;
+            game.RunDriver.Run.BeforeWaveStarted += CaptureCheckpoint;
+            game.RunDriver.Run.Rewound += RestoreCheckpoint;
             IsReady = true;
             Changed?.Invoke();
             Debug.Log("S3_DWELLING_READY: paid green-ground dwelling, local day-only rest; no skipped-time production.", this);
@@ -194,6 +198,20 @@ namespace Not3A.Stage3.VisualPilot
             if (IsBuilt && obstacles != null) obstacles.RemoveRectangle(builtObstacle);
             IsBuilt = false; Position = Vector2.zero; CancelPlacement(); presentation?.Clear(); requiresRelease = true;
         }
+        private void CaptureCheckpoint() { checkpointBuilt = IsBuilt; checkpointPosition = Position; }
+        private void RestoreCheckpoint()
+        {
+            ResetDwelling();
+            if (checkpointBuilt)
+            {
+                if (!presentation.PrepareBuild(checkpointPosition))
+                    throw new InvalidOperationException("Captured dwelling artwork could not be restored.");
+                Position = checkpointPosition; builtObstacle = FootprintAt(Position);
+                obstacles.AddRectangle(builtObstacle); IsBuilt = true; presentation.CompleteBuild();
+            }
+            confirmRequiresRelease = true; requiresRelease = true;
+            game.Gathering.CancelGatherUntilRelease(); Changed?.Invoke();
+        }
 
         private void OnDisable()
         {
@@ -208,6 +226,11 @@ namespace Not3A.Stage3.VisualPilot
                 if (game.Building != null) game.Building.PlacementStarting -= CancelPlacement;
                 if (game.Production != null) game.Production.PlacementStarting -= CancelPlacement;
                 if (game.RunDriver != null && game.RunDriver.Run != null) game.RunDriver.Run.Reset -= ResetDwelling;
+                if (game.RunDriver != null && game.RunDriver.Run != null)
+                {
+                    game.RunDriver.Run.BeforeWaveStarted -= CaptureCheckpoint;
+                    game.RunDriver.Run.Rewound -= RestoreCheckpoint;
+                }
             }
             if (IsBuilt && obstacles != null) obstacles.RemoveRectangle(builtObstacle);
         }

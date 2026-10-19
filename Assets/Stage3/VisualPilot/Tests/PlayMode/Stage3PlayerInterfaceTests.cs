@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Not3A.Stage2.Defense;
+using Not3A.Stage2.Economy;
 using Not3A.Stage2.Integration;
 using Not3A.Stage2.Map;
 using NUnit.Framework;
@@ -12,6 +13,7 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
+using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using Object = UnityEngine.Object;
@@ -31,6 +33,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
         private Component playerUi;
         private float previousTimeScale;
         private int previousCaptureRate;
+        private bool previousPointerMerging;
 
         private string Window => Read<object>(playerUi, "ActiveWindow").ToString();
         private bool Modal => Read<bool>(playerUi, "IsModalOpen");
@@ -44,6 +47,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Time.captureFramerate = 60;
             input = new InputTestFixture();
             input.Setup();
+            previousPointerMerging=InputSystem.settings.disableRedundantEventsMerging;
             keyboard = InputSystem.AddDevice<Keyboard>();
             mouse = InputSystem.AddDevice<Mouse>();
             EditorSceneManager.LoadSceneInPlayMode("Assets/Scenes/Stage3Rapid3DGamePilot.unity",
@@ -74,6 +78,8 @@ namespace Not3A.Stage3.VisualPilot.Tests
             foreach (var root in SceneManager.GetActiveScene().GetRootGameObjects()) Object.Destroy(root);
             yield return null;
             yield return null;
+            Assert.That(InputSystem.settings.disableRedundantEventsMerging,Is.EqualTo(previousPointerMerging),
+                "The scene input owner must restore the original mouse merging setting.");
             input.TearDown();
             Time.captureFramerate = previousCaptureRate;
             Time.timeScale = previousTimeScale;
@@ -517,6 +523,378 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Assert.That(camera.transform.position, Is.EqualTo(cameraPosition));
             Assert.That(camera.orthographicSize, Is.EqualTo(cameraSize));
             RecordCorrection("map-synthetic-touch", "Automated synthetic Input System Touchscreen events: a moving two-finger pinch preserves its world anchor and zooms; a fresh one-finger drag pans without zoom; the world camera is unchanged. No physical touch hardware was tested.");
+        }
+
+        [UnityTest]
+        public IEnumerator UnifiedHudContainsMinimapTenReservesAndSeparateProtectedRibbon()
+        {
+            var dock = Read<Rect>(playerUi, "BottomRect");
+            var safe = Read<Rect>(playerUi, "SafeScreenRect");
+            var ribbon = Read<Rect>(playerUi, "NavigationRibbonRect");
+            Assert.That(dock.xMin, Is.EqualTo(safe.xMin).Within(.01f));
+            Assert.That(dock.xMax, Is.EqualTo(safe.xMax).Within(.01f));
+            AssertContained(dock, Read<Rect>(playerUi, "MinimapRect"), "Minimap must belong to the continuous main dock.");
+            Assert.That(ribbon.xMin, Is.EqualTo(dock.xMin).Within(.01f));
+            Assert.That(ribbon.xMax, Is.EqualTo(dock.xMax).Within(.01f));
+            Assert.That(ribbon.yMax, Is.EqualTo(dock.yMin).Within(.01f));
+            Assert.That(ribbon.height, Is.LessThan(dock.height * .4f));
+            Assert.That((int)playerUi.GetType().GetField("AbilityReserveCount").GetValue(null), Is.EqualTo(10));
+            for (var i = 0; i < 10; i++)
+            {
+                var slot = (Rect)Call(playerUi, "AbilityReserveRect", i);
+                AssertContained(dock, slot, "Every reserve must fit the main HUD.");
+                for (var j = 0; j < i; j++)
+                    Assert.That(slot.Overlaps((Rect)Call(playerUi, "AbilityReserveRect", j)), Is.False);
+            }
+            Assert.That(((Rect)Call(playerUi, "AbilityReserveRect", 5)).y,
+                Is.GreaterThan(((Rect)Call(playerUi, "AbilityReserveRect", 0)).y));
+            foreach (var x in new[] { ribbon.xMin + 3f, ribbon.center.x, ribbon.xMax - 3f })
+                Assert.That(game.ContainsScreenPoint(GuiToScreen(new Vector2(x, ribbon.center.y))), Is.True,
+                    "Empty ribbon backing also blocks world clicks and zoom.");
+            for (var i = 0; i < 3; i++)
+                AssertContained(dock, (Rect)Call(playerUi, "HeroStatusBarRect", i), "Numeric status bars must fit the dock.");
+            yield return null;
+        }
+
+        [UnityTest]
+        public IEnumerator WorldSelectionShowsLiveTowerHealthClearsOnRemovalAndRejectsHeldUiDrag()
+        {
+            var binding = game.GetComponent("Stage3PlayerInterfaceBinding");
+            var tower = BuildSelectionTower();
+            yield return null;
+            var point = FrameBuilding(tower.GetComponentsInChildren<Renderer>().First(r => r.enabled));
+            yield return Click(point);
+            Assert.That(Read<bool>(playerUi, "HasSelectedBuilding"), Is.True);
+            Assert.That(Read<object>(binding, "SelectedBuildingKind").ToString(), Is.EqualTo("Tower"));
+            var selectedView = Read<object>(playerUi, "SelectedBuildingView");
+            Assert.That(selectedView.GetType().GetField("Icon").GetValue(selectedView), Is.Not.Null,
+                "The selected tower must use a real native thumbnail rather than an empty medallion.");
+            var selection = Read<Rect>(playerUi, "SelectedBuildingRect");
+            var ribbon = Read<Rect>(playerUi, "NavigationRibbonRect");
+            Assert.That(selection.yMax, Is.EqualTo(ribbon.yMin).Within(.01f));
+            Assert.That(selection.width, Is.EqualTo(ribbon.width).Within(.01f));
+            var stock = Stock(); var hero = scene.PlayerMover.transform.position;
+            tower.TakeDamage(2); yield return null;
+            Assert.That(SelectedStat("Здоровье"), Is.EqualTo(tower.Health + "/" + tower.MaximumHealth));
+            yield return Click(GuiToScreen(selection.center));
+            Assert.That(Stock(), Is.EqualTo(stock), "Clicking a card or unavailable action cannot pay for anything.");
+            Assert.That(game.Building.Defense.TowerCount, Is.EqualTo(1));
+            Assert.That(scene.PlayerMover.transform.position, Is.EqualTo(hero));
+            yield return Tap(keyboard.escapeKey);
+            Assert.That(Read<bool>(playerUi, "HasSelectedBuilding"), Is.False);
+            var dockPoint = GuiToScreen(Read<Rect>(playerUi, "NavigationRibbonRect").center);
+            input.Set(mouse.position, dockPoint); input.Press(mouse.leftButton); yield return null;
+            input.Set(mouse.position, point); yield return null;
+            input.Release(mouse.leftButton); yield return null;
+            Assert.That(Read<bool>(playerUi, "HasSelectedBuilding"), Is.False, "A held UI press dragged into the world is not selection.");
+            yield return Click(point);
+            Assert.That(Read<bool>(playerUi, "HasSelectedBuilding"), Is.True);
+            tower.TakeDamage(tower.Health); yield return null; yield return null;
+            Assert.That(Read<bool>(playerUi, "HasSelectedBuilding"), Is.False, "A destroyed target must not leave a stale card.");
+            Assert.That(Read<object>(binding, "SelectedBuildingKind").ToString(), Is.EqualTo("None"));
+        }
+
+        [UnityTest]
+        public IEnumerator WorkshopSelectionClearsForResearchWithoutBuyingAndLifecycleRequiresFreshClicks()
+        {
+            var travel = game.GetComponent("Stage3WorldTravel");
+            Call(travel, "BeginWorkshopPlacement");
+            var site = Read<Vector2>(travel, "WorkshopPosition");
+            Assert.That(Call(travel, "TryBuildWorkshopAt", site).ToString(), Is.EqualTo("Built"));
+            yield return null;
+            var visual = Read<SpriteRenderer>(travel, "WorkshopVisual");
+            var point = FrameBuilding(visual);
+            yield return Click(point);
+            Assert.That(Read<bool>(playerUi, "HasSelectedBuilding"), Is.True);
+            var stock = Stock();
+            // Native IMGUI buttons are verified in the real player; synthetic Input System
+            // mouse events do not create Editor GUI.Button events in batchmode.
+            yield return Tap(keyboard.pKey);
+            Assert.That(Window, Is.EqualTo("Research"));
+            Assert.That(Read<bool>(playerUi, "HasSelectedBuilding"), Is.False);
+            Assert.That(Read<bool>(travel, "IsResearched"), Is.False, "The card opens an overview, not remote research.");
+            Assert.That(Stock(), Is.EqualTo(stock));
+            yield return Tap(keyboard.escapeKey);
+            yield return Click(point);
+            Assert.That(Read<bool>(playerUi, "HasSelectedBuilding"), Is.True);
+            game.SetPaused(true); yield return null;
+            Assert.That(Read<bool>(playerUi, "HasSelectedBuilding"), Is.False);
+            game.SetPaused(false); yield return null;
+            yield return Click(point);
+            Assert.That(Read<bool>(playerUi, "HasSelectedBuilding"), Is.True);
+            game.RunDriver.ResetRun(); yield return null;
+            Assert.That(Read<bool>(playerUi, "HasSelectedBuilding"), Is.False);
+            Assert.That(Read<bool>(travel, "WorkshopBuilt"), Is.False);
+        }
+
+        [UnityTest]
+        public IEnumerator AllProductionKindsDwellingAndThroneExposeActualOwnedBuildingData()
+        {
+            var inventory = game.Gathering.Economy.Inventory;
+            foreach (MapResourceKind resource in Enum.GetValues(typeof(MapResourceKind))) inventory.TryAdd(resource, 200);
+            scene.PlayerMover.transform.position = scene.ThroneMarker.position + Vector3.right * 5f;
+            var production = game.Production;
+            foreach (ResourceProductionBuilding kind in Enum.GetValues(typeof(ResourceProductionBuilding)))
+            {
+                var pointIndex = Enumerable.Range(0, production.Rules.Points.Count)
+                    .First(i => production.Rules.Points[i].Building == kind);
+                production.SelectAndBeginPlacement(kind);
+                Assert.That(production.TryBuildAt(pointIndex), Is.EqualTo(ProductionPlacementResult.Built));
+                Call(playerUi, "CloseWindow"); yield return null;
+                var building = production.Rules.Buildings.Last();
+                var visual = production.GetBuiltVisual(building).GetComponent<SpriteRenderer>();
+                FrameBuilding(visual);
+                yield return Click(OpaquePoint(visual));
+                Assert.That(Read<object>(game.GetComponent("Stage3PlayerInterfaceBinding"), "SelectedBuildingKind").ToString(), Is.EqualTo("Production"));
+                Assert.That(SelectedStat("За цикл"), Is.EqualTo("+" + building.Entry.OutputAmount));
+                Assert.That(SelectedStat("Ресурс"), Is.EqualTo(kind == ResourceProductionBuilding.Sawmill ? "Дерево" :
+                    kind == ResourceProductionBuilding.Quarry ? "Камень" : "Металл"));
+                yield return Tap(keyboard.escapeKey);
+            }
+            var dwelling = game.GetComponent("Stage3Dwelling");
+            Call(dwelling, "BeginPlacement");
+            var built = false;
+            for (var x = -14; x <= 14 && !built; x += 2)
+            for (var y = -14; y <= 14 && !built; y += 2)
+            {
+                var site = (Vector2)scene.ThroneMarker.position + new Vector2(x, y);
+                if (Call(dwelling, "EvaluateAt", site).ToString() != "Ready") continue;
+                built = Call(dwelling, "TryBuildAt", site).ToString() == "Built";
+            }
+            Assert.That(built, Is.True); yield return null;
+            var home = Read<SpriteRenderer>(game.GetComponent("Stage3DwellingPresentation"), "BuiltVisual");
+            FrameBuilding(home); yield return Click(OpaquePoint(home));
+            var binding = game.GetComponent("Stage3PlayerInterfaceBinding");
+            Assert.That(Read<object>(binding, "SelectedBuildingKind").ToString(), Is.EqualTo("Dwelling"));
+            yield return Tap(keyboard.escapeKey);
+            var dome = scene.ThroneMarker.GetComponentsInChildren<Component>().First(c => c.GetType().Name == "Stage3LandmarkSprite");
+            var domeBody = Read<SpriteRenderer>(dome, "Body");
+            FrameBuilding(domeBody); yield return Click(OpaquePoint(domeBody));
+            Assert.That(Read<object>(binding, "SelectedBuildingKind").ToString(), Is.EqualTo("Throne"));
+            Assert.That(SelectedStat("Здоровье"), Is.EqualTo(game.RunDriver.Run.ThroneHealth + "/" + game.RunDriver.Run.ThroneMaximum));
+        }
+
+        private Vector2 OpaquePoint(SpriteRenderer visual)
+        {
+            var sprite = visual.sprite;
+            var camera = scene.CameraFollow.BoundCamera;
+            if (sprite.texture.isReadable)
+            {
+                var rect = sprite.textureRect;
+                for (var y = 5; y <= 15; y++)
+                for (var x = 5; x <= 15; x++)
+                {
+                    var u = x / 20f; var v = y / 20f;
+                    var px = Mathf.Clamp((int)(rect.x + u * rect.width), 0, sprite.texture.width - 1);
+                    var py = Mathf.Clamp((int)(rect.y + v * rect.height), 0, sprite.texture.height - 1);
+                    if (sprite.texture.GetPixel(px, py).a < .8f) continue;
+                    var point = visual.transform.TransformPoint(new Vector3(Mathf.Lerp(sprite.bounds.min.x, sprite.bounds.max.x, u),
+                        Mathf.Lerp(sprite.bounds.min.y, sprite.bounds.max.y, v), 0));
+                    return camera.WorldToScreenPoint(point);
+                }
+            }
+            return camera.WorldToScreenPoint(visual.bounds.center);
+        }
+
+        [UnityTest]
+        public IEnumerator SelectedCardUsesLivePricesUpgradesToCapAndPaysSaleOnce()
+        {
+            var binding = game.GetComponent("Stage3PlayerInterfaceBinding");
+            var tower = BuildSelectionTower(); yield return null;
+            var point = FrameBuilding(tower.GetComponentsInChildren<Renderer>().First(r => r.enabled));
+            yield return Click(point);
+            yield return Tap(keyboard.bKey);
+            Assert.That(Window, Is.EqualTo("Construction"));
+            Assert.That(Call(binding, "TrySelectBuildingAtScreen", point), Is.True);
+            var inventory = game.Gathering.Economy.Inventory;
+            inventory.Reset(); yield return null;
+            object View() => Read<object>(playerUi, "SelectedBuildingView");
+            bool UpgradeAvailable() => (bool)View().GetType().GetField("UpgradeAvailable").GetValue(View());
+            Assert.That(UpgradeAvailable(), Is.False);
+            var defense = game.Building.Defense;
+            var data = defense.GetTowerCatalog(tower); data.TryGetUpgrade(1, out var next);
+            inventory.TryCredit(next.Cost); yield return null;
+            Assert.That(UpgradeAvailable(), Is.True, "Gathering enough resources must refresh the selected card.");
+            Assert.That(Call(binding, "TryUpgradeSelectedBuilding").ToString(), Is.EqualTo("Ready"));
+            Assert.That(tower.Level, Is.EqualTo(2)); Assert.That(inventory.Get(MapResourceKind.Wood), Is.Zero);
+            Assert.That(SelectedStat("Урон"), Is.EqualTo(tower.AttackDamage.ToString()));
+            inventory.TryCredit(new Stage2ResourceCost(1000, 1000, 1000));
+            while (tower.Level < data.MaximumLevel)
+                Assert.That(Call(binding, "TryUpgradeSelectedBuilding").ToString(), Is.EqualTo("Ready"));
+            Assert.That(UpgradeAvailable(), Is.False);
+            var refund = defense.GetSaleRefund(tower); inventory.Reset();
+            Assert.That(Call(binding, "TrySellSelectedBuilding").ToString(), Is.EqualTo("Ready"));
+            Assert.That(Read<bool>(playerUi, "HasSelectedBuilding"), Is.False);
+            Assert.That(inventory.Get(MapResourceKind.Wood), Is.EqualTo(refund.Wood));
+            Assert.That(inventory.Get(MapResourceKind.Stone), Is.EqualTo(refund.Stone));
+            Assert.That(Call(binding, "TrySellSelectedBuilding").ToString(), Is.EqualTo("InvalidTarget"));
+            Assert.That(defense.TowerCount, Is.Zero); Assert.That(inventory.Get(MapResourceKind.Wood), Is.EqualTo(refund.Wood));
+        }
+
+        [UnityTest]
+        public IEnumerator ExistingTowerSelectionPreemptsAllBuildingDraftsWithoutClosingConstruction()
+        {
+            var binding = game.GetComponent("Stage3PlayerInterfaceBinding");
+            var tower = BuildSelectionTower(); yield return null;
+            var point = FrameBuilding(tower.GetComponentsInChildren<Renderer>().First(r => r.enabled));
+            var defense = game.Building.Defense;
+            var production = game.Production;
+            // Exercise the player's normal path: one catalogue card arms a draft, then
+            // a real world click chooses an existing building instead of buying beneath it.
+            foreach (var choice in new[] { (group:0,index:0), (group:1,index:0), (group:2,index:0), (group:2,index:1) })
+            {
+                if (Window != "Construction") yield return Tap(keyboard.bKey);
+                Call(playerUi, "SetBuildGroup", choice.group);
+                Assert.That(Call(playerUi, "ActivateBuildChoice", choice.index), Is.True);
+                yield return null;
+                Assert.That(Window, Is.EqualTo("Construction"));
+                var stock = Stock(); var count = defense.TowerCount;
+                yield return Click(point);
+                Assert.That(Window, Is.EqualTo("Construction"));
+                Assert.That(Read<bool>(playerUi, "HasSelectedBuilding"), Is.True);
+                Assert.That(Read<object>(binding, "SelectedBuildingKind").ToString(), Is.EqualTo("Tower"));
+                Assert.That(defense.IsPlacing || production.IsPlacing ||
+                    Read<bool>(game.GetComponent("Stage3WorldTravel"), "IsPlacingWorkshop") ||
+                    Read<bool>(game.GetComponent("Stage3Dwelling"), "IsPlacing"), Is.False);
+                Assert.That(Stock(), Is.EqualTo(stock), "Selecting a built object must never pay for a draft.");
+                Assert.That(defense.TowerCount, Is.EqualTo(count));
+                var strip = Read<Rect>(playerUi, "SelectedBuildingRect");
+                Assert.That(strip.height, Is.GreaterThan(0));
+                Assert.That(strip.yMax, Is.EqualTo(Read<Rect>(playerUi,"NavigationRibbonRect").yMin).Within(.01f));
+            }
+        }
+
+        [UnityTest]
+        public IEnumerator WorldDragMergesVisibleTowerAndEscapeOrModalCancelsWithoutPayment()
+        {
+            var binding = game.GetComponent("Stage3PlayerInterfaceBinding");
+            var source = BuildSelectionTower(); var defense = game.Building.Defense;
+            defense.BeginPlacement(); Stage2Tower target = null;
+            for (var radius = 1; radius <= 3 && target == null; radius++)
+            for (var y = -radius; y <= radius && target == null; y++)
+            for (var x = -radius; x <= radius && target == null; x++)
+            {
+                var cell = source.Cell + new Vector2Int(x,y);
+                if (defense.Evaluate(cell) != PlacementResult.Ready) continue;
+                defense.SetPreviewCell(cell); defense.TryConfirm(out target);
+            }
+            Assert.That(target, Is.Not.Null); yield return null;
+            yield return Tap(keyboard.bKey);
+            Assert.That(Call(playerUi, "ActivateBuildChoice", 0), Is.True);
+            Assert.That(defense.IsPlacing, Is.True);
+            var sourcePoint = FrameBuilding(source.GetComponentsInChildren<Renderer>().First(r => r.enabled));
+            var hero = scene.PlayerMover.transform.position; var stock = Stock();
+            input.Set(mouse.position, sourcePoint); input.Press(mouse.leftButton); yield return null;
+            Assert.That(defense.IsPlacing, Is.False, "Owned selection must win before the placement driver.");
+            Assert.That(Window, Is.EqualTo("Construction"));
+            Assert.That(Read<bool>(playerUi, "HasSelectedBuilding"), Is.False,
+                "New card actions must not appear beneath a mouse-down that started in the world.");
+            input.Set(mouse.position, sourcePoint + Vector2.right * 20); yield return null;
+            Assert.That(Read<bool>(binding, "IsDraggingBuilding"), Is.True);
+            Assert.That(Read<bool>(playerUi,"HasSelectedBuilding"), Is.True);
+            input.Press(keyboard.wKey); yield return null; yield return null; input.Release(keyboard.wKey);
+            Assert.That(scene.PlayerMover.transform.position, Is.EqualTo(hero));
+            var camera = scene.CameraFollow.BoundCamera;
+            var destination = source.Cell; var movePoint = Vector2.zero; var foundMove = false;
+            foreach (var offset in new[] {Vector2Int.right*2,Vector2Int.left*2,Vector2Int.up*2,Vector2Int.up})
+            {
+                var candidate = source.Cell + offset;
+                var screen = (Vector2)camera.WorldToScreenPoint(scene.MapDefinition.CellToWorld(candidate));
+                if (defense.EvaluateMove(source,candidate) != Stage2TowerActionResult.Ready || game.ContainsScreenPoint(screen)) continue;
+                destination = candidate; movePoint = screen; foundMove = true; break;
+            }
+            Assert.That(foundMove, Is.True);
+            input.Set(mouse.position, movePoint); yield return null;
+            Assert.That(Read<bool>(binding,"DragDropValid"), Is.True);
+            Assert.That(Read<bool>(binding,"DragWillMerge"), Is.False, "An empty-cell move is not a merge.");
+            input.Release(mouse.leftButton); yield return null; yield return null;
+            Assert.That(source.Cell, Is.EqualTo(destination)); Assert.That(Stock(), Is.EqualTo(stock));
+            Assert.That(Window, Is.EqualTo("Construction"));
+            sourcePoint = camera.WorldToScreenPoint(source.GetComponentsInChildren<Renderer>().First(r=>r.enabled).bounds.center);
+            input.Set(mouse.position, sourcePoint); input.Press(mouse.leftButton); yield return null;
+            input.Set(mouse.position, sourcePoint + Vector2.right*20); yield return null;
+            Assert.That(Read<bool>(binding,"IsDraggingBuilding"), Is.True);
+            var targetRenderer = target.GetComponentsInChildren<Renderer>().First(r => r.enabled);
+            var targetPoint = (Vector2)scene.CameraFollow.BoundCamera.WorldToScreenPoint(targetRenderer.bounds.center);
+            input.Set(mouse.position, targetPoint); yield return null;
+            Assert.That(Read<bool>(binding, "DragDropValid"), Is.True, "Visible merge target must be above the selected HUD: " + targetPoint);
+            Assert.That(Read<bool>(binding, "DragWillMerge"), Is.True);
+            input.Release(mouse.leftButton); yield return null; yield return null;
+            Assert.That(target.Level, Is.EqualTo(2)); Assert.That(defense.TowerCount, Is.EqualTo(1));
+            Assert.That(Window, Is.EqualTo("Construction"));
+            Assert.That(Read<bool>(playerUi,"HasSelectedBuilding"), Is.True);
+            Assert.That(Stock(), Is.EqualTo(stock)); Assert.That(Read<bool>(binding, "IsDraggingBuilding"), Is.False);
+            Assert.That(Read<bool>(binding, "DragWillMerge"), Is.False, "Drop cannot leave a stale merge highlight.");
+            // A short real drag can arrive entirely within one Input System update.
+            // Its press position must survive the later motion/release events.
+            var fastCell = target.Cell; var fastPoint = Vector2.zero; var foundFast = false;
+            foreach (var offset in new[] {Vector2Int.up*2,Vector2Int.right*2,Vector2Int.left*2})
+            {
+                var candidate = target.Cell+offset;
+                var screen = (Vector2)camera.WorldToScreenPoint(scene.MapDefinition.CellToWorld(candidate));
+                if (defense.EvaluateMove(target,candidate)!=Stage2TowerActionResult.Ready||game.ContainsScreenPoint(screen))continue;
+                fastCell=candidate;fastPoint=screen;foundFast=true;break;
+            }
+            Assert.That(foundFast,Is.True);
+            var fastOrigin=(Vector2)camera.WorldToScreenPoint(targetRenderer.bounds.center);
+            InputSystem.QueueStateEvent(mouse,new MouseState {position=fastOrigin}.WithButton(MouseButton.Left));
+            InputSystem.QueueStateEvent(mouse,new MouseState {position=fastPoint}.WithButton(MouseButton.Left));
+            InputSystem.QueueStateEvent(mouse,new MouseState {position=fastPoint});
+            yield return null;yield return null;
+            Assert.That(target.Cell,Is.EqualTo(fastCell),"Batched down/move/up must keep the actual world press origin.");
+            Assert.That(Read<bool>(playerUi,"HasSelectedBuilding"),Is.True);
+            Assert.That(Window,Is.EqualTo("Construction"));Assert.That(Stock(),Is.EqualTo(stock));
+            Assert.That(Call(binding, "TryBeginBuildingDrag", target), Is.True);
+            yield return Tap(keyboard.escapeKey); input.Release(mouse.leftButton); yield return null;
+            Assert.That(Read<bool>(binding, "IsDraggingBuilding"), Is.False);
+            Assert.That(target.Level, Is.EqualTo(2)); Assert.That(defense.TowerCount, Is.EqualTo(1));
+            Assert.That(Call(binding, "TryBeginBuildingDrag", target), Is.True);
+            Call(playerUi, "SetWindow", Enum.Parse(playerUi.GetType().Assembly.GetType("Not3A.Stage3.PlayerInterface.Stage3PlayerWindow"), "Inventory"));
+            yield return null;
+            Assert.That(Read<bool>(binding, "IsDraggingBuilding"), Is.False); Assert.That(Stock(), Is.EqualTo(stock));
+        }
+
+        private Stage2Tower BuildSelectionTower()
+        {
+            var inventory = game.Gathering.Economy.Inventory;
+            inventory.TryAdd(MapResourceKind.Wood, 100); inventory.TryAdd(MapResourceKind.Stone, 100);
+            inventory.TryAdd(MapResourceKind.Metal, 100); inventory.TryAddGold(100);
+            var defense = game.Building.Defense;
+            defense.SelectRole(0); Assert.That(defense.BeginPlacement(), Is.True);
+            var cell = FindLegalCell();
+            defense.SetPreviewCell(cell);
+            Assert.That(defense.TryConfirm(out var tower), Is.EqualTo(PlacementResult.Ready));
+            return tower;
+        }
+
+        private Vector2 FrameBuilding(Renderer renderer)
+        {
+            var camera = scene.CameraFollow.BoundCamera;
+            scene.CameraFollow.enabled = false;
+            camera.orthographicSize = 5f;
+            var point = new Vector2(Screen.width * .55f, Screen.height * .64f);
+            var center = renderer.bounds.center;
+            camera.transform.position = center - camera.transform.forward * 30f;
+            var projected = camera.WorldToScreenPoint(center);
+            camera.transform.position += center - camera.ScreenToWorldPoint(new Vector3(point.x, point.y, projected.z));
+            return point;
+        }
+
+        private IEnumerator Click(Vector2 point)
+        {
+            input.Release(mouse.leftButton); input.Set(mouse.position, point); yield return null;
+            input.Press(mouse.leftButton); yield return null; yield return null;
+            input.Release(mouse.leftButton); yield return null; yield return null;
+        }
+
+        private string SelectedStat(string label)
+        {
+            var view = Read<object>(playerUi, "SelectedBuildingView");
+            var stats = (Array)view.GetType().GetField("Stats").GetValue(view);
+            foreach (var stat in stats)
+                if ((string)stat.GetType().GetField("Label").GetValue(stat) == label)
+                    return (string)stat.GetType().GetField("Value").GetValue(stat);
+            Assert.Fail("Missing selected stat " + label); return null;
         }
 
         private IEnumerator Tap(ButtonControl button)

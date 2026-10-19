@@ -6,6 +6,14 @@ namespace Not3A.Stage2.Integration
     /// <summary>Automatic bow cadence. The shared enemy group owns selection, flight and damage.</summary>
     public sealed class Stage2HeroCombat
     {
+        public readonly struct Snapshot
+        {
+            internal readonly float Remaining;
+            internal readonly int Shots;
+            internal Snapshot(float remaining, int shots) { Remaining = remaining; Shots = shots; }
+        }
+        public Snapshot CaptureSnapshot() => new Snapshot(remaining, ShotsFired);
+        public void RestoreSnapshot(Snapshot snapshot) { remaining = snapshot.Remaining; ShotsFired = snapshot.Shots; }
         private readonly Stage2HeroCombatCatalog catalog;
         private readonly Func<Vector2, float, int, float, float, bool> launch;
         private float remaining;

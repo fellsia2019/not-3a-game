@@ -207,6 +207,72 @@ namespace Not3A.Stage2.WavesAI.Tests
             Assert.That(group.IsCellProtected(map.Throne), Is.False);
         }
 
+        [TestCase(.004166667f)]
+        [TestCase(.016666667f)]
+        [TestCase(.033333333f)]
+        public void ActualWindingRoadNeverStopsBeforeTheThrone(float delta)
+        {
+            var road = AssetDatabase.LoadAssetAtPath<Stage2MapDefinition>("Assets/Stage3/VisualPilot/Stage3PlanarCorner.asset");
+            var routes = new Stage2Navigation(road);
+            var actors = new Stage2EnemyGroup(road, routes, enemyCatalog);
+            try
+            {
+                var enemy = actors.Spawn(); enemy.SetAutomaticTick(false);
+                var plan = routes.PlanFrom(road.EnemyEntrance);
+                Assert.That(plan.Status, Is.EqualTo(NavigationStatus.ReachesThrone));
+                var contact = 0; actors.ReachedThrone += damage => contact += damage;
+                var stillSeconds = 0f;
+                var cellLength = Vector2.Distance(road.CellToWorld(plan.Path[0]), road.CellToWorld(plan.Path[1]));
+                var limit = Mathf.CeilToInt(plan.Path.Count * cellLength / enemyCatalog.MoveSpeed / delta) * 2;
+                for (var tick = 0; tick < limit && actors.ActiveCount > 0; tick++)
+                {
+                    var before = enemy.transform.position;
+                    enemy.Tick(delta);
+                    if (actors.ActiveCount == 0) break;
+                    stillSeconds = (enemy.transform.position - before).sqrMagnitude < 1e-12f ? stillSeconds + delta : 0f;
+                    Assert.That(stillSeconds, Is.LessThan(.2f),
+                        $"Stalled at {enemy.CurrentCell}, next={enemy.StepDestination}, path={enemy.Plan?.Status}/{enemy.Plan?.Path.Count}, delta={delta}, tick={tick}.");
+                }
+                Assert.That(contact, Is.EqualTo(enemyCatalog.ThroneDamage), "The whole actual road must finish without forced kills/teleports.");
+            }
+            finally { actors.ResetRun(); }
+        }
+
+        [Test]
+        public void ValidatedGroupStillRejectsInvalidAndOccupiedSpawnPoints()
+        {
+            var revision = navigation.Revision;
+            Assert.Throws<System.ArgumentException>(() => group.SpawnAt(map.MinimumCell + Vector2Int.left));
+            Assert.That(group.ActiveCount, Is.Zero);
+            Assert.That(navigation.Revision, Is.EqualTo(revision));
+            var tower = BuildTower(Vector2Int.zero);
+            Assert.Throws<System.ArgumentException>(() => group.SpawnAt(tower.Cell));
+            Assert.That(group.ActiveCount, Is.Zero);
+            Assert.That(navigation.TryGetOccupant(tower.Cell, out var owner), Is.True);
+            Assert.That(owner, Is.SameAs(tower));
+        }
+
+        [Test]
+        public void DenseGroupSharesTheRoadSearchAndEveryActorAdvances()
+        {
+            var road = AssetDatabase.LoadAssetAtPath<Stage2MapDefinition>("Assets/Stage3/VisualPilot/Stage3PlanarCorner.asset");
+            var routes = new Stage2Navigation(road);
+            var actors = new Stage2EnemyGroup(road, routes, enemyCatalog);
+            try
+            {
+                for (var i = 0; i < 120; i++) actors.Spawn().SetAutomaticTick(false);
+                for (var i = 0; i < actors.ActiveCount; i++) actors.GetEnemy(i).Tick(.1f);
+                Assert.That(routes.Diagnostics.FullSearchCount, Is.EqualTo(1));
+                for (var i = 0; i < actors.ActiveCount; i++)
+                {
+                    var enemy = actors.GetEnemy(i);
+                    Assert.That(Vector2.Distance(enemy.transform.position, road.CellToWorld(road.EnemyEntrance)), Is.GreaterThan(.1f));
+                    Assert.That(enemy.Plan.Status, Is.EqualTo(NavigationStatus.ReachesThrone));
+                }
+            }
+            finally { actors.ResetRun(); }
+        }
+
         private Stage2Tower BuildTower(Vector2Int target)
         {
             Fund(1);

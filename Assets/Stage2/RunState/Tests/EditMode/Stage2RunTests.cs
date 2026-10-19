@@ -400,6 +400,107 @@ namespace Not3A.Stage2.RunState.Tests
             Assert.That(run.ClockHour, Is.EqualTo(23));
         }
 
+        [TestCase(false)]
+        [TestCase(true)]
+        public void RetryRestoresPreLaunchStockDamagedTowerAndInventoryWithFullPreparation(bool timed)
+        {
+            economy.Inventory.TryAdd(MapResourceKind.Wood, 40);
+            economy.Inventory.TryAdd(MapResourceKind.Stone, 40);
+            economy.Inventory.TryAdd(MapResourceKind.Metal, 40);
+            economy.Inventory.TryAddGold(40);
+            defense.BeginPlacement(); defense.SetPreviewCell(Vector2Int.zero);
+            Assert.That(defense.TryConfirm(out var original), Is.EqualTo(PlacementResult.Ready));
+            original.TakeDamage(1); var health = original.Health;
+            var wood = economy.GetNode(MapResourceKind.Wood);
+            while (!wood.IsDepleted) economy.AdvanceGather(wood, wood.WorldPosition, true, wood.GatherSeconds, true);
+            economy.Tick(1f, true); var recovery = wood.RecoveryRemaining;
+            var stock = new[] { economy.Inventory.Get(MapResourceKind.Wood), economy.Inventory.Get(MapResourceKind.Stone),
+                economy.Inventory.Get(MapResourceKind.Metal), economy.Inventory.Gold };
+            var boundaryCalls = 0;
+            run.BeforeWaveStarted += () =>
+            {
+                boundaryCalls++;
+                Assert.That(run.Phase, Is.EqualTo(Stage2RunPhase.Preparation));
+                Assert.That(enemies.ActiveCount, Is.Zero); Assert.That(enemies.PendingShotCount, Is.Zero);
+            };
+            run.Tick(.4f);
+            if (timed) run.Tick(.6f); else Assert.That(run.StartWave(), Is.True);
+            Assert.That(boundaryCalls, Is.EqualTo(1));
+            original.TakeDamage(original.Health);
+            economy.Tick(100f, true); economy.Inventory.TryAddGold(77); economy.Inventory.TryAdd(MapResourceKind.Wood, 51);
+            defense.BeginPlacement(); defense.SetPreviewCell(Vector2Int.zero);
+            Assert.That(defense.TryConfirm(out _), Is.EqualTo(PlacementResult.Ready));
+            LoseToArrivals();
+            Assert.That(run.CanRetry, Is.True); Assert.That(run.RetryFailedWave(), Is.True);
+            Assert.That(run.Phase, Is.EqualTo(Stage2RunPhase.Preparation));
+            Assert.That(run.PreparationRemaining, Is.EqualTo(1f)); Assert.That(run.WaveNumber, Is.EqualTo(1));
+            Assert.That(run.ThroneHealth, Is.EqualTo(2)); Assert.That(enemies.ActiveCount, Is.Zero);
+            Assert.That(enemies.PendingShotCount, Is.Zero); Assert.That(navigation.OccupiedCount, Is.EqualTo(1));
+            Assert.That(defense.GetTower(0).Health, Is.EqualTo(health));
+            Assert.That(navigation.TryGetOccupant(Vector2Int.zero, out var occupant), Is.True);
+            Assert.That(occupant, Is.SameAs(defense.GetTower(0)));
+            Assert.That(wood.Remaining, Is.Zero); Assert.That(wood.RecoveryRemaining, Is.EqualTo(recovery));
+            Assert.That(new[] { economy.Inventory.Get(MapResourceKind.Wood), economy.Inventory.Get(MapResourceKind.Stone),
+                economy.Inventory.Get(MapResourceKind.Metal), economy.Inventory.Gold }, Is.EqualTo(stock));
+            Assert.That(economy.CurrentNode, Is.Null); Assert.That(run.CanRetry, Is.False);
+        }
+
+        [Test]
+        public void LaterWaveRetryKeepsCheckpointHealthAndEachNewLaunchReplacesThePreviousSnapshot()
+        {
+            ConfigureSequence(); run.StartWave();
+            ArriveOne(); ClearEnemies();
+            Assert.That(run.WaveNumber, Is.EqualTo(2)); Assert.That(run.ThroneHealth, Is.EqualTo(1));
+            economy.Inventory.TryAddGold(11); var saved = economy.Inventory.Gold;
+            run.Tick(.25f); run.StartWave(); economy.Inventory.TryAddGold(50); LoseToArrivals();
+            Assert.That(run.RetryFailedWave(), Is.True);
+            Assert.That(run.WaveNumber, Is.EqualTo(2)); Assert.That(run.ThroneHealth, Is.EqualTo(1));
+            Assert.That(run.PreparationRemaining, Is.EqualTo(3f)); Assert.That(economy.Inventory.Gold, Is.EqualTo(saved));
+            economy.Inventory.TrySpend(0, 0, 0, 2); saved -= 2;
+            run.Tick(3f); economy.Inventory.TryAddGold(70); LoseToArrivals();
+            Assert.That(run.RetryFailedWave(), Is.True);
+            Assert.That(run.WaveNumber, Is.EqualTo(2)); Assert.That(economy.Inventory.Gold, Is.EqualTo(saved));
+            run.StartWave(); run.Tick(1f); ClearEnemies();
+            Assert.That(run.WaveNumber, Is.EqualTo(3));
+            run.ResetRun(); Assert.That(run.CanRetry, Is.False); Assert.That(run.WaveNumber, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void ContinuingDayRetryReturnsToTheSameDaysDawnWithoutTickingRecoveryOrGrantingIncome()
+        {
+            ConfigureClockRun(); run.StartWave(); run.Tick(1f); ClearEnemies();
+            Assert.That(run.CalendarDay, Is.EqualTo(2));
+            run.Tick(600f); var saved = economy.Inventory.Gold;
+            run.StartWave(); run.Tick(2400f); LoseToArrivals();
+            Assert.That(run.RetryFailedWave(), Is.True);
+            Assert.That(run.WaveNumber, Is.EqualTo(2)); Assert.That(run.CalendarDay, Is.EqualTo(2));
+            Assert.That(run.ClockHour, Is.EqualTo(8)); Assert.That(run.IsDay, Is.True);
+            Assert.That(run.PreparationRemaining, Is.EqualTo(1200f)); Assert.That(economy.Inventory.Gold, Is.EqualTo(saved));
+        }
+
+        [Test]
+        public void ResourceWorldReplacementInvalidatesTheOldRetryAndDamageFactsReportEveryActualHpLoss()
+        {
+            var hits = 0; var lostHp = 0;
+            run.ThroneDamaged += damage => { hits++; lostHp += damage; };
+            run.StartWave(); LoseToArrivals();
+            Assert.That(hits, Is.EqualTo(2)); Assert.That(lostHp, Is.EqualTo(2));
+            economy.ReplaceAdditionalNodes(System.Array.Empty<Stage2ResourceNode>());
+            Assert.That(run.CanRetry, Is.False); Assert.That(run.RetryFailedWave(), Is.False);
+            Assert.That(run.Phase, Is.EqualTo(Stage2RunPhase.Lost));
+        }
+
+        private void ArriveOne()
+        {
+            var contact = enemies.SpawnAt(map.Throne + Vector2Int.right);
+            contact.SetAutomaticTick(false); contact.Tick(1f); contact.Tick(.01f);
+        }
+        private void LoseToArrivals()
+        {
+            for (var i = 0; i < 10 && !run.IsTerminal; i++) ArriveOne();
+            Assert.That(run.Phase, Is.EqualTo(Stage2RunPhase.Lost));
+        }
+
         private void ConfigureClockRun()
         {
             run.Dispose();

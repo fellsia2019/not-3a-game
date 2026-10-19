@@ -8,6 +8,12 @@ using UnityEngine;
 namespace Not3A.Stage2.Defense
 {
     public enum Stage2BuildPhase { Inactive, Preparation, Wave }
+    public enum Stage2TowerActionResult
+    {
+        Ready, Busy, Inactive, Paused, InvalidTarget, MaximumLevel, CannotAfford,
+        Incompatible, InvalidCell, Occupied, HeroProtected, EnemyProtected,
+        EnemyStateUnavailable, PreparationOnly, CapacityExceeded
+    }
 
     public enum PlacementResult
     {
@@ -19,6 +25,22 @@ namespace Not3A.Stage2.Defense
     /// <summary>Main-thread placement transaction. The scene owner supplies run state and actor protection.</summary>
     public sealed class Stage2Defense
     {
+        public sealed class Snapshot
+        {
+            internal readonly TowerState[] Towers;
+            internal readonly int Selected;
+            internal Snapshot(TowerState[] towers, int selected) { Towers = towers; Selected = selected; }
+        }
+        internal readonly struct TowerState
+        {
+            internal readonly int Role, Health, Level;
+            internal readonly Stage2ResourceCost Invested;
+            internal readonly Vector2Int Cell;
+            internal readonly float Cooldown;
+            internal TowerState(Stage2Tower tower)
+            { Role = tower.RoleIndex; Health = tower.Health; Cell = tower.Cell; Cooldown = tower.CooldownRemaining;
+                Level = tower.Level; Invested = tower.Invested; }
+        }
         private readonly Stage2MapDefinition map;
         private readonly Stage2Navigation navigation;
         private readonly Stage2Inventory inventory;
@@ -69,11 +91,64 @@ namespace Not3A.Stage2.Defense
         public bool IsPlacing => placing;
         public int TowerCount => towers.Count;
         public Stage2Tower GetTower(int index) => towers[index];
+        public Stage2DefenseCatalog GetTowerCatalog(Stage2Tower tower) =>
+            tower != null && towers.Contains(tower) ? catalogs[tower.RoleIndex] : null;
         public Vector2Int? PreviewCell => previewCell;
         public int RoleCount => catalogs.Count;
         public int SelectedRoleIndex => selectedCatalogIndex;
         public Stage2DefenseCatalog GetCatalog(int index) => catalogs[index];
         public Stage2DefenseCatalog SelectedCatalog => catalogs[selectedCatalogIndex];
+
+        public Snapshot CaptureSnapshot()
+        {
+            var saved = new List<TowerState>();
+            foreach (var tower in towers) if (tower != null && tower.IsAlive) saved.Add(new TowerState(tower));
+            return new Snapshot(saved.ToArray(), selectedCatalogIndex);
+        }
+
+        public bool RestoreSnapshot(Snapshot snapshot)
+        {
+            if (snapshot == null) return false;
+            var prepared = new List<Stage2Tower>();
+            try
+            {
+                // Finish fallible object creation before replacing the lost attempt's world.
+                foreach (var saved in snapshot.Towers)
+                {
+                    var catalog = catalogs[saved.Role];
+                    Stage2Tower tower;
+                    try { tower = prepareTower(catalog); }
+                    catch (Exception) { return false; }
+                    if (tower == null) return false;
+                    prepared.Add(tower);
+                    if (tower.gameObject.activeInHierarchy) return false;
+                    tower.Configure(saved.Cell, catalog.TowerHealth, catalog.AttackRange, catalog.FireInterval,
+                        catalog.AttackDamage, catalog.SplashRadiusCells, catalog.ProjectileFlightSeconds, catalog.CanAttack);
+                    tower.RoleIndex = saved.Role;
+                    for (var level = 1; level < saved.Level; level++)
+                    {
+                        if (!catalog.TryGetUpgrade(level, out var upgrade)) return false;
+                        tower.ApplyUpgrade(upgrade, saved.Invested, 1d, 0f);
+                    }
+                    tower.SetProgression(saved.Level, saved.Invested);
+                    tower.RestoreState(saved.Health, saved.Cooldown);
+                    tower.transform.position = map.CellToWorld(saved.Cell);
+                    tower.SetAttackTarget(attackTarget); tower.SetAttackActive(false);
+                }
+                ResetRun(); navigation.Reset();
+                foreach (var tower in prepared)
+                {
+                    if (navigation.TryOccupy(tower.Cell, tower) != OccupancyResult.Changed)
+                        throw new InvalidOperationException("Captured tower cell could not be restored.");
+                    tower.Removed += OnTowerRemoved; towers.Add(tower);
+                }
+                selectedCatalogIndex = snapshot.Selected;
+                foreach (var tower in prepared) { tower.gameObject.SetActive(true); Built?.Invoke(tower); }
+                prepared.Clear();
+                return true;
+            }
+            finally { foreach (var tower in prepared) if (tower != null) DestroyObject(tower.gameObject); }
+        }
 
         public bool SelectRole(int index)
         {
@@ -174,6 +249,8 @@ namespace Not3A.Stage2.Defense
                 prepared.Configure(cell, catalog.TowerHealth, catalog.AttackRange,
                     catalog.FireInterval, catalog.AttackDamage, catalog.SplashRadiusCells, catalog.ProjectileFlightSeconds,
                     catalog.CanAttack);
+                prepared.RoleIndex = selectedCatalogIndex;
+                prepared.SetProgression(1, catalog.BuildCost);
                 prepared.SetAttackTarget(attackTarget);
                 prepared.SetAttackActive(attackActive);
                 prepared.transform.position = map.CellToWorld(cell);
@@ -205,6 +282,132 @@ namespace Not3A.Stage2.Defense
             }
         }
 
+        private Stage2TowerActionResult CheckOwned(Stage2Tower tower)
+        {
+            if (committing || placing) return Stage2TowerActionResult.Busy;
+            if (phase == Stage2BuildPhase.Inactive) return Stage2TowerActionResult.Inactive;
+            if (paused) return Stage2TowerActionResult.Paused;
+            if (tower == null || !tower.IsAlive || !towers.Contains(tower) ||
+                !navigation.TryGetOccupant(tower.Cell, out var owner) || !ReferenceEquals(owner, tower))
+                return Stage2TowerActionResult.InvalidTarget;
+            return Stage2TowerActionResult.Ready;
+        }
+
+        public Stage2TowerActionResult EvaluateUpgrade(Stage2Tower tower)
+        {
+            var result = CheckOwned(tower);
+            if (result != Stage2TowerActionResult.Ready) return result;
+            if (!catalogs[tower.RoleIndex].TryGetUpgrade(tower.Level, out var upgrade))
+                return Stage2TowerActionResult.MaximumLevel;
+            if (!tower.Invested.TryAdd(upgrade.Cost, out _)) return Stage2TowerActionResult.CapacityExceeded;
+            return inventory.CanAfford(upgrade.Cost) ? Stage2TowerActionResult.Ready : Stage2TowerActionResult.CannotAfford;
+        }
+
+        public Stage2TowerActionResult TryUpgrade(Stage2Tower tower)
+        {
+            var result = EvaluateUpgrade(tower);
+            if (result != Stage2TowerActionResult.Ready) return result;
+            catalogs[tower.RoleIndex].TryGetUpgrade(tower.Level, out var upgrade);
+            tower.Invested.TryAdd(upgrade.Cost, out var invested);
+            var healthFraction = tower.Health / (double)tower.MaximumHealth;
+            var cooldownFraction = tower.CooldownRemaining / tower.FireInterval;
+            committing = true;
+            try
+            {
+                if (!inventory.TrySpend(upgrade.Cost)) return Stage2TowerActionResult.CannotAfford;
+                tower.ApplyUpgrade(upgrade, invested, healthFraction, cooldownFraction);
+                return Stage2TowerActionResult.Ready;
+            }
+            finally { committing = false; }
+        }
+
+        public Stage2TowerActionResult EvaluateMerge(Stage2Tower donor, Stage2Tower recipient)
+        {
+            var result = CheckOwned(donor);
+            if (result != Stage2TowerActionResult.Ready) return result;
+            result = CheckOwned(recipient);
+            if (result != Stage2TowerActionResult.Ready) return result;
+            if (donor == recipient || donor.RoleIndex != recipient.RoleIndex || donor.Level != recipient.Level)
+                return Stage2TowerActionResult.Incompatible;
+            if (!catalogs[recipient.RoleIndex].TryGetUpgrade(recipient.Level, out _))
+                return Stage2TowerActionResult.MaximumLevel;
+            return donor.Invested.TryAdd(recipient.Invested, out _) ? Stage2TowerActionResult.Ready : Stage2TowerActionResult.CapacityExceeded;
+        }
+
+        public Stage2TowerActionResult TryMerge(Stage2Tower donor, Stage2Tower recipient)
+        {
+            var result = EvaluateMerge(donor, recipient);
+            if (result != Stage2TowerActionResult.Ready) return result;
+            catalogs[recipient.RoleIndex].TryGetUpgrade(recipient.Level, out var upgrade);
+            donor.Invested.TryAdd(recipient.Invested, out var invested);
+            var healthFraction = (donor.Health + (double)recipient.Health) / (donor.MaximumHealth + (double)recipient.MaximumHealth);
+            var cooldownFraction = Mathf.Max(donor.CooldownRemaining / donor.FireInterval,
+                recipient.CooldownRemaining / recipient.FireInterval);
+            committing = true;
+            try
+            {
+                recipient.ApplyUpgrade(upgrade, invested, healthFraction, cooldownFraction);
+                donor.Retire();
+                return Stage2TowerActionResult.Ready;
+            }
+            finally { committing = false; }
+        }
+
+        public Stage2ResourceCost GetSaleRefund(Stage2Tower tower) =>
+            tower != null && towers.Contains(tower) ? tower.Invested.Half : default;
+
+        public Stage2TowerActionResult EvaluateSell(Stage2Tower tower)
+        {
+            var result = CheckOwned(tower);
+            if (result != Stage2TowerActionResult.Ready) return result;
+            return inventory.CanCredit(tower.Invested.Half) ? Stage2TowerActionResult.Ready : Stage2TowerActionResult.CapacityExceeded;
+        }
+
+        public Stage2TowerActionResult TrySell(Stage2Tower tower)
+        {
+            var result = EvaluateSell(tower);
+            if (result != Stage2TowerActionResult.Ready) return result;
+            var refund = tower.Invested.Half;
+            committing = true;
+            try
+            {
+                tower.Retire();
+                inventory.TryCredit(refund);
+                return Stage2TowerActionResult.Ready;
+            }
+            finally { committing = false; }
+        }
+
+        public Stage2TowerActionResult EvaluateMove(Stage2Tower tower, Vector2Int cell)
+        {
+            var result = CheckOwned(tower);
+            if (result != Stage2TowerActionResult.Ready) return result;
+            if (phase != Stage2BuildPhase.Preparation) return Stage2TowerActionResult.PreparationOnly;
+            if (!map.Contains(cell) || map.GetSurface(cell) != MapSurfaceKind.InvasionCorridor ||
+                !map.IsWalkable(cell) || !map.IsBuildable(cell) || cell == map.EnemyEntrance || cell == map.Throne)
+                return Stage2TowerActionResult.InvalidCell;
+            if (cell == tower.Cell) return Stage2TowerActionResult.Ready;
+            if (navigation.TryGetOccupant(cell, out _)) return Stage2TowerActionResult.Occupied;
+            if (map.WorldToCell(heroWorld()) == cell) return Stage2TowerActionResult.HeroProtected;
+            if (enemyProtected != null && enemyProtected(cell)) return Stage2TowerActionResult.EnemyProtected;
+            return Stage2TowerActionResult.Ready;
+        }
+
+        public Stage2TowerActionResult TryMove(Stage2Tower tower, Vector2Int cell)
+        {
+            var result = EvaluateMove(tower, cell);
+            if (result != Stage2TowerActionResult.Ready || tower.Cell == cell) return result;
+            committing = true;
+            try
+            {
+                if (navigation.TryOccupy(cell, tower) != OccupancyResult.Changed) return Stage2TowerActionResult.Occupied;
+                navigation.TryRelease(tower.Cell, tower);
+                tower.MoveTo(cell, map.CellToWorld(cell));
+                return Stage2TowerActionResult.Ready;
+            }
+            finally { committing = false; }
+        }
+
         public void ResetRun()
         {
             CancelPlacement();
@@ -214,6 +417,7 @@ namespace Not3A.Stage2.Defense
                 if (tower == null) continue;
                 tower.Removed -= OnTowerRemoved;
                 navigation.TryRelease(tower.Cell, tower);
+                tower.gameObject.SetActive(false);
                 DestroyObject(tower.gameObject);
             }
             towers.Clear();

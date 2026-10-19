@@ -1,0 +1,63 @@
+{
+  "date": "2026-10-19T14:22:11.565492+00:00",
+  "decision": "D-081",
+  "scope": "Light-blue compatible merge preview and silver live Level tags above towers/barricades. No tier/gameplay/data changes.",
+  "implementation": {
+    "visual_owner": "GPT-6 Astra",
+    "merge_state": "Binding DragWillMerge observes ready occupied recipient; ordinary move green and invalid red unchanged.",
+    "badges": "Code-native silver bevel, 78x24 UiScale, font15 (12px at720p), renderer cache and projected sprite top. Live tower.Level, no input controls. Offscreen/HUD/modal/dead filtered."
+  },
+  "tests": {
+    "PlayMode_passed": 4,
+    "total": 4,
+    "report": "Artifacts/S3-TOWER-MERGE-BADGES-20261019/playmode.xml",
+    "cases": [
+      "SelectedCardUsesLivePricesUpgradesToCapAndPaysSaleOnce",
+      "UnifiedHudContainsMinimapTenReservesAndSeparateProtectedRibbon",
+      "WorldDragMergesVisibleTowerAndEscapeOrModalCancelsWithoutPayment",
+      "WorldSelectionShowsLiveTowerHealthClearsOnRemovalAndRejectsHeldUiDrag"
+    ]
+  },
+  "player": {
+    "platform": "macOS Metal Development",
+    "path": "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app",
+    "build_log": "Artifacts/S3-TOWER-MERGE-BADGES-20261019/build.log",
+    "bytes": 521549084,
+    "resolutions": [
+      "1280x720",
+      "1600x900",
+      "1920x1080"
+    ],
+    "frames": 45,
+    "zoom_sizes": [
+      2.5,
+      5,
+      10
+    ],
+    "scenario": "Explicit disposable QA scene setup; actual paid upgrade, sale, merge, move and incompatible transactions through existing APIs, real player rendering; no native mouse claim in this slice.",
+    "errors_exceptions": 0
+  },
+  "visual_review": {
+    "owner": "GPT-6 Astra",
+    "status": "Final PASS, no corrections: blue/green/red distinct; silver tags readable720p, constant screen size zoom2.5–10, live Level1/2/5; Rapid/Longshot/barricade anchors and HUD clear."
+  },
+  "protection": {
+    "unchanged_files": 170,
+    "changed_protected": [],
+    "wiring": "No scene/Inspector/prefab/asset/package/serialized settings changes."
+  },
+  "source_sha256": {
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3BuildingActionReview.cs": "ce37af606951939404cc750fcb6c9a012eed28c4ecc4a3b4774b88c7e7d47f2a",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3PlayerInterfaceBinding.Selection.cs": "d4608bcdcca7a76676595c37e5c70f28e2139251da5a8fdfbc31c49b58397702",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3PlayerInterfaceBinding.DragPresentation.cs": "abbc596916060349326ee37e1a5e6895284a7167a82f9fed07a98659e35c19dc",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.cs": "bd5f87c499be91cd16595dc44348fa2d7e59b19dbb8cc393090ec64385b7e542",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Selection.cs": "26e5c9996f16dd635595c3d292c7a4977d42ed915a605a9b8fd6184fbd916de3",
+    "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3PlayerInterfaceTests.cs": "f19ebb93ccb5d4b4544e7e98986cdd843907b622fb061df625961ccd5d65aac6"
+  },
+  "representative_frame": "art/review/tower_merge_levels_game_2026-10-19.png",
+  "representative_sha256": "fba02bcbc30e549db19efc2a885326b31d0e13ab61593759932ac3165a9f1a08",
+  "remaining": [
+    "Windows runtime unverified: local build module absent.",
+    "Per-level artwork, tiers and tower rules outside this visual correction."
+  ]
+}

@@ -17,10 +17,47 @@ MonoBehaviour:
   woodCost: 2
   stoneCost: 1
   metalCost: 0
-  goldCost: 5
+  goldCost: 0
   towerHealth: 10
   attackRange: 4.25
   fireInterval: 0.45
   attackDamage: 1
   splashRadiusCells: 0
   projectileFlightSeconds: 0.18
+  upgrades:
+  - cost:
+      wood: 2
+      stone: 1
+      metal: 0
+      gold: 0
+    health: 20
+    range: 4.25
+    interval: 0.45
+    damage: 2
+  - cost:
+      wood: 4
+      stone: 2
+      metal: 0
+      gold: 0
+    health: 40
+    range: 4.25
+    interval: 0.45
+    damage: 4
+  - cost:
+      wood: 8
+      stone: 4
+      metal: 0
+      gold: 0
+    health: 80
+    range: 4.25
+    interval: 0.45
+    damage: 8
+  - cost:
+      wood: 16
+      stone: 8
+      metal: 0
+      gold: 0
+    health: 160
+    range: 4.25
+    interval: 0.45
+    damage: 16

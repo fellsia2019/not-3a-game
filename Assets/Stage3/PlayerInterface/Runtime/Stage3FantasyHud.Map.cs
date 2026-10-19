@@ -183,7 +183,7 @@ namespace Not3A.Stage3.PlayerInterface
                 DrawDisc(Inset(ring,4f*s),Accent);
                 var heroStyle=GetLabelStyle(Mathf.RoundToInt(17f*s/UiScale),false);
                 heroStyle.alignment=TextAnchor.MiddleCenter;heroStyle.normal.textColor=Color.white;
-                GUI.Label(new Rect(p.x-10f*s,p.y-11f*s,20f*s,20f*s),"▲",heroStyle);
+                GUI.Label(new Rect(p.x-10f*s,p.y-11f*s,20f*s,20f*s),LabelContent("▲"),heroStyle);
                 return;
             }
             var color = Accent; var glyph = "◆"; var size = 15;
@@ -202,8 +202,9 @@ namespace Not3A.Stage3.PlayerInterface
             if (mapMarkerStyle == null) mapMarkerStyle = new GUIStyle(GetLabelStyle(15,false)) { alignment = TextAnchor.MiddleCenter, fontStyle = FontStyle.Bold };
             var style = mapMarkerStyle; style.fontSize = Mathf.RoundToInt(size * s);
             var rect = new Rect(p.x - 18f * s, p.y - 18f * s, 36f * s, 36f * s);
-            style.normal.textColor = PlumInk; GUI.Label(new Rect(rect.x + s, rect.y + s, rect.width, rect.height), glyph, style);
-            style.normal.textColor = color; GUI.Label(rect, glyph, style);
+            var content=LabelContent(glyph);
+            style.normal.textColor = PlumInk; GUI.Label(new Rect(rect.x + s, rect.y + s, rect.width, rect.height), content, style);
+            style.normal.textColor = color; GUI.Label(rect, content, style);
         }
     }
 }

@@ -22,8 +22,13 @@ namespace Not3A.Stage2.RunState
         private Vector3 initialPlayerPosition;
         private InputAction startWaveAction;
         private InputAction restartAction;
+        private Vector3 checkpointPlayerPosition;
+        private Func<bool> retryReadiness;
 
         public Stage2Run Run => run;
+        public bool CanRetry => run != null && run.CanRetry && (retryReadiness?.Invoke() ?? true);
+        public void SetRetryReadiness(Func<bool> readiness) => retryReadiness = readiness;
+        public bool RetryFailedWave() => CanRetry && run.RetryFailedWave();
 
         public bool Configure(Stage2RunCatalog data, Stage2GatheringDriver economyDriver,
             Stage2BuildDriver buildDriver, Transform playerTransform,
@@ -53,11 +58,15 @@ namespace Not3A.Stage2.RunState
                 if (run != null)
                 {
                     run.Changed -= SyncConsumers;
+                    run.BeforeWaveStarted -= CapturePlayer;
+                    run.Rewound -= RestorePlayer;
                     run.Dispose();
                 }
                 run = new Stage2Run(catalog, navigation, gathering.Economy,
                     building.Defense, enemies);
                 run.Changed += SyncConsumers;
+                run.BeforeWaveStarted += CapturePlayer;
+                run.Rewound += RestorePlayer;
                 SyncConsumers();
                 return true;
             }
@@ -77,6 +86,14 @@ namespace Not3A.Stage2.RunState
             gathering.ResetRun(); // Also latches held E until release in the new run.
             player.position = initialPlayerPosition;
             SyncConsumers();
+        }
+
+        private void CapturePlayer() => checkpointPlayerPosition = player.position;
+        private void RestorePlayer()
+        {
+            gathering.CancelGatherUntilRelease();
+            building.CancelPlacement();
+            player.position = checkpointPlayerPosition;
         }
 
         private void OnEnable()
@@ -101,6 +118,8 @@ namespace Not3A.Stage2.RunState
         {
             if (run == null) return;
             run.Changed -= SyncConsumers;
+            run.BeforeWaveStarted -= CapturePlayer;
+            run.Rewound -= RestorePlayer;
             run.Dispose();
         }
 
@@ -109,7 +128,8 @@ namespace Not3A.Stage2.RunState
             if (run == null) return;
             if (run.IsTerminal && restartAction != null && restartAction.WasPressedThisFrame())
             {
-                ResetRun();
+                if (run.Phase == Stage2RunPhase.Lost) RetryFailedWave();
+                else ResetRun();
                 return;
             }
             if (!run.ContinuousDays && startWaveAction != null && startWaveAction.WasPressedThisFrame()) run.StartWave();

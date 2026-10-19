@@ -1,5 +1,26 @@
 # Feature: Stage 2 Building Policy
 
+## D-079 active Stage3 tower actions
+
+Stage2Defense now owns paid upgrade, same-type/same-level merge, invested-cost
+half-refund sale and preparation-only empty-cell move transactions. Role catalogs
+store upgrade rows (empty means legacy base-only); Stage2Tower owns live level,
+investments and battle state. See TOWER_UPGRADES.md for current rules. Stage3
+Rapid/Longshot/barricade rows are explicitly populated; only active Stage3 Rapid's
+legacy gold surcharge is removed. Historical Stage2 catalog prices stay intact.
+No scene/Inspector migration is required. Future non-tower upgrades stay outside.
+
+## D-075 target — not implemented
+
+Новые постройки стоят только дерево/камень/металл. Улучшения/исследования
+могут дополнительно стоить золото. Новые типы башен требуют приобретённого
+и изученного в мастерской исследования. Старые цены ниже — прототип.
+Выбор готового здания открывает карточку над HUD по PLAYER_INTERFACE.md;
+платный ап, слияние двух башен одного уровня, move и продажа 50% описаны
+в TOWER_UPGRADES.md. Башни/частокол реализованы в D-079 выше; будущие
+апы прочих зданий остаются отдельными срезами. Пустая клетка переноса
+проходит проверки занятости и героев/врагов.
+
 Status: S2-BLD-01 complete, human-accepted 2026-09-24; P-002 resolved by D-014.
 S2-DEF-01 implementation complete 2026-09-24; real-scene Integration pending.
 Owner/workstream: Defense / Design, current Stage 2 dialogue.

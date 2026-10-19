@@ -97,6 +97,7 @@ namespace Not3A.Stage2.Integration
             building.SetEnemyProtection(enemies.IsCellProtected);
             if (!runDriver.Configure(runCatalog, gathering, building, hero, navigation, enemies))
                 return BindingError("RunConfigureFailed");
+            bootstrap.PlayerMover.SetInputBlocker(() => runDriver.Run.IsTerminal || runDriver.Run.IsPaused || PlayerInputBlocked);
             if (productionCatalog != null)
             {
                 if (!productionCatalog.TryValidate(out reason)) return BindingError($"InvalidProductionCatalog {reason}");

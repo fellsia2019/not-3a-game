@@ -1,5 +1,17 @@
 # Feature: Hero Bow And Horde Prototype
 
+## New progression target — D-074, not implemented
+
+Герой до 100 уровня развивается для небольших боёв открытого мира. Магия
+имеет умеренный одиночный урон и минимум сплеша; башни остаются необходимы
+против сопоставимой плотной орды. Скорость атаки, предметы и постоянные руны
+проверяются вместе, не только радиус спеллов. HERO_PROGRESSION.md заменяет
+прошлый предложенный набор массовой магии. Здоровье/гибель героя и агро
+противников мира ещё требуют реализации и отдельного решения о возвращении.
+Текущий лук, его targeting/cadence и проверенный D-064 ниже не изменены.
+
+## Implemented bow baseline
+
 Status: D-064 implemented and verified as a provisional slice, 2026-10-18.
 Owner: current Stage 3 chat, gameplay integration; Astra owns presentation.
 Dependencies: shared enemy group/shots, run activity/reset, existing gathering,
@@ -49,7 +61,8 @@ Tools > Stage 3 > Hero Combat > Build And Wire Slice creates HeroBow.asset and
 HordeRun.asset in Assets/Stage3/CombatSlice/, builds the barricade assets and
 wires the existing Stage3Rapid3DGamePilot scene through Unity APIs. It preserves
 later data tuning. Historical Stage 2 run data stays unchanged.
-The pending D-062 snapshot must include bow state when rewind is implemented.
+The implemented D-062 snapshot includes bow cooldown and clears failed-future
+attacks; new progression state will extend that same boundary.
 
 ## Observable acceptance
 

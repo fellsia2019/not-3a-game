@@ -1,0 +1,283 @@
+{
+  "date": "2026-10-19",
+  "decision": "D-078",
+  "status": "implemented_locally_verified",
+  "approved_concept": "art/source/hud_ribbon_2026-10-19_generation.json",
+  "owner_followup": "Use HP / MP / XP; bring actual native UI ornament and proportions closer to approved v4",
+  "behavior": [
+    "Continuous main dock with circular minimap, current hero/bow and ten empty spell reserves",
+    "Separate full-width I/B/P/O/M ribbon; same-width selected-building strip above it",
+    "Native ornamental frames, larger medallions, beveled colored numeric status tracks",
+    "Fresh model click selects own tower, three production kinds, workshop, dwelling or throne",
+    "Live actual stats, native thumbnail, model highlight; workshop button opens existing research overview",
+    "No click-through or drag-as-click; modal/pause/debug/loss/reset/rewind/removal clear transient selection"
+  ],
+  "hero_status": {
+    "labels": [
+      "HP",
+      "MP",
+      "XP"
+    ],
+    "display": "0 / 0",
+    "availability": "Не открыто",
+    "meaning": "Disabled numeric UI fallback only; no real hero health/mana/XP sources or game maxima invented",
+    "concept_samples_are_runtime_tuning": false
+  },
+  "unsupported_actions": "Upgrades and tower sale are disabled with reasons; move/merge gameplay and final skill loadout cap remain separate planned slices",
+  "playmode": {
+    "passed": 25,
+    "failed": 0,
+    "duration_seconds": 127.1014092,
+    "results": "Artifacts/S3-HUD-V4-20261019/playmode-final.xml",
+    "sha256": "4aa0898f92ef38123c21facfd2565dcf3cb9ba0b9c95c61e44fb036f7964f8c2",
+    "scope": [
+      "Stage3PlayerInterfaceTests",
+      "Stage3HudTests",
+      "Stage3BuildMenuTests",
+      "Stage3DefeatRewindTests"
+    ],
+    "post_test_visual_only_change": "Align production stat label/value baselines if any column has a glyph; no public rect/input/rule changes; subsequently rebuilt and verified all three resolutions"
+  },
+  "build": {
+    "unity": "6000.6.2f1",
+    "target_verified": "StandaloneOSX / Metal",
+    "path": "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app",
+    "bytes": 521501581,
+    "log": "Artifacts/S3-HUD-V4-20261019/build-qualified.log",
+    "windows_target": "not verified; WindowsStandaloneSupport is absent on this Mac host"
+  },
+  "native_button_verification": {
+    "method": "Ordinary macOS pointer clicks through cua_repl in the actual player",
+    "passed": [
+      "Close selected-building card clears both HUD and binding",
+      "Research action opens full-screen overview without remotely buying the research"
+    ],
+    "evidence": "Artifacts/S3-HUD-V4-20261019/final-1600x900/verification.txt",
+    "frame": "Artifacts/S3-HUD-V4-20261019/final-1600x900/11-native-research-opened.png",
+    "version_note": "Before final baseline-only label alignment; button rectangles, input and handlers unchanged"
+  },
+  "actual_game_frames": [
+    {
+      "file": "Artifacts/S3-HUD-V4-20261019/qualified-1280x720/00-normal.png",
+      "sha256": "bab76f6324808f8473a96d7d88e9d6b6f00658a269bd428e39da80bbb40d6266",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "file": "Artifacts/S3-HUD-V4-20261019/qualified-1280x720/01-tower.png",
+      "sha256": "89527c0a585cd15c517cd6cc9e38e595257f9c7b13c06c3eb8d66c12c37ad079",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "file": "Artifacts/S3-HUD-V4-20261019/qualified-1280x720/02-tower-damaged.png",
+      "sha256": "0a5f3bb9c3f17bf7ed575b6c842014af194e948913e47b9c647cefadad1c0979",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "file": "Artifacts/S3-HUD-V4-20261019/qualified-1280x720/03-construction.png",
+      "sha256": "cd7d0f5050287fa875ad86b1d243adc4b129bb65a39b811f927028498e3e7908",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "file": "Artifacts/S3-HUD-V4-20261019/qualified-1280x720/04-workshop.png",
+      "sha256": "7af90adb07b8eb91759892181b5498b1b53a08981d0ffd70592db9361b335006",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "file": "Artifacts/S3-HUD-V4-20261019/qualified-1280x720/05-research.png",
+      "sha256": "b23f566a84258a40ac06944e514532e26df0bcd5287fcafe5180ecb690563b91",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "file": "Artifacts/S3-HUD-V4-20261019/qualified-1280x720/06-production.png",
+      "sha256": "700f5e98db9bc34171a8f6581ea470c125c75965f781a7f15dea77e12dc60693",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "file": "Artifacts/S3-HUD-V4-20261019/qualified-1280x720/07-dwelling.png",
+      "sha256": "582aef8ee3b41c39c1eb1a0523020f4ffe876a62f3ad10cfdcd9dc95f51a26bc",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "file": "Artifacts/S3-HUD-V4-20261019/qualified-1280x720/08-throne.png",
+      "sha256": "be6a783e7895ebd13c7d0adefe7f52df27ccb093d22087f3ae7f2b4f845bfec9",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "file": "Artifacts/S3-HUD-V4-20261019/qualified-1600x900/00-normal.png",
+      "sha256": "f71f7f589c91827633a39f0a157afd6b7bb80c1b69269712c5e412e8fa1c6e36",
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "file": "Artifacts/S3-HUD-V4-20261019/qualified-1600x900/01-tower.png",
+      "sha256": "fafe8811fce1204a05b3ce1f731e953e26f5fba80cfb16f41252966d079831a3",
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "file": "Artifacts/S3-HUD-V4-20261019/qualified-1600x900/02-tower-damaged.png",
+      "sha256": "ffbd81521c692e5914b8b416c4e3e48286501261de7eeb0a9622c9a6bfd27d9b",
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "file": "Artifacts/S3-HUD-V4-20261019/qualified-1600x900/03-construction.png",
+      "sha256": "795f040f50ba070094244155f9985ea041a4119299655ec018eadadcb1bc69a2",
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "file": "Artifacts/S3-HUD-V4-20261019/qualified-1600x900/04-workshop.png",
+      "sha256": "44f79cc78268c1a6aeb8104ca8f2a2cd12498328e5dc2583b2df91da19976971",
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "file": "Artifacts/S3-HUD-V4-20261019/qualified-1600x900/05-research.png",
+      "sha256": "1b149fa0ef9c1463bc1e57eb3af5fbb254e7cebc12f958d4b3f204c6ffba6883",
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "file": "Artifacts/S3-HUD-V4-20261019/qualified-1600x900/06-production.png",
+      "sha256": "85bc0530bf0e062b75083fc52110d468c1e406590ef9be0fc1a916290402d166",
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "file": "Artifacts/S3-HUD-V4-20261019/qualified-1600x900/07-dwelling.png",
+      "sha256": "f083e58cab5ee84151b70af67bcc2e61d7e5d9e306d21fab0347a166c88d3359",
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "file": "Artifacts/S3-HUD-V4-20261019/qualified-1600x900/08-throne.png",
+      "sha256": "4004be0556eee3b6abe9fed5365eb56a3cf144a305127a278f9121bc137cdac1",
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "file": "Artifacts/S3-HUD-V4-20261019/qualified-1920x1080/00-normal.png",
+      "sha256": "4d9b66f0f92cd94168879b9133d96f707993b333b82196aabf58c41f427b6a97",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "file": "Artifacts/S3-HUD-V4-20261019/qualified-1920x1080/01-tower.png",
+      "sha256": "381b1edf7f5d33a056cce1917478f0244064c97cfb032292bb91456bd0d3e2c0",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "file": "Artifacts/S3-HUD-V4-20261019/qualified-1920x1080/02-tower-damaged.png",
+      "sha256": "b423030a4dc26df8b96f5f19718a301c62b593e9f650b94e0499ca62a516790d",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "file": "Artifacts/S3-HUD-V4-20261019/qualified-1920x1080/03-construction.png",
+      "sha256": "56abd78475ec763e4c972b2fd865374faaae25ce6722fb96347d2629f7e2d92a",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "file": "Artifacts/S3-HUD-V4-20261019/qualified-1920x1080/04-workshop.png",
+      "sha256": "e7c7877d3d3b39f42b76a04893da3bb34337b4e55218acfd761608df823fc3ca",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "file": "Artifacts/S3-HUD-V4-20261019/qualified-1920x1080/05-research.png",
+      "sha256": "1174d4485d377409f0a3ba5213d0c3a6a9e1a6949be03adfaeed7bd04db8732f",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "file": "Artifacts/S3-HUD-V4-20261019/qualified-1920x1080/06-production.png",
+      "sha256": "690ad23381c10f608019277a7da95b123001a3c08e1136460c887fee4c0a7a34",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "file": "Artifacts/S3-HUD-V4-20261019/qualified-1920x1080/07-dwelling.png",
+      "sha256": "470279ac11db79c6b0e1e196c780397f3cf33a829b50fb8a901b9257d312e54d",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "file": "Artifacts/S3-HUD-V4-20261019/qualified-1920x1080/08-throne.png",
+      "sha256": "9aaca2577b258e1495b24eb43d23bb01b7b74278cc6e69b994e86a8309771c64",
+      "width": 1920,
+      "height": 1080
+    }
+  ],
+  "repository_proofs": [
+    {
+      "file": "art/review/hud_v4_game_2026-10-19.png",
+      "sha256": "f71f7f589c91827633a39f0a157afd6b7bb80c1b69269712c5e412e8fa1c6e36",
+      "bytes": 2736986
+    },
+    {
+      "file": "art/review/building_card_v4_game_2026-10-19.png",
+      "sha256": "fafe8811fce1204a05b3ce1f731e953e26f5fba80cfb16f41252966d079831a3",
+      "bytes": 2494902
+    }
+  ],
+  "protected_assets": {
+    "original_runtime_pngs_unchanged": 66,
+    "scenes_prefabs_data_shaders_packages_settings_checked": 186,
+    "all_unchanged": true
+  },
+  "scene_inspector": "Existing scene-local HUD and binding suffice; new partial/static QA files require no Inspector wiring or serialized migration",
+  "source_assets": "Reuse project-native HUD sprites and camera-facing building art; new bevels/stat glyphs are code-native. Concept/review PNGs remain outside Assets and are not runtime backgrounds.",
+  "changed_runtime_and_test_file_hashes": {
+    "Assets/Stage3/DayNight/Runtime/Stage3DwellingPresentation.cs": "b0d1a461e8da1d85f1b3246f27d0285e4fa9dc249906537ad02abdcea8e4b70c",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3BuildingSelectionReview.cs": "9505e032007aadd44b0da0c4722065a432f1c3dff51bdd4fcc55611c9e88ac8d",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3PlayerInterfaceBinding.Selection.cs.meta": "69b32b439ad38d0faec67b5e9619f305342c95cfa660c523b4b62bacd5c8209f",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Construction.cs": "ce88d3d63008936ec2853816effcf59023ff56d30f2b6b05bc8aa1f503c6293d",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Ornaments.cs": "36a15a8d93c8ed75bcf2740c6a2d6b24885d83c2cd156f0e29456f50234a590e",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3BuildingSelectionReview.cs.meta": "13eabc866f5351d526de3af95c475a2849a1621602a72435111e89d7fef49bea",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3PlayerInterfaceBinding.Selection.cs": "ed374af4a559ae9e9a96b00e01ef9ea7e05ab06ff982c00d7781e32d75884bb4",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Ornaments.cs.meta": "43960d7571dd34e2714fdf67dcfd582e76f9dd81708a49043bcb423a1cbd772f",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Selection.cs.meta": "2f11860cd4cb3570c85ec497f37b58fd5a2d15a56e951b94dbee5a52d955996f",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Dock.cs.meta": "885748850a5d3758433bebdc752b1755bbdd2627d547ae94a5977c5ea73469b3",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.cs": "8dffeda31352acbcf0007a3607aabc814e312d59bba79ada6785758fd97d3934",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Dock.cs": "bad4fac139916ffd24b722d5bfe524416d9843cd1070c78f6d269fa8038427f5",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3PlayerInterfaceBinding.cs": "136de6a55024980918699ec06a659640ad02465fbf2f5847e2fc6723fe94568d",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Selection.cs": "4c074e40833de1ed26d4bcf82a12c7bd360a611904f2759cbe20a13b0fe92abe",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3InterfaceCapture.cs": "8ebae17085c8740947f4647570c31800873e6dea4ac0b668a3e8b1d61dacbcdf",
+    "Assets/Stage3/WorldTravel/Runtime/Stage3WorldTravel.cs": "c3cb416ba4f2f4eca5cde6edc3b0e727ccaf196ca6c90ce827f6c21ae23879ef",
+    "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3BuildMenuTests.cs": "9994f6f547b97e506ac998a8f152be2537bc762fc1fc191f7e412aa4343700b0",
+    "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3HudTests.cs": "1b208f9422068dc79e5d8c98fb1debb2f4452c37c2035ca94b184ee99b92ee69",
+    "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3PlayerInterfaceTests.cs": "801633aeb242a061d5d7ad5da0ff7024ca93ccfefe7eb685fa3d5ff37baa2cd0",
+    "Assets/Stage2/Defense/Runtime/Stage2Tower.cs": "f0b1d1e188bdc027eb564b3c27f851d30525148cd953d793ac66548fa97c1f0f",
+    "Assets/Stage2/Defense/Runtime/Stage2Defense.cs": "3a0a55de6d638d60d7e8f46f568c6152fe41f8a6471fcea2c93bc23fc28c08fb",
+    "Assets/Stage2/Integration/Runtime/Stage2ProductionDriver.cs": "2da57cdaa07b3227f11a7c74120076de2bdf853acd7ee118117346f02671d4a0"
+  },
+  "astra_final_review": {
+    "reviewer": "GPT-6 Astra",
+    "date": "2026-10-19",
+    "result": "accepted_for_current_slice",
+    "blocking_defects": [],
+    "checked": [
+      "All nine latest qualified 1920x1080 states",
+      "Latest production stat baseline at1600x900",
+      "Latest normal/tower at1280x720; earlier full1280/1600 sets reviewed before baseline-only correction",
+      "Continuous backing/adjoining native frames/circular minimap/ten reserves/HP MP XP",
+      "Native Rapid thumbnail, live stats, action states; no clipped or overlapping contents"
+    ],
+    "limitations": [
+      "Actual Mac/Metal frames only; Windows remains unverified",
+      "Hero bars are disabled0/0; gameplay upgrades/sale/move/merge are outside this slice"
+    ]
+  }
+}

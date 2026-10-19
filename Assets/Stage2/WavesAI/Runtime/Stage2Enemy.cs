@@ -43,6 +43,14 @@ namespace Not3A.Stage2.WavesAI
             if (sharedNavigation == null || !sharedNavigation.IsValid ||
                 sharedNavigation.MapHash != definition.ComputeDeterministicContentHash())
                 throw new ArgumentException("Navigation must use the same valid map.", nameof(sharedNavigation));
+            ConfigureFromValidatedGroup(definition, sharedNavigation, settings, startCell);
+        }
+
+        // EnemyGroup already validates its read-only map/navigation once. Repeating that
+        // whole-map scan on every spawn stalls all actors in a dense horde.
+        internal void ConfigureFromValidatedGroup(Stage2MapDefinition definition, Stage2Navigation sharedNavigation,
+            Stage2EnemyCatalog settings, Vector2Int startCell)
+        {
             if (settings == null || !settings.TryValidate(out _))
                 throw new ArgumentException("Invalid enemy catalog.", nameof(settings));
             if (!definition.Contains(startCell) || !definition.IsWalkable(startCell) ||

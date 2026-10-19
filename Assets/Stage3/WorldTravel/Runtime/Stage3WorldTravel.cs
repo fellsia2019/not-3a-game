@@ -25,10 +25,13 @@ namespace Not3A.Stage3.VisualPilot
         private InputAction interact;
         private bool requiresRelease = true, ready;
         private readonly Stage3TravelState state = new Stage3TravelState();
+        private Stage3TravelState.Snapshot checkpoint;
+        private Vector2 checkpointWorkshop;
 
         public bool IsReady => ready;
         public bool IsResearched => state.Researched;
         public bool WorkshopBuilt => state.WorkshopBuilt;
+        public SpriteRenderer WorkshopVisual => workshop != null ? workshop.GetComponent<SpriteRenderer>() : null;
         public bool RemoteDiscovered => state.RemoteDiscovered;
         public bool BaseVisible => baseCircle != null && baseCircle.activeSelf;
         public Vector2 WorkshopPosition { get; private set; }
@@ -49,6 +52,8 @@ namespace Not3A.Stage3.VisualPilot
             game.Building.PlacementStarting += CancelWorkshopPlacement;
             if (game.Production != null) game.Production.PlacementStarting += CancelWorkshopPlacement;
             game.RunDriver.Run.Reset += ResetProgress;
+            game.RunDriver.Run.BeforeWaveStarted += CaptureCheckpoint;
+            game.RunDriver.Run.Rewound += RestoreCheckpoint;
         }
 
         public void BindWorld(Stage3ResourceDistrictWorld world)
@@ -245,12 +250,34 @@ namespace Not3A.Stage3.VisualPilot
             if (hud != null) hud.WorldInteractionHint = null;
             RefreshMarkers();
         }
+        private void CaptureCheckpoint()
+        { checkpoint = state.CaptureSnapshot(); checkpointWorkshop = WorkshopPosition; }
+        private void RestoreCheckpoint()
+        {
+            ResetProgress(); WorkshopPosition = checkpointWorkshop;
+            state.RestoreSnapshot(checkpoint);
+            if (state.WorkshopBuilt)
+            {
+                CreateWorkshop(); PlaceWorkshop();
+                workshopObstacle = new Rect(WorkshopPosition - data.workshopFootprint * .5f, data.workshopFootprint);
+                obstacles.AddRectangle(workshopObstacle);
+            }
+            baseCircle?.SetActive(state.Researched);
+            confirmRequiresRelease = true; requiresRelease = true;
+            game.Gathering.CancelGatherUntilRelease(); RefreshMarkers();
+            GetComponent<Stage3TacticalPresentation>()?.RefreshSiteClearances();
+        }
         private void RefreshMarkers() => minimap?.SetWorldTravelMarkers(state.WorkshopBuilt ? WorkshopPosition : null,
             state.Researched ? BasePosition : null, state.RemoteDiscovered ? RemotePosition : null);
 
         private void OnDestroy()
         {
             if (game != null) game.RunDriver.Run.Reset -= ResetProgress;
+            if (game != null)
+            {
+                game.RunDriver.Run.BeforeWaveStarted -= CaptureCheckpoint;
+                game.RunDriver.Run.Rewound -= RestoreCheckpoint;
+            }
             if (game != null) game.Building.PlacementStarting -= CancelWorkshopPlacement;
             if (game != null && game.Production != null) game.Production.PlacementStarting -= CancelWorkshopPlacement;
             if (state.WorkshopBuilt && obstacles != null) obstacles.RemoveRectangle(workshopObstacle);

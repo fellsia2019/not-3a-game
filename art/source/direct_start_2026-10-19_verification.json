@@ -1,0 +1,124 @@
+{
+  "date": "2026-10-19",
+  "decision": "D-083",
+  "scope": "Direct prototype startup with finished existing world/HUD in first frame; no main menu, interactive loading or extra Play click.",
+  "root_cause": "TacticalPresentation coroutine yielded one frame before hiding serialized Stage2 marker sprites/debug ground and attaching final art. HUD binding waited for later composition Start. Ordinary EditorBuildSettings also still entered Stage2.",
+  "implementation": {
+    "visual_owner": "GPT-6 Astra",
+    "lifecycle": "Existing TacticalPresentation now uses synchronous Start(-500), after scene/bootstrap Awake. It explicitly calls idempotent Stage2GameComposition.Initialize, performs its existing world/hero/landmark assembly without yield, and sets IsInitialized only at completion. Existing HUDBinding(-300) initializes in the same frame before first render.",
+    "ordinary_build_entry": "Prepended Stage3Rapid3DGamePilot scene/GUID. Both legacy scene entries and their enabled flags preserved. Custom Mac/Windows builders already selected this scene explicitly.",
+    "qa": "Opt-in development-player Awake subscribes beginCameraRendering before any Start. Observes actual first8 bound game-camera renders from UnityFrame1, captures renders1/2/8; no warmup skips, grants, camera/time/scene mutations. Inert without absolute NOT3A_STARTUP_CAPTURE_DIRECTORY.",
+    "regression": "Scene-loaded probe captures first LateUpdate before first render, retaining failures instead of waiting for subsequent initialization. Repeats current scene reload, verifies direct active timer/mover and no injected buildings; separate legacy Stage2 first-frame compatibility case.",
+    "wiring": "No scene/prefab/data/art/package or serialized field migration. Existing component remains wired; only explicit build list entry added. No new loading manager/overlay or shader warm-up."
+  },
+  "tests": {
+    "unique_PlayMode_passed": 5,
+    "reports": {
+      "Artifacts/S3-DIRECT-START-20261019/playmode.xml": {
+        "passed": 5,
+        "failed": 0,
+        "cases": {
+          "Not3A.Stage3.VisualPilot.Tests.Stage3DefeatRewindTests.RetryRestoresAllWorldOwnersAndTheirBindingsWithoutKeepingTheFailedFuture": "Passed",
+          "Not3A.Stage3.VisualPilot.Tests.Stage3ManualResourceTests.SavedSceneBindsEveryIndependentNodeAndNaturalTreeGroupToItsActualSprite": "Passed",
+          "Not3A.Stage3.VisualPilot.Tests.Stage3PlayerInterfaceTests.KeyboardWindowsAreExclusiveAndEscapeDoesNotPauseTheDay": "Passed",
+          "Not3A.Stage3.VisualPilot.Tests.Stage3StartupTests.DirectStartAndReloadHaveFinalWorldAndHudInTheirFirstFrame": "Passed",
+          "Not3A.Stage3.VisualPilot.Tests.Stage3StartupTests.LegacyStage2KeepsItsOwnVisibleMarkersAndHud": "Passed"
+        }
+      },
+      "Artifacts/S3-DIRECT-START-20261019/playmode-startup-final.xml": {
+        "passed": 2,
+        "failed": 0,
+        "cases": {
+          "Not3A.Stage3.VisualPilot.Tests.Stage3StartupTests.DirectStartAndReloadHaveFinalWorldAndHudInTheirFirstFrame": "Passed",
+          "Not3A.Stage3.VisualPilot.Tests.Stage3StartupTests.LegacyStage2KeepsItsOwnVisibleMarkersAndHud": "Passed"
+        }
+      }
+    }
+  },
+  "player": {
+    "platform": "macOS Metal Development",
+    "build": "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app",
+    "build_log": "Artifacts/S3-DIRECT-START-20261019/build.log",
+    "bytes": 521922483,
+    "fresh_processes": 3,
+    "resolutions": [
+      "1280x720",
+      "1600x900",
+      "1920x1080"
+    ],
+    "seeds": "720p random seed,900p164032,1080p678902",
+    "first_render_qualification": [
+      {
+        "directory": "Artifacts/S3-DIRECT-START-20261019/start720",
+        "report": [
+          "render=1 unityFrame=1 ready=True hero=True landmarks=True legacyHidden=True hud=True",
+          "render=2 unityFrame=2 ready=True hero=True landmarks=True legacyHidden=True hud=True",
+          "render=3 unityFrame=3 ready=True hero=True landmarks=True legacyHidden=True hud=True",
+          "render=4 unityFrame=4 ready=True hero=True landmarks=True legacyHidden=True hud=True",
+          "render=5 unityFrame=5 ready=True hero=True landmarks=True legacyHidden=True hud=True",
+          "render=6 unityFrame=6 ready=True hero=True landmarks=True legacyHidden=True hud=True",
+          "render=7 unityFrame=7 ready=True hero=True landmarks=True legacyHidden=True hud=True",
+          "render=8 unityFrame=8 ready=True hero=True landmarks=True legacyHidden=True hud=True"
+        ],
+        "errors": []
+      },
+      {
+        "directory": "Artifacts/S3-DIRECT-START-20261019/start900",
+        "report": [
+          "render=1 unityFrame=1 ready=True hero=True landmarks=True legacyHidden=True hud=True",
+          "render=2 unityFrame=2 ready=True hero=True landmarks=True legacyHidden=True hud=True",
+          "render=3 unityFrame=3 ready=True hero=True landmarks=True legacyHidden=True hud=True",
+          "render=4 unityFrame=4 ready=True hero=True landmarks=True legacyHidden=True hud=True",
+          "render=5 unityFrame=5 ready=True hero=True landmarks=True legacyHidden=True hud=True",
+          "render=6 unityFrame=6 ready=True hero=True landmarks=True legacyHidden=True hud=True",
+          "render=7 unityFrame=7 ready=True hero=True landmarks=True legacyHidden=True hud=True",
+          "render=8 unityFrame=8 ready=True hero=True landmarks=True legacyHidden=True hud=True"
+        ],
+        "errors": []
+      },
+      {
+        "directory": "Artifacts/S3-DIRECT-START-20261019/start1080",
+        "report": [
+          "render=1 unityFrame=1 ready=True hero=True landmarks=True legacyHidden=True hud=True",
+          "render=2 unityFrame=2 ready=True hero=True landmarks=True legacyHidden=True hud=True",
+          "render=3 unityFrame=3 ready=True hero=True landmarks=True legacyHidden=True hud=True",
+          "render=4 unityFrame=4 ready=True hero=True landmarks=True legacyHidden=True hud=True",
+          "render=5 unityFrame=5 ready=True hero=True landmarks=True legacyHidden=True hud=True",
+          "render=6 unityFrame=6 ready=True hero=True landmarks=True legacyHidden=True hud=True",
+          "render=7 unityFrame=7 ready=True hero=True landmarks=True legacyHidden=True hud=True",
+          "render=8 unityFrame=8 ready=True hero=True landmarks=True legacyHidden=True hud=True"
+        ],
+        "errors": []
+      }
+    ],
+    "normal_launch": "Reopened without QA environment, ordinary startup log: Artifacts/S3-DIRECT-START-20261019/normal.log",
+    "attributable_errors_exceptions": 0,
+    "existing_warning": "URP stripped Gaussian/Bokeh DOF warnings and Editor license-token warning predate this task."
+  },
+  "visual_review": {
+    "owner": "GPT-6 Astra",
+    "status": "Final PASS",
+    "frames": "Actual renders1 and8 at all3resolutions. Complete world/hero/minimap/HUD from first render; no legacy primitives, duplicate UI or new overlaps; stable eighth frame. No code changes after review."
+  },
+  "protection": {
+    "protected_count": 171,
+    "intentional_changes": [
+      "ProjectSettings/EditorBuildSettings.asset"
+    ],
+    "unchanged": 170
+  },
+  "source_sha256": {
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3InterfaceCapture.cs": "7e317cf7ebe6aa129acb990bc05d9dfc9e06c5d0c92add5dbe97ed6d8951d51b",
+    "Assets/Stage3/VisualPilot/Runtime/Stage3TacticalPresentation.cs": "ae9ee26092252531c68d6086231caf4bd64e29f3c299c7689d0ea75dfc43b947",
+    "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3StartupTests.cs.meta": "f3dd8f6f514ef52ca3f3b000435f01105780bae83536d90bf3ea7b9bc368f7c3",
+    "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3StartupTests.cs": "0ebe02bc259dc829ad38b110a40724d0019ec45790cd8a5ac32265224a2991b2",
+    "ProjectSettings/EditorBuildSettings.asset": "bf3a6786d2eb01c0e9488f562ce88ea044819ac3c842bffcfbf51af1cc09adf5"
+  },
+  "representative_frame": "art/review/direct_start_first_frame_2026-10-19.png",
+  "representative_sha256": "9e620d336b3f8d24460c1c7e98b442a25c2f4b3a0a310b67bfe8663a0e55efbd",
+  "remaining": [
+    "Windows first-frame runtime unverified: build module absent.",
+    "Main menu/loading interaction deferred by owner. General shader warm-up not requested.",
+    "Separate rare unconfirmed Metal presentation wait from D-082 is not claimed fixed by this startup-order repair."
+  ]
+}

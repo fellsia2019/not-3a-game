@@ -55,6 +55,8 @@ namespace Not3A.Stage2.Integration
         { workshopIcon = icon; workshopStatus = status; beginWorkshop = begin; cancelWorkshop = cancel; }
         private GUIStyle title, text, muted, number, button, smallButton, centered, smallButtonText;
         private Texture2D buttonNormal, buttonHover, buttonActive;
+        private Func<bool> lossPresentation;
+        public void BindLossPresentation(Func<bool> active) => lossPresentation = active;
         private static readonly Color Ink = new Color(.055f, .085f, .095f, .97f);
         private static readonly Color Edge = new Color(.38f, .46f, .41f);
         private static readonly Color Gold = new Color(.91f, .75f, .40f);
@@ -559,6 +561,7 @@ namespace Not3A.Stage2.Integration
 
         private void DrawOutcome()
         {
+            if (game.RunDriver.Run.Phase == Stage2RunPhase.Lost && (lossPresentation?.Invoke() ?? false)) return;
             var r = OutcomeRect;
             Card(r);
             Fill(new Rect(r.x + 24f, r.y + 25f, 40f, 3f), Gold);
@@ -566,7 +569,15 @@ namespace Not3A.Stage2.Integration
                 game.RunDriver.Run.Phase == Stage2RunPhase.Won ? "ПОБЕДА" : "ПОРАЖЕНИЕ", number);
             Label(new Rect(r.x + 24f, r.y + 89f, r.width - 48f, 48f),
                 game.RunDriver.Run.Phase == Stage2RunPhase.Won ? "Все волны отбиты. Трон под защитой." : "Трон пал. Попробуйте другую оборону.", text);
-            if (GUI.Button(new Rect(r.x + 24f, r.y + 158f, r.width - 48f, 38f), "Новый забег  [R]", button)) RestartRun();
+            var lost = game.RunDriver.Run.Phase == Stage2RunPhase.Lost;
+            var enabled = GUI.enabled;
+            GUI.enabled = enabled && (!lost || game.RunDriver.CanRetry);
+            if (GUI.Button(new Rect(r.x + 24f, r.y + 158f, r.width - 48f, 38f),
+                lost ? "Повторить волну  [R]" : "Новый забег  [R]", button))
+            {
+                if (lost) game.RunDriver.RetryFailedWave(); else RestartRun();
+            }
+            GUI.enabled = enabled;
         }
 
         private void DrawDebug()

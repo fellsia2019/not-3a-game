@@ -83,6 +83,17 @@ namespace Not3A.Stage2.Economy.Tests
             inventory.TrySpend(10, 0, 0); rules.Tick(.01f);
             Assert.That(inventory.Get(MapResourceKind.Wood), Is.EqualTo(int.MaxValue - 10));
         }
+        [Test] public void SnapshotRestoresBuildingsAndFractionalProductionWithoutRepurchasingOrPayingIncome()
+        {
+            Build(); rules.Tick(4f);
+            var saved = rules.CaptureSnapshot(); var inventorySaved = inventory.CaptureState();
+            rules.Tick(11f); Build(1, ResourceProductionBuilding.Quarry);
+            inventory.RestoreState(inventorySaved); rules.RestoreSnapshot(saved);
+            Assert.That(rules.Buildings.Count, Is.EqualTo(1));
+            Assert.That(rules.Buildings[0].ProgressSeconds, Is.EqualTo(4d));
+            Assert.That(inventory.Get(MapResourceKind.Wood), Is.EqualTo(18));
+            rules.Tick(1f); Assert.That(inventory.Get(MapResourceKind.Wood), Is.EqualTo(20));
+        }
         [Test] public void ResetAndPointReplacementDiscardBuildingsAndProgressWithoutRefund()
         {
             Build(); rules.Tick(4); rules.Reset(); rules.Tick(20);

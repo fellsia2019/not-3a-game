@@ -1,6 +1,250 @@
 # Feature: Player Interface
 
+## D-080: construction and finished-building selection correction
+
+One click on a defense/production/base card arms the blueprint; no separate
+Select button. The existing control hint occupies its space. Construction stays
+nonmodal and open when choosing a finished owned building. The selected strip
+remains above the construction dock, with working card actions/world drag.
+
+A built object wins its mouse press over any armed tower/production/workshop/home
+draft: cancel placement before the placement drivers can buy beneath the sprite.
+The card appears on click release (or once a drag threshold is crossed), so it
+cannot catch the initiating world mouse-down as an Upgrade/Sell press. Empty-
+ground placement and UI click blocking keep their previous rules. Modal pages/
+pause/loss/reset still cancel selection/drag. D-080 fixes the previously untested
+normal path in D-079. Press origin is retained from Input System events even
+when down/motion/up arrive in a single rendered frame. The active binding
+temporarily disables redundant mouse-event merging because FastMouse can merge
+a press into subsequent held motion before onEvent sees it; unbind/disable
+restores the original runtime setting (no serialized settings change).
+Modal/disabled lifecycle drops the transient input. The batched gesture regression and native player flow pass:24 unique PlayMode,
+final4 input cases; actual catalogue click→select→move→merge→upgrade→sale with
+B open. Mac build and46 frames at720p/900p/1080p; Windows remains unverified.
+Evidence: art/source/construction_selection_fix_2026-10-19_verification.json.
+
+## D-083: direct prototype startup
+
+The owner defers a main menu and interactive loading flow. Launch the existing
+prototype directly, with no extra Play click. The first game-camera frame must
+already have final approved hero/landmarks/terrain and the bound current HUD;
+legacy markers/debug ground/HUD/minimap must not flash. TacticalPresentation
+Start(-500) explicitly initializes existing rules, then synchronously builds
+its presentation before HUD binding(-300). No hidden wait/menu or global loader.
+Runtime procedural resources remain part of the same preparation. Ordinary
+Editor Build Settings now lists current Stage3 first, preserving older fixtures.
+
+## D-079: tower/barricade actions
+
+D-082 revises the world tag to compact reflective-silver LVL N (48×17 UI units,
+font11, gap4) and replaces the code arrow with the owner-approved original
+ImageGen silver/cyan chevron inside the existing upgrade medallion. Same layout,
+same live level/action states. Provenance: art/source/upgrade_icon_2026-10-19_generation.json.
+
+Sustained walking qualification found avoidable HUD allocations/draw calls.
+Reuse slice coordinates/text measurement, cache unchanged displayed values, and
+use a bounded resize-aware bevel-texture cache released on destruction. These
+preserve v4 appearance/input and do not add a UI stack or loading system.
+
+The approved v4 card now shows real level, next-level HP/damage, full resource
+price and exact half-investment refund. Upgrade/sale are live for towers and
+barricades; unaffordable/max-level actions explain their disabled state. Prices
+update as inventory changes. Upgrade/merge preserve battle state; sale clears
+selection immediately. No Move button or layout redesign.
+
+World drag retains the original tower until release. D-081 uses light blue for
+a compatible merge, green for a valid empty-cell move and red for an invalid
+drop. Small silver LVL tags (D-082) show the current level above built towers without
+adding hit targets or tier classes. Visible tower silhouettes are valid
+recipient targets above their ground cells. Equal type + level merge, free empty
+cell moves during preparation, and cancellation/lifecycle are defined by
+TOWER_UPGRADES.md. UI presses cannot initiate world drag; drag blocks movement,
+gathering and camera zoom. D-062 retry clears the transient gesture.
+Other building upgrade buttons stay unavailable until their own gameplay slice.
+This section supersedes the historical D-078 disabled-action statements below.
+
+## D-078: implemented HUD and owned-building selection
+
+2026-10-19: актуальная правка владельца к D-077. Вертикальный порядок сверху
+вниз: **полоса выбранного здания → узкая полноширинная навигационная лента
+I/B/P/O/M → основной HUD**. Общая подложка непрерывна, между уровнями нет
+просветов до мира. Без выбора здания остаются лента и основной HUD.
+
+Центр основной панели отдан способностям, навигация туда не входит. Эскиз
+показывает резерв до десяти ячеек двумя рядами по пять: владелец допускает
+такое расширение, но число одновременно экипированных умений/новые клавиши
+этим не утверждены. Остальные группы — миникарта, герой/оружие и статусы.
+
+Подписи шкал по уточнению владельца во время внедрения: **HP, MP, XP**.
+Сохранить пропорции и орнаментированные состыкованные рамки v4, крупные
+медальоны и фигурные полосы. Упрощённый первый runtime возвращён на доводку.
+
+Здоровье, мана и опыт показывают **текущее / максимум числами** вместе с
+приятным ярким заполнением: здоровье рубиново-красное, мана голубая, опыт
+тёплый оранжевый. Числа стоят на постоянном месте и читаются на заполненной
+и пустой частях. На эскизах 80/100, 45/60 и 350/1000 — только подписанные
+снаружи примеры; механик HP/маны/XP сейчас нет, баланс не назначен. Будущий
+интерфейс получает реальные значения из игровых данных, не из этих картинок.
+
+- [Обычный HUD v4](../../art/concepts/building_selection_2026-10-19/hud_ribbon_normal_v4.png).
+- [Выбранная башня v4](../../art/concepts/building_selection_2026-10-19/hud_ribbon_selected_v4.png).
+
+Два кадра созданы встроенным ImageGen. Astra проверила порядок, десять
+резервов, числа/цвета, непрерывность и отсутствие Move: блокирующих проблем
+нет. **Владелец утвердил v4: «Утверждаю v4» (2026-10-19)**. Astra внедрила
+внешний вид и довела его после замечания о больших отличиях. Используются
+родные ассеты; случайные генеративные изменения не перенесены в игру.
+Промпты/входы/хеши/проверка: ../../art/source/hud_ribbon_2026-10-19_generation.json.
+Целевые действия карточек D-077/D-075 сохраняются; их реализация разделена ниже.
+
+### Current runtime and verification, 2026-10-19
+
+Основной HUD, отдельная лента и выбранная полоса состыкованы, с родными
+рамками, увеличенными круглыми элементами и фигурными цветными шкалами.
+HP/MP/XP показывают **0 / 0** и общую подпись «Не открыто»: это отключённое
+числовое состояние интерфейса, не реальные максимумы героя. Десять ячеек
+пусты; новые умения, клавиши и лимит экипировки не добавлены.
+
+Свежий клик по готовой своей башне/частоколу, генератору, мастерской, жилищу
+или трону выбирает объект и показывает его реальные текущие сведения.
+Есть родная миниатюра и бирюзовые углы вокруг модели. Параметры башни,
+включая убывающий HP, читаются из живого объекта; выпуск и интервал — из
+production entry; здоровье трона — из run. Уровней зданий пока нет: подпись
+В D-078 «Базовая постройка» обозначала отсутствие рангов; D-079 показывает реальный уровень башни/частокола.
+
+Кнопка мастерской открывает полноэкранные исследования; покупка остаётся
+локальным E. Платный ап и продажа **отключены с причиной**, цены/возврат не
+выдуманы. Move-кнопки нет; игровое перетаскивание/слияние ещё не добавлено.
+Хижина показывает своё существующее E, не меняет пока старый цикл D-065.
+
+Клик завершается при отпускании; drag или нажатие, начатое на UI, не выбирает
+здание за панелью. Весь док/лента/карточка блокируют world pointer. Свободный
+мир, Esc/ПКМ или × снимают выбор. Открытие окна/стройки, пауза, F3, поражение,
+сброс, rewind, регенерация мира и удаление цели очищают временный выбор.
+Карточка немодальна и не останавливает ход времени или управление героем.
+
+Проверено: 25/25 PlayMode; реальный Mac/Metal player, 27 кадров в трёх
+разрешениях 1280×720/1600×900/1920×1080. × и «Исследования» проверены обычными
+нативными кликами. Последняя правка после тестов выровняла только baseline
+подписей production, затем сборка/все три набора кадров повторены. Windows
+не проверен: на хосте нет WindowsStandaloneSupport. Новых относимых ошибок
+в финальных player-сценариях нет; сцена/Inspector/сохранённые data не менялись.
+Astra приняла финальные реальные кадры: блокирующих визуальных дефектов нет.
+
+- [Обычный игровой HUD](../../art/review/hud_v4_game_2026-10-19.png).
+- [Карточка башни в игре](../../art/review/building_card_v4_game_2026-10-19.png).
+- [Проверки, исходные файлы и хеши](../../art/source/hud_v4_2026-10-19_verification.json).
+
+
+## D-077: historical unified HUD, revised by D-078
+
+2026-10-19: владелец переработал бриф. Миникарта, герой/оружие, I/B/P/O/M,
+пять нынешних резервов способностей и статусы находятся в **одном сплошном
+нижнем HUD** с общей подложкой/внешней рамкой. Между группами нет разрывов
+до мира; внутренние разделители допустимы. Навигация больше не плавает
+отдельно над панелью. При выборе здания непосредственно сверху появляется
+длинная полоса той же ширины, плотно состыкованная с основным HUD.
+
+- [Единый HUD, обычное состояние](../../art/concepts/building_selection_2026-10-19/hud_unified_normal_v3.png).
+- [Тот же HUD с выбранной башней](../../art/concepts/building_selection_2026-10-19/hud_unified_selected_v3.png).
+
+Кнопка **«Переместить» убрана по запросу владельца**. Перемещение начинается
+перетаскиванием здания в мире; drop на допустимое свободное место перемещает,
+на совместимую башню того же уровня — сливает, недопустимый drop возвращает
+исходное состояние. Условия совместимости/фазы/цена и атомарность —
+TOWER_UPGRADES.md; сам эскиз не реализует эти механики.
+
+Полоса Rapid содержит имя/уровень, реальные урон/дальность/интервал/HP,
+«Улучшить» и «Продать», с прочерком будущей цены и возвратом 50%. Герой
+сохраняет текущие параметры лука, HP/мана/XP остаются прочерками. Основные
+параметры и пятислотовый резерв не меняются только ради заполнения ширины.
+
+Две версии v3 созданы встроенным ImageGen по брифу Astra. Astra проверила
+читаемость/параметры/общий фон и отсутствие Move: подходят для согласования,
+блокирующих дефектов нет. Выбранное состояние получилось заметно высоким;
+владелец ещё оценивает обзор мира. **Финальная внешность v3 не утверждена**.
+Промпты/входы/хеши/обзор: ../../art/source/unified_hud_2026-10-19_generation.json.
+Код/сцена/игровые данные не менялись; оригинальные ассеты остаются источником
+для будущей реализации, а не пиксели генеративного макета.
+
+## D-076: historical compact-card candidates, superseded by D-077
+
+2026-10-19: владелец выбрал следующий срез — выбор готовых зданий и карточка
+над HUD; сначала ImageGen-эскизы, затем внедрение через Astra после одобрения.
+Две альтернативы и общий лист содержания созданы встроенным ImageGen:
+
+- [А: горизонтальная карточка](../../art/concepts/building_selection_2026-10-19/card_A_horizontal_v2.png).
+- [Б: карточка справа](../../art/concepts/building_selection_2026-10-19/card_B_right_v2.png).
+- [Содержание и состояния](../../art/concepts/building_selection_2026-10-19/building_cards_states_v2.png).
+
+А — низкая карточка слева над навигацией; Б — более высокая справа. Оба
+используют текущий «Лунный фарфор» и оставляют миникарту/I/B/P/O/M доступными.
+Лист показывает башню, мастерскую/переход в исследования, будущую кузницу,
+генератор, трон и недоступный ап с причиной. Цены будущих операций не заданы.
+Числа башни/лесопилки/исходного трона взяты из текущих data assets; уровни
+и новые действия — иллюстрация будущего поведения, не уже работающий UI.
+
+Это генеративные макеты, а не runtime-кадры. При внедрении переиспользовать
+исходные HUD/спрайты/шрифты, не импортировать полноэкранную картинку или
+переносить случайный дрейф старых элементов/надписей. Выбор варианта и
+утверждение прежней внешности не получены: владелец запросил D-077 выше.
+Полные промпты, ссылки
+на входы и хеши: ../../art/source/building_selection_2026-10-19_generation.json.
+Unity-код, игровые цены и механики апа этим шагом не менялись.
+GPT-6 Astra проверила финальные файлы: оба пригодны для согласования,
+рекомендован А. На листе «Усилить +5 HP» означает **+5 максимального HP**,
+не лечение; при реализации подписать это явно. Drag/слияние, реальные цены
+и предпросмотр следующего уровня этим листом не проверены.
+
+## D-075 target: shared-card actions, partially implemented by D-078
+
+Клик по своему готовому зданию открывает **одну полосу над общим HUD**.
+Это принятое владельцем дополнение к полноэкранным I/P/O/M, а не отдельное
+полноэкранное строительство. Карточка немодальна; мир не останавливается.
+В ней имя/реальный уровень, актуальные параметры, поддерживаемые действия
+и переход к соответствующему подробному разделу.
+
+| Объект | Данные и действия |
+| --- | --- |
+| Башня | Урон, дальность, темп, HP, уровень; платный ап, продажа 50%; перемещение/слияние перетаскиванием |
+| Исследовательская мастерская | Уровень и предел доступных технологий; улучшить, «Перейти к исследованиям» |
+| Кузница | Уровень и максимум качества; улучшить, «Открыть ковку» |
+| Лесопилка/каменоломня/рудник | Ресурс, выпуск за цикл, интервал, уровень; улучшить, перейти к связанной технологии |
+| Трон | Текущий/максимальный HP, число апов 0/3–3/3; улучшить максимум на 5 |
+| Хижина | Только определённые сведения; функция после отмены сна/апгрейд пока не выбраны |
+
+Не добавлять фиктивную скорость исследования, очереди или бонус хижины ради
+заполнения карточки. Цена и изменение апа, точный возврат продажи видны до
+платежа. Первичное строительство стоит ресурсы; апы/исследования могут включать
+золото. Операции башен — TOWER_UPGRADES.md, кузница — EQUIPMENT_AND_RUNES.md.
+
+«Исследования» открывают существующую полноэкранную P. Выделение конкретной
+технологии предлагается. Для кузницы Astra предлагает контекстный полноэкранный
+экран ковки в общей оболочке, без новой постоянной вкладки/горячей клавиши;
+его содержимое/внешность ещё не утверждены. Переход для другого здания
+появляется вместе с соответствующим работающим разделом, не ведёт в пустоту.
+Открытие страницы не выполняет покупку и не разрешает автоматически удалённое
+изучение: текущий локальный E/информирующий P меняются отдельным контрактом.
+
+Клик выбора отличается от drag здания; один drag обслуживает перемещение
+и совместимое слияние, отдельной Move-кнопки нет. Один жест не двигает
+героя/камеру и не подтверждает стройку под
+карточкой. В полноэкранном разделе карточка скрыта. Пауза/поражение/сброс
+и открытие страницы очищают незавершённые действия; нужны свежий клик/E.
+Удалённый объект не оставляет старый выбор и повторную оплату.
+
+Историческое предложение Astra до D-077: горизонтальная карточка справа от
+миникарты, выше HUD и ряда I/B/P/O/M; миниатюра/имя слева, параметры в центре,
+действия справа. Сохранить «Лунный фарфор», читаемую кириллицу и пропорции
+орнамента. Это ещё не одобренный ImageGen-эскиз. Проверить 1280×720,
+1600×900 и 1920×1080: карточка/действия читаются, навигация/миникарта доступны,
+поле боя не перекрыто большой панелью. Этот компактный layout заменён D-077;
+актуальны два v4-концепта D-078 выше, runtime пока не изменён.
+
+## Historical D-069 full-screen baseline
+
 Status: D-069 full-screen revision implemented; local Mac verification, 2026-10-18.
+D-078 above supersedes its bottom-HUD geometry and status placeholders.
 D-066/D-068 runtime correction below remains the historical verified baseline. The owner
 chose C «Лунный фарфор», authorized implementation of the window sheets and
 explicitly approved both revised fullwidth normal/construction HUD sketches.
@@ -66,6 +310,19 @@ allowed complete redesign of both map and minimap. A future large world uses
 a local minimap and an M window with panning/zooming over a regional viewport;
 the entire eventual world need not fit on screen at once. No new geography,
 fog-of-war, discovery or travel rules are authorized by these drawings.
+
+## Defeat and retry — D-062
+
+Actual throne HP loss produces a short render-only shake. If the dome is visible
+and no opaque full-screen page covers it, transient white radial fractures
+originate at its soul; they fade completely. Damage away from the dome uses
+shake only. Greater accumulated damage strengthens the next pulse. Fatal
+fractures/whiteout cover every page and hide ordinary HUD, independent of camera
+position; simulation and world input stop, while the unscaled transition finishes.
+The lunar retry screen reads «Ещё одна попытка», «Вернитесь к подготовке и
+измените исход», «Повторить волну». Button and R become actionable only after
+the transition. They restore the pre-wave checkpoint and full preparation, close
+pages, clear effects/placements and require fresh E. See `STAGE2_RUN_STATE.md`.
 
 ## Appearance and prototype content
 

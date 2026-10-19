@@ -25,3 +25,40 @@ MonoBehaviour:
   attackDamage: 0
   splashRadiusCells: 0
   projectileFlightSeconds: 0
+  upgrades:
+  - cost:
+      wood: 1
+      stone: 0
+      metal: 0
+      gold: 0
+    health: 24
+    range: 1
+    interval: 1
+    damage: 0
+  - cost:
+      wood: 2
+      stone: 0
+      metal: 0
+      gold: 0
+    health: 48
+    range: 1
+    interval: 1
+    damage: 0
+  - cost:
+      wood: 4
+      stone: 0
+      metal: 0
+      gold: 0
+    health: 96
+    range: 1
+    interval: 1
+    damage: 0
+  - cost:
+      wood: 8
+      stone: 0
+      metal: 0
+      gold: 0
+    health: 192
+    range: 1
+    interval: 1
+    damage: 0

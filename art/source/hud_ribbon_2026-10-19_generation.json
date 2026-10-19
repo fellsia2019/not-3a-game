@@ -1,0 +1,118 @@
+{
+  "date": "2026-10-19",
+  "decision": "D-078",
+  "status": "owner_approved_implemented_with_native_assets",
+  "tool": "built-in image_gen.imagegen",
+  "fallback_cli": false,
+  "visual_owner": "GPT-6 Astra",
+  "runtime_ready": false,
+  "owner_approval": {
+    "date": "2026-10-19",
+    "text": "Утверждаю v4",
+    "scope": "v4 appearance and requested implementation through Astra; mockup values remain illustrative"
+  },
+  "purpose": "Full-width navigation ribbon between selected building and main HUD; spell capacity up to ten; vivid numeric status bars",
+  "supersedes": "art/source/unified_hud_2026-10-19_generation.json",
+  "references": [
+    {
+      "role": "normal edit target / prior v3 HUD",
+      "file": "/Users/artemmusket/game-dev/not-3a-game/art/concepts/building_selection_2026-10-19/hud_unified_normal_v3.png",
+      "sha256": "bbbca4baa2fd5ab2ece8892fca106a37377185aa884089c94eb3ab142c15dad0"
+    },
+    {
+      "role": "selected Rapid identity/content only; old main layout ignored",
+      "file": "/Users/artemmusket/game-dev/not-3a-game/art/concepts/building_selection_2026-10-19/hud_unified_selected_v3.png",
+      "sha256": "da09744fc5bf4deb5133b5f6d974aac582fabc2f4b27dfe5620f4cc518f1d71c"
+    }
+  ],
+  "prompts": {
+    "normal": "Use case: precise-object-edit.\nAsset type: revised fantasy game HUD approval mockup, one complete 16:9 game frame.\nInput image is the v3 concept edit target. Preserve world, current hero identity, camera, top resources/day clock and Lunar Porcelain material style. Revise ONLY the bottom HUD composition and editorial concept caption.\nNEW required structure from bottom upward, at 1600×900 guide scale:\nA) Main information dock x16..1584, y700..884. ONE continuous ivory pearl backplate/frame. Left: embedded local minimap, then existing hero portrait and starter bow stats. Center: the ENTIRE center area is for SPELLS, no bag/hammer/book/menu buttons there. Right: three colored numerical status bars.\nB) A SEPARATE VERY NARROW FULL-WIDTH NAVIGATION RIBBON x16..1584, y658..700, touching the main dock with a thin common boundary and NO world-visible gap. Five small existing bag/hammer/book/hero/map buttons appear in a compact centered group INSIDE this ribbon, badges exactly \"I\", \"B\", \"P\", \"O\", \"M\". Ribbon is approximately42px high at reference scale, not a second big panel. Do not stretch five buttons into huge screen-wide tiles. NO navigation anywhere inside the spell area.\nThis is normal state: no selected-building strip yet. Ribbon stays above main HUD even with no selected object.\nMain dock details:\n- Preserve circular inset minimap and current hero/bow identity, within one backing, no detached map island.\n- Weapon text verbatim \"Лук\", \"Урон 2\", \"Радиус 5,5\", \"Интервал 1,1 с\".\n- Center contains exactly TEN EMPTY spell reserves, TWO ROWS OF FIVE, consistent pearl/plum round cells with a dash each. Capacity demonstration only. Moderate readable size, even spacing, no skill artwork or assigned hotkeys, no additional menu row above them. Count ten, not five, eight, eleven or twelve.\n- Right: vivid but pleasant jewel-like bars. Label above each, current/maximum numbers centered at a stable position across whole track. Exact text: \"Здоровье\" and \"80/100\", \"Мана\" and \"45/60\", \"Опыт\" and \"350/1000\".\n- HP fill ruby RED at80%; mana fill clear CYAN-BLUE at75%; XP fill warm ORANGE at35%. Unfilled part muted dark plum; thin silver border. Soft vertical gradients and a fine bright top highlight make them lively, no neon bloom/sparks. Light numbers with a thin dark outline must read across both filled and empty parts. Do not show dashes instead of these examples.\nPalette: match ivory pearl porcelain/plum/silver/turquoise of source; restrained ornaments mostly on outer perimeter. Maintain compact legible Cyrillic, no text collisions. Internal groups may have hairline dividers, no detached heavy boxes or gaps to grass.\nTop-center editorial caption outside actual HUD: \"КОНЦЕПТ · Числа условные\".\nSmall second editorial line: \"10 ячеек — резерв интерфейса\".\nThose numbers are ONLY sample appearance, not actual game balance. Do not add currencies, skills, controls, a Move button or new buildings. Output one complete opaque 16:9 frame, no collage/device frame.",
+    "selected": "Use case: precise-object-edit.\nAsset type: selected-building state of the v4 HUD approval concept.\nInput 1 is the EXACT edit target: the new normal v4 frame with ten spell reserves, numeric colorful bars and separate narrow navigation ribbon. Preserve every part of its bottom HUD: main dock positions, TWO ROWS OF FIVE empty spell cells, vivid red80/100 / cyan-blue45/60 / orange350/1000 bars with their readable numbers, minimap, hero/bow/stats, and navigation ribbon. Keep five I/B/P/O/M buttons ONLY in that ribbon, NEVER inside the spell area.\nInput 2 is ONLY a reference for existing red-roof Rapid identity and selected-building field/action content. Ignore its OLD HUD layout, five slots and muted/dashed hero bars.\nAdd one LONG full-width selected-building strip directly ABOVE THE NAVIGATION RIBBON, touching its top edge. Critical vertical order TOP TO BOTTOM:\n1 SELECTED BUILDING STRIP;\n2 VERY NARROW full-width NAVIGATION RIBBON with I/B/P/O/M;\n3 MAIN HERO HUD with minimap/hero/TEN spell reserves/colored numeric bars.\nThe ribbon must be VISIBLE BETWEEN the two big panels, not covered, not inside building content, and not a floating island. All three levels share same x16..1584 edges and continuous porcelain backing with thin adjoining boundaries, no grass gaps. Keep main dock and ribbon in the exact positions already present in image1. Extend UPWARD only for new selection strip; do not move the hero HUD down or squash it.\nUse shallow long-card geometry efficiently: small Rapid thumbnail/name/\"Уровень 1\" at left; across middle \"Урон 1\", \"Дальность 4,25\", \"Интервал 0,45 с\", \"Здоровье 10/10\". At right TWO actions only: \"Улучшить\" with \"Цена —\"; \"Продать\" with \"Возврат 50%\". Small close ×. Tiny hint inside selected strip \"Перетащите здание для перемещения\". Absolutely NO \"Переместить\" button, move-arrow action or new hotkeys.\nAdd exactly ONE small wooden red-roof Rapid in the world, on a tiny grey-paved patch right of current hero, subtle turquoise selection brackets. No catapult or additional towers. Keep world/hero/camera/top resource/clock details and top-center concept captions, including \"Числа условные\" and capacity note.\nKeep Lunar Porcelain ivory/plum/silver/turquoise materials, restrained ornament, legible Cyrillic and comfortable padding. Numeric hero bars remain illustrative only: HP80%, mana75%, XP35%; do not replace them with dashes or change example values. No new prices, abilities, skills or resources. One complete same-aspect16:9 opaque game-frame concept, no collage."
+  },
+  "outputs": [
+    {
+      "id": "normal",
+      "source": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-1ac527d1-4204-4237-aad9-fe1fc38c2291.png",
+      "file": "art/concepts/building_selection_2026-10-19/hud_ribbon_normal_v4.png",
+      "sha256": "0195ec8ee679b61a9a5242df3472d5f7f0709ba0a1d861aadf4c025035b968b4",
+      "bytes": 2264638,
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "id": "selected",
+      "source": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-12883998-1c4d-4e1c-bb54-9742623623a5.png",
+      "file": "art/concepts/building_selection_2026-10-19/hud_ribbon_selected_v4.png",
+      "sha256": "9b2d5d4891f614f9463541e5d67ab521ab52c2d69effcea3e0f7ef18c7d1e421",
+      "bytes": 2293888,
+      "width": 1672,
+      "height": 941
+    }
+  ],
+  "owner_requirements": [
+    "Narrow full-width I/B/P/O/M ribbon between selected building strip and primary HUD",
+    "Primary center reserved for spells, potentially ten",
+    "Pleasant vivid status bars and current/max numbers",
+    "No Move button; world drag handles movement/compatible merge"
+  ],
+  "palette": {
+    "health": "ruby red",
+    "mana": "cyan-blue",
+    "experience": "warm orange"
+  },
+  "illustrative_examples": {
+    "health": {
+      "current": 80,
+      "maximum": 100,
+      "fill_percent": 80
+    },
+    "mana": {
+      "current": 45,
+      "maximum": 60,
+      "fill_percent": 75
+    },
+    "experience": {
+      "current": 350,
+      "maximum": 1000,
+      "fill_percent": 35
+    },
+    "runtime_tuning": false
+  },
+  "capacity": {
+    "displayed_reserves": 10,
+    "arrangement": "two rows of five",
+    "confirmed_equipped_skill_count": false
+  },
+  "source_rights": "Existing project-generated concepts and actual project art/data, no external artwork; illustrative approval mockups.",
+  "caveats": [
+    "Hero HP/mana/XP systems and shown values are not implemented; examples are labelled outside HUD",
+    "Ten reserves illustrate capacity, not final number of equipped abilities or new keybinds",
+    "Original native assets/data must be used when implemented; generated pixel drift is nonbinding"
+  ],
+  "visual_review": {
+    "reviewer": "GPT-6 Astra",
+    "date": "2026-10-19",
+    "result": "suitable_for_owner_review",
+    "blocking_defects": [],
+    "checked": [
+      "Selected strip / narrow full-width navigation / main HUD order",
+      "Ten empty reserves in two rows of five, no navigation inside spell area",
+      "Readable red 80/100, cyan-blue 45/60 and orange 350/1000 examples",
+      "Illustrative values and capacity labelled outside HUD",
+      "No Move button; original bow/Rapid data; unassigned price dash",
+      "Same dock/ribbon positions in both states"
+    ],
+    "owner_approval_received": true,
+    "implementation_note": "Reuse original assets; generative pixel drift is nonbinding."
+  },
+  "implementation_followup": {
+    "owner_text": "Отображение здоровья, мана, опыт не нужно. Можно сделать просто HP, MP и XP. И посмотри с референсом. У тебя сейчас очень большие отличия.",
+    "date": "2026-10-19",
+    "requirements": [
+      "Use HP / MP / XP labels",
+      "Bring native runtime ornament, proportions, medallions, status tracks and selection actions closer to approved v4"
+    ],
+    "status": "implemented_and_locally_verified"
+  },
+  "implementation_record": "art/source/hud_v4_2026-10-19_verification.json"
+}

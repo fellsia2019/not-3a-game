@@ -19,6 +19,21 @@ namespace Not3A.Stage2.Economy
     /// <summary>Locked-point construction and active-time resource production. No scene lifecycle.</summary>
     public sealed class Stage2Production
     {
+        public sealed class Snapshot
+        {
+            internal readonly ResourceProductionPoint[] Points;
+            internal readonly BuildingState[] Buildings;
+            internal Snapshot(ResourceProductionPoint[] points, BuildingState[] buildings)
+            { Points = points; Buildings = buildings; }
+        }
+        internal readonly struct BuildingState
+        {
+            internal readonly int Point;
+            internal readonly ResourceProductionBuilding Kind;
+            internal readonly double Progress;
+            internal BuildingState(Stage2ProductionBuilding building)
+            { Point = building.PointIndex; Kind = building.Entry.Building; Progress = building.ProgressSeconds; }
+        }
         private readonly Stage2ProductionCatalog catalog;
         private readonly Stage2Inventory inventory;
         private ResourceProductionPoint[] points = Array.Empty<ResourceProductionPoint>();
@@ -36,6 +51,24 @@ namespace Not3A.Stage2.Economy
         }
         public IReadOnlyList<ResourceProductionPoint> Points => pointView;
         public IReadOnlyList<Stage2ProductionBuilding> Buildings => buildingView;
+        public Snapshot CaptureSnapshot()
+        {
+            var saved = new BuildingState[buildings.Count];
+            for (var i = 0; i < saved.Length; i++) saved[i] = new BuildingState(buildings[i]);
+            return new Snapshot(points, saved);
+        }
+        public void RestoreSnapshot(Snapshot snapshot)
+        {
+            if (snapshot == null || !ReferenceEquals(snapshot.Points, points))
+                throw new ArgumentException("Production snapshot belongs to a different world.", nameof(snapshot));
+            buildings.Clear();
+            foreach (var saved in snapshot.Buildings)
+            {
+                var entry = catalog.Get(saved.Kind);
+                buildings.Add(new Stage2ProductionBuilding(saved.Point, entry, Footprint(saved.Point, entry))
+                    { ProgressSeconds = saved.Progress });
+            }
+        }
         public void SetActive(bool value) => active = value;
         public void BindPoints(IReadOnlyList<ResourceProductionPoint> values)
         {

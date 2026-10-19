@@ -1,0 +1,81 @@
+{
+  "date": "2026-10-19",
+  "decision": "D-077",
+  "status": "superseded_by_owner_D078_revision",
+  "tool": "built-in image_gen.imagegen",
+  "fallback_cli": false,
+  "visual_owner": "GPT-6 Astra",
+  "purpose": "Owner-requested continuous bottom HUD and full-width selected-building strip; no Move button; concept-only",
+  "supersedes": "art/source/building_selection_2026-10-19_generation.json",
+  "owner_requirements": [
+    "One continuous large HUD including minimap/hero/abilities/status/navigation, no world-visible gaps",
+    "Selected building uses long strip immediately above, stretched to HUD width",
+    "No Move button; building movement by world drag, compatible equal-level drop for merging",
+    "Show revised concepts before Astra implementation"
+  ],
+  "references": [
+    {
+      "role": "normal frame edit target / existing actual HUD",
+      "file": "/Users/artemmusket/game-dev/not-3a-game/art/review/fullscreen_interface_hud_2026-10-18.png",
+      "sha256": "864d42911f61f1d99dbe9179b5a688f533489d91dc7ec29701da397f11e14677"
+    },
+    {
+      "role": "Rapid identity only; prior compact UI not binding",
+      "file": "/Users/artemmusket/game-dev/not-3a-game/art/concepts/building_selection_2026-10-19/card_A_horizontal_v2.png",
+      "sha256": "be4beccb46f80571af9a735edb07e985c509b50fbf1bb6d74f67159a47ca32c6"
+    }
+  ],
+  "prompts": {
+    "normal": "Use case: precise-object-edit.\nAsset type: approval concept of a revised game HUD, one 16:9 complete game frame.\nInput: the existing actual screenshot is the edit target. Preserve the grassy world, current hero identity, isometric camera, top resource counters and top-right day clock. Change the bottom UI only, removing its old disconnected minimap frame, floating navigation icons and separate hero panel completely before rebuilding them together. Fill vacated old UI areas with the surrounding grass so no remnants float above the new dock.\nPrimary request: ONE continuous, solid, full-width bottom HUD in the same Lunar Porcelain fantasy style. It must not look like separate islands. At 1600×900 reference scale use approximately x16..1584 and y690..884. One uninterrupted ivory pearl backing and ONE outer ornamental frame around all groups, no world-visible gaps between minimap, hero, navigation buttons, abilities and vitals. Internal separators may be hairlines, not individual heavy outer frames. Restrained plum enamel, warm silver edges, tiny turquoise jewels; ornament chiefly at outer corners and edges. Crisp Cyrillic sans-serif.\nContent inside this single common dock, left to right:\n1) Inset circular local minimap approximately164px diameter at x32..210, contained inside the common backplate. A thin inset ring is fine, but NO detached huge ornate map frame, NO protruding circle above dock, NO independent floating map island. Keep its current dark-green map and marker style.\n2) Current existing male hero portrait, separate starter bow and its actual short vertical weapon values in x230..510. Exact Russian text: \"Лук\", \"Урон 2\", \"Радиус 5,5\", \"Интервал 1,1 с\".\n3) Center x540..1060: the five existing bag/hammer/book/hero/map navigation buttons with ONLY their badges \"I\", \"B\", \"P\", \"O\", \"M\", placed on an internal top row INSIDE THE DOCK. Directly below, five empty round ability reserves with a dash each. Exactly FIVE, not six. Distinguish the two rows cleanly using spacing and a subtle inner line; do not map new hotkeys or add text labels to access icons.\n4) Right x1100..1560: exact \"Здоровье —\", \"Мана —\", \"Опыт —\" and three slim muted red/blue/orange placeholder bars. These values are unavailable; no invented HP, mana or XP numbers or filled progress.\nBalance the spacing so the dock is purposeful and readable, with modest padding but no large unused holes. Do not shrink typography to squeeze ornaments. All buttons/icons are contained in the common frame; zero floating icons above it.\nThis is the NORMAL state: NO selected-building panel yet, no selected tower, no upgrade/move/sell controls. Leave the world immediately above the dock unobstructed.\nOne discreet top-center editorial label \"КОНЦЕПТ · Единый HUD\". Do not add other labels, menus, hotkeys, currencies, abilities or buildings. Do not redesign the top bars or world. Opaque background. Output a single complete 16:9 frame, no collage or device mockup.",
+    "selected": "Use case: precise-object-edit.\nAsset type: second approval state of a unified fantasy game HUD.\nInput image 1 is the exact edit target: our NEW continuous unified bottom HUD. Keep that entire bottom dock pixel-faithful in geometry/composition: inset minimap at far left, hero/bow/stats, INTERNAL I/B/P/O/M row, exactly five empty ability reserves, unavailable health/mana/XP bars at right. Do not detach, reposition, duplicate or shrink these groups. Preserve its continuous ivory background and shared outer frame. Keep world/hero/camera/top counters/day clock.\nInput image 2 is ONLY the red-roof wooden Rapid tower identity reference. Ignore ALL UI/layout/nav/compact popup from image 2. Do not copy an old floating box.\nPrimary request: show selected-building state by ADDING A LONG FULL-WIDTH HORIZONTAL BUILDING STRIP IMMEDIATELY ABOVE the new dock. At original 1600×900 scale, the strip spans x16..1584 (the SAME left/right edges as the common lower HUD) and y560..690. Its bottom touches the common dock's top border with NO grass/blank gap. It must be a purposeful shallow strip, NOT a compact box, NOT a tall right sidebar and NOT a second detached island. One continuous combined silhouette when selected, clean horizontal seam. Match pearl porcelain/plum/silver/turquoise ornament of image 1.\nFill this upper strip efficiently:\n- Left: small Rapid thumbnail, title \"Rapid\" and \"Уровень 1\".\n- Across the middle, FOUR well-spaced compact stat columns, readable labels and bold values: \"Урон 1\", \"Дальность 4,25\", \"Интервал 0,45 с\", \"Здоровье 10/10\". No large empty regions or oversized building illustration.\n- Right: TWO actions only: \"Улучшить\" with small \"Цена —\"; \"Продать\" with \"Возврат 50%\". Small close × in upper-right.\n- A subtle small footer inside the strip: \"Перетащите здание для перемещения\".\nThere is NO \"Переместить\" BUTTON, no four-arrow action icon, no separate move control or move hotkey. Movement happens by dragging the WORLD building; merging is drop on a compatible equal-level tower, not a new button.\nAdd exactly ONE small Rapid in the world, on a tiny grey-paved patch to the right of the existing hero, matching reference 2's red roof and wood. A subtle turquoise base highlight indicates selected. No catapult or extra buildings. The single Rapid in world and its tiny card thumbnail are the same selected object, not two placed towers.\nChange top-center editorial label to \"КОНЦЕПТ · Выбрано здание\".\nNo upgrade costs, new statistics, currency or extra ability slot. Preserve the lower unified HUD fully and keep internal nav accessible. Output one complete same-aspect 16:9 frame, opaque background."
+  },
+  "data_sources": [
+    "Assets/Stage3/CombatSlice/HeroBow.asset",
+    "Assets/Stage3/CartoonWorldPilot/RapidCartoonCatalog.asset"
+  ],
+  "outputs": [
+    {
+      "id": "normal",
+      "source": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-6a0b758d-5bc3-434e-8cfe-4d451bf4273f.png",
+      "file": "art/concepts/building_selection_2026-10-19/hud_unified_normal_v3.png",
+      "sha256": "bbbca4baa2fd5ab2ece8892fca106a37377185aa884089c94eb3ab142c15dad0",
+      "bytes": 2296521,
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "id": "selected",
+      "source": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-971dfdb4-2416-4c2c-b89b-c742b33f6f89.png",
+      "file": "art/concepts/building_selection_2026-10-19/hud_unified_selected_v3.png",
+      "sha256": "da09744fc5bf4deb5133b5f6d974aac582fabc2f4b27dfe5620f4cc518f1d71c",
+      "bytes": 2289555,
+      "width": 1672,
+      "height": 941
+    }
+  ],
+  "generation_order": [
+    "normal uses existing actual HUD screenshot",
+    "selected edits normal and adds selected Rapid/upper strip, using prior Rapid concept for identity only"
+  ],
+  "runtime_ready": false,
+  "owner_approval": null,
+  "source_rights": "Existing project screenshot/concept as references; generated UI approval concepts, no third-party art.",
+  "caveats": [
+    "Generated screenshot pixels are illustrative; reuse original native UI/assets during implementation",
+    "No gameplay/price/stat change implemented; levels and future actions are conceptual",
+    "Drag movement/merge is the accepted input direction; detailed gameplay rules remain in TOWER_UPGRADES.md"
+  ],
+  "visual_review": {
+    "reviewer": "GPT-6 Astra",
+    "result": "suitable_for_owner_approval",
+    "blocking_defects": [],
+    "notes": [
+      "Continuous base HUD, navigation inside, five reserves, actual values checked.",
+      "Selected strip is same width, adjoining directly, no Move button.",
+      "Selected strip exceeds initial height guide; owner should judge world coverage.",
+      "Generated asset/pixel changes are illustrative; original project assets must be used later.",
+      "Owner has not approved v3."
+    ]
+  },
+  "superseded_by": "art/source/hud_ribbon_2026-10-19_generation.json"
+}

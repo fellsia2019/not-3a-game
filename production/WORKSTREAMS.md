@@ -10,6 +10,302 @@ D-017: каждый новый Stage 2–7 ведёт новый агент в �
 в `reports/development-roadmap.html`; внутри stage мелкие задачи не дробятся
 по агентам. На переходе обновляются этот handoff и канонический план.
 
+### 2026-10-19 — D-084 future landscape direction recorded, deferred
+
+- Owner places this after necessary gameplay functionality, far beyond current
+  work: landscape revision, scorched/undead-corrupted enemy road, etched runes
+  along its full length, glowing red at night. No current art/runtime changes.
+- Main owns this accepted brief/sequence in vision, plan, decisions and art
+  direction. Later visual production requires ImageGen, owner approval and Astra.
+  Existing navigation/route geometry remain unchanged until a future brief.
+
+### 2026-10-19 — D-083 direct-start first frame implemented
+
+- Owner asks to keep immediate prototype startup: no main menu, loading flow or
+  extra Play click. Remove visible legacy primitives and incomplete HUD frames.
+- Astra owns TacticalPresentation lifecycle only; main owns first-frame tests,
+  opt-in player observation, ordinary build entry, build and canonical evidence. Existing uncommitted
+  work is preserved; current approved artwork/layout is unchanged.
+- Dependencies: bootstrap Awake, idempotent Stage2 composition initialization,
+  synchronous world/presentation construction, then existing HUD binding.
+- Acceptance: first rendered game frame has final hero/landmarks/world/HUD,
+  hidden legacy actor/resource/debug-ground renderers and suppressed legacy UI;
+  direct reload also works, Stage2 fixture retains its original presentation.
+  Ordinary Editor Build Settings enters current Stage3; older entries preserved.
+- Verification:5/5 PlayMode;2/2 startup cases requalified after default build entry
+  correction; Mac/Metal build. Three fresh processes at720p/900p/1080p pass
+  first8 game-camera frames from Unity frame1. Astra final visual PASS.
+
+### 2026-10-19 — D-082 compact silver LVL / upgrade icon / walking performance qualified
+
+- Root owns movement/frame profiling, measured fixes, opt-in QA, regression tests
+  and canonical handoff. Astra owns the corrected small silver LVL tags and the
+  approved generated upgrade icon, preserving the v4 card/action layout.
+- Owner rejects the large gray Level tags and code-arrow appearance. Direct
+  revision: shorter LVL, smaller text/padding and reflective silver finish.
+  New silver/cyan ImageGen chevron is explicitly approved: «Да, внедряй».
+- Dependencies: D-079 live levels/actions and D-080 input; existing scene/resource
+  movement. Preserve all earlier uncommitted changes and runtime rules/prices.
+- Acceptance: smaller readable metallic LVL N tags, approved icon in actual card;
+  reproduce sustained hero traversal, record frame/CPU/allocation counters and
+  compare a measured fix on the same route. No speculative streaming rewrite.
+- Result: compact LVL and approved PNG implemented; 11 unique PlayMode pass.
+  Same uncapped walk p50 6.00→3.00ms, p95 7.69→3.40ms, allocations 20.1→5.4KB.
+  PC quality vSync=1; final native ordinary-WASD 227m/three passes has moving
+  p95 16.97ms/max17.68ms on this60Hz screen and no overlap recovery.
+  One earlier1s Metal presentation wait remains an unreproduced qualification
+  limit, not a proven streaming/GC defect. See final handoff/evidence below.
+
+### 2026-10-19 — D-081 tower merge feedback / level badges implemented
+
+- Root owns merge-state binding, focused regression/player QA and canonical
+  documentation. GPT-6 Astra owns the requested blue merge preview and compact
+  silver Level badges. Existing uncommitted D-062–080 work is preserved.
+- Dependencies: D-079 actual tower level/merge eligibility, D-080 nonmodal drag
+  and approved v4 world-HUD clipping. No gameplay, price or tier changes.
+- Acceptance: a compatible same-type/equal-level occupied target previews blue;
+  ordinary construction stays green, invalid drops stay red. Live Level 1/2/etc.
+  silver badges sit above built towers, retain readable screen size through zoom,
+  update after upgrade/merge, and neither intercept input nor leak over modal HUD.
+
+### 2026-10-19 — D-080 construction/world-selection repair implemented
+
+- Root owns selection/input arbitration, actual pointer regression tests and QA;
+  Astra owns removing the redundant Build Select button and rendering the existing
+  selected strip above the nonmodal construction dock. Preserve prior changes.
+- Reproduction: construction stays open after a purchase, but both binding and
+  selected-strip visibility require Window.None. Previous D-079 tests picked
+  towers with the dock closed, missing the normal build-to-selection path.
+- Acceptance: one build-card click arms placement; no separate Select button.
+  Own-building clicks select while B stays open, including when a draft is armed;
+  selection cancels the draft before placement can charge/create. World drag
+  move/merge and card upgrade/sale work with B open, UI remains click-safe,
+  modal/pause/loss/reset cancel. Verify actual native select/move/merge clicks.
+- Native requalification exposed a second issue: FastMouse merges down with held
+  motion before onEvent, losing its location. The binding now captures event origin
+  with merging disabled only while it owns input, restoring the original setting
+  on disable/unbind. Three-event one-update drag and setting cleanup regressions
+  pass. Final native retest passes catalogue→select→move→merge→upgrade→sale
+  with B open. Earlier failed gesture attempts remain diagnostic evidence only.
+
+### 2026-10-19 — D-079 implemented; local verification complete
+
+- Owner: main chat owns Defense/Economy rules, data, binding, tests and handoff;
+  Astra owns activation of approved v4 card actions and existing-art drag preview.
+  User clarified this slice upgrades only towers and barricades. Preserve all
+  previous uncommitted changes. Production/workshop/dwelling/throne upgrades are
+  outside this slice.
+- Dependencies: existing selection card, shared navigation/inventory and pre-wave
+  snapshot. Acceptance: resource-paid upgrade, same-type/same-level drag merge,
+  exact 50% invested-cost sale once, safe cancel/invalid drops, actual price/stat
+  preview, resource/occupancy/combat/checkpoint consistency; local tests/build.
+- Provisional tuning lives in active Stage3 catalogs; legacy Stage2 catalogs stay
+  compatible. No new tower art or research gates; movement uses world drag and
+  is limited to preparation to preserve siege play.
+- Delivered: live card actions, tier data/ledger, transaction and snapshot rules,
+  safe drag/ghost, 76 EditMode + 28 unique PlayMode cases, native Upgrade/Sell,
+  Mac build and 30 final frames at three resolutions; Astra final visual PASS.
+  No scene/Inspector rewire or PNG/prefab/package/settings changes. Windows
+  remains unverified; full record is in the latest D-079 Handoff Register entry.
+
+### 2026-10-19 — D-078 implemented; local verification complete
+
+- Owner approved v4 explicitly: «Утверждаю v4». Astra owns HUD visual code/
+  selection-strip drawing and final frame review; main chat owns building
+  selection, input/data binding, tests and canonical handoff. Preserve all
+  prior uncommitted D-062/D-073 work. No gameplay upgrade/merge/sell mechanics
+  or invented hero values in this UI slice.
+- Dependencies: existing native HUD art, camera/projected building visuals,
+  actual tower/production/run/travel data and full-screen pages. Acceptance:
+  connected full-width main dock/nav ribbon/selected strip, 2×5 reserves,
+  numeric inactive hero bars until real systems exist; own-building picking,
+  live stats/research link, no click-through, stale selection cleared on
+  removal/modal/pause/loss/reset/rewind; tests and actual review frames.
+- Delivered: Astra native HUD/ornaments/selection presentation; main live-data
+  binding/picking, lifecycle, read-only building accessors and regression QA.
+  Owner's HP/MP/XP/conformity correction implemented. 25/25 PlayMode, two native
+  buttons, Mac build and 27 final frames at 720p/900p/1080p verified. No scene/
+  Inspector/data migration. Details and remaining slices in runtime handoff below.
+
+### 2026-10-19 — D-078 ribbon/numeric-bar concept evidence (approved)
+
+- Owner: main chat ImageGen/provenance; Astra visual brief/review. User puts
+  I/B/P/O/M in a narrow full-width ribbon between building strip and main HUD,
+  reserving the main center for potentially ten spells. Colorful numeric
+  HP/mana/XP bars requested; example numbers must remain concept-only.
+- Surface: two v4 concept states, metadata and canonical UI/progression notes;
+  runtime/scenes/assets excluded. Dependencies: D-077 unified dock/drag input,
+  original game identity and current bow/Rapid data.
+- Acceptance: normal and selected states share dock+ribbon, no nav inside the
+  spell area, capacity for ten reserves, vivid red/cyan/orange bars with readable
+  current/max examples. Present before owner approval/Astra implementation.
+
+- Delivered: two v4 PNGs in art/concepts/building_selection_2026-10-19/;
+  prompts/hashes/review in art/source/hud_ribbon_2026-10-19_generation.json.
+  Astra found both suitable; owner then approved v4 and requested HP/MP/XP and
+  closer runtime conformity. This block records the concept stage; implementation
+  and qualification are above and in the latest D-078 runtime register entry.
+
+### 2026-10-19 — D-077 historical unified HUD; revised by D-078
+
+- Owner: main chat ImageGen/provenance/handoff; GPT-6 Astra visual brief/review.
+  Two v3 states join minimap/hero/nav/abilities/status in one dock; selected
+  strip is full-width directly above. No Move button; world drag handles
+  movement/compatible merging. Old compact A/B returned for this revision.
+- Final files: art/concepts/building_selection_2026-10-19/hud_unified_{normal,selected}_v3.png.
+  Source/prompts/hashes/review: art/source/unified_hud_2026-10-19_generation.json.
+  Astra finds both suitable; owner still judges height/appearance. No runtime
+  changes. Detailed verification/remaining work: D-077 Handoff Register below.
+
+### 2026-10-19 — D-076 historical compact candidates; replaced by D-077
+
+- Current owner: main chat, ImageGen/provenance/handoff; GPT-6 Astra owns
+  appearance and later implementation. User prioritizes building selection
+  and above-HUD card before the previous progression-first sequence.
+- Three final PNGs: art/concepts/building_selection_2026-10-19/; full prompts,
+  references/hashes and Astra review: art/source/building_selection_2026-10-19_generation.json.
+  Horizontal A, right B and common content/disabled-state sheet. Astra finds
+  both suitable to show and recommends A. Owner requested the D-077 revision instead.
+- No runtime/scene/asset migration or price/upgrade implementation. Old HUD
+  pixels in generated mockups are illustrative, original assets remain source.
+  Detailed checks/remaining work: D-076 Handoff Register entry below.
+
+### 2026-10-19 — D-075 delivered: campaign and building-progression concept
+
+- Current owner: Stage 3 Game Design. Canonical design now includes three-boss
+  victory, six equipment slots/eight qualities, forge/tools, building selection,
+  tower/base advancement and construction-versus-upgrade currency rules.
+- Main contracts: BOSSES_AND_VICTORY.md, EQUIPMENT_AND_RUNES.md,
+  TOWER_UPGRADES.md; supporting research/production/objectives/economy/UI specs.
+  DEVELOPMENT_PLAN.md is the sole current implementation sequence.
+- No gameplay, data asset, scene or UI implementation in this pass. Astra
+  supplied text-only card/rune proposals. Detailed verification and remaining
+  choices are in the D-075 entry of the Handoff Register below.
+
+### 2026-10-19 — D-074 delivered: progression and day-gate concept
+
+- Owner: current Stage 3 chat, Game Design. Owned surface: canonical vision,
+  plan, hero progression, portal/day-night and equipment/rune feature contracts,
+  decisions and handoff. Existing D-062/D-073 code, assets and qualification are
+  preserved; this task does not implement the proposed gameplay or appearance.
+- Dependencies: automatic bow/tower balance, continuous clock, D-062 snapshots,
+  current gathering/tools and future open-world enemies/hero survival.
+- Acceptance: distinguish owner requirements from proposed counts; define a
+  coherent level-100 scope, low-splash hero role, repeatable daytime gate flow,
+  reward/rune limits, checkpoint consequences and one ordered implementation
+  sequence in DEVELOPMENT_PLAN.md. Identify unresolved intent and runtime gaps.
+- Delivered contracts: HERO_PROGRESSION.md replaces the prior AoE roster with
+  level-100 exploration combat and proposed 12 active / 48 passive / 36
+  profession nodes. PORTAL_CONTROL.md separates cleared-tier farming from
+  required nights, closes only new spawns and identifies live-actor checkpoint
+  work. EQUIPMENT_AND_RUNES.md defines future automatic rewards, item level/
+  quality and proposed 40 rune types with best-quality limits. Vision, plan,
+  D-074, AGENTS, README, day/night, bow and retry specs point to these contracts.
+- Owner clarification: remove both dwelling day skip and early dawn; separate
+  hero/tower runes, with gathering runes possible. Runtime still has both old
+  skips and no progression/gate/items implementation. Counts, rune levels/
+  stacking and farm-loss timing are recommendations, not accepted gameplay.
+- Verification: document references/count budgets and unchanged runtime/project
+  files checked; no Unity tests/build/console session needed for prose-only
+  edits. Existing D-062/D-073 qualification is not presented as testing the new
+  design; no scene/Inspector wiring or asset migration.
+- Remaining: choose proposed scope/point budgets/rune limits and gate cutoff/
+  farm checkpoint; test continuous-night pacing; decide hero death before ruins.
+  Implement ordered slices from DEVELOPMENT_PLAN.md, with approved ImageGen/
+  Astra appearance. Commercial MVP extent and content pacing remain open.
+
+### 2026-10-19 — D-073 delivered: spawn stalls, mineral reach and progression concept
+
+- Parent owns WavesAI spawn diagnosis/configuration, manual-resource reach
+  data/rules, tests/player QA and canonical documents. Prior uncommitted D-062
+  work preserved. Astra reviews existing resource artwork at the new distance;
+  no appearance/pose/PNG changes or new layouts in this repair.
+- Diagnosis/contracts: the complete actual winding road already passes at
+  30/60/240 Hz. Every Enemy.Configure redundantly validated the whole 250×250
+  map on the movement thread. Eight-spawn local Editor observation: 40.807ms
+  mean before, 0.275ms after; full validation alone 40.539ms. EnemyGroup keeps
+  its existing one-time valid map/hash boundary and uses an internal trusted
+  configuration path, retaining local cell/catalog checks. Standalone public
+  Configure keeps full validation. Navigation, movement speed, siege, enemy
+  counts and pause rules unchanged; no pooling/manager/package introduced.
+- Mineral reach: ManualEconomy.asset and Stage2ManualResourceSettings add
+  separate medium/large interaction gaps. E and the marker share the existing
+  exact nearest-surface target. Collision/stock stages/site protection/+1
+  remain coherent; small minerals, trees and legacy distance stay unchanged.
+  No scene/prefab/Inspector migration. Existing builder preserves both fields.
+- Verification: 91/91 scoped EditMode, 31/31 scoped PlayMode, no failures/skips;
+  includes actual full road, 120-actor shared search, rejected spawn cells,
+  every stock stage/cardinal reach, real E before collision and marker, siege,
+  day/night and D-062 retry. Final Mac Development/Metal succeeds. Actual
+  1600×900 player reaches the authored second horde through declared QA setup,
+  then observes 16 active seconds of ordinary Enemy.Update/cadence: 120 enemies,
+  all valid throne plans, lead displacement 35.263, longest stationary sample 0 s.
+  Eight actual-player spawns average 0.104 ms, max 0.771 ms; timing observations,
+  not a hardware-independent frame budget. Four resource pairs pay +1 via
+  synthetic E with 0.6 free units beyond hero collision. Final log has no
+  warnings/errors/exceptions; normal game left open. Astra accepts all 8 actual
+  resource frames, restricted to shown full-state/bottom/zoom5 approaches.
+- Progression: HERO_PROGRESSION.md is the single requested concept. Owner
+  confirms level-one cursor Blink and four example range ranks 300/500/800/1000.
+  Six actives, passive branches, independent mining/logging/exploration, XP,
+  scale conversion and first implementation slice are proposals. Any future
+  XP/ranks/cooldowns join the D-062 snapshot. No new progression gameplay/UI
+  claims; no new city/crafting tiers/hero health.
+- Evidence: art/source/movement_reach_2026-10-19_verification.json. One selected
+  resource proof frame retained; raw 10 PNGs/logs/XML/local build ignored.
+  Prior D-062 qualified source hashes match; existing runtime PNGs unchanged.
+- Remaining: Windows build/runtime unavailable (module absent); review proposed
+  progression scope and ImageGen appearance before new UI/spell implementation.
+  Existing crowd overlap, camera-edge diagnostic, balance and Stage3 external
+  player gate remain outside these two repairs.
+
+### 2026-10-19 — D-062 delivered: pre-wave rewind and throne loss presentation
+
+- Parent owns snapshots/restoration in existing Run/Defense/Economy and hero,
+  production, dwelling, travel owners; input/scene binding, tests/build/capture
+  and canonical docs. GPT-6 Astra owns the approved transient white fracture,
+  render-only shake and lunar retry UI. Owner approved ImageGen storyboard with
+  timed fade and offscreen shake-only clarification. No new global manager,
+  package, disk save system or enemy behavior.
+- Dependencies: same StartWave boundary for timer/local rest/manual calls;
+  saved health/occupancy/cooldowns, exact individual stock/recovery, inventory,
+  production progress and built dwelling/workshop/research/discovery. Existing
+  logical camera, input blockers and unscaled UI transition.
+- Acceptance: retry the failed wave with full preparation and matching snapshot,
+  discard all failed-future state/effects/held actions, support later/repeated
+  defeats and both start causes; verify nonfatal decay, offscreen signal,
+  render-view restoration, fatal whiteout and working retry in an actual player.
+- Delivered: in-memory snapshots in plain C# Economy/Defense/Production and
+  scene-owned hero/dwelling/travel restoration. Run.BeforeWaveStarted captures
+  before spawn; Rewound restores bindings without full ResetRun. RetryFailedWave
+  restores the failed wave, checkpoint health/stock/occupancy/cooldowns, full
+  preparation and checkpoint-day dawn without skipped-time income. Failed-future
+  buildings/research/discovery, enemies/shots/effects and held E are cleared.
+  R/button readiness is gated by the unscaled white transition; development full
+  reset remains explicit. Stage3DefeatPresentation + ThroneFracture.shader and
+  Stage3FantasyHud.Defeat use the approved existing dome/lunar UI; nonfatal
+  pulses fully expire, offscreen damage shakes only. First-hit/fatal timing
+  survives a preceding slow frame without losing its initial presentation.
+- Verification: 60/60 scoped EditMode, 46/46 existing regression PlayMode and
+  final 4/4 cross-system rewind cases (50 unique PlayMode; original 3 also passed
+  before timing correction). Includes manual/timed, later/repeated failures,
+  every world owner, exact stock/progress/health and real arrivals after 800 ms
+  stalls. Final Mac Development/Metal build succeeds. Actual 1600×900 player
+  QA passes 14 assertions and captures 17 frames; R and a native CUA button click
+  restore the checkpoint. Final player log has no warnings/errors/exceptions.
+  GPT-6 Astra accepts the final actual frames after the timing patch; exact
+  reviewed frames and source hashes are recorded in the verification JSON.
+- Wiring/preservation: existing TacticalPresentation binds after the original
+  dome; Resources/Stage3DefeatSettings supplies timings/shader. No Inspector
+  migration, scene/prefab/package changes or raster runtime additions; all 66
+  existing runtime PNGs byte-identical. Two selected proof frames retained in
+  art/review; raw captures/XML/logs/local build stay ignored. Full record:
+  art/source/defeat_rewind_2026-10-19_verification.json.
+- Remaining: Windows build/shader/runtime unverified because this Mac lacks
+  its module. Extra-preparation balance, huge-world/commercial-slice decisions,
+  existing camera-edge diagnostic and Stage3 external-player gate remain open.
+  No disk save or permanent roguelite progression introduced.
+
 ### 2026-10-18/19 — D-072 delivered: manual resource footing and E marker
 
 - Ownership: parent owns gathering target contract, resource footing in the
@@ -3286,6 +3582,260 @@ Current playability check is in
 ```
 
 ## Handoff Register
+
+### 2026-10-19 — D-084 future landscape brief -> Deferred art pass
+
+- Outcome: recorded the owner's distant post-functionality landscape revision:
+  scorched/undead-corrupted invasion road, etched runes throughout, red glow at night.
+- Contract/files: DECISIONS D-084, ART_DIRECTION, GAME_VISION and canonical
+  DEVELOPMENT_PLAN. Environmental road runes are distinct from loot runes.
+- Verification: documentation consistency; no runtime/art changes or Unity run
+  needed for this textual direction. Included in the current all-changes checkpoint.
+- Remaining: activate only after necessary gameplay work, then ImageGen appearance
+  approval and Astra implementation; no new route layout or tuning selected now.
+
+### 2026-10-19 — D-083 direct startup without visible graybox -> Player review
+
+- Behavior: immediate prototype entry, no menu/loading interaction or extra Play
+  click. Final world/hero/landmarks/HUD exist before the first game-camera render;
+  saved graybox/resource/debug-ground graphics and legacy HUD/minimap do not flash.
+- Contracts/files: Astra TacticalPresentation replaces delayed coroutine Start
+  with synchronous Start(-500), explicitly calls idempotent composition.Initialize,
+  sets IsInitialized only after completion. Existing HUD binding(-300) then binds
+  within that first frame. Root adds opt-in first-render observation in existing
+  InterfaceCapture and independent first-LateUpdate/reload tests. EditorBuildSettings
+  prepends current Stage3, retaining both older enabled scene entries. Scene/prefab/
+  art/data/package references unchanged; no Inspector migration or new manager.
+- Verification:5/5 focused PlayMode (first-frame/reload, legacy Stage2, resource
+  binding, keyboard UI, defeat restoration), then2/2 startup cases after ordinary
+  build-entry change. Mac/Metal build passes. Three fresh player processes at
+  1280x720/1600x900/1920x1080, fixed and random seeds: all24 first8 camera renders
+  report ready from Unity frame1, with no skipped warm-up frames. Astra accepts
+  first/eighth actual frames at all resolutions; no graybox/duplicate HUD/overlap.
+  No new attributable console errors.170/171 protected baseline files unchanged;
+  sole intentional setting change is the prepended current build scene. Retain
+  one first-frame PNG and compact evidence; other captures/logs/XML/build ignored.
+  Evidence: art/source/direct_start_2026-10-19_verification.json.
+- Remaining: Windows first-frame qualification unavailable without build module.
+  Main menu/loading UI and general shader warm-up remain deferred; this does not
+  claim to fix the separate unreproduced Metal presentation wait from D-082.
+
+### 2026-10-19 — D-082 compact LVL / approved icon / walking profile -> Player review
+
+- Behavior: smaller reflective silver LVL N labels and the owner-approved
+  ImageGen chevron replace the oversized Level tags and code upgrade arrow.
+  Existing blue merge, prices, availability and v4 card layout remain intact.
+- Contracts/files: Astra owns HUD Selection/Ornaments and runtime PNG import;
+  main owns cached GUIContent/slice arrays/resource/clock/bow labels, minimap
+  glyph content, resource sprite state/affine foreground fade, and opt-in player
+  profiling. QualitySettings changes only PC vSyncCount 0→1 for display-paced
+  output. No scene/Inspector/prefab/package or gameplay migration. PNG loads
+  once through the existing Resources mechanism; original/prompt/approval kept.
+- Verification: 11 unique PlayMode pass, final Mac/Metal development build;
+  45 actual action frames at720p/900p/1080p plus normal HUD, zoom2.5/5/10.
+  Astra final visual PASS at all three resolutions; code frozen after review.
+  Same45s seed/route/full-HUD uncapped comparison: p50 6.00→3.00ms, p95
+  7.69→3.40ms, median GC allocation20,076→5,404B/frame, collections131→74.
+  Final ordinary native WASD three passes226.9m: moving p95 16.97/max17.68ms,
+  no overlap recovery. Entire85s observation also retains four stationary/input-
+  boundary outliers33–100ms; these are not removed from evidence. One earlier
+  native run contained a1.02s Gfx.WaitForPresentOnGfxThread wait without GC;
+  later uncapped/paced runs did not reproduce it. No full-elimination claim.
+  No new attributable console errors.169/170 protected baseline files remain
+  unchanged; the sole intentional change is PC vSync. New runtime PNG/meta only.
+  Evidence: art/source/tower_lvl_performance_2026-10-19_verification.json.
+  One representative actual frame and generated original/prompt are retained;
+  other screenshots/profiles/XML/logs/build remain ignored. Normal player reopened.
+- Remaining: rare Metal presentation-wait root cause and Windows qualification
+  (module absent); broader hardware/performance budgets are not established.
+  No resource streaming rewrite, tower tiers or additional gameplay in this slice.
+
+### 2026-10-19 — D-081 merge feedback and tower levels -> Player review
+
+- Behavior: compatible equal-type/equal-level merge ghost/footprint is light blue;
+  ordinary movement/construction remains green and invalid drops red. Compact
+  gray/silver Level tags above built towers/barricades show live levels after
+  paid upgrades/merges. Screen size is stable through zoom; tags neither block
+  input nor leak over HUD/modal pages. No tiers or gameplay/price changes.
+- Contracts/files: binding Selection partial adds read-only DragWillMerge;
+  Astra updates DragPresentation and HUD Selection/OnGUI. Renderer arrays cache
+  per tower, dead entries prune; actual visible sprite corners anchor the tag.
+  Existing opt-in action QA adds zoom captures and semantic checks; existing
+  PlayMode drag case verifies distinct state/cleanup. No new scene/Inspector
+  wiring, raster assets, data, packages or serialized settings.
+- Verification: 4/4 focused PlayMode; final Mac/Metal development build; 45 actual
+  frames at 1280x720/1600x900/1920x1080, zoom 2.5/5/10. Actual API transactions
+  verify paid levels, matching merge, move, invalid drop and sale; screenshots
+  verify presentation. Native mouse is not requalified in this visual-only slice.
+  No attributable runtime exceptions; all 170 protected baseline files unchanged.
+  Evidence: art/source/tower_merge_levels_2026-10-19_verification.json; one real
+  merge frame retained, other captures/logs/XML/build ignored. Normal player reopened.
+  Astra final visual PASS: blue/green/red, live Level 1/2/5, stable zoom sizing,
+  all three tower silhouettes and 720p readability; no revisions required.
+- Remaining: Windows qualification unavailable without module; per-level tower
+  artwork, new tiers and other building progression remain outside this request.
+
+### 2026-10-19 — D-080 construction-selection correction -> Player review
+
+- Behavior: no separate Select button in any B category; each card directly arms
+  its blueprint. Finished owned buildings select with B open, show the existing
+  strip above it, and permit world move/merge plus card upgrade/sale. World press
+  on a built object cancels tower/production/workshop/dwelling drafts before any
+  purchase. Card appears on release/drag so the initial press cannot hit its actions.
+- Cause/fix: D-079 binding/card incorrectly required Window.None, omitting the
+  normal post-build state. Native retest also revealed FastMouse merging a press
+  into held motion before onEvent. Binding captures press origin with redundant
+  merging disabled while it owns input; disable/unbind restores the prior runtime
+  setting. No serialized settings, scene, prefab, tier or economy migration.
+- Files: Astra FantasyHud.Construction/Selection partials; root Binding.Selection
+  and lifecycle, capture/review helper and PlayerInterfaceTests. Canonical UI/tower
+  specs/vision/plan/AGENTS updated. D-079 tower/combat/checkpoint rules unchanged.
+- Verification:24/24 unique PlayMode cases, final targeted4/4 after buffered input
+  changes; explicit down+held-motion+up in one update and original-setting cleanup.
+  Actual native catalogue click, built selection, move, merge, upgrade and sale
+  all PASS with B open. Final Mac/Metal build;46 actual frames at720p/900p/1080p;
+  no attributable errors. Astra final frame review recorded in evidence.
+  Evidence: art/source/construction_selection_fix_2026-10-19_verification.json;
+  representative: art/review/construction_selection_fix_game_2026-10-19.png.
+- Remaining: Windows build/player unverified (no local module); future gameplay
+  slices unchanged. Prior D-079 proof did not cover this ordinary construction
+  path and is superseded for input qualification. No commit/push requested.
+
+
+### 2026-10-19 — D-079 tower/barricade actions -> Next gameplay slice
+
+- Behavior: card pays resource upgrades and sells for floor(50% actual costs)
+  per currency; world drag merges matching type/level into recipient. Preparation
+  permits free empty-cell movement. Source stays until commit, UI/cancel/invalid
+  drop never consumes it; pause/modal/loss/reset/rewind clears drag/selection.
+  HP fraction/cooldown readiness persist; sale pays only once and releases cell.
+- Contracts/files: DefenseCatalog serialized upgrade rows (legacy empty/base-only),
+  Tower Level/Invested, Defense action transactions and snapshot, Economy atomic
+  four-currency credit/overflow checks; Selection binding, Astra HUD action DTO/
+  deferred events and native ghost partial. D-062 rewind restores costs/levels/
+  HP/cooldown/cells together. No scene/Inspector wiring changes.
+- Data migration: only existing active Stage3 Rapid/Longshot/barricade catalogs gain
+  editable prototype tiers; Stage3 Rapid five-gold build surcharge explicitly
+  removed. Historical Stage2 assets/prices, prefabs, scenes, artwork, packages and
+  ProjectSettings preserved. Five current levels are tuning, not a permanent cap.
+- Verification: 76/76 EditMode. Full relevant PlayMode first26/28; stale legacy
+  gold expectation and test drop under HUD corrected; targeted rerun2/2, final
+  unique28/28. Actual pre-wave retry includes paid upgrades/merge/sale. Native
+  Upgrade/Sell clicks and exact resource payout passed; final Mac/Metal build,
+  30 actual frames at1280x720/1600x900/1920x1080 and Astra final visual PASS.
+  Evidence/hashes: art/source/building_actions_2026-10-19_verification.json;
+  representative frame: art/review/building_actions_game_2026-10-19.png.
+- Remaining: Windows build/player unverified (local module absent); production/
+  workshop/dwelling/throne upgrades, permanent balance/caps, per-level art and
+  future research unlocks remain separate slices. No commit/push requested.
+
+
+### 2026-10-19 — D-078 implemented HUD / owned-building selection -> Next gameplay slice
+
+- Behavior: approved v4 implemented by Astra, then corrected for closer
+  ornament/proportion conformity and HP/MP/XP labels. Connected main dock,
+  navigation ribbon, ten empty reserves, native selected-building strip.
+  Own-building picking/live stats/thumbnail/highlight, research overview link,
+  stale-selection cleanup and complete world-pointer protection are integrated.
+- Contracts/files: FantasyHud main/Construction plus Dock/Selection/Ornaments
+  partials; Binding.Selection and narrow read-only tower/production/workshop/
+  dwelling accessors. Existing UI scene wiring suffices, no serialized migration.
+  Docs and art/source/hud_v4_2026-10-19_verification.json describe current state.
+- Verification: 25/25 PlayMode, Mac/Metal development build, 27 actual frames at
+  1280×720/1600×900/1920×1080, two ordinary native clicks (× and Research).
+  After tests only production text baselines changed; rebuilt/reviewed all
+  resolutions. No attributable errors in final player QA. Windows module absent.
+  186 protected assets/settings files, including 66 runtime PNGs, unchanged.
+  Astra final visual review PASS: latest 1920 full set plus updated 1600 production/
+  1280 normal+tower; no blocking defects or further visual work in this slice.
+- Limits/remaining: HP/MP/XP0/0+«Не открыто» is disabled UI, not hero balance;
+  progression sources/loadout cap and gameplay paid-upgrade/sale/drag/merge
+  remain planned slices. Research still needs local E; dwelling retains current
+  D-065 behavior until day-cycle revision. Prices/investment rules need data.
+  Full natural playthrough/Windows acceptance is not claimed by these captures.
+
+### 2026-10-19 — D-078 navigation ribbon/numeric bars -> Owner / Astra
+
+- Behavior: separate narrow full-width navigation between selected strip and
+  main dock; center has 2×5 empty reserves; vivid numeric HP/mana/XP examples.
+  Ten-slot capacity does not confirm ten equipped skills. Move remains absent.
+- Contracts/files: two hud_ribbon_*_v4.png concepts, generation metadata;
+  PLAYER_INTERFACE/HERO_PROGRESSION, vision/plan/art direction/decisions,
+  AGENTS and README. v3 source marked superseded; original assets preserved.
+- Verification: Astra reviewed both frames; stack, ten reserves, readable
+  colors/numbers and consistent dock pass, no blocking visual defect. PNG
+  hashes/local references/JSON checked; 1031 runtime/project files unchanged.
+  No Unity tests/build/console session or Inspector wiring for concept-only work.
+- Remaining: owner v4 appearance approval, then Astra visuals/main selection,
+  input/data integration and actual-frame verification. HP/mana/XP need real
+  gameplay sources; mockup values are not balance. Resolve skill loadout cap
+  and gameplay upgrades/drag in their ready briefs before implementation.
+
+### 2026-10-19 — D-077 unified HUD revision -> Owner / Astra
+
+- Behavior: one continuous bottom HUD and same-width selected strip immediately
+  above; no Move button, world drag handles move/merge. Two ImageGen v3 states
+  replace unapproved compact A/B. Owner approval remains pending.
+- Contracts/files: two final PNGs and unified_hud_2026-10-19_generation.json;
+  updated PLAYER_INTERFACE/TOWER_UPGRADES/RESEARCH, vision/plan/AGENTS/README,
+  ART_DIRECTION and D-077. Old generation record marked superseded; no asset
+  overwrite or new gameplay prices/values.
+- Verification: Astra/main visual inspection checks continuous frame/navigation,
+  five reserves/current numbers, no Move and readable actions. No blocking
+  concept defect. Height/world coverage remains an owner judgment. File hashes,
+  local links and unchanged runtime/project content checked; no Unity test/build
+  or Inspector migration for concept-only work.
+- Remaining: approve v3, then Astra visual implementation plus main selection/
+  data/input integration and actual-frame checks. Preserve original art; resolve
+  gameplay drag/upgrade rules in their own ready brief, not by a mockup.
+
+### 2026-10-19 — D-076 ImageGen selection-card concepts -> Owner / Astra
+
+- Delivered: horizontal A, right-card B and shared tower/workshop/forge/
+  sawmill/throne/disabled-state sheet, pending owner choice. User explicitly
+  requests approval before Astra implementation; no approval inferred.
+- Contracts/files: three final PNGs in art/concepts/building_selection_2026-10-19/;
+  full prompts/inputs/corrections/hashes/review in generation JSON. Updated
+  PLAYER_INTERFACE, ART_DIRECTION, DEVELOPMENT_PLAN and D-076. Only final
+  requested images retained; discarded attempts remain outside repository.
+- Verification: main and Astra inspected outputs, Cyrillic/data, card coverage,
+  accessible HUD/navigation/minimap and corrected dome identity. Astra recommends
+  A; no blocking concept defect. +5 throne means maximum HP, not healing.
+  Generated world/HUD drift is nonbinding; no actual UI/drag/upgrade behavior
+  is qualified. Runtime/project hashes unchanged; no Unity tests/build needed
+  for concept-only output and no scene/Inspector wiring.
+- Remaining: owner approves layout/content, then Astra implements visual UI and
+  main integrates selection/real parameters/input. Keep future upgrades/merges/
+  prices in separate ready briefs; no fake working actions or new forge/world
+  building from a concept. Qualify native resolutions and actual runtime later.
+
+### 2026-10-19 — D-075 design -> Stage 3 gameplay/UI owners
+
+- Behavior/requirements: three distinct bosses end the campaign; TD main XP/
+  gold and world better loot chances; six gear slots, levels 1–100 and eight
+  qualities with no SS; forge/crafted tools; tower paid upgrades AND merging,
+  move/50% sale; any own building has a compact above-HUD card/full-page link.
+  New construction uses resources only; upgrades/research may also use gold.
+  Workshop/production advance; throne has three +5-maxHP upgrades. Hut purpose
+  and boss venue remain open.
+- Contracts/files: BOSSES_AND_VICTORY.md and TOWER_UPGRADES.md added;
+  EQUIPMENT_AND_RUNES.md revised. Vision, plan, D-075, AGENTS, README, art brief
+  and hero/research/production/objectives/economy/building/tower/UI/portal/retry
+  specs agree. Counts for forge/workshop/production/tower levels and HP/refund/
+  merge-type rules are proposals; owner's direct requirements are labelled.
+- Visual review: GPT-6 Astra proposed card layout and optional SSS silhouette
+  treatment in text only. No ImageGen/asset/render/UI implementation produced;
+  sketches still precede owner approval and Astra implementation.
+- Verification: 20 touched documents checked for local Markdown links/conflict
+  markers, quality/slot/HP arithmetic and git diff whitespace. All 1,031
+  Assets/Packages/ProjectSettings files match the pre-design hashes. No Unity
+  tests/build rerun for prose; prior D-062/D-073 qualification is preserved,
+  not evidence for new features. No Inspector wiring or migration performed.
+- Remaining: choose boss encounter/death rules, shield compatibility, tower
+  merge-type/move timing and refund/health/cooldown details; tune prices/level
+  caps and farm checkpoint/night pacing. Follow the one ordered D-075 slice
+  sequence, migrate actual Rapid gold/free workshop data explicitly, then
+  qualify new runtime. Commercial MVP extent remains open.
 
 ### 2026-09-25 — Current vision HTML and roadmap cleanup -> All workstreams
 

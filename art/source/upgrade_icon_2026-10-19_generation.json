@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-19",
+  "tool": "built-in image_gen.imagegen",
+  "source": "Original project-specific generated asset; no external reference material.",
+  "file": "art/concepts/ui_upgrade_2026-10-19/upgrade_silver_cyan_v1.png",
+  "transparent_background": true,
+  "approval": "Owner: Да, внедряй (2026-10-19)",
+  "prompt": "Create one production-ready fantasy game UI UPGRADE icon as a transparent cutout. Single centered icon only, no sheet, no words or letters, no border, no square tile, no circular medallion/background. Designed to read instantly at 28-40 pixels inside an existing ornate lunar-porcelain Russian RPG interface. A strong sculpted upward-pointing chevron arrow forged from polished bright SILVER, with one restrained pale cyan enamel inset, clean symmetric silhouette, clear negative spaces, beveled metal edges with dark graphite side faces and sharp white reflective highlights. Slight hand-painted fantasy craftsmanship, elegant premium game HUD finish, front view, minimal tiny detailing, not a flat generic arrow, not yellow gold, no anvil, no hammer, no sticks, no buildings, no extra badges. Shape fills about 80% of the square canvas. True transparent alpha background, no checkerboard, no shadow plane, no glow beyond the object. Original asset, no logos or copyrighted symbols.",
+  "sha256": "c464353b6f211681cace6cb94ae51cb74b922663fc293d45ea3616996b6c030e",
+  "size": [
+    1254,
+    1254
+  ],
+  "png_color_type": 6,
+  "runtime_file": "Assets/Stage3/PlayerInterface/Resources/Stage3UpgradeSilverCyan.png",
+  "runtime_import": "Single Sprite, FullRect, max256, mipmaps/trilinear, sRGB, alpha transparency, uncompressed, CPU unreadable; native existing card medallion; no scene/Art asset references changed."
+}

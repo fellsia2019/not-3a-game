@@ -53,8 +53,18 @@ namespace Not3A.Stage3.PlayerInterface
         private void DrawCurrentBowStats(Rect rect)
         {
             var bow = game.HeroCombat?.Catalog;
-            var value = bow == null ? "—" : $"Урон  {bow.AttackDamage}\nРадиус  {bow.AttackRange:0.#}\nИнтервал  {bow.FireInterval:0.##} с";
-            Label(rect,value,16,TextAnchor.UpperLeft);
+            if(bow==null) {cachedBowStats="—";cachedBowCatalog=null;}
+            else if(cachedBowCatalog!=bow || cachedBowDamage!=bow.AttackDamage ||
+                cachedBowRange!=bow.AttackRange || cachedBowInterval!=bow.FireInterval)
+            {
+                cachedBowCatalog=bow;cachedBowDamage=bow.AttackDamage;cachedBowRange=bow.AttackRange;cachedBowInterval=bow.FireInterval;
+                cachedBowStats=$"Урон  {bow.AttackDamage}\nРадиус  {bow.AttackRange:0.#}\nИнтервал  {bow.FireInterval:0.##} с";
+            }
+            Label(rect,cachedBowStats,16,TextAnchor.UpperLeft);
         }
+        private Not3A.Stage2.Integration.Stage2HeroCombatCatalog cachedBowCatalog;
+        private int cachedBowDamage;
+        private float cachedBowRange,cachedBowInterval;
+        private string cachedBowStats;
     }
 }

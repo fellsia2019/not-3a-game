@@ -1,0 +1,70 @@
+{
+  "date": "2026-10-19T13:22:50.755905+00:00",
+  "decision": "D-080",
+  "scope": "Remove redundant Select; choose/drag built buildings with nonmodal B open; owned-world press preempts every draft kind; preserve fast drag origin.",
+  "diagnosis": [
+    "Binding and card visibility required Window.None although B remains open after purchase. Prior D-079 native tests only exercised closed-dock card buttons.",
+    "Native down/held-motion/up can be processed in one update. FastMouse merges press with held-motion before onEvent, losing origin. Input owner temporarily disables redundant merging, captures actual origin, restores original runtime setting on disable/unbind."
+  ],
+  "tests": {
+    "unique_PlayMode_passed": 24,
+    "unique_PlayMode_total": 24,
+    "full_run": "playmode.xml:24/24",
+    "final_input_regression": "playmode-merge-safe.xml:4/4; includes held-motion event between down/up, UI safety, four draft types, move/merge/cancel, runtime setting cleanup",
+    "consolidated": "Artifacts/S3-CONSTRUCTION-SELECTION-FIX-20261019/playmode-consolidated.json"
+  },
+  "native": {
+    "result": "PASS",
+    "actual_actions": [
+      "Single catalogue card click arms placement",
+      "Owned building click cancels draft without payment and shows strip above B",
+      "Native drag moves exact tower/cell with B open",
+      "Native drag merges equal towers, selects survivor",
+      "Card paid upgrade changes actual level",
+      "Sale removes tower/card and returns exact invested refund"
+    ],
+    "report": "Artifacts/S3-CONSTRUCTION-SELECTION-FIX-20261019/native-merge-safe/verification.txt",
+    "log": "Artifacts/S3-CONSTRUCTION-SELECTION-FIX-20261019/native-merge-safe.log",
+    "source_origin_trace": "Fast drag down/up in one frame retains different source and final pointer coordinates."
+  },
+  "player": {
+    "platform": "macOS Metal Development",
+    "build_log": "Artifacts/S3-CONSTRUCTION-SELECTION-FIX-20261019/build-merge-safe.log",
+    "path": "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app",
+    "bytes": 521545465,
+    "capture_folders": {
+      "1600x900-native": "Artifacts/S3-CONSTRUCTION-SELECTION-FIX-20261019/native-merge-safe",
+      "1280x720": "Artifacts/S3-CONSTRUCTION-SELECTION-FIX-20261019/final-1280x720",
+      "1920x1080": "Artifacts/S3-CONSTRUCTION-SELECTION-FIX-20261019/final-1920x1080"
+    },
+    "actual_frames": 46,
+    "setup": "Explicit opt-in disposable stocked scene and fixed camera; natural run not claimed. Cleanup on completion.",
+    "final_run_exceptions": 0
+  },
+  "visual_review": {
+    "owner": "GPT-6 Astra",
+    "status": "Final PASS: all B groups at1280x720/1600x900/1920x1080; B+selected including native move/merge/upgrade; no corrections."
+  },
+  "protection": {
+    "existing_baseline_files": 1049,
+    "protected_files": 170,
+    "changed_protected": [],
+    "wiring": "No scene/Inspector/data/package/serialized settings migration. Existing approved UI only."
+  },
+  "source_sha256": {
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3BuildingActionReview.cs": "2ba4d8252f6abd87415b84643d64c2b24305c9552fb4844dcb23b5b1f8e6be42",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Construction.cs": "879f78daf1e17bd1e847a6bcc65fdfd0537344d3310eb33c209c4adb0d1ac500",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Selection.cs": "aee0f9da4551ce9ff03558ba2dc194766d079d45c0497f6ea2a81d0efca1c8e5",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3InterfaceCapture.cs": "e362f97fe97e30a773b2275f249905a04bb08d7e0e01c103cb52b96161ca141d",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3PlayerInterfaceBinding.Selection.cs": "4de554784a1bc6fa3afa9ead58e11bd70e40cfe0963ede2e6f337a3d5229ec27",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3PlayerInterfaceBinding.cs": "53c8469170cf3d9cfd225367b57b6dbebe8f8df6e3c77a29e1e03c21a6a86f67",
+    "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3PlayerInterfaceTests.cs": "14b9933b717dcf959b4eadfd18885fa7dff22fe1c2db37103e894e359dd5f160"
+  },
+  "representative_frame": "art/review/construction_selection_fix_game_2026-10-19.png",
+  "representative_sha256": "ca688d71b1b46bd93448a5305c5121a2f7b86df4ff798f9eea78b4c60044e71e",
+  "remaining": [
+    "Windows build/player unverified: local WindowsStandaloneSupport absent.",
+    "Tower upgrade prices/levels/combat/rewind and other-building upgrades are unchanged by this correction.",
+    "No commit/push requested."
+  ]
+}
