@@ -1,6 +1,7 @@
 # Feature: Player Interface
 
-Status: D-066/D-068, runtime correction implemented and verified, 2026-10-18. The owner
+Status: D-069 full-screen revision implemented; local Mac verification, 2026-10-18.
+D-066/D-068 runtime correction below remains the historical verified baseline. The owner
 chose C «Лунный фарфор», authorized implementation of the window sheets and
 explicitly approved both revised fullwidth normal/construction HUD sketches.
 Owner: GPT-6 Astra owns visual decisions, layouts and subsequent visual
@@ -10,11 +11,32 @@ construction catalogs, research/workshop, hero equipment and world map.
 
 ## Accepted direction
 
-Separate windows serve inventory/equipment, construction, research, hero
-development and the large map. Each has a visible access button as well as a
-keyboard shortcut: I, B, P, O and M respectively. The same key toggles its
-window, another key switches windows, and Esc closes. Construction is a
-nonmodal ribbon; the other windows block player movement/world input without
+D-069 supersedes the old centered windows: Inventory I, Research P, Hero
+development O and Map M use one opaque edge-to-edge full-screen shell. Its
+four-tab header, compact resource/day-clock strip and footer remain visible
+across pages; world HUD/minimap/development access do not draw through it.
+Inventory V2 supplies the common lunar-porcelain composition: resource stock,
+large existing hero/equipment and current bow values. Research keeps the one
+Teleportation entry and a passive local-E instruction; it offers no remote
+research action. Development remains unavailable. Map uses almost the entire
+content region for actual map data and retains anchored pan/zoom.
+
+Construction B is explicitly excluded from full-screen navigation: the owner
+kept the existing ribbon and placement in the world. HUD access has five compact
+buttons showing only the existing bag/hammer/book/hero/map icon plus I/B/P/O/M;
+there are no visible word labels on those HUD buttons. Full-screen tabs retain
+their readable names. Existing key toggle, switch, close, lifecycle, input
+blocking and continuing-simulation behavior remain; automatic pause is not added.
+Approved previews and source rights/prompts:
+art/concepts/fullscreen_interface_2026-10-18/ and
+art/source/fullscreen_interface_2026-10-18_generation.json.
+Current verification belongs to the D-069 handoff, not the older counts below.
+
+Four full-screen pages serve inventory/equipment, research, hero development
+and the large map. The HUD also exposes the separate in-world construction
+mode. Visible access icons complement shortcuts I, B, P, O and M. The same
+key toggles its page/mode, another key switches, and Esc closes. Construction
+is a nonmodal ribbon; the four pages block player movement/world input without
 pausing the simulation. Automatic combat and production keep their existing
 rules. Closing a window requires fresh E before a held local action can resume.
 
@@ -72,8 +94,8 @@ Current bow values come from HeroCombat.Catalog. Hero HP, mana, XP, levels and
 death are not current systems; the visible reserves do not invent their mechanics.
 
 Inventory shows the actual shared resource wallet and current hero/bow. Item
-storage and slot behavior remain unavailable. Hero development is an inactive
-schematic reserve; its nodes do not define an approved skill tree, cost model,
+storage and slot behavior remain unavailable. Hero development shows the
+existing hero and an unavailable state; it introduces no skill tree, cost model,
 progression currency or ability list.
 
 Construction illustrates the current Rapid, Longshot and passive palisade,
@@ -96,7 +118,7 @@ ImageGen created concepts, the owner approved the concrete revised layouts,
 and Astra implemented their presentation. The existing IMGUI stack is retained.
 No package migration, inventory/progression models or new currencies are added.
 
-Stage3FantasyHud and its window partials own drawing, layout and window/map
+Stage3FantasyHud and its page partials own drawing, layout and page/map
 navigation. Stage3PlayerInterfaceBinding connects optional input blockers and
 legacy purchase/local-E callbacks; legacy scenes retain their original HUD.
 Stage2Minimap keeps its cached terrain/markers while its old drawing is hidden.
@@ -136,7 +158,57 @@ separate mouse-down capture; physical touch hardware and a separate complete
 manual drag/wheel playthrough are not claimed. Existing gameplay/inactive
 reserves remain unchanged. No Inspector migration is needed.
 
-Current evidence and limitations:
+Historical D-068 evidence and limitations:
 art/source/interface_correction_2026-10-18_verification.json.
 The initial report interface_runtime_2026-10-18_verification.json is historical;
 the owner's annotated feedback reopened its insufficient visual quality gate.
+
+## D-070 Mac-trackpad correction, 2026-10-18
+
+The world camera remains the single poller of the app-local AppKit queue.
+The existing binding supplies a viewport hit-test and map callback. While M
+owns the pointer, pinch ratios route to anchored map zoom and precise scrolling
+routes to map translation in backing pixels; world camera zoom is untouched.
+A coarse mouse wheel still reaches the existing IMGUI anchored zoom. The
+native monitor classifies precise scrolling (including precise mouse devices)
+separately and consumes it only for map panning. Enter/leave, focus and disable
+clear pending gestures. Existing touchscreen midpoint pan/pinch is unchanged.
+This fixes the Mac-trackpad gap not covered by D-068's synthetic Touchscreen.
+Physical trackpad hardware verification is not implied by native/unit tests.
+
+## D-069 implementation and verification
+
+CurrentWindowRect covers the complete backbuffer. FullscreenHeaderRect,
+FullscreenWalletRect, FullscreenFooterRect and FullscreenTabRect describe the
+shared shell; the Construction tab is Rect.zero. HudMenuButtonRect describes
+the five compact world buttons. MenuButtonRect returns the currently visible
+navigation. The modal blocker protects all four screen corners. Existing
+construction, payment, input lifecycle and map math retain their contracts.
+
+Runtime selects one installed Cyrillic sans-serif face (Segoe UI first on
+Windows, Arial first on Mac), with a built-in fallback. Metal/Linear drawing
+corrects texture and solid-color output in the existing owned shader; Windows
+retains its prior shader encoding. Original PNGs, scene wiring, imports and
+packages are unchanged. No Inspector migration is required.
+
+PlayMode 16/16 passed on Unity 6000.6.2f1 / macOS / Metal, including exclusive
+keyboard pages, full-screen input protection, continuing day time, local-E
+re-arming, actual construction purchase and anchored cursor/synthetic touch map
+regressions. The saved-scene Mac Development player built successfully via
+Tools > Stage 3 > Player Interface > Build Local Mac Review Player, at
+Builds/MacFullscreenInterface/Not3AFullscreenInterface.app. This is local review
+output; Windows/Steam remains the product target.
+
+The V4 player produced 39 actual full-backbuffer captures at 1280x720, 1600x900
+and 1920x1080. Native keyboard I/P/O/M, Esc and in-world B were also observed.
+Astra accepted all 18 main V3 frames and the nine V4 HUD/construction/hover
+frames; V4 changes only turquoise hover/selected alpha from .22 to .50.
+The final V4 player is open on Inventory at 1600x900. No new attributable
+game/font/shader errors were found in the final build and runtime logs.
+Automated coordinate-click smoke was unavailable because the native UI tool
+returned noWindowsAvailable; this is not claimed as a manual mouse playthrough.
+Hover capture uses the pointer-only Input System method described above;
+pressed and physical touch have no separate capture. The host has only the
+MacStandaloneSupport module, so current Windows build/runtime validation is
+degraded and the older D-068 Windows evidence does not validate this revision.
+Current evidence: art/source/fullscreen_interface_2026-10-18_verification.json.

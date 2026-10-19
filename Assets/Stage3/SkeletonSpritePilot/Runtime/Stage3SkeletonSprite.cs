@@ -22,6 +22,7 @@ namespace Not3A.Stage3.VisualPilot
         public int Direction { get; private set; } = 3;
         public bool IsWalking { get; private set; }
         public SpriteRenderer Body => body;
+        public int WalkFrameCount => walks != null ? walks.FrameCount : 0;
 
         public void Bind(Stage2Enemy actor, Stage2RunDriver run, Camera camera)
         {
@@ -55,7 +56,7 @@ namespace Not3A.Stage3.VisualPilot
                 var up = Vector3.Dot(delta, gameCamera.transform.up);
                 Direction = Mathf.Abs(right) >= Mathf.Abs(up) ? (right >= 0f ? 0 : 2) : (up >= 0f ? 1 : 3);
                 stridePhase = Mathf.Repeat(stridePhase + distance / walks.StrideCells, 1f);
-                CurrentFrame = Mathf.FloorToInt(stridePhase * Stage3SkeletonSpriteSet.FramesPerDirection);
+                CurrentFrame = Mathf.FloorToInt(stridePhase * walks.FrameCount);
             }
             else if (!run.IsPaused && !run.IsTerminal)
             {
@@ -69,6 +70,7 @@ namespace Not3A.Stage3.VisualPilot
         private void ApplyFrame()
         {
             body.sprite = walks.Frame(Direction, CurrentFrame);
+            body.flipX = walks.MirrorLeft && Direction == 2;
             body.enabled = enemy.IsAlive;
             body.transform.rotation = gameCamera.transform.rotation;
             body.sortingOrder = -Mathf.RoundToInt(enemy.transform.position.y*100f);

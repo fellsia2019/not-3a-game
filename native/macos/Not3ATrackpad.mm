@@ -5,13 +5,29 @@
 // App-local magnify events only. Unity enables capture only over its focused Game view.
 static id eventMonitor = nil;
 static bool captureEnabled = false;
+static bool capturePan = false;
+static bool lastScrollPrecise = false;
 static double gestureScale = 1.0;
 static double pendingLogScale = 0.0;
+static double pendingPanX = 0.0, pendingPanY = 0.0;
 
 static void ResetGesture()
 {
     gestureScale = 1.0;
     pendingLogScale = 0.0;
+    pendingPanX = pendingPanY = 0.0;
+}
+
+static bool AccumulateScroll(double x, double y, bool precise, double pixelScale)
+{
+    lastScrollPrecise = precise;
+    if (!captureEnabled || !capturePan || !precise) return false;
+    if (std::isfinite(x) && std::isfinite(y) && std::isfinite(pixelScale) && pixelScale > 0)
+    {
+        pendingPanX += x * pixelScale;
+        pendingPanY -= y * pixelScale; // AppKit +Y is up; map GUI +Y is down.
+    }
+    return true;
 }
 
 static void AccumulateMagnification(double delta, NSEventPhase phase)
@@ -35,16 +51,41 @@ static void AccumulateMagnification(double delta, NSEventPhase phase)
 TRACKPAD_EXPORT int Not3ATrackpad_Initialize()
 {
     captureEnabled = false;
+    capturePan = false;
+    lastScrollPrecise = false;
     ResetGesture();
     if (eventMonitor == nil)
-        eventMonitor = [NSEvent addLocalMonitorForEventsMatchingMask:NSEventMaskMagnify
+        eventMonitor = [NSEvent addLocalMonitorForEventsMatchingMask:NSEventMaskMagnify | NSEventMaskScrollWheel
             handler:^NSEvent *(NSEvent *event) {
-                if (!captureEnabled || ![NSApp isActive]) return event;
+                if (![NSApp isActive]) { ResetGesture(); return event; }
+                if (event.type == NSEventTypeScrollWheel)
+                {
+                    double scale = event.window ? event.window.backingScaleFactor : 1.0;
+                    return AccumulateScroll(event.scrollingDeltaX, event.scrollingDeltaY,
+                        event.hasPreciseScrollingDeltas, scale) ? nil : event;
+                }
+                if (!captureEnabled) return event;
                 AccumulateMagnification(event.magnification, event.phase);
-                return nil; // The Game camera owns this gesture, not the Editor's view scale.
+                return nil; // One active Game surface owns magnification, never the Editor toolbar.
             }];
     return eventMonitor != nil ? 1 : 0;
 }
+
+TRACKPAD_EXPORT void Not3ATrackpad_SetPanEnabled(int enabled)
+{
+    bool next = enabled != 0;
+    if (capturePan != next) ResetGesture(); // Switching world/map cannot replay another surface's input.
+    capturePan = next;
+}
+
+TRACKPAD_EXPORT void Not3ATrackpad_ReadPan(float *x, float *y)
+{
+    *x = static_cast<float>(pendingPanX);
+    *y = static_cast<float>(pendingPanY);
+    pendingPanX = pendingPanY = 0.0;
+}
+
+TRACKPAD_EXPORT int Not3ATrackpad_LastScrollWasPrecise() { return lastScrollPrecise ? 1 : 0; }
 
 TRACKPAD_EXPORT void Not3ATrackpad_SetEnabled(int enabled)
 {
@@ -62,6 +103,8 @@ TRACKPAD_EXPORT float Not3ATrackpad_ReadScale()
 TRACKPAD_EXPORT void Not3ATrackpad_Shutdown()
 {
     captureEnabled = false;
+    capturePan = false;
+    lastScrollPrecise = false;
     ResetGesture();
     if (eventMonitor != nil) [NSEvent removeMonitor:eventMonitor];
     eventMonitor = nil;

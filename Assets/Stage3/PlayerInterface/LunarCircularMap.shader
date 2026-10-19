@@ -1,6 +1,6 @@
 Shader "Not3A/PlayerInterface/CircularMap"
 {
-    Properties { _MainTex("Map",2D)="white" {} _SourceRect("Source",Vector)=(0,0,1,1) _CircleMask("Circle",Float)=1 _RemoveDark("Source dark backdrop",Float)=0 _Tint("Tint",Vector)=(1,1,1,1) }
+    Properties { _MainTex("Map",2D)="white" {} _SourceRect("Source",Vector)=(0,0,1,1) _CircleMask("Circle",Float)=1 _RemoveDark("Source dark backdrop",Float)=0 _Tint("Tint",Vector)=(1,1,1,1) _EncodeToDisplay("Encode display output",Float)=1 }
     SubShader
     {
         Tags { "Queue"="Overlay" "RenderType"="Transparent" }
@@ -11,7 +11,7 @@ Shader "Not3A/PlayerInterface/CircularMap"
             #pragma vertex vert_img
             #pragma fragment frag
             #include "UnityCG.cginc"
-            sampler2D _MainTex; float4 _SourceRect, _Tint; float _CircleMask, _RemoveDark;
+            sampler2D _MainTex; float4 _SourceRect, _Tint; float _CircleMask, _RemoveDark, _EncodeToDisplay;
             fixed4 frag(v2f_img i):SV_Target
             {
                 float2 local=(i.uv-_SourceRect.xy)/_SourceRect.zw;
@@ -21,9 +21,9 @@ Shader "Not3A/PlayerInterface/CircularMap"
                 c.a*=lerp(1,1-smoothstep(.485,.5,length(local-.5)),_CircleMask);
                 c.a*=lerp(1,smoothstep(.10,.27,max(c.r,max(c.g,c.b))),_RemoveDark);
                 c*=_Tint;
-                // IMGUI draws into its display-space target; match GUI.DrawTexture in linear projects.
+                // Windows IMGUI uses display-space output; Metal linear targets encode on write.
                 #ifndef UNITY_COLORSPACE_GAMMA
-                c.rgb=LinearToGammaSpace(c.rgb);
+                c.rgb=lerp(c.rgb,LinearToGammaSpace(c.rgb),_EncodeToDisplay);
                 #endif
                 return c;
             }

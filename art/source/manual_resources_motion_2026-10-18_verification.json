@@ -1,0 +1,95 @@
+{
+  "date": "2026-10-18",
+  "decision": "D-071",
+  "status": "Implemented; relevant checks and Astra actual-player visual review passed",
+  "platform": "Unity6000.6.2f1 / macOS / Metal / AppleM3",
+  "build": "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app",
+  "tests": {
+    "EditMode": {
+      "total": "22",
+      "passed": "22",
+      "failed": "0",
+      "result": "Passed",
+      "duration": "1.7251098"
+    },
+    "PlayMode_release": {
+      "total": "32",
+      "passed": "31",
+      "failed": "1",
+      "result": "Failed(Child)",
+      "duration": "83.1234972"
+    },
+    "PlayMode_fixed_realtime_fade": {
+      "total": "1",
+      "passed": "1",
+      "failed": "0",
+      "result": "Passed",
+      "duration": "3.2997532"
+    },
+    "final_effective_cases": "32/32:31 passed in release run; fade fixture changed from60frames to0.2realtime seconds, then targeted1/1 passed. Runtime unchanged after release build.",
+    "earlier_broad_regression": "46/47; inactive legacy renderer assertion corrected, all relevant cases passed later.19 other HUD/daynight/combat cases passed before contact/range polish; not rerun after that polish."
+  },
+  "delivered": [
+    "Independent manual nodes; immediate +1 per completed strike; individual partial stock/recovery and reset.",
+    "Ordinary trees in local seeded random groups1–8, no rows/grid;509 nodes for seed164032.",
+    "Stone/ore three sizes with four coherent stock-stage drawings; former small visible widths retained.",
+    "Stock-stage interaction radii match native sprite pivots; maximum footprint stays reserved during recovery.",
+    "Held-E axe/pick six-pose actions; confirmed hit drives contact/payment; movement cancels unfinished strike.",
+    "Eight-phase distance-driven hero/skeleton walks; native left mirroring; existing idle/bow preserved.",
+    "Shared URP sprite-instance flip/tint/alpha; ordinary foreground trees fade around obscured hero.",
+    "Map/minimap and resource hint consume independent nodes; construction protects their sites."
+  ],
+  "actual_player_capture": {
+    "path": "Artifacts/S3-MANUAL-RESOURCES-20261018/player-final",
+    "render": "Actual1600x900 Metal backbuffer; camera/actor framed only for disposable QA.",
+    "input": "Synthetic InputSystem E/WASD, real bindings/model, not physical input validation.",
+    "context": "Actual development-player Game backbuffer 1600x900; Metal.\nOpt-in disposable QA: synthetic Input System keyboard for real E/WASD bindings; model strikes for stock-stage setup. No physical input verification.\nTemporarily frames camera and hero; restores state and resets the disposable run afterward. No sprite/frame override.\nTree group 1: 1 separate nodes, positions=(58.717, 182.006)\nTree group 42: 4 separate nodes, positions=(71.795, -1.153);(76.673, -4.124);(74.749, -0.464);(72.359, -4.813)\nTree group 4: 8 separate nodes, positions=(22.625, 82.014);(21.400, 83.523);(24.053, 84.769);(20.435, 82.496);(25.895, 84.962);(20.372, 84.724);(21.864, 85.858);(23.983, 81.671)\nWood E: observed poses=0,1,2,3,4,5; paid=1; stock=4/5; contacts=1.\nStone E: observed poses=0,1,2,3,4,5; paid=1; stock=34/35; contacts=1.\nMetal E: observed poses=0,1,2,3,4,5; paid=1; stock=34/35; contacts=1.\nContact Wood direction=0 low=False: captured=True; stock=4/5.\nContact Wood direction=1 low=False: captured=True; stock=4/5.\nContact Wood direction=2 low=False: captured=True; stock=4/5.\nContact Wood direction=3 low=False: captured=True; stock=4/5.\nContact Stone direction=0 low=False: captured=True; stock=34/35.\nContact Stone direction=1 low=False: captured=True; stock=34/35.\nContact Stone direction=2 low=False: captured=True; stock=34/35.\nContact Stone direction=3 low=False: captured=True; stock=34/35.\nContact Stone direction=0 low=True: captured=True; stock=4/35.\nContact Stone direction=1 low=True: captured=True; stock=4/35.\nContact Stone direction=2 low=True: captured=True; stock=4/35.\nContact Stone direction=3 low=True: captured=True; stock=4/35.\nContact Metal direction=0 low=False: captured=True; stock=34/35.\nContact Metal direction=1 low=False: captured=True; stock=34/35.\nContact Metal direction=2 low=False: captured=True; stock=34/35.\nContact Metal direction=3 low=False: captured=True; stock=34/35.\nContact Metal direction=0 low=True: captured=True; stock=4/35.\nContact Metal direction=1 low=True: captured=True; stock=4/35.\nContact Metal direction=2 low=True: captured=True; stock=4/35.\nContact Metal direction=3 low=True: captured=True; stock=4/35.\nHero D: observed 8 phases; frameCount=8; normal speed=4.2.\nHero W: observed 8 phases; frameCount=8; normal speed=4.2.\nHero A: observed 8 phases; frameCount=8; normal speed=4.2.\nHero S: observed 8 phases; frameCount=8; normal speed=4.2.\nActual first-wave skeleton: observed 8 walking phases.\n",
+    "png_count": 99,
+    "motion_sequences": {
+      "hero-D-sequence": 60,
+      "hero-W-sequence": 60,
+      "skeleton-sequence": 60
+    },
+    "animation_limit": "8 phases and actual short sequences reviewed; no claim of photorealistic or fully polished skeletal animation."
+  },
+  "preservation": {
+    "original_runtime_pngs": "51 tracked original PNG files unchanged againstHEAD;15 new selected sources match generator and runtime bytes.",
+    "legacy_sprites": {
+      "Assets/Stage3/DayNight/HeroArt.asset": {
+        "legacy_sprite_count": 26,
+        "missing_ids": [],
+        "changed_legacy_geometry_or_texture": []
+      },
+      "Assets/Stage3/SkeletonSpritePilot/SkeletonWalks.asset": {
+        "legacy_sprite_count": 24,
+        "missing_ids": [],
+        "changed_legacy_geometry_or_texture": []
+      }
+    },
+    "prior_dirty_work": "D069/D070 code/data retained; only capture adapter and canonical docs extended. No package added or removed.",
+    "scene": "Composition uses ManualEconomy.asset; resource prefabs use ManualResourceArt.asset; builder can rewire. Original Stage2 catalog unchanged."
+  },
+  "limits": [
+    "Windows runtime/build unavailable: onlyMacStandaloneSupport installed.",
+    "Physical trackpad not reverified; D070 native/synthetic gesture evidence remains.",
+    "Existing camera-edge bounds diagnostic fromD070 remains degraded and unchanged.",
+    "Existing stripped GaussianDepthOfField postprocess messages also occur in pre-D071 player; no new attributable game/font/shader errors. Unity access-token refresh warning is environmental.",
+    "City/trader/research unlocks, tool tiers, huge-world expansion, D062 rewind and external-player Stage3 gate remain future work."
+  ],
+  "evidence": [
+    {
+      "path": "art/review/manual_resources_natural_trees_2026-10-18.png",
+      "sha256": "a4165e59c140ac8a1ee5a91b62fdeb8b9bdf9efae805cc614dd6770d0f7116cc"
+    },
+    {
+      "path": "art/review/manual_resources_pick_contact_2026-10-18.png",
+      "sha256": "cdb553b7988fc4c4414078cbd69fee80fa8eaf818a073f5a373a1ec7758ec02a"
+    }
+  ],
+  "visual_review": {
+    "reviewer": "GPT-6 Astra",
+    "status": "PASS",
+    "coverage": "All20 contact frames:wood4,stone8,metal8; full/low stock on4sides. LEFT mirror correct, foreground crown reveals hero. Clear W0/2/4/6 and A2/6 show alternating registered motion without atlas bleed. Natural groups1/4/8 accepted.",
+    "limit": "Eight-phase distance-driven sprite animation; not continuous skeletal interpolation or final photorealistic motion."
+  }
+}

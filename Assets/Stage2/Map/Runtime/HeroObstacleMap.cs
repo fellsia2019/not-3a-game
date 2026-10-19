@@ -22,10 +22,24 @@ namespace Not3A.Stage2.Map
         public IReadOnlyList<HeroCircleObstacle> Circles => circles.AsReadOnly();
 
         public void AddCircle(Vector2 center, float radius)
+            => AddUpdatableCircle(center, radius);
+
+        public int AddUpdatableCircle(Vector2 center, float radius)
         {
             if (radius <= 0f || float.IsNaN(radius) || float.IsInfinity(radius))
                 throw new ArgumentOutOfRangeException(nameof(radius));
             circles.Add(new HeroCircleObstacle(center, radius));
+            return circles.Count - 1;
+        }
+
+        // Stable slots let a finite resource shrink/disappear without disturbing district circles.
+        public void UpdateCircle(int index, Vector2 center, float radius)
+        {
+            if (index < 0 || index >= circles.Count) throw new ArgumentOutOfRangeException(nameof(index));
+            if (radius < 0f || float.IsNaN(radius) || float.IsInfinity(radius) ||
+                float.IsNaN(center.x) || float.IsNaN(center.y) || float.IsInfinity(center.x) || float.IsInfinity(center.y))
+                throw new ArgumentOutOfRangeException(nameof(radius));
+            circles[index] = new HeroCircleObstacle(center, radius);
         }
 
         public void AddRectangle(Rect groundArea)
@@ -62,7 +76,7 @@ namespace Not3A.Stage2.Map
                 if ((point - nearest).sqrMagnitude < radius * radius) return true;
             }
             foreach (var circle in circles)
-                if ((point - circle.Center).sqrMagnitude < (radius + circle.Radius) * (radius + circle.Radius)) return true;
+                if (circle.Radius > 0f && (point - circle.Center).sqrMagnitude < (radius + circle.Radius) * (radius + circle.Radius)) return true;
             return false;
         }
 
@@ -75,7 +89,8 @@ namespace Not3A.Stage2.Map
                 var time = 1f; var normal = Vector2.zero;
                 foreach (var rect in rectangles) SweepRectangle(position, displacement, rect, radius, ref time, ref normal);
                 foreach (var circle in circles)
-                    SweepCircle(position, displacement, circle.Center, radius + circle.Radius, ref time, ref normal);
+                    if (circle.Radius > 0f)
+                        SweepCircle(position, displacement, circle.Center, radius + circle.Radius, ref time, ref normal);
                 if (normal == Vector2.zero)
                 {
                     var end = position + displacement;

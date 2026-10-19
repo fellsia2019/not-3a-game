@@ -1,5 +1,23 @@
 # Stage 3 Tactical View
 
+2026-10-18, D-071: independent manual sources now populate the green world.
+Ordinary trees form seeded irregular groups 1–8; stone/ore retain the small
+scale and add larger/depleting forms. Hero axe/pick contacts, eight-phase
+hero/skeleton walks, native left mirroring and foreground-tree reveal are wired.
+The shared sprite shader honors URP renderer flip/tint/alpha.
+Contract: STAGE2_ECONOMY.md. Actual-player evidence and platform limitations:
+art/source/manual_resources_motion_2026-10-18_verification.json.
+
+2026-10-18, D-070: PC URP Forward+ uses4xMSAA at renderScale1, without a new
+post-AA blur. The three authored landmarks and three production images use
+mipmaps/trilinear sampling; original PNGs, camera angle, zoom limits and scene
+references remain. Hero animation atlases retain no-mips due to narrow gutters.
+The native AppKit bridge now distinguishes precise two-finger translation from
+magnification. Existing scene binding routes gestures to M when its viewport
+owns the pointer, otherwise to the world. Physical wheel and touchscreen rules
+remain. Current verification/limitations are separate from older history below:
+art/source/quality_gestures_2026-10-18_verification.json.
+
 Active brief: D-019, 2026-09-25. Owner: Stage 3 visual integration.
 
 2026-10-16, D-051: replace the rectilinear zigzag with the owner's confirmed

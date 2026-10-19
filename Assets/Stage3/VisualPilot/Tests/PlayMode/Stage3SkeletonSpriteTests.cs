@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using Not3A.Stage2.Integration;
 using NUnit.Framework;
+using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -44,6 +45,9 @@ namespace Not3A.Stage3.VisualPilot.Tests
 
         private static int Value(Component view, string name) => (int)view.GetType().GetProperty(name).GetValue(view);
 
+        private static bool IsRegisteredSkeleton(Sprite sprite) => sprite != null &&
+            AssetDatabase.GetAssetPath(sprite) == "Assets/Stage3/SkeletonSpritePilot/SkeletonWalks.asset";
+
         [UnityTest]
         public IEnumerator RealWave_WalksFromPortalPausesTakesDamageAndRestarts()
         {
@@ -54,7 +58,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Assert.That(Vector2.Distance(enemy.transform.position, bootstrap.EntranceMarker.position), Is.LessThan(1f));
             var view = View(enemy.gameObject);
             var body = enemy.GetComponentsInChildren<SpriteRenderer>().Single(renderer => renderer.enabled);
-            Assert.That(body.sprite.name, Does.StartWith("Skeleton_"));
+            Assert.That(IsRegisteredSkeleton(body.sprite), Is.True, "Visible frame belongs to the saved skeleton art asset.");
             Assert.That(enemy.GetComponent<SpriteRenderer>().enabled, Is.False);
             Assert.That(view.GetComponentsInChildren<Collider>(), Is.Empty);
             Assert.That(view.GetComponentsInChildren<Collider2D>(), Is.Empty);
@@ -84,7 +88,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             yield return null;
             Assert.That(composition.Enemies.ActiveCount, Is.Zero);
             Assert.That(Object.FindObjectsByType<SpriteRenderer>(FindObjectsSortMode.None)
-                .Count(renderer => renderer.enabled && renderer.sprite != null && renderer.sprite.name.StartsWith("Skeleton_")), Is.Zero);
+                .Count(renderer => renderer.enabled && IsRegisteredSkeleton(renderer.sprite)), Is.Zero);
             Assert.That(composition.RunDriver.Run.StartWave(), Is.True);
             yield return null; yield return null;
             Assert.That(View(composition.Enemies.GetEnemy(0).gameObject), Is.Not.Null);

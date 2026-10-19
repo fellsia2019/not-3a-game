@@ -1,0 +1,159 @@
+{
+  "date": "2026-10-18",
+  "decision": "D-072",
+  "status": "Delivered:33/33 EditMode,33/33 relevant PlayMode plus3/3 final silhouette regression checks; Mac Development build/player and Astra actual-frame review pass",
+  "ownership": {
+    "gameplay_binding_tests_build_records": "Primary agent",
+    "marker_visual_implementation_and_actual_frame_review": "GPT-6 Astra"
+  },
+  "scope": [
+    "Hero collision for every ordinary tree, stone and metal source; tree trunk or current mineral stock footing.",
+    "One overhead axe/pickaxe for the exact available E target, including faded trees."
+  ],
+  "implementation": {
+    "collision": "Existing HeroObstacleMap stable updatable circles, zero radius disables; no Physics manager/rigidbody. Stage3ManualResourceCollisions binds every independent Economy.Nodes entry. Mineral radius shrinks with authored stock stage; .18 tree trunk radius persisted in ManualEconomy.asset.",
+    "recovery": "Depletion disables footing immediately; restoration waits while the hero overlaps the desired footing, then re-enables after the hero walks clear.",
+    "target": "Stage2GatheringDriver.InteractionTarget is the shared target for held E and the single marker. Existing UI/build/pause/terminal blockers apply. Alpha is purely visual.",
+    "marker": "Approved tool-only native vector derivatives, pearl/plum/turquoise; constant screen diameter .04*viewport height clamped32–44px; one camera-facing mesh, no per-node renderer/material. Marker uses25editor-authored visible silhouette top anchors, independent of FullRect transparent padding. Lower badge edge is8px above painted crest; top viewport clamp retained.",
+    "wiring": "Stage3TacticalPresentation clears old collision/marker bindings before world node replacement and registers each live sprite; existing Stage3ManualResourceBuilder.BuildAndWire saves added catalog default. No package/scene component migration.",
+    "anchor_refresh": "Stage3ManualResourceArtBuilder.RefreshInteractionAnchors updates only25local top anchors from existing3source textures; readability restored. Original PNGs/pivots/geometry unchanged."
+  },
+  "art_provenance": {
+    "authorship_and_rights": "Original project SVG geometry authored by GPT-6 Astra, owner-approved 2026-10-17; reuses native tool silhouettes and existing lunar palette. No third-party imagery, trace or new bitmap.",
+    "prior_record": "art/source/placement_icons_runtime_2026-10-17.json",
+    "sources": [
+      {
+        "path": "art/concepts/placement_icons_2026-10-17/sawmill_astra_v1.svg",
+        "sha256": "af2f2d17d24eaa4ce6cdc02908cbcf12423e54f2188aa9731ce84da256816f67"
+      },
+      {
+        "path": "art/concepts/placement_icons_2026-10-17/quarry_astra_v1.svg",
+        "sha256": "457e12f2ab5858e8e17962bb04339faf0bbf77e1c86fdbc0d5979a9c9fa0b764"
+      },
+      {
+        "path": "Assets/Stage3/ResourceSpritePilot/Stage3ResourceInteractionGlyphs.cs",
+        "sha256": "8eee737982dc5217509311b3392527fe879755469d454b6cbd53d0b5f393e2cd"
+      }
+    ]
+  },
+  "editmode": {
+    "result": "Passed",
+    "total": "33",
+    "passed": "33",
+    "failed": "0",
+    "skipped": "0",
+    "start-time": "2026-10-18 20:47:44Z",
+    "end-time": "2026-10-18 20:47:47Z",
+    "duration": "2.860187",
+    "xml": "Artifacts/S3-RESOURCE-INTERACTION-20261018/editmode.xml"
+  },
+  "playmode_manual": {
+    "result": "Passed",
+    "total": "12",
+    "passed": "12",
+    "failed": "0",
+    "skipped": "0",
+    "start-time": "2026-10-18 20:48:22Z",
+    "end-time": "2026-10-18 20:49:56Z",
+    "duration": "94.3217103",
+    "xml": "Artifacts/S3-RESOURCE-INTERACTION-20261018/playmode-manual.xml"
+  },
+  "remaining_verification": [
+    "Windows build/runtime"
+  ],
+  "limits": [
+    "Windows target/runtime not checked on this Mac (only MacStandaloneSupport installed).",
+    "No new enemy pathfinding, physics or tool progression. Existing camera-edge diagnostic is outside this change."
+  ],
+  "playmode_integration": {
+    "result": "Passed",
+    "total": "21",
+    "passed": "21",
+    "failed": "0",
+    "skipped": "0",
+    "start-time": "2026-10-18 20:53:52Z",
+    "end-time": "2026-10-18 20:55:08Z",
+    "duration": "75.9405182",
+    "xml": "Artifacts/S3-RESOURCE-INTERACTION-20261018/playmode-integration.xml",
+    "suites": [
+      "Stage3BuildMenuTests",
+      "Stage3PlayerInterfaceTests",
+      "Stage3WorldTravelTests"
+    ]
+  },
+  "verification_completed_local_date": "2026-10-19",
+  "playmode_final_anchor": {
+    "result": "Passed",
+    "total": "3",
+    "passed": "3",
+    "failed": "0",
+    "skipped": "0",
+    "start-time": "2026-10-19 06:16:24Z",
+    "end-time": "2026-10-19 06:16:36Z",
+    "duration": "11.2319912",
+    "xml": "Artifacts/S3-RESOURCE-INTERACTION-20261018/playmode-anchor-final.xml",
+    "scope": "After silhouette-anchor correction: exact marker + independent original-PNG alpha crest comparison at3zooms; depletion/recovery art; saved bindings."
+  },
+  "native_input_smoke": "Final built player: CUA native A220ms/W900ms approached actual ordinary tree; axe visible. Native E1100ms increased wood0→1. Hero left there with the normal game running; capture helper reset its disposable setup and removed the synthetic keyboard first.",
+  "preservation": {
+    "prior_png_count": 47,
+    "modified_or_missing_pngs": [],
+    "sprite_geometry": {
+      "asset": "Assets/Stage3/ResourceSpritePilot/ManualArt/ManualResourceArt.asset",
+      "without_added_anchor_fields_and_unity_trailing_whitespace_matches_original": true,
+      "original_sha256": "fc7d315a9d15deb8070532c3f274de53cd4d6ef5c78b3e92246b96283bd5bc03"
+    },
+    "existing_dirty_d069_d070_d071": "Retained; no commit/push/revert/package changes. Only collision/target/marker/capture/tests/docs surfaces changed since this work started.",
+    "scene_unchanged_from_work_start": true
+  },
+  "build": {
+    "result": "Succeeded",
+    "target": "StandaloneOSX Development Metal",
+    "bytes": 521403389,
+    "path": "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app",
+    "log": "Artifacts/S3-RESOURCE-INTERACTION-20261018/build-mac-final.log"
+  },
+  "actual_player": {
+    "result": "Passed",
+    "backbuffer": [
+      1600,
+      900
+    ],
+    "seed": 164032,
+    "nodes": 509,
+    "images": 15,
+    "context": "Artifacts/S3-RESOURCE-INTERACTION-20261018/player-captures/context.txt",
+    "checks": [
+      "Actual development-player Game backbuffer 1600x900; Metal.",
+      "Disposable opt-in QA: synthetic Input System WASD/E; camera/hero setup and model strikes for depletion. No physical keyboard claim. Run reset afterward.",
+      "Wood Small: contact distance=0.3810; footing=0.1800; exact marker/E; +1; no overlap recovery.",
+      "Stone Small: contact distance=0.8510; footing=0.6500; exact marker/E; +1; no overlap recovery.",
+      "Stone Medium: contact distance=1.3010; footing=1.1000; exact marker/E; +1; no overlap recovery.",
+      "Stone Large: contact distance=2.0010; footing=1.8000; exact marker/E; +1; no overlap recovery.",
+      "Metal Small: contact distance=0.8510; footing=0.6500; exact marker/E; +1; no overlap recovery.",
+      "Metal Medium: contact distance=1.3010; footing=1.1000; exact marker/E; +1; no overlap recovery.",
+      "Metal Large: contact distance=2.0010; footing=1.8000; exact marker/E; +1; no overlap recovery.",
+      "Foreground tree alpha<0.6 retains axe; inventory/pause hide marker; depleted isolated tree loses footing/marker. All checks PASS."
+    ],
+    "capture_mechanism": "Opt-in development-only Stage3ResourceInteractionReview, synthetic InputSystem WASD/E for7physical approaches; model strikes only for depletion setup. Restores camera/rate/input/combat and resets disposable run. Native CUA smoke verified afterward."
+  },
+  "visual_review": {
+    "owner": "GPT-6 Astra",
+    "result": "Accepted",
+    "images_reviewed": 15,
+    "scope": "Correct tool distinction,constant screen size at2.5/5/10,contrast and visible-crest8pxgap,all resource sizes,foreground fade independence,depleted hide. Small-mineral FullRect transparent-padding defect corrected and independently regression-tested.",
+    "evidence": [
+      {
+        "path": "art/review/resource_interaction_pick_2026-10-19.png",
+        "bytes": 2215672,
+        "sha256": "d07b761fc94748373b3f6c79a8bc874731b28f39e39a809345f06365af1f570a"
+      },
+      {
+        "path": "art/review/resource_interaction_axe_2026-10-19.png",
+        "bytes": 2436073,
+        "sha256": "39633b105dcfc955d95373617ce2a3b11c4d1ce734b362d9154600925d59cdb5"
+      }
+    ]
+  },
+  "console": "Final player.log has no errors/exceptions/shader errors/warnings. Editor has existing deprecated API/compiler notices and environmental license-token refresh notices; no new attributable runtime/font/shader errors."
+}

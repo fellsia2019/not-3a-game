@@ -1,0 +1,95 @@
+{
+  "date": "2026-10-18",
+  "decision": "D-069",
+  "status": "Owner-approved concepts implemented by GPT-6 Astra; local Mac verification recorded separately; Windows validation degraded",
+  "generator": "Built-in image_gen.imagegen",
+  "authorization": [
+    "Owner requested full-screen opening interfaces, concepts first, then GPT-6 Astra implementation.",
+    "Owner explicitly kept construction exclusively in the world, with no separate construction window.",
+    "Owner requested HUD menu buttons with icon and hotkey only, without word labels.",
+    "Owner approved the revised concepts with «делай»."
+  ],
+  "scope": [
+    "Full-screen Inventory I, Research P, Hero O and Map M, common shell based on Inventory V2.",
+    "Existing nonmodal in-world Construction B remains.",
+    "HUD uses bag I, hammer B, book P, hero O, map M.",
+    "Existing game systems, original runtime artwork and UI stack retain their contracts."
+  ],
+  "external_inspiration": [
+    {
+      "url": "https://interfaceingame.com/games/assassins-creed-valhalla/",
+      "role": "Observed full-screen navigation/inventory organization only; no downloaded/traced third-party pixels."
+    },
+    {
+      "url": "https://interfaceingame.com/games/horizon-forbidden-west/",
+      "role": "Observed full-screen page/navigation organization only; no downloaded/traced third-party pixels."
+    },
+    {
+      "url": "https://help.bungie.net/hc/en-us/articles/45753961638292--6-Navigating-The-Menu-Screen",
+      "role": "Official description of shared menu pages; no image input."
+    }
+  ],
+  "rights": "Generated original project concepts using this project's owned screenshots/art as references. Concepts guide layout; world sprites and game mechanics are not replaced by illustrative thumbnails.",
+  "selected": [
+    {
+      "screen": "inventory_v2",
+      "path": "art/concepts/fullscreen_interface_2026-10-18/inventory_fullscreen_v2.png",
+      "sha256": "e7700a0dfe8e27b58478979ddfc639dcffd600dbf245cf781179e323c00210be",
+      "width": 1672,
+      "height": 941,
+      "prompt": "Edit this UI concept according to the owner's correction. Keep the original full-screen Lunar Porcelain style and existing body composition. Replace the top navigation with FOUR evenly distributed full-width tabs ONLY, exactly: \"Инвентарь I\", \"Исследования P\", \"Развитие героя O\", \"Карта M\", and a slim far-right \"Esc · Закрыть\". COMPLETELY REMOVE the \"Строительство B\" tab; construction remains exclusively in the world and has no full-screen page. Use the inventory reference's simple elegant continuous plum header, subtle silver separators, modern Cyrillic sans-serif, and a restrained turquoise underline for the active tab. Shared top resource/day line stays identical. No new UI elements or mechanics. Preserve readability, proportions, exact resource/stat values and the original canvas size. Active tab \"Инвентарь I\". Change ONLY the top header. Preserve the existing hero, resource entries, bow, stats, unavailable storage, all body artwork and footer exactly.",
+      "reference_images": [
+        "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-3764925f-c022-4493-9ed4-252f1f9c996d.png"
+      ]
+    },
+    {
+      "screen": "research_v2",
+      "path": "art/concepts/fullscreen_interface_2026-10-18/research_fullscreen_v2.png",
+      "sha256": "537078f50f67f1260cd93db31b24f1dfe9683211f81aa33880ecd9b1d40130d6",
+      "width": 1672,
+      "height": 941,
+      "prompt": "Edit this UI concept according to the owner's correction. Keep the original full-screen Lunar Porcelain style and existing body composition. Replace the top navigation with FOUR evenly distributed full-width tabs ONLY, exactly: \"Инвентарь I\", \"Исследования P\", \"Развитие героя O\", \"Карта M\", and a slim far-right \"Esc · Закрыть\". COMPLETELY REMOVE the \"Строительство B\" tab; construction remains exclusively in the world and has no full-screen page. Use the inventory reference's simple elegant continuous plum header, subtle silver separators, modern Cyrillic sans-serif, and a restrained turquoise underline for the active tab. Shared top resource/day line stays identical. No new UI elements or mechanics. Preserve readability, proportions, exact resource/stat values and the original canvas size. First image is edit target; second is master style/header reference only. Active tab \"Исследования P\". Keep the one Teleportation entry, large illustrative seal, current description and \"Нужна мастерская\". Also remove the entire ornamental button-shaped border around the lower phrase \"Исследование у мастерской · E\". Replace it with simple small passive sans-serif text, exactly \"Подойдите к мастерской и нажмите E\", on the plain ivory surface below the status, with NO button, rectangle, border, fill or enabled/action treatment. It is information about a local world interaction, never a remote research action. Preserve all other body content.",
+      "reference_images": [
+        "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-cdc88f58-0ec6-432a-a532-e608a52d78dd.png",
+        "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-3764925f-c022-4493-9ed4-252f1f9c996d.png"
+      ]
+    },
+    {
+      "screen": "development_v2",
+      "path": "art/concepts/fullscreen_interface_2026-10-18/hero_fullscreen_v2.png",
+      "sha256": "3b2b8fb4b41a8e72b633ae9262571b8c9b3f89c939ae9e5be97d0dc7d4178026",
+      "width": 1672,
+      "height": 941,
+      "prompt": "Edit this UI concept according to the owner's correction. Keep the original full-screen Lunar Porcelain style and existing body composition. Replace the top navigation with FOUR evenly distributed full-width tabs ONLY, exactly: \"Инвентарь I\", \"Исследования P\", \"Развитие героя O\", \"Карта M\", and a slim far-right \"Esc · Закрыть\". COMPLETELY REMOVE the \"Строительство B\" tab; construction remains exclusively in the world and has no full-screen page. Use the inventory reference's simple elegant continuous plum header, subtle silver separators, modern Cyrillic sans-serif, and a restrained turquoise underline for the active tab. Shared top resource/day line stays identical. No new UI elements or mechanics. Preserve readability, proportions, exact resource/stat values and the original canvas size. First image is edit target; second master style/header reference only. Active tab \"Развитие героя O\". Preserve hero, the large restrained crescent, title, \"Пока недоступно\", and \"Этот раздел появится позже.\". Remove the faint fantasy castle/landscape sketch from behind the hero and replace it with the same quiet pearl ceramic texture used elsewhere. No new scenery or nodes.",
+      "reference_images": [
+        "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-fee75308-adaa-44b2-aeb8-340dfb5d674f.png",
+        "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-3764925f-c022-4493-9ed4-252f1f9c996d.png"
+      ]
+    },
+    {
+      "screen": "map_v2",
+      "path": "art/concepts/fullscreen_interface_2026-10-18/map_fullscreen_v2.png",
+      "sha256": "7eda47c30c81c489cf113886f18f859d69ad60a0bc032bb665b6f391702d08ae",
+      "width": 1672,
+      "height": 941,
+      "prompt": "Edit this UI concept according to the owner's correction. Keep the original full-screen Lunar Porcelain style and existing body composition. Replace the top navigation with FOUR evenly distributed full-width tabs ONLY, exactly: \"Инвентарь I\", \"Исследования P\", \"Развитие героя O\", \"Карта M\", and a slim far-right \"Esc · Закрыть\". COMPLETELY REMOVE the \"Строительство B\" tab; construction remains exclusively in the world and has no full-screen page. Use the inventory reference's simple elegant continuous plum header, subtle silver separators, modern Cyrillic sans-serif, and a restrained turquoise underline for the active tab. Shared top resource/day line stays identical. No new UI elements or mechanics. Preserve readability, proportions, exact resource/stat values and the original canvas size. First image is edit target; second master style/header reference only. Active tab \"Карта M\". Change ONLY the top header to the common four-tab shell. Preserve all actual map content, marker positions, road geometry, map viewport, legend and bottom controls exactly. Never add cities or geography.",
+      "reference_images": [
+        "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-387b1945-c006-4d2f-9d6a-f03c83c52f60.png",
+        "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-3764925f-c022-4493-9ed4-252f1f9c996d.png"
+      ]
+    },
+    {
+      "screen": "hud_icon_keys",
+      "path": "art/concepts/fullscreen_interface_2026-10-18/hud_icon_keys_v1.png",
+      "sha256": "3f0816ddcc39eb75e89dfa340041a115000865c582d2eb74b0561db75a06ee63",
+      "width": 1672,
+      "height": 941,
+      "prompt": "Use case: ui-mockup / precise-object-edit. First image is the exact current in-game HUD screenshot to edit; second is the game's approved icon atlas, for icon appearance only. Owner requests ONE targeted HUD change: replace the row of five wide labelled menu buttons (currently I Вещи, B Стройка, P Исследования, O Герой, M Карта) with a compact row of FIVE small icon+hotkey buttons. On these five buttons there must be NO WORD LABELS, only a recognizable pictogram and its single capital Latin keyboard letter. EXACT order left to right: a bag icon with I; building hammer with B; open research book with P; hero head-and-shoulders silhouette with O; folded map with M. Each is a neat approximately 56x48 px pearl ceramic button with subtle silver/plum edges, recognizable 26-28 px icon centered to left/top, 13-14 px hotkey in a small recessed corner lower right, never overlapping the icon. About 8 px gaps. Entire compact 312px row sits immediately above the LEFT end of the bottom main HUD, just to the right of the round minimap, with about 8px between row and panel. Do not spread five icons across the whole original long row. Preserve the world, hero position/scale, minimap, top resources/day clock, debug control, bottom hero portrait/bow/stats, ability reserves and HP/mana/XP reserves unchanged. Do not remove text from any other HUD element. Preserve the original 1600x900 composition. Maintain approved lunar porcelain/plum/turquoise style, clean readable icon silhouettes. B still toggles existing in-world construction; do not show a separate construction window, full-screen interface or catalogue. No new controls, no extra icons, no new labels, no gameplay alterations, no watermark.",
+      "reference_images": [
+        "/Users/artemmusket/game-dev/not-3a-game/art/review/player_interface_corrected_none_2026-10-18.png",
+        "/Users/artemmusket/game-dev/not-3a-game/Assets/Stage3/PlayerInterface/Art/LunarIcons.png"
+      ]
+    }
+  ],
+  "verification": "art/source/fullscreen_interface_2026-10-18_verification.json"
+}

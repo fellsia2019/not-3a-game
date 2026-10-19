@@ -20,8 +20,19 @@ namespace Not3A.Stage2.Integration
         private int zoomDiagnosticsRemaining = 4;
         private int pinchDiagnosticsRemaining = 3;
         private System.Func<Vector2, bool> pointerBlocker;
+        private System.Func<Vector2, bool> overlayTrackpadHitTest;
+        private System.Action<float, Vector2, Vector2> overlayTrackpadInput;
 
         public void SetPointerBlocker(System.Func<Vector2, bool> blocker) => pointerBlocker = blocker;
+
+        // The camera polls the app-local native queue once, routing to the visible surface.
+        // Callback arguments: pinch ratio, GUI-space pan delta, bottom-left screen pointer.
+        public void SetOverlayTrackpadInput(System.Func<Vector2, bool> hitTest,
+            System.Action<float, Vector2, Vector2> input)
+        {
+            overlayTrackpadHitTest = hitTest;
+            overlayTrackpadInput = input;
+        }
 
         public Transform Target => target;
         public Stage2MapDefinition MapDefinition => mapDefinition;
@@ -88,9 +99,16 @@ namespace Not3A.Stage2.Integration
         private void Update()
         {
             if (!tacticalView || tacticalStartingSize <= 0f) return;
-            var pointerAllowed = Mouse.current == null || pointerBlocker == null ||
-                !pointerBlocker(Mouse.current.position.ReadValue());
-            var pinchScale = Stage2MacTrackpad.ReadScale(CanReceivePinch() && pointerAllowed);
+            var pointer = Mouse.current != null ? Mouse.current.position.ReadValue() : Vector2.zero;
+            var pointerAllowed = pointerBlocker == null || !pointerBlocker(pointer);
+            var overlayOwnsInput = overlayTrackpadInput != null && overlayTrackpadHitTest != null && overlayTrackpadHitTest(pointer);
+            var pinchScale = Stage2MacTrackpad.ReadScale(CanReceivePinch() && (pointerAllowed || overlayOwnsInput), overlayOwnsInput);
+            var pan = Stage2MacTrackpad.ReadPan();
+            if (overlayOwnsInput)
+            {
+                ApplyTrackpadGesture(pinchScale, pan, pointer);
+                return;
+            }
             if (!pointerAllowed) return;
             if (pinchScale != 1f)
             {
@@ -109,6 +127,14 @@ namespace Not3A.Stage2.Integration
             ApplyZoomScale(Mathf.Pow(multiplier, -steps));
             if (zoomDiagnosticsRemaining-- > 0)
                 Debug.Log($"S3_ZOOM_INPUT raw={scroll:0.###} steps={steps:0.###} target={tacticalTargetSize:0.###}");
+        }
+
+        public void ApplyTrackpadGesture(float scale, Vector2 panDelta, Vector2 screenPoint)
+        {
+            if (!isActiveAndEnabled || !tacticalView) return;
+            if (overlayTrackpadInput != null && overlayTrackpadHitTest != null && overlayTrackpadHitTest(screenPoint))
+                overlayTrackpadInput(scale, panDelta, screenPoint);
+            else if (pointerBlocker == null || !pointerBlocker(screenPoint)) ZoomByPinchScale(scale);
         }
 
         /// <summary>Ratio supplied by a pinch gesture: spreading fingers (>1) zooms in.</summary>

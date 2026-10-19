@@ -10,6 +10,174 @@ D-017: каждый новый Stage 2–7 ведёт новый агент в �
 в `reports/development-roadmap.html`; внутри stage мелкие задачи не дробятся
 по агентам. На переходе обновляются этот handoff и канонический план.
 
+### 2026-10-18/19 — D-072 delivered: manual resource footing and E marker
+
+- Ownership: parent owns gathering target contract, resource footing in the
+  existing hero obstacle map, binding, tests/build/capture and documentation.
+  GPT-6 Astra owns marker appearance and actual-frame review, reusing approved
+  native axe/pick silhouettes and lunar palette. D-069/070/071 edits preserved.
+- Dependencies: live Economy.Nodes and stock stages, current sprite binding,
+  swept hero movement, gathering/UI/pause blockers and world regeneration.
+- Acceptance: every tree/stone/ore size stops the hero at its footing and can
+  be harvested there; one overhead tool indicates the exact E target, including
+  faded trees. Depletion opens the site, recovery cannot trap/teleport the hero,
+  and reset/regeneration do not retain stale footings/targets.
+- Delivered/contracts: stable updatable circles in HeroObstacleMap; narrow
+  Stage3ManualResourceCollisions binds all live nodes, shrinks mineral footings,
+  disables depleted ones and defers restoration around the hero. GatheringDriver
+  exposes the exact InteractionTarget used by E and the single overhead marker.
+  TacticalPresentation clears/rebinds both on regeneration. ManualEconomy keeps
+  the tree footing parameter; ManualResourceArt adds 25 visible-crest anchors.
+  Marker position follows painted pixels rather than transparent atlas padding.
+  No new managers/packages/scene components requiring Inspector wiring.
+- Verification: 33/33 EditMode, 12/12 manual-resource PlayMode and21/21
+  UI/build/world-travel cases. After silhouette-anchor polish,3/3 targeted checks
+  pass, including an independent original-PNG alpha-crest projection comparison
+  at all3zooms. Final Mac Development/Metal build succeeds; actual1600x900 player
+  verifies all7resource/size contacts, E+1, no overlap-recovery teleport, fade,
+  UI/pause and depletion. Astra accepted all15final actual frames. Native CUA
+  WASD/E afterward approached an ordinary tree and increased wood0→1; player
+  remains open there. Final player log has no warnings/errors/exceptions.
+- Preservation/evidence: all47pre-existing PNGs unchanged; existing scene exact
+  after serializer whitespace cleanup; ManualResourceArt is byte-identical after
+  removing only25added anchors. Prior dirty D-069/070/071 work retained. Two
+  selected actual frames in art/review; raw15PNGs/logs/XML/local build ignored.
+  Full record: art/source/resource_interaction_2026-10-18_verification.json.
+- Wiring/remaining: existing BuildAndWire saves the added tree catalog default;
+  RefreshInteractionAnchors updates only the25top anchors and restores texture
+  readability. Windows build/runtime remains unverified on this Mac. Existing
+  camera-edge diagnostic and D-071 deferred progression/world work remain outside
+  this correction; no enemy navigation/tool-tier change.
+
+### 2026-10-18 — D-071 delivered: manual resources, natural trees and tools
+
+- Owners: parent owns multi-node economy/distribution, scene/map/HUD/placement,
+  tests/build/capture/docs and ImageGen; GPT-6 Astra owns resource/character art,
+  native imports/registration, shared sprite shader and actual-frame review.
+  All six concepts were approved. Owner explicitly required separate ordinary
+  trees in close random groups 1–8 without rows, waiving another tree sketch.
+- Delivered: independent sources throughout the test world; per-hit +1, retained
+  partial reserves, individual active-time recovery, reset and seed replay.
+  Stone/ore have three sizes and coherent depletion states; original small scale
+  retained. Trees remain ordinary separate nodes. Axe/pick actions use confirmed
+  gather facts; moving cancels unfinished work. Hero/skeleton use eight walk
+  phases, with registered soles and mirrored left. Foreground trees reveal hero.
+- Contracts/files: Economy.Nodes/CurrentNode plus identity-targeted gathering;
+  HarvestRadius is maximum reserved footprint, InteractionRadius follows authored
+  stock stages. ManualEconomy.asset is Stage3-only; original Stage2 data remains.
+  ManualResourceArt and HeroArt/SkeletonWalks preserve legacy references; prefab
+  binding, TacticalPresentation, minimap/HUD and construction consume these nodes.
+  Shared shader now honors native URP flip/tint/alpha. Rewire via
+  Stage3ManualResourceBuilder.BuildAllApproved; no packages or new managers.
+- Verification: 22/22 EditMode;32 relevant PlayMode cases covered successfully
+  (31 release-pass plus targeted 1/1 after replacing a frame-count wait with a
+  real-time fade wait). Earlier broad HUD/daynight/combat cases also passed,
+  before final reach/shader polish; not claimed as a fresh whole-suite run.
+  Mac Development/Metal build and actual 1600x900 player capture pass. QA uses
+  synthetic E/WASD and model stock setup, resets the disposable run. Captured
+  tree groups 1/4/8, all mineral sizes/stages, 20 four-side full/low contacts,
+  all walking phases and 180 consecutive motion frames. Source PNGs unchanged;
+  all 15 selected production sources match generator/runtime hashes.
+- Evidence: art/source/manual_resources_motion_2026-10-18_verification.json and
+  manual_resources_motion_runtime_2026-10-18_generation.json; two selected actual
+  frames in art/review. Raw media/logs/XML/local build remain ignored in Artifacts
+  and Builds. Existing D-069/D-070 dirty code/data retained.
+- Remaining: Windows build/runtime and physical trackpad unverified here;
+  existing D-070 camera-edge diagnostic unchanged. Animation is the improved
+  prototype cycle, not final photorealistic motion. City/trader/research locks,
+  tool tiers, huge-world expansion, D-062 rewind and Stage3 external-player gate
+  remain outside this slice. Existing stripped unused GaussianDOF warnings
+  predate D-071; no new attributable runtime/font/shader errors.
+
+### 2026-10-18 — D-070 delivered / D-071 concepts awaiting owner approval
+
+- Owners/surfaces: Astra owns render/import/pad appearance and actual-frame
+  review; parent owns native Mac routing, existing binding/map/tests, capture,
+  ImageGen/provenance and records. Complete uncommitted D-069 work preserved.
+  Dependencies: PC URP Forward+, original resource images, AppKit bridge,
+  camera/UI blockers and anchored regional map math.
+- Delivered D-070: 4xMSAA at renderScale 1 without added post-AA; six dedicated
+  landmark/production images gain mipmaps/trilinear in metadata and builders.
+  Original PNGs are unchanged. Crowded hero atlases stay no-mips. Only inner
+  dashed pad guide removed; outer clearance and glyph margins/footprints stay.
+  Camera polls native magnify/precise-scroll once, routing map-owned gestures
+  through existing binding: pinch/spread zoom, two-finger translation pan,
+  coarse wheel zoom. Header/focus/disable/ownership cannot replay pending input.
+  No scene/Inspector migration, package change or gameplay/economy change.
+- Verification: 18/18 relevant PlayMode on Unity 6000.6.2f1/Mac/Metal; native
+  monitor/ratio/precise-vs-coarse/backing-scale/reset checks pass. New route case
+  covers anchored map pinch, pan without zoom, no world-camera mutation, header
+  exclusion, invalid input and returning pinch to the world. Mac Development
+  build succeeds; native keyboard M opens the map in the final player. Astra
+  accepted 18 actual static frames at zoom 2.5/5/10 for forest/quarry/mine and
+  their pads; 13 more UI frames cover 1280x720. Comparison
+  mode approximates former sampling; temporal shimmer reduction and constructed
+  production sprites were not separately measured/reviewed. No attributable
+  new game/font/shader errors; licensing refresh warning remains environmental.
+- Limits/remaining D-070: physical trackpad hardware and Windows runtime are
+  unverified (only MacStandaloneSupport installed). Additional broad camera-edge
+  test fails its full-hero bounds assertion; camera clamp/hero dimensions are
+  unchanged, temporary quad-only investigation did not resolve it, original
+  assertion restored. Separate edge visibility work remains; no weakened test.
+- Delivered D-071: six selected ImageGen sheets in
+  art/concepts/manual_resources_motion_2026-10-18/. Astra reviewed directions:
+  stone/ore sizes+depletion, tree groups 1/2/4/8, axe/pickaxe with hero C, hero
+  walking/mining/chopping keyposes, skeleton walk keyposes. Matte iron veins,
+  one pick point+flat adze and exact eight-tree count corrected before handoff.
+  These are pending OWNER appearance approval, not imported runtime assets or
+  proven animation loops. Percent labels are illustrative; eight-tree rows
+  are a counting diagram, not the future world grid. Registration, limb
+  alternation, tool grip and actual motion remain future implementation checks.
+- Evidence: art/source/quality_gestures_2026-10-18_verification.json and
+  art/source/manual_resource_motion_2026-10-18_generation.json include results,
+  limits, selected hashes and full prompt history. Raw logs/frames/builds stay
+  ignored in Artifacts/S3-QUALITY-GESTURES-20261018/ and Builds/. One selected
+  actual pad frame is retained. New manual nodes/tools/animations, city/trader,
+  research gates, D-062 rewind and Stage3 external-player gate remain unimplemented.
+
+### 2026-10-18 — D-069 full-screen interface / local Mac handoff
+
+- Owners/surfaces: GPT-6 Astra owns existing PlayerInterface visual runtime and
+  review-builder code. Parent owns approved concept/provenance preservation,
+  relevant PlayMode assertions, Unity verification and canonical documentation.
+  Dependencies: current lunar art, scene-local HUD binding, wallet, local-E
+  research, actual map and existing in-world construction. No other active
+  surface is claimed; existing packages, scene references and gameplay data stay.
+- Accepted: owner approved four full-screen pages I/P/O/M, explicitly kept B
+  construction in the world, and selected icon+hotkey-only I/B/P/O/M HUD access.
+  Approved original concept PNGs/prompts are in art/concepts/fullscreen_interface_2026-10-18/
+  and art/source/fullscreen_interface_2026-10-18_generation.json. D-069 owns
+  the superseding presentation contract; no auto-pause/new mechanics added.
+- Delivered/contracts: four opaque full-backbuffer pages share four-tab header,
+  wallet/clock and footer. The existing runtime partials reuse approved art;
+  research stays local-E, development unavailable, B stays a nonmodal world
+  ribbon. Public header/wallet/footer/tab/HUD rects and old MenuButtonRect match
+  the visible navigation. Existing scene/binding/data/assets/meta need no
+  migration. Installed single-face sans-serif fallback and Metal/Linear output
+  fix avoid unreadable Mac labels/washed-out art; prior Windows encoding stays.
+- Verification: PlayMode 16/16 on Unity 6000.6.2f1 / Mac / Metal covers full-screen
+  corner protection, exclusive keys/continuing simulation, local-E re-arming,
+  construction purchase, HUD/debug and anchored/synthetic-touch map regressions.
+  Saved-scene Mac Development build passed; actual captures cover 1280x720,
+  1600x900 and 1920x1080. Native keyboard I/P/O/M, Esc and B were observed.
+  Astra accepted 18 main V3 frames and all nine V4 HUD/construction/hover
+  frames; V4 only strengthens the HUD hover/selected tint. Final V4 has 39
+  native PNGs and is left open at 1600x900 on Inventory for the owner.
+  No new attributable game/font/shader errors; Unity licensing refresh reports
+  an unavailable access token but tests/build complete successfully.
+- Limits/remaining: this host has only MacStandaloneSupport, so D-069 Windows
+  build/runtime validation is degraded; old D-068 Windows V4 is historical.
+  Native coordinate-click automation returns noWindowsAvailable despite the
+  visible keyboard-operable player. No complete mouse playthrough is claimed.
+  Hover uses actual rendering with pointer-only Input System events; pressed
+  and physical touch have no separate capture. Windows QA, future gameplay
+  reserves, D-062 rewind and Stage 3 external-player gate remain.
+- Evidence: art/source/fullscreen_interface_2026-10-18_verification.json;
+  raw local logs/frames in Artifacts/S3-FULLSCREEN-INTERFACE-20261018/.
+  Five approved concepts and three selected actual review frames are preserved;
+  raw capture batches/builds stay ignored. README, canonical spec/plan/vision,
+  art direction, decisions and existing HTML summaries reflect D-069.
+
 ### 2026-10-18 — D-068 interface proportions and map interaction correction
 
 - Owners: Astra core owns scalable frame drawing, sans-serif font, HUD/build

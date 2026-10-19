@@ -86,6 +86,25 @@ namespace Not3A.Stage2.Map.Tests
         }
 
         [Test]
+        public void ResourceFootingCanShrinkDisappearAndReturnWithoutChangingOtherObstacles()
+        {
+            var map = new HeroObstacleMap();
+            map.AddCircle(Vector2.up * 2f, .3f);
+            var resource = map.AddUpdatableCircle(Vector2.zero, 1.5f);
+            var start = Vector2.left * 3f;
+            Assert.That(map.Move(start, Vector2.right * 6f, .2f).x, Is.EqualTo(-1.701f).Within(.003f));
+            map.UpdateCircle(resource, Vector2.zero, .5f);
+            Assert.That(map.Move(start, Vector2.right * 6f, .2f).x, Is.EqualTo(-.701f).Within(.003f));
+            map.UpdateCircle(resource, Vector2.zero, 0f);
+            Assert.That(map.Move(start, Vector2.right * 6f, .2f), Is.EqualTo(Vector2.right * 3f));
+            Assert.That(map.IsBlocked(Vector2.zero, .2f), Is.False, "A disabled slot must not leave a hero-sized ghost obstacle.");
+            Assert.That(map.IsBlocked(Vector2.up * 2f, .2f), Is.True);
+            map.UpdateCircle(resource, Vector2.zero, .5f);
+            Assert.That(map.IsBlocked(Vector2.zero, .2f), Is.True);
+            Assert.Throws<System.ArgumentOutOfRangeException>(() => map.UpdateCircle(resource, Vector2.zero, float.NaN));
+        }
+
+        [Test]
         public void ReplacementRecoversAnOverlappingSpawnInsideAllowedWorld()
         {
             var map=new HeroObstacleMap();var cells=new List<Vector2Int>();

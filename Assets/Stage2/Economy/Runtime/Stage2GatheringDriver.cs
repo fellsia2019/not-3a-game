@@ -18,6 +18,7 @@ namespace Not3A.Stage2.Economy
         private bool productionBuildMode;
         private bool requiresRelease;
         private Stage2Economy economy;
+        private Vector2 previousPlayerPosition;
         private System.Func<bool> inputBlocker;
         public void SetInputBlocker(System.Func<bool> blocker) => inputBlocker = blocker;
 
@@ -25,6 +26,18 @@ namespace Not3A.Stage2.Economy
         public Stage2EconomyCatalog Catalog => catalog;
         public Transform Player => player;
         public Stage2Economy Economy => economy;
+        public Stage2ResourceNode GatheringNode => economy?.CurrentNode;
+        public Stage2ResourceNode InteractionTarget
+        {
+            get
+            {
+                if (!isActiveAndEnabled || economy == null || player == null || !activeRun || paused ||
+                    buildMode || productionBuildMode || (inputBlocker?.Invoke() ?? false)) return null;
+                var current = economy.CurrentNode;
+                return current != null && !current.IsDepleted && economy.IsInRange(current, player.position)
+                    ? current : economy.NearestAvailableNode(player.position);
+            }
+        }
         public bool IsInteracting => buildMode || productionBuildMode ||
             (gatherAction != null && gatherAction.IsPressed());
 
@@ -46,6 +59,7 @@ namespace Not3A.Stage2.Economy
             try
             {
                 economy = new Stage2Economy(mapDefinition, catalog);
+                previousPlayerPosition = player.position;
                 requiresRelease = true;
                 return true;
             }
@@ -89,6 +103,7 @@ namespace Not3A.Stage2.Economy
             activeRun = true;
             paused = false;
             buildMode = false;
+            productionBuildMode = false;
             requiresRelease = true;
         }
 
@@ -120,6 +135,9 @@ namespace Not3A.Stage2.Economy
         private void Update()
         {
             if (economy == null || player == null) return;
+            var position = (Vector2)player.position;
+            var moved = (position - previousPlayerPosition).sqrMagnitude > .000001f;
+            previousPlayerPosition = position;
             var activeTime = activeRun && !paused;
             economy.Tick(Time.deltaTime, activeTime);
             var held = gatherAction != null && gatherAction.IsPressed();
@@ -130,30 +148,15 @@ namespace Not3A.Stage2.Economy
                 return;
             }
             if (!held) requiresRelease = false;
-            var allowed = activeTime && !buildMode && !productionBuildMode && !requiresRelease;
-            var nearest = NearestAvailableNode();
-            if (!allowed || !held || !nearest.HasValue)
+            var allowed = activeTime && !buildMode && !productionBuildMode && !requiresRelease &&
+                (catalog.ManualResources == null || !moved);
+            var nearest = InteractionTarget;
+            if (!allowed || !held || nearest == null)
             {
                 economy.CancelGather();
                 return;
             }
-            economy.AdvanceGather(nearest.Value, player.position, true, Time.deltaTime, true);
-        }
-
-        private MapResourceKind? NearestAvailableNode()
-        {
-            MapResourceKind? nearest = null;
-            var best = catalog.InteractionRange * catalog.InteractionRange;
-            for (var index = 0; index < 3; index++)
-            {
-                var kind = (MapResourceKind)index;
-                if (economy.GetNode(kind).IsDepleted) continue;
-                var distance = (economy.WorldPosition(kind) - (Vector2)player.position).sqrMagnitude;
-                if (distance > best) continue;
-                best = distance;
-                nearest = kind;
-            }
-            return nearest;
+            economy.AdvanceGather(nearest, player.position, true, Time.deltaTime, true);
         }
     }
 }

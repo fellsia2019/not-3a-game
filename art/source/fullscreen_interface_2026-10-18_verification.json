@@ -1,0 +1,494 @@
+{
+  "date": "2026-10-18",
+  "decision": "D-069",
+  "status": "Implemented and accepted by Astra in actual Mac/Metal player; Windows validation degraded",
+  "product_target": "Windows / Steam remains unchanged; Mac player is local visual review only",
+  "ownership": {
+    "visual_implementation": "GPT-6 Astra",
+    "integration_tests_and_records": "Primary agent"
+  },
+  "accepted_contract": [
+    "Four opaque full-backbuffer I/P/O/M pages, shared four-tab header/wallet/clock/footer.",
+    "Construction B remains the existing nonmodal world ribbon and has no full-screen tab.",
+    "Five HUD access buttons show icon plus I/B/P/O/M only.",
+    "Existing simulation, payment, local E, map math and inactive reserves retain their rules; no automatic pause."
+  ],
+  "environment": {
+    "unity": "6000.6.2f1",
+    "host": "macOS",
+    "graphics": "Metal",
+    "color_space": "Linear",
+    "runtime_font": "Arial",
+    "available_standalone_module": "MacStandaloneSupport"
+  },
+  "tests": {
+    "platform": "PlayMode / Mac Editor / Metal",
+    "filter": "Stage3PlayerInterfaceTests;Stage3BuildMenuTests;Stage3HudTests",
+    "result": "Passed",
+    "total": 16,
+    "passed": 16,
+    "failed": 0,
+    "skipped": 0,
+    "start_utc": "2026-10-18 16:14:53Z",
+    "end_utc": "2026-10-18 16:15:20Z",
+    "xml": "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/playmode.xml",
+    "log": "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/playmode.log",
+    "cases": [
+      {
+        "name": "BottomPanelBlocksWorldBuildAndZoomAndKeepsMinimapAccessible",
+        "result": "Passed"
+      },
+      {
+        "name": "CategoriesSelectThreeGeneratorsAndExistingTowersWithExclusiveInput",
+        "result": "Passed"
+      },
+      {
+        "name": "PauseAndRestartDiscardGeneratorPreviewWithoutReplayingPurchase",
+        "result": "Passed"
+      },
+      {
+        "name": "UnaffordableCardsAndPublicSelectionStayDisabledUntilInventoryCanPay",
+        "result": "Passed"
+      },
+      {
+        "name": "DebugGrantsFundRealPurchaseAndWaveStartObeysRunState",
+        "result": "Passed"
+      },
+      {
+        "name": "DebugPanelBlocksRealWorldClickAndWheelWithoutReplacingMinimapBlocker",
+        "result": "Passed"
+      },
+      {
+        "name": "IndependentSpeedMultipliersChangeMovementAndSimulationAndRestoreOnDisable",
+        "result": "Passed"
+      },
+      {
+        "name": "PauseFreezesWorldAndMenuStillAcceptsKeyboardAndResume",
+        "result": "Passed"
+      },
+      {
+        "name": "PlayerHudRemainsWhenDevelopmentToolsAreDisabled",
+        "result": "Passed"
+      },
+      {
+        "name": "ConstructionPanelProtectsClicksAndAllowsFreshWorldPurchaseWithoutClosing",
+        "result": "Passed"
+      },
+      {
+        "name": "CursorZoomKeepsTwoAsymmetricWorldAnchorsWithoutMovingTheCamera",
+        "result": "Passed"
+      },
+      {
+        "name": "CursorZoomLimitsAndInvalidInputsDoNotDriftAndMapEdgesStayBounded",
+        "result": "Passed"
+      },
+      {
+        "name": "KeyboardWindowsAreExclusiveAndEscapeDoesNotPauseTheDay",
+        "result": "Passed"
+      },
+      {
+        "name": "ModalWindowBlocksHeroAndLocalResearchUntilFreshInputAfterClosing",
+        "result": "Passed"
+      },
+      {
+        "name": "RegionalMapNavigationDoesNotMoveWorldCameraAndLifecycleClearsWindows",
+        "result": "Passed"
+      },
+      {
+        "name": "SyntheticTouchGesturePansAndPinchesAroundItsMovingMidpoint",
+        "result": "Passed"
+      }
+    ],
+    "post_test_visual_scalar": "Final V4 changes only pearl SurfaceButton selected/hover alpha .22 to .50. No geometry/input/gameplay changes after 16/16; compile/build and actual frame review repeated, suite not repeated for a tint scalar."
+  },
+  "build": {
+    "result": "Succeeded",
+    "method": "Not3A.Stage3.PlayerInterface.Editor.Stage3PlayerInterfaceBuilder.BuildMacReviewPlayer",
+    "scene": "Assets/Scenes/Stage3Rapid3DGamePilot.unity",
+    "path": "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app",
+    "development": true,
+    "bytes": 431298201,
+    "log": "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/build-mac-v4.log"
+  },
+  "visual_review": {
+    "revision": "V4",
+    "main_pages": "Astra accepted all 18 V3 main frames across three resolutions; V4 changes only HUD tile hover/selected tint.",
+    "final_hover": "Astra accepted all nine V4 None/Construction/HoverMenu frames across 1280x720, 1600x900 and 1920x1080: clear turquoise hover/selected, icons/keys readable, no labels/overlap/clipping, construction remains world-only; no blockers. V3 main-page acceptance retained because V4 only changes this tint scalar.",
+    "capture_count": 39,
+    "captures": [
+      {
+        "resolution": [
+          1280,
+          720
+        ],
+        "directory": "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/review-v4-1280x720",
+        "context": "Visible development player; actual full Game backbuffer including IMGUI.\nBackbuffer: 1280 x 720; fullscreen=False; mode=Windowed.\nInterface font: Arial; graphics=Metal; colorSpace=Linear.\nQA switches windows through the same public UI actions; no resources, towers, kills, time jumps or camera changes injected.\nCurrent unaffordable build cards remain disabled; inventory/progression reserves are not implemented mechanics.\nInteraction review warps the player mouse; if native warp does not update Input System position, it queues a pointer-position-only input event. Actual renderer/control path, no UI-state override or mouse clicks. Background input policy restored and pointer restore requested. See hover-pointers.txt.\n",
+        "frames": [
+          {
+            "path": "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/review-v4-1280x720/Construction.png",
+            "sha256": "d37f403b5372139eaadd8899cb4cec0a57f62d3d158d1508fabcc343c48589e5",
+            "width": 1280,
+            "height": 720,
+            "bytes": 1634915
+          },
+          {
+            "path": "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/review-v4-1280x720/DisabledBuildSelect.png",
+            "sha256": "d241cc11d067fe71736a87d26496b0a77264f78a1f4a37333a47d5fdea7b3219",
+            "width": 1280,
+            "height": 720,
+            "bytes": 1635129
+          },
+          {
+            "path": "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/review-v4-1280x720/Hero.png",
+            "sha256": "0588083f087bd1d388329d9550ec1c5981e4462d94c88a41a5ce12dcc981ae87",
+            "width": 1280,
+            "height": 720,
+            "bytes": 573785
+          },
+          {
+            "path": "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/review-v4-1280x720/HoverBuildSelect.png",
+            "sha256": "ea6b5ae1d1e52398a663447f7247e492700d2f9060265ddb58c3007ca69c1aed",
+            "width": 1280,
+            "height": 720,
+            "bytes": 1640364
+          },
+          {
+            "path": "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/review-v4-1280x720/HoverBuildTab.png",
+            "sha256": "3e945322221f9331020d1f9a8725eae1f1279bb4bed407b13ee5cc30829dab61",
+            "width": 1280,
+            "height": 720,
+            "bytes": 1639621
+          },
+          {
+            "path": "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/review-v4-1280x720/HoverClose.png",
+            "sha256": "51fafdb1e83572e6e463dfbfb9d646bf30e517a11ff7695fc616322a43b69450",
+            "width": 1280,
+            "height": 720,
+            "bytes": 656876
+          },
+          {
+            "path": "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/review-v4-1280x720/HoverMapZoom.png",
+            "sha256": "4847ef6ef782295a8d3ec225b56921d98a6e7493c907fbe5142c1e53f02c302c",
+            "width": 1280,
+            "height": 720,
+            "bytes": 344799
+          },
+          {
+            "path": "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/review-v4-1280x720/HoverMenu.png",
+            "sha256": "034675196c6f4b59d6210e0ceb0b30a7280020d63526180cf2fbceafb3a73a42",
+            "width": 1280,
+            "height": 720,
+            "bytes": 1652341
+          },
+          {
+            "path": "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/review-v4-1280x720/HoverWorkshop.png",
+            "sha256": "1531bb87483b3b9da36ad90bc421ac00af9c5a9f5eb72e171b25483641b7bc25",
+            "width": 1280,
+            "height": 720,
+            "bytes": 1641015
+          },
+          {
+            "path": "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/review-v4-1280x720/Inventory.png",
+            "sha256": "c011c3fb258b97ca1191e017becc4a1ddf1b750f4eb1b7ffec06dd1dfb1613ed",
+            "width": 1280,
+            "height": 720,
+            "bytes": 656775
+          },
+          {
+            "path": "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/review-v4-1280x720/Map.png",
+            "sha256": "36bd2db58eae73d43bc62f3851c67c2d33e711d7d3a997dcbe019c143b484685",
+            "width": 1280,
+            "height": 720,
+            "bytes": 343979
+          },
+          {
+            "path": "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/review-v4-1280x720/None.png",
+            "sha256": "96145a5a6974a0a728353bfda58e26afe3b77a44f396b528c748c87ec75a1ea6",
+            "width": 1280,
+            "height": 720,
+            "bytes": 1651892
+          },
+          {
+            "path": "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/review-v4-1280x720/Research.png",
+            "sha256": "5f7408e4471a9b2961c490ff8d558cd445887d812b06f28a219d4e7bf448156c",
+            "width": 1280,
+            "height": 720,
+            "bytes": 575264
+          }
+        ]
+      },
+      {
+        "resolution": [
+          1600,
+          900
+        ],
+        "directory": "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/review-v4-1600x900",
+        "context": "Visible development player; actual full Game backbuffer including IMGUI.\nBackbuffer: 1600 x 900; fullscreen=False; mode=Windowed.\nInterface font: Arial; graphics=Metal; colorSpace=Linear.\nQA switches windows through the same public UI actions; no resources, towers, kills, time jumps or camera changes injected.\nCurrent unaffordable build cards remain disabled; inventory/progression reserves are not implemented mechanics.\nInteraction review warps the player mouse; if native warp does not update Input System position, it queues a pointer-position-only input event. Actual renderer/control path, no UI-state override or mouse clicks. Background input policy restored and pointer restore requested. See hover-pointers.txt.\n",
+        "frames": [
+          {
+            "path": "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/review-v4-1600x900/Construction.png",
+            "sha256": "b08aeb83334d13f5f62a422597cdabe2e4bb54a965904f41809082930f98b48a",
+            "width": 1600,
+            "height": 900,
+            "bytes": 2420332
+          },
+          {
+            "path": "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/review-v4-1600x900/DisabledBuildSelect.png",
+            "sha256": "e39c5c23af7192626c945d8488d2f10583e3745fb8d5c4cff8dea1116eb9fa34",
+            "width": 1600,
+            "height": 900,
+            "bytes": 2420427
+          },
+          {
+            "path": "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/review-v4-1600x900/Hero.png",
+            "sha256": "ab86f28445482756d303b4f86f6c0cedd2c3ff195b17e551f3dd7f395dcad625",
+            "width": 1600,
+            "height": 900,
+            "bytes": 799875
+          },
+          {
+            "path": "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/review-v4-1600x900/HoverBuildSelect.png",
+            "sha256": "fd1d81c10f9dfb928b5bfed723b8a7fa3cc0462a59f5570e00f4f1f188c0e7a5",
+            "width": 1600,
+            "height": 900,
+            "bytes": 2427140
+          },
+          {
+            "path": "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/review-v4-1600x900/HoverBuildTab.png",
+            "sha256": "382e7414df0c48c9fc39b4eee957b5866f13334c11b1a68665507cc8f24d704c",
+            "width": 1600,
+            "height": 900,
+            "bytes": 2428237
+          },
+          {
+            "path": "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/review-v4-1600x900/HoverClose.png",
+            "sha256": "e8cf7ea7b5e596f4965058228c22853975ed2e93e2339ea4e895dc57ebb7f954",
+            "width": 1600,
+            "height": 900,
+            "bytes": 934880
+          },
+          {
+            "path": "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/review-v4-1600x900/HoverMapZoom.png",
+            "sha256": "7298a653fc03e9c4ebdf0115dfab7a05a9dd9cbe7208ddc3fe1f0848a0a87a73",
+            "width": 1600,
+            "height": 900,
+            "bytes": 475082
+          },
+          {
+            "path": "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/review-v4-1600x900/HoverMenu.png",
+            "sha256": "99d8a9750bc9990e35d5fbdafe4dde29237d07af0b2bcfcaaf24090b2cc3d4c6",
+            "width": 1600,
+            "height": 900,
+            "bytes": 2441008
+          },
+          {
+            "path": "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/review-v4-1600x900/HoverWorkshop.png",
+            "sha256": "c8c0dc55b0d5b8e22421118931e7a69418f0bfcffddcb8d47c248b63612f1700",
+            "width": 1600,
+            "height": 900,
+            "bytes": 2427677
+          },
+          {
+            "path": "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/review-v4-1600x900/Inventory.png",
+            "sha256": "99260678513a453f53eec618c1e936dfd14cca3ba185befd0e4e93cd50c98ae1",
+            "width": 1600,
+            "height": 900,
+            "bytes": 934669
+          },
+          {
+            "path": "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/review-v4-1600x900/Map.png",
+            "sha256": "1930058a3d7c20f86f71a10b32ddc85ba00d285ce0ac00265bb29b2be4a4fff9",
+            "width": 1600,
+            "height": 900,
+            "bytes": 473525
+          },
+          {
+            "path": "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/review-v4-1600x900/None.png",
+            "sha256": "864d42911f61f1d99dbe9179b5a688f533489d91dc7ec29701da397f11e14677",
+            "width": 1600,
+            "height": 900,
+            "bytes": 2440680
+          },
+          {
+            "path": "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/review-v4-1600x900/Research.png",
+            "sha256": "06b994c46a81b5c0e55235ad68a24b350c31b34ba7fd0b81b372777253de8e4a",
+            "width": 1600,
+            "height": 900,
+            "bytes": 795706
+          }
+        ]
+      },
+      {
+        "resolution": [
+          1920,
+          1080
+        ],
+        "directory": "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/review-v4-1920x1080",
+        "context": "Visible development player; actual full Game backbuffer including IMGUI.\nBackbuffer: 1920 x 1080; fullscreen=False; mode=Windowed.\nInterface font: Arial; graphics=Metal; colorSpace=Linear.\nQA switches windows through the same public UI actions; no resources, towers, kills, time jumps or camera changes injected.\nCurrent unaffordable build cards remain disabled; inventory/progression reserves are not implemented mechanics.\nInteraction review warps the player mouse; if native warp does not update Input System position, it queues a pointer-position-only input event. Actual renderer/control path, no UI-state override or mouse clicks. Background input policy restored and pointer restore requested. See hover-pointers.txt.\n",
+        "frames": [
+          {
+            "path": "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/review-v4-1920x1080/Construction.png",
+            "sha256": "32697210327139fe3bdb099dcaab549322077af9566d5e1d60ac7d6e3e9bda3e",
+            "width": 1920,
+            "height": 1080,
+            "bytes": 3290298
+          },
+          {
+            "path": "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/review-v4-1920x1080/DisabledBuildSelect.png",
+            "sha256": "f5fba71bb2ebf91399d64526053057a83bdc2681ce58a2d6d302ba49298504c6",
+            "width": 1920,
+            "height": 1080,
+            "bytes": 3290124
+          },
+          {
+            "path": "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/review-v4-1920x1080/Hero.png",
+            "sha256": "223b52ecee1f542d66e80917f0dd8f17b821bfc90c1444428eac270e48c61454",
+            "width": 1920,
+            "height": 1080,
+            "bytes": 1041043
+          },
+          {
+            "path": "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/review-v4-1920x1080/HoverBuildSelect.png",
+            "sha256": "04e66aa0233f73456125d3485c6c6d26df02751e30ca8d46e7c9bf0dcc8653db",
+            "width": 1920,
+            "height": 1080,
+            "bytes": 3303750
+          },
+          {
+            "path": "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/review-v4-1920x1080/HoverBuildTab.png",
+            "sha256": "a576abc749ae64b8f4f74611b856df177071ea96c1fdec3392ea90db2eda6c81",
+            "width": 1920,
+            "height": 1080,
+            "bytes": 3300264
+          },
+          {
+            "path": "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/review-v4-1920x1080/HoverClose.png",
+            "sha256": "03a219fe65be8d27a40ac5a7fddf27c3ac8d8fda081a73dd7d14578c69017706",
+            "width": 1920,
+            "height": 1080,
+            "bytes": 1235417
+          },
+          {
+            "path": "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/review-v4-1920x1080/HoverMapZoom.png",
+            "sha256": "9e566e0bf546dcc4967ad5a18aa477d7b7c45c71f0b58c59d121e83c2ea31314",
+            "width": 1920,
+            "height": 1080,
+            "bytes": 619998
+          },
+          {
+            "path": "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/review-v4-1920x1080/HoverMenu.png",
+            "sha256": "d8e4efca194aeea538b888e720094378fee7cb182b082521d4446ea1a31b4ab0",
+            "width": 1920,
+            "height": 1080,
+            "bytes": 3318414
+          },
+          {
+            "path": "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/review-v4-1920x1080/HoverWorkshop.png",
+            "sha256": "ece362a07f85893a1980e47e8dea690ee42d12335d10456628c6cd5c165954b7",
+            "width": 1920,
+            "height": 1080,
+            "bytes": 3305063
+          },
+          {
+            "path": "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/review-v4-1920x1080/Inventory.png",
+            "sha256": "d6243ba84dcc543a27a3a41e645387ef36717c5f208fcdcabca15f8aae39a77a",
+            "width": 1920,
+            "height": 1080,
+            "bytes": 1235271
+          },
+          {
+            "path": "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/review-v4-1920x1080/Map.png",
+            "sha256": "d9130e3e84c75bb60ac4f34eacd4a9c08f19047328bc6b0dcda8cc72125b0019",
+            "width": 1920,
+            "height": 1080,
+            "bytes": 618113
+          },
+          {
+            "path": "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/review-v4-1920x1080/None.png",
+            "sha256": "775ea1705ea81e9d4091244afb73f7404b6bed6d01451c592cb9c03613f0ea88",
+            "width": 1920,
+            "height": 1080,
+            "bytes": 3318235
+          },
+          {
+            "path": "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/review-v4-1920x1080/Research.png",
+            "sha256": "9ea29c9b0a600da94ee19eb50b244902378d886932e89465f5cb1f938205b12c",
+            "width": 1920,
+            "height": 1080,
+            "bytes": 1032179
+          }
+        ]
+      }
+    ],
+    "method": "Visible development player, ScreenCapture full backbuffer including actual OnGUI; public page actions; seed164032; no resource grants/time jumps/camera changes.",
+    "hover": "Native pointer warp with pointer-position-only Input System fallback, actual renderer/control path; see hover-pointers.txt in each directory. No synthetic click or override of hover flag."
+  },
+  "native_input_smoke": {
+    "result": "Keyboard passed on V3; coordinate mouse automation degraded",
+    "observed": "CUA native I -> P -> Esc -> B -> M -> O -> I, resulting pages/screens observed. World remains visible under B; modal pages cover entire backbuffer.",
+    "keyboard_log": "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/player-native-input.log",
+    "mouse_limitation": "CUA coordinate click returned noWindowsAvailable despite visible keyboard-operable window. Full manual mouse drag/wheel/tab-click playthrough is not claimed.",
+    "final_v4": "Fresh V4 native keyboard I opened Inventory; visible final build left on Inventory at1600x900, with no attributable errors in player-v4-open.log."
+  },
+  "runtime_log_error_matches": {
+    "player-v4-1280x720.log": [],
+    "player-v4-1600x900.log": [],
+    "player-v4-1920x1080.log": []
+  },
+  "editor_environment_note": "Unity licensing refresh reports access token unavailable in batch test/build logs; activation allows both to finish successfully. No new attributable game/font/shader errors found.",
+  "rejected_evidence": [
+    "Initial compile rejected for literal newline in Inventory note; repaired before final tests.",
+    "First Mac run rejected for missing Segoe fallback causing stale text/font warnings; installed single-face Arial selection fixed.",
+    "Second actual frames rejected for washed-out Metal/Linear textures; owned shader/output correction fixed.",
+    "V3 main pages accepted, small HUD hover strengthened for V4. Earlier capture folders are historical/rejected, not current evidence."
+  ],
+  "preservation": {
+    "original_runtime_png_bytes": "Unchanged",
+    "scenes_prefabs_data_meta_packages_settings": "Unchanged",
+    "new_assets_under_Assets": false,
+    "inspector_migration": "None",
+    "protected_tracked_edits": [],
+    "raw_captures_and_builds": "Ignored local output; only five approved concepts and three selected actual review PNGs retained as repository deliverables.",
+    "source_sha256": {
+      "Assets/Stage3/PlayerInterface/Editor/Stage3PlayerInterfaceBuilder.cs": "e5870e6d8b1c93405841147639a5be98b2a1a107bfc61893b616b7d9ea3a13e2",
+      "Assets/Stage3/PlayerInterface/LunarCircularMap.shader": "e15f26963a0bf43cf8d41de5fd3d88a4b35b47afc8ea2cde9108a1039d510073",
+      "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Hero.cs": "b35081f4d3f17b70d64c2c882a4a07ab9cb4483ae1f604ed7a3e2bc6efe95ff4",
+      "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Inventory.cs": "6c16e9f59532659680439fae2a83ffb415b1f30d1ed7979ea39fc39cf9cb5e9d",
+      "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Map.cs": "76fa65c2520dfec59a92ec189b98abaf0c855f6821000401b1cee16d6ce80418",
+      "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Research.cs": "e383ad567a91fe3ecdf2f39b4f443a05ff627b4b9f0795e6f8489b77d2a1feb5",
+      "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.cs": "1db149963ea3f98313a7c2e3c658825cb6ebccca51aa37e00d4b688e7483dc04",
+      "Assets/Stage3/PlayerInterface/Runtime/Stage3InterfaceCapture.cs": "506081110ab790581f9c9c1f06e10a0d1884faffc5c71213a9e09375e0a2e2f7",
+      "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3PlayerInterfaceTests.cs": "eb215430c08858757f3d18a66705007e22e2fd9e41b863ed57dd65e55c3f9078"
+    }
+  },
+  "selected_review_frames": [
+    {
+      "path": "art/review/fullscreen_interface_hud_2026-10-18.png",
+      "sha256": "864d42911f61f1d99dbe9179b5a688f533489d91dc7ec29701da397f11e14677",
+      "width": 1600,
+      "height": 900,
+      "bytes": 2440680
+    },
+    {
+      "path": "art/review/fullscreen_interface_inventory_2026-10-18.png",
+      "sha256": "99260678513a453f53eec618c1e936dfd14cca3ba185befd0e4e93cd50c98ae1",
+      "width": 1600,
+      "height": 900,
+      "bytes": 934669
+    },
+    {
+      "path": "art/review/fullscreen_interface_construction_2026-10-18.png",
+      "sha256": "b08aeb83334d13f5f62a422597cdabe2e4bb54a965904f41809082930f98b48a",
+      "width": 1600,
+      "height": 900,
+      "bytes": 2420332
+    }
+  ],
+  "concept_provenance": "art/source/fullscreen_interface_2026-10-18_generation.json",
+  "limitations": [
+    "Current Windows build/runtime validation degraded: WindowsStandaloneSupport absent. Historical D-068 Windows V4 does not validate D-069.",
+    "Pressed styles code-reviewed; no separate down capture. Physical touch hardware not checked; existing synthetic-touch tests passed.",
+    "Native coordinate-click smoke unavailable as stated; hover is automated pointer-only.",
+    "No Stage 3 external-player gate closure, new gameplay systems or D-062 defeat rewind claimed."
+  ]
+}

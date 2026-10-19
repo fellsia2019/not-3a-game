@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30f0ad1d13e2437d90451000ef6f81ff, type: 3}
+  m_Name: ManualEconomy
+  m_EditorClassIdentifier: Not3A.Stage2.Economy::Not3A.Stage2.Economy.Stage2EconomyCatalog
+  interactionRange: 1.5
+  resources:
+  - resource: 0
+    capacity: 5
+    gatherSeconds: 0.8
+    recoverySeconds: 30
+  - resource: 1
+    capacity: 5
+    gatherSeconds: 0.8
+    recoverySeconds: 30
+  - resource: 2
+    capacity: 5
+    gatherSeconds: 0.8
+    recoverySeconds: 30
+  startingGold: 5
+  goldPerKill: 1
+  enableManualResources: 1
+  manualResources:
+    treeGroups: 72
+    smallDepositsPerKind: 48
+    mediumDepositsPerKind: 24
+    largeDepositsPerKind: 8
+    mediumCapacity: 35
+    largeCapacity: 120
+    treeGroupRadius: 3.6
+    treeSpacing: 1.3
+    groupSpacing: 9
+    depositSpacing: 2.6
+    edgeMargin: 3
+    roadClearance: 3
+    smallHarvestRadius: 0.65
+    mediumHarvestRadius: 1.1
+    largeHarvestRadius: 1.8
+    mineralInteractionRange: 0.35
+    treeInteractionRange: 0.6
+    treeTrunkCollisionRadius: 0.18
+    stoneHarvestRadii:
+    - 0.65
+    - 0.64226186
+    - 0.59970236
+    - 0.5145833
+    - 1.1
+    - 1.0654902
+    - 0.9317647
+    - 0.7807843
+    - 1.8
+    - 1.698
+    - 1.494
+    - 1.188
+    oreHarvestRadii:
+    - 0.65
+    - 0.61114126
+    - 0.5440217
+    - 0.38858694
+    - 1.1
+    - 0.9992674
+    - 0.89853483
+    - 0.67289376
+    - 1.8
+    - 1.6522796
+    - 1.3896656
+    - 0.9191489

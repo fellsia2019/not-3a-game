@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Not3A.Stage2.Defense;
+using Not3A.Stage2.Economy;
 using Not3A.Stage2.Integration;
 using Not3A.Stage2.Map;
 using UnityEngine;
@@ -58,6 +59,9 @@ namespace Not3A.Stage3.VisualPilot
         private Material spritePreviewMaterial, meshPreviewMaterial;
         private Stage2PlacementMark previewFootprint;
         private MaterialPropertyBlock tint;
+        private readonly List<GameObject> manualVisuals = new List<GameObject>();
+        private Vector2 manualHeroStart;
+        private bool manualResourcesReady;
 
         private IEnumerator Start()
         {
@@ -66,6 +70,7 @@ namespace Not3A.Stage3.VisualPilot
             bootstrap = GetComponent<Stage2SceneBootstrap>();
             composition = GetComponent<Stage2GameComposition>();
             if (bootstrap == null || composition == null || !composition.IsInitialized) yield break;
+            manualHeroStart = bootstrap.PlayerMover.transform.position;
             var minimap = GetComponent<Stage2Minimap>();
             if (minimap == null) minimap = gameObject.AddComponent<Stage2Minimap>();
             minimap.Initialize(bootstrap, composition);
@@ -82,6 +87,9 @@ namespace Not3A.Stage3.VisualPilot
                     bootstrap.CameraFollow.BoundCamera, bootstrap.PlayerMover.transform, minimap, RebuildLandscape);
             }
             else { worldTravel?.BindWorld(null); RebuildLandscape(null); }
+            RebuildManualResources();
+            manualResourcesReady = true;
+            RefreshSiteClearances();
             Stage3RoadsideDecoration.Build(bootstrap.MapDefinition,transform,roadsideArt,bootstrap.CameraFollow.BoundCamera,
                 LandscapeClearances());
             HideSprites(bootstrap.PlayerMover.gameObject);
@@ -122,28 +130,6 @@ namespace Not3A.Stage3.VisualPilot
             else
                 Solid(bootstrap.EntranceMarker, "Entrance disc", PrimitiveType.Cylinder,
                     new Vector3(0,0,-.035f), new Vector3(1.05f,.035f,1.05f), entrance);
-            for (var i=0; i<3; i++)
-            {
-                var marker = transform.Find($"{(MapResourceKind)i} Resource Marker");
-                if (marker == null) continue;
-                HideSprites(marker.gameObject);
-                marker.position = (Vector3)composition.Gathering.Economy.WorldPosition((MapResourceKind)i);
-                var model = i == 0 ? woodSourceModel : i == 1 ? stoneSourceModel : metalSourceModel;
-                if (model != null)
-                {
-                    var visual = Instantiate(model, marker, false);
-                    visual.transform.localPosition = new Vector3(0, 0,
-                        GrassSurfaceZ(composition.Gathering.Economy.WorldPosition((MapResourceKind)i)));
-                    var sprite = visual.GetComponent<Stage3ResourceSprite>();
-                    if (sprite != null) sprite.Bind(bootstrap.CameraFollow.BoundCamera);
-                }
-                else
-                    Solid(marker, "Resource scale marker", i == 1 ? PrimitiveType.Sphere : PrimitiveType.Cylinder,
-                        new Vector3(0,0,(i == 1 ? -.32f : -.45f) +
-                            GrassSurfaceZ(composition.Gathering.Economy.WorldPosition((MapResourceKind)i))),
-                        new Vector3(.65f,i == 1 ? .64f : .45f,.65f),
-                        i == 0 ? woodSource : i == 1 ? stoneSource : metalSource);
-            }
             foreach (var tower in FindObjectsByType<Stage2Tower>(FindObjectsSortMode.None)) OnTowerBuilt(tower);
             composition.Building.Defense.Built += OnTowerBuilt;
             gameObject.AddComponent<Stage3CombatPresentation>().Initialize(composition, neutral);
@@ -152,11 +138,89 @@ namespace Not3A.Stage3.VisualPilot
             Debug.Log("S3_TACTICAL_VIEW_READY elevation=55 planarGrid=true heightAxis=-Z");
         }
 
+        private void RebuildManualResources()
+        {
+            GetComponent<Stage3ManualResourceCollisions>()?.ClearBindings();
+            var interactionMarker = GetComponent<Stage3ResourceInteractionMarker>();
+            if (interactionMarker == null) interactionMarker = gameObject.AddComponent<Stage3ResourceInteractionMarker>();
+            interactionMarker.ClearBindings();
+            interactionMarker.Bind(bootstrap.CameraFollow.BoundCamera, composition.Gathering);
+            var economy = composition.Gathering.Economy;
+            var districtWorld = GetComponent<Stage3ResourceDistrictWorld>();
+            if (composition.Gathering.Catalog.ManualResources != null)
+            {
+                bool Excluded(Vector2 point, float radius)
+                {
+                    if (Vector2.Distance(point, manualHeroStart) < 4f + radius ||
+                        Vector2.Distance(point, bootstrap.EntranceMarker.position) < 5f + radius ||
+                        Vector2.Distance(point, bootstrap.ThroneMarker.position) < 5f + radius) return true;
+                    for (var i = 0; i < 3; i++)
+                        if (Vector2.Distance(point, economy.WorldPosition((MapResourceKind)i)) < 3f + radius) return true;
+                    if (worldTravel != null)
+                        foreach (var site in worldTravel.SitePositions)
+                            if (Vector2.Distance(point, site) < 4f + radius) return true;
+                    if (districtWorld?.Districts != null)
+                        foreach (var district in districtWorld.Districts)
+                        {
+                            var bounds = district.Bounds;
+                            if (point.x >= bounds.xMin - radius - 2f && point.x <= bounds.xMax + radius + 2f &&
+                                point.y >= bounds.yMin - radius - 2f && point.y <= bounds.yMax + radius + 2f) return true;
+                        }
+                    return districtWorld?.Obstacles?.IsBlocked(point, radius + .4f) ?? false;
+                }
+                var additional = Stage2ManualResourceGenerator.Generate(bootstrap.MapDefinition,
+                    composition.Gathering.Catalog, districtWorld != null ? districtWorld.Seed : 164032, Excluded);
+                economy.ReplaceAdditionalNodes(additional);
+            }
+            foreach (var visual in manualVisuals)
+                if (visual != null) { visual.SetActive(false); Destroy(visual); }
+            manualVisuals.Clear();
+            foreach (var node in economy.Nodes)
+            {
+                var i = (int)node.Resource;
+                var primary = node == economy.GetNode(node.Resource);
+                var marker = primary ? transform.Find($"{node.Resource} Resource Marker") : null;
+                if (marker != null) HideSprites(marker.gameObject);
+                var root = new GameObject($"Manual {node.Resource} {node.Size} stock {node.Capacity} group {node.GroupId}");
+                root.transform.SetParent(marker != null ? marker : transform, false);
+                root.transform.position = new Vector3(node.WorldPosition.x, node.WorldPosition.y, GrassSurfaceZ(node.WorldPosition));
+                manualVisuals.Add(root);
+                var model = i == 0 ? woodSourceModel : i == 1 ? stoneSourceModel : metalSourceModel;
+                if (model != null)
+                {
+                    var visual = Instantiate(model, root.transform, false);
+                    var sprite = visual.GetComponent<Stage3ResourceSprite>();
+                    if (sprite != null)
+                    {
+                        sprite.Bind(bootstrap.CameraFollow.BoundCamera, node, bootstrap.PlayerMover.transform);
+                        interactionMarker.Register(sprite);
+                    }
+                }
+                else
+                    Solid(root.transform, "Resource scale marker", i == 1 ? PrimitiveType.Sphere : PrimitiveType.Cylinder,
+                        new Vector3(0,0,i == 1 ? -.32f : -.45f),
+                        new Vector3(.65f,i == 1 ? .64f : .45f,.65f),
+                        i == 0 ? woodSource : i == 1 ? stoneSource : metalSource);
+            }
+            var manualSettings = composition.Gathering.Catalog.ManualResources;
+            if (manualSettings != null)
+            {
+                var obstacles = districtWorld?.Obstacles ?? bootstrap.PlayerMover.Obstacles ?? new HeroObstacleMap();
+                var collisions = GetComponent<Stage3ManualResourceCollisions>();
+                if (collisions == null) collisions = gameObject.AddComponent<Stage3ManualResourceCollisions>();
+                collisions.Bind(economy, obstacles, bootstrap.PlayerMover, manualSettings.treeTrunkCollisionRadius);
+                if (!ReferenceEquals(bootstrap.PlayerMover.Obstacles, obstacles))
+                    bootstrap.PlayerMover.BindObstacles(obstacles, bootstrap.PlayerMover.CollisionRadius);
+            }
+            Debug.Log($"S3_MANUAL_RESOURCES_READY nodes={economy.Nodes.Count} seed={districtWorld?.Seed ?? 164032}");
+        }
+
         private void RebuildLandscape(IReadOnlyList<ResourceDistrict> districts)
         {
             ReleaseSurface();
             BuildSurface(districts);
             BuildConstructionGrid();
+            if (manualResourcesReady) RebuildManualResources();
             Stage3LandscapeProps.Clear(transform);
             BuildSiteProps(districts);
         }
@@ -175,10 +239,8 @@ namespace Not3A.Stage3.VisualPilot
 
         private Vector2[] LandscapeClearances()
         {
-            var points = new List<Vector2> { bootstrap.EntranceMarker.position, bootstrap.ThroneMarker.position,
-                composition.Gathering.Economy.WorldPosition(MapResourceKind.Wood),
-                composition.Gathering.Economy.WorldPosition(MapResourceKind.Stone),
-                composition.Gathering.Economy.WorldPosition(MapResourceKind.Metal) };
+            var points = new List<Vector2> { bootstrap.EntranceMarker.position, bootstrap.ThroneMarker.position };
+            foreach (var node in composition.Gathering.Economy.Nodes) points.Add(node.WorldPosition);
             if (worldTravel != null)
                 foreach (var point in worldTravel.SitePositions)
                 {

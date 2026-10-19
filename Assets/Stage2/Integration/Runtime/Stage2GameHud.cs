@@ -537,17 +537,10 @@ namespace Not3A.Stage2.Integration
             if (!string.IsNullOrEmpty(WorldInteractionHint))
                 return DebugPaused ? "Игра на паузе · продолжить в дебаг-меню" : WorldInteractionHint;
             var economy = game.Gathering.Economy;
-            var best = game.Gathering.Catalog.InteractionRange;
-            var result = "";
             var names = new[] { "дерево", "камень", "металл" };
-            for (var i = 0; i < 3; i++)
-            {
-                var kind = (MapResourceKind)i;
-                var distance = Vector2.Distance(economy.WorldPosition(kind), scene.PlayerMover.transform.position);
-                if (economy.GetNode(kind).IsDepleted || distance > best) continue;
-                best = distance;
-                result = $"Удерживайте E · добывать {names[i]}";
-            }
+            var node = game.Gathering.GatheringNode ?? economy.NearestAvailableNode(scene.PlayerMover.transform.position);
+            var result = node == null || node.IsDepleted ? "" :
+                $"Удерживайте E · добывать {names[(int)node.Resource]} · {node.Remaining}/{node.Capacity}";
             return DebugPaused ? "Игра на паузе · продолжить в дебаг-меню" : result;
         }
 

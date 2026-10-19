@@ -16,6 +16,16 @@ the existing HUD, menu tests, generated source artwork and canonical docs.
 Dependencies: accepted D-057 landmarks/locked points, shared inventory,
 Preparation/Wave run state and existing tower placement.
 
+## D-070 correction, 2026-10-18
+
+The owner explicitly removed the inner dashed pad safe border. Only the
+outer clearance outline and existing glyph remain visible; the 12% internal
+layout margins, real reservation/footprint and placement rules are unchanged.
+This supersedes D-060's visible dashed border, without new icon artwork.
+Production and landmark PNGs retain their original bytes. Dedicated world
+images use mipmaps/trilinear sampling for zoom; original atlas gutters and
+hero animation assets are not changed by this correction.
+
 ## Accepted intent
 
 The owner accepted the D-057 landmark appearance and requested three matching

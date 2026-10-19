@@ -158,7 +158,8 @@ namespace Not3A.Stage3.VisualPilot.Editor
             importer.spriteImportMode = SpriteImportMode.Single;
             importer.spritePixelsPerUnit = 1536f / 18f;
             importer.alphaIsTransparency = true; importer.isReadable = true;
-            importer.mipmapEnabled = false; importer.filterMode = FilterMode.Bilinear;
+            // Single-image world art needs prefiltered minification across the tactical zoom range.
+            importer.mipmapEnabled = true; importer.filterMode = FilterMode.Trilinear;
             importer.maxTextureSize = 2048; importer.textureCompression = TextureImporterCompression.Uncompressed;
             var settings = new TextureImporterSettings(); importer.ReadTextureSettings(settings);
             settings.spriteAlignment = (int)SpriteAlignment.Custom;

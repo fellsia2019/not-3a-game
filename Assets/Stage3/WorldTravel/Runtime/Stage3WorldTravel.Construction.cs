@@ -82,8 +82,9 @@ namespace Not3A.Stage3.VisualPilot
                 DistanceTo(area, RemotePosition) <= data.circleDiameter * .5f ||
                 DistanceTo(area, scene.ThroneMarker.position) <= data.siteClearance ||
                 DistanceTo(area, scene.EntranceMarker.position) <= data.siteClearance) return WorkshopPlacementResult.Occupied;
-            for (var i = 0; i < 3; i++)
-                if (DistanceTo(area, game.Gathering.Economy.WorldPosition((MapResourceKind)i)) <= data.siteClearance)
+            foreach (var node in game.Gathering.Economy.Nodes)
+                if (DistanceTo(area, node.WorldPosition) <= (node == game.Gathering.Economy.GetNode(node.Resource) ?
+                        data.siteClearance : node.HarvestRadius + .5f))
                     return WorkshopPlacementResult.Occupied;
             // Keep the front interaction point reachable after construction.
             var approach = point + Vector2.down * (data.workshopFootprint.y * .5f + scene.PlayerMover.CollisionRadius + .25f);

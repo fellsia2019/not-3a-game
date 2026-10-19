@@ -1,0 +1,686 @@
+{
+  "date": "2026-10-18",
+  "decision": "D-071",
+  "authorization": "Owner approved all six concept sheets and in-game implementation; ordinary trees spawn in random nearby groups of 1–8, without rows, and no further tree sketch.",
+  "generator": "Built-in image_gen",
+  "rights": "Only original project artwork and approved generated concepts used as input. Selected production PNGs are copied unchanged into art/source and Assets; no external reference image pixels.",
+  "status": "Implemented and accepted by Astra actual-player review; owner-approved concepts and tree correction preserved",
+  "history": [
+    {
+      "name": "stone_states",
+      "refs": [
+        "/Users/artemmusket/game-dev/not-3a-game/art/concepts/manual_resources_motion_2026-10-18/stone_sizes_depletion_v1.png",
+        "/Users/artemmusket/game-dev/not-3a-game/Assets/Stage3/ResourceSpritePilot/StoneGranite.png"
+      ],
+      "prompt": "Use case: stylized-concept. Asset type: production Unity isometric sprite atlas on a genuinely transparent RGBA background. Use the supplied owned game artwork as the identity/style reference. Preserve soft dimensional cartoon fantasy shading, clean dark contours, fixed orthographic elevated camera, light from upper left. No labels, text, panel borders, grid lines, scenery, checkerboard paint, ambient shadow plane or cream paper. Every subject fully visible with generous transparent gutters. This is production art derived from owner-approved concepts. Make exactly 12 isolated pale granite resource deposits in a regular FOUR columns by THREE rows atlas. Each cell equal size. Row1 SMALL, row2 MEDIUM, row3 LARGE. Columns are full/75percent/50percent/15percent reserve. Preserve recognizable coherent base and progressively remove upper chunks, exposing fractured pale surfaces. Within each row use a common groundline, center, perspective and constant pixel-to-world scale: the depleted pile really becomes shorter/smaller; never enlarge depleted piles to fill their cells. Across rows full deposits have widths approximately .8,1.35,2.25 units on one common scale. Largest row fits all four columns without cropping. Same natural granite palette as reference; no moss, metal or vegetation. Output wide landscape sheet.",
+      "mode": "built-in image_gen",
+      "transparent_background": true,
+      "output": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-b99c565b-8e09-4c7a-98e3-a6bfba4ba35a.png",
+      "selected": true,
+      "references": [
+        {
+          "path": "art/concepts/manual_resources_motion_2026-10-18/stone_sizes_depletion_v1.png",
+          "sha256": "c8d36482b3b636821e3e9c130a0025a269314b4010788b7a7267b4dca442d1d2"
+        },
+        {
+          "path": "Assets/Stage3/ResourceSpritePilot/StoneGranite.png",
+          "sha256": "64deef8c4903cea5f74ea6aaff68f9526bb6cb558fe86463057e72507350312d"
+        }
+      ]
+    },
+    {
+      "name": "ore_states",
+      "refs": [
+        "/Users/artemmusket/game-dev/not-3a-game/art/concepts/manual_resources_motion_2026-10-18/ore_sizes_depletion_v2.png",
+        "/Users/artemmusket/game-dev/not-3a-game/Assets/Stage3/ResourceSpritePilot/IronOre.png"
+      ],
+      "prompt": "Use case: stylized-concept. Asset type: production Unity isometric sprite atlas on a genuinely transparent RGBA background. Use the supplied owned game artwork as the identity/style reference. Preserve soft dimensional cartoon fantasy shading, clean dark contours, fixed orthographic elevated camera, light from upper left. No labels, text, panel borders, grid lines, scenery, checkerboard paint, ambient shadow plane or cream paper. Every subject fully visible with generous transparent gutters. This is production art derived from owner-approved concepts. Make exactly 12 isolated IRON ORE deposits in a regular FOUR columns by THREE rows atlas. Each cell equal size. Row1 SMALL, row2 MEDIUM, row3 LARGE. Columns full/75percent/50percent/15percent reserve. Dark slate grey rock with MATTE earthy rust-brown iron veins, matching the approved first reference. No glow, lava, molten metal, gold, copper shine or magical ore. Within EACH row constant groundline/center/perspective/pixel-to-world scale; progressively removed upper mass means genuinely smaller residual chunks, NOT scaled back up to fill cell. Across rows full widths .8/1.35/2.25 units on same scale. Large row fully fits cells. Coherent fractured residual deposits; no trees or labels. Output wide landscape sheet.",
+      "mode": "built-in image_gen",
+      "transparent_background": true,
+      "output": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-32ddda4d-c70c-45b3-8536-f8a9ee90af54.png",
+      "selected": true,
+      "references": [
+        {
+          "path": "art/concepts/manual_resources_motion_2026-10-18/ore_sizes_depletion_v2.png",
+          "sha256": "b720062b5411111ea09186a1cfa3bcde5d19f13dd2b29f1539559fbbc3dbd718"
+        },
+        {
+          "path": "Assets/Stage3/ResourceSpritePilot/IronOre.png",
+          "sha256": "71c904fd6abead6bf7f342ea0b7569f1966a8029f43706319b13175ca4333589"
+        }
+      ]
+    },
+    {
+      "name": "ordinary_tree",
+      "refs": [
+        "/Users/artemmusket/game-dev/not-3a-game/Assets/Stage3/ResourceSpritePilot/WoodConifer.png",
+        "/Users/artemmusket/game-dev/not-3a-game/art/concepts/manual_resources_motion_2026-10-18/tree_groups_v3.png"
+      ],
+      "prompt": "Use case: stylized-concept. Asset type: production Unity isometric sprite atlas on a genuinely transparent RGBA background. Use the supplied owned game artwork as the identity/style reference. Preserve soft dimensional cartoon fantasy shading, clean dark contours, fixed orthographic elevated camera, light from upper left. No labels, text, panel borders, grid lines, scenery, checkerboard paint, ambient shadow plane or cream paper. Every subject fully visible with generous transparent gutters. This is production art derived from owner-approved concepts. Produce ONE isolated ordinary conifer tree, exactly one tree, matching the existing original tree in image1 and the ordinary conifers in image2. Full trunk, roots and crown; a normal tree, not a forest cluster or giant. Rich layered green needles, softly dimensional readable cartoon silhouette, brown trunk visible beneath crown, grounded root base. No cast ground ellipse or ground plane, no companion tree, no rocks, no labels or numbers. Keep transparent outside the full tree silhouette. Portrait composition.",
+      "mode": "built-in image_gen",
+      "transparent_background": true,
+      "output": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-db604b53-7290-4d80-8aac-34aa447bb47e.png",
+      "selected": true,
+      "references": [
+        {
+          "path": "Assets/Stage3/ResourceSpritePilot/WoodConifer.png",
+          "sha256": "b3408f40cd015436144226599a4e2d3e0e3154e7cf476e96d1a67b7fd56a0542"
+        },
+        {
+          "path": "art/concepts/manual_resources_motion_2026-10-18/tree_groups_v3.png",
+          "sha256": "99035433049f98f8d28dee07c3269b0516c4770e773f1538c10afdda4255f9c6"
+        }
+      ]
+    },
+    {
+      "name": "hero_walk",
+      "refs": [
+        "/Users/artemmusket/game-dev/not-3a-game/Assets/Stage3/DayNight/HeroCBody.png",
+        "/Users/artemmusket/game-dev/not-3a-game/art/concepts/manual_resources_motion_2026-10-18/hero_motion_keyposes_v4.png"
+      ],
+      "prompt": "Use case: stylized-concept. Asset type: production Unity isometric sprite atlas on a genuinely transparent RGBA background. Use the supplied owned game artwork as the identity/style reference. Preserve soft dimensional cartoon fantasy shading, clean dark contours, fixed orthographic elevated camera, light from upper left. No labels, text, panel borders, grid lines, scenery, checkerboard paint, ambient shadow plane or cream paper. Every subject fully visible with generous transparent gutters. This is production art derived from owner-approved concepts. Make a complete HERO C WALK atlas: exactly EIGHT columns by FOUR rows, 32 individual full-body figures. Uniform equal cells and ample gutters. Row0 faces screen-right three-quarter, row1 directly away/back view, row2 screen-left three-quarter, row3 toward camera/front view. Keep ONE direction throughout each row, never turn within a row. Each row is ONE full alternating walk stride in eight DISTINCT phases: left-contact, down, passing, up, right-contact, down, passing, up. Opposite leg must take lead in phase5. Natural weight transfer, opposing arm swing and restrained torso counter-rotation, planted contact feet, no running, no jumping, no sliding or duplicate standing poses. Same exact adventurer man from image1: tied dark hair, short beard, blue embroidered travel tunic/scarf, cream sleeves, olive trousers, brown gloves/bracers/belt/boots and modest rolled backpack. Empty hands, NO tools/bow/weapons. Body scale, head size, limb lengths, clothing and footbaseline CONSTANT in every cell across all rows. Source atlas image1 has only4frames per direction; this output adds true intermediate/alternating phases rather than repeats. Wide landscape high-resolution atlas, prefer 3072x2048 if available. Every8x4cell contains exactly one full character with equal margins.",
+      "mode": "built-in image_gen",
+      "transparent_background": true,
+      "output": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-1ceb82e7-232d-4ca9-bbb6-9b36b0aadd9e.png",
+      "selected": false,
+      "references": [
+        {
+          "path": "Assets/Stage3/DayNight/HeroCBody.png",
+          "sha256": "525e1c06c3df2a21e5de717de2041db9221a2cc1c130e447cfaa27ffda19bc3c"
+        },
+        {
+          "path": "art/concepts/manual_resources_motion_2026-10-18/hero_motion_keyposes_v4.png",
+          "sha256": "7415f64de7716ccf410aea979466a5e187af0de9dae4142882d312af6678325f"
+        }
+      ]
+    },
+    {
+      "name": "skeleton_walk",
+      "refs": [
+        "/Users/artemmusket/game-dev/not-3a-game/Assets/Stage3/SkeletonSpritePilot/SkeletonWalk.png",
+        "/Users/artemmusket/game-dev/not-3a-game/art/concepts/manual_resources_motion_2026-10-18/skeleton_walk_keyposes_v2.png"
+      ],
+      "prompt": "Use case: stylized-concept. Asset type: production Unity isometric sprite atlas on a genuinely transparent RGBA background. Use the supplied owned game artwork as the identity/style reference. Preserve soft dimensional cartoon fantasy shading, clean dark contours, fixed orthographic elevated camera, light from upper left. No labels, text, panel borders, grid lines, scenery, checkerboard paint, ambient shadow plane or cream paper. Every subject fully visible with generous transparent gutters. This is production art derived from owner-approved concepts. Make a complete SKELETON WALK atlas: exactly EIGHT columns by FOUR rows, 32 full-body figures, uniform equal cells. Row0 screen-right three-quarter, row1 away/back, row2 screen-left three-quarter, row3 toward/front. Constant direction within each row. Each row full walking stride with eight DISTINCT phases: left-contact/down/passing/up/right-contact/down/passing/up. Phase5 reverses leading leg. Contact feet wider apart than passing feet. Natural restrained articulated bone movement, opposing arm swing and subtle pelvis/shoulder rotation, no rubber bones, no duplicates, running or jumping. EXACT skeleton identity from reference1: ivory bones, rounded skull, dark eye sockets with small red eyes, ragged dark teal short tunic, plain brown belt/gold buckle, no weapon. Identical skull/limb lengths/scale/outfit/footbaseline in all32cells. More coherent intermediate poses than the original six-frame set. Wide landscape high-resolution atlas, prefer3072x2048 if available. No labels, text, shadows or scene.",
+      "mode": "built-in image_gen",
+      "transparent_background": true,
+      "output": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-207eee36-6637-47f7-93e8-133892227c73.png",
+      "selected": false,
+      "references": [
+        {
+          "path": "Assets/Stage3/SkeletonSpritePilot/SkeletonWalk.png",
+          "sha256": "2f42a376ee244f9c795f964507aa705da39d991bc76aefbe6af42e1c75e1d31b"
+        },
+        {
+          "path": "art/concepts/manual_resources_motion_2026-10-18/skeleton_walk_keyposes_v2.png",
+          "sha256": "007e59c1548b69e8e3921cfa58e2ad8236823760fd777a1693fef9d1d3b517a3"
+        }
+      ]
+    },
+    {
+      "name": "hero_axe_work",
+      "refs": [
+        "/Users/artemmusket/game-dev/not-3a-game/Assets/Stage3/DayNight/HeroCIdle.png",
+        "/Users/artemmusket/game-dev/not-3a-game/art/concepts/manual_resources_motion_2026-10-18/axe_pickaxe_equipment_v2.png",
+        "/Users/artemmusket/game-dev/not-3a-game/art/concepts/manual_resources_motion_2026-10-18/hero_motion_keyposes_v4.png"
+      ],
+      "prompt": "Use case: stylized-concept. Asset type: production Unity isometric sprite atlas on a genuinely transparent RGBA background. Use the supplied owned game artwork as the identity/style reference. Preserve soft dimensional cartoon fantasy shading, clean dark contours, fixed orthographic elevated camera, light from upper left. No labels, text, panel borders, grid lines, scenery, checkerboard paint, ambient shadow plane or cream paper. Every subject fully visible with generous transparent gutters. This is production art derived from owner-approved concepts. Make HERO C AXE CHOPPING production atlas, exactly SIX columns by FOUR rows. Row0 screen-right3/4, row1 away/back, row2 screen-left3/4, row3 toward/front; consistent direction throughout each row. Columns six coherent ordered poses: neutral two-hand ready grip, early backswing, full raised windup, downstroke at contact point in front of hero, physical follow-through, recovery toward ready. Exactly24 full-body characters, common body size/footbaseline/registered root and generous gutters; all tools/heads/feet fully inside own equal cells. Preserve exact Hero C outfit/man/backpack from first reference. A single practical wood-and-matte-steel AXE included IN EACH figure, stable two-handed grip, same hand order/handle length/head shape throughout. Natural weight shift and torso rotation with planted boots, no extra arms, floating tool or morphing axe. No pickaxe/bow, no resource target/trunk, no impact debris/trails or ground shadow. Body scale and direction registration correspond to provided idle/walk art. Wide landscape high-resolution atlas.",
+      "mode": "built-in image_gen",
+      "transparent_background": true,
+      "output": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-e0672e7c-cf6c-4f31-bb7c-8d7e1057c19e.png",
+      "selected": false,
+      "references": [
+        {
+          "path": "Assets/Stage3/DayNight/HeroCIdle.png",
+          "sha256": "cf81a7fd758ae22a299a01d953523cad883a5861f363d059b6349d71fb53252a"
+        },
+        {
+          "path": "art/concepts/manual_resources_motion_2026-10-18/axe_pickaxe_equipment_v2.png",
+          "sha256": "b41156c00aeecfbe591b3f0aa213e9b6fd4970a25f8e5ed3b984a6e36c525f84"
+        },
+        {
+          "path": "art/concepts/manual_resources_motion_2026-10-18/hero_motion_keyposes_v4.png",
+          "sha256": "7415f64de7716ccf410aea979466a5e187af0de9dae4142882d312af6678325f"
+        }
+      ]
+    },
+    {
+      "name": "hero_pick_work",
+      "refs": [
+        "/Users/artemmusket/game-dev/not-3a-game/Assets/Stage3/DayNight/HeroCIdle.png",
+        "/Users/artemmusket/game-dev/not-3a-game/art/concepts/manual_resources_motion_2026-10-18/axe_pickaxe_equipment_v2.png",
+        "/Users/artemmusket/game-dev/not-3a-game/art/concepts/manual_resources_motion_2026-10-18/hero_motion_keyposes_v4.png"
+      ],
+      "prompt": "Use case: stylized-concept. Asset type: production Unity isometric sprite atlas on a genuinely transparent RGBA background. Use the supplied owned game artwork as the identity/style reference. Preserve soft dimensional cartoon fantasy shading, clean dark contours, fixed orthographic elevated camera, light from upper left. No labels, text, panel borders, grid lines, scenery, checkerboard paint, ambient shadow plane or cream paper. Every subject fully visible with generous transparent gutters. This is production art derived from owner-approved concepts. Make HERO C MINING production atlas, exactly SIX columns by FOUR rows. Row0 screen-right3/4, row1 away/back, row2 screen-left3/4, row3 toward/front, consistent direction throughout each row. Columns six coherent ordered poses: neutral two-hand ready grip, early backswing, full raised windup, downstroke with pick contact in front of hero, physical follow-through, recovery toward ready. Exactly24 full-body figures, common body size/footbaseline/registered root and generous transparent gutters, all tools/feet inside own equal cells. Preserve exact Hero C man/outfit/backpack from first image. ONE consistent two-handed practical PICKAXE included in each figure: brown wood handle, matte steel ASYMMETRIC head with ONE LONG CURVED POINT and ONE SHORT FLAT ADZE; not a two-point anchor, axe or hammer. Same head in EVERY view/pose, correct perspective, stable grip and hand order, no extra arms/floating/morphing parts. Natural torso rotation and weight transfer, boots planted. No bow, resource rock/target, debris, trails or ground shadow. Match supplied hero scale/identity and approved tool. Wide landscape high-resolution atlas.",
+      "mode": "built-in image_gen",
+      "transparent_background": true,
+      "output": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-8572f42d-2dd9-4886-a99b-6dd5347e5813.png",
+      "selected": false,
+      "references": [
+        {
+          "path": "Assets/Stage3/DayNight/HeroCIdle.png",
+          "sha256": "cf81a7fd758ae22a299a01d953523cad883a5861f363d059b6349d71fb53252a"
+        },
+        {
+          "path": "art/concepts/manual_resources_motion_2026-10-18/axe_pickaxe_equipment_v2.png",
+          "sha256": "b41156c00aeecfbe591b3f0aa213e9b6fd4970a25f8e5ed3b984a6e36c525f84"
+        },
+        {
+          "path": "art/concepts/manual_resources_motion_2026-10-18/hero_motion_keyposes_v4.png",
+          "sha256": "7415f64de7716ccf410aea979466a5e187af0de9dae4142882d312af6678325f"
+        }
+      ]
+    },
+    {
+      "name": "skeleton_walk_v2",
+      "prompt": "Use case: precise-object-edit. Correct this production skeleton atlas. It currently has only SEVEN figures per row. Recompose to EXACTLY EIGHT equal columns by FOUR rows = THIRTY TWO full-body skeletons. Count8 in EACH row. Keep same accepted skeleton, ivory bones, teal ragged tunic, red eyes, belt, exact body scale and soft cartoon shading. Genuinely transparent RGBA background, zero alpha between figures; no brown/cream background or shadow cloud. Row1 fixed right-three-quarter view, row2 fixed straight back, row3 fixed left-three-quarter, row4 fixed straight front. Every row a complete full walking stride at 8 ordered phases: LEFT foot forward contact, down onto left foot, RIGHT foot passes planted left foot, right foot swings forward/up, RIGHT foot forward contact, down onto right foot, LEFT foot passes planted right foot, left foot swings forward/up. Narrow passing silhouettes must alternate with wider contacts. RIGHT and LEFT legs must alternate leads; no repeating same-leg contact or copying first4 as last4. Keep actual bone lengths/skull dimensions/foot size constant. Uniform cell widths/heights, generous gutters, full toes and hands inside each cell. Same root center and groundline per cell. NO text/numbers/grid/scenery/weapons, NO eighth column missing. WIDE landscape atlas; fit exactly8 across even if each figure must be slightly smaller.",
+      "refs": [
+        "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-207eee36-6637-47f7-93e8-133892227c73.png"
+      ],
+      "mode": "built-in image_gen",
+      "transparent_background": true,
+      "output": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-be77f394-df60-4167-ac82-5945d3e61e4b.png",
+      "selected": false,
+      "references": [
+        {
+          "path": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-207eee36-6637-47f7-93e8-133892227c73.png",
+          "sha256": "1f482a24a20262e6e61c5da553553533c9952e29f6b0c595bd68e0b627823ecb"
+        }
+      ]
+    },
+    {
+      "name": "hero_walk_right_v2",
+      "refs": [
+        "/Users/artemmusket/game-dev/not-3a-game/Assets/Stage3/DayNight/HeroCIdle.png"
+      ],
+      "prompt": "Use case: stylized-concept. Preserve EXACT adventurer identity and outfit in the reference: tied dark hair, short beard, blue embroidered travelling tunic/scarf, cream sleeves, olive trousers, brown leather gloves/bracers/boots/belt, modest rolled backpack. Neutral empty hands, no bow/tools/weapons. This is a production isometric WALK animation sprite sheet, not decorative pose variants. EXACTLY EIGHT full-body characters arranged in TWO rows of FOUR equal cells: phases1,2,3,4 top and5,6,7,8 bottom. All EIGHT face a fixed screen-RIGHT three-quarter direction, elevated orthographic game camera35degrees, same scale, root center, body proportions and foot baseline in every cell. Natural full alternating gait at walking speed. Phase1: anatomical LEFT heel extended forward/right onground, RIGHT leg stretched behind. Phase2: body weight sinks onto LEFT foot, RIGHT heel lifts behind. Phase3: narrow PASSING pose, LEFT foot planted beneath hips, RIGHT knee bends and swings forward past it, both feet near each other in screenx. Phase4: LEFT heel rises, RIGHT leg reaches forward. Phase5: opposite wide contact, anatomical RIGHT heel extended forward onground, LEFT leg behind. Phase6: bodyweight sinks onto RIGHT foot, LEFT heel lifts behind. Phase7: opposite narrow PASSING, RIGHT foot beneath hips, LEFT knee bends and swings forward past it, feet near eachother. Phase8: RIGHT heel rises, LEFT leg reaches forward. Top-left and bottom-left lead DIFFERENT legs; top phase3 and bottom phase7 are obvious narrow passing poses, NOT wide contact poses. All phases must differ meaningfully and connect into loop8->1. Opposite arm swings, restrained torso/pelvis counter-rotation, keep bone lengths constant. No jumps, running, skating, motionblur, duplicateposes or copied first4aslast4. Transparent RGBA outside silhouettes; no text, numbers, cell outlines, props, ground/shadows or colored backdrop. Generous equal gutters and entire hands/feet fullyvisible. Soft dimensional cartoon fantasy rendering and upper-left light like reference. Square highresolution atlas.",
+      "mode": "built-in image_gen",
+      "transparent_background": true,
+      "output": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-1a305fed-61cd-4442-977e-9a66a16a1cee.png",
+      "selected": false,
+      "references": [
+        {
+          "path": "Assets/Stage3/DayNight/HeroCIdle.png",
+          "sha256": "cf81a7fd758ae22a299a01d953523cad883a5861f363d059b6349d71fb53252a"
+        }
+      ]
+    },
+    {
+      "name": "skeleton_walk_right_v3",
+      "refs": [
+        "/Users/artemmusket/game-dev/not-3a-game/Assets/Stage3/SkeletonSpritePilot/SkeletonWalk.png"
+      ],
+      "prompt": "Use case: stylized-concept. Preserve EXACT skeleton in reference: ivorybones, rounded skull, dark eyesockets/smallred eyes, ragged dark teal shorttunic, brownbelt/goldbuckle, normaltwoarms/twolegs. No weapon. This is a production isometric WALK animation sprite sheet, not decorative pose variants. EXACTLY EIGHT full-body characters arranged in TWO rows of FOUR equal cells: phases1,2,3,4 top and5,6,7,8 bottom. All EIGHT face a fixed screen-RIGHT three-quarter direction, elevated orthographic game camera35degrees, same scale, root center, body proportions and foot baseline in every cell. Natural full alternating gait at walking speed. Phase1: anatomical LEFT heel extended forward/right onground, RIGHT leg stretched behind. Phase2: body weight sinks onto LEFT foot, RIGHT heel lifts behind. Phase3: narrow PASSING pose, LEFT foot planted beneath hips, RIGHT knee bends and swings forward past it, both feet near each other in screenx. Phase4: LEFT heel rises, RIGHT leg reaches forward. Phase5: opposite wide contact, anatomical RIGHT heel extended forward onground, LEFT leg behind. Phase6: bodyweight sinks onto RIGHT foot, LEFT heel lifts behind. Phase7: opposite narrow PASSING, RIGHT foot beneath hips, LEFT knee bends and swings forward past it, feet near eachother. Phase8: RIGHT heel rises, LEFT leg reaches forward. Top-left and bottom-left lead DIFFERENT legs; top phase3 and bottom phase7 are obvious narrow passing poses, NOT wide contact poses. All phases must differ meaningfully and connect into loop8->1. Opposite arm swings, restrained torso/pelvis counter-rotation, keep bone lengths constant. No jumps, running, skating, motionblur, duplicateposes or copied first4aslast4. Transparent RGBA outside silhouettes; no text, numbers, cell outlines, props, ground/shadows or colored backdrop. Generous equal gutters and entire hands/feet fullyvisible. Soft dimensional cartoon fantasy rendering and upper-left light like reference. Square highresolution atlas.",
+      "mode": "built-in image_gen",
+      "transparent_background": true,
+      "output": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-a6078444-8c77-444f-9207-7b73d3deda68.png",
+      "selected": false,
+      "references": [
+        {
+          "path": "Assets/Stage3/SkeletonSpritePilot/SkeletonWalk.png",
+          "sha256": "2f42a376ee244f9c795f964507aa705da39d991bc76aefbe6af42e1c75e1d31b"
+        }
+      ]
+    },
+    {
+      "name": "hero_axe_work_v2",
+      "refs": [
+        "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-e0672e7c-cf6c-4f31-bb7c-8d7e1057c19e.png"
+      ],
+      "prompt": "Use case: precise-object-edit. Correct ONLY viewpoint consistency of this six-column four-row HERO C axe-work atlas. Preserve exact character, clothing, axe, twohandgrip, sixphase action, equalcelllayout, body scale/footbaseline and tools fullyinsidecells. Row1 all six face screen-right3/4. Row2 ALL SIX are strictly BACK VIEW, camera sees backpack/back of head, NEVER face/chest even when axe is raised overhead; torso can twist atmost15degrees without turning. Row3 all six face screen-left3/4. Row4 ALL SIX strictly FRONT VIEW facing viewer, both shoulders visible, face points downscreen, NEVER rotates into right3/4 during windup/contact/followthrough. Preserve physicallycoherent ready/backswing/raisedwindup/contact/followthrough/recovery ordering. Same head/limb lengths and handorder acrosseachcycle. Do not reintroduce rowdirectionchanges. True transparent RGBA background zeroalpha between figures, no shadows/ground/text/grid. Keep all24figures complete.",
+      "mode": "built-in image_gen",
+      "transparent_background": true,
+      "output": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-8a0343b4-8934-4c19-b068-567f90d08014.png",
+      "selected": true,
+      "references": [
+        {
+          "path": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-e0672e7c-cf6c-4f31-bb7c-8d7e1057c19e.png",
+          "sha256": "fe5d23ff425c96a42ca48d0d7f064d7028a9e91cd314b43bc85df9a50952e5b9"
+        }
+      ]
+    },
+    {
+      "name": "hero_pick_work_v2",
+      "refs": [
+        "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-8572f42d-2dd9-4886-a99b-6dd5347e5813.png"
+      ],
+      "prompt": "Use case: precise-object-edit. Correct ONLY viewpoint consistency of this six-column four-row HERO C pickaxe-work atlas. Preserve exact man/outfit/backpack, asymmetrical pick(one long curvedpoint+one shortflatadze), two-handed stablegrip, sixactionphases, equal6x4cells, body scale/footbaseline and complete tools. Row1 fixed screen-right3/4 ALL6. Row2 fixed strictly BACK VIEW ALL6: camera MUST see backpack and backofhead in EVERY frame including raisedwindup column3; NO face or chest can appear, nofrontview in row2. Torso twist atmost15degrees. Row3 fixed screen-left3/4 ALL6. Row4 strictly FRONT VIEW ALL6 facing downscreen/viewer, both shoulders visible, including columns2–5; no turning into sideview. Natural ready/backswing/raisedwindup/contact/followthrough/recovery with plant feet and correct anatomy. No extra hands, toolmorph, resource rocktarget, text/grid, shadowground or backdrop. Genuinely transparent RGBA outside24full silhouettes with generousgutters.",
+      "mode": "built-in image_gen",
+      "transparent_background": true,
+      "output": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-6ea7f7e9-de03-435f-9ce8-3646d34f3518.png",
+      "selected": true,
+      "references": [
+        {
+          "path": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-8572f42d-2dd9-4886-a99b-6dd5347e5813.png",
+          "sha256": "c063b80879b41e5288d040f78eed081a95714d8a0baaaa7bc57ed2dd0672c4d3"
+        }
+      ]
+    },
+    {
+      "name": "hero_walk_right_v3",
+      "refs": [
+        "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-1a305fed-61cd-4442-977e-9a66a16a1cee.png"
+      ],
+      "prompt": "Use case: precise-object-edit. Repair the LOWER FOUR FIGURES ONLY in this8pose HeroC walk sprite sheet, and add generous transparent outerpadding so far-right boots/fists never touch imageedge. Preserve exact upperfour figures/identity/rendering/fixed screen-right view and common scale. Current bottomfour wrongly repeat sameleadleg. REPAINT BOTH LEGS of bottomfour from hipsdown to be the OPPOSITE HALF of the walk. Bottom-left contact: the NEAR LEG (leg whose boot is lower oncanvas, closest toviewer) must stretch BACKWARD to screenLEFT of pelvis. The FAR LEG (boot higher oncanvas, fartherfromviewer) must stretch FORWARD to screenRIGHT of pelvis. This is the reverse of the top-left silhouette; DO NOT put the lower/nearboot forward/right again. Bottomsecond downpose keeps farleg weightbearingforward and lifts nearheelbehind. Bottomthird PASSING: FAR LEG straight andweightbearing under pelvis, NEAR KNEE rises visibly IN FRONT toward screenRIGHT, nearboot swings forward, twofeet near eachother. It must be the opposite bentleg from topthird. Bottomfourth nearlegreaches aheadright preparingtopfirstcontact while farheelrises. Reverse the ARM swings for bottomrow too. Keep head/torso/bluecostume/backpack facingright, DO NOT mirror/rotate wholecharacter. Same bone lengths and body size across8cells, no extra legs, no costumechanges, no text/grid/shadows. Exactly2rows4columns, generous gutters and transparentRGBA background. NO duplicate top poses in bottomrow.",
+      "mode": "built-in image_gen",
+      "transparent_background": true,
+      "output": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-560d09bb-f4c8-4a9b-b43a-a4f019433d72.png",
+      "selected": true,
+      "references": [
+        {
+          "path": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-1a305fed-61cd-4442-977e-9a66a16a1cee.png",
+          "sha256": "75d74abbe593c1706dd48c66dae78e5b66fb3ddec6761368a31a1bff81692857"
+        }
+      ]
+    },
+    {
+      "name": "skeleton_walk_right_v4",
+      "refs": [
+        "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-a6078444-8c77-444f-9207-7b73d3deda68.png"
+      ],
+      "prompt": "Use case: precise-object-edit. Repair ONLY LOWER FOUR skeleton figures in this8pose2x4 walk sheet. Upperfour stayunchanged. Preserve exact skeleton/head/ivorybones/tealtunic/belt/rendering and fixed screenRIGHT3/4 view, equalcelllayout/commonfootbaseline. Bottomrow must be OPPOSITE LEG HALFSTRIDE, not duplicates. Bottomleftphase5: NEAR LEG (lower/closerfoot oncanvas) extends BACKWARD to screenLEFT of pelvis. FAR LEG (higher/fartherfoot oncanvas) extends FORWARD to screenRIGHT of pelvis. Opposite leadingleg to topfirst. NEVER put lower/nearfoot aheadright again here. Bottomsecond: FAR FOOT weightbearingforward, NEAR HEEL lifts frombehind. Bottomthirdphase7: FAR LEG straight/planted underpelvis; NEAR KNEE bent/lifted FORWARD screenRIGHT in frontofbody, toes swingforward; this is opposite bentleg to topthird. Bottomfourth: nearlegreaches aheadright and farheelrises to loopbacktopfirst. Reverse arm swings in bottomrow, coordinated oppositelegs. Do NOT mirrorwholebody or turndirection; skull/tunic/backpackidentity staysfixedright. Allbone lengthsconstant. No extra bones/feet/weapons/text/grid/shadow/background, trueRGBA transparency/generousouterpadding andgutters. Eight full figures remain2rows4columns.",
+      "mode": "built-in image_gen",
+      "transparent_background": true,
+      "output": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-c11d0290-2e75-41dd-9429-5d3e5d506c9c.png",
+      "selected": true,
+      "references": [
+        {
+          "path": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-a6078444-8c77-444f-9207-7b73d3deda68.png",
+          "sha256": "c6181340fb9084f005fd5689913c644c52ae935ff998b527a8d32e79ca2925c3"
+        }
+      ]
+    },
+    {
+      "name": "hero_walk_back",
+      "refs": [
+        "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-560d09bb-f4c8-4a9b-b43a-a4f019433d72.png",
+        "/Users/artemmusket/game-dev/not-3a-game/Assets/Stage3/DayNight/HeroCIdle.png"
+      ],
+      "prompt": "Use case: identity-preserve. Production walk sprite sheet on true transparent RGBA background. Exactly2rows4columns=EIGHT full-body figures, equalcells/generousgutters/outerpadding. A single fixed direction in ALL8figures; same size/head/limblengths/costume/root/footbaseline. Preserve originalgame cartoonfantasy shading, contours andupper-leftlight. Ordered one walkingstride: left-contact, down, narrowpassing, up; opposite right-contact, down, opposite narrowpassing, up. Firstfourposes leadoneleg, lastfour leadtheOTHER; different hands swing forward in oppositehalf. Narrowpassingfeet near eachother underpelvis, free knee flexed/lifted, weight ontheotherleg. NO identical first4repeated aslast4, sidewayswalking, jumping, turningbody, skating, motionblur, text/grid/scene/props/shadowground. Fullsilhouettes withhands/toes visible. Match sourceactor identity, not perspective: change ONLY camera direction, keep action phases. Entirebody samephysicalscale. No equipment/weapons. Subject: existing hero C, tied darkhair/bun, shortbeard, blueembroideredtravelcoat/scarf, creamsleeves, olivepants, brownleathergloves/bracers/boots/belt and rolledbackpack. Direction: STRICTLY BACK VIEW, hero walking away fromviewer towards topofcanvas, camera35degrees downward. Show backpack, back of head and heels in EVERYframe; NO face/chest. Firstrowcontact LEFT-SCREEN leg reaches forwardAWAY/higherinimage, RIGHT-SCREEN leg trails lower/closerviewer; secondrowcontact RIGHT-SCREEN leg reaches awayhigher, LEFT leg trailslower. Passingthirdcellofeachrow swaps which knee/heel bends. Keep samebodybaseline even when one foot lifts. Square atlas.",
+      "mode": "built-in image_gen",
+      "transparent_background": true,
+      "output": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-78ca387a-5024-404c-bbf6-39857920d4a1.png",
+      "selected": true,
+      "references": [
+        {
+          "path": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-560d09bb-f4c8-4a9b-b43a-a4f019433d72.png",
+          "sha256": "bfeef2fa27c1c944d708b0b8ff03259d20e74c53dd741d226a6a7220aa9220a7"
+        },
+        {
+          "path": "Assets/Stage3/DayNight/HeroCIdle.png",
+          "sha256": "cf81a7fd758ae22a299a01d953523cad883a5861f363d059b6349d71fb53252a"
+        }
+      ]
+    },
+    {
+      "name": "hero_walk_front",
+      "refs": [
+        "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-560d09bb-f4c8-4a9b-b43a-a4f019433d72.png",
+        "/Users/artemmusket/game-dev/not-3a-game/Assets/Stage3/DayNight/HeroCIdle.png"
+      ],
+      "prompt": "Use case: identity-preserve. Production walk sprite sheet on true transparent RGBA background. Exactly2rows4columns=EIGHT full-body figures, equalcells/generousgutters/outerpadding. A single fixed direction in ALL8figures; same size/head/limblengths/costume/root/footbaseline. Preserve originalgame cartoonfantasy shading, contours andupper-leftlight. Ordered one walkingstride: left-contact, down, narrowpassing, up; opposite right-contact, down, opposite narrowpassing, up. Firstfourposes leadoneleg, lastfour leadtheOTHER; different hands swing forward in oppositehalf. Narrowpassingfeet near eachother underpelvis, free knee flexed/lifted, weight ontheotherleg. NO identical first4repeated aslast4, sidewayswalking, jumping, turningbody, skating, motionblur, text/grid/scene/props/shadowground. Fullsilhouettes withhands/toes visible. Match sourceactor identity, not perspective: change ONLY camera direction, keep action phases. Entirebody samephysicalscale. No equipment/weapons. Subject: existinghero C frombothreferenceimages, darkhairbun/shortbeard, bluescarf/embroideredbluecoat, creamsleeves, olivepants, brownleathergloves/bracers/boots/belt, rolledbackpackmostlybehind. Direction: STRICTLY FRONT VIEW hero walks directly towardsviewer/downscreen, camera35degrees downward; face/chest/bothshoulders visibleinALL8, NO3/4sideview. FirstrowLEFT-SCREEN foot leads forwardtowardsviewer/lowerimage, RIGHT foottrailsbehind/higher. SecondrowRIGHT-SCREEN foot leadsforward/lower, LEFT foottrailsbehind/higher. Phase3rightknee swingspastplantedleftleg; phase7leftknee swingspastplantedrightleg. Shoulders/armsswingoppositetofeet. Sameheadsize andfootbaseline. Squareatlas.",
+      "mode": "built-in image_gen",
+      "transparent_background": true,
+      "output": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-92c69a03-27ae-4353-bcdd-31548df31900.png",
+      "selected": true,
+      "references": [
+        {
+          "path": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-560d09bb-f4c8-4a9b-b43a-a4f019433d72.png",
+          "sha256": "bfeef2fa27c1c944d708b0b8ff03259d20e74c53dd741d226a6a7220aa9220a7"
+        },
+        {
+          "path": "Assets/Stage3/DayNight/HeroCIdle.png",
+          "sha256": "cf81a7fd758ae22a299a01d953523cad883a5861f363d059b6349d71fb53252a"
+        }
+      ]
+    },
+    {
+      "name": "skeleton_walk_back",
+      "refs": [
+        "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-c11d0290-2e75-41dd-9429-5d3e5d506c9c.png",
+        "/Users/artemmusket/game-dev/not-3a-game/Assets/Stage3/SkeletonSpritePilot/SkeletonWalk.png"
+      ],
+      "prompt": "Use case: identity-preserve. Production walk sprite sheet on true transparent RGBA background. Exactly2rows4columns=EIGHT full-body figures, equalcells/generousgutters/outerpadding. A single fixed direction in ALL8figures; same size/head/limblengths/costume/root/footbaseline. Preserve originalgame cartoonfantasy shading, contours andupper-leftlight. Ordered one walkingstride: left-contact, down, narrowpassing, up; opposite right-contact, down, opposite narrowpassing, up. Firstfourposes leadoneleg, lastfour leadtheOTHER; different hands swing forward in oppositehalf. Narrowpassingfeet near eachother underpelvis, free knee flexed/lifted, weight ontheotherleg. NO identical first4repeated aslast4, sidewayswalking, jumping, turningbody, skating, motionblur, text/grid/scene/props/shadowground. Fullsilhouettes withhands/toes visible. Match sourceactor identity, not perspective: change ONLY camera direction, keep action phases. Entirebody samephysicalscale. No equipment/weapons. Subject: exactownedivoryskeleton, roundskull, raggeddarktealshorttunic, brownbelt/goldbuckle, normaal2arms/2legs, bonelengthsconstant. Direction STRICTLY BACK VIEW walkingaway/upcanvas, elevated35degreecamera; onlybackofskull/backtunicinALL8, NO face/red-eyes/chest. FirstrowLEFT-SCREEN leg reachesforwardaway/higher inimage, RIGHT-SCREENlegtrailbehind/lower; secondrowRIGHT-SCREENlegleadsaway/higher, LEFTlegtrailslower. Phase3rightknee/heelbends andswingspastplantedleftleg; phase7leftknee/heelbends andswingspastplantedright. Keepseparatebonelegs readable andavoidextraankles. Squareatlas.",
+      "mode": "built-in image_gen",
+      "transparent_background": true,
+      "output": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-6647a5c9-0be5-4fda-a9da-1fea192d79b4.png",
+      "selected": true,
+      "references": [
+        {
+          "path": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-c11d0290-2e75-41dd-9429-5d3e5d506c9c.png",
+          "sha256": "4e666763937adb5fc84fbf1d5d5ae52e666f563ad3c1c9201bf4d536695f9aa1"
+        },
+        {
+          "path": "Assets/Stage3/SkeletonSpritePilot/SkeletonWalk.png",
+          "sha256": "2f42a376ee244f9c795f964507aa705da39d991bc76aefbe6af42e1c75e1d31b"
+        }
+      ]
+    },
+    {
+      "name": "skeleton_walk_front",
+      "refs": [
+        "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-c11d0290-2e75-41dd-9429-5d3e5d506c9c.png",
+        "/Users/artemmusket/game-dev/not-3a-game/Assets/Stage3/SkeletonSpritePilot/SkeletonWalk.png"
+      ],
+      "prompt": "Use case: identity-preserve. Production walk sprite sheet on true transparent RGBA background. Exactly2rows4columns=EIGHT full-body figures, equalcells/generousgutters/outerpadding. A single fixed direction in ALL8figures; same size/head/limblengths/costume/root/footbaseline. Preserve originalgame cartoonfantasy shading, contours andupper-leftlight. Ordered one walkingstride: left-contact, down, narrowpassing, up; opposite right-contact, down, opposite narrowpassing, up. Firstfourposes leadoneleg, lastfour leadtheOTHER; different hands swing forward in oppositehalf. Narrowpassingfeet near eachother underpelvis, free knee flexed/lifted, weight ontheotherleg. NO identical first4repeated aslast4, sidewayswalking, jumping, turningbody, skating, motionblur, text/grid/scene/props/shadowground. Fullsilhouettes withhands/toes visible. Match sourceactor identity, not perspective: change ONLY camera direction, keep action phases. Entirebody samephysicalscale. No equipment/weapons. Subject: exactownedivoryskeleton, roundskull,darkeyesockets/smallredeyes, raggeddarktealshorttunic,brownbelt/goldbuckle, bone/jointlengthsconstant. Direction STRICTLY FRONT VIEW walkingtowardsviewer/downcanvas, elevated35degreecamera, face/bothshoulders/frontribs inALL8, NOquarterturnsideview. FirstrowLEFT-SCREENfootleadsforwardtowardsviewer/lowerimage;RIGHTfoottrailsbehind/higher. SecondrowRIGHT-SCREENfootleadsforward/lower;LEFTfoottrailsbehind/higher. Phase3rightkneeflexes/swingsoverplantedleftleg;phase7leftkneeflexes/swingsoverplantedright. Clearoppositecontacts andnarrowpassingposes, no repeatedfirsthalf. Squareatlas.",
+      "mode": "built-in image_gen",
+      "transparent_background": true,
+      "output": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-76afc724-a9e4-4daa-a48f-6be342300e37.png",
+      "selected": true,
+      "references": [
+        {
+          "path": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-c11d0290-2e75-41dd-9429-5d3e5d506c9c.png",
+          "sha256": "4e666763937adb5fc84fbf1d5d5ae52e666f563ad3c1c9201bf4d536695f9aa1"
+        },
+        {
+          "path": "Assets/Stage3/SkeletonSpritePilot/SkeletonWalk.png",
+          "sha256": "2f42a376ee244f9c795f964507aa705da39d991bc76aefbe6af42e1c75e1d31b"
+        }
+      ]
+    },
+    {
+      "name": "hero_axe_back",
+      "refs": [
+        "/Users/artemmusket/game-dev/not-3a-game/Assets/Stage3/DayNight/hero_axe_work.png",
+        "/Users/artemmusket/game-dev/not-3a-game/Assets/Stage3/DayNight/HeroCBody.png"
+      ],
+      "prompt": "Create a production Unity sprite atlas on TRUE transparent RGBA, derived from these owned approved game sprites. Exactly SIX isolated FULL BODY HERO C figures in a regular THREE columns by TWO rows grid, row-major six phases. EVERY figure faces DIRECTLY AWAY FROM CAMERA (BACK view), same angle throughout; fixed elevated orthographic isometric game view, soft dimensional cartoon fantasy materials. Same bearded adventurer identity, dark tied hair, blue travel tunic/scarf, cream sleeves, olive trousers, boots, brown backpack/gloves as supplied. Exactly one AXE gripped with BOTH hands in each pose. Keep standing body scale and foot baseline identical in all six cells, ample gutters, every tool/foot fully visible. Sequence 0 ready;1 backswing;2 raised overhead windup;3 CONTACT FORWARD AWAY FROM CAMERA;4 short recoil;5 recover ready. Crucial correction: in contact phase3 the hands extend FORWARD IN FRONT of the chest into depth AWAY FROM CAMERA. The axe blade strikes an imaginary vertical tree trunk located .4-.5 world units FORWARD of the feet, approximately .4 units above ground. Thus the blade appears near/above the HERO'S SHOULDERS, centered just ahead of upper body, NOT beside boots, NOT on the grass, NOT far to either side. In normalized screen coordinates measured UP from soles (soles=0, standing body height=1.15), the contact blade center is x=0 plus/minus .12 and camera-up y=.85-.95. Phase4 recoils slightly near this same forward contact. Backpack remains visible; hands/tool may be partially occluded naturally by shoulders in back view, but blade visible just above shoulders. Imagine chopping a trunk in front of hero at chest height. DO NOT DRAW that trunk or any target. Natural shoulder/torso action, planted feet. Existing iron axe silhouette. No scenery, ground, shadows plane, labels, words, grid lines, UI, VFX, duplicate tools, detached hands or transparency checkerboard paint. Generous transparent gutters between all six cells. Use landscape composition.",
+      "mode": "built-in image_gen",
+      "transparent_background": true,
+      "output": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-897a9802-628d-4cb7-817d-c86331667265.png",
+      "selected": true,
+      "references": [
+        {
+          "path": "Assets/Stage3/DayNight/hero_axe_work.png",
+          "sha256": "f8c547537aba4fe6684e549629ee57d1ad013be987e35fe56676d338b95c9371"
+        },
+        {
+          "path": "Assets/Stage3/DayNight/HeroCBody.png",
+          "sha256": "525e1c06c3df2a21e5de717de2041db9221a2cc1c130e447cfaa27ffda19bc3c"
+        }
+      ]
+    },
+    {
+      "name": "hero_pick_back",
+      "refs": [
+        "/Users/artemmusket/game-dev/not-3a-game/Assets/Stage3/DayNight/hero_pick_work.png",
+        "/Users/artemmusket/game-dev/not-3a-game/Assets/Stage3/DayNight/HeroCBody.png"
+      ],
+      "prompt": "Create a production Unity sprite atlas on TRUE transparent RGBA, derived from these owned approved game sprites. Exactly SIX isolated FULL BODY HERO C figures in a regular THREE columns by TWO rows grid, row-major six phases. EVERY figure faces DIRECTLY AWAY FROM CAMERA (BACK view), fixed angle throughout; fixed elevated orthographic isometric game camera, soft dimensional cartoon fantasy materials. Same adventurer identity, dark tied hair, blue travel tunic/scarf, cream sleeves, olive trousers, boots, brown backpack/gloves as supplied. Exactly one PICKAXE with one long curved iron point and one short flat adze, held firmly in BOTH hands in every pose. Keep standing BODY scale and foot baseline identical across all six cells; ample gutters; every foot and raised tool entirely inside cell. Phases 0 ready;1 backswing;2 raised overhead windup;3 CONTACT FORWARD AWAY FROM CAMERA;4 short recoil;5 ready recovery. CRUCIAL correction for phase3: BOTH hands extend FORWARD from chest into depth AWAY FROM CAMERA. Pick head strikes an imaginary VERTICAL ROCK FACE .4-.5 world units in FRONT of the feet, at approximately .4 world above ground. Therefore the contact head appears near/just above HERO SHOULDERS, centered ahead of upper body, NEVER near the boots or beside his feet and NEVER far to either side. Screen coordinates measured UP from soles (soles=0, standing body height=1.15): contact pick head center x=0 plus/minus .12 and camera-up y=.85-.95. Phase4 recoils slightly around this same forward target. Backpack seen from behind; arms and shaft may be partially occluded by shoulders in a natural back view, but iron head visible just above shoulders. Natural torso/shoulder mechanics and firm planted feet. DO NOT DRAW rock/target. No ground, scenery, ground shadow plane, labels, words, grid, UI, VFX, extra weapons, detached hands, checkerboard paint. Transparent gutters and true alpha outside figures. Landscape composition.",
+      "mode": "built-in image_gen",
+      "transparent_background": true,
+      "output": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-5e93c108-e0e7-4a6e-aac5-4788b8fc5057.png",
+      "selected": true,
+      "references": [
+        {
+          "path": "Assets/Stage3/DayNight/hero_pick_work.png",
+          "sha256": "8d6a59d4cf0e6b673ffed0b31190696654540bba93180da321c1a7ba04d2da7f"
+        },
+        {
+          "path": "Assets/Stage3/DayNight/HeroCBody.png",
+          "sha256": "525e1c06c3df2a21e5de717de2041db9221a2cc1c130e447cfaa27ffda19bc3c"
+        }
+      ]
+    },
+    {
+      "name": "hero_axe_front",
+      "refs": [
+        "/Users/artemmusket/game-dev/not-3a-game/Assets/Stage3/DayNight/hero_axe_work.png",
+        "/Users/artemmusket/game-dev/not-3a-game/Assets/Stage3/DayNight/HeroCBody.png"
+      ],
+      "prompt": "Production Unity sprite atlas, TRUE transparent RGBA. Exactly SIX FULL BODY figures in regular THREE columns by TWO rows grid, row-major. Owned approved Hero C from supplied sources, soft dimensional cartoon fantasy shading, fixed elevated orthographic isometric view. Same dark tied hair/short beard/blue tunic and scarf/cream sleeves/olive trousers/brown backpack gloves boots. EVERY pose faces TOWARD CAMERA, FRONT VIEW, same orientation all six, constant body scale and planted foot baseline, generous transparent gutters and room below soles. Sequence0 ready;1 backswing;2 raised windup;3 CONTACT IN FRONT OF HERO TOWARD CAMERA;4 short recoil;5 ready recovery. CRITICAL phase3/4: BOTH hands hold a single tool extending FORWARD FROM HERO TOWARD CAMERA into foreground, head centered horizontally x=0 plus/minus .12 relative to body, NOT FAR RIGHT OR LEFT. Contact head is BELOW soles on screen by .20-.30 world units, standing body height1.15, as it hits an imaginary target directly in front of feet toward viewer. Full shaft, both gripping hands and metal head physically connected; believable forearms/shoulder action, do not stretch body. NO target drawn. Not striking his own feet. Plenty of clear space below soles for full tool head. All anatomy/tool tips fully inside each cell; never crop. No scenery, ground, ground-shadow plane, labels, UI, text, grid, VFX, extra tools or checkerboard paint. Landscape atlas. Tool is the existing wooden-handled IRON AXE, two handed chopping toward a trunk in foreground, centered contact in front of feet. Preserve same iron axe blade shape as reference.",
+      "mode": "built-in image_gen",
+      "transparent_background": true,
+      "output": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-6319d4ac-8565-4ee1-a0dd-5eef5d1a7075.png",
+      "selected": true,
+      "references": [
+        {
+          "path": "Assets/Stage3/DayNight/hero_axe_work.png",
+          "sha256": "f8c547537aba4fe6684e549629ee57d1ad013be987e35fe56676d338b95c9371"
+        },
+        {
+          "path": "Assets/Stage3/DayNight/HeroCBody.png",
+          "sha256": "525e1c06c3df2a21e5de717de2041db9221a2cc1c130e447cfaa27ffda19bc3c"
+        }
+      ]
+    },
+    {
+      "name": "hero_pick_front",
+      "refs": [
+        "/Users/artemmusket/game-dev/not-3a-game/Assets/Stage3/DayNight/hero_pick_work.png",
+        "/Users/artemmusket/game-dev/not-3a-game/Assets/Stage3/DayNight/HeroCBody.png"
+      ],
+      "prompt": "Production Unity sprite atlas, TRUE transparent RGBA. Exactly SIX FULL BODY figures in regular THREE columns by TWO rows grid, row-major. Owned approved Hero C from supplied sources, soft dimensional cartoon fantasy shading, fixed elevated orthographic isometric view. Same dark tied hair/short beard/blue tunic and scarf/cream sleeves/olive trousers/brown backpack gloves boots. EVERY pose faces TOWARD CAMERA, FRONT VIEW, same orientation all six, constant body scale and planted foot baseline, generous transparent gutters and room below soles. Sequence0 ready;1 backswing;2 raised windup;3 CONTACT IN FRONT OF HERO TOWARD CAMERA;4 short recoil;5 ready recovery. CRITICAL phase3/4: BOTH hands hold a single tool extending FORWARD FROM HERO TOWARD CAMERA into foreground, head centered horizontally x=0 plus/minus .12 relative to body, NOT FAR RIGHT OR LEFT. Contact head is BELOW soles on screen by .20-.30 world units, standing body height1.15, as it hits an imaginary target directly in front of feet toward viewer. Full shaft, both gripping hands and metal head physically connected; believable forearms/shoulder action, do not stretch body. NO target drawn. Not striking his own feet. Plenty of clear space below soles for full tool head. All anatomy/tool tips fully inside each cell; never crop. No scenery, ground, ground-shadow plane, labels, UI, text, grid, VFX, extra tools or checkerboard paint. Landscape atlas. Tool is the existing wooden-handled IRON PICKAXE with exactly one long curved point and one short flat adze. Two handed mining a surface directly toward camera in foreground, centered head contact in front of feet. Preserve recognizable pickaxe head and physically plausible grip.",
+      "mode": "built-in image_gen",
+      "transparent_background": true,
+      "output": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-efc5ed01-6d52-4636-ac97-47e1e0fc6359.png",
+      "selected": true,
+      "references": [
+        {
+          "path": "Assets/Stage3/DayNight/hero_pick_work.png",
+          "sha256": "8d6a59d4cf0e6b673ffed0b31190696654540bba93180da321c1a7ba04d2da7f"
+        },
+        {
+          "path": "Assets/Stage3/DayNight/HeroCBody.png",
+          "sha256": "525e1c06c3df2a21e5de717de2041db9221a2cc1c130e447cfaa27ffda19bc3c"
+        }
+      ]
+    }
+  ],
+  "selected": [
+    {
+      "name": "hero_axe_work",
+      "path": "art/source/manual_resources_motion_runtime_2026-10-18/hero_axe_work.png",
+      "generator_output": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-8a0343b4-8934-4c19-b068-567f90d08014.png",
+      "sha256": "f8c547537aba4fe6684e549629ee57d1ad013be987e35fe56676d338b95c9371",
+      "bytes": 2392538,
+      "approval": "Production derivative of owner-approved concept; Astra accepted actual-player integration and contact/readability checks.",
+      "runtime_path": "Assets/Stage3/DayNight/hero_axe_work.png",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "runtime_sha256": "f8c547537aba4fe6684e549629ee57d1ad013be987e35fe56676d338b95c9371",
+      "usage": "Right work row; left mirrors right. Dedicated repaired back/front rows replace the other original directions."
+    },
+    {
+      "name": "hero_pick_work",
+      "path": "art/source/manual_resources_motion_runtime_2026-10-18/hero_pick_work.png",
+      "generator_output": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-6ea7f7e9-de03-435f-9ce8-3646d34f3518.png",
+      "sha256": "8d6a59d4cf0e6b673ffed0b31190696654540bba93180da321c1a7ba04d2da7f",
+      "bytes": 2465273,
+      "approval": "Production derivative of owner-approved concept; Astra accepted actual-player integration and contact/readability checks.",
+      "runtime_path": "Assets/Stage3/DayNight/hero_pick_work.png",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "runtime_sha256": "8d6a59d4cf0e6b673ffed0b31190696654540bba93180da321c1a7ba04d2da7f",
+      "usage": "Right work row; left mirrors right. Dedicated repaired back/front rows replace the other original directions."
+    },
+    {
+      "name": "hero_walk_back",
+      "path": "art/source/manual_resources_motion_runtime_2026-10-18/hero_walk_back.png",
+      "generator_output": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-78ca387a-5024-404c-bbf6-39857920d4a1.png",
+      "sha256": "294c933847ce2abd0bf9339c3e3be595d547ad1d8c93ea333aa886cbc3d802f4",
+      "bytes": 1591100,
+      "approval": "Production derivative of owner-approved concept; Astra accepted actual-player integration and contact/readability checks.",
+      "runtime_path": "Assets/Stage3/DayNight/hero_walk_back.png",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "runtime_sha256": "294c933847ce2abd0bf9339c3e3be595d547ad1d8c93ea333aa886cbc3d802f4"
+    },
+    {
+      "name": "hero_walk_front",
+      "path": "art/source/manual_resources_motion_runtime_2026-10-18/hero_walk_front.png",
+      "generator_output": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-92c69a03-27ae-4353-bcdd-31548df31900.png",
+      "sha256": "5beaa87dd63d46fbd051ae54caf00cd39188226eeb74ef3c59e1580c179df3d8",
+      "bytes": 1815903,
+      "approval": "Production derivative of owner-approved concept; Astra accepted actual-player integration and contact/readability checks.",
+      "runtime_path": "Assets/Stage3/DayNight/hero_walk_front.png",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "runtime_sha256": "5beaa87dd63d46fbd051ae54caf00cd39188226eeb74ef3c59e1580c179df3d8"
+    },
+    {
+      "name": "hero_walk_right",
+      "path": "art/source/manual_resources_motion_runtime_2026-10-18/hero_walk_right.png",
+      "generator_output": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-560d09bb-f4c8-4a9b-b43a-a4f019433d72.png",
+      "sha256": "bfeef2fa27c1c944d708b0b8ff03259d20e74c53dd741d226a6a7220aa9220a7",
+      "bytes": 2301285,
+      "approval": "Production derivative of owner-approved concept; Astra accepted actual-player integration and contact/readability checks.",
+      "runtime_path": "Assets/Stage3/DayNight/hero_walk_right.png",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "runtime_sha256": "bfeef2fa27c1c944d708b0b8ff03259d20e74c53dd741d226a6a7220aa9220a7"
+    },
+    {
+      "name": "ordinary_tree",
+      "path": "art/source/manual_resources_motion_runtime_2026-10-18/ordinary_tree.png",
+      "generator_output": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-db604b53-7290-4d80-8aac-34aa447bb47e.png",
+      "sha256": "1040e930e3d60750eee23e6a55d73fb97785e44024127c27b947542c0ec5d2cc",
+      "bytes": 884026,
+      "approval": "Production derivative of owner-approved concept; Astra accepted actual-player integration and contact/readability checks.",
+      "runtime_path": "Assets/Stage3/ResourceSpritePilot/ManualArt/ordinary_tree.png",
+      "dimensions": [
+        1200,
+        1310
+      ],
+      "runtime_sha256": "1040e930e3d60750eee23e6a55d73fb97785e44024127c27b947542c0ec5d2cc"
+    },
+    {
+      "name": "ore_states",
+      "path": "art/source/manual_resources_motion_runtime_2026-10-18/ore_states.png",
+      "generator_output": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-32ddda4d-c70c-45b3-8536-f8a9ee90af54.png",
+      "sha256": "06d6dca4065e2b4518ec82bd41614864925e160c10988531a1b5f01e9da55c37",
+      "bytes": 2062769,
+      "approval": "Production derivative of owner-approved concept; Astra accepted actual-player integration and contact/readability checks.",
+      "runtime_path": "Assets/Stage3/ResourceSpritePilot/ManualArt/ore_states.png",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "runtime_sha256": "06d6dca4065e2b4518ec82bd41614864925e160c10988531a1b5f01e9da55c37"
+    },
+    {
+      "name": "skeleton_walk_back",
+      "path": "art/source/manual_resources_motion_runtime_2026-10-18/skeleton_walk_back.png",
+      "generator_output": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-6647a5c9-0be5-4fda-a9da-1fea192d79b4.png",
+      "sha256": "83634f7fe999d76fc3dbe20c7c507b9a90a1c92a01bc1373b84c4ad7fea190c6",
+      "bytes": 1311291,
+      "approval": "Production derivative of owner-approved concept; Astra accepted actual-player integration and contact/readability checks.",
+      "runtime_path": "Assets/Stage3/SkeletonSpritePilot/skeleton_walk_back.png",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "runtime_sha256": "83634f7fe999d76fc3dbe20c7c507b9a90a1c92a01bc1373b84c4ad7fea190c6"
+    },
+    {
+      "name": "skeleton_walk_front",
+      "path": "art/source/manual_resources_motion_runtime_2026-10-18/skeleton_walk_front.png",
+      "generator_output": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-76afc724-a9e4-4daa-a48f-6be342300e37.png",
+      "sha256": "a7820d23bd055e3629b43b3f4b80bd4e7577b4b4da352258a8ea009871e6d3ee",
+      "bytes": 1366641,
+      "approval": "Production derivative of owner-approved concept; Astra accepted actual-player integration and contact/readability checks.",
+      "runtime_path": "Assets/Stage3/SkeletonSpritePilot/skeleton_walk_front.png",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "runtime_sha256": "a7820d23bd055e3629b43b3f4b80bd4e7577b4b4da352258a8ea009871e6d3ee"
+    },
+    {
+      "name": "skeleton_walk_right",
+      "path": "art/source/manual_resources_motion_runtime_2026-10-18/skeleton_walk_right.png",
+      "generator_output": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-c11d0290-2e75-41dd-9429-5d3e5d506c9c.png",
+      "sha256": "4e666763937adb5fc84fbf1d5d5ae52e666f563ad3c1c9201bf4d536695f9aa1",
+      "bytes": 1265535,
+      "approval": "Production derivative of owner-approved concept; Astra accepted actual-player integration and contact/readability checks.",
+      "runtime_path": "Assets/Stage3/SkeletonSpritePilot/skeleton_walk_right.png",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "runtime_sha256": "4e666763937adb5fc84fbf1d5d5ae52e666f563ad3c1c9201bf4d536695f9aa1"
+    },
+    {
+      "name": "stone_states",
+      "path": "art/source/manual_resources_motion_runtime_2026-10-18/stone_states.png",
+      "generator_output": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-b99c565b-8e09-4c7a-98e3-a6bfba4ba35a.png",
+      "sha256": "e3db05800b3f4198a8293e325d3c8b47f78dbd16bb0b56a346d1aa9f4d68feb7",
+      "bytes": 1964687,
+      "approval": "Production derivative of owner-approved concept; Astra accepted actual-player integration and contact/readability checks.",
+      "runtime_path": "Assets/Stage3/ResourceSpritePilot/ManualArt/stone_states.png",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "runtime_sha256": "e3db05800b3f4198a8293e325d3c8b47f78dbd16bb0b56a346d1aa9f4d68feb7"
+    },
+    {
+      "name": "hero_axe_back",
+      "path": "art/source/manual_resources_motion_runtime_2026-10-18/hero_axe_back.png",
+      "generator_output": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-897a9802-628d-4cb7-817d-c86331667265.png",
+      "sha256": "a9e0ac2403f3d2f413def0525336d94963fcd40aedc1254a5525d72aa0ddb797",
+      "bytes": 1944911,
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "runtime_path": "Assets/Stage3/DayNight/hero_axe_back.png",
+      "approval": "Production derivative of owner-approved concept; Astra accepted actual-player integration and contact/readability checks.",
+      "runtime_sha256": "a9e0ac2403f3d2f413def0525336d94963fcd40aedc1254a5525d72aa0ddb797"
+    },
+    {
+      "name": "hero_pick_back",
+      "path": "art/source/manual_resources_motion_runtime_2026-10-18/hero_pick_back.png",
+      "generator_output": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-5e93c108-e0e7-4a6e-aac5-4788b8fc5057.png",
+      "sha256": "4d1e1fcc77db0dcd09c488f6f1c170f55a9545657d15cb6f3c7e3d45c5a62ef1",
+      "bytes": 1988678,
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "runtime_path": "Assets/Stage3/DayNight/hero_pick_back.png",
+      "approval": "Production derivative of owner-approved concept; Astra accepted actual-player integration and contact/readability checks.",
+      "runtime_sha256": "4d1e1fcc77db0dcd09c488f6f1c170f55a9545657d15cb6f3c7e3d45c5a62ef1"
+    },
+    {
+      "name": "hero_axe_front",
+      "path": "art/source/manual_resources_motion_runtime_2026-10-18/hero_axe_front.png",
+      "generator_output": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-6319d4ac-8565-4ee1-a0dd-5eef5d1a7075.png",
+      "sha256": "1ff592091c551f063e8011c66086d80b63b62aa45afc6721a037681a900b31c8",
+      "bytes": 1976903,
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "runtime_path": "Assets/Stage3/DayNight/hero_axe_front.png",
+      "approval": "Production derivative of owner-approved concept; Astra accepted actual-player integration and contact/readability checks.",
+      "runtime_sha256": "1ff592091c551f063e8011c66086d80b63b62aa45afc6721a037681a900b31c8"
+    },
+    {
+      "name": "hero_pick_front",
+      "path": "art/source/manual_resources_motion_runtime_2026-10-18/hero_pick_front.png",
+      "generator_output": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-efc5ed01-6d52-4636-ac97-47e1e0fc6359.png",
+      "sha256": "26dd80a8f7202a315e9da3e4118acb6e93378fbd0480757de1883418cc15b240",
+      "bytes": 1989776,
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "runtime_path": "Assets/Stage3/DayNight/hero_pick_front.png",
+      "approval": "Production derivative of owner-approved concept; Astra accepted actual-player integration and contact/readability checks.",
+      "runtime_sha256": "26dd80a8f7202a315e9da3e4118acb6e93378fbd0480757de1883418cc15b240"
+    }
+  ],
+  "import_contract": "Original PNG bytes retained. Unity-native sprite rects, one PPU per mineral size, fixed foot registration, native work-geometry import and directional mirroring; no external image postprocessing.",
+  "size_correction": "Small stone/ore preserve original visible world width. Medium and large scaled proportionally by native pixels-per-unit; source prompt size examples do not override actual project art data.",
+  "final_visual_review": "art/source/manual_resources_motion_2026-10-18_verification.json"
+}

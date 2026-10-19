@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Not3A.Stage2.Map;
 using UnityEngine;
 
@@ -63,13 +64,42 @@ namespace Not3A.Stage2.Economy
         }
     }
 
+    public enum Stage2ResourceSize { Small, Medium, Large }
+
     public sealed class Stage2ResourceNode
     {
+        private readonly float[] harvestRadii;
         public Stage2ResourceNode(Stage2ResourceSettings settings, Vector2Int cell)
+            : this(settings, cell, Vector2.zero, Stage2ResourceSize.Small, 0f) { }
+
+        public Stage2ResourceNode(Stage2ResourceSettings settings, Vector2Int cell, Vector2 worldPosition,
+            Stage2ResourceSize size, float harvestRadius, int groupId = -1, int variantSeed = 0, float[] stageHarvestRadii = null)
         {
             if (settings == null || !settings.IsValid) throw new ArgumentException("Invalid resource settings.", nameof(settings));
+            if (float.IsNaN(worldPosition.x) || float.IsNaN(worldPosition.y) ||
+                float.IsInfinity(worldPosition.x) || float.IsInfinity(worldPosition.y) ||
+                harvestRadius < 0f || float.IsNaN(harvestRadius) || float.IsInfinity(harvestRadius) ||
+                size < Stage2ResourceSize.Small || size > Stage2ResourceSize.Large)
+                throw new ArgumentException("Invalid resource placement.");
             Resource = settings.Resource;
             Cell = cell;
+            WorldPosition = worldPosition;
+            Size = size;
+            HarvestRadius = harvestRadius;
+            if (stageHarvestRadii != null)
+            {
+                if (stageHarvestRadii.Length != 4) throw new ArgumentException("Four stock-stage radii required.");
+                var previous = harvestRadius + .0001f;
+                foreach (var radius in stageHarvestRadii)
+                {
+                    if (radius <= 0f || float.IsNaN(radius) || float.IsInfinity(radius) || radius > previous)
+                        throw new ArgumentException("Stock-stage radii must be positive and nonincreasing.");
+                    previous = radius;
+                }
+                harvestRadii = (float[])stageHarvestRadii.Clone();
+            }
+            GroupId = groupId;
+            VariantSeed = variantSeed;
             Capacity = settings.Capacity;
             GatherSeconds = settings.GatherSeconds;
             RecoverySeconds = settings.RecoverySeconds;
@@ -78,12 +108,19 @@ namespace Not3A.Stage2.Economy
 
         public MapResourceKind Resource { get; }
         public Vector2Int Cell { get; }
+        public Vector2 WorldPosition { get; }
+        public Stage2ResourceSize Size { get; }
+        public float HarvestRadius { get; }
+        public float InteractionRadius => harvestRadii == null ? HarvestRadius : harvestRadii[Stage2ManualResourceSettings.HarvestState(FillFraction)];
+        public int GroupId { get; }
+        public int VariantSeed { get; }
         public int Capacity { get; }
         public float GatherSeconds { get; }
         public float RecoverySeconds { get; }
         public int Remaining { get; private set; }
         public float RecoveryRemaining { get; private set; }
         public bool IsDepleted => Remaining == 0;
+        public float FillFraction => Remaining / (float)Capacity;
 
         internal bool TryTakeUnit()
         {
@@ -114,9 +151,12 @@ namespace Not3A.Stage2.Economy
     {
         private readonly Stage2MapDefinition map;
         private readonly int startingGold;
-        private readonly Stage2ResourceNode[] nodes = new Stage2ResourceNode[3];
-        private readonly float interactionRangeSquared;
-        private int currentKind = -1;
+        private readonly Stage2ResourceNode[] anchors = new Stage2ResourceNode[3];
+        private readonly List<Stage2ResourceNode> nodes = new List<Stage2ResourceNode>();
+        private readonly HashSet<Stage2ResourceNode> ownedNodes = new HashSet<Stage2ResourceNode>();
+        private readonly IReadOnlyList<Stage2ResourceNode> nodeView;
+        private readonly float interactionRange;
+        private readonly Stage2ManualResourceSettings manualResources;
         private float gatherProgress;
 
         public Stage2Economy(Stage2MapDefinition map, Stage2EconomyCatalog catalog)
@@ -129,14 +169,21 @@ namespace Not3A.Stage2.Economy
             this.map = map;
             startingGold = catalog.StartingGold;
             GoldPerKill = catalog.GoldPerKill;
-            interactionRangeSquared = catalog.InteractionRange * catalog.InteractionRange;
-            for (var index = 0; index < nodes.Length; index++)
+            interactionRange = catalog.InteractionRange;
+            manualResources = catalog.ManualResources;
+            for (var index = 0; index < anchors.Length; index++)
             {
                 var kind = (MapResourceKind)index;
                 if (!map.TryGetResourceRegion(kind, out var region))
                     throw new ArgumentException($"Missing {kind} source.", nameof(map));
-                nodes[index] = new Stage2ResourceNode(catalog.Get(kind), region.Anchor);
+                anchors[index] = new Stage2ResourceNode(catalog.Get(kind), region.Anchor,
+                    map.CellToWorld(region.Anchor), Stage2ResourceSize.Small,
+                    manualResources != null && kind != MapResourceKind.Wood ? manualResources.smallHarvestRadius : 0f,
+                    stageHarvestRadii: manualResources?.HarvestRadii(kind, Stage2ResourceSize.Small));
+                nodes.Add(anchors[index]);
+                ownedNodes.Add(anchors[index]);
             }
+            nodeView = nodes.AsReadOnly();
             Inventory = new Stage2Inventory();
             Inventory.Reset(startingGold);
         }
@@ -144,16 +191,55 @@ namespace Not3A.Stage2.Economy
         public Stage2Inventory Inventory { get; }
         public int GoldPerKill { get; }
         public event Action<MapResourceKind, int> Gathered;
+        public event Action<Stage2ResourceNode> NodeGathered;
+        public event Action NodesChanged;
         public float GatherProgress => gatherProgress;
+        public Stage2ResourceNode CurrentNode { get; private set; }
+        public IReadOnlyList<Stage2ResourceNode> Nodes => nodeView;
 
         public Stage2ResourceNode GetNode(MapResourceKind kind)
         {
             if (kind < MapResourceKind.Wood || kind > MapResourceKind.Metal)
                 throw new ArgumentOutOfRangeException(nameof(kind));
-            return nodes[(int)kind];
+            return anchors[(int)kind];
         }
 
-        public Vector2 WorldPosition(MapResourceKind kind) => map.CellToWorld(GetNode(kind).Cell);
+        public Vector2 WorldPosition(MapResourceKind kind) => GetNode(kind).WorldPosition;
+
+        public void ReplaceAdditionalNodes(IReadOnlyList<Stage2ResourceNode> additional)
+        {
+            if (additional == null) throw new ArgumentNullException(nameof(additional));
+            var next = new HashSet<Stage2ResourceNode>(anchors);
+            foreach (var node in additional)
+                if (node == null || !map.Contains(node.Cell) || !next.Add(node))
+                    throw new ArgumentException("Additional resources must be unique valid world nodes.", nameof(additional));
+            CancelGather();
+            nodes.Clear(); nodes.AddRange(anchors); ownedNodes.Clear();
+            foreach (var node in anchors) ownedNodes.Add(node);
+            foreach (var node in additional) { nodes.Add(node); ownedNodes.Add(node); }
+            NodesChanged?.Invoke();
+        }
+
+        public bool IsInRange(Stage2ResourceNode node, Vector2 playerWorld) => node != null &&
+            (playerWorld - node.WorldPosition).sqrMagnitude <=
+            (InteractionRange(node) + node.InteractionRadius) * (InteractionRange(node) + node.InteractionRadius);
+
+        private float InteractionRange(Stage2ResourceNode node) => manualResources == null ? interactionRange :
+            node.Resource == MapResourceKind.Wood ? manualResources.treeInteractionRange : manualResources.mineralInteractionRange;
+
+        public Stage2ResourceNode NearestAvailableNode(Vector2 playerWorld)
+        {
+            Stage2ResourceNode nearest = null;
+            var best = float.PositiveInfinity;
+            foreach (var node in nodes)
+            {
+                if (node.IsDepleted) continue;
+                var distance = Mathf.Max(0f, Vector2.Distance(playerWorld, node.WorldPosition) - node.InteractionRadius);
+                if (distance > InteractionRange(node) || distance > best) continue;
+                best = distance; nearest = node;
+            }
+            return nearest;
+        }
 
         public void Tick(float elapsedSeconds, bool activeTime)
         {
@@ -166,33 +252,36 @@ namespace Not3A.Stage2.Economy
         // The caller supplies the held state and unpaused Preparation/Wave state.
         // A completed interaction consumes exactly one unit and emits one fact.
         public bool AdvanceGather(MapResourceKind kind, Vector2 playerWorld, bool held, float elapsedSeconds, bool allowed)
+            => AdvanceGather(GetNode(kind), playerWorld, held, elapsedSeconds, allowed);
+
+        public bool AdvanceGather(Stage2ResourceNode node, Vector2 playerWorld, bool held, float elapsedSeconds, bool allowed)
         {
             if (elapsedSeconds < 0f || float.IsNaN(elapsedSeconds) || float.IsInfinity(elapsedSeconds))
                 throw new ArgumentOutOfRangeException(nameof(elapsedSeconds));
-            var node = GetNode(kind);
-            var inRange = ((Vector2)playerWorld - WorldPosition(kind)).sqrMagnitude <= interactionRangeSquared;
-            if (!allowed || !held || !inRange || node.IsDepleted)
+            if (node == null || !ownedNodes.Contains(node) || !allowed || !held ||
+                !IsInRange(node, playerWorld) || node.IsDepleted)
             {
                 CancelGather();
                 return false;
             }
-            if (currentKind != (int)kind)
+            if (CurrentNode != node)
             {
-                currentKind = (int)kind;
+                CurrentNode = node;
                 gatherProgress = 0f;
             }
             gatherProgress += elapsedSeconds;
             if (gatherProgress < node.GatherSeconds) return false;
             gatherProgress = 0f;
-            if (Inventory.Get(kind) == int.MaxValue || !node.TryTakeUnit()) return false;
-            Inventory.TryAdd(kind, 1);
-            Gathered?.Invoke(kind, 1);
+            if (Inventory.Get(node.Resource) == int.MaxValue || !node.TryTakeUnit()) return false;
+            Inventory.TryAdd(node.Resource, 1);
+            NodeGathered?.Invoke(node);
+            Gathered?.Invoke(node.Resource, 1);
             return true;
         }
 
         public void CancelGather()
         {
-            currentKind = -1;
+            CurrentNode = null;
             gatherProgress = 0f;
         }
 

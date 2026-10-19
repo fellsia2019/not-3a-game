@@ -40,6 +40,7 @@ namespace Not3A.Stage3.PlayerInterface
             scene.PlayerMover.SetInputBlocker(Blocked);
             game.Gathering.SetInputBlocker(Blocked);
             game.Building.SetInputBlocker(Blocked);
+            scene.CameraFollow.SetOverlayTrackpadInput(presentation.AcceptsMapTrackpad, presentation.ApplyMapTrackpadGesture);
             game.Building.UseBuildShortcut = false;
             game.Building.PlacementStarting += OpenDefense;
             if (game.Production != null) game.Production.PlacementStarting += OpenProduction;
@@ -99,6 +100,7 @@ namespace Not3A.Stage3.PlayerInterface
             if (legacy != null) legacy.BindPlayerPresentation(null);
             if (minimap != null) minimap.SuppressPresentation = false;
             if (scene != null && scene.PlayerMover != null) scene.PlayerMover.SetInputBlocker(null);
+            if (scene != null && scene.CameraFollow != null) scene.CameraFollow.SetOverlayTrackpadInput(null, null);
             if (game != null)
             {
                 game.BindPlayerInputBlocker(null);

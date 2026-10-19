@@ -81,7 +81,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: d55e788533c124a3ba7310fea0e0cc55, type: 3}
+  m_Sprite: {fileID: -7321057542522070641, guid: a2258fe651838462e90f6a53315d5341, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -135,6 +135,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0adc115a8d02d4d18a47cd5063a6f024, type: 3}
-  m_Name: 
+  m_Name:
   m_EditorClassIdentifier: Assembly-CSharp::Not3A.Stage3.VisualPilot.Stage3ResourceSprite
   body: {fileID: 6048837814675225357}
+  art: {fileID: 11400000, guid: a2258fe651838462e90f6a53315d5341, type: 2}

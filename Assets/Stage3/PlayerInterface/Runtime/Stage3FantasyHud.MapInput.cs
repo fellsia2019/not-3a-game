@@ -11,6 +11,17 @@ namespace Not3A.Stage3.PlayerInterface
         private float previousMapPinchDistance;
         private bool MapTouchOwnsPointer => mapTouchCount > 0;
 
+        public bool AcceptsMapTrackpad(Vector2 screenPoint) => isActiveAndEnabled &&
+            ActiveWindow == Stage3PlayerWindow.Map && Finite(screenPoint) &&
+            MapViewportRect.Contains(ToMapGuiPoint(screenPoint));
+
+        public void ApplyMapTrackpadGesture(float scale, Vector2 panDelta, Vector2 screenPoint)
+        {
+            if (!AcceptsMapTrackpad(screenPoint)) return;
+            if (Finite(panDelta) && panDelta != Vector2.zero) PanMap(panDelta);
+            ZoomMapAt(scale, ToMapGuiPoint(screenPoint));
+        }
+
         /// <summary>Inverse projection using absolute top-left GUI screen coordinates.</summary>
         public Vector2 MapPointToWorld(Vector2 guiPoint)
         {

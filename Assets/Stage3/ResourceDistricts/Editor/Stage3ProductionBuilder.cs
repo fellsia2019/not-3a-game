@@ -30,8 +30,8 @@ namespace Not3A.Stage3.VisualPilot.Editor
                 AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceSynchronousImport);
                 var importer = (TextureImporter)AssetImporter.GetAtPath(path);
                 importer.textureType = TextureImporterType.Sprite; importer.spriteImportMode = SpriteImportMode.Single;
-                importer.alphaIsTransparency = true; importer.isReadable = true; importer.mipmapEnabled = false;
-                importer.filterMode = FilterMode.Bilinear; importer.maxTextureSize = 2048;
+                importer.alphaIsTransparency = true; importer.isReadable = true; importer.mipmapEnabled = true;
+                importer.filterMode = FilterMode.Trilinear; importer.maxTextureSize = 2048;
                 importer.textureCompression = TextureImporterCompression.Uncompressed; importer.spritePixelsPerUnit = 100;
                 var settings = new TextureImporterSettings(); importer.ReadTextureSettings(settings);
                 settings.spriteAlignment = (int)SpriteAlignment.Custom; settings.spritePivot = new Vector2(.5f, pivots[i]);

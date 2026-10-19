@@ -128,13 +128,9 @@ namespace Not3A.Stage2.Integration
         {
             markers.Clear();
             if (composition == null || !composition.IsInitialized) return;
-            for (var i = 0; i < 3; i++)
-            {
-                var kind = (MapResourceKind)i;
-                if (!composition.Gathering.Economy.GetNode(kind).IsDepleted)
-                    markers.Add(new Stage2MinimapMarker((Stage2MinimapMarkerKind)i,
-                        composition.Gathering.Economy.WorldPosition(kind)));
-            }
+            foreach (var node in composition.Gathering.Economy.Nodes)
+                if (!node.IsDepleted)
+                    markers.Add(new Stage2MinimapMarker((Stage2MinimapMarkerKind)node.Resource, node.WorldPosition));
             var defense = composition.Building.Defense;
             for (var i = 0; i < defense.TowerCount; i++)
             {

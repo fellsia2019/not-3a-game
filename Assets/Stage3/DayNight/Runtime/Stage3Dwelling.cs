@@ -120,8 +120,9 @@ namespace Not3A.Stage3.VisualPilot
                     if (DistanceTo(area, site) <= 3f) return DwellingPlacementResult.Occupied;
             if (DistanceTo(area, scene.ThroneMarker.position) <= 3f || DistanceTo(area, scene.EntranceMarker.position) <= 3f)
                 return DwellingPlacementResult.Occupied;
-            for (var i = 0; i < 3; i++)
-                if (DistanceTo(area, game.Gathering.Economy.WorldPosition((MapResourceKind)i)) <= 3f) return DwellingPlacementResult.Occupied;
+            foreach (var node in game.Gathering.Economy.Nodes)
+                if (DistanceTo(area, node.WorldPosition) <= (node == game.Gathering.Economy.GetNode(node.Resource) ?
+                        3f : node.HarvestRadius + .5f)) return DwellingPlacementResult.Occupied;
             var entrance = point + catalog.entranceOffset;
             var cellAtEntrance = map.WorldToCell(entrance);
             if (!map.Contains(cellAtEntrance) || !map.IsWalkable(cellAtEntrance) ||

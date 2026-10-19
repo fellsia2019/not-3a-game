@@ -104,16 +104,27 @@ namespace Not3A.Stage3.VisualPilot.Tests
                     Assert.That(menuRectMethod, Is.Not.Null);
                     var inventoryWindow = Enum.Parse(menuRectMethod.GetParameters()[0].ParameterType, "Inventory");
                     var accessButton = (Rect)menuRectMethod.Invoke(playerUi, new[] { inventoryWindow });
-                    Assert.That(window.yMax, Is.LessThanOrEqualTo(accessButton.yMin),
-                        "An open window must leave the persistent mouse access buttons visible.");
-                    AssertContained(safeScreen, window, "Modal decoration must fit inside the screen safe area.");
-                    AssertContained(safeScreen, accessButton, "Persistent mouse access must fit inside the screen safe area.");
-                    AssertContained(window, (Rect)Call(playerUi, "PanelContentRect", window),
-                        "A window's decoration-safe interior must remain inside its frame.");
-                    AssertContained((Rect)Call(playerUi, "PanelContentRect", window), Read<Rect>(playerUi, "WindowContentRect"),
-                        "Window controls must use the decoration-safe interior.");
-                    AssertContained(accessButton, (Rect)Call(playerUi, "ButtonContentRect", accessButton),
-                        "Button labels must have a nonempty interior inside their frame.");
+                    Assert.That(window, Is.EqualTo(new Rect(0f, 0f, Screen.width, Screen.height)),
+                        "Every modal page must cover the complete backbuffer, including former world-HUD margins.");
+                    var header = Read<Rect>(playerUi, "FullscreenHeaderRect");
+                    var wallet = Read<Rect>(playerUi, "FullscreenWalletRect");
+                    var footer = Read<Rect>(playerUi, "FullscreenFooterRect");
+                    var content = Read<Rect>(playerUi, "WindowContentRect");
+                    AssertContained(window, header, "Shared navigation must remain inside the full-screen page.");
+                    AssertContained(window, wallet, "The shared wallet must remain visible inside the page.");
+                    AssertContained(window, footer, "Page controls must remain inside the backbuffer.");
+                    AssertContained(window, content, "Page content must remain inside the backbuffer.");
+                    AssertContained(header, accessButton, "Mouse navigation belongs in the shared full-screen header.");
+                    Assert.That(accessButton, Is.EqualTo((Rect)Call(playerUi, "FullscreenTabRect", inventoryWindow)));
+                    Assert.That(content.yMin, Is.GreaterThanOrEqualTo(wallet.yMax), "Wallet and content cannot overlap.");
+                    Assert.That(content.yMax, Is.LessThanOrEqualTo(footer.yMin), "Content cannot cover footer controls.");
+                    var constructionWindow = Enum.Parse(menuRectMethod.GetParameters()[0].ParameterType, "Construction");
+                    Assert.That((Rect)Call(playerUi, "FullscreenTabRect", constructionWindow), Is.EqualTo(Rect.zero),
+                        "Construction must never gain a full-screen catalogue or navigation tab.");
+                    foreach (var corner in new[] { Vector2.one, new Vector2(Screen.width - 1f, 1f),
+                        new Vector2(1f, Screen.height - 1f), new Vector2(Screen.width - 1f, Screen.height - 1f) })
+                        Assert.That(game.ContainsScreenPoint(corner), Is.True,
+                            "The entire full-screen page must protect the world behind it, including its corners.");
                 }
                 Assert.That(run.IsPaused, Is.False, "Opening an interface window does not invent a game pause.");
                 Assert.That(Time.timeScale, Is.EqualTo(1f));
@@ -405,6 +416,43 @@ namespace Not3A.Stage3.VisualPilot.Tests
                 Call(playerUi, "ZoomMap", 12f / Read<float>(playerUi, "MapZoom"));
             }
             RecordCorrection("map-zoom-safety", "Min/max zoom ignores repeated attempts without drift; NaN/infinite/nonpositive inputs are ignored; corner panning and anchored zoom remain inside authored map bounds.");
+        }
+
+        [UnityTest]
+        public IEnumerator TrackpadRoutesPinchAndPanToOnlyTheVisibleSurface()
+        {
+            var map = scene.MapDefinition;
+            scene.PlayerMover.transform.position = (map.CellToWorld(map.MinimumCell) + map.CellToWorld(map.MaximumCell)) * .5f;
+            yield return null;
+            yield return Tap(keyboard.mKey);
+            Call(playerUi, "ZoomMap", 6f / Read<float>(playerUi, "MapZoom"));
+            Call(playerUi, "RecenterMap");
+            var follow = scene.CameraFollow;
+            var camera = follow.BoundCamera;
+            var size = camera.orthographicSize;
+            var viewport = Read<Rect>(playerUi, "MapViewportRect");
+            var pointer = viewport.center + new Vector2(25f, -15f);
+            var world = (Vector2)Call(playerUi, "MapPointToWorld", pointer);
+            follow.ApplyTrackpadGesture(1.5f, Vector2.zero, GuiToScreen(pointer));
+            Assert.That(Read<float>(playerUi, "MapZoom"), Is.EqualTo(9f).Within(.001f));
+            Assert.That(Vector2.Distance((Vector2)Call(playerUi, "MapPointToWorld", pointer), world), Is.LessThan(.01f));
+            var pan = new Vector2(36f, -28f);
+            follow.ApplyTrackpadGesture(1f, pan, GuiToScreen(pointer));
+            Assert.That(Read<float>(playerUi, "MapZoom"), Is.EqualTo(9f), "Two-finger translation pans without magnifying.");
+            Assert.That(Vector2.Distance((Vector2)Call(playerUi, "MapPointToWorld", pointer + pan), world), Is.LessThan(.01f));
+            var center = Read<Vector2>(playerUi, "MapCenter");
+            follow.ApplyTrackpadGesture(2f, pan, GuiToScreen(new Vector2(20f, 20f)));
+            Assert.That(Read<Vector2>(playerUi, "MapCenter"), Is.EqualTo(center), "The header does not accept map gestures.");
+            Assert.That(Read<float>(playerUi, "MapZoom"), Is.EqualTo(9f));
+            follow.ApplyTrackpadGesture(float.NaN, new Vector2(float.NaN, 0), GuiToScreen(pointer));
+            Assert.That(Read<Vector2>(playerUi, "MapCenter"), Is.EqualTo(center));
+            yield return new WaitForSecondsRealtime(.15f);
+            Assert.That(camera.orthographicSize, Is.EqualTo(size).Within(.001f), "Map gestures never zoom the world camera.");
+            yield return Tap(keyboard.escapeKey);
+            follow.ApplyTrackpadGesture(1.25f, Vector2.zero, GuiToScreen(pointer));
+            yield return new WaitForSecondsRealtime(.9f);
+            Assert.That(camera.orthographicSize, Is.EqualTo(size / 1.25f).Within(.03f), "Closing M returns pinch to the world.");
+            Assert.That(Read<float>(playerUi, "MapZoom"), Is.EqualTo(9f), "World pinch cannot mutate the closed map.");
         }
 
         [UnityTest]

@@ -38,10 +38,15 @@ namespace Not3A.Stage2.Economy
         [SerializeField] private Stage2ResourceSettings[] resources = Array.Empty<Stage2ResourceSettings>();
         [SerializeField, Min(0)] private int startingGold = 5;
         [SerializeField, Min(0)] private int goldPerKill = 1;
+        [SerializeField] private bool enableManualResources;
+        [SerializeField] private Stage2ManualResourceSettings manualResources;
 
         public float InteractionRange => interactionRange;
         public int StartingGold => startingGold;
         public int GoldPerKill => goldPerKill;
+        public Stage2ManualResourceSettings ManualResources => enableManualResources ? manualResources : null;
+        public void ConfigureManualResources(Stage2ManualResourceSettings values)
+        { manualResources = values; enableManualResources = values != null; }
 
         public void Configure(float range, Stage2ResourceSettings[] settings, int initialGold = 5, int killGold = 1)
         {
@@ -61,6 +66,11 @@ namespace Not3A.Stage2.Economy
             if (startingGold < 0 || goldPerKill < 0)
             {
                 reason = "Gold values must be nonnegative.";
+                return false;
+            }
+            if (enableManualResources && (manualResources == null || !manualResources.IsValid))
+            {
+                reason = "Manual resource distribution needs valid counts, capacities and finite spacing.";
                 return false;
             }
             if (resources == null || resources.Length != 3)

@@ -1,5 +1,64 @@
 # Art Direction
 
+## D-072 overhead harvest marker, 2026-10-18
+
+Reuse the approved sawmill/quarry native SVG tool silhouettes (tool-only mask)
+and existing lunar HUD pearl/plum/turquoise palette. One axe or pickaxe appears
+above the actual E target's sprite, independent of foreground tree alpha.
+Keep a constant screen footprint across world zoom; no labels or new controls.
+Implementation and actual-frame review belong to GPT-6 Astra. These are native
+derivatives of existing project-authored icons, with no new raster source.
+GPT-6 Astra accepted all 15 final Mac player frames at zoom2.5/5/10. The top
+anchor uses source alpha extents, avoiding FullRect transparent padding; source
+pixels, pivots and sprite geometry remain unchanged. Verification/provenance:
+art/source/resource_interaction_2026-10-18_verification.json.
+
+## D-070 sampling correction and approved D-071 implementation, 2026-10-18
+
+D-070 keeps original artwork, fixed camera and style. PC Forward+ uses4xMSAA
+at renderScale1 with no added post-AA blur. Dedicated landmark/production
+images gain mipmaps/trilinear sampling; crowded hero animation atlases keep
+no-mips to avoid pose bleed. Production pads retain one outer contour and
+existing glyph fit; their inner dashed layout guide is removed by owner request.
+Image sampling improves reduction/edges, not the source detail at extreme zoom.
+
+D-071 requests review sheets for stone/iron sizes and depletion, small conifer
+groups, axe/pickaxe equipped by the existing hero C, and natural hero/enemy
+walk/harvest keyposes. Preserve current character identity and cartoon materials.
+Static pose sheets are concepts, not a proven smooth animation atlas. They do
+not by themselves prove production readiness. The owner subsequently approved
+all six sheets and authorized Astra's visual implementation. Tree layouts must
+be natural random groups of 1–8 separate ordinary trees, without rows/grids;
+the owner waived another tree sketch. Preserve approved tree identity. Current generation/provenance:
+art/source/manual_resource_motion_2026-10-18_generation.json.
+
+The implemented D-071 derivative preserves ordinary tree scale and uses native
+size/depletion sprites, six harvest poses per direction and eight walk phases.
+Left poses mirror the right through the existing URP sprite-instance pathway;
+the shared sprite shader now honors renderer flip/tint/alpha. Foreground ordinary
+trees fade locally when covering the hero. Back/front harvest rows were repaired
+after actual player contact review; sole pivots and mineral footprint centers
+match the gameplay stock-stage radii. Original PNG pixels are retained, with
+Unity-native sprite geometry only. Production prompts/source hashes:
+art/source/manual_resources_motion_runtime_2026-10-18_generation.json.
+
+## Full-screen interface — D-069, implemented direction, 2026-10-18
+
+The owner approved the revised full-screen Inventory/Research/Hero/Map concepts
+and compact HUD buttons. Inventory V2 is the shared shell: opaque pearl ceramic,
+restrained plum header, thin silver separators, turquoise selection and Cyrillic
+sans-serif. The four pages fill the screen; content and icons keep proportions.
+Use the same header/wallet/footer across them, without a Construction tab.
+Construction remains the current in-world ribbon. The world's menu row contains
+only bag I, hammer B, book P, hero O and map M, without word labels.
+The selected PNGs guide layout; illustrative hero/bow/seal rendering does not
+replace approved world artwork. Keep research local and development unavailable.
+Sources/prompts: art/source/fullscreen_interface_2026-10-18_generation.json.
+GPT-6 Astra implemented the layout and reviews actual player frames at
+1280x720, 1600x900 and 1920x1080. Current Mac results and Windows limitation:
+art/source/fullscreen_interface_2026-10-18_verification.json. D-068's Windows
+checks remain historical. Original runtime artwork is reused unchanged.
+
 ## Player interface — D-066, approved implementation, 2026-10-18
 
 D-068 correction: the owner rejected the first runtime frame proportions and

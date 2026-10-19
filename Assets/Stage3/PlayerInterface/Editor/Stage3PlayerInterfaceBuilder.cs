@@ -53,5 +53,21 @@ namespace Not3A.Stage3.PlayerInterface.Editor
                 throw new InvalidOperationException("Player interface Windows build failed: " + report.summary.result);
             Debug.Log($"S3_PLAYER_INTERFACE_BUILD_OK path={output} bytes={report.summary.totalSize}");
         }
+
+        // Local visual verification on the editor host; Windows remains the product target.
+        [MenuItem("Tools/Stage 3/Player Interface/Build Local Mac Review Player")]
+        public static void BuildMacReviewPlayer()
+        {
+            const string output = "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app";
+            Directory.CreateDirectory(Path.GetDirectoryName(output));
+            var report = BuildPipeline.BuildPlayer(new BuildPlayerOptions {
+                scenes = new[] { ScenePath }, locationPathName = output,
+                target = BuildTarget.StandaloneOSX,
+                options = BuildOptions.Development | BuildOptions.AllowDebugging
+            });
+            if (report.summary.result != BuildResult.Succeeded)
+                throw new InvalidOperationException("Player interface local Mac review build failed: " + report.summary.result);
+            Debug.Log($"S3_PLAYER_INTERFACE_MAC_REVIEW_BUILD_OK path={output} bytes={report.summary.totalSize}");
+        }
     }
 }

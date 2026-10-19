@@ -1457,6 +1457,102 @@ Existing world bounds still constrain panning. Plus/minus buttons retain their
 center-based behavior. These controls do not move the world camera or hero.
 Contract and verification: gamedesign/features/PLAYER_INTERFACE.md.
 
+## D-069 — Full-screen pages and icon-only HUD navigation
+
+Date: 2026-10-18. Status: revised ImageGen concepts approved for implementation
+by the owner's explicit «делай». GPT-6 Astra owns visual Unity implementation.
+
+Inventory I, Research P, Hero development O and Map M occupy the complete
+screen with an opaque lunar-porcelain surface, shared four-tab navigation,
+resource/day-clock strip and close controls. The ordinary world HUD/minimap
+is not drawn beneath these pages. The Inventory V2 concept is the common shell.
+Keep existing modal input blocking and continuing simulation; this presentation
+change does not introduce automatic pause or additional gameplay systems.
+
+The owner explicitly rejected a separate full-screen construction catalogue.
+B retains the current nonmodal construction ribbon and world placement flow;
+there is no Construction tab in the full-screen header. Purchases and local E
+interactions keep their existing rules.
+
+The world's five HUD menu buttons contain only their recognizable icon and
+hotkey: bag I, hammer B, book P, hero silhouette O and map M. Remove word labels,
+retain visible interaction states and readable keys. Research remains the
+existing Teleportation overview with a passive local-E instruction. Hero
+development and other unimplemented systems remain visibly unavailable.
+
+This supersedes the centered modal-window presentation of D-066/D-068 and
+their labelled HUD access buttons. Approved previews/provenance:
+art/concepts/fullscreen_interface_2026-10-18/ and
+art/source/fullscreen_interface_2026-10-18_generation.json.
+Contract: gamedesign/features/PLAYER_INTERFACE.md. Verification is recorded
+in the current production/WORKSTREAMS.md handoff, separately from old results.
+
+## D-070 — World image sampling, production-pad outline and consistent map gestures
+
+Date: 2026-10-18. Status: owner explicitly authorized the first repair queue.
+
+Improve zoom sampling within the accepted cartoon/isometric presentation,
+remove only the inner dashed production-pad border, and preserve the outer
+clearance line, icon margins, fixed camera and gameplay footprints. Preserve
+original PNG pixels. Astra owns render/import quality and actual-frame review.
+
+Map M must use the same Mac pinch/spread magnification as the world. Moving
+two fingers together pans the regional map; a physical mouse wheel still zooms.
+The app-local native gesture queue has one polling owner and routes to the
+visible surface without changing the world camera beneath M. Header/HUD areas
+and lifecycle/focus changes must not leak or replay gestures. Existing anchored
+map limits, touchscreen input, mouse drag and modal blockers remain.
+
+This supersedes D-060's visible inner dashed pad safe border and D-068/D-069's
+incomplete Mac-trackpad behavior. Synthetic touchscreen coverage alone is not
+physical trackpad verification. Current results belong in WORKSTREAMS and
+art/source/quality_gestures_2026-10-18_verification.json.
+
+## D-071 — Approved manual resources, natural tree groups and tool/motion slice
+
+Date: 2026-10-18. Status: owner approved all six selected ImageGen sheets and
+authorized runtime implementation after D-070, with the tree correction below.
+
+The owner wants more individually harvestable resources across the test world.
+Stone and iron ore have small/medium/large forms, with provisional reserves
+5/35/120. Each completed tool strike gives one resource immediately and consumes
+one reserve unit; leaving preserves the remaining reserve. Visual depletion
+must track remaining stock through coherent stages. Existing small artwork
+anchors the new forms. Trees keep ordinary size and occur individually or in
+close groups of one to eight, distinct from the large auto-production forest.
+Owner clarification: choose the group count and each tree position randomly,
+with irregular natural spacing; no rows, grids, equal intervals or authored
+orchard arrangement. Trees remain separate ordinary-sized harvestable objects.
+The owner explicitly waived another tree sketch and authorized in-game testing.
+
+Show an axe for wood and a pickaxe for stone/metal, equipped by the accepted
+hero C, with windup/contact/recovery harvesting poses. Hero and enemy walking
+needs more natural continuous motion within the current art direction. First
+review concept/pose sheets; static images do not prove a final smooth animation.
+Astra owns visual direction and implementation after owner appearance approval.
+
+In the future larger world, manual gathering precedes auto-production; its
+research is acquired from a trader NPC in a city. City/trader economy, research
+prices and unlock flow are future work. Current auto-production stays available
+in the test environment. City/trader/research gates remain future work. D-070 remains the completed
+repair queue; the approved D-071 runtime slice now covers nodes, tools and motion.
+
+## D-072 — Manual resource collision and harvest target markers
+
+Date: 2026-10-18. Status: accepted by the owner; implemented and verified locally
+2026-10-19. Windows player verification remains open.
+
+Ordinary wood, stone and metal sources block the hero at their physical footing:
+tree trunks and the current mineral stock stage. Keep passage between separate
+trees. Depleted sources open the site; recovery waits for an overlapping hero
+to leave before restoring collision. Reuse the existing swept movement solver.
+
+Show an axe above wood or a pickaxe above stone/metal when that exact source can
+be harvested with E. The visual and input consume the same target selection;
+foreground fade does not disable either. Hide the marker during UI/build/pause
+and terminal blocking. Reuse approved native tool vectors and the lunar HUD
+palette; no new art concept or tool/progression controls are introduced.
+
 ## Pending Product Decisions
 
 

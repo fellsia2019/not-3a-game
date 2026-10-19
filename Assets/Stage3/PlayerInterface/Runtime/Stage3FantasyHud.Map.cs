@@ -9,21 +9,14 @@ namespace Not3A.Stage3.PlayerInterface
         private Vector2 mapCenterCells;
         private bool mapInitialized, mapDragging;
         private GUIStyle mapMarkerStyle;
-        public Rect MapViewportRect
-        {
-            get
-            {
-                if (ActiveWindow != Stage3PlayerWindow.Map) return Rect.zero;
-                var content = WindowContentRect;
-                return new Rect(content.x, content.y, content.width, Mathf.Max(40f, content.height - 62f * UiScale));
-            }
-        }
-        public Rect MapRecenterRect => ActiveWindow != Stage3PlayerWindow.Map ? Rect.zero :
-            new Rect(WindowContentRect.xMax - 184f * UiScale, WindowContentRect.yMax - 48f * UiScale, 184f * UiScale, 42f * UiScale);
-        public Rect MapZoomInRect => ActiveWindow != Stage3PlayerWindow.Map ? Rect.zero :
-            new Rect(MapRecenterRect.x - 55f * UiScale, MapRecenterRect.y, 48f * UiScale, 42f * UiScale);
-        public Rect MapZoomOutRect => ActiveWindow != Stage3PlayerWindow.Map ? Rect.zero :
-            new Rect(MapZoomInRect.x - 55f * UiScale, MapZoomInRect.y, 48f * UiScale, 42f * UiScale);
+        public Rect MapViewportRect => ActiveWindow!=Stage3PlayerWindow.Map ? Rect.zero :
+            new Rect(0,184f*UiScale,Screen.width,Mathf.Max(40f,FullscreenFooterRect.y-184f*UiScale));
+        public Rect MapRecenterRect => ActiveWindow!=Stage3PlayerWindow.Map ? Rect.zero :
+            new Rect(Screen.width-216f*UiScale,FullscreenFooterRect.y+12f*UiScale,184f*UiScale,44f*UiScale);
+        public Rect MapZoomInRect => ActiveWindow!=Stage3PlayerWindow.Map ? Rect.zero :
+            new Rect(MapRecenterRect.x-55f*UiScale,MapRecenterRect.y,44f*UiScale,44f*UiScale);
+        public Rect MapZoomOutRect => ActiveWindow!=Stage3PlayerWindow.Map ? Rect.zero :
+            new Rect(MapZoomInRect.x-55f*UiScale,MapZoomInRect.y,44f*UiScale,44f*UiScale);
         public float MapZoom { get; private set; } = 3f;
         public Vector2 MapCenter => scene == null ? Vector2.zero : scene.MapDefinition.CellCoordinatesToWorld(mapCenterCells);
 
@@ -103,6 +96,8 @@ namespace Not3A.Stage3.PlayerInterface
             if (mapSource == null && game != null) mapSource = game.GetComponent<Stage2Minimap>();
             var s = UiScale;
             ClampMapCenter();
+            Label(new Rect(48f*s,141f*s,Screen.width-96f*s,36f*s),"Карта",27,TextAnchor.MiddleLeft);
+            Fill(MapViewportRect,new Color(.17f,.25f,.17f));
             if (mapSource != null && mapSource.Terrain != null)
             {
                 GUI.BeginGroup(MapViewportRect);
@@ -115,8 +110,8 @@ namespace Not3A.Stage3.PlayerInterface
                     var top = MapViewportRect.height * .5f - (min.y + map.Size.y - mapCenterCells.y) / extent.y * MapViewportRect.height;
                     var terrainRect = new Rect(left, top, map.Size.x / extent.x * MapViewportRect.width,
                         map.Size.y / extent.y * MapViewportRect.height);
-                    GUI.DrawTexture(terrainRect, mapSource.Terrain, ScaleMode.StretchToFill);
-                    if (mapSource.DistrictTerrain != null) GUI.DrawTexture(terrainRect, mapSource.DistrictTerrain, ScaleMode.StretchToFill);
+                    DrawMapTerrain(terrainRect,mapSource.Terrain);
+                    if (mapSource.DistrictTerrain != null) DrawMapTerrain(terrainRect,mapSource.DistrictTerrain);
                     foreach (var marker in mapSource.Markers)
                     {
                         var p = WorldToLargeMapPoint(marker.World) - MapViewportRect.position;
@@ -130,8 +125,7 @@ namespace Not3A.Stage3.PlayerInterface
                         if (p.x < 0 || p.y < 0 || p.x > MapViewportRect.width || p.y > MapViewportRect.height) continue;
                         var badge = new Rect(Mathf.Clamp(p.x+22f*s,8f*s,MapViewportRect.width-104f*s),
                             Mathf.Clamp(p.y+18f*s,8f*s,MapViewportRect.height-34f*s),96f*s,26f*s);
-                        var saved=GUI.color;GUI.color=PlumInk;
-                        GUI.DrawTexture(badge,Texture2D.whiteTexture);GUI.color=saved;
+                        Fill(badge,PlumInk);
                         PaleLabel(Inset(badge,3f*s),"Вы здесь",14,TextAnchor.MiddleCenter);
                     }
                 }
@@ -140,19 +134,43 @@ namespace Not3A.Stage3.PlayerInterface
             var e = Event.current;
             var dragControl = GUIUtility.GetControlID(FocusType.Passive);
             if (e.type == EventType.ScrollWheel && MapViewportRect.Contains(e.mousePosition))
-            { ZoomMapAt(Mathf.Pow(1.15f, -e.delta.y), e.mousePosition); e.Use(); }
+            {
+                if (!Stage2MacTrackpad.LastScrollWasPrecise)
+                    ZoomMapAt(Mathf.Pow(1.15f, -e.delta.y), e.mousePosition);
+                e.Use();
+            }
             if (!MapTouchOwnsPointer && e.type == EventType.MouseDown && e.button == 0 && MapViewportRect.Contains(e.mousePosition))
             { mapDragging = true; GUIUtility.hotControl = dragControl; e.Use(); }
             if (!MapTouchOwnsPointer && e.type == EventType.MouseDrag && mapDragging && e.button == 0)
             { PanMap(e.delta); e.Use(); }
             if (e.type == EventType.MouseUp && mapDragging)
             { mapDragging = false; GUIUtility.hotControl = 0; e.Use(); }
-            var y = content.yMax - 48f * s;
+            var y = FullscreenFooterRect.y + 12f * s;
             if (Button(MapRecenterRect, "К герою")) RecenterMap();
             if (Button(MapZoomInRect, "+")) ZoomMap(1.4f);
             if (Button(MapZoomOutRect, "−")) ZoomMap(1f / 1.4f);
-            Label(new Rect(content.x, y, Mathf.Max(10f, MapZoomOutRect.x - content.x - 12f * s), 42f * s),
-                "Герой  ·  Врата  ·  Трон\nПеретаскивание · колесо мыши", 14, TextAnchor.MiddleLeft, true);
+            var legendKinds=new[]{Stage2MinimapMarkerKind.Hero,Stage2MinimapMarkerKind.Portal,Stage2MinimapMarkerKind.Throne};
+            var legendNames=new[]{"Герой","Врата","Трон"};
+            for(var i=0;i<3;i++)
+            {
+                var x=(44f+i*112f)*s;
+                DrawWorldMapMarker(new Vector2(x,y+22f*s),legendKinds[i],s*.8f);
+                Label(new Rect(x+20f*s,y,84f*s,44f*s),legendNames[i],14,TextAnchor.MiddleLeft);
+            }
+            Label(new Rect(408f*s,y,Mathf.Max(10f,MapZoomOutRect.x-432f*s),44f*s),
+                "Перетаскивание / 2 пальца · Обзор     Колесо / Pinch · Масштаб",14,TextAnchor.MiddleCenter,true);
+        }
+
+        private void DrawMapTerrain(Rect terrainRect,Texture texture)
+        {
+            // The custom Metal shader must never paint beyond the regional viewport.
+            var clipped=Rect.MinMaxRect(Mathf.Max(0f,terrainRect.x),Mathf.Max(0f,terrainRect.y),
+                Mathf.Min(MapViewportRect.width,terrainRect.xMax),Mathf.Min(MapViewportRect.height,terrainRect.yMax));
+            if(clipped.width<=0f||clipped.height<=0f) return;
+            var uv=new Rect((clipped.x-terrainRect.x)/terrainRect.width,
+                1f-(clipped.yMax-terrainRect.y)/terrainRect.height,
+                clipped.width/terrainRect.width,clipped.height/terrainRect.height);
+            DrawUiTexture(clipped,texture,uv);
         }
 
         private void DrawWorldMapMarker(Vector2 p, Stage2MinimapMarkerKind kind, float s)

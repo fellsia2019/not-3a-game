@@ -35,7 +35,6 @@ namespace Not3A.Stage2.Defense
         {
             var vertices = new List<Vector3>(); var colors = new List<Color>(); var indices = new List<int>();
             var ink = new Color(.933f, .89f, .773f, .98f);
-            var safeInk = new Color(.608f, .773f, .835f, .85f);
             void Quad(Vector2 a, Vector2 b, float width, Color color)
             {
                 var n = new Vector2(-(b-a).y, (b-a).x).normalized * width * .5f;
@@ -48,26 +47,19 @@ namespace Not3A.Stage2.Defense
                 // A restrained earth keyline separates pale ink from painted clearings.
                 Quad(a,b,width+.018f,Shadow); Quad(a,b,width,color);
             }
-            void Rectangle(Vector2 half, bool dashed)
+            void Rectangle(Vector2 half)
             {
                 var corners = new[]{new Vector2(-half.x,-half.y),new Vector2(half.x,-half.y),
                     new Vector2(half.x,half.y),new Vector2(-half.x,half.y)};
                 for(var i=0;i<4;i++)
                 {
                     var a=corners[i]; var b=corners[(i+1)%4];
-                    if(!dashed) { Edge(a,b,.018f,ink); continue; }
-                    var delta=b-a; var length=delta.magnitude;
-                    var count=Mathf.Max(1,Mathf.RoundToInt(length/.092f));
-                    for(var dash=0;dash<count;dash++)
-                    {
-                        var start=(float)dash/count; var end=(dash+.55f)/count;
-                        Edge(a+delta*start,a+delta*end,.012f,safeInk);
-                    }
+                    Edge(a,b,.018f,ink);
                 }
             }
             // Keep the complete outer stroke inside the immutable gameplay reservation.
-            Rectangle(size*.5f-Vector2.one*.018f,false);
-            Rectangle(size*.38f,true);
+            Rectangle(size*.5f-Vector2.one*.018f);
+            // The 12% icon inset remains layout-only; no inner border is drawn.
             float[] source; int[] triangles;
             switch(kind)
             {

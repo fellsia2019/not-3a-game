@@ -1,0 +1,518 @@
+{
+  "date": "2026-10-18",
+  "decision": "D-070",
+  "status": "Repair implemented;18 relevant PlayMode cases/native checks passed; actual static Mac frames accepted by Astra; physical trackpad/Windows validation degraded",
+  "ownership": {
+    "render_import_pad_visuals_and_review": "GPT-6 Astra",
+    "input_native_bridge_tests_capture_records": "Primary agent"
+  },
+  "accepted_scope": [
+    "Improve image sampling while preserving source art/fixed camera/gameplay.",
+    "Remove only visible inner dashed production-pad border, preserving outer clearance and glyph margins.",
+    "Native Mac pinch/spread zooms M; precise two-finger scrolling pans M; coarse mouse wheel retains anchored zoom.",
+    "One existing world camera polls the native queue and routes through scene binding to the active map viewport; no new manager/package/interface layer."
+  ],
+  "implementation": {
+    "pc_renderer": "Forward+;4xMSAA;renderScale1;camera.allowMSAA true; no new post-AA",
+    "images": "Six dedicated landmark/production textures: mipmaps/trilinear;original1536x1024 or1254x1254 source bytes unchanged;11 runtime mip levels.",
+    "compression": "Unchanged. Standalone compression field1 has overridden0 and inherits existing Default uncompressed; not treated as an enabled compression override.",
+    "hero_atlases": "Unchanged no-mips because tight pose gutters risk bleeding; no animation work shipped.",
+    "pad": "Only inner dashed safe guide removed; outer footprint and .76*.9 glyph fit unchanged.",
+    "native": "Universal arm64/x86_64 AppKit dylib rebuilt from native/macos/Not3ATrackpad.mm; existing importer still Mac-only, Windows excluded.",
+    "wiring": "Existing Stage3PlayerInterfaceBinding installs overlay hit-test/gesture callback on camera. No scene/Inspector migration.",
+    "lifecycle": "Native enabled/mode changes, focus loss and disable clear pending magnify/pan; coarse wheel passes to Unity, precise pan consumes once with backing-pixel coordinate conversion."
+  },
+  "tests": {
+    "result": "Passed",
+    "total": 18,
+    "passed": 18,
+    "failed": 0,
+    "skipped": 0,
+    "start_utc": "2026-10-18 17:04:29Z",
+    "end_utc": "2026-10-18 17:05:05Z",
+    "xml": "Artifacts/S3-QUALITY-GESTURES-20261018/playmode-relevant.xml",
+    "log": "Artifacts/S3-QUALITY-GESTURES-20261018/playmode-relevant.log",
+    "cases": [
+      {
+        "name": "BottomPanelBlocksWorldBuildAndZoomAndKeepsMinimapAccessible",
+        "result": "Passed"
+      },
+      {
+        "name": "CategoriesSelectThreeGeneratorsAndExistingTowersWithExclusiveInput",
+        "result": "Passed"
+      },
+      {
+        "name": "PauseAndRestartDiscardGeneratorPreviewWithoutReplayingPurchase",
+        "result": "Passed"
+      },
+      {
+        "name": "UnaffordableCardsAndPublicSelectionStayDisabledUntilInventoryCanPay",
+        "result": "Passed"
+      },
+      {
+        "name": "DebugGrantsFundRealPurchaseAndWaveStartObeysRunState",
+        "result": "Passed"
+      },
+      {
+        "name": "DebugPanelBlocksRealWorldClickAndWheelWithoutReplacingMinimapBlocker",
+        "result": "Passed"
+      },
+      {
+        "name": "IndependentSpeedMultipliersChangeMovementAndSimulationAndRestoreOnDisable",
+        "result": "Passed"
+      },
+      {
+        "name": "PauseFreezesWorldAndMenuStillAcceptsKeyboardAndResume",
+        "result": "Passed"
+      },
+      {
+        "name": "PlayerHudRemainsWhenDevelopmentToolsAreDisabled",
+        "result": "Passed"
+      },
+      {
+        "name": "ConstructionPanelProtectsClicksAndAllowsFreshWorldPurchaseWithoutClosing",
+        "result": "Passed"
+      },
+      {
+        "name": "CursorZoomKeepsTwoAsymmetricWorldAnchorsWithoutMovingTheCamera",
+        "result": "Passed"
+      },
+      {
+        "name": "CursorZoomLimitsAndInvalidInputsDoNotDriftAndMapEdgesStayBounded",
+        "result": "Passed"
+      },
+      {
+        "name": "KeyboardWindowsAreExclusiveAndEscapeDoesNotPauseTheDay",
+        "result": "Passed"
+      },
+      {
+        "name": "ModalWindowBlocksHeroAndLocalResearchUntilFreshInputAfterClosing",
+        "result": "Passed"
+      },
+      {
+        "name": "RegionalMapNavigationDoesNotMoveWorldCameraAndLifecycleClearsWindows",
+        "result": "Passed"
+      },
+      {
+        "name": "SyntheticTouchGesturePansAndPinchesAroundItsMovingMidpoint",
+        "result": "Passed"
+      },
+      {
+        "name": "TrackpadRoutesPinchAndPanToOnlyTheVisibleSurface",
+        "result": "Passed"
+      },
+      {
+        "name": "TacticalView_TrackpadPinchSharesWheelLimitsAndClearsOnDisable",
+        "result": "Passed"
+      }
+    ]
+  },
+  "native_test": {
+    "result": "Passed",
+    "source": "native/macos/tests/TrackpadTests.mm",
+    "coverage": [
+      "AppKit monitor registration/lifecycle",
+      "magnify scale ratios/read-once",
+      "precise scroll versus coarse wheel",
+      "backing pixel scale/Y conversion",
+      "map/world mode pending reset",
+      "focus/cancel/invalid values"
+    ],
+    "output": "PASS: AppKit lifecycle, pinch ratios, precise pan/wheel classification, backing scale, ownership reset and invalid input.",
+    "limitation": "Internal native accumulator/monitor registration and Unity routing checks; not physical human trackpad input. Initial expanded harness omitted re-enable after restart and was repaired before pass."
+  },
+  "additional_diagnostic": {
+    "result": "Degraded: one existing broad camera-edge assertion failed in a19-case diagnostic run;18 passed.",
+    "test": "TacticalView_InspectorZoomSettingUpdatesLiveAndWheelClamps",
+    "xml": "Artifacts/S3-QUALITY-GESTURES-20261018/playmode.xml",
+    "message": "Full hero renderer bounds Y1.013449 at world edge outside [0,1]. Temporary true sprite-quad check still measured1.008749; it was not accepted as a fix and the original test was restored.",
+    "assessment": "Camera ground clamp and hero dimensions untouched by this patch; separate camera-edge visibility issue requires follow-up. Alpha-visible clipping not proven by this bounds test. No tolerance relaxation, pivot-only substitute or camera/hero gameplay change shipped."
+  },
+  "build": {
+    "result": "Succeeded",
+    "unity": "6000.6.2f1",
+    "host": "macOS",
+    "graphics": "Metal",
+    "color_space": "Linear",
+    "path": "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app",
+    "bytes": 443898013,
+    "log": "Artifacts/S3-QUALITY-GESTURES-20261018/build-mac-final.log",
+    "note": "An early build attempt hit the project lock while test process was shutting down; after it exited, the final build succeeded."
+  },
+  "visual_review": {
+    "quality_context": "Actual development player backbuffer 1600x900; graphics=Metal; colorSpace=Linear.\nURP MSAA=4; renderScale=1; camera.allowMSAA=True; seed=164032.\nOpt-in disposable camera review: simulation paused, follow temporarily disabled, camera visits free production pads at zoom2.5/5/10. No grants or buildings. Restored afterward.\ncomparison: MSAA1, bilinear, mip bias -10 forcing highest source mip; approximates former sampling, not an old executable. current: authored MSAA/filter/bias. Both retain the requested no-inner-dash geometry.\nStoneLandmark: 1536x1024, mipCount=11, filter=Trilinear\nquarry: 1254x1254, mipCount=11, filter=Trilinear\nForestLandmark: 1536x1024, mipCount=11, filter=Trilinear\nIronLandmark: 1536x1024, mipCount=11, filter=Trilinear\niron_mine: 1254x1254, mipCount=11, filter=Trilinear\nsawmill: 1254x1254, mipCount=11, filter=Trilinear",
+    "quality_frames": [
+      {
+        "path": "Artifacts/S3-QUALITY-GESTURES-20261018/quality-player/IronMine-close-comparison.png",
+        "sha256": "fb4cdb347cceca0115029dc598060c8fee032d3b61eb9cefb4c7477c3fc47629",
+        "size": [
+          1600,
+          900
+        ],
+        "bytes": 2225971
+      },
+      {
+        "path": "Artifacts/S3-QUALITY-GESTURES-20261018/quality-player/IronMine-close-current.png",
+        "sha256": "34aa6210c55bfb743be614f7689cd33065dfc81967d1dd7f629cd147cb201cf6",
+        "size": [
+          1600,
+          900
+        ],
+        "bytes": 2226705
+      },
+      {
+        "path": "Artifacts/S3-QUALITY-GESTURES-20261018/quality-player/IronMine-far-comparison.png",
+        "sha256": "e825a0cc7efeec2582eca7026c6fdf3a9f47e860886842ef080db3f6d4c0a9e3",
+        "size": [
+          1600,
+          900
+        ],
+        "bytes": 2687961
+      },
+      {
+        "path": "Artifacts/S3-QUALITY-GESTURES-20261018/quality-player/IronMine-far-current.png",
+        "sha256": "21e1547023539a95a0a1f12c09d91b807a74251e6db9b8ef8808b75ff2fe5c9a",
+        "size": [
+          1600,
+          900
+        ],
+        "bytes": 2671301
+      },
+      {
+        "path": "Artifacts/S3-QUALITY-GESTURES-20261018/quality-player/IronMine-normal-comparison.png",
+        "sha256": "b5a458455bfdc746e72c7d0f91ad9d6f4ea01b9b545a2fc11e4e107f126d2a26",
+        "size": [
+          1600,
+          900
+        ],
+        "bytes": 2552500
+      },
+      {
+        "path": "Artifacts/S3-QUALITY-GESTURES-20261018/quality-player/IronMine-normal-current.png",
+        "sha256": "7820ffd1d05eeafd058f5d6423e322d5c35fc011611546f41f0055a3f7ff6ebd",
+        "size": [
+          1600,
+          900
+        ],
+        "bytes": 2514971
+      },
+      {
+        "path": "Artifacts/S3-QUALITY-GESTURES-20261018/quality-player/Quarry-close-comparison.png",
+        "sha256": "afcafd68c2296c74ce18708da634d1e02bf53f70a2ffa0d02427c8ce7c58979d",
+        "size": [
+          1600,
+          900
+        ],
+        "bytes": 2152077
+      },
+      {
+        "path": "Artifacts/S3-QUALITY-GESTURES-20261018/quality-player/Quarry-close-current.png",
+        "sha256": "ea57a301c1337aa138a12cb583178c7a80e4e2afde7f8474c536833de18ce39a",
+        "size": [
+          1600,
+          900
+        ],
+        "bytes": 2153915
+      },
+      {
+        "path": "Artifacts/S3-QUALITY-GESTURES-20261018/quality-player/Quarry-far-comparison.png",
+        "sha256": "d511fd59841d895b69561c85d5450258b8c17f5ee1ca80ec8649fc4b3313334f",
+        "size": [
+          1600,
+          900
+        ],
+        "bytes": 2681035
+      },
+      {
+        "path": "Artifacts/S3-QUALITY-GESTURES-20261018/quality-player/Quarry-far-current.png",
+        "sha256": "ee1bcdb03adb0faab25d0ab881b0573147411962492f92b14443317fcd14bf55",
+        "size": [
+          1600,
+          900
+        ],
+        "bytes": 2665583
+      },
+      {
+        "path": "Artifacts/S3-QUALITY-GESTURES-20261018/quality-player/Quarry-normal-comparison.png",
+        "sha256": "88dd0eacd8b56ca3a31114d505a0e8f118df87c7f403f4854b796862d88ad494",
+        "size": [
+          1600,
+          900
+        ],
+        "bytes": 2545124
+      },
+      {
+        "path": "Artifacts/S3-QUALITY-GESTURES-20261018/quality-player/Quarry-normal-current.png",
+        "sha256": "0276e16ea6964eec4a4b441ac864f928cc7576f88de47350de5dae54a635b0c5",
+        "size": [
+          1600,
+          900
+        ],
+        "bytes": 2492959
+      },
+      {
+        "path": "Artifacts/S3-QUALITY-GESTURES-20261018/quality-player/Sawmill-close-comparison.png",
+        "sha256": "cc2698c46128c64b968af77c2ed2027e5c1231468aa0571cc2c3dad04ec6795d",
+        "size": [
+          1600,
+          900
+        ],
+        "bytes": 2169321
+      },
+      {
+        "path": "Artifacts/S3-QUALITY-GESTURES-20261018/quality-player/Sawmill-close-current.png",
+        "sha256": "61933fe1fb0f467440c5656660c6e56b69e7ffb5597ba24e93c21a9b854b99c2",
+        "size": [
+          1600,
+          900
+        ],
+        "bytes": 2170613
+      },
+      {
+        "path": "Artifacts/S3-QUALITY-GESTURES-20261018/quality-player/Sawmill-far-comparison.png",
+        "sha256": "4985371fe72141f29a3de494d16b8016e156e1742a448f731658090e4065dacc",
+        "size": [
+          1600,
+          900
+        ],
+        "bytes": 2665581
+      },
+      {
+        "path": "Artifacts/S3-QUALITY-GESTURES-20261018/quality-player/Sawmill-far-current.png",
+        "sha256": "be4c1dbeb4979dc86afd2ad1842c39bdc811a5f89f83e6826738b0781e13e77a",
+        "size": [
+          1600,
+          900
+        ],
+        "bytes": 2648517
+      },
+      {
+        "path": "Artifacts/S3-QUALITY-GESTURES-20261018/quality-player/Sawmill-normal-comparison.png",
+        "sha256": "7ba3eea12c24df8096612d93add28a297c293e98f877e0dc63a24b46c6a78908",
+        "size": [
+          1600,
+          900
+        ],
+        "bytes": 2560873
+      },
+      {
+        "path": "Artifacts/S3-QUALITY-GESTURES-20261018/quality-player/Sawmill-normal-current.png",
+        "sha256": "37ff672d9aadc2c5c02a76db9e1af189e4f537381702871ef4a36e5268bb2260",
+        "size": [
+          1600,
+          900
+        ],
+        "bytes": 2508726
+      }
+    ],
+    "quality_count": 18,
+    "ui_backbuffer": [
+      1280,
+      720
+    ],
+    "ui_context": "Visible development player; actual full Game backbuffer including IMGUI.\nBackbuffer: 1280 x 720; fullscreen=False; mode=Windowed.\nInterface font: Arial; graphics=Metal; colorSpace=Linear.\nQA switches windows through the same public UI actions; no resources, towers, kills, time jumps or camera changes injected.\nCurrent unaffordable build cards remain disabled; inventory/progression reserves are not implemented mechanics.\nInteraction review warps the player mouse; if native warp does not update Input System position, it queues a pointer-position-only input event. Actual renderer/control path, no UI-state override or mouse clicks. Background input policy restored and pointer restore requested. See hover-pointers.txt.\n",
+    "ui_frames": [
+      {
+        "path": "Artifacts/S3-QUALITY-GESTURES-20261018/ui-1280x720/Construction.png",
+        "sha256": "8531c750526a627b083bc08475fdc3b4827a6d77bb10fadcc272829f8b6b24cf",
+        "size": [
+          1280,
+          720
+        ],
+        "bytes": 1633805
+      },
+      {
+        "path": "Artifacts/S3-QUALITY-GESTURES-20261018/ui-1280x720/DisabledBuildSelect.png",
+        "sha256": "a79481d84243dcd378ec70878cef23e5d4b3a3db38aabc877fdf294f4e2f8fb0",
+        "size": [
+          1280,
+          720
+        ],
+        "bytes": 1633845
+      },
+      {
+        "path": "Artifacts/S3-QUALITY-GESTURES-20261018/ui-1280x720/Hero.png",
+        "sha256": "48fc2d6582a349850a9a2850ba3494020d051192b4cd5b4d1f8b8eff8797377f",
+        "size": [
+          1280,
+          720
+        ],
+        "bytes": 573818
+      },
+      {
+        "path": "Artifacts/S3-QUALITY-GESTURES-20261018/ui-1280x720/HoverBuildSelect.png",
+        "sha256": "36335b5a705483383a28d071fb2d3aa94dda40ea5ed73420dace93993866ae5c",
+        "size": [
+          1280,
+          720
+        ],
+        "bytes": 1639538
+      },
+      {
+        "path": "Artifacts/S3-QUALITY-GESTURES-20261018/ui-1280x720/HoverBuildTab.png",
+        "sha256": "d05cbff2f730fb7a453401b35a0ac5861b1d3fed674529a6a846a9b5af20e77e",
+        "size": [
+          1280,
+          720
+        ],
+        "bytes": 1638482
+      },
+      {
+        "path": "Artifacts/S3-QUALITY-GESTURES-20261018/ui-1280x720/HoverClose.png",
+        "sha256": "d5422215e5482419ab63e3e65074e5d2a825ad13981bd9d5237d03a4b1a4707c",
+        "size": [
+          1280,
+          720
+        ],
+        "bytes": 656937
+      },
+      {
+        "path": "Artifacts/S3-QUALITY-GESTURES-20261018/ui-1280x720/HoverMapZoom.png",
+        "sha256": "f9150408f05cd9455aef950d928bd4f18f51ef5f3b94aa3091d954255c248f6a",
+        "size": [
+          1280,
+          720
+        ],
+        "bytes": 345077
+      },
+      {
+        "path": "Artifacts/S3-QUALITY-GESTURES-20261018/ui-1280x720/HoverMenu.png",
+        "sha256": "c6bf52d5baa9580fc597a80b0b457c47c64121004973726044723699e98e2125",
+        "size": [
+          1280,
+          720
+        ],
+        "bytes": 1651120
+      },
+      {
+        "path": "Artifacts/S3-QUALITY-GESTURES-20261018/ui-1280x720/HoverWorkshop.png",
+        "sha256": "de0c712318d88ff1598bc116ffc0191a0caba6f5ab1cd6e6a20fe866725ca42c",
+        "size": [
+          1280,
+          720
+        ],
+        "bytes": 1640038
+      },
+      {
+        "path": "Artifacts/S3-QUALITY-GESTURES-20261018/ui-1280x720/Inventory.png",
+        "sha256": "5eb4a5758f8b3010939ea973eac27981a81ed1527a6854fd4c41f757da49c2b6",
+        "size": [
+          1280,
+          720
+        ],
+        "bytes": 656828
+      },
+      {
+        "path": "Artifacts/S3-QUALITY-GESTURES-20261018/ui-1280x720/Map.png",
+        "sha256": "dca3f1342fbdd1f6b4dba706f11a0d62193ebbfdd58345d92e5942618ae30568",
+        "size": [
+          1280,
+          720
+        ],
+        "bytes": 344302
+      },
+      {
+        "path": "Artifacts/S3-QUALITY-GESTURES-20261018/ui-1280x720/None.png",
+        "sha256": "2cdaafb774476370f347a42b18c8bad6acecf105b9446c416ba244400a973ced",
+        "size": [
+          1280,
+          720
+        ],
+        "bytes": 1650928
+      },
+      {
+        "path": "Artifacts/S3-QUALITY-GESTURES-20261018/ui-1280x720/Research.png",
+        "sha256": "be617e4192767139d5204b3c4da4b69b1fb4fcc3a432f976a4e9555ff88f7ea7",
+        "size": [
+          1280,
+          720
+        ],
+        "bytes": 575336
+      }
+    ],
+    "method": "Actual visible development player ScreenCapture including IMGUI. Quality review pauses simulation and temporarily positions camera at3free pads/zoom2.5,5,10; no grants or buildings; state restored.",
+    "comparison": "MSAA1 + bilinear + mip bias-10 forcing highest source mip approximates former sampling, not an old executable. Current uses authored4xMSAA/filter/bias. Both share no-inner-dash geometry.",
+    "astra_signoff": "All18 static resource quality frames accepted: outer line/glyph fit retained, no inner dashes, cleaner edges and reduced fine grain at normal/far, no new close blur, broken layers/halos or shifted bounds.",
+    "limits": [
+      "Static Mac/Metal acceptance; temporal shimmer reduction in motion not measured.",
+      "Built production sprites not present in these frames; their six-texture quality state is recorded but separate built-building visual signoff not claimed.",
+      "Extreme enlargement remains limited by original bitmap detail; no supersampled source detail promised."
+    ],
+    "native_player_observation": {
+      "method": "CUA native keyboard M and actual window screenshot in final Mac development player at1600x900.",
+      "result": "M opens the full-screen regional map; footer identifies two-finger pan and wheel/pinch zoom. Player left open on M.",
+      "log": "Artifacts/S3-QUALITY-GESTURES-20261018/player-final-open.log",
+      "limitation": "Keyboard opening and visible UI only; no physical pinch or precise-scroll hardware verification."
+    }
+  },
+  "runtime_errors": {
+    "Artifacts/S3-QUALITY-GESTURES-20261018/player-quality.log": [],
+    "Artifacts/S3-QUALITY-GESTURES-20261018/player-ui-1280.log": [],
+    "Artifacts/S3-QUALITY-GESTURES-20261018/player-final-open.log": []
+  },
+  "editor_environment_note": "Licensing refresh reports unavailable access token; licensed test/build processes nevertheless complete. No attributable new game/font/shader error found.",
+  "preservation": {
+    "original_pngs": {
+      "Assets/Stage3/ResourceDistricts/Landmarks/ForestLandmark.png": "8f10194d34768911732871244cb396aca01a6cd493606e98148f2e61442d9f01",
+      "Assets/Stage3/ResourceDistricts/Landmarks/StoneLandmark.png": "7e5aef7b7075a5f6291ef23da86ac182bc6074919bc1281df33d99118271c629",
+      "Assets/Stage3/ResourceDistricts/Landmarks/IronLandmark.png": "9e6f34b7eac7f79db8765587869d803c49e631fe2349170d0309fb20146b51f3",
+      "Assets/Stage3/ResourceDistricts/Production/sawmill.png": "a01f715668ea5f5f1bfaaf5b6d4fa714d7da739109693eda0c787968e7aafa29",
+      "Assets/Stage3/ResourceDistricts/Production/quarry.png": "e2058a07c08543c220306fa79e1e2baede0da5c34c88a087fa760e172ead7c3a",
+      "Assets/Stage3/ResourceDistricts/Production/iron_mine.png": "6e44ce532c5835a6aa18f83300bfa694a5502c28971d17be197efcb8696ecf5b"
+    },
+    "scenes_prefabs_and_packages": "Unchanged by D-070",
+    "meta_pairs": "Existing6texture meta settings retained with their original assets; plugin importer unchanged.",
+    "source_sha256": {
+      "Assets/Plugins/macOS/libNot3ATrackpad.dylib": "4c5c4db34a42793e843c06941ee1a34e5b9a7a932e4a4461a9e02fce0fa33d74",
+      "Assets/Settings/PC_RPAsset.asset": "384d04292c844ede07f1dc9a4394e7df1ce30fa7c053f3d1cb77bfb2f2d23324",
+      "Assets/Stage2/Defense/Runtime/Stage2PlacementVisuals.cs": "7f5d7068ced0807b40040f763d873e0c0747c81cb21cd8a0b80dd7a4e8ad31fd",
+      "Assets/Stage2/Integration/Runtime/Stage2CameraFollow.cs": "8eabbc117cd880333a4d26499d9d192f11f344fd835edf1544c12b8c2026a274",
+      "Assets/Stage2/Integration/Runtime/Stage2MacTrackpad.cs": "741b73e251b6a52f0c7f23824aed7814360ba56b60164d0925de777f4f9b8102",
+      "Assets/Stage3/PlayerInterface/Editor/Stage3PlayerInterfaceBuilder.cs": "e5870e6d8b1c93405841147639a5be98b2a1a107bfc61893b616b7d9ea3a13e2",
+      "Assets/Stage3/PlayerInterface/LunarCircularMap.shader": "e15f26963a0bf43cf8d41de5fd3d88a4b35b47afc8ea2cde9108a1039d510073",
+      "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Hero.cs": "b35081f4d3f17b70d64c2c882a4a07ab9cb4483ae1f604ed7a3e2bc6efe95ff4",
+      "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Inventory.cs": "6c16e9f59532659680439fae2a83ffb415b1f30d1ed7979ea39fc39cf9cb5e9d",
+      "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Map.cs": "bfb56c7c6db8826a84ac0117860969cf510b52c83e02435050c51d1751f3878c",
+      "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.MapInput.cs": "4f5910131699c3d01d62a3274bf63e35bbec232baad23b9bf016a0e8bf671404",
+      "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Research.cs": "e383ad567a91fe3ecdf2f39b4f443a05ff627b4b9f0795e6f8489b77d2a1feb5",
+      "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.cs": "1db149963ea3f98313a7c2e3c658825cb6ebccca51aa37e00d4b688e7483dc04",
+      "Assets/Stage3/PlayerInterface/Runtime/Stage3InterfaceCapture.cs": "b2b77e64cc9111e01883f3cc9464aed7b538786f3fb849af5827984754898c2b",
+      "Assets/Stage3/PlayerInterface/Runtime/Stage3PlayerInterfaceBinding.cs": "bc24d0bae69f463947477a7cd111a92fcf9c2bdb1803a24407b24948d4e3c6c2",
+      "Assets/Stage3/ResourceDistricts/Editor/Stage3ProductionBuilder.cs": "0bba251448ec4f3336e551677f22f05224e58b6173e37634b5eec81f6704a8d0",
+      "Assets/Stage3/ResourceDistricts/Editor/Stage3ResourceLandmarkBuilder.cs": "0c514639d76bea332aa1675b07b0167a97da83b27a83fef9384f1e13bb882ad5",
+      "Assets/Stage3/ResourceDistricts/Landmarks/ForestLandmark.png.meta": "8206a71abc72e1ef1c0dd27f9cdcbcc5d1ffe5badeee671875b497e5afd7e713",
+      "Assets/Stage3/ResourceDistricts/Landmarks/IronLandmark.png.meta": "3fb2d8e42c69af082caf05e8a14683ba325be35da3916961809ca7223938e247",
+      "Assets/Stage3/ResourceDistricts/Landmarks/StoneLandmark.png.meta": "32b1601a56f7ec7449986feac1798bd5e9d61294c3c10c7a57f1794ccbec4bfd",
+      "Assets/Stage3/ResourceDistricts/Production/iron_mine.png.meta": "e00c609827740117f7fa2084821a181b023f275d61b42cce8cf225df1ca8d1d8",
+      "Assets/Stage3/ResourceDistricts/Production/quarry.png.meta": "13ef0e1d3a69eb9a16f46e639442444ba4d2db60399f5dae9362b8da5a7e2e3c",
+      "Assets/Stage3/ResourceDistricts/Production/sawmill.png.meta": "cbb96b669b3a0c7b018f8dc1c558a4ad0d5aaf86df712fe12b1a9a1ffd881734",
+      "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3PlayerInterfaceTests.cs": "9e48c09ab22f3d8cdb40f5836b6c65c75374536602ae915bc064db0659f1b41d",
+      "native/macos/Not3ATrackpad.mm": "b6674fd5ea42bc1a0a8a1c438ba4f13ac26c417a25ce4e48b562c6014096fdaf",
+      "native/macos/tests/TrackpadTests.mm": "7cd3793e2bf4b9e6db3cfb223d6494e054ca0fc5139f7bb62d8b93952cd80fae"
+    },
+    "previous_dirty_work": "D-069 preserved; starting dirty hashes retained locally in starting-dirty-state.json."
+  },
+  "selected_actual_review": {
+    "path": "art/review/quality_resource_pad_2026-10-18.png",
+    "sha256": "0276e16ea6964eec4a4b441ac864f928cc7576f88de47350de5dae54a635b0c5",
+    "size": [
+      1600,
+      900
+    ],
+    "bytes": 2492959
+  },
+  "next_concepts": "art/source/manual_resource_motion_2026-10-18_generation.json",
+  "limitations": [
+    "Windows target validation degraded because only MacStandaloneSupport is installed.",
+    "Physical trackpad playthrough not available in automation; native/unit and Unity routing coverage do not replace it.",
+    "Separate camera-edge diagnostic above remains open.",
+    "GPU performance/memory budget under full hordes not benchmarked;4xMSAA costs extra samples and mip chains add roughly one-third texture memory.",
+    "New resources/tools/harvesting/movement animations and trader/city/unlock runtime are not implemented."
+  ],
+  "primary_documentation": [
+    "https://docs.unity3d.com/6000.0/Documentation/Manual/urp/anti-aliasing.html",
+    "https://docs.unity3d.com/6000.0/Documentation/Manual/texture-mipmaps-introduction.html",
+    "https://developer.apple.com/documentation/appkit/nsevent/hasprecisescrollingdeltas",
+    "https://developer.apple.com/documentation/appkit/nsevent/scrollingdeltay"
+  ]
+}

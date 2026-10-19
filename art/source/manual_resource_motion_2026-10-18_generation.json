@@ -1,0 +1,252 @@
+{
+  "date": "2026-10-18",
+  "decision": "D-071",
+  "status": "Owner approved all six selected concepts and authorized runtime implementation, with natural random tree layout correction.",
+  "generator": "Built-in image_gen.imagegen (imagegen skill)",
+  "authorization": "Owner explicitly requested ImageGen sketches of resources, tools and animations after D-070 repairs.",
+  "art_direction_owner": "GPT-6 Astra",
+  "rights": "Original generated concepts based only on project-owned previously approved game images; no third-party game pixels or traced assets.",
+  "selected": [
+    {
+      "name": "stone_sizes_depletion_v1",
+      "path": "art/concepts/manual_resources_motion_2026-10-18/stone_sizes_depletion_v1.png",
+      "approval": "Owner approved for implementation; tree composition uses random natural scatter, not sheet grid.",
+      "sha256": "c8d36482b3b636821e3e9c130a0025a269314b4010788b7a7267b4dca442d1d2",
+      "size": [
+        1536,
+        1024
+      ],
+      "bytes": 1707039
+    },
+    {
+      "name": "ore_sizes_depletion_v2",
+      "path": "art/concepts/manual_resources_motion_2026-10-18/ore_sizes_depletion_v2.png",
+      "approval": "Owner approved for implementation; tree composition uses random natural scatter, not sheet grid.",
+      "sha256": "b720062b5411111ea09186a1cfa3bcde5d19f13dd2b29f1539559fbbc3dbd718",
+      "size": [
+        1536,
+        1024
+      ],
+      "bytes": 1947204
+    },
+    {
+      "name": "tree_groups_v3",
+      "path": "art/concepts/manual_resources_motion_2026-10-18/tree_groups_v3.png",
+      "approval": "Owner approved for implementation; tree composition uses random natural scatter, not sheet grid.",
+      "sha256": "99035433049f98f8d28dee07c3269b0516c4770e773f1538c10afdda4255f9c6",
+      "size": [
+        1536,
+        1024
+      ],
+      "bytes": 1777298
+    },
+    {
+      "name": "axe_pickaxe_equipment_v2",
+      "path": "art/concepts/manual_resources_motion_2026-10-18/axe_pickaxe_equipment_v2.png",
+      "approval": "Owner approved for implementation; tree composition uses random natural scatter, not sheet grid.",
+      "sha256": "b41156c00aeecfbe591b3f0aa213e9b6fd4970a25f8e5ed3b984a6e36c525f84",
+      "size": [
+        1774,
+        887
+      ],
+      "bytes": 1985785
+    },
+    {
+      "name": "hero_motion_keyposes_v4",
+      "path": "art/concepts/manual_resources_motion_2026-10-18/hero_motion_keyposes_v4.png",
+      "approval": "Owner approved for implementation; tree composition uses random natural scatter, not sheet grid.",
+      "sha256": "7415f64de7716ccf410aea979466a5e187af0de9dae4142882d312af6678325f",
+      "size": [
+        1536,
+        1024
+      ],
+      "bytes": 2041636
+    },
+    {
+      "name": "skeleton_walk_keyposes_v2",
+      "path": "art/concepts/manual_resources_motion_2026-10-18/skeleton_walk_keyposes_v2.png",
+      "approval": "Owner approved for implementation; tree composition uses random natural scatter, not sheet grid.",
+      "sha256": "007e59c1548b69e8e3921cfa58e2ad8236823760fd777a1693fef9d1d3b517a3",
+      "size": [
+        1774,
+        887
+      ],
+      "bytes": 1828739
+    }
+  ],
+  "prompt_history": [
+    {
+      "name": "stone_sizes_depletion_v1",
+      "prompt": "Use case: stylized-concept. Edit/expand the supplied original game boulder into a polished landscape CONCEPT APPROVAL SHEET, not a runtime atlas. Keep the exact established pale granite identity, warm cream-grey angular faces, restrained dark outlines and soft dimensional cartoon fantasy rendering. Same fixed orthographic isometric camera, about35 degree downward elevation, same light from upper left. Clean warm off-white sheet, no black halo, no UI, no scenery, no photorealism.\nTop half: three clearly separate harvestable rock forms at ONE COMMON WORLD SCALE on the same baseline: small (the supplied original rock silhouette), medium (substantially larger irregular boulder group), large (a substantial outcrop, still an individual hand-mined rock, never a stepped industrial quarry). Clearly increasing physical volume and varied natural silhouettes, not three scaled identical images. Short Russian labels only: \"МАЛЫЙ\", \"СРЕДНИЙ\", \"БОЛЬШОЙ\".\nBottom half: four ordered depletion KEY STATES of the SAME medium boulder, all at the same scale and registered ground anchor: intact, visibly chipped aboutone quarter removed, half extracted, small remaining core with most mass removed. Show physically removed chunks and reduced rock mass, not just uniform shrinking, tint/fade or growing cracks on an unchanged silhouette. Same rock identity and ground contact across states. Labels \"100%\", \"75%\", \"50%\", \"15%\". Do not add pickups, numbers for yields, tool icons, characters, buildings or industry. Generous gutters, all objects fully inside image, readable large forms rather than microtexture. This image is a review concept only; preserve the original source file and invent no mechanics.",
+      "input_images": [
+        {
+          "path": "/Users/artemmusket/game-dev/not-3a-game/Assets/Stage3/ResourceSpritePilot/StoneGranite.png",
+          "sha256": "64deef8c4903cea5f74ea6aaff68f9526bb6cb558fe86463057e72507350312d"
+        }
+      ],
+      "selected": true
+    },
+    {
+      "name": "ore_sizes_depletion_v1",
+      "prompt": "Use case: stylized-concept. Edit/expand the supplied original game iron-ore rock into a polished landscape CONCEPT APPROVAL SHEET, not a runtime atlas. Preserve this game's dark slate rock, large rusty orange mineral seams embedded in it, moderate outline and soft dimensional cartoon fantasy form. The seams are mineral, NOT emissive lava or crystals. Same orthographic isometric35-degree downward camera and upper-left daylight. Clean warm off-white sheet, no black glow/background, no scenery or UI.\nTop half: three individual hand-harvestable ore forms shown at ONE COMMON WORLD SCALE and grounded on the same baseline: small (preserve supplied silhouette identity), medium (larger distinct jagged mass), large (substantial low outcrop with readable mineral veins, NOT a mine pit/industrial district). Clearly different volumes and natural silhouettes rather than a simple image upscale. Short Russian labels \"МАЛАЯ\", \"СРЕДНЯЯ\", \"БОЛЬШАЯ\".\nBottom half: four depletion KEY STATES of the SAME medium ore formation, identical camera/scale/anchor:100%,75%,50%,15% remaining. Break away actual rock sections and exposed mineral as extracted, preserve identifiable core/ground contact, leave a small physical remainder in final state. No mere desaturation/fading/uniform scaling. Labels only \"100%\", \"75%\", \"50%\", \"15%\". No buildings, workers, magic light, resource pickups, yield numbers or new ore species. Spacious gutters, fully visible objects, large readable facets. Approval sketch only, no gameplay implementation.",
+      "input_images": [
+        {
+          "path": "/Users/artemmusket/game-dev/not-3a-game/Assets/Stage3/ResourceSpritePilot/IronOre.png",
+          "sha256": "71c904fd6abead6bf7f342ea0b7569f1966a8029f43706319b13175ca4333589"
+        }
+      ],
+      "selected": false
+    },
+    {
+      "name": "tree_groups_v1",
+      "prompt": "Use case: stylized-concept. Expand the supplied original conifer game sprite into a clean landscape concept review sheet of SMALL HARVESTABLE TREE GROUPS. Preserve its exact species/material language: layered soft green conifer crown, exposed warm brown trunk/roots, soft dimensional cartoon fantasy rendering with a restrained contour. Fixed orthographic isometric camera about35 degrees downward, consistent upper-left daylight. Warm off-white neutral sheet, no UI.\nFour separate compositions at ONE COMMON TREE SCALE and a shared ground baseline, with generous gutters: one tree, a group of exactly2 trees, a group of exactly4 trees, a group of exactly8 trees. Each is made from ordinary-sized trees, not giant versions or a giant forest landmark. Keep crowns naturally varied but trunks individually countable, connected visible ground gaps and open walking approaches between trunks. For8 use a loose staggered grove, not a solid hedge/wall or an industrial clearing. Preserve lower footing and full crown margins. Tiny grounding shadows only, no boxed grass islands or terrain platforms. Labels only \"1\", \"2\", \"4\", \"8\" below respective compositions. No buildings, roads, sawmills, stump-only trees, rock deposits, tools or characters. This is a composition concept for later owner approval; no runtime-ready combined blob.",
+      "input_images": [
+        {
+          "path": "/Users/artemmusket/game-dev/not-3a-game/Assets/Stage3/ResourceSpritePilot/WoodConifer.png",
+          "sha256": "b3408f40cd015436144226599a4e2d3e0e3154e7cf476e96d1a67b7fd56a0542"
+        }
+      ],
+      "selected": false
+    },
+    {
+      "name": "axe_pickaxe_equipment_v1",
+      "prompt": "Use case: stylized-concept. Transform the provided four-view original Hero C sheet into an EQUIPMENT CONCEPT APPROVAL SHEET. Preserve EXACT hero identity: dark hair tied up, short beard, blue embroidered travel tunic and scarf, cream sleeves, brown leather gloves/bracers/belt/boots, olive trousers and modest brown backpack. Same proportions, clothing and soft dimensional cartoon fantasy style; no new costume, armor/class or realism change.\nLandscape warm off-white studio sheet, orthographic isometric game camera about35 degrees down, upper-left daylight. Left half: practical original woodcutter AXE and mining PICKAXE, sturdy wood handles and modest steel working heads with readable silhouettes. Show each isolated tool in two useful views with common scale, no ornament, magic or huge weapons. Right half: two large fully visible hero figures in the same three-quarter direction; one calmly equips the axe with a plausible two-handed working grip, the other equips the pickaxe, ready for mining. Tools must be separate equipment in appearance, actual hands grasp handles, no floating or fused tool parts. No bow while using these tools. Footing/baseline and body scale identical. Labels only \"ТОПОР\" and \"КИРКА\". Leave generous space, no characters beyond the two demonstrations, no buildings/resources/menus. Concept sheet only, not a finished animation or imported asset.",
+      "input_images": [
+        {
+          "path": "/Users/artemmusket/game-dev/not-3a-game/Assets/Stage3/DayNight/HeroCIdle.png",
+          "sha256": "cf81a7fd758ae22a299a01d953523cad883a5861f363d059b6349d71fb53252a"
+        }
+      ],
+      "selected": false
+    },
+    {
+      "name": "hero_motion_keyposes_v1",
+      "prompt": "Use case: stylized-concept. Transform the supplied original Hero C reference into a professional landscape ANIMATION KEYPOSE REVIEW SHEET, not a finished sprite atlas. Keep this exact man, face, tied dark hair, beard, blue embroidered travel tunic/scarf, cream sleeves, leather equipment/boots and olive trousers, modest backpack. Do not change outfit or character style. Same fixed orthographic elevated35-degree isometric camera, three-quarter screen-right facing for EVERY pose, same upper-left lighting and same physical body scale.\nThree horizontal rows of SIX large fully visible keyposes, clear even gutters, warm off-white background. All six figures in each row share a planted-foot baseline and stable root location. Row1 \"ХОДЬБА\": a coherent full walking stride sequence with alternating left/right foot contact, down, passing, up, opposite contact and recovery; natural weight transfer, coordinated opposite arm swing, feet not skating. Hands free, bow absent for motion clarity. Row2 \"КИРКА\": a complete plausible TWO-HANDED pickaxe work sequence: ready, backswing, raised anticipation, downward strike, actual contact with one small stationary grey rock, recovery to ready. Same tool in every frame, hands gripping the handle, no extra arms, no weapon/tool morph. Row3 \"ТОПОР\": matching coherent chopping sequence: ready, backswing, anticipation, forward/down strike into a small stationary visible tree trunk, follow-through, recovery. Same practical wood/steel axe all6frames, fixed grip/anatomy and trunk location.\nPoses must DIFFER meaningfully and connect physically; stable head size, torso/limb lengths, costume and foot anchor. Natural motion within the established cartoon style, no photorealism, no magic trails, exaggerated squash or motion-blur substitution. Label rows only with the three Russian titles above; no invented stats/UI. This is a storyboard of key poses for owner approval, not proof of smooth final animation and not runtime-ready art.",
+      "input_images": [
+        {
+          "path": "/Users/artemmusket/game-dev/not-3a-game/Assets/Stage3/DayNight/HeroCIdle.png",
+          "sha256": "cf81a7fd758ae22a299a01d953523cad883a5861f363d059b6349d71fb53252a"
+        }
+      ],
+      "selected": false
+    },
+    {
+      "name": "skeleton_walk_keyposes_v1",
+      "prompt": "Use case: stylized-concept. Transform the supplied existing game skeleton walk sheet into a new polished WALK KEYPOSE APPROVAL SHEET, not a finished runtime atlas. Preserve the exact accepted skeleton identity: ivory bones, rounded skull with dark eye sockets and small red eyes, ragged dark teal short tunic, plain brown belt/gold buckle, no weapons. Same soft dimensional cartoon fantasy style, outlines and upper-left light. Warm off-white background instead of the source brown background.\nLandscape sheet with TWO horizontal rows of SIX poses,12ordered phases forming ONE continuous full walking cycle at a fixed three-quarter screen-right view, orthographic isometric35-degree downward camera. Every figure same size, limb/bone lengths, skull, tunic and root/ground baseline. First row phases1–6, second row7–12. True alternating weight-bearing feet with contact/down/passing/up and opposite contact, gentle counter-rotation of shoulders/pelvis, natural coordinated arms and visible intermediate phases instead of repeated duplicates. Consistent anatomy: two arms/two legs, five fingers where visible, no extra ribs/limbs or changing skull/feet. Restrained bone/joint movement, no rubber bending, gliding, heavy bobbing, jumping, motion blur or magic. Generous cell gutters and full silhouettes including toes. Small labels only \"1\" through \"12\". No scenery, attacks, health, UI or new costume. Keypose concept to judge motion direction; later registration and real animation validation remain necessary.",
+      "input_images": [
+        {
+          "path": "/Users/artemmusket/game-dev/not-3a-game/Assets/Stage3/SkeletonSpritePilot/SkeletonWalk.png",
+          "sha256": "2f42a376ee244f9c795f964507aa705da39d991bc76aefbe6af42e1c75e1d31b"
+        }
+      ],
+      "selected": false
+    },
+    {
+      "name": "tree_groups_v2",
+      "prompt": "Edit this concept review sheet to correct tree COUNTS and COMMON SCALE. Keep the same conifer species, soft cartoon fantasy rendering, warm neutral background, upper-left light and orthographic elevated game camera. Recompose as FOUR large equal panels in a2x2grid with generous gutters, labels \"1\",\"2\",\"4\",\"8\". Top-left exactly ONE normal conifer; top-right exactly TWO; bottom-left exactly FOUR; bottom-right exactly EIGHT. Every tree throughout the whole sheet must be the same ordinary physical size, crown height varying by at most10percent, NOT progressively larger in bigger groups. The eight-tree panel MUST have exactly eight distinct crowns and eight visible trunk/root bases: arrange them as two staggered rows of four with ample ground gaps, avoiding hiding any trunk behind another. Count all8 explicitly before finishing. No overlapping trunks, no bushes pretending to be trees, no hidden ninth tree, no building/industrial forest clearing, no rocks or characters. Full silhouettes and readable walkable ground between trunks. This is a composition approval sketch only.",
+      "input_images": [
+        {
+          "path": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-6b4d7bb7-3cdc-45fb-9f72-8f4ebbd962a1.png",
+          "sha256": "bd94fd1b41b340cac733c37f66967062f21b179f149350d29618532a9cc1286d"
+        }
+      ],
+      "selected": false
+    },
+    {
+      "name": "hero_motion_keyposes_v2",
+      "prompt": "Correct ONLY the top \"ХОДЬБА\" row of this concept sheet. Preserve the two lower \"КИРКА\"/\"ТОПОР\" rows, their complete characters/props/poses, labels, rendering and positions. Preserve exact Hero C identity/outfit/lighting/camera and all three-row layout. The walking row currently repeats wide-stride poses, so replace those6walking figures with six clearly DISTINCT keyposes of a single coherent full walk at the SAME three-quarter screen-right direction and common scale/ground baseline.\nPose1 CONTACT: feet widely split front/back, forward leg straight, rear heel raised, opposite arms counter-swing.\nPose2 DOWN: front foot planted under weight, front knee visibly flexed, hips slightly lower, rear toe lifting.\nPose3 PASSING: legs NARROW below torso, support leg near vertical, opposite knee BENT forward with raised foot beside support ankle, arms pass torso.\nPose4 OPPOSITE CONTACT: opposite leg now extended forward, feet widely split, opposite arm counter-swing (do not horizontally flip the character or change view).\nPose5 OPPOSITE DOWN: opposite weight-bearing knee flexed, modest lower hips, other toe lifting.\nPose6 OPPOSITE PASSING: feet/legs again NARROW under body, other knee bent forward, support leg vertical.\nStrong visible difference between contact(WIDE), down(FLEXED), passing(NARROW) silhouettes. Do not show all six poses with the same leg extended. Feet may move within each cell; stable pelvis/root and constant limb lengths. No bow or new outfit, no extra arms, no turn toward camera, no floating. Keypose review only, not finished smooth animation.",
+      "input_images": [
+        {
+          "path": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-a1644410-6b9a-4aaf-9b9b-5a47839190d2.png",
+          "sha256": "af22a8bce9d5d2ad2aae3755d001ea8da0f0d26f24cefa5660bd2fd8b70fead5"
+        }
+      ],
+      "selected": false
+    },
+    {
+      "name": "skeleton_walk_keyposes_v2",
+      "prompt": "Rebuild this skeleton WALK KEYPOSE CONCEPT sheet because the current poses repeat the same wide split and frame8 changes view. Keep exact accepted character: ivory bones, red eyes/dark sockets, rounded skull, ragged dark-teal tunic, brown belt/brass buckle, no weapon. Same soft cartoon rendering, fixed three-quarter SCREEN-RIGHT view for EVERY frame,35degree elevated orthographic camera, same lighting and root scale, warm off-white backdrop.\nUse EIGHT LARGE CLEARLY DIFFERENT keyposes, two rows of four, labels1–8. They are one continuous full gait cycle:\n1 contact: feet WIDELY SPLIT front/back, near leg forward, far leg back, opposing arm swing.\n2 down: near foot planted, near knee FLEXED, pelvis slightly lower, far heel rises.\n3 passing: legs NARROW under hips, near supporting leg almost vertical, far knee BENT FORWARD with its raised foot passing beside support ankle; arms near torso.\n4 up: near supporting heel lifts, far knee extends forward, pelvis slightly higher, feet still relatively close.\n5 opposite contact: FAR leg forward, NEAR leg back, feet WIDELY SPLIT, opposite arm swing.\n6 opposite down: far knee visibly flexed bearing weight, near foot lifts.\n7 opposite passing: far support leg vertical under hips, near knee BENT FORWARD and raised foot passes beside support ankle, legs NARROW.\n8 opposite up: far heel lifts and near leg prepares next forward contact.\nEnsure CONTACT and PASSING silhouettes visibly differ (wide split versus narrow/one bent leg). Do not recycle the same extended legs for all poses. Same facing, skull and limb/bone lengths in all eight; distinguish near/far limbs naturally with lighting and overlap, not colored bands. No back-facing frame, jumps, rubber bones, extra limbs, background scene or motion blur. Large gutters, all toes fully visible. Concept keyposes for approval, NOT a finished animation atlas.",
+      "input_images": [
+        {
+          "path": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-a9662920-fa35-437f-8700-3d759f2d4603.png",
+          "sha256": "3f608a9a1936e4022810110fee8b857ea381c3742ae6603de920f570ee9ff31e"
+        }
+      ],
+      "selected": true
+    },
+    {
+      "name": "tree_groups_v3",
+      "prompt": "Edit ONLY the bottom-right panel labelled \"8\" of the provided sheet. The panel currently has FOUR trees in the back row and THREE trees in the front row, which is SEVEN, so ADD THE MISSING EIGHTH TREE. Keep the other three panels (1,2,4), their trees, labels, background and style UNCHANGED.\nThe corrected bottom-right panel must have FOUR back-row tree trunks plus FOUR front-row tree trunks, total EIGHT. Reposition the three existing front trees evenly to make room for a fourth front tree at the far RIGHT. Make all eight in this panel modestly smaller together if necessary to preserve margins and open gaps. Each tree must have a separately visible full crown and a separately visible root/trunk base. Use the same ordinary conifer design, camera, light and colors. No hidden trees behind crowns. No large central tree replacing two trees. Four distinct back trunks across the panel and four distinct front trunks across the panel. Preserve panel label \"8\", no other text or objects. Count8 visible trunks before finishing. This is a concept sheet, not runtime scenery.",
+      "input_images": [
+        {
+          "path": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-5bfe9455-cf65-4de4-bd8b-ce3e3acb5e16.png",
+          "sha256": "f396b5c451d1102062476bf87c6cc8061b58541f0a0a4bdf785f9de3cef49468"
+        }
+      ],
+      "selected": true
+    },
+    {
+      "name": "ore_sizes_depletion_v2",
+      "prompt": "Make a precise MATERIAL-ONLY edit to this iron ore concept sheet. Keep every rock silhouette, size, placement, depletion stage, camera, lighting, outlines, background and ALL labels unchanged. Repaint the mineral seams throughout ALL seven formations as MATTE oxidized iron: muted rusty terracotta/orange-brown and deeper reddish brown in crevices. Remove bright golden-yellow centres, hot yellow highlights and any molten/lava appearance. Mineral remains visible against dark slate, but is rough solid rock with restrained natural daylight reflection, no emission or glow. Preserve the existing cartoon material style, no gold, no new objects. Change only the color/material of orange mineral veins.",
+      "input_images": [
+        {
+          "path": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-7ee3ae54-f657-4c55-b99e-eb4ba4930b12.png",
+          "sha256": "4c0aa25b3225093048820cae3f4d4f587ba2e29208f44b12f54a5379177ce645"
+        }
+      ],
+      "selected": true
+    },
+    {
+      "name": "axe_pickaxe_equipment_v2",
+      "prompt": "Precisely edit this equipment concept approval sheet to make the pickaxe consistent. Preserve ALL layout, hero identity/outfit/body/pose/hand positions, axe and labels/background/lighting. The isolated pickaxe on the LEFT is the canonical design and stays unchanged. Correct only the pickaxe head held by the RIGHTMOST hero: it must be the SAME asymmetrical spike-plus-flat-adze head as the isolated pickaxe, not a symmetric double-point head. One consistent practical mining pick: asymmetrical MATTE STEEL head with ONE long slightly downward-curving pointed spike on one side, ONE short blunt FLAT ADZE on the opposite side, a central eye around a straight warm wooden handle, modest lower leather wrap. No second long pointed spike. Keep the same head and handle dimensions. In mining contact the long pointed spike hits the rock, the blunt adze is behind it. Respect its projected orientation in the raised hero grip. Maintain the same shaft/grip, anatomy and plain wood/steel materials. Do not add anything, no extra arms or costume changes.",
+      "input_images": [
+        {
+          "path": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-0282e318-6492-4220-9977-48b5b3fc4954.png",
+          "sha256": "7ef80bfdf1f30fd3fbddfe77130e9e4ed7322a533da93b49b8bfd638ae126323"
+        }
+      ],
+      "selected": true
+    },
+    {
+      "name": "hero_motion_keyposes_v3",
+      "prompt": "Precise TOOL CONSISTENCY edit. Image1 is the target three-row motion keypose sheet; Image2 is a supporting equipment reference, specifically its isolated LEFT pickaxe is the canonical tool. Preserve ALL of Image1's first walking row and bottom axe/chopping row, labels, body poses, character face/outfit, row layout, camera, illumination and background. Change ONLY the pickaxe tool heads in ALL SIX figures of the middle \"КИРКА\" row so they match the isolated pickaxe in Image2. One consistent practical mining pick: asymmetrical MATTE STEEL head with ONE long slightly downward-curving pointed spike on one side, ONE short blunt FLAT ADZE on the opposite side, a central eye around a straight warm wooden handle, modest lower leather wrap. No second long pointed spike. Keep the same head and handle dimensions. In mining contact the long pointed spike hits the rock, the blunt adze is behind it. Rotate this identical rigid tool correctly for ready, backswing, raised anticipation, contact and recovery without changing shaft length/grip. In contact frames the pointed working end enters the same rock target. No second long point, no changing head form or extra tool parts. Keep all original characters and hands, no extra limbs. This remains a keypose concept, not finished animation.",
+      "input_images": [
+        {
+          "path": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-1dd8933f-8da9-472b-affe-f3cfc87cf5df.png",
+          "sha256": "508b8dd174e77465ba628d63c7d383d59726f24a881097889c5153d280c75526"
+        },
+        {
+          "path": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-0282e318-6492-4220-9977-48b5b3fc4954.png",
+          "sha256": "7ef80bfdf1f30fd3fbddfe77130e9e4ed7322a533da93b49b8bfd638ae126323"
+        }
+      ],
+      "selected": false
+    },
+    {
+      "name": "hero_motion_keyposes_v4",
+      "prompt": "Make ONE tiny correction only in this three-row concept sheet: in the MIDDLE row \"КИРКА\", the FOURTH character from the left is striking the rock. His pickaxe head currently has an unwanted upper curved point. Replace ONLY that upper rear point with a SHORT BLUNT FLAT RECTANGULAR ADZE, matching the short flat back end seen on the first/second/third/sixth pickaxes in the same row. The LOWER long curved pointed end contacting the rock stays exactly unchanged. The corrected head has one long curved working spike and one short flat adze, never two long points. Preserve every other pixel composition: all characters/poses/handles/hands, first walking row, bottom chopping row, labels, backgrounds, camera, light, colors and all other tools. Do not redraw other cells or add anything.",
+      "input_images": [
+        {
+          "path": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-f65f828b-7d5b-46f5-b9bc-5b28ecd0d415.png",
+          "sha256": "728c76a9c9f47df22ecdd6b213490338c23c4b0fb5bfeae790ddf476389c87f3"
+        }
+      ],
+      "selected": true
+    }
+  ],
+  "review_notes": [
+    "Static concept poses are not a finished smooth animation atlas. Alternating legs, fixed anatomy, root/pivot/grip registration and actual motion review remain implementation work.",
+    "Percentage captions illustrate depletion appearance, not approved runtime stage thresholds.",
+    "Trees V3 contains1/2/4/8 visible trees;4+4 is a counting diagram, not a grid to copy into the future world.",
+    "Tools use one long curved pick point and a short flat adze; iron veins corrected to matte rusty brown.",
+    "No new node spawning, reserve values, tools, harvesting animations, city, trader or research gates implemented in this change."
+  ],
+  "rejected_or_superseded": [
+    "Tree V1/V2 showed seven trees under8 caption; corrected inV3.",
+    "Hero/skeleton V1 repeated poses or changed view; superseded by keypose V2.",
+    "Ore V1 read too bright/golden; V2 matte correction.",
+    "Tool V1 and some hero pose pick heads differed; toolV2/heroV4 use one pointed end and one flat adze."
+  ],
+  "review": "Astra accepted all six selected sheets for owner direction/keypose review after matte ore, consistent pickaxe and eight-tree count corrections; no new concept blockers. Runtime art and smooth loops remain unapproved.",
+  "owner_approval": "2026-10-18: only comment concerns trees; spawn 1–8 separate ordinary trees at random nearby positions, without proportional rows; no additional sketch, implement in game."
+}

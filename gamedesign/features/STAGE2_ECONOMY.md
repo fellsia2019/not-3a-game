@@ -7,6 +7,69 @@ Preset: GPT-6 Astra / high, selected by the human; 14–26k soft plan envelope.
 Scope: resource-node lifecycle, recovery policy, runtime gathering, inventory
 and authored prototype values. Scene composition remains Integration-owned.
 
+## D-071 — Approved manual resources and tools, 2026-10-18
+
+Owner approved all six selected ImageGen sheets and authorized implementation.
+Trees are separate ordinary trees in randomly sized close groups of 1–8,
+with continuous irregular positions and varied gaps; no grid/rows/orchard.
+No further tree sketch is required. Large auto-production forests stay distinct.
+
+The active Stage3 slice adds independent manual nodes to the existing economy.
+Small/medium/large stone and metal reserve values belong in the Stage3 economy
+asset, and each completed strike immediately pays exactly one unit. Every node
+retains partial stock across target changes and has its own existing D-013
+active-time recovery after complete depletion. Same-kind nodes never share
+stock or partial strike progress. GetNode(kind) remains the legacy first anchor;
+all live integration consumes Economy.Nodes and the exact CurrentNode.
+
+The hero uses an axe for wood and pickaxe for stone/metal, with contact driven
+by confirmed gather facts. In the Stage3 manual-resource catalog, walking
+interrupts the unfinished strike without immobilizing the hero; stopping while
+holding E begins a fresh strike. Completed stock is retained. E, pause/terminal, build/UI blocking and release
+re-arming rules remain. Generated positions avoid roads, landmark districts,
+production clearances, travel sites and spawn approaches. The seeded layout
+uses a local random generator and does not change map masks. D-072 adds hero
+collision at each tree trunk and the current mineral footing using the existing
+swept obstacle map. Depletion removes that footing; mineral stock stages shrink
+it. Recovery restores collision only after an overlapping hero walks clear,
+without trapping or teleporting the hero. Tree trunk radius is catalog data.
+Construction protects their locations even while recovering. Distribution,
+capacity, interaction distances and strike/recovery timings live in project
+assets; the original Stage2 catalog is preserved.
+
+Scene wiring: Stage3Rapid3DGamePilot's composition references
+Assets/Stage3/ResourceSpritePilot/ManualEconomy.asset. The three existing source
+prefabs reference ManualArt/ManualResourceArt.asset; Stage3TacticalPresentation
+binds each generated visual to its exact node. HeroArt and SkeletonWalks keep
+their legacy sprite references and add the new cycles. To restore this wiring,
+run Stage3ManualResourceBuilder.BuildAllApproved in the Editor; it preserves
+existing catalog tuning, apart from the explicit initial footprint migration.
+Small mineral widths retain the old source scale; their harvesting footprint
+grows with size. Ordinary trees interact at the trunk, without a mineral radius.
+The manual catalog uses a close tool-reach gap per resource kind; legacy
+Stage2 keeps its existing interaction distance. Mineral visuals register their
+footprint center to the logical node rather than placing their front edge at
+that center. These distances and registration keep strikes near the source.
+InteractionRadius follows four authored stock-stage radii copied from the same
+source extents as the sprite pivots. HarvestRadius retains the maximum radius
+for placement protection while depleted/recovering. Shrinking stock can require
+the player to step closer; movement cancels only the unfinished strike.
+
+D-072 also shows one axe (wood) or pickaxe (stone/metal) above the exact source
+currently available to E, including faded foreground trees. The marker and held
+E use GatheringDriver.InteractionTarget; the marker grants no resources and
+does not depend on sprite alpha. Out-of-range, depleted, paused, terminal and
+UI/construction-blocked targets have no marker. The existing approved vector
+tool silhouettes and lunar HUD palette are reused at a constant screen size.
+Visible-top metadata follows the painted silhouette rather than transparent
+sprite-rect padding. To refresh only these anchors, use
+Stage3ManualResourceArtBuilder.RefreshInteractionAnchors; it preserves source
+pixels, sprite geometry/pivots and the previous texture readability settings.
+
+Production sources/prompts: art/source/manual_resources_motion_runtime_2026-10-18_generation.json.
+Implementation and final verification are tracked in production/WORKSTREAMS.md.
+No city/trader/research prices, locks or tool-tier progression are added now.
+
 ## Outcome
 
 The player can return to a known wood, stone or metal source after exhausting

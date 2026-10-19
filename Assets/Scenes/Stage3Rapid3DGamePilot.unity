@@ -987,7 +987,7 @@ MonoBehaviour:
   m_Name:
   m_EditorClassIdentifier: Not3A.Stage2.Integration::Not3A.Stage2.Integration.Stage2GameComposition
   bootstrap: {fileID: 1713031725}
-  economyCatalog: {fileID: 11400000, guid: 258f3ddcb677467caa9f9d27794ca00b, type: 2}
+  economyCatalog: {fileID: 11400000, guid: a20e5f33a6e87451f9dbfa0287a157a1, type: 2}
   defenseCatalog: {fileID: 11400000, guid: 9c7ec6c2461c65a4f9b6b179083f55e5, type: 2}
   longshotCatalog: {fileID: 11400000, guid: 42ce5fc86401cce478acb5d920ad0802, type: 2}
   barricadeCatalog: {fileID: 11400000, guid: b164ed9435e975240a833910eca900f2, type: 2}
