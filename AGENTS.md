@@ -78,6 +78,16 @@ a better option instead of implementing it silently.
   Owner-approved v4 is implemented by Astra using native assets; live selection/
   input binding is integrated. Local Mac verification is recorded in
   art/source/hud_v4_2026-10-19_verification.json; Windows remains unverified.
+- D-085 adds world-owned hero XP from hero/tower confirmed kills, levels1–100,
+  cursor Blink (Q or HUD targeting) and three personal passives. The opt-in
+  Stage3 binding loads Stage3HeroProgression data and restores XP/points/ranks/
+  cooldown at D-062 retry. HP/MP, professions and extra attacks remain deferred.
+- D-086 approves polygon_v3 level-up: sharp symmetrical shield, soft outer
+  energy waves, only heading/level/awarded points. Reset/retry/loss clears it;
+  pause/modal UI freezes without replay. A CC0 recorded female
+  three-part choir with echo is integrated;
+  audio source/license and qualification are in art/source. Voice is accepted;
+  the owner postponed the hammer. Runtime contains no impact layer.
 - Factorio-style automation/logistics and persistent roguelite progression are
   post-MVP until the basic loop is proven.
 - Follow `gamedesign/GAME_VISION.md` for the current scope and non-goals. Do not

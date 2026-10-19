@@ -51,17 +51,25 @@ namespace Not3A.Stage3.PlayerInterface
         private void DrawHeroDock()
         {
             var s=UiScale;var r=HeroWeaponRect;
+            RefreshHeroProgressionLabels();
             var portraitSide=Mathf.Min(124f*s,r.width*.34f);
             var portrait=new Rect(r.x,r.center.y-portraitSide*.5f,portraitSide,portraitSide);
             DrawRoundSprite(Inset(portrait,8f*s),art.heroPortrait);DrawMedallion(portrait);
+            if(heroProgression!=null)
+            {
+                var level=new Rect(portrait.center.x-42f*s,portrait.yMax-9f*s,84f*s,27f*s);
+                DrawPanel(level);Label(level,heroLevelLabel,14,TextAnchor.MiddleCenter);
+            }
             var weapon=new Rect(portrait.xMax+4f*s,r.center.y-38f*s,44f*s,76f*s);
             DrawIcon(weapon,art.bowIcon);
             var stats=new Rect(weapon.xMax+8f*s,r.center.y-58f*s,r.xMax-weapon.xMax-16f*s,116f*s);
             Label(new Rect(stats.x,stats.y,stats.width,28f*s),"Лук",22,TextAnchor.MiddleLeft);
-            DrawCurrentBowStats(new Rect(stats.x,stats.y+32f*s,stats.width,stats.height-32f*s));
+            var weaponStats=new Rect(stats.x,stats.y+32f*s,stats.width,stats.height-32f*s);
+            if(heroProgression!=null)DrawProgressionBowStats(weaponStats);else DrawCurrentBowStats(weaponStats);
             DrawRule(new Rect(r.xMax,r.y+8f*s,1f*s,r.height-16f*s));
             for(var i=0;i<AbilityReserveCount;i++)
             {
+                if(i==0&&heroProgression!=null){DrawBlinkSlot();continue;}
                 var slot=AbilityReserveRect(i);
                 DrawDisc(Inset(slot,slot.width*.17f),PlumInk);DrawMedallion(slot);
                 PaleLabel(slot,"—",18,TextAnchor.MiddleCenter);
@@ -70,9 +78,16 @@ namespace Not3A.Stage3.PlayerInterface
             DrawRule(new Rect(reserves.xMax+8f*s,r.y+8f*s,1f*s,r.height-16f*s));
             DrawUnavailableHeroStatus(0,"HP",new Color(.82f,.08f,.20f));
             DrawUnavailableHeroStatus(1,"MP",new Color(.02f,.65f,.94f));
-            DrawUnavailableHeroStatus(2,"XP",new Color(1f,.48f,.06f));
+            if(heroProgression!=null)
+            {
+                var xp=HeroStatusBarRect(2);
+                Label(new Rect(HeroStatusRect.x,xp.y,42f*s,xp.height),"XP",18,TextAnchor.MiddleLeft);
+                DrawExperienceBar(xp);
+                DrawExperienceFeedback();
+            }
+            else DrawUnavailableHeroStatus(2,"XP",new Color(1f,.48f,.06f));
             var status=HeroStatusRect;
-            Label(new Rect(status.x+48f*s,status.yMax-17f*s,status.width-48f*s,16f*s),"Не открыто",11,TextAnchor.MiddleCenter,true);
+            Label(new Rect(status.x+48f*s,status.yMax-17f*s,status.width-48f*s,16f*s),heroProgression!=null?"HP / MP — не открыто":"Не открыто",11,TextAnchor.MiddleCenter,true);
         }
 
         private void DrawUnavailableHeroStatus(int index,string title,Color color)

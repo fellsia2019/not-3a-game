@@ -150,6 +150,7 @@ namespace Not3A.Stage3.PlayerInterface
         private void OnDisable() { CloseWindow(); ReleaseMapDrag(); }
         private void OnDestroy()
         {
+            ReleaseProgressionVisuals();
             ReleaseBevelTextures();
             if(observedRun!=null) { observedRun.Reset-=ResetPresentation; observedRun.Rewound-=ResetPresentation; }
             ReleaseMapView(); if(circularMapMaterial!=null) Destroy(circularMapMaterial);
@@ -185,10 +186,12 @@ namespace Not3A.Stage3.PlayerInterface
                         DrawLocalMinimap();
                         if(ActiveWindow==Stage3PlayerWindow.Construction) DrawConstructionRibbon(); else DrawHeroDock();
                         for(var i=0;i<MenuWindows.Length;i++) DrawMenuButton(i);
+                        DrawHeroPointBadge();
                         DrawSelectedBuilding();
                         DrawLocalHint();
                     }
                 }
+                DrawHeroLevelUpOverlay();
                 defeatPresentation?.DrawOverlay();
             }
             finally { GUI.depth=savedDepth; GUI.enabled=savedEnabled; GUI.color=savedColor; GUI.backgroundColor=savedBackground; GUI.contentColor=savedContent; GUI.matrix=savedMatrix; }

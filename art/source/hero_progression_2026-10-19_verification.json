@@ -1,0 +1,109 @@
+{
+  "date": "2026-10-19",
+  "feature": "D085 first hero progression slice / D086 approved polygon_v3 and accepted voice/echo reward cue",
+  "status": "implemented and locally qualified; hammer explicitly deferred",
+  "approvals": {
+    "progression": "Owner approved three concepts and first passives",
+    "levelUp": "Owner explicitly approved polygon_v3 after shape/blur/text revisions",
+    "audio": "Female voice accepted; owner keeps reward cue without hammer. Four rejected impact experiments are absent from runtime."
+  },
+  "tests": {
+    "file": "Artifacts/S3-HERO-PROGRESSION-20261019/tests-qualified.xml",
+    "sha256": "081ff65b4705c67b66f3a27529ea1369664b16ca9e6b5ec3fbee54329f222b58",
+    "platform": "PlayMode, local Mac Editor",
+    "passed": 13,
+    "total": 13,
+    "cases": [
+      "Not3A.Stage3.VisualPilot.Tests.Stage3DefeatRewindTests.RetryRestoresAllWorldOwnersAndTheirBindingsWithoutKeepingTheFailedFuture",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3HeroCombatSliceTests.BowSelectsNearestAndRespectsRangeFlightPauseBuildGatherDebugTerminalAndReset",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3HeroProgressionRulesTests.BlinkClampsAtRankReachRejectsBlockedOrInvalidLandingAndFreezesCooldownOnPause",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3HeroProgressionRulesTests.MultiLevelAwardsCarryXpSpendPointsConsecutivelyAndStopAt100",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3HeroProgressionRulesTests.PersonalCombatBonusesChangeDamageAndCadenceWithoutAddingSplash",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3HeroProgressionRulesTests.RankCapsAndPersonalBonusesAreEffectiveAndSnapshotDoesNotAliasRanks",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3HeroProgressionTests.ApprovedLevelUpCombinesAwardsFreezesWithoutRestartAndNeverBlocksBlink",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3HeroProgressionTests.BlinkChecksFootprintBuildingsPauseAndUiAndKeepsDebugMovementSeparate",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3HeroProgressionTests.FailedWaveRestoresXpPointsRanksCooldownAndPersonalStatsWithoutAwardEvents",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3HeroProgressionTests.HeroAndTowerKillsAwardOnceGloballyButDespawnAndArrivalDoNot",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3HeroProgressionTests.HudReflectsProgressAndKeyboardBlinkCastsToWorldCursor",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3StartupTests.DirectStartAndReloadHaveFinalWorldAndHudInTheirFirstFrame",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3StartupTests.LegacyStage2KeepsItsOwnVisibleMarkersAndHud"
+    ],
+    "covers": [
+      "global hero/tower kill XP exactly once; no arrival/despawn/reset awards",
+      "level carry/cap100/point spending/ranks/personal bonuses/snapshot",
+      "cursor keyboard/HUD Blink, full footprint validation and no cooldown on failure",
+      "v4 live DTOs/point spending, modal/pause/reset/retry lifetime",
+      "level-up coalescing/pause/clear/audio binding and existing bow/startup/rewind regressions"
+    ]
+  },
+  "build": {
+    "target": "StandaloneOSX / Metal development review player",
+    "path": "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app",
+    "log": "Artifacts/S3-HERO-PROGRESSION-20261019/build-reward-only.log",
+    "logSha256": "e6bb8cc71f6349b490e9e9ca71b220d105b3bfeb2f8ae361d130d111444abc16",
+    "result": "Success",
+    "qualificationLimits": "Windows/Steam build module absent, not tested. Editor licensing refresh/Cloud Diagnostics symbol upload credentials warnings do not prevent successful build; no new attributable compiler/runtime errors."
+  },
+  "nativeVisual": {
+    "resolutions": [
+      "1280x720",
+      "1600x900",
+      "1920x1080"
+    ],
+    "directory": "Artifacts/S3-HERO-PROGRESSION-20261019/qualified",
+    "framesPerResolution": 14,
+    "assertions": [
+      "Artifacts/S3-HERO-PROGRESSION-20261019/qualified/1280x720/verification.txt",
+      "Artifacts/S3-HERO-PROGRESSION-20261019/qualified/1600x900/verification.txt",
+      "Artifacts/S3-HERO-PROGRESSION-20261019/qualified/1920x1080/verification.txt"
+    ],
+    "astraReview": "PASS all12 final 03/07/09/13 captures at720/900/1080 after crest/text fix; previous full42 also reviewed. Heading/100/+96 within facets, no overlaps, XP/CD legible. No visual blocker.",
+    "audioSeparation": "Three-resolution final visual set predates audio-only voice replacement; current reward-only build repeats all14 actual frames at1600x900 without visual-code changes."
+  },
+  "finalAudio": {
+    "verification": "Artifacts/S3-HERO-PROGRESSION-20261019/qualified-reward-only/1600x900/verification.txt",
+    "clipLoaded": true,
+    "triggered2DNonLoopSource": true,
+    "cameraAudioListener": true,
+    "seconds": 3.2,
+    "channels": 2,
+    "rate": 44100,
+    "peakDbfs": -1.51,
+    "clippedSamples": 0,
+    "content": "Recorded CC0 three-part female chord plus echoes ONLY; no hammer/anvil/gong layer",
+    "provenance": "art/source/hero_levelup_audio_2026-10-19/provenance.json"
+  },
+  "interactive": {
+    "directory": "Artifacts/S3-HERO-PROGRESSION-20261019/interactive",
+    "result": "Actual O purchase spends point1→0 and learns BlinkII; actual HUD targeting click then world click executes Blink. Script fixture freezes timer by explicit QA setup; normal timer covered PlayMode."
+  },
+  "retainedEvidence": {
+    "file": "art/concepts/hero_progression_2026-10-19/hero_progression_runtime_1600x900.png",
+    "sha256": "a9467f2db48b5fb089fabbdf675908ee16a873b4f4e49dae478b3144f50456cd",
+    "description": "One representative actual final-player frame; remaining transient captures/logs stay ignored in Artifacts."
+  },
+  "runtimeAssets": [
+    {
+      "file": "Assets/Stage3/PlayerInterface/Resources/Stage3HeroProgressionIcons.png",
+      "sha256": "3fb4b5af107fc6470fa697202dd77b773135811dbe394fdca5c280a796e28604"
+    },
+    {
+      "file": "Assets/Stage3/PlayerInterface/Resources/Stage3HeroLevelUpCrest.png",
+      "sha256": "be38f9a64468b3e83dcd85ffc03d1fb1205df1385adfad042bb6ab9b544a430e"
+    },
+    {
+      "file": "Assets/Stage3/PlayerInterface/Resources/Stage3HeroLevelUpWaves.png",
+      "sha256": "5688aba552e2702b43b52237cdd23e0f6330155a9fb19f106d4dc32f4615cf28"
+    },
+    {
+      "file": "Assets/Stage3/PlayerInterface/Resources/Stage3HeroLevelUpSound.wav",
+      "sha256": "0c55f8707b818a9a6bd13986823707c519d2612f47dfc29fb44947fb750804a8"
+    }
+  ],
+  "wiring": "Stage3 PlayerInterfaceBinding opts into catalog/driver/presentation; Resources load without scene/prefab migration or Inspector step. Old Stage2 fixtures remain opt-out.",
+  "remaining": [
+    "Fine balance and broader spell/passive/profession content not fixed by concept examples",
+    "HP/MP, hero damage/death, equipment/runes, world camps and D074 gates remain future work",
+    "Skyrim/Elden Ring listening references do not authorize importing proprietary audio or another impact"
+  ]
+}

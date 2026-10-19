@@ -1,5 +1,38 @@
 # Art Direction
 
+## D-085 approved progression / D-086 level-up revision, 2026-10-19
+
+Keep the existing fullscreen O shell and approved Lunar Porcelain HUDv4, with
+original heroC. Proposed page: hero/level/XP/points left, four Blink rank rows
+center, three personal-passive cards right. Maintain ten HUD-cell capacity,
+separate nav ribbon and all dock geometry; one Blink slot, tiny portrait LVL,
+warm-orange numeric XP. HP/MP remain explicitly inactive0/0.
+
+Astra selects one silver-crescent/cyan-directed-streak glyph for Blink at both
+scales. Cyan/silver effects are local and brief; amber XP text is restrained. Owner supersedes the old level-up sparks with
+a divine light imprint: unusual symmetrical polygonal shield-seal, sharp varied
+facets and broad lateral ornament. The centre is crisp, outer effects are
+blurred feathered ENERGY WAVES rather than hard lines. Text contains only the
+new-level heading, numeral and awarded points; no O/«Развитие» prompt. Show this revised effect
+in the approved polygon_v3 ImageGen concept. The owner explicitly approved
+implementation after shape/blur/text revisions. Sound direction:
+the accepted ethereal female three-layer choir and echo. The owner postponed
+hammer work after rejecting the impact attempts: current runtime is the reward
+voice/echo only. The owner selected Elden Ring Player Level Up (the third
+supplied link) as the specific target sound direction. Original v5 was rejected
+as entirely unlike it; technical PCM checks were not an auditory comparison.
+No rejected candidate or imported/sampled reference-game bytes are in runtime. Valid landing ghost/ellipse and red blocked
+ellipse+X distinguish target states without relying only on color. No damage
+shockwave, large beam or full-screen white fracture. These are not long-range
+teleport gates or the deferred D-084 road runes.
+
+Three final built-in ImageGen images: hero_progression_fullscreen_v1.png,
+hero_progression_hud_v2.png and hero_progression_fx_v2.png under
+art/concepts/hero_progression_2026-10-19/. Full prompts/provenance/hashes:
+art/source/hero_progression_2026-10-19_generation.json. XP/point/cooldown numbers
+are explicitly illustrative. Owner approved the three concepts except the old level-up panel. Astra owns
+visual implementation of all approved parts, including the polygon_v3 level-up. Numbers are initial tuning, not fixed balance.
+
 ## D-084 deferred landscape and invasion-road revision, 2026-10-19
 
 Owner direction for a distant pass AFTER necessary gameplay functionality:

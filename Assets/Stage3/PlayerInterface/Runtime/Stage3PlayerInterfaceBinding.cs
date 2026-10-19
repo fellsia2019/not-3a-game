@@ -40,7 +40,7 @@ namespace Not3A.Stage3.PlayerInterface
             if (minimap != null) minimap.SuppressPresentation = true;
             game.BindPlayerInputBlocker(Blocked);
             scene.PlayerMover.SetInputBlocker(() => Blocked() || IsDraggingBuilding);
-            game.Gathering.SetInputBlocker(() => Blocked() || IsDraggingBuilding);
+            game.Gathering.SetInputBlocker(() => Blocked() || IsDraggingBuilding || blinkArmed);
             game.Building.SetInputBlocker(Blocked);
             scene.CameraFollow.SetPointerBlocker(point => IsDraggingBuilding || game.ContainsScreenPoint(point));
             scene.CameraFollow.SetOverlayTrackpadInput(presentation.AcceptsMapTrackpad, presentation.ApplyMapTrackpadGesture);
@@ -52,6 +52,7 @@ namespace Not3A.Stage3.PlayerInterface
             observedGround = world != null ? world.Obstacles : null;
             bound = true;
             BindBuildingSelection();
+            BindHeroProgression();
             Debug.Log("S3_PLAYER_INTERFACE_READY: approved lunar porcelain HUD; nonmodal construction and independent windows.");
         }
 
@@ -88,6 +89,7 @@ namespace Not3A.Stage3.PlayerInterface
                 presentation.CloseWindow();
                 ClearBuildingSelection();
             }
+            UpdateHeroProgression();
             UpdateBuildingSelection();
             UpdateBuildingDragPresentation();
         }
@@ -117,11 +119,12 @@ namespace Not3A.Stage3.PlayerInterface
         }
 
         private void OnEnable() { if (bound) BeginBuildingPointerCapture(); }
-        private void OnDisable() { EndBuildingPointerCapture(); ClearBuildingSelection(); }
+        private void OnDisable() { EndBuildingPointerCapture(); ClearBuildingSelection(); CancelBlink(); }
 
         private void OnDestroy()
         {
             if (!bound) return;
+            UnbindHeroProgression();
             UnbindBuildingSelection();
             if (presentation != null) presentation.CancelPlacementRequested -= CancelPlacement;
             if (lighting != null) lighting.NightCondition = null;

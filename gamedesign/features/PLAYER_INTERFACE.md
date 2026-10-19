@@ -1,5 +1,19 @@
 # Feature: Player Interface
 
+## D-085: first hero-progression concepts approved, implementation active
+
+The owner activates XP/levels up to100, cursor Blink and first passives, with
+ImageGen interface/effect approval first. O proposal replaces the unavailable
+body with hero/XP/points, four Blink ranks and three personal passive cards.
+The v4 HUD retains its exact dock/ribbon/ten-cell capacity, adding a small LVL
+tag, one Blink slot/cooldown and live numeric orange XP. HP/MP stay inactive0/0.
+See HERO_PROGRESSION.md for the proposed point budget and three-passive scope.
+No hotkey, extra active spell or ten-equipped-skill contract is set by these
+images. Final concepts/prompts: art/source/hero_progression_2026-10-19_generation.json.
+D-085 appearance and the three passives are approved and being integrated.
+The revised level-up appearance D-086 polygon_v3 is now also explicitly approved. Q casts Blink
+at the world cursor; slot click arms then world LMB casts, RMB/Esc cancels.
+
 ## D-080: construction and finished-building selection correction
 
 One click on a defense/production/base card arms the blueprint; no separate

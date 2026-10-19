@@ -16,6 +16,7 @@ namespace Not3A.Stage2.Integration
 
         private InputAction moveAction;
         private float movementMultiplier = 1f;
+        private float personalSpeedMultiplier = 1f;
         private HeroObstacleMap obstacles;
         private float collisionRadius = .2f;
         private System.Func<bool> inputBlocker;
@@ -23,6 +24,9 @@ namespace Not3A.Stage2.Integration
 
         public Stage2MapDefinition MapDefinition => mapDefinition;
         public float Speed => speed;
+        public float EffectiveSpeed => speed * personalSpeedMultiplier;
+        public void SetPersonalSpeedMultiplier(float value) => personalSpeedMultiplier =
+            float.IsFinite(value) ? Mathf.Clamp(value, 1f, 5f) : 1f;
         public float MovementMultiplier => movementMultiplier;
         public void SetMovementMultiplier(float value) => movementMultiplier =
             float.IsNaN(value) || float.IsInfinity(value) ? 1f : Mathf.Clamp(value, 1f, 10f);
@@ -30,6 +34,24 @@ namespace Not3A.Stage2.Integration
         public HeroObstacleMap Obstacles => obstacles;
         public float CollisionRadius => collisionRadius;
         public int OverlapRecoveryCount { get; private set; }
+
+        public bool CanTeleportTo(Vector2 target)
+        {
+            if (mapDefinition == null || !float.IsFinite(target.x) || !float.IsFinite(target.y)) return false;
+            // Check the whole footprint at boundaries, without sliding/recovering an invalid destination.
+            if ((ClampMovement(target) - target).sqrMagnitude > .0000001f ||
+                (ClampMovement(target + Vector2.one * collisionRadius) - (target + Vector2.one * collisionRadius)).sqrMagnitude > .0000001f ||
+                (ClampMovement(target - Vector2.one * collisionRadius) - (target - Vector2.one * collisionRadius)).sqrMagnitude > .0000001f)
+                return false;
+            return obstacles == null || !obstacles.IsBlocked(target, collisionRadius);
+        }
+
+        public bool TryTeleportTo(Vector2 target)
+        {
+            if (!CanTeleportTo(target)) return false;
+            transform.position = new Vector3(target.x, target.y, transform.position.z);
+            return true;
+        }
 
         public void BindObstacles(HeroObstacleMap value, float radius)
         {
@@ -109,7 +131,7 @@ namespace Not3A.Stage2.Integration
                 input.Normalize();
             }
 
-            MoveBy(input * (speed * movementMultiplier * Time.deltaTime));
+            MoveBy(input * (EffectiveSpeed * movementMultiplier * Time.deltaTime));
         }
 
         private Vector2 ClampMovement(Vector2 world)

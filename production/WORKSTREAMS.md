@@ -10,6 +10,36 @@ D-017: каждый новый Stage 2–7 ведёт новый агент в �
 в `reports/development-roadmap.html`; внутри stage мелкие задачи не дробятся
 по агентам. На переходе обновляются этот handoff и канонический план.
 
+### 2026-10-19 — D-085/D-086 progression and visual PASS / accepted reward cue without hammer
+
+- Owner approved the three progression concepts and first passives. Only the
+  level-up panel is superseded: divine gold full-screen stamped seal, new level
+  in its centre, magic waves (no sparks), metallic impact and female choir/echo.
+- Main owns Stage2 progression catalog/rules, combat and mover integration,
+  Stage3 progression controller/binding, tests, ImageGen and canonical docs.
+  Astra owns FantasyHud Hero/Dock/Progression partials, progression FX and art.
+  Coordinate contracts before touching each other's files. Existing changes preserved.
+- Dependencies: v4 fullscreen/HUD, original heroC, confirmed enemy WasKilled,
+  D-062 BeforeWaveStarted/Rewound/Reset. Main binds a read-only HUD DTO and
+  action callbacks; no new global manager, package or UI stack.
+- Acceptance: XP once from hero/tower kills, cap100, legal point spending,
+  personal damage/cadence/speed, safe cursor Blink, live numeric XP and UI, and
+  checkpoint restoration of XP/ranks/points/cooldown. HP/MP remain inactive.
+- D-086 polygon_v3 is explicitly approved: more varied sharp central shield,
+  blurred outer energy waves, only heading/level/points. Astra now owns its
+  separate level-up component; main binds event/checkpoint/QA. Main found a CC0 recorded female three-part chord and prepared the initial
+  impact/echo mix, with preserved source/license and technical audio checks.
+  Gameplay13/13 PlayMode and final native visual Astra PASS at720/900/1080p.
+  Owner accepted voice but rejected every impact attempt. Latest instruction
+  keeps reward choir/echo without hammer; current runtime has no impact layer.
+  Owner selected Elden Ring Player Level Up (third supplied link). Candidate v5
+  was rejected as entirely unlike the selected reference; never imported. PCM
+  checks were technical only, with no auditory comparison. Current tool audit
+  found no connected reference-audio listening/conditioning SFX capability; no
+  further blind candidate is qualified. Owner reconfirmed accepted voice/echo without impact and requested the
+  all-changes Git checkpoint. Impact work is deferred. No Unity asset/code
+  change from the rejected preview; no game audio downloaded/sampled/shipped.
+
 ### 2026-10-19 — D-084 future landscape direction recorded, deferred
 
 - Owner places this after necessary gameplay functionality, far beyond current
@@ -3582,6 +3612,67 @@ Current playability check is in
 ```
 
 ## Handoff Register
+
+
+### 2026-10-19 — D-085/D-086 all-changes checkpoint -> Next: D-074 gates/clock
+
+- Outcome: owner confirms the accepted level-up choir/echo without any impact;
+  sound experiments are deferred. All current progression code/assets/tests and
+  canonical documentation are included in the requested Git commit/push.
+- Verification: unchanged runtime WAV byte-matches accepted voice-only source;
+  existing13/13 PlayMode, successful final Mac build, native audio binding and
+  three-resolution Astra visual PASS remain applicable. No new runtime edits.
+- Next: remove both time skips and implement repeatable daytime gates/mandatory
+  stronger night hordes. First extend retry snapshots for already-live enemies
+  and settle daytime-defeat/cutoff behavior per PORTAL_CONTROL.md. Equipment/
+  forge, professions/base, trade/research, world loot and bosses follow the
+  canonical DEVELOPMENT_PLAN order. This checkpoint does not start that work.
+
+
+
+### 2026-10-19 — D-085/D-086 playable hero progression -> Player review
+
+- Behavior: global XP once for hero/owned-tower confirmed kills, level cap100,
+  point spending, free BlinkI plus four cursor ranges and three personal passives.
+  Fullscreen O/live v4 XP/level/points/CD and approved polygon_v3 celebration work.
+  Latest accepted audio is female three-part choir/echo only; hammer deferred.
+- Contracts/files: existing Stage2 Integration adds catalog/plain rules/opt-in
+  driver; combat/mover apply personal bonuses. Stage3 binding/HUD/FX/level-up
+  integrate without new managers/packages/UI stack or scene/Inspector migration.
+  D-062 snapshot restores XP/points/ranks/CD and derived stats without reward
+  replay. Runtime tuning is Stage3HeroProgression.asset, not Markdown examples.
+- Verification:13/13 targeted PlayMode including tower/hero XP, safe cursor Blink,
+  ranks/cap/pause and full retry restoration plus bow/startup regressions. Actual
+  native720p/900p/1080p final visual PASS Astra; actual O purchase/HUD targeting
+  clicks pass. Final voice-only Mac/Metal build succeeds; native source/listener/
+  clip binding passes. No new attributable console errors. Windows is unverified.
+  One retained actual image and hashes/contracts/limits are in
+  art/source/hero_progression_2026-10-19_verification.json. Full transient captures
+  stay ignored in Artifacts; original prompts/rights remain in generation JSON.
+- Remaining: fine balance, HP/MP and broader skills/professions/equipment/runes,
+  D-074 gates/time-cycle and world combat remain separate future slices. Owner
+  asks to compare Skyrim/Elden Ring audio references; no proprietary game sound
+  is imported and no replacement impact is approved by that reference request.
+
+
+### 2026-10-19 — D-085 first progression ImageGen concepts -> Owner / Astra
+
+- Outcome: three coherent proposed concepts for fullscreen O, existing v4 HUD
+  with level/XP/Blink and local Blink/XP/level-up states. Personal passives proposed:
+  single-target damage, attack speed, movement speed. Cap100 and Blink ranges
+  follow accepted intent; XP/point/cooldown values remain illustrative.
+- Contracts/files: HERO_PROGRESSION first-slice scope supersedes the older extra-
+  attack-spell start, plan/decisions/PLAYER_INTERFACE/ART_DIRECTION updated.
+  Original final PNGs in art/concepts/hero_progression_2026-10-19/; full built-in
+  prompts/input roles/rights/hashes: art/source/hero_progression_2026-10-19_generation.json.
+- Verification: main/Astra reviewed all3; final Astra PASS after live XP label,
+  blocked landing mark and shared glyph corrections. LVL3/light-step1/3/one
+  point accounting consistent; ten HUD cells, inactiveHPMP and restrained FX.
+  Assets/Packages/ProjectSettings unchanged. No Unity tests/build needed for
+  these concepts; no approval inferred from internal review or generation.
+- Remaining: explicit owner appearance approval, then Astra visual runtime and
+  main XP/level/passive/Blink integration, including D-062 checkpoint. Balance/
+  hotkey and broader skill/profession budgets not settled by concept numbers.
 
 ### 2026-10-19 — D-084 future landscape brief -> Deferred art pass
 

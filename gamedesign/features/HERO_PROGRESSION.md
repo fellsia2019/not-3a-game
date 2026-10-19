@@ -1,5 +1,82 @@
 # Hero progression
 
+## D-085 / D-086 — approved first playable slice
+
+2026-10-19: the owner approved the fullscreen development page, HUD, Blink/XP
+and the first three passives. The replacement level-up polygon_v3 was then
+explicitly approved after shape, blur and text revisions. The first playable slice and approved visual implementation are complete.
+Qualification is recorded in DEVELOPMENT_PLAN.md and WORKSTREAMS.md.
+The extra attack spell from the older proposal is deferred; the automatic bow
+remains single-target and dense matched-tier hordes still require towers.
+
+Current contracts:
+
+- Confirmed deaths in the shared hero/tower enemy population award XP once,
+  globally while the hero explores. Arrival, despawn, reset and restoration
+  award nothing. There is no XP pickup or last-hit contest.
+- Hero starts at level1 with BlinkI; cap100. Later levels award hero points.
+  Consecutive Blink/passive ranks spend available points and stop at their cap.
+  XP thresholds, kill rewards, point costs, cooldown and personal bonuses are
+  initial playable tuning in the Unity catalog, not a fixed balance inferred
+  from concept numbers. Broader12/48/36 content budgets below remain proposals.
+- Blink uses the confirmed300/500/800/1000 display ranges, converted by the
+  catalog to current world units. Q casts toward the world cursor; clicking
+  the first HUD slot arms targeting, then world LMB casts. RMB/Esc cancels.
+  Distant cursor clamps to reach. Landing requires the full hero footprint
+  inside world bounds and clear of resources/buildings; invalid landings
+  consume no cooldown. There is no attack, splash or mana cost.
+- Three personal passives have three ranks each: «Точный удар» adds integer
+  damage to one bow target; «Быстрые руки» improves personal attack cadence;
+  «Лёгкий шаг» improves walking speed independently of the F3 multiplier.
+  Cards show current → next bonuses. They do not improve towers or tools.
+- O is the existing fullscreen development page. The v4 dock keeps minimap,
+  separate navigation and ten-cell capacity, with one Blink icon, portrait
+  LVL, point badge and numeric orange XP. HP/MP remain inactive0/0. At cap the
+  XP bar displays its maximum state rather than an inactive0/0 source.
+- Blink has cyan valid landing/ghost/range, red blocked mark+X and brief local
+  departure/arrival wisps. Marks render above terrain and obstacle art. Compact
+  orange XP feedback stays at the live bar and yields to the level celebration.
+- D-086 level-up is a brief spectral gold/ivory polygonal shield-seal: crisp
+  varied angled central contour, soft diffuse energy waves to the sides. Text
+  has only «НОВЫЙ УРОВЕНЬ», the level numeral and awarded points; no O/Развитие
+  prompt. Multiple awards coalesce to the latest level and total earned points.
+  The noninteractive overlay does not block movement/Blink or pause the world.
+  Pause/modal UI freezes the same animation; reopening a page never replays it.
+  Reset/retry/terminal state clears transient feedback.
+
+Rules/data/lifetime: Stage2HeroProgression(.cs), Stage2HeroProgressionCatalog
+and Stage2HeroProgressionDriver in the existing Integration assembly. Stage3
+opts in through PlayerInterfaceBinding.Progression; no new global manager,
+package, UI stack or scene migration. Data source is
+Assets/Stage3/HeroProgression/Resources/Stage3HeroProgression.asset. Existing
+Stage2 scenes do not receive the opt-in driver. Combat and mover apply personal
+bonuses without mutating shared catalogs or tower stats.
+
+D-062 checkpoint captures XP, level, points, all ranks and Blink cooldown at
+BeforeWaveStarted. Retry restores these and derived stats without XP/level-up
+reward events; failed-future kills and purchases do not survive restoration.
+
+Audio: Resources/Stage3HeroLevelUpSound currently contains only the accepted
+three-part female chord (bone666138, Freesound274121, CC0) and stereo echoes.
+The owner explicitly postponed the hammer and kept the reward cue without it.
+All four impact experiments were rejected and are absent from runtime. The
+owner then selected the third supplied reference: Elden Ring Player Level Up
+(https://www.youtube.com/watch?v=k1avFgP63Ng). Original candidate v5 was also
+rejected as entirely unlike that reference; it was never imported. The prior
+technical waveform checks did not include an auditory comparison and do not
+establish similarity. Latest owner confirmation keeps the accepted voice/echo without an impact.
+The impact task is deferred, not an open requirement of this playable slice.
+Any future attempt requires actual auditory comparison; technical WAV checks
+alone do not qualify similarity. No reference-game audio
+is downloaded, sampled or shipped. Source bytes, license, reproducible numpy mix script and previews
+are preserved in art/source/hero_levelup_audio_2026-10-19/.
+PCM is3.2s, stereo44.1kHz16-bit, peak−1.51dBFS, without clipped samples.
+SetAudioClip remains available for later production replacement.
+Original prompts, references, rights, approval and PNG hashes:
+art/source/hero_progression_2026-10-19_generation.json.
+
+## Prior broader design and proposed budget
+
 Status: design revision D-074 with D-075 campaign/equipment clarification,
 2026-10-19; replaces the D-073 proposed spell
 roster. Confirmed: level cap 100, cursor Blink, low-splash exploration hero and
@@ -186,8 +263,9 @@ RESOURCE_PRODUCTION_BUILDINGS.md. Ремонт и производственны
 а не roguelite-метапрогрессию. Дневные врата и живые остатки врагов требуют
 расширения checkpoint по PORTAL_CONTROL.md до реализации фарма.
 
-Первый срез использует каталог с пределом 100, но реализует блинк, один
-одиночный атакующий спелл, несколько пассивок и проверяемый XP. Профессии
+По текущему D-085 первый срез использует каталог с пределом 100, блинк,
+первые три предложенные пассивки и проверяемый XP. Дополнительный одиночный
+атакующий спелл следует позже, отдельно от этого среза. Профессии
 и следующий каталог добавляются по DEVELOPMENT_PLAN.md. Все 12/48/36 узлов
 не нужны до первого игрового теста.
 

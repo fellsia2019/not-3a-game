@@ -1,0 +1,148 @@
+{
+  "date": "2026-10-19",
+  "purpose": "D086 owner-requested female three-part choir/echo and gold-metal stamp cue",
+  "source": {
+    "title": "Choir of Voices - Single Chord",
+    "author": "bone666138",
+    "page": "https://freesound.org/people/bone666138/sounds/274121/",
+    "publicPreview": "https://cdn.freesound.org/previews/274/274121_285997-hq.mp3",
+    "description": "Contributor describes a recording of his wife singing a three-part chord. No spoken words or identity cloning.",
+    "originalFile": "art/source/hero_levelup_audio_2026-10-19/choir_274121_original.mp3",
+    "sha256": "4fa599b207618e064d2e1735cef3a7d73f3b70e9e8b1849a8e1542c4374bd845"
+  },
+  "license": {
+    "name": "Creative Commons Zero 1.0 Universal (CC0)",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "verified": "The contributor page explicitly labels the sound CC0 and permits commercial copying/modification/distribution. Public HQ preview URL is exposed on that page; no login or access-control bypass used.",
+    "credit": "Choir of Voices - Single Chord by bone666138 and Anvil - Lokomo 125 kg - Hammer on 16mm steel 4 times by ldezem, Freesound, both CC0. Contact preserved, metal tail prolonged, voice/echo arrangement retained.",
+    "currentRuntimeCredit": "Choir of Voices - Single Chord by bone666138, Freesound274121, CC0, edited with stereo echoes. Other preserved recordings belong only to rejected experiments."
+  },
+  "processing": {
+    "version": 4,
+    "script": "art/source/hero_levelup_audio_2026-10-19/build_cue.py",
+    "requires": "Python3 and numpy (bundled workspace runtime), no new Unity/package dependency",
+    "decode": "macOS afconvert to PCM16 WAV; original MP3 source bytes unchanged",
+    "changes": "Replace the rejected muffled strike and rejected gong. Use one real unpitched hard anvil contact; phase-vocoder stretch only its own ringing tail3x. No gong, bell, synthesized bass or low-pass damping. Approved three-part vocal/echo arrangement unchanged. DC correction, edge fades and peak normalization.",
+    "seconds": 3.2,
+    "rate": 44100,
+    "channels": 2,
+    "peakDbfs": -1.51,
+    "clippedSamples": 0,
+    "sha256": "e89570af3672206489b3b8ec5fd964457c27f242af9127a51258217a3b5fefd8",
+    "impactPreview": "art/source/hero_levelup_audio_2026-10-19/hero_levelup_impact_v4.wav",
+    "impactSha256": "b19eb70fd871f679cdaf983287db6043b2c8cea23c24edfed25f6b0f62a860c5",
+    "status": "Rejected impact experiment only. Not used by current runtime."
+  },
+  "runtime": {
+    "path": "Assets/Stage3/PlayerInterface/Resources/Stage3HeroLevelUpSound.wav",
+    "loading": "Stage3HeroLevelUpPresentation.Initialize Resources.Load<AudioClip>; 2D non-looping AudioSource",
+    "auditoryReview": "Final owner confirmation: «оставь пока хор без удара». Accepted female three-part chord and echoes only. All impact work deferred.",
+    "version": "voice-only",
+    "sha256": "0c55f8707b818a9a6bd13986823707c519d2612f47dfc29fb44947fb750804a8",
+    "seconds": 3.2,
+    "rate": 44100,
+    "channels": 2,
+    "peakDbfs": -1.51,
+    "clippedSamples": 0,
+    "content": "Accepted three-part female chord and stereo echoes only. No hammer, anvil, gong or metallic-impact layer."
+  },
+  "sourceAnvil": {
+    "title": "Anvil - Lokomo 125 kg - Hammer on 16mm steel 4 times",
+    "author": "ldezem",
+    "page": "https://freesound.org/people/ldezem/sounds/386107/",
+    "publicPreview": "https://cdn.freesound.org/previews/386/386107_1655965-hq.mp3",
+    "license": "CC0 1.0, explicitly labelled on contributor page",
+    "description": "Real hammer on16mm steel on a125kg Lokomo anvil, recorded with Tascam DR-40 and Sony ECM-NV1. First strike only used.",
+    "originalFile": "art/source/hero_levelup_audio_2026-10-19/anvil_386107_original.mp3",
+    "sha256": "01ebecc2bb97723c968970069477e62eb60802726f7baa8a999acd5f85b7fe78"
+  },
+  "ownerFeedback": "Owner confirms accepted female choir/echo without impact and requests commit/push. All five attempted accents are rejected and absent from runtime; hammer work is deferred. Elden Ring Player Level Up remains a future listening reference.",
+  "rejectedImpactVersions": [
+    {
+      "version": 1,
+      "feedback": "Owner rejected light aluminum-like ping."
+    },
+    {
+      "version": 2,
+      "source": {
+        "title": "Hammer hitting an anvil",
+        "author": "draftcraft",
+        "page": "https://freesound.org/people/draftcraft/sounds/434339/",
+        "publicPreview": "https://cdn.freesound.org/previews/434/434339_6599148-hq.mp3",
+        "license": "CC0 1.0, explicitly labelled on contributor page",
+        "originalFile": "art/source/hero_levelup_audio_2026-10-19/anvil_434339_original.mp3",
+        "sha256": "26d3e7204015560e3ee18d0711730ef69b03b9c64fb4acd7e9a170c1883c4397"
+      },
+      "feedback": "Owner rejected muffled soft thud. Overprocessed low-pass/deep pitch."
+    },
+    {
+      "version": 3,
+      "source": {
+        "title": "Gong (gong_hit_ff_hard.wav)",
+        "author": "sgossner",
+        "page": "https://freesound.org/people/sgossner/sounds/375531/",
+        "license": "CC0",
+        "originalFile": "art/source/hero_levelup_audio_2026-10-19/gong_375531_original.mp3"
+      },
+      "feedback": "Owner correctly identified gong character; rejected. Not present in v4/runtime."
+    },
+    {
+      "version": 4,
+      "feedback": "Owner rejected anvil-tail version. Latest instruction: leave reward sound without hammer."
+    }
+  ],
+  "listeningReferences": [
+    {
+      "title": "Elden Ring - Legendary Item Acquired",
+      "url": "https://www.youtube.com/watch?v=V3OkzuF32To"
+    },
+    {
+      "title": "Elden Ring - Player Level Up",
+      "url": "https://www.youtube.com/watch?v=k1avFgP63Ng"
+    },
+    {
+      "title": "Skyrim - Quest Completed",
+      "url": "https://www.youtube.com/watch?v=tVJmvlNf_wk"
+    }
+  ],
+  "referenceRights": "Listening references only; no download/import/distribution of game audio. Owner requested Skyrim/Elden Ring comparison after deferring the hammer.",
+  "selectedReference": {
+    "title": "Elden Ring | Player Level Up [Sound Effect]",
+    "url": "https://www.youtube.com/watch?v=k1avFgP63Ng",
+    "ownerSelection": "«3й» in the three-link final list: Elden Ring Player Level Up, not Legendary Item Acquired.",
+    "rights": "Listening direction only; no reference audio downloaded, sampled or shipped."
+  },
+  "candidateV5": {
+    "status": "REJECTED by owner: entirely unlike the selected Elden Ring Player Level Up reference. Never imported into Unity.",
+    "script": "art/source/hero_levelup_audio_2026-10-19/build_reward.py",
+    "originalSynthesis": "One clustered modal/air accent with diffuse tail. No anvil/gong recording, game sample, or separate note melody.",
+    "voice": "Accepted recorded CC0 three-part chord and echo arrangement retained.",
+    "checks": [
+      {
+        "file": "art/source/hero_levelup_audio_2026-10-19/hero_levelup_accent_v5.wav",
+        "seconds": 3.2,
+        "rate": 44100,
+        "channels": 2,
+        "peakDbfs": -1.51,
+        "clippedSamples": 0,
+        "sha256": "c7b03a49ca8f8a6ac55d0ec8451a05cb45dd1c46e6d1176b4f836ded5ffe3c08"
+      },
+      {
+        "file": "art/source/hero_levelup_audio_2026-10-19/hero_levelup_reward_v5.wav",
+        "seconds": 3.2,
+        "rate": 44100,
+        "channels": 2,
+        "peakDbfs": -1.51,
+        "clippedSamples": 0,
+        "sha256": "06f3a368abbe78b5d168decfd9abbdea55fce50f8f0fe98c98cd7118462899d5"
+      }
+    ],
+    "runtimeUnchanged": true,
+    "qualificationLimit": "Technical PCM checks only. The agent did not listen to or audibly compare the reference/candidate; these checks do not establish perceptual similarity."
+  },
+  "toolCapabilityAudit": {
+    "available": "Local PCM synthesis/measurement and public-source search",
+    "missing": "No connected reference-audio listening/conditioning SFX tool. Plugin discovery returned no ElevenLabs plugin. Descript listing describes video/podcast editing, not this missing reference-SFX capability.",
+    "result": "No further blind synthesized replacement produced."
+  }
+}

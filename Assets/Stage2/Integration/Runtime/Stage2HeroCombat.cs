@@ -17,6 +17,8 @@ namespace Not3A.Stage2.Integration
         private readonly Stage2HeroCombatCatalog catalog;
         private readonly Func<Vector2, float, int, float, float, bool> launch;
         private float remaining;
+        private int damageBonus;
+        private float attackSpeedMultiplier = 1f;
 
         public Stage2HeroCombat(Stage2HeroCombatCatalog settings,
             Func<Vector2, float, int, float, float, bool> launchNearest)
@@ -29,6 +31,14 @@ namespace Not3A.Stage2.Integration
 
         public int ShotsFired { get; private set; }
         public float CooldownRemaining => remaining;
+        public int EffectiveDamage => catalog.AttackDamage + damageBonus;
+        public float EffectiveFireInterval => catalog.FireInterval / attackSpeedMultiplier;
+        public void SetPersonalBonuses(int extraDamage, float attackSpeed)
+        {
+            damageBonus = Mathf.Max(0, extraDamage);
+            attackSpeedMultiplier = float.IsFinite(attackSpeed) ? Mathf.Max(1, attackSpeed) : 1;
+            remaining = Mathf.Min(remaining, EffectiveFireInterval);
+        }
 
         public void Tick(float elapsed, Vector2 origin, bool active)
         {
@@ -36,9 +46,9 @@ namespace Not3A.Stage2.Integration
                 throw new ArgumentOutOfRangeException(nameof(elapsed));
             if (!active || elapsed == 0f) return;
             remaining = Mathf.Max(0f, remaining - elapsed);
-            if (remaining > 0f || !launch(origin, catalog.AttackRange, catalog.AttackDamage,
+            if (remaining > 0f || !launch(origin, catalog.AttackRange, EffectiveDamage,
                     0f, catalog.ProjectileFlightSeconds)) return;
-            remaining = catalog.FireInterval;
+            remaining = EffectiveFireInterval;
             ShotsFired++;
         }
 

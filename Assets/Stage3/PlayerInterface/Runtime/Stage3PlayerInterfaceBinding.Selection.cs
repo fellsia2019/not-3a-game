@@ -132,6 +132,7 @@ namespace Not3A.Stage3.PlayerInterface
         }
 
         private bool WorldBuildingSelectionAvailable => bound && presentation != null && presentation.isActiveAndEnabled &&
+            !blinkArmed && !blinkConsumedPointer &&
             (presentation.ActiveWindow == Stage3PlayerWindow.None || presentation.ActiveWindow == Stage3PlayerWindow.Construction) &&
             !Blocked() && !(legacy != null && legacy.DebugOpen);
         private bool HasBuildingDraft => game.Building.Defense.IsPlacing ||

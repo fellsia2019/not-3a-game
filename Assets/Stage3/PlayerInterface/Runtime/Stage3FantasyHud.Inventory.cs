@@ -52,6 +52,7 @@ namespace Not3A.Stage3.PlayerInterface
 
         private void DrawCurrentBowStats(Rect rect)
         {
+            if(heroProgression!=null){DrawProgressionBowStats(rect);return;}
             var bow = game.HeroCombat?.Catalog;
             if(bow==null) {cachedBowStats="—";cachedBowCatalog=null;}
             else if(cachedBowCatalog!=bow || cachedBowDamage!=bow.AttackDamage ||

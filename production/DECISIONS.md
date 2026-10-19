@@ -1915,6 +1915,68 @@ they are until that work is activated; no new layout is specified here.
 Canonical ordering: gamedesign/DEVELOPMENT_PLAN.md; visual brief:
 gamedesign/ART_DIRECTION.md. No new menu/loading work is introduced.
 
+## D-085 — First hero-progression slice, concepts before runtime
+
+Date: 2026-10-19. Status: scope and three concepts approved by owner; first playable slice implemented.
+Exception: the old level-up panel is superseded by D-086.
+Start hero XP from hero/owned-tower kills, levels up to100, cursor Blink and
+first passives. The owner explicitly requests interface/effect sketches before
+implementation. Preserve approved v4 HUD/fullscreen identity and heroC.
+No additional attack spell, health/death, profession, equipment or main-menu
+work is activated in this slice. All broader progression budgets remain proposals.
+
+The three approved initial passives are personal single-target damage, attack
+speed and movement speed, initially with three ranks each. Free BlinkI, later
+point rewards/costs and global tower credit are implemented as first playable
+tuning. Runtime values live in the progression Unity asset; artwork examples
+do not lock balance.
+Blink keeps the previously confirmed300/500/800/1000 ranges and cursor direction;
+ten drawn HUD cells do not fix the final equipped-skill count or new hotkeys.
+
+Full-screen O page, v4 HUD integration and Blink/XP/level-up FX are generated
+through built-in ImageGen and reviewed by Astra before presentation. Explicit
+owner appearance approval then precedes Astra visual implementation/main gameplay
+integration, including D-062 checkpoint of XP/points/ranks/cooldowns. References,
+full prompts and output hashes: art/source/hero_progression_2026-10-19_generation.json.
+
+## D-086 — Divine level-up imprint: polygonal seal and energy waves
+
+Date: 2026-10-19. Status: final polygon_v3 explicitly approved and implemented; accepted choir/echo cue, hammer deferred by owner.
+D-085 development/HUD/Blink/XP/passive concepts are approved. The old restrained
+level-up sparks are superseded. The owner wants an epic divine stamp with the
+new level and a magical energy wave, plus a metallic/gold sound accent and an
+ethereal female vocal layered threefold with echo, almost a choir.
+
+The heavy circular gold medallion concepts were rejected. After viewing the
+owner's Enshrouded reference, the direction is a lighter translucent heraldic
+imprint: an ORIGINAL unusual, left-right symmetrical polygonal shield/token.
+Broaden its lateral ornament, diversify the central silhouette with sharp cuts,
+facets and angled projections. Keep the central contour crisp; outer effects
+must blur into broad feathered energy waves, not hard circuit-like lines.
+Text is exactly three elements: new-level heading, new level number, awarded
+points. Delete the extra O/«Развитие» prompt and its key icon. This is transient
+nonmodal feedback; it is not a separate window or a damaging ground spell.
+
+Reference is inspiration only, with no third-party runtime bytes or traced
+shape. Owner approved polygon_v3: «Мне нравится эффект повышения уровня. Внедряй».
+Main produces original transparent runtime layers; Astra implements this
+approved appearance. Current approved progression work proceeds independently. The accepted audio now uses the CC0 three-part female
+chord (bone666138, Freesound274121) and stereo echoes only. After rejecting the
+light/muffled/gong/anvil-tail attempts, the owner explicitly said to leave the
+reward sound without a hammer. Skyrim quest-completion and Elden Ring level-up/
+legendary-item cues were subsequent listening references. The owner selected
+the third link, Elden Ring Player Level Up (k1avFgP63Ng), as the precise direction.
+Original candidate v5 was rejected as entirely unlike the reference and was
+never imported. The agent had not listened/compared: technical waveform checks
+are not perceptual qualification. The owner finally reconfirmed: keep the choir without an impact and commit/push
+all current changes. Impact work is deferred; runtime keeps accepted voice/echo. No
+proprietary reference audio is downloaded, sampled or shipped.
+ImageGen produces no audio; provenance/mix source is in
+art/source/hero_levelup_audio_2026-10-19/. Subjective sound approval is not implied
+by visual approval.
+Prompts, generated references and approval state are recorded in
+art/source/hero_progression_2026-10-19_generation.json.
+
 ## Pending Product Decisions
 
 

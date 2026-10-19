@@ -1,0 +1,20 @@
+[
+  {
+    "file": "art/source/hero_levelup_audio_2026-10-19/hero_levelup_accent_v5.wav",
+    "seconds": 3.2,
+    "rate": 44100,
+    "channels": 2,
+    "peakDbfs": -1.51,
+    "clippedSamples": 0,
+    "sha256": "c7b03a49ca8f8a6ac55d0ec8451a05cb45dd1c46e6d1176b4f836ded5ffe3c08"
+  },
+  {
+    "file": "art/source/hero_levelup_audio_2026-10-19/hero_levelup_reward_v5.wav",
+    "seconds": 3.2,
+    "rate": 44100,
+    "channels": 2,
+    "peakDbfs": -1.51,
+    "clippedSamples": 0,
+    "sha256": "06f3a368abbe78b5d168decfd9abbdea55fce50f8f0fe98c98cd7118462899d5"
+  }
+]

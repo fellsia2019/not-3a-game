@@ -89,6 +89,13 @@ namespace Not3A.Stage3.PlayerInterface
                 yield break;
             }
             var walkDirectory = Environment.GetEnvironmentVariable("NOT3A_WALK_PROFILE_DIRECTORY");
+            var progressionDirectory = Environment.GetEnvironmentVariable("NOT3A_HERO_PROGRESSION_CAPTURE_DIRECTORY");
+            if (Debug.isDebugBuild && !Application.isBatchMode && !string.IsNullOrWhiteSpace(progressionDirectory) &&
+                Path.IsPathFullyQualified(progressionDirectory))
+            {
+                yield return Stage3HeroProgressionReview.Capture(gameObject, progressionDirectory);
+                yield break;
+            }
             if (Debug.isDebugBuild && !Application.isBatchMode && !string.IsNullOrWhiteSpace(walkDirectory) &&
                 Path.IsPathFullyQualified(walkDirectory))
             {
