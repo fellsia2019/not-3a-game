@@ -1,0 +1,98 @@
+{
+  "date": "2026-10-20",
+  "decision": "D-092",
+  "status": "Implemented and locally qualified",
+  "scope": "Two independent manual gathering professions, approved fullscreen O tabs and first3talents each",
+  "gameplay": {
+    "xp": "Actual Economy.Gathered grants only;1XP/material in current data; wood→logger, stone/metal→miner",
+    "progression": "Mastery1–100; point at every5mastery;3ranks each strength/tempo/reach; unused points retained",
+    "composition": "Equipped tool power + strength; tool speed × tempo; reach scales only allowed resource-edge gap",
+    "stock": "min(combined power, remaining stock, wallet room); profession cannot enable missing tool",
+    "lifetime": "D087 preserves CURRENT mastery/points/ranks; full Reset clears; partial work cancelled on item/rank changes"
+  },
+  "tests": [
+    {
+      "path": "Artifacts/S3-PROFESSIONS-20261020/regression.xml",
+      "platform": "PlayMode",
+      "total": 38,
+      "passed": 38,
+      "failed": 0,
+      "new_profession_checks": 9,
+      "affected_regressions": 29,
+      "coverage": "held-E continuity/actual grant, separate XP/points, caps/overflow, real F/D tool+talent composition, remaining-stock tail, shared reach selection, absent tool, partial/cancel/no automatic wallet XP, UI gating, pause, reset/retry, manual resources/equipment/hero/startup"
+    },
+    {
+      "path": "Artifacts/S3-PROFESSIONS-20261020/economy-editmode.xml",
+      "platform": "EditMode",
+      "total": 17,
+      "passed": 17,
+      "failed": 0,
+      "coverage": "Legacy Economy/ManualResource invariants after additive profession modifiers"
+    }
+  ],
+  "build": {
+    "path": "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app",
+    "log": "Artifacts/S3-PROFESSIONS-20261020/build-final.log",
+    "result": "Succeeded",
+    "bytes": 637740179,
+    "host": "macOS/Metal",
+    "windows": "Not verified; Windows module unavailable on this host"
+  },
+  "visual_review": {
+    "owner": "GPT-6 Astra",
+    "result": "PASS",
+    "directory": "Artifacts/S3-PROFESSIONS-20261020/native-final",
+    "frames": 9,
+    "resolutions": [
+      "1280x720",
+      "1600x900",
+      "1920x1080"
+    ],
+    "states": [
+      "miner strength",
+      "logger tempo",
+      "combat"
+    ],
+    "repairs": "Thin native frames, shaped cyan selection, safe stat padding, taller actual-tool card",
+    "limitations": "Mac states/resolutions only; full future profession trees not present"
+  },
+  "native_mouse_verification": {
+    "method": "CUA native mouse in final development player",
+    "log": "Artifacts/S3-PROFESSIONS-20261020/native-final.log",
+    "outcomes": [
+      "Miner strength2→3, own point1→0, logger point still1",
+      "Switch logger/tempo; buy0→1, own point1→0, miner unchanged",
+      "Separate combat/profession tabs clickable; equipped F1tool unchanged"
+    ]
+  },
+  "normal_start": {
+    "log": "Artifacts/S3-PROFESSIONS-20261020/normal-start.log",
+    "observed": "Launched without capture environment; ordinary clock progressed08:15→08:23; both masteries1/100, XP0/20,points0; actual F1tool; O→Professions left open",
+    "running_session": 10698
+  },
+  "console": {
+    "new_attributable_errors": 0,
+    "notes": "Scanned install/import/regression/EditMode/final build/native/normal logs. Unity licensing token-refresh warnings recur in batch sessions; licensed compilation/tests/build succeed. No new game exception or compile error."
+  },
+  "wiring": {
+    "scene": "Assets/Scenes/Stage3Rapid3DGamePilot.unity unchanged",
+    "binding": "Opt-in Stage3PlayerInterfaceBinding adds/configures Stage2ProfessionDriver after equipment, reads Resources/Stage3Professions",
+    "inspector": "No manual scene changes required; serialized trial tuning is Stage3Professions.asset",
+    "resources": [
+      "Stage3Professions.asset",
+      "Stage3ProfessionIcons.png"
+    ],
+    "install": [
+      "Not3A.Stage3.PlayerInterface.Editor.Stage3ProfessionInstaller.Install",
+      "Not3A.Stage3.PlayerInterface.Editor.Stage3ProfessionArtImporter.BuildAssets"
+    ]
+  },
+  "provenance": "art/source/gatherer_professions_2026-10-20_runtime.json",
+  "remaining": [
+    "Windows/Steam qualification",
+    "Balance calibration",
+    "Larger profession trees/explorer",
+    "Production/workshop/throne upgrades and forge scroll source",
+    "Disk saving remains outside this slice"
+  ]
+}

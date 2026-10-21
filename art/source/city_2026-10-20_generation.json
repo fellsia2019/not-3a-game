@@ -1,0 +1,216 @@
+{
+  "date": "2026-10-20",
+  "decision": "D-095",
+  "status": "Owner approved A_v6 city + teleport_menu_v1 and requested implementation; native runtime qualification in progress.",
+  "tool": "built-in image_gen.imagegen",
+  "model": "Tool-managed; not separately selected",
+  "prompt_file": "art/source/city_2026-10-20_prompts.json",
+  "visual_direction": "GPT-6 Astra",
+  "requested_scope": "Three substantially different fantasy-city alternatives; only merchant active initially, other NPCs ambient/future roles.",
+  "owner_selection": {
+    "variant": "a",
+    "description": "Timber/cream plaster houses, orange terracotta roofs, open square and merchant near entrance.",
+    "message": "Мне нравится первый концепт с обычными, оранжевыми точками.",
+    "interpretation": "Expanded orange-roof city with distinctive permanent cobalt-roof merchant shop A_v3 approved; next request merchant window.",
+    "final_variant": "a_v3",
+    "final_message": "Пойдет. Теперь только нужно добавить окно торговца"
+  },
+  "source_and_rights": {
+    "origin": "Original AI-generated concept images via built-in tool; no external reference image passed, no traced/copied game artwork.",
+    "style_reference_inspected": [
+      "art/concepts/sprite_style_review_2026-10-15/b_cartoon_2d.png",
+      "art/concepts/equipment_forge_2026-10-19/forge_building_v1.png"
+    ],
+    "runtime_ready": false,
+    "reason": "Full-city concept paintings are not modular collision-ready runtime assets. Appearance approval and later implementation qualification are separate."
+  },
+  "images": [
+    {
+      "variant": "a",
+      "path": "art/concepts/city_2026-10-20/a_market_square_v1.png",
+      "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-7c0d0366-d54c-4635-a9fa-ffdd1abfddcb.png",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "bytes": 3482988,
+      "sha256": "2ccbb5ff1bd70a5bb913c7fac44eef242ae9abd91da1695476f7e9ca863e9916",
+      "selected_by_owner": true
+    },
+    {
+      "variant": "b",
+      "path": "art/concepts/city_2026-10-20/b_stone_courtyards_v1.png",
+      "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-00d2b67c-67b4-4c3c-86df-f288deb0fd56.png",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "bytes": 3698804,
+      "sha256": "9ca3a4a03bb718d9b88fe502490e8073f6407f8b3ca482c6370ef65c5623ad05",
+      "selected_by_owner": false
+    },
+    {
+      "variant": "c",
+      "path": "art/concepts/city_2026-10-20/c_garden_loops_v1.png",
+      "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-8caac41d-b75d-4e93-912f-664b7aa24747.png",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "bytes": 3585509,
+      "sha256": "01993383948334d42d56c3a8ed91662c8d2ebd5e1ef42789ab4b1f75f141c498",
+      "selected_by_owner": false
+    }
+  ],
+  "verification": {
+    "main": "All3images visually inspected: distinct rooflines/layout/materials, one trader counter, open entrance, ambient NPCs, no text/HUD. PNG headers and byte-identical saved copies checked.",
+    "astra": "Concept PASS all3, no blockers. A strongest small-city identity/readable merchant and most compatible with existing buildings. C does not need more rear houses.",
+    "limitations": [
+      "Fine flowers/architectural detail must simplify at gameplay scale during asset preparation.",
+      "Water at edges is decorative concept scenery, not approved water gameplay.",
+      "Exact town dimensions/site/building or NPC counts, collisions and merchant interaction/stock/prices not determined by concept images."
+    ],
+    "runtime": "Unchanged. No build/gameplay tests required for this art-and-documentation-only phase."
+  },
+  "revisions": [
+    {
+      "variant": "a_v2",
+      "path": "art/concepts/city_2026-10-20/a_expanded_trading_house_v2.png",
+      "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-e60a0059-e1d5-45ad-b9a0-88ece2fee8b3.png",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "bytes": 3924801,
+      "sha256": "f577e4e9b7aa7831db5cf32ee17f6ccb65b40ba70a78c3affc290316f1b7b776",
+      "tool": "built-in image_gen.imagegen edit",
+      "prompt_file": "art/source/city_2026-10-20_a_v2_prompt.txt",
+      "edit_target": "art/concepts/city_2026-10-20/a_market_square_v1.png",
+      "owner_request": "City larger; merchant shop more distinctive and not a tent.",
+      "changes": "Additional rear/side quarters and streets, orange roofs/style preserved; permanent shop on right of square with open facade/two display windows/large balance-scales sign/plum trim; one visible merchant.",
+      "approval": "Not accepted: owner says merchant shop blends into town background",
+      "astra": "Pending",
+      "main_review": "City mass grows and tent becomes permanent building, but same orange roof and residential facade leave insufficient visual contrast, as owner reported.",
+      "limitations": "Fine detail needs scale simplification; water/side bridge at far right are decorative concept scenery, not approved water/bridge mechanics. Exact counts/site/collision not runtime data.",
+      "owner_feedback": "У торговой лавку всё ещё не видно, она сливается с общим фоном."
+    },
+    {
+      "variant": "a_v3",
+      "path": "art/concepts/city_2026-10-20/a_cobalt_trading_house_v3.png",
+      "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-76282c99-73ac-45d7-bc38-8df1b28cd015.png",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "bytes": 3643324,
+      "sha256": "339491c0760a0dc3278d425a721aaf4b5bdd3a8629e4ef64a51c0e76389d0a5b",
+      "tool": "built-in image_gen.imagegen edit",
+      "prompt_file": "art/source/city_2026-10-20_a_v3_prompt.txt",
+      "edit_target": "art/concepts/city_2026-10-20/a_expanded_trading_house_v2.png",
+      "owner_request": "Shop must stand out; previous permanent shop blends into background.",
+      "changes": "Only cobalt-blue hipped tile roof in town, brass ridge details, broad open commercial facade, large attached plum/gold scales crest, clear paved apron, sole visible merchant. Expanded city/orange residential roof direction retained.",
+      "approval": "Owner approved: Пойдет. Теперь только нужно добавить окно торговца",
+      "astra": "Concept PASS, no blockers: unique cobalt roof distinguishes shop at whole-town/reduced view; broad permanent commercial facade/attached scales sign/one visible merchant; clear paved approach; expanded city/orange residential identity preserved. Owner approval still pending, no runtime qualification.",
+      "main_review": "Visually inspected: shop immediately distinct by one broad blue roof, commercial frontage and large scales sign; visible merchant and clear entrance-square-shop path. No tent/UI marker.",
+      "limitations": "Concept only; exact population/size/stock not runtime data. Detail/occlusion/collision still need actual gameplay qualification."
+    },
+    {
+      "variant": "a_v4",
+      "decision": "D-098",
+      "path": "art/concepts/city_2026-10-20/a_interactive_shop_and_portal_v4.png",
+      "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-c48acfe9-251b-48f1-ae63-4003319db92b.png",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "bytes": 3494415,
+      "sha256": "2189fa95e6837da28bc0ee2456b3c511d86a0a5458b9f31affc51dca50769d4b",
+      "tool": "built-in image_gen.imagegen edit",
+      "prompt_file": "art/source/city_2026-10-20_a_v4_prompt.txt",
+      "referenced_images": [
+        {
+          "path": "art/concepts/city_2026-10-20/a_cobalt_trading_house_v3.png",
+          "sha256": "339491c0760a0dc3278d425a721aaf4b5bdd3a8629e4ef64a51c0e76389d0a5b"
+        },
+        {
+          "path": "art/concepts/research_and_travel_2026-10-17/teleport_circles_v4_seal.png",
+          "sha256": "e00e1049a597ef28d2c9682def4c96d11d9cd80074b9c071394d987e4f1b2e76"
+        }
+      ],
+      "changes": "Turquoise outer shop contour, plum/gold scales role badge, one ground-circle endpoint.",
+      "approval": "Owner appearance approval pending; no runtime implementation authorized from this image alone.",
+      "astra": "Astra direction PASS; scale/placement correction requested: badge/halo too large, circle too large/on gate axis. Superseded by A_v5.",
+      "main_review": "Preserved orange-roof city and unique cobalt permanent shop; only merchant service marked; painted scales badge and transparent flat seal clearly distinguish roles/travel.",
+      "rights": "Edits of project-owned original ImageGen concept and original approved teleport seal. No external image copied or traced.",
+      "runtime_ready": false,
+      "limitations": "Concept composition only. Final Unity markers need small-scale/occlusion/input qualification; existing runtime portal positions/data unchanged; no stock/prices/currency/services defined."
+    },
+    {
+      "variant": "a_v5",
+      "decision": "D-098",
+      "path": "art/concepts/city_2026-10-20/a_interactive_shop_and_portal_v5.png",
+      "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-74fb8320-1425-425b-9705-028948c33455.png",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "bytes": 3426273,
+      "sha256": "82e2720dbf3e02487198931018a761ec8ce638c8ba7c79df6fea8b824a917e1b",
+      "tool": "built-in image_gen.imagegen edit",
+      "prompt_file": "art/source/city_2026-10-20_a_v5_prompt.txt",
+      "referenced_images": [
+        {
+          "path": "art/concepts/city_2026-10-20/a_interactive_shop_and_portal_v4.png",
+          "sha256": "2189fa95e6837da28bc0ee2456b3c511d86a0a5458b9f31affc51dca50769d4b"
+        },
+        {
+          "path": "art/concepts/research_and_travel_2026-10-17/teleport_circles_v4_seal.png",
+          "sha256": "e00e1049a597ef28d2c9682def4c96d11d9cd80074b9c071394d987e4f1b2e76"
+        }
+      ],
+      "changes": "Badge reduced to65% with air gap above roof; circle reduced to70% and moved right/up off gate axis; contour halo reduced.",
+      "approval": "Portal placement rejected by owner: not on central city square; move beside a temple in a quiet side area. D-099 also replaces pair-only target with shared opened-destination menu/network.",
+      "astra": "CONCEPT PASS: compact scales badge readable with roof air gap, thin contour marks only shop; flat seal reduced and off gate axis, arrival/merchant approaches open, approved seal recognizable; original orange/cobalt architecture retained. No more scale correction needed. Owner approval and runtime qualification remain separate.",
+      "main_review": "Preserved orange-roof city and unique cobalt permanent shop; only merchant service marked; painted scales badge and transparent flat seal clearly distinguish roles/travel.",
+      "rights": "Edits of project-owned original ImageGen concept and original approved teleport seal. No external image copied or traced.",
+      "runtime_ready": false,
+      "limitations": "Concept composition only. Final Unity markers need small-scale/occlusion/input qualification; existing runtime portal positions/data unchanged; no stock/prices/currency/services defined.",
+      "owner_feedback": "Портал не должен быть прямо в центре города. Нужно где-то так спокойно сделать, какой-нибудь храм ... и возле храма сделать портал."
+    },
+    {
+      "path": "art/concepts/city_2026-10-20/a_temple_courtyard_portal_v6.png",
+      "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-7e9ecb4a-ecf4-4ef7-8695-37bda00775cc.png",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "bytes": 3397480,
+      "sha256": "0aae98205ed517bbe24f9c2ce2d8f22170d9ca8d823ad7fc9a4eef7ed0ea5810",
+      "variant": "a_v6",
+      "decision": "D-099",
+      "tool": "built-in image_gen.imagegen edit",
+      "prompt_file": "art/source/city_2026-10-20_a_v6_prompt.txt",
+      "referenced_images": [
+        {
+          "path": "art/concepts/city_2026-10-20/a_interactive_shop_and_portal_v5.png",
+          "sha256": "82e2720dbf3e02487198931018a761ec8ce638c8ba7c79df6fea8b824a917e1b"
+        },
+        {
+          "path": "art/concepts/research_and_travel_2026-10-17/teleport_circles_v4_seal.png",
+          "sha256": "e00e1049a597ef28d2c9682def4c96d11d9cd80074b9c071394d987e4f1b2e76"
+        }
+      ],
+      "owner_request": "Move portal away from city centre to quiet temple-side court; every travel portal opens common menu of opened destinations.",
+      "changes": "One left-edge house replaced with modest pale-stone temple; single ground seal in clear side court; old square seal removed/paving restored; architecture/shop cues preserved.",
+      "approval": "Owner approved for implementation: делай.",
+      "astra": "CONCEPT PASS: quiet side temple court, whole seal visible, side approach open; square and gate axis cleared; modest city-scale temple without new service/NPC; shop outline/badge preserved. No corrections required before owner review.",
+      "main_review": "Visually inspected whole-city output: one temple-side seal off market/gate routes, no duplicate old seal, blue-roof merchant and compact marker intact.",
+      "source_and_rights": "Original ImageGen edit using project-owned original city and approved original seal only; no unlicensed source traced.",
+      "runtime_ready": false,
+      "limitations": "Concept painting only, not collision-ready modular art; temple has no extra service/lore/NPC. Exact town site/base preview/arrival geometry remain to qualify in Unity; WorldTravelData unchanged."
+    }
+  ],
+  "related_teleport_menu": "art/source/teleport_menu_2026-10-20_generation.json",
+  "runtime_generation": "art/source/city_runtime_2026-10-20_generation.json",
+  "runtime_verification": "art/source/city_runtime_2026-10-20_verification.json"
+}

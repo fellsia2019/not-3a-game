@@ -154,6 +154,13 @@ namespace Not3A.Stage3.VisualPilot
             interactionMarker.Bind(bootstrap.CameraFollow.BoundCamera, composition.Gathering);
             var economy = composition.Gathering.Economy;
             var districtWorld = GetComponent<Stage3ResourceDistrictWorld>();
+            Stage3GuildWorldDriver camps=GetComponent<Stage3GuildWorldDriver>();
+            if(GetComponent<Not3A.Stage3.PlayerInterface.Stage3PlayerInterfaceBinding>()!=null &&
+                districtWorld!=null && worldTravel!=null && worldTravel.CityReady)
+            {
+                camps=camps??gameObject.AddComponent<Stage3GuildWorldDriver>();
+                camps.PrepareCampEnvironment(bootstrap,districtWorld,worldTravel);
+            }
             if (composition.Gathering.Catalog.ManualResources != null)
             {
                 bool Excluded(Vector2 point, float radius)
@@ -163,6 +170,9 @@ namespace Not3A.Stage3.VisualPilot
                         Vector2.Distance(point, bootstrap.ThroneMarker.position) < 5f + radius) return true;
                     for (var i = 0; i < 3; i++)
                         if (Vector2.Distance(point, economy.WorldPosition((MapResourceKind)i)) < 3f + radius) return true;
+                    var reserved=new Rect(point-Vector2.one*(radius+2f),Vector2.one*(radius+2f)*2f);
+                    if(worldTravel!=null&&worldTravel.OverlapsCity(reserved))return true;
+                    if(camps!=null&&camps.OverlapsCamp(reserved))return true;
                     if (worldTravel != null)
                         foreach (var site in worldTravel.SitePositions)
                             if (Vector2.Distance(point, site) < 4f + radius) return true;
@@ -255,6 +265,15 @@ namespace Not3A.Stage3.VisualPilot
                     points.Add(point + Vector2.left * .75f); points.Add(point + Vector2.right * .75f);
                     points.Add(point + Vector2.up * .75f); points.Add(point + Vector2.down * .75f);
                 }
+            if(worldTravel!=null&&worldTravel.CityReady)
+            {
+                var b=worldTravel.CityBounds;
+                for(var y=b.yMin;y<=b.yMax;y+=2f)for(var x=b.xMin;x<=b.xMax;x+=2f)points.Add(new Vector2(x,y));
+            }
+            var camps=GetComponent<Stage3GuildWorldDriver>();
+            if(camps!=null && camps.Ready)
+                foreach(var b in camps.ReservedCampBounds)
+                    for(var y=b.yMin;y<=b.yMax;y+=2f)for(var x=b.xMin;x<=b.xMax;x+=2f)points.Add(new Vector2(x,y));
             return points.ToArray();
         }
 

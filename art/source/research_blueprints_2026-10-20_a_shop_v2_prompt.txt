@@ -1,0 +1,6 @@
+Use case: precise-object-edit
+Asset type: final inventory-context concept, narrow safe-zone correction.
+Input image: the local A_shop_v1 merchant mockup is the EDIT TARGET.
+Change ONLY the size of the small parchment blueprint INSIDE the cyan-selected third cell of the second merchant row. It currently nearly fills that cell. Uniformly SHRINK ONLY THE PAPER ILLUSTRATION by about18%, keeping all its corners and shadow. Center it inside the unchanged selected cell with at least12% EMPTY IVORY INSET on all four sides; maximum visible extent64px within the approximately88px cell at this1672x941screen. Keep its original proportions and diagram, neutral background and cyan selection corners.
+Keep the larger central parchment preview UNCHANGED.
+Preserve EVERY other part of this screenshot: all positions, panels, fonts, all labels, blank player bag, eight equipment icons/quality labels, selected-cell border/size, label "Чертёж", central title/description, wallet10005gold, illustrative100gold price, Buy button, top navigation, time, entire aspect ratio/canvas. No redesign, no extra items, no gold quality frame on the blueprint, no black/coloured fringe, no cropping. This is one tiny safe-fit edit, not a new UI composition.

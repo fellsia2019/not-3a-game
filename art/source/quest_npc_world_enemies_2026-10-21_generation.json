@@ -1,0 +1,218 @@
+{
+  "date": "2026-10-21",
+  "status": "D108 complete appearance approval: mage v2, purple ogre v2, final orc v5 and courtyard placement v1. Quest window is a separate D109 concept review.",
+  "scope": "City temple quest-giver NPC and orc/ogre world-enemy alternatives, concept-only.",
+  "owner_clarification": "Хорад/Хород was dictation error; the city has no newly assigned name.",
+  "tool": "built-in image_gen.imagegen",
+  "model": "Tool-managed; not separately selected",
+  "visual_direction_and_review": "GPT-6 Astra (/root/gatherer_concept_astra)",
+  "generation_and_provenance_owner": "Main",
+  "prompt_file": "art/source/quest_npc_world_enemies_2026-10-21_prompts.json",
+  "source_and_rights": {
+    "origin": "Original AI-generated concepts using only own-project character/city art and an own-project native screenshot as style/context references.",
+    "external_game_art_used": false,
+    "traced_external_art": false,
+    "runtime_ready": false,
+    "reason": "Appearance is approved; review sheets are not runtime sprite sheets, collision assets, quest UI or implemented enemy content. Asset production and ready gameplay brief remain separate."
+  },
+  "references": [
+    {
+      "path": "art/concepts/hero_motion_2026-10-18/hero_C_idle_v1.png",
+      "role": "Own-project painted hero style and human-scale comparator",
+      "sha256": "cf81a7fd758ae22a299a01d953523cad883a5861f363d059b6349d71fb53252a"
+    },
+    {
+      "path": "art/concepts/city_2026-10-20/a_temple_courtyard_portal_v6.png",
+      "role": "Own-project approved city temple/court placement context",
+      "sha256": "0aae98205ed517bbe24f9c2ce2d8f22170d9ca8d823ad7fc9a4eef7ed0ea5810"
+    },
+    {
+      "path": "Artifacts/S3-CYCLE-HUD-20261021/native/1600x900-dawn.png",
+      "role": "Own-project native grass/camera/readability reference, not an edit target",
+      "sha256": "bf618f31f9ce14c41f7768c46b4a5ff8d110585a2d950495bdc14a949aa0ef75"
+    }
+  ],
+  "images": [
+    {
+      "key": "temple_mage_v1",
+      "path": "art/concepts/quest_npc_world_enemies_2026-10-21/temple_mage_v1.png",
+      "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-a3b68a3b-bed9-4d85-85a2-67f004b5cb59.png",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "bytes": 2823274,
+      "sha256": "1936cbd6b709d08998938b3adde9200a86d1f881b1467bc8821d25530ab657c9",
+      "selected_by_owner": false,
+      "revision_status": "Returned by owner for changes; retained as revision history."
+    },
+    {
+      "key": "orc_ogre_comparison_v1",
+      "path": "art/concepts/quest_npc_world_enemies_2026-10-21/orc_ogre_comparison_v1.png",
+      "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-3e8f4f0a-5513-4642-b861-8a8d81b8e551.png",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "bytes": 2700247,
+      "sha256": "0cc5ac30d8bfe1ff1b03e1f10ea668ed8a26019193e7a6b572dceb2c7744be46",
+      "selected_by_owner": false,
+      "revision_status": "Returned by owner for changes; retained as revision history."
+    },
+    {
+      "key": "temple_mage_v2",
+      "path": "art/concepts/quest_npc_world_enemies_2026-10-21/temple_mage_v2.png",
+      "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-1748ec54-a5bd-43e9-9b75-b7704ba8c35b.png",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "bytes": 2698763,
+      "sha256": "2284b5b3d352f9e93d2b38a6244d430ba79f28373491135d7c93a29ff5c9df57",
+      "selected_by_owner": true,
+      "revision_status": "Owner approved appearance."
+    },
+    {
+      "key": "orc_ogre_comparison_v2",
+      "path": "art/concepts/quest_npc_world_enemies_2026-10-21/orc_ogre_comparison_v2.png",
+      "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-716923a4-3b02-4d8e-a690-8bfdc0d09357.png",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "bytes": 2572240,
+      "sha256": "1773313159403f81bec4c8bca621deaf4244ab7fce8ddb8f0cca687d07a0ddf3",
+      "selected_by_owner": false,
+      "revision_status": "Purple ogre approved; orc requires slight reduction.",
+      "approved_components": [
+        "purple ogre"
+      ]
+    },
+    {
+      "key": "orc_ogre_comparison_v3",
+      "path": "art/concepts/quest_npc_world_enemies_2026-10-21/orc_ogre_comparison_v3.png",
+      "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-58a22759-3f9d-4c8c-b30c-ab96057f6001.png",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "bytes": 2352986,
+      "sha256": "fe0d4e9a01cc2f0272165a4099f20e732ec40122a4e4ae24b5d3722bb2a50301",
+      "selected_by_owner": false,
+      "revision_status": "Scale overcorrection retained as revision history; not final."
+    },
+    {
+      "key": "orc_ogre_comparison_v4",
+      "path": "art/concepts/quest_npc_world_enemies_2026-10-21/orc_ogre_comparison_v4.png",
+      "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-b3b7d141-d9c5-47af-a94c-2563793d0ce1.png",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "bytes": 2295421,
+      "sha256": "4be5b14a4e5d253693050a05b355893d5e0afce10b0405715a1b96b14f91a971",
+      "selected_by_owner": false,
+      "revision_status": "Upper comparison PASS; lower orc too large; corrected by v5."
+    },
+    {
+      "key": "temple_courtyard_placement_v1",
+      "path": "art/concepts/quest_npc_world_enemies_2026-10-21/temple_courtyard_placement_v1.png",
+      "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-f4bc4325-2587-40c9-a157-c8b52454d6dc.png",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "bytes": 3206674,
+      "sha256": "240025cfc23d2dff49e469780e08774c7c4b58e489ad351390ace7006ddaf2cb",
+      "selected_by_owner": true,
+      "revision_status": "Owner approved appearance/placement."
+    },
+    {
+      "key": "orc_ogre_comparison_v5",
+      "path": "art/concepts/quest_npc_world_enemies_2026-10-21/orc_ogre_comparison_v5.png",
+      "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-5fa2bd89-23e7-47ac-9d98-c9c53128fe04.png",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "bytes": 2227875,
+      "sha256": "a2aff295826a976c43d2f7e7adaf13ad3868a325aa4e07b80f1bb9670ad76d27",
+      "selected_by_owner": true,
+      "revision_status": "Owner approved appearance/placement."
+    }
+  ],
+  "verification": {
+    "main": "V5 upper orc is between v1 and v2; lower orc reduced locally to restore a consistent smaller-than-ogre/larger-than-hero silhouette. Approved mage v2 and purple ogre retained. Placement court has open approaches.",
+    "astra_placement": "CONCEPT PASS courtyard placement v1, human scale and free approaches outside seal.",
+    "astra_orc": "V5 final CONCEPT PASS: upper intermediate size retained; lower orc clearly larger than hero and smaller than ogre, complete silhouettes, approved hero/ogre preserved. No further correction needed before owner review.",
+    "native_qa": false,
+    "native_qa_reason": "All new images are concepts; no new Unity capture or implemented NPC is claimed.",
+    "code_tests": "Not applicable: concept/documents only, Unity/runtime unchanged."
+  },
+  "remaining": [
+    "D109 quest-window concept appearance review.",
+    "Ready quest/combat brief, then approved visual implementation through Astra and gameplay integration by main."
+  ],
+  "latest_revision": "Mage v2, purple ogre v2, final orc v5 and courtyard placement v1 all owner-approved.",
+  "latest_prompt_file": "art/source/quest_npc_world_enemies_2026-10-21_v2_prompts.json",
+  "owner_revision": {
+    "larger_orc": true,
+    "ogre_skin": "Purple",
+    "npc": "Clearly ceremonial temple mage: long hair, long beard, robe and cross-shaped staff, instead of the ordinary travelling elder/lantern.",
+    "platform_clarification": "Steam publishing review, not another service.",
+    "approved_appearance": true
+  },
+  "platform_rules_check": {
+    "date": "2026-10-21",
+    "source": "https://partner.steamgames.com/doc/gettingstarted/onboarding#5",
+    "finding": "Published rules prohibit hate speech based on religion, among other protected traits. No blanket prohibition on a cleric/cross is listed.",
+    "interpretation": "Use a dignified original fantasy character. This is not Valve approval or a guarantee that the complete game will pass review."
+  },
+  "verification_v1": {
+    "main": "Inspected both generated images; complete figures, labels, clear silhouettes and own-project style/context preserved.",
+    "astra": "CONCEPT PASS both sheets, ready for owner review. NPC human scale outside teleport seal; enemy masses/palettes/weapons distinct, no boss/corruption attributes.",
+    "limitation": "Ogre drawing is approximately 1.4–1.5 hero heights, below the illustrative 1.7 prompt. Astra accepted the ordinary large-enemy silhouette; runtime scale is not approved.",
+    "native_qa": false,
+    "native_qa_reason": "The small tactical strip is generated concept artwork, not a Unity capture.",
+    "code_tests": "Not applicable: no Unity/code/assets/scene changes in this concept-only step."
+  },
+  "decision": "D-108",
+  "latest_prompt_files": [
+    "art/source/quest_npc_world_enemies_2026-10-21_v3_prompts.json",
+    "art/source/quest_npc_world_enemies_2026-10-21_v4_prompts.json",
+    "art/source/quest_npc_world_enemies_2026-10-21_v5_prompts.json"
+  ],
+  "owner_appearance_approval": {
+    "date": "2026-10-21",
+    "message": "Орку чуть-чуть меньше сделать. остальное ок",
+    "approved": [
+      "temple_mage_v2",
+      "purple ogre appearance from orc_ogre_comparison_v2",
+      "orc_ogre_comparison_v5",
+      "temple_courtyard_placement_v1"
+    ],
+    "pending": [],
+    "requested_addition": "Explicit placement view in map context rather than only the character-sheet inset.",
+    "final_message": "Утверждаю размещение и размер орка"
+  },
+  "existing_city_evidence": {
+    "code": "Assets/Stage3/WorldTravel/Runtime/Stage3CityPresentation.cs",
+    "verification": "art/source/city_runtime_2026-10-20_verification.json",
+    "finding": "D099 already implements the city temple and separate nearby ground teleport seal. New mage/quest service not implemented."
+  },
+  "verification_v2": {
+    "main": "Inspected v2: ceremonial mage, long silver hair/beard, cross staff; larger olive orc, entirely purple ogre, unchanged hero comparator; complete readable figures.",
+    "astra": "V2 CONCEPT PASS both sheets, no blockers for owner review. Temple identity is clear, scale/approach outside seal preserved; orc is visibly larger, ogre matte purple and most massive; own painted style retained.",
+    "limitation": "Prompted scale ratios are illustrative art direction, not measured runtime values. No runtime or Valve review has occurred.",
+    "native_qa": false,
+    "native_qa_reason": "The small tactical strip is generated concept artwork, not a Unity capture.",
+    "code_tests": "Not applicable: no Unity/code/assets/scene changes in this concept-only revision."
+  },
+  "latest_assets": {
+    "approved_mage": "art/concepts/quest_npc_world_enemies_2026-10-21/temple_mage_v2.png",
+    "approved_ogre": "Ogre component of art/concepts/quest_npc_world_enemies_2026-10-21/orc_ogre_comparison_v2.png",
+    "approved_orc": "art/concepts/quest_npc_world_enemies_2026-10-21/orc_ogre_comparison_v5.png",
+    "approved_placement": "art/concepts/quest_npc_world_enemies_2026-10-21/temple_courtyard_placement_v1.png"
+  },
+  "supersession": "D110/D111 cancel temple mage/quest window. Enemy orc v5/purple ogre approval retained; city now both guild and open temple teleport court."
+}

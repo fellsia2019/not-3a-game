@@ -61,7 +61,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
                 Assert.That(game.Production.SelectedBuilding, Is.EqualTo(entry.Building));
                 Assert.That(game.Building.Defense.IsPlacing, Is.False);
             }
-            hud.SelectTower(1);
+            Stage3TestCycle.StudyBlueprint(game,Stage2BlueprintKind.Longshot);hud.SelectTower(1);
             Assert.That(game.Building.Defense.SelectedRoleIndex, Is.EqualTo(1));
             Assert.That(game.Building.Defense.IsPlacing, Is.True);
             Assert.That(game.Production.IsPlacing, Is.False);
@@ -97,6 +97,8 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Assert.That(game.Building.Defense.IsPlacing, Is.False, "B cannot bypass a disabled purchase.");
             Assert.That(production.Rules.Buildings.Count, Is.Zero);
             hud.AddAllResources(100); hud.AddGold(100);
+            Assert.That(hud.CanSelectTower(1),Is.False,"Materials alone cannot bypass research.");
+            Stage3TestCycle.StudyBlueprint(game,Stage2BlueprintKind.Longshot);
             for (var role = 0; role < game.Building.Defense.RoleCount; role++) Assert.That(hud.CanSelectTower(role), Is.True);
             foreach (var entry in production.Catalog.Entries) Assert.That(hud.CanSelectGenerator(entry.Building), Is.True);
             hud.SelectGenerator(ResourceProductionBuilding.Sawmill);

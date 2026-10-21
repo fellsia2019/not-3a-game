@@ -1,0 +1,36 @@
+{
+  "date": "2026-10-20",
+  "decision": "D-092",
+  "owner_approval": "Утверждаю, внедряй через Astra",
+  "tool": "built-in image_gen__imagegen",
+  "transparent_background": true,
+  "source_prompt": "Use case: precise-object-edit\nAsset type: transparent fantasy game UI icon atlas, runtime-ready medallion artwork derived from our APPROVED two profession concepts.\nExtract/re-create ONLY EIGHT illustrated round medallion icons from the two attached owned concepts as a clean4-column ×2-row atlas. DO NOT include any screen layout, letters, numbers, XP tracks, buttons or cards. The reference images define the exact style: painted tools on dark plum round backgrounds, delicate silver/rose-metal circular faceted rims and four tiny turquoise gemstones at cardinal points. Soft three-dimensional hand-painted game item look, clear silhouette, crisp scale, no photoreal photograph. Transparent pixels OUTSIDE each individual complete medallion.\nGrid: landscape2:1 canvas ideally2048×1024,4equal square columns,2equal square rows,8centres evenly spaced at(x12.5%,37.5%,62.5%,87.5%;y25%,75%). Each medallion diameter80%of one square cell, fully contained with10%clear transparent padding on all sides. Identical rim size/scale; no cell boxes/guides visible.\nEXACT icon order, reading left-to-right top-to-bottom:\nTOP1 Miner profession: steel PICKAXE diagonal over small blue-grey stone and iron ore cluster, turquoise-silver atmospheric backdrop.\nTOP2 Logger profession: wooden-handled single-bladed AXE over cut log and green leaves.\nTOP3 Miner strength: PICKAXE striking blue-grey rock, small AMBER impact burst, no fire spell.\nTOP4 Miner tempo: PICKAXE with swept CYAN circular work-motion trail on plum.\nBOTTOM1 Miner reach: PICKAXE above rock beside a short curved CYAN measuring arc, no letters/numerals.\nBOTTOM2 Logger strength: broad single-bladed AXE striking cut timber, small AMBER work impact burst.\nBOTTOM3 Logger tempo: clearly broad SINGLE-BLADED AXE, NEVER A PICKAXE, with swept CYAN circular motion trail.\nBOTTOM4 Logger reach: broad single-bladed AXE beside log and short CYAN reach arc.\nPickaxes must have two narrow elongated pointed ends; axes have one broad curved wedge blade, unmistakably different at64px. These are8distinct icons, no extra rows, no captions. Do not alter approved palette, no gold quality symbols, no hero, no screenshot corners or watermark. Keep actual ALPHA transparency around each circle. The dark plum interior of each circle stays opaque.",
+  "source_generation": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-8b9a3721-0982-473e-a91b-88781e203565.png",
+  "references": [
+    "art/concepts/gatherer_professions_2026-10-20/gatherer_miner_v3.png",
+    "art/concepts/gatherer_professions_2026-10-20/gatherer_logger_v2.png"
+  ],
+  "source_copy": "art/concepts/gatherer_professions_2026-10-20/runtime/profession_icons_v1.png",
+  "runtime_copy": "Assets/Stage3/PlayerInterface/Resources/Stage3ProfessionIcons.png",
+  "derivation": "Byte-identical ImageGen PNG copies; native UI samples 4x2 cell UVs. No screenshot background or generated text used in runtime.",
+  "grid_order_top_left": [
+    "Miner profession",
+    "Logger profession",
+    "Miner strength",
+    "Miner tempo",
+    "Miner reach",
+    "Logger strength",
+    "Logger tempo",
+    "Logger reach"
+  ],
+  "rights": "AI-generated derivative of approved project-owned concepts. No copied/traced third-party artwork. No separate CC0 claim.",
+  "visual_owner": "GPT-6 Astra implemented native frames/layout/controls and atlas importer; atlas content/order reviewed PASS, native qualification separate.",
+  "runtime_data": "Assets/Stage3/PlayerInterface/Resources/Stage3Professions.asset",
+  "rules": "Stage2ProfessionCatalog/Stage2Professions/Stage2ProfessionDriver; Economy separate tool+profession modifiers",
+  "wiring": "Stage3PlayerInterfaceBinding.BindProfessions after equipment; no scene or package migration",
+  "install_entries": [
+    "Not3A.Stage3.PlayerInterface.Editor.Stage3ProfessionInstaller.Install",
+    "Not3A.Stage3.PlayerInterface.Editor.Stage3ProfessionArtImporter.BuildAssets"
+  ],
+  "sha256": "6132198881b4f11a448ba300c27aad3409bd3785344aa5c6f92cbc400fa729bf"
+}

@@ -1,0 +1,561 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!213 &-5149228273750869960
+Sprite:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Approved forge
+  m_Rect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1536
+    height: 1024
+  m_Offset: {x: 5.5, y: -454}
+  m_Border: {x: 0, y: 0, z: 0, w: 0}
+  m_PixelsToUnits: 100
+  m_Pivot: {x: 0.50358075, y: 0.056640625}
+  m_Extrude: 0
+  m_PackingTag: 
+  m_RenderDataKey:
+    6ddca4c212ad047398db77fb1ea718cd: -5149228273750869960
+  m_AtlasTags: []
+  m_SpriteAtlas: {fileID: 0}
+  m_RD:
+    serializedVersion: 4
+    texture: {fileID: 2800000, guid: 90f37ae19b594830b149b4b644adb171, type: 3}
+    alphaTexture: {fileID: 0}
+    secondaryTextures: []
+    m_SubMeshes:
+    - serializedVersion: 2
+      firstByte: 0
+      indexCount: 6
+      topology: 0
+      baseVertex: 0
+      firstVertex: 0
+      vertexCount: 4
+      localAABB:
+        m_Center: {x: 0, y: 0, z: 0}
+        m_Extent: {x: 0, y: 0, z: 0}
+    m_IndexBuffer: 000001000200020001000300y
+    m_VertexData:
+      serializedVersion: 3
+      m_VertexCount: 4
+      m_Channels:
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 3
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 1
+        offset: 0
+        format: 0
+        dimension: 2
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      m_DataSize: 80
+      _typelessdata: 1f85f7c05c8f1a41000000000000f4405c8f1a41000000001f85f7c0e17a14bf000000000000f440e17a14bf000000000000000000000000000000000000000000000000000000000000000000000000
+    m_Bindpose: []
+    m_BlendShapes:
+      vertices: []
+      shapes: []
+      channels: []
+      fullWeights: []
+    textureRect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 1536
+      height: 1024
+    textureRectOffset: {x: 0, y: 0}
+    atlasRectOffset: {x: -1, y: -1}
+    settingsRaw: 3072
+    uvTransform: {x: 100, y: 773.5, z: 100, w: 58}
+    downscaleMultiplier: 1
+  m_AtlasRD:
+    serializedVersion: 4
+    texture: {fileID: 2800000, guid: 90f37ae19b594830b149b4b644adb171, type: 3}
+    alphaTexture: {fileID: 0}
+    secondaryTextures: []
+    m_SubMeshes:
+    - serializedVersion: 2
+      firstByte: 0
+      indexCount: 6
+      topology: 0
+      baseVertex: 0
+      firstVertex: 0
+      vertexCount: 4
+      localAABB:
+        m_Center: {x: 0, y: 0, z: 0}
+        m_Extent: {x: 0, y: 0, z: 0}
+    m_IndexBuffer: 000001000200020001000300y
+    m_VertexData:
+      serializedVersion: 3
+      m_VertexCount: 4
+      m_Channels:
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 3
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 1
+        offset: 0
+        format: 0
+        dimension: 2
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      m_DataSize: 80
+      _typelessdata: 1f85f7c05c8f1a41000000000000f4405c8f1a41000000001f85f7c0e17a14bf000000000000f440e17a14bf000000000000000000000000000000000000000000000000000000000000000000000000
+    m_Bindpose: []
+    m_BlendShapes:
+      vertices: []
+      shapes: []
+      channels: []
+      fullWeights: []
+    textureRect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 1536
+      height: 1024
+    textureRectOffset: {x: 0, y: 0}
+    atlasRectOffset: {x: -1, y: -1}
+    settingsRaw: 3072
+    uvTransform: {x: 100, y: 773.5, z: 100, w: 58}
+    downscaleMultiplier: 1
+  m_PhysicsShape: []
+  m_Bones: []
+  m_ScriptableObjects: []
+  m_SpriteID: 
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d82fb9232704f00aa3327bff01f549a, type: 3}
+  m_Name: Stage3ForgeArt
+  m_EditorClassIdentifier: Assembly-CSharp::Not3A.Stage3.VisualPilot.Stage3ForgeArt
+  worldSprite: {fileID: -5149228273750869960}
+  material: {fileID: 2100000, guid: 175a803f1b95a4498bbf531458abcaad, type: 2}
+  bowPickaxeHelmet: {fileID: 2800000, guid: 1d4ff69bf19f4640942d299bed363639, type: 3}
+  wandAxe: {fileID: 2800000, guid: f7fb64afcc1347dd80f09ce35b5e6672, type: 3}
+  chestArmsLegs: {fileID: 2800000, guid: 7cc8977f2dfe4714bffd5eb7c4640778, type: 3}
+  heldEquipment: {fileID: 11400000, guid: 5c7d9af369ae44ad79ca9e99cee1b4a9, type: 2}
+  uiVisibleBounds:
+  - serializedVersion: 2
+    x: 0.042127073
+    y: 0.5957643
+    width: 0.0801105
+    height: 0.35174954
+  - serializedVersion: 2
+    x: 0.16229282
+    y: 0.5957643
+    width: 0.08356354
+    height: 0.35267037
+  - serializedVersion: 2
+    x: 0.27900553
+    y: 0.5957643
+    width: 0.08218232
+    height: 0.35451198
+  - serializedVersion: 2
+    x: 0.39848065
+    y: 0.59484345
+    width: 0.08356354
+    height: 0.35635358
+  - serializedVersion: 2
+    x: 0.5255525
+    y: 0.5957643
+    width: 0.08356351
+    height: 0.35543275
+  - serializedVersion: 2
+    x: 0.6477901
+    y: 0.5957643
+    width: 0.08632594
+    height: 0.35635358
+  - serializedVersion: 2
+    x: 0.77209944
+    y: 0.5957643
+    width: 0.08770722
+    height: 0.35543275
+  - serializedVersion: 2
+    x: 0.88604975
+    y: 0.59484345
+    width: 0.08701652
+    height: 0.3572744
+  - serializedVersion: 2
+    x: 0.011230469
+    y: 0.5572917
+    width: 0.107421875
+    height: 0.3098958
+  - serializedVersion: 2
+    x: 0.12646484
+    y: 0.5572917
+    width: 0.1171875
+    height: 0.31119788
+  - serializedVersion: 2
+    x: 0.25097656
+    y: 0.5572917
+    width: 0.11669922
+    height: 0.31901038
+  - serializedVersion: 2
+    x: 0.37402344
+    y: 0.5546875
+    width: 0.11767578
+    height: 0.32161456
+  - serializedVersion: 2
+    x: 0.4951172
+    y: 0.5520833
+    width: 0.123535156
+    height: 0.32942712
+  - serializedVersion: 2
+    x: 0.6230469
+    y: 0.55338544
+    width: 0.122558594
+    height: 0.32682288
+  - serializedVersion: 2
+    x: 0.7475586
+    y: 0.55338544
+    width: 0.123046875
+    height: 0.32682288
+  - serializedVersion: 2
+    x: 0.87109375
+    y: 0.55338544
+    width: 0.119628906
+    height: 0.3255208
+  - serializedVersion: 2
+    x: 0.009019165
+    y: 0.09921082
+    width: 0.11048478
+    height: 0.22096956
+  - serializedVersion: 2
+    x: 0.1302142
+    y: 0.09695603
+    width: 0.11386697
+    height: 0.22660653
+  - serializedVersion: 2
+    x: 0.25253665
+    y: 0.09695603
+    width: 0.11048478
+    height: 0.22998874
+  - serializedVersion: 2
+    x: 0.37655017
+    y: 0.09470124
+    width: 0.11104849
+    height: 0.23224354
+  - serializedVersion: 2
+    x: 0.5005637
+    y: 0.09244645
+    width: 0.1133033
+    height: 0.23224351
+  - serializedVersion: 2
+    x: 0.6245772
+    y: 0.091319054
+    width: 0.114430666
+    height: 0.2333709
+  - serializedVersion: 2
+    x: 0.74859077
+    y: 0.08906426
+    width: 0.113866985
+    height: 0.2367531
+  - serializedVersion: 2
+    x: 0.8771139
+    y: 0.08793686
+    width: 0.11048478
+    height: 0.24351747
+  - serializedVersion: 2
+    x: 0.011837655
+    y: 0.6527621
+    width: 0.11724915
+    height: 0.25366402
+  - serializedVersion: 2
+    x: 0.13585119
+    y: 0.65163475
+    width: 0.11499436
+    height: 0.2559188
+  - serializedVersion: 2
+    x: 0.25591883
+    y: 0.64825255
+    width: 0.118940234
+    height: 0.2615558
+  - serializedVersion: 2
+    x: 0.37993234
+    y: 0.64599776
+    width: 0.12288612
+    height: 0.264938
+  - serializedVersion: 2
+    x: 0.5050733
+    y: 0.64261556
+    width: 0.119503915
+    height: 0.2683202
+  - serializedVersion: 2
+    x: 0.6262683
+    y: 0.64148813
+    width: 0.12119502
+    height: 0.270575
+  - serializedVersion: 2
+    x: 0.7502819
+    y: 0.64148813
+    width: 0.12119502
+    height: 0.26944762
+  - serializedVersion: 2
+    x: 0.8737317
+    y: 0.6358512
+    width: 0.119503975
+    height: 0.2784667
+  - serializedVersion: 2
+    x: 0.012401353
+    y: 0.38444194
+    width: 0.11837656
+    height: 0.22547916
+  - serializedVersion: 2
+    x: 0.132469
+    y: 0.38331455
+    width: 0.11837655
+    height: 0.23111612
+  - serializedVersion: 2
+    x: 0.25479144
+    y: 0.37880495
+    width: 0.12119502
+    height: 0.24239007
+  - serializedVersion: 2
+    x: 0.37936866
+    y: 0.37880495
+    width: 0.11781284
+    height: 0.2468997
+  - serializedVersion: 2
+    x: 0.50281847
+    y: 0.37993234
+    width: 0.12063134
+    height: 0.24126267
+  - serializedVersion: 2
+    x: 0.626832
+    y: 0.37880495
+    width: 0.12175876
+    height: 0.2412627
+  - serializedVersion: 2
+    x: 0.7502819
+    y: 0.37880495
+    width: 0.1234498
+    height: 0.24915448
+  - serializedVersion: 2
+    x: 0.87429535
+    y: 0.37993234
+    width: 0.119503975
+    height: 0.24351746
+  - serializedVersion: 2
+    x: 0.015219842
+    y: 0.07215332
+    width: 0.1054115
+    height: 0.2931229
+  - serializedVersion: 2
+    x: 0.14092447
+    y: 0.07102593
+    width: 0.10653889
+    height: 0.2931229
+  - serializedVersion: 2
+    x: 0.26944757
+    y: 0.06877114
+    width: 0.09921083
+    height: 0.2965051
+  - serializedVersion: 2
+    x: 0.39007893
+    y: 0.06764374
+    width: 0.10146561
+    height: 0.2976325
+  - serializedVersion: 2
+    x: 0.512965
+    y: 0.06651635
+    width: 0.10428411
+    height: 0.29875988
+  - serializedVersion: 2
+    x: 0.63528746
+    y: 0.065388955
+    width: 0.10710263
+    height: 0.30101466
+  - serializedVersion: 2
+    x: 0.7553551
+    y: 0.065388955
+    width: 0.11048478
+    height: 0.30101466
+  - serializedVersion: 2
+    x: 0.87993234
+    y: 0.06313416
+    width: 0.10428411
+    height: 0.30326945
+  - serializedVersion: 2
+    x: 0.009019165
+    y: 0.34723788
+    width: 0.11894025
+    height: 0.23788047
+  - serializedVersion: 2
+    x: 0.1290868
+    y: 0.3461105
+    width: 0.12119503
+    height: 0.24013528
+  - serializedVersion: 2
+    x: 0.24971814
+    y: 0.34385568
+    width: 0.12344985
+    height: 0.24351752
+  - serializedVersion: 2
+    x: 0.37485906
+    y: 0.3427283
+    width: 0.12570462
+    height: 0.2468997
+  - serializedVersion: 2
+    x: 0.5
+    y: 0.3404735
+    width: 0.12570465
+    height: 0.24802706
+  - serializedVersion: 2
+    x: 0.6262683
+    y: 0.3416009
+    width: 0.12288612
+    height: 0.24464488
+  - serializedVersion: 2
+    x: 0.74915445
+    y: 0.3404735
+    width: 0.12232244
+    height: 0.24464485
+  - serializedVersion: 2
+    x: 0.87204057
+    y: 0.3393461
+    width: 0.12401354
+    height: 0.24802709
+  - serializedVersion: 2
+    x: 0
+    y: 0.12630208
+    width: 0.13232422
+    height: 0.3411458
+  - serializedVersion: 2
+    x: 0.12011719
+    y: 0.119791664
+    width: 0.13623047
+    height: 0.35677084
+  - serializedVersion: 2
+    x: 0.2421875
+    y: 0.110677086
+    width: 0.14013672
+    height: 0.3671875
+  - serializedVersion: 2
+    x: 0.3642578
+    y: 0.108072914
+    width: 0.14111328
+    height: 0.3684896
+  - serializedVersion: 2
+    x: 0.4897461
+    y: 0.110677086
+    width: 0.14501953
+    height: 0.3645833
+  - serializedVersion: 2
+    x: 0.6152344
+    y: 0.108072914
+    width: 0.14404297
+    height: 0.3697917
+  - serializedVersion: 2
+    x: 0.7392578
+    y: 0.108072914
+    width: 0.14697266
+    height: 0.3697917
+  - serializedVersion: 2
+    x: 0.86328125
+    y: 0.108072914
+    width: 0.13671875
+    height: 0.3697917

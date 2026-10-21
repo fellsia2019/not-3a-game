@@ -45,6 +45,8 @@ namespace Not3A.Stage2.WavesAI
         }
 
         public int ActiveCount => enemies.Count;
+        public int ActiveDaytimeCount
+        { get { var count = 0; foreach (var enemy in enemies) if (enemy != null && enemy.Source == Stage2EnemySource.Daytime) count++; return count; } }
         public Stage2Enemy GetEnemy(int index) => enemies[index];
         public event Action<int> ReachedThrone;
         public event Action<Stage2Enemy> EnemyRemoved;
@@ -139,13 +141,17 @@ namespace Not3A.Stage2.WavesAI
         }
 
         public Stage2Enemy Spawn() => SpawnAt(map.EnemyEntrance);
+        public Stage2Enemy Spawn(Stage2EnemySource source, int tier, float healthMultiplier, float siegeMultiplier)
+            => SpawnAt(map.EnemyEntrance, source, tier, healthMultiplier, siegeMultiplier);
 
-        public Stage2Enemy SpawnAt(Vector2Int startCell)
+        public Stage2Enemy SpawnAt(Vector2Int startCell, Stage2EnemySource source = Stage2EnemySource.Night,
+            int tier = 1, float healthMultiplier = 1f, float siegeMultiplier = 1f)
         {
             var enemy = UnityEngine.Object.Instantiate(catalog.EnemyPrefab);
             try
             {
                 enemy.ConfigureFromValidatedGroup(map, navigation, catalog, startCell);
+                enemy.SetThreat(source, tier, healthMultiplier, siegeMultiplier);
                 enemy.SetPaused(paused);
                 enemy.ReachedThrone += OnReachedThrone;
                 enemy.Removed += OnRemoved;

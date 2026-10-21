@@ -41,7 +41,8 @@ namespace Not3A.Stage2.Integration
         public Stage2GatheringDriver Gathering => gathering;
         public Stage2BuildDriver Building => building;
         public Stage2RunDriver RunDriver => runDriver;
-        public bool PlayerInputBlocked => playerInputBlocker?.Invoke() ?? false;
+        public Stage2HeroRecoveryDriver HeroRecovery {get;internal set;}
+        public bool PlayerInputBlocked => (playerInputBlocker?.Invoke() ?? false) || (HeroRecovery?.InteractionClaimedThisFrame??false);
         public void BindPlayerInputBlocker(System.Func<bool> blocker) => playerInputBlocker = blocker;
 
         public void Configure(Stage2SceneBootstrap sceneBootstrap,

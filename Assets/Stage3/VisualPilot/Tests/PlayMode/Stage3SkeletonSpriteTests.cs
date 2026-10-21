@@ -51,7 +51,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
         [UnityTest]
         public IEnumerator RealWave_WalksFromPortalPausesTakesDamageAndRestarts()
         {
-            Assert.That(composition.RunDriver.Run.StartWave(), Is.True);
+            Assert.That(Stage3TestCycle.StartNight(composition.RunDriver.Run), Is.True);
             yield return null; yield return null;
             var enemy = composition.Enemies.GetEnemy(0);
             var bootstrap = composition.GetComponent<Stage2SceneBootstrap>();
@@ -89,7 +89,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Assert.That(composition.Enemies.ActiveCount, Is.Zero);
             Assert.That(Object.FindObjectsByType<SpriteRenderer>(FindObjectsSortMode.None)
                 .Count(renderer => renderer.enabled && IsRegisteredSkeleton(renderer.sprite)), Is.Zero);
-            Assert.That(composition.RunDriver.Run.StartWave(), Is.True);
+            Assert.That(Stage3TestCycle.StartNight(composition.RunDriver.Run), Is.True);
             yield return null; yield return null;
             Assert.That(View(composition.Enemies.GetEnemy(0).gameObject), Is.Not.Null);
         }
@@ -97,7 +97,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
         [UnityTest]
         public IEnumerator DirectionsAndIdle_UseRegisteredTransparentSprites()
         {
-            composition.RunDriver.Run.StartWave();
+            Stage3TestCycle.StartNight(composition.RunDriver.Run);
             yield return null; yield return null;
             var enemy = composition.Enemies.GetEnemy(0);
             enemy.SetAutomaticTick(false);
@@ -143,7 +143,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             try
             {
                 Time.captureFramerate = 15;
-                composition.RunDriver.Run.StartWave();
+                Stage3TestCycle.StartNight(composition.RunDriver.Run);
                 for (var index = 0; index < 60; index++)
                 {
                     yield return null;

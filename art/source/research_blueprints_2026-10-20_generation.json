@@ -1,0 +1,517 @@
+{
+  "date": "2026-10-20",
+  "decision": "D-101",
+  "status": "Owner approved rect_categories_shop_v3 with «апрув» on2026-10-20. Appearance gate complete; standalone runtime art and ready item/source/price/usage brief remain. No runtime implementation.",
+  "authorization": "Owner requested a pair of basic medieval magical fantasy blueprint item/icon examples, then a shared visual base for research and workshop/forge/other building upgrades and new tower/weapon research.",
+  "tool": "built-in image_gen.imagegen for historical transparent A/B generations and framing edits, merchant-context compositing/framing edits, then rejected white-sheet/category v1/v2 attempts; no manual image pixel edits.",
+  "rights": "Original ImageGen artwork; no external reference artwork, copied/traced game material or third-party asset. Original outputs retained; workspace copies byte-identical.",
+  "input_roles": "Standalone v1: new generation; standalone v1 is edit target for corresponding v2. Shop v1: native D100 merchant screenshot is edit target and corresponding standalone v2 is supporting insert. Shop v2: corresponding shop_v1 is the sole edit target for narrow safe-fit correction.",
+  "visual_owner": "GPT-6 Astra / gatherer_concept_astra: two silhouette directions and concept review. Main: ImageGen/provenance/QA/docs.",
+  "accepted_category": "Shared old-fantasy engineering blueprint: original A_v2 aged ivory/amber texture/palette and plum drafting ink, straight rectangle; two primary uses are opening new content and upgrading existing content. Upgrade number denotes target building stage only.",
+  "not_assigned": "No equipment F–SSS or item LVL1–100 system for blueprints. Appearance approval does not assign catalogue, building caps, source, price, consumption, blanket upgrade prerequisite, merchant stock or forge-counter migration.",
+  "variants": [
+    {
+      "variant": "A_v1",
+      "path": "art/concepts/research_blueprints_2026-10-20/blueprint_sheet_a_v1.png",
+      "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-6db13d78-4b68-43fc-a45b-acb8458a7297.png",
+      "prompt_file": "art/source/research_blueprints_2026-10-20_a_prompt.txt",
+      "bytes": 1902573,
+      "sha256": "e5ac799811983d94adf4554414fc1ee6e6aa5e5a4ff94fe9fb0d3290df8aaecc",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "visible_bounds_by_alpha_threshold": {
+        "16": [
+          98,
+          78,
+          1154,
+          1161
+        ],
+        "128": [
+          99,
+          79,
+          1153,
+          1160
+        ]
+      },
+      "status": "superseded framing; alpha128 margins below10%",
+      "runtime_ready": false,
+      "transform": "Byte-identical original PNG; no manual image edits.",
+      "owner_appearance": "Rejected shape; retained as historical source, not eligible for implementation."
+    },
+    {
+      "variant": "B_v1",
+      "path": "art/concepts/research_blueprints_2026-10-20/blueprint_foldout_b_v1.png",
+      "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-1c1359d0-3e5e-446c-8e9d-f1009fc91931.png",
+      "prompt_file": "art/source/research_blueprints_2026-10-20_b_prompt.txt",
+      "bytes": 1753145,
+      "sha256": "bf1a2de8d54b310150a30f2d75bad287ff2fe3594e85470b10e399cdb3001980",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "visible_bounds_by_alpha_threshold": {
+        "16": [
+          12,
+          198,
+          1243,
+          997
+        ],
+        "128": [
+          13,
+          199,
+          1242,
+          997
+        ]
+      },
+      "status": "superseded framing; narrow left/right margin",
+      "runtime_ready": false,
+      "transform": "Byte-identical original PNG; no manual image edits.",
+      "owner_appearance": "Rejected shape; retained as historical source, not eligible for implementation."
+    },
+    {
+      "variant": "A_v2",
+      "path": "art/concepts/research_blueprints_2026-10-20/blueprint_sheet_a_v2.png",
+      "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-125336aa-443d-4d4a-9418-81c38bc6cf14.png",
+      "prompt_file": "art/source/research_blueprints_2026-10-20_a_v2_prompt.txt",
+      "bytes": 1256462,
+      "sha256": "c4e994978e801d28350830b9f2eb6e45e73510029e11d0210639ae5886044084",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "visible_bounds_by_alpha_threshold": {
+        "16": [
+          194,
+          194,
+          1067,
+          1078
+        ],
+        "128": [
+          195,
+          195,
+          1066,
+          1077
+        ]
+      },
+      "status": "current owner-choice concept; raw source has15%+margin",
+      "runtime_ready": false,
+      "transform": "Byte-identical original PNG; no manual image edits.",
+      "owner_appearance": "Rejected shape; retained as historical source, not eligible for implementation.",
+      "material_reference": "Owner selected the earlier material/palette/drafting style only; tilted/folded shell still rejected. Current rectangular concept uses it as supporting style reference, not a runtime-ready asset."
+    },
+    {
+      "variant": "B_v2",
+      "path": "art/concepts/research_blueprints_2026-10-20/blueprint_foldout_b_v2.png",
+      "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-c9a35c43-5434-4325-9df2-34673fe84ae9.png",
+      "prompt_file": "art/source/research_blueprints_2026-10-20_b_v2_prompt.txt",
+      "bytes": 1316876,
+      "sha256": "94eef8305f3571fe34bcbdf21cbfa87d080b3c43c9dd944aa2428d2cb8e3e671",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "visible_bounds_by_alpha_threshold": {
+        "16": [
+          84,
+          273,
+          1175,
+          966
+        ],
+        "128": [
+          85,
+          273,
+          1175,
+          965
+        ]
+      },
+      "status": "current owner-choice concept; raw side margin6.7%, visible-bounds fit supplies cell inset; do not claim prompt14%rawmargin",
+      "runtime_ready": false,
+      "transform": "Byte-identical original PNG; no manual image edits.",
+      "owner_appearance": "Rejected shape; retained as historical source, not eligible for implementation."
+    }
+  ],
+  "current_outputs": [],
+  "rendering_qa": {
+    "path": "Artifacts/S3-BLUEPRINT-CONCEPTS-20261020/icon-scale-review.png",
+    "preview": "Artifacts/S3-BLUEPRINT-CONCEPTS-20261020/preview.html",
+    "method": "Native browser canvas renders unchanged original PNG, crops measured alpha16 source rectangle via drawImage and fits uniformly into76%cell,12%inset. Original pixels/files unchanged. QA-only ignored artifact, no product UI implementation.",
+    "sizes": [
+      256,
+      96,
+      64
+    ],
+    "backgrounds": [
+      "ivory",
+      "plum"
+    ],
+    "observed": "Both retain open parchment silhouette/folds/central diagram, no clipped edges or coloured fringe in normal composition. A fills a square better; B side diagrams become texture at64px. B raw margin misses prompt target; runtime must use visible-bounds fitting, not raw-canvas stretching.",
+    "astra_review": {
+      "result": "CONCEPT PASS",
+      "reviewed": [
+        "A_v2",
+        "B_v2",
+        "icon-scale-review.png"
+      ],
+      "recommendation": "A as the common square-cell base. B distinct foldout alternative, side details become texture at64px. Both centred/safe in visible-bounds-fit QA; no visible coloured fringe.",
+      "limits": "B original PNG misses requested raw margin; safe placement comes from visible-bounds fit. Both concepts await owner selection and runtime qualification."
+    }
+  },
+  "concept_review_v1": {
+    "result": "PASS as concept direction; framing repair needed before final presentation",
+    "recommendation": "A for common square-cell base; B is a distinct three-panel alternative. Depicted mechanisms illustrative, no new device/research approved."
+  },
+  "protected_runtime": {
+    "before_manifest": "Artifacts/S3-BLUEPRINT-CONCEPTS-20261020/protected-before.json",
+    "files": 1276,
+    "unchanged": 1276,
+    "changed": [],
+    "added": [],
+    "scope": "Assets/Packages/ProjectSettings",
+    "context_recheck": "Owner approval recorded in canonical docs/provenance only; every protected runtime file unchanged."
+  },
+  "tests": "No Unity tests/build rerun: art-and-document-only work,1276protectedfiles identical. Previous runtime tests do not qualify this new item.",
+  "wiring": "None; no runtime asset, scene/Inspector/package/asmdef or running-game changes.",
+  "remaining": [
+    "Prepare standalone runtime art/import/safe-fit derived from approved shell/category treatment; do not repeat approval for the same appearance.",
+    "Ready gameplay brief for document catalogue/source/price/usage/consumption/unlocks and generic forge scroll migration, without equipment quality/item-level system."
+  ],
+  "context_request": "Owner did not select A/B from standalone icons: requested seeing the item for sale/in an inventory cell. Prepare contextual appearance mockups, no runtime implementation.",
+  "context_mockups": [
+    {
+      "variant": "A_shop_v1",
+      "path": "art/concepts/research_blueprints_2026-10-20/blueprint_a_shop_v1.png",
+      "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-5574d1b7-f498-4016-932d-a46a86404d68.png",
+      "prompt_file": "art/source/research_blueprints_2026-10-20_a_shop_v1_prompt.txt",
+      "tool": "built-in image_gen.imagegen compositing edit",
+      "references": [
+        {
+          "role": "edit_target",
+          "path": "Artifacts/S3-MERCHANT-20261020/native-final/1600x900-buy-empty-bag.png",
+          "sha256": "8f94855f498015bb1546791e9d4a6352fc4c889d05ec522eeba13e3f799916d8"
+        },
+        {
+          "role": "supporting_insert",
+          "path": "art/concepts/research_blueprints_2026-10-20/blueprint_sheet_a_v2.png",
+          "sha256": "c4e994978e801d28350830b9f2eb6e45e73510029e11d0210639ae5886044084"
+        }
+      ],
+      "bytes": 1636725,
+      "sha256": "79fa67b749da4ad366eadbcc32dcf2e417000f25dd5c03623a2882e59f8bc5d3",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "original_byte_identical": true,
+      "status": "Superseded framing; small item too close to selected-cell edges, B central preview oversized for comparison.",
+      "runtime_ready": false,
+      "owner_appearance": "Rejected tilted/unfolded sheet shape, despite earlier technical concept pass."
+    },
+    {
+      "variant": "B_shop_v1",
+      "path": "art/concepts/research_blueprints_2026-10-20/blueprint_b_shop_v1.png",
+      "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-b0ad8e50-d473-4625-b688-0b1ab44e83d1.png",
+      "prompt_file": "art/source/research_blueprints_2026-10-20_b_shop_v1_prompt.txt",
+      "tool": "built-in image_gen.imagegen compositing edit",
+      "references": [
+        {
+          "role": "edit_target",
+          "path": "Artifacts/S3-MERCHANT-20261020/native-final/1600x900-buy-empty-bag.png",
+          "sha256": "8f94855f498015bb1546791e9d4a6352fc4c889d05ec522eeba13e3f799916d8"
+        },
+        {
+          "role": "supporting_insert",
+          "path": "art/concepts/research_blueprints_2026-10-20/blueprint_foldout_b_v2.png",
+          "sha256": "94eef8305f3571fe34bcbdf21cbfa87d080b3c43c9dd944aa2428d2cb8e3e671"
+        }
+      ],
+      "bytes": 1644353,
+      "sha256": "085c0a0151a70003c680f7c98171ed5c04807af41489b7e1cb1dac609c45ab32",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "original_byte_identical": true,
+      "status": "Superseded framing; small item too close to selected-cell edges, B central preview oversized for comparison.",
+      "runtime_ready": false,
+      "owner_appearance": "Rejected tilted/unfolded sheet shape, despite earlier technical concept pass."
+    },
+    {
+      "variant": "A_shop_v2",
+      "path": "art/concepts/research_blueprints_2026-10-20/blueprint_a_shop_v2.png",
+      "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-a4fa99ab-384e-4e22-b935-269ba28f29b2.png",
+      "prompt_file": "art/source/research_blueprints_2026-10-20_a_shop_v2_prompt.txt",
+      "tool": "built-in image_gen.imagegen narrow safe-fit edit",
+      "references": [
+        {
+          "role": "edit_target",
+          "path": "art/concepts/research_blueprints_2026-10-20/blueprint_a_shop_v1.png",
+          "sha256": "79fa67b749da4ad366eadbcc32dcf2e417000f25dd5c03623a2882e59f8bc5d3"
+        }
+      ],
+      "bytes": 1639786,
+      "sha256": "3f3ff1b9df8b3df6e3ac3834e7adf8b484e7a142f523c9a137460ba513578a11",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "original_byte_identical": true,
+      "status": "Astra CONCEPT PASS; current owner-choice contextual example. No runtime implementation.",
+      "runtime_ready": false,
+      "owner_appearance": "Rejected tilted/unfolded sheet shape, despite earlier technical concept pass."
+    },
+    {
+      "variant": "B_shop_v2",
+      "path": "art/concepts/research_blueprints_2026-10-20/blueprint_b_shop_v2.png",
+      "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-0b6d8381-513e-4f6b-88d9-d3072494089c.png",
+      "prompt_file": "art/source/research_blueprints_2026-10-20_b_shop_v2_prompt.txt",
+      "tool": "built-in image_gen.imagegen narrow safe-fit edit",
+      "references": [
+        {
+          "role": "edit_target",
+          "path": "art/concepts/research_blueprints_2026-10-20/blueprint_b_shop_v1.png",
+          "sha256": "085c0a0151a70003c680f7c98171ed5c04807af41489b7e1cb1dac609c45ab32"
+        }
+      ],
+      "bytes": 1628157,
+      "sha256": "d50289dd8eaf39728be68b50a3d040af54848cd21d28dd8646785accb554ff50",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "original_byte_identical": true,
+      "status": "Astra CONCEPT PASS; current owner-choice contextual example. No runtime implementation.",
+      "runtime_ready": false,
+      "owner_appearance": "Rejected tilted/unfolded sheet shape, despite earlier technical concept pass."
+    },
+    {
+      "variant": "white_categories_shop_v1",
+      "path": "art/concepts/research_blueprints_2026-10-20/blueprint_white_categories_shop_v1.png",
+      "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-f4fe0b41-e233-4b14-8c00-4501fdc0e761.png",
+      "prompt_file": "art/source/research_blueprints_2026-10-20_c_white_shop_v1_prompt.txt",
+      "tool": "built-in image_gen.imagegen compositing edit",
+      "references": [
+        {
+          "role": "edit_target",
+          "path": "Artifacts/S3-MERCHANT-20261020/native-final/1600x900-buy-empty-bag.png",
+          "sha256": "8f94855f498015bb1546791e9d4a6352fc4c889d05ec522eeba13e3f799916d8"
+        },
+        {
+          "role": "supporting_quality_skin_style",
+          "path": "art/concepts/item_quality_cells_2026-10-20/runtime/quality_skins_reference_v1.png",
+          "sha256": "1540bf221d75cfeee61df1b4567b181bd1946a8ec3ef85269eccf25e4432f1fb"
+        }
+      ],
+      "bytes": 1622602,
+      "sha256": "24990ec1bf1ebdbadc1cb3edec719d6c8af5b45c0f56cb5f83bb9d97c2cf9001",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "original_byte_identical": true,
+      "status": "Owner rejected paper pattern, equipment-grade/LVL meaning and cell geometry. Retained history only.",
+      "runtime_ready": false,
+      "owner_appearance": "Rejected; not eligible for implementation."
+    },
+    {
+      "variant": "white_categories_shop_v2_rejected",
+      "path": "art/concepts/research_blueprints_2026-10-20/blueprint_white_categories_shop_v2_rejected.png",
+      "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-af677ece-667e-4803-8051-c27489cfe870.png",
+      "prompt_file": "art/source/research_blueprints_2026-10-20_c_white_shop_v2_prompt.txt",
+      "tool": "built-in image_gen.imagegen attempted grid/safe-fit correction",
+      "references": [
+        {
+          "role": "edit_target",
+          "path": "art/concepts/research_blueprints_2026-10-20/blueprint_white_categories_shop_v1.png",
+          "sha256": "24990ec1bf1ebdbadc1cb3edec719d6c8af5b45c0f56cb5f83bb9d97c2cf9001"
+        },
+        {
+          "role": "supporting_geometry_reference",
+          "path": "Artifacts/S3-MERCHANT-20261020/native-final/1600x900-buy-empty-bag.png",
+          "sha256": "8f94855f498015bb1546791e9d4a6352fc4c889d05ec522eeba13e3f799916d8"
+        }
+      ],
+      "bytes": 1617011,
+      "sha256": "3c48227178ddc59e8307d18cf896378d400cd4c31512135398d7d230eb0d8546",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "original_byte_identical": true,
+      "status": "Owner rejected geometry/paper pattern and equipment-style grades/levels; no final Astra PASS requested because owner stopped at clarification.",
+      "owner_appearance": "Rejected; retained history only.",
+      "runtime_ready": false
+    },
+    {
+      "variant": "rect_categories_shop_v1",
+      "path": "art/concepts/research_blueprints_2026-10-20/blueprint_rect_categories_shop_v1.png",
+      "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-940f2c6d-cd83-489f-9b62-5f3afe554f06.png",
+      "prompt_file": "art/source/research_blueprints_2026-10-20_rect_categories_shop_v1_prompt.txt",
+      "tool": "built-in image_gen.imagegen compositing edit",
+      "references": [
+        {
+          "role": "edit_target",
+          "path": "Artifacts/S3-MERCHANT-20261020/native-final/1600x900-buy-empty-bag.png",
+          "sha256": "8f94855f498015bb1546791e9d4a6352fc4c889d05ec522eeba13e3f799916d8"
+        },
+        {
+          "role": "supporting_material_and_drafting_style",
+          "path": "art/concepts/research_blueprints_2026-10-20/blueprint_sheet_a_v2.png",
+          "sha256": "c4e994978e801d28350830b9f2eb6e45e73510029e11d0210639ae5886044084"
+        }
+      ],
+      "bytes": 1644101,
+      "sha256": "17cd42eaba7a8f9e3c797cdf57dd13ae29702ee38655132f3e7eeced7f4b7528",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "original_byte_identical": true,
+      "status": "Superseded framing/diagram candidate: warm rectangular shell/categories achieved, grid/insets and forge diagram need repair.",
+      "runtime_ready": false
+    },
+    {
+      "variant": "rect_categories_shop_v2",
+      "path": "art/concepts/research_blueprints_2026-10-20/blueprint_rect_categories_shop_v2.png",
+      "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-2d7d884c-ab26-413e-aae5-db5fbe9af868.png",
+      "prompt_file": "art/source/research_blueprints_2026-10-20_rect_categories_shop_v2_prompt.txt",
+      "tool": "built-in image_gen.imagegen narrow grid/safe-fit edit",
+      "references": [
+        {
+          "role": "edit_target",
+          "path": "art/concepts/research_blueprints_2026-10-20/blueprint_rect_categories_shop_v1.png",
+          "sha256": "17cd42eaba7a8f9e3c797cdf57dd13ae29702ee38655132f3e7eeced7f4b7528"
+        },
+        {
+          "role": "supporting_original_grid_geometry",
+          "path": "Artifacts/S3-MERCHANT-20261020/native-final/1600x900-buy-empty-bag.png",
+          "sha256": "8f94855f498015bb1546791e9d4a6352fc4c889d05ec522eeba13e3f799916d8"
+        }
+      ],
+      "bytes": 1650664,
+      "sha256": "46df6f9a3721b8eca407e44e55196f4fa1801f885e521e6326fa21178823b6b0",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "original_byte_identical": true,
+      "status": "Astra GEOMETRY PASS: equal6x5grids, safe inset, fixed one-line captions, one selection, no rank/LVL. Superseded only because forge diagram still showed ring device.",
+      "runtime_ready": false
+    },
+    {
+      "variant": "rect_categories_shop_v3",
+      "path": "art/concepts/research_blueprints_2026-10-20/blueprint_rect_categories_shop_v3.png",
+      "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-c2ddb2c6-ed29-4d23-b216-688bd49c8196.png",
+      "prompt_file": "art/source/research_blueprints_2026-10-20_rect_categories_shop_v3_prompt.txt",
+      "tool": "built-in image_gen.imagegen narrow forge-line-art correction",
+      "references": [
+        {
+          "role": "edit_target",
+          "path": "art/concepts/research_blueprints_2026-10-20/blueprint_rect_categories_shop_v2.png",
+          "sha256": "46df6f9a3721b8eca407e44e55196f4fa1801f885e521e6326fa21178823b6b0"
+        }
+      ],
+      "bytes": 1647008,
+      "sha256": "527304f84f62ef84ac5b5718a1a20565c9d03f1303ac7ff894c33e01baf0dcff",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "original_byte_identical": true,
+      "status": "Astra CONCEPT PASS and owner appearance APPROVED. Fullscreen concept is not a standalone runtime asset; runtime_ready remains false.",
+      "runtime_ready": false,
+      "astra_review": "GPT-6 Astra CONCEPT PASS: original warm paper texture/palette, straight rectangular shell, recognisable furnace/chimney/anvil in3places, spark/chevron functional categories, targetII/III with no rank/LVL, equal neutral cells/safe margins/one-line captions/one selection; no blockers.",
+      "owner_appearance": "Approved with «апрув» on2026-10-20."
+    }
+  ],
+  "context_limits": {
+    "illustrative_only": "100gold buy price and existing QA10005gold wallet are display examples, no assigned blueprint balance/source/stock or runtime item. Left bag remains empty before purchase.",
+    "ui_fidelity": "ImageGen appearance mockups derived from native merchant screenshot; fonts, equipment drawings, detail size and some spacing re-rendered. Not pixel-identical UI, runtime evidence, inventory ownership or transaction proof.",
+    "rights": "Only owned project-native UI capture and original ImageGen blueprint concepts; no external reference artwork. Original generated PNGs retained with byte-identical workspace copies."
+  },
+  "current_context_outputs": [
+    "rect_categories_shop_v3"
+  ],
+  "context_review": {
+    "visual_owner": "GPT-6 Astra",
+    "A_shop_v2": "CONCEPT PASS: readable small sheet, comfortable safe inset, no contact with cyan outline, complete readable detail; one selection, no blueprint rank/LVL/weapon stats.",
+    "B_shop_v2": "CONCEPT PASS: folded silhouette recognizable at small scale, paper clear of outline, proportions preserved, central preview freely contained, no rank/LVL/weapon stats.",
+    "framing_history": "A/B shop_v1 both needed narrow framing correction; retained unchanged. v2 reduces small paper artwork and oversized B preview. No manual image pixel edits.",
+    "owner_choice": "Both A/B shapes rejected after context comparison; technical checks are historical, not owner approval.",
+    "result": "CONCEPT PASS both shop_v2; ready for owner comparison."
+  },
+  "owner_feedback": "Use the earlier fantasy paper pattern AND STYLE AND COLOR, straight rectangular under the cell, no tilt/unfolding. One common shell visually separates opening new content and upgrading existing content. Upgrade II/III means target building stage, never equipment quality F–SSS or item LVL1–100.",
+  "white_sheet_direction": {
+    "visual_owner": "GPT-6 Astra",
+    "form": "Ordinary upright front-facing white sheet; no tilt/folds/aging/binding/ornamental material. Large dark-ink tower or house schematic.",
+    "category": "Tower unlock: cyan open-lock; building construction: amber house; symbol at same upper-right position. Main schematic silhouette carries readability at64px.",
+    "metadata": "Existing D097 blue C/green D cell skins and C·LVL10/D·LVL5 labels illustrate class/level placement, not numerical rules. White sheet stays white independently of class.",
+    "review": "Astra v1: general white-sheet/category direction readable, but new-cell size/safe-fit and labels require narrow correction. v2 correction generated; owner rejected content/meaning before final review. No final PASS/approval.",
+    "owner_approval": "Rejected.",
+    "status": "Superseded/rejected after owner clarification; not current direction."
+  },
+  "latest_direction": {
+    "visual_owner": "GPT-6 Astra direction/review, main ImageGen/provenance/docs",
+    "material": "Same original A_v2 old-fantasy ivory/amber parchment texture, plum ink/cyan accents; rectangle front-on, no tilt/curl/unfolded wings.",
+    "categories": "Owner-approved same-position cyan four-point spark seal for opening; muted brass upward chevron for improvement. No quality skin/letters or LVL.",
+    "comparison": "Illustrative tower/wand opening and forge-II/III upgrades. Only target forge stage numeral changes between upgrade examples. All share same material/shell. No unlock/stock data approved.",
+    "grid": "Neutral equal fixed6×5cells, same row pitch and metadata budget; paper must fit, not replace or reflow cells.",
+    "review_v1": "Astra: material/categories coherent; correct oversized/full-cell papers/row geometry and replace copied ring mechanism with recognisable forge furnace/chimney/anvil.",
+    "owner_approval": "Approved by owner «апрув»,2026-10-20; appearance only.",
+    "framing_v2": "Astra GEOMETRY PASS: matching6x5grids, equal cells/row alignment, safe inset and visible neutral frames, fixed one-line captions, one forge-II selection, no rank/LVL.",
+    "diagram_v3": "Recognisable compact furnace/chimney/anvil replaces ring device on both forge papers and centre; same drawing forII/III, only target numeral differs. Original aged paper/ink palette and grid preserved.",
+    "final_review_v3": "GPT-6 Astra CONCEPT PASS: original warm paper texture/palette, straight rectangular shell, recognisable furnace/chimney/anvil in3places, spark/chevron functional categories, targetII/III with no rank/LVL, equal neutral cells/safe margins/one-line captions/one selection; no blockers."
+  },
+  "rectangular_direction": {
+    "visual_owner": "GPT-6 Astra direction/review, main ImageGen/provenance/docs",
+    "material": "Same original A_v2 old-fantasy ivory/amber parchment texture, plum ink/cyan accents; rectangle front-on, no tilt/curl/unfolded wings.",
+    "categories": "Owner-approved same-position cyan four-point spark seal for opening; muted brass upward chevron for improvement. No quality skin/letters or LVL.",
+    "comparison": "Illustrative tower/wand opening and forge-II/III upgrades. Only target forge stage numeral changes between upgrade examples. All share same material/shell. No unlock/stock data approved.",
+    "grid": "Neutral equal fixed6×5cells, same row pitch and metadata budget; paper must fit, not replace or reflow cells.",
+    "review_v1": "Astra: material/categories coherent; correct oversized/full-cell papers/row geometry and replace copied ring mechanism with recognisable forge furnace/chimney/anvil.",
+    "owner_approval": "Approved by owner «апрув»,2026-10-20; appearance only.",
+    "framing_v2": "Astra GEOMETRY PASS: matching6x5grids, equal cells/row alignment, safe inset and visible neutral frames, fixed one-line captions, one forge-II selection, no rank/LVL.",
+    "diagram_v3": "Recognisable compact furnace/chimney/anvil replaces ring device on both forge papers and centre; same drawing forII/III, only target numeral differs. Original aged paper/ink palette and grid preserved.",
+    "final_review_v3": "GPT-6 Astra CONCEPT PASS: original warm paper texture/palette, straight rectangular shell, recognisable furnace/chimney/anvil in3places, spark/chevron functional categories, targetII/III with no rank/LVL, equal neutral cells/safe margins/one-line captions/one selection; no blockers."
+  },
+  "owner_approval": {
+    "date": "2026-10-20",
+    "user_message": "апрув",
+    "variant": "rect_categories_shop_v3",
+    "path": "art/concepts/research_blueprints_2026-10-20/blueprint_rect_categories_shop_v3.png",
+    "sha256": "527304f84f62ef84ac5b5718a1a20565c9d03f1303ac7ff894c33e01baf0dcff",
+    "scope": [
+      "common upright rectangular aged-paper material/colour/drafting style",
+      "cyan spark opening category and muted brass upward-chevron upgrade category at the same location",
+      "upgrade number is target building stage II/III, no equipment ranks or item LVL",
+      "equal fixed cells/row pitch/metadata budget and safe icon inset"
+    ],
+    "not_inferred": [
+      "illustrative tower/wand unlock catalogue or actual shop stock",
+      "100gold price/source/usage/consumption",
+      "forge-stage-cap changes or scroll-counter migration",
+      "runtime asset qualification, native UI integration or test completion"
+    ]
+  }
+}

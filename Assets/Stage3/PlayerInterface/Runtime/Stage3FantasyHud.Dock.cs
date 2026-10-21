@@ -61,9 +61,10 @@ namespace Not3A.Stage3.PlayerInterface
                 DrawPanel(level);Label(level,heroLevelLabel,14,TextAnchor.MiddleCenter);
             }
             var weapon=new Rect(portrait.xMax+4f*s,r.center.y-38f*s,44f*s,76f*s);
-            DrawIcon(weapon,art.bowIcon);
+            var equippedWeapon=EquippedItem(4);
+            if(equipment!=null)DrawEquipmentCell(weapon,equippedWeapon);else DrawIcon(weapon,art.bowIcon);
             var stats=new Rect(weapon.xMax+8f*s,r.center.y-58f*s,r.xMax-weapon.xMax-16f*s,116f*s);
-            Label(new Rect(stats.x,stats.y,stats.width,28f*s),"Лук",22,TextAnchor.MiddleLeft);
+            Label(new Rect(stats.x,stats.y,stats.width,28f*s),equipment!=null?equippedWeapon?.Name??"Без оружия":"Лук",22,TextAnchor.MiddleLeft);
             var weaponStats=new Rect(stats.x,stats.y+32f*s,stats.width,stats.height-32f*s);
             if(heroProgression!=null)DrawProgressionBowStats(weaponStats);else DrawCurrentBowStats(weaponStats);
             DrawRule(new Rect(r.xMax,r.y+8f*s,1f*s,r.height-16f*s));
@@ -76,8 +77,16 @@ namespace Not3A.Stage3.PlayerInterface
             }
             var reserves=AbilityReservesRect;
             DrawRule(new Rect(reserves.xMax+8f*s,r.y+8f*s,1f*s,r.height-16f*s));
-            DrawUnavailableHeroStatus(0,"HP",new Color(.82f,.08f,.20f));
-            DrawUnavailableHeroStatus(1,"MP",new Color(.02f,.65f,.94f));
+            if(heroProgression!=null)
+            {
+                DrawLiveHeroStatus(0,"HP",heroProgression.Health,heroProgression.MaximumHealth,heroHealthLabel,new Color(.82f,.08f,.20f));
+                DrawLiveHeroStatus(1,"MP",heroProgression.Mana,heroProgression.MaximumMana,heroManaLabel,new Color(.02f,.65f,.94f));
+            }
+            else
+            {
+                DrawUnavailableHeroStatus(0,"HP",new Color(.82f,.08f,.20f));
+                DrawUnavailableHeroStatus(1,"MP",new Color(.02f,.65f,.94f));
+            }
             if(heroProgression!=null)
             {
                 var xp=HeroStatusBarRect(2);
@@ -87,7 +96,27 @@ namespace Not3A.Stage3.PlayerInterface
             }
             else DrawUnavailableHeroStatus(2,"XP",new Color(1f,.48f,.06f));
             var status=HeroStatusRect;
-            Label(new Rect(status.x+48f*s,status.yMax-17f*s,status.width-48f*s,16f*s),heroProgression!=null?"HP / MP — не открыто":"Не открыто",11,TextAnchor.MiddleCenter,true);
+            if(heroProgression==null)
+                Label(new Rect(status.x+48f*s,status.yMax-17f*s,status.width-48f*s,16f*s),"Не открыто",11,TextAnchor.MiddleCenter,true);
+        }
+
+        private void DrawLiveHeroStatus(int index,string title,float current,int maximum,string caption,Color color)
+        {
+            var s=UiScale;var track=HeroStatusBarRect(index);
+            Label(new Rect(HeroStatusRect.x,track.y,42f*s,track.height),title,18,TextAnchor.MiddleLeft);
+            DrawStatusBevel(track,PlumInk);
+            var fill=Inset(track,5f*s);
+            var fraction=maximum>0?Mathf.Clamp01(current/maximum):0;
+            if(fraction>0)
+            {
+                // The full-size cached gradient is clipped, so mana regeneration
+                // does not allocate textures for each changing fill width.
+                GUI.BeginGroup(new Rect(fill.x,fill.y,fill.width*fraction,fill.height));
+                DrawBevelGradient(new Rect(0,0,fill.width,fill.height),Color.Lerp(color,Pearl,.25f),
+                    Color.Lerp(PlumInk,color,.70f),7f*s);
+                GUI.EndGroup();
+            }
+            PaleLabel(track,caption??"0 / 0",19,TextAnchor.MiddleCenter);
         }
 
         private void DrawUnavailableHeroStatus(int index,string title,Color color)

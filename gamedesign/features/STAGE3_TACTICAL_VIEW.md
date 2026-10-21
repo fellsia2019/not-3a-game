@@ -1,5 +1,15 @@
 # Stage 3 Tactical View
 
+2026-10-20, D-103: current authored zoom starts5, nearest2.5, farthest15
+(was10). Wheel/pinch share the same bounds. Maximum-distance multiplier lives
+in TacticalZoomSettings and the existing camera Inspector; legacy default is2.
+Measured top-edge hero-body clipping at15 is corrected by existing planar edge
+clearance1→1.5; Unity installer changes that one saved-scene field and builders
+retain it. Strict full-renderer viewport and ground-frustum checks pass at
+2.5/5/10/15. This does not promise HUD-safe visibility at world corners: existing
+timecard/bottom dock can overlay the hero. No art/angle/scale/pivot change.
+Verification: art/source/hero_vitals_2026-10-20_verification.json.
+
 2026-10-18, D-071: independent manual sources now populate the green world.
 Ordinary trees form seeded irregular groups 1–8; stone/ore retain the small
 scale and add larger/depleting forms. Hero axe/pick contacts, eight-phase

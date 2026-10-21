@@ -18,6 +18,8 @@ MonoBehaviour:
   workshopOffsetFromThrone: {x: -5, y: 7}
   baseOffsetFromThrone: {x: 0, y: 7}
   worldCirclePosition: {x: 94, y: 48}
+  cityOrigin: {x: 172, y: 162}
+  additionalPoints: []
   circleDiameter: 3.4
   interactionRadius: 0.85
   discoveryRadius: 2.2

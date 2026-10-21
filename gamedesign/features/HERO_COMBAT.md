@@ -1,5 +1,47 @@
 # Feature: Hero Bow And Horde Prototype
 
+## D114 current correction — stationary-only automatic bow
+
+Successful ground movement in the current frame prevents a NEW hero shot in
+all directions, for the shared portal/world cadence. Cooldown still runs while
+walking and already launched arrows keep flight/damage. Standing resumes normal
+automatic target selection. Teleportation is not continuous ground walking.
+No moving-attack skill or additional attack is implemented. Walking animation
+faces its movement instead of holding the old shot pose.
+
+
+D111 implementation update,2026-10-21: separate orc/ogre exploration spots target and melee-damage the hero through existing HeroRecovery; never join portal group/throne/wave counters. Shared automatic bow cadence chooses nearest live portal/world target; tied distance prefers portal. Camp actors chase locally with telegraphed melee and leash home without healing/refilling. Only new accepted order refills its spot. World per-kill XP and board contract XP are separate; trial values in Stage3Guild asset. Retry preserves current camp state. Local qualification:89distinct PlayMode PASS; native and source evidence in art/source/guild_2026-10-21_verification.json.
+
+
+## D-109 planned world encounters,2026-10-21
+
+Owner confirms distinct camps/ruins as open-world encounter spots, with separate
+orc and ogre locations for the current enemy appearances. Goblins and other
+undead are future examples; no new current types/counts or mixed camp is implied.
+These future world enemies fight the hero, unlike throne-targeting portal creeps.
+D104 already supplies hero damage/death/recovery APIs; no new enemy AI, spawn,
+leash/respawn, loot or placement is implemented by this concept request.
+OBJECTIVES.md owns the active temple-NPC quest-window concept and open quest rules.
+
+## D-106 continuously spawning nights,2026-10-20
+
+Stage3 night now spawns for180active seconds after a600second day. Authored
+count no longer stops it; dawn plus resolved live threats ends the tier. First
+night must still be manageable with the starting bow; later dense tiers require
+offensive towers. Existing profile intervals/HP remain trial data; old finite
+paid-defense policy now passes the full-night check for tiers2/3, without tower-
+stat relaxation. These are declared automated combat fixtures, not owner balance
+approval or a sustained native load playtest. Current cycle contract: PORTAL_CONTROL.md.
+
+## D-105 initial-horde tuning,2026-10-20
+
+Owner delegated a modest first-night buff: more enemies and shorter spacing in
+HordeRun, mirrored in the existing builder. Later night profiles and bow stats
+stay current. Trial values live in runtime data; the first-wave bow-only and
+later tower-dependent checks qualify the changed balance. Day gates repeat
+last cleared difficulty indefinitely, separately from night count; see
+PORTAL_CONTROL.md.
+
 ## New progression target — D-074, not implemented
 
 Герой до 100 уровня развивается для небольших боёв открытого мира. Магия

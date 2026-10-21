@@ -1,0 +1,52 @@
+{
+  "date": "2026-10-20",
+  "decision": "D-102",
+  "tool": "built-in image_gen.imagegen",
+  "visual_implementation": "GPT-6 Astra",
+  "rights": {
+    "origin": "Original ImageGen derivatives of original owner-approved project ImageGen artwork; no external artwork traced or shipped."
+  },
+  "assets": [
+    {
+      "path": "art/concepts/research_workshop_2026-10-20/window_v1.png",
+      "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-2df77d07-5598-4758-82f7-a71dfe2008f9.png",
+      "prompt": "art/source/research_workshop_2026-10-20_window_v1_prompt.txt",
+      "reference": "Existing native research page and D-101 approved merchant blueprint paper",
+      "sha256": "b4e57a05c1658482f215178633c1256283c93f579bd811f950fcba10fe1b72e2",
+      "bytes": 1689952,
+      "appearance_approved": false,
+      "runtime_ready": false
+    },
+    {
+      "path": "art/concepts/research_workshop_2026-10-20/window_v2.png",
+      "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-2e2d6636-791e-484a-9269-064b1c3afdbb.png",
+      "prompt": "art/source/research_workshop_2026-10-20_window_v2_prompt.txt",
+      "reference": "window_v1",
+      "sha256": "ce4b67da58b8cb713a9aed8c571e4bc8e5075d9d303cd3d84d61d710976b3018",
+      "bytes": 1667171,
+      "appearance_approved": true,
+      "runtime_ready": false
+    },
+    {
+      "path": "art/concepts/research_blueprints_2026-10-20/known_merchant_v1.png",
+      "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-e3f3dddd-6ca7-4d82-9fb5-9f60d7abac0e.png",
+      "prompt": "art/source/research_blueprints_2026-10-20_known_merchant_v1_prompt.txt",
+      "reference": "art/concepts/research_blueprints_2026-10-20/blueprint_rect_categories_shop_v3.png",
+      "sha256": "e2f1a85a6020685eda6613f0c87b03d8206aa31791d76befbae106e0c404f0db",
+      "bytes": 1642500,
+      "appearance_approved": true,
+      "runtime_ready": false
+    },
+    {
+      "path": "art/concepts/research_workshop_2026-10-20/known_history_v1.png",
+      "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-25c0c9cd-aa77-4861-be55-10ab06bf6a5e.png",
+      "prompt": "art/source/research_workshop_2026-10-20_known_history_v1_prompt.txt",
+      "reference": "art/concepts/research_workshop_2026-10-20/window_v2.png",
+      "sha256": "41fabb0d0f24d0b3ce9cc1abcf203db81bed6a63638beeea92d798dd8e3f3651",
+      "bytes": 1649651,
+      "appearance_approved": true,
+      "runtime_ready": false
+    }
+  ],
+  "approval": "Owner approved baseline three-column workshop, then known badge/history concepts. Correct result wording: Открывает улучшение кузницы. Study consumes physical document; history retains knowledge. Native fixed equal grid geometry takes precedence over raster distortions; no item ranks or1-100levels on documents."
+}

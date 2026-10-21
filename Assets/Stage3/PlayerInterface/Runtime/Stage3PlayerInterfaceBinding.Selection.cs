@@ -2,6 +2,8 @@ using System;
 using System.Globalization;
 using Not3A.Stage2.Defense;
 using Not3A.Stage2.Economy;
+using Not3A.Stage2.Integration;
+using Not3A.Stage2.RunState;
 using Not3A.Stage3.VisualPilot;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -9,7 +11,7 @@ using UnityEngine.InputSystem.LowLevel;
 
 namespace Not3A.Stage3.PlayerInterface
 {
-    public enum Stage3BuildingSelectionKind { None, Tower, Production, Workshop, Dwelling, Throne }
+    public enum Stage3BuildingSelectionKind { None, Tower, Production, Workshop, Dwelling, Throne, Forge }
 
     public sealed partial class Stage3PlayerInterfaceBinding
     {
@@ -52,6 +54,8 @@ namespace Not3A.Stage3.PlayerInterface
             presentation.SelectedBuildingCloseRequested += ClearBuildingSelection;
             presentation.SelectedBuildingUpgradeRequested += UpgradeSelectedBuilding;
             presentation.SelectedBuildingSellRequested += SellSelectedBuilding;
+            presentation.SelectedBuildingSleepRequested += SleepInSelectedDwelling;
+            presentation.SelectedBuildingForgeRequested += OpenSelectedForge;
             game.Gathering.Economy.Inventory.Changed += InvalidateBuildingSelection;
             game.RunDriver.Run.Reset += ClearBuildingSelection;
             game.RunDriver.Run.Rewound += ClearBuildingSelection;
@@ -66,6 +70,8 @@ namespace Not3A.Stage3.PlayerInterface
                 presentation.SelectedBuildingCloseRequested -= ClearBuildingSelection;
                 presentation.SelectedBuildingUpgradeRequested -= UpgradeSelectedBuilding;
                 presentation.SelectedBuildingSellRequested -= SellSelectedBuilding;
+                presentation.SelectedBuildingSleepRequested -= SleepInSelectedDwelling;
+                presentation.SelectedBuildingForgeRequested -= OpenSelectedForge;
             }
             if (game != null && game.RunDriver != null)
             {
@@ -111,8 +117,34 @@ namespace Not3A.Stage3.PlayerInterface
         }
 
         private void InvalidateBuildingSelection() => selectionStamp = int.MinValue;
-        private void UpgradeSelectedBuilding() => TryUpgradeSelectedBuilding();
+        private void UpgradeSelectedBuilding()
+        {
+            if (selectionKind == Stage3BuildingSelectionKind.Throne)
+            { TryUpgradeSelectedThrone(); return; }
+            if (selectionKind == Stage3BuildingSelectionKind.Production)
+            { TryUpgradeSelectedProduction(); return; }
+            if(selectionKind==Stage3BuildingSelectionKind.Forge)
+            {
+                if(SelectionAvailable&&!IsDraggingBuilding)GetComponent<Stage3Forge>()?.TryUpgradeBuilding();
+                InvalidateBuildingSelection();RefreshBuildingSelection();
+            }
+            else TryUpgradeSelectedBuilding();
+        }
+        private void OpenSelectedForge()
+        {
+            if(SelectionAvailable&&!IsDraggingBuilding&&selectionKind==Stage3BuildingSelectionKind.Forge)
+                GetComponent<Stage3Forge>()?.TryOpen();
+        }
         private void SellSelectedBuilding() => TrySellSelectedBuilding();
+        public bool TrySleepInSelectedDwelling()
+        {
+            if (!SelectionAvailable || IsDraggingBuilding || selectionKind != Stage3BuildingSelectionKind.Dwelling) return false;
+            var dwelling = GetComponent<Stage3Dwelling>();
+            var slept = dwelling != null && dwelling.TrySkipDay();
+            InvalidateBuildingSelection(); RefreshBuildingSelection();
+            return slept;
+        }
+        private void SleepInSelectedDwelling() => TrySleepInSelectedDwelling();
         public Stage2TowerActionResult TryUpgradeSelectedBuilding()
         {
             if (!SelectionAvailable || IsDraggingBuilding || selectionKind != Stage3BuildingSelectionKind.Tower)
@@ -120,6 +152,20 @@ namespace Not3A.Stage3.PlayerInterface
             var result = game.Building.Defense.TryUpgrade(selectedTower);
             InvalidateBuildingSelection(); RefreshBuildingSelection();
             return result;
+        }
+        public ProductionUpgradeResult TryUpgradeSelectedProduction()
+        {
+            if (!SelectionAvailable || IsDraggingBuilding || selectionKind != Stage3BuildingSelectionKind.Production)
+                return ProductionUpgradeResult.InvalidBuilding;
+            var result = game.Production.TryUpgrade(selectedProduction);
+            InvalidateBuildingSelection(); RefreshBuildingSelection(); return result;
+        }
+        public Stage2ThroneUpgradeResult TryUpgradeSelectedThrone()
+        {
+            if (!SelectionAvailable || IsDraggingBuilding || selectionKind != Stage3BuildingSelectionKind.Throne)
+                return Stage2ThroneUpgradeResult.Inactive;
+            var result = game.RunDriver.Run.TryUpgradeThrone();
+            InvalidateBuildingSelection(); RefreshBuildingSelection(); return result;
         }
         public Stage2TowerActionResult TrySellSelectedBuilding()
         {
@@ -138,7 +184,9 @@ namespace Not3A.Stage3.PlayerInterface
         private bool HasBuildingDraft => game.Building.Defense.IsPlacing ||
             (game.Production != null && game.Production.IsPlacing) ||
             (GetComponent<Stage3WorldTravel>()?.IsPlacingWorkshop ?? false) ||
-            (GetComponent<Stage3Dwelling>()?.IsPlacing ?? false);
+            (GetComponent<Stage3WorldTravel>()?.IsPlacingBaseCircle ?? false) ||
+            (GetComponent<Stage3Dwelling>()?.IsPlacing ?? false) ||
+            (GetComponent<Stage3Forge>()?.IsPlacing ?? false);
         private bool SelectionAvailable => WorldBuildingSelectionAvailable && !HasBuildingDraft;
 
         private void UpdateBuildingSelection()
@@ -355,6 +403,10 @@ namespace Not3A.Stage3.PlayerInterface
             var dwellingVisual = GetComponent<Stage3DwellingPresentation>()?.BuiltVisual;
             if (dwelling != null && dwelling.IsBuilt && dwellingVisual != null)
                 Candidate(Stage3BuildingSelectionKind.Dwelling, new Renderer[] { dwellingVisual });
+            var forge=GetComponent<Stage3Forge>();
+            var forgeVisual=GetComponent<Stage3ForgePresentation>()?.BuiltVisual;
+            if(forge!=null&&forge.IsBuilt&&forgeVisual!=null)
+                Candidate(Stage3BuildingSelectionKind.Forge,new Renderer[]{forgeVisual});
             var dome = scene.ThroneMarker.GetComponentInChildren<Stage3LandmarkSprite>();
             Candidate(Stage3BuildingSelectionKind.Throne, dome != null && dome.Body != null ?
                 new Renderer[] { dome.Body } : scene.ThroneMarker.GetComponentsInChildren<Renderer>());
@@ -395,6 +447,7 @@ namespace Not3A.Stage3.PlayerInterface
         {
             var travel = GetComponent<Stage3WorldTravel>();
             var dwelling = GetComponent<Stage3Dwelling>();
+            var forge=GetComponent<Stage3Forge>();
             var valid = selectionKind switch
             {
                 Stage3BuildingSelectionKind.Tower => selectedTower != null && selectedTower.IsAlive &&
@@ -403,15 +456,21 @@ namespace Not3A.Stage3.PlayerInterface
                     game.Production.GetBuiltVisual(selectedProduction) != null,
                 Stage3BuildingSelectionKind.Workshop => travel != null && travel.WorkshopBuilt,
                 Stage3BuildingSelectionKind.Dwelling => dwelling != null && dwelling.IsBuilt,
+                Stage3BuildingSelectionKind.Forge => forge!=null&&forge.IsBuilt,
                 Stage3BuildingSelectionKind.Throne => game.RunDriver.Run.ThroneHealth > 0,
                 _ => false
             };
             if (!valid) { ClearBuildingSelection(); return; }
             var stamp = selectionKind == Stage3BuildingSelectionKind.Tower ? HashCode.Combine(selectedTower.Health, selectedTower.Level,
                 game.Building.Defense.EvaluateUpgrade(selectedTower), game.Building.Defense.EvaluateSell(selectedTower)) :
-                selectionKind == Stage3BuildingSelectionKind.Throne ? game.RunDriver.Run.ThroneHealth :
+                selectionKind == Stage3BuildingSelectionKind.Throne ? HashCode.Combine(game.RunDriver.Run.ThroneHealth,
+                    game.RunDriver.Run.ThroneMaximum, game.RunDriver.Run.ThroneUpgradeCount, game.RunDriver.Run.EvaluateThroneUpgrade()) :
+                selectionKind == Stage3BuildingSelectionKind.Production ? HashCode.Combine(selectedProduction.Level,
+                    game.Production.EvaluateUpgrade(selectedProduction)) :
                 selectionKind == Stage3BuildingSelectionKind.Workshop ? (travel.IsResearched ? 1 : 0) :
-                selectionKind == Stage3BuildingSelectionKind.Dwelling ? (dwelling.CanSkipDay ? 1 : 0) : 0;
+                selectionKind == Stage3BuildingSelectionKind.Forge ? HashCode.Combine(forge.EquipmentDriver.Rules.ForgeLevel,forge.CanUse,forge.CanUpgradeBuilding,forge.UpgradeUnavailableReason) :
+                selectionKind == Stage3BuildingSelectionKind.Dwelling ? HashCode.Combine(dwelling.CanSkipDay, dwelling.NearEntrance,
+                    game.RunDriver.Run.UsesDaytimeGates ? Stage3DwellingPresentation.GetSleepUnavailableReason(dwelling, game) : null) : 0;
             if (selectedView == null || stamp != selectionStamp)
             {
                 selectedView = BuildSelectionView(travel, dwelling);
@@ -476,31 +535,80 @@ namespace Not3A.Stage3.PlayerInterface
                 case Stage3BuildingSelectionKind.Production:
                     var entry = selectedProduction.Entry;
                     result.Title = entry.DisplayName; result.Icon = entry.Sprite;
+                    result.Subtitle = "Уровень " + selectedProduction.Level + " / " + entry.MaximumLevel;
+                    var upgradeResult = game.Production.EvaluateUpgrade(selectedProduction);
+                    result.UpgradeAvailable = upgradeResult == ProductionUpgradeResult.Ready;
+                    result.UpgradeUnavailableReason = upgradeResult == ProductionUpgradeResult.MaximumLevel ? "Максимальный уровень" :
+                        upgradeResult == ProductionUpgradeResult.InsufficientResources ? "Недостаточно ресурсов" : "Сейчас недоступно";
+                    if (entry.TryGetUpgrade(selectedProduction.Level, out var productionUpgrade))
+                    {
+                        result.UpgradePrice = FormatCost(productionUpgrade.cost);
+                        result.UpgradePreview = $"След. уровень: +{selectedProduction.OutputAmount} → +{productionUpgrade.outputAmount} за цикл · интервал {entry.IntervalSeconds:0.##} с";
+                    }
+                    else result.Hint = "Максимальный уровень";
                     result.WorldPosition = selectedProduction.Footprint.center;
                     result.Stats = new[] { Stat("Ресурс", entry.Resource == Stage2.Map.MapResourceKind.Wood ? "Дерево" :
                         entry.Resource == Stage2.Map.MapResourceKind.Stone ? "Камень" : "Металл"),
-                        Stat("За цикл", "+" + entry.OutputAmount), Stat("Интервал", entry.IntervalSeconds.ToString("0.##", DisplayCulture) + " с"),
+                        Stat("За цикл", "+" + selectedProduction.OutputAmount), Stat("Интервал", selectedProduction.IntervalSeconds.ToString("0.##", DisplayCulture) + " с"),
                         Stat("Состояние", "Добывает") };
                     break;
                 case Stage3BuildingSelectionKind.Workshop:
                     result.Title = "Исследовательская мастерская"; result.Icon = presentation.Art.workshopIcon;
+                    result.Subtitle="Уровень 1";result.ShowUpgrade=false;
                     result.WorldPosition = travel.WorkshopPosition; result.ShowResearch = true;
-                    result.Stats = new[] { Stat("Телепортация", travel.IsResearched ? "Изучена" : "Не изучена") };
-                    result.Hint = "Исследования открывают обзор · изучение через E у мастерской";
+                    result.Stats = new[] { Stat("Изучено чертежей",equipmentDriver?.Rules.Blueprints?.StudiedCount??0),
+                        Stat("Телепортация", travel.IsResearched ? "Изучена" : "Не изучена") };
+                    result.Hint = "Изучение чертежей у мастерской · E или «Исследования»";
                     break;
                 case Stage3BuildingSelectionKind.Dwelling:
                     result.Title = "Жилище"; result.Icon = dwelling.Catalog.sprite; result.ShowUpgrade = false;
                     result.WorldPosition = dwelling.Position;
-                    result.Stats = new[] { Stat("У входа", dwelling.CanSkipDay ? "E · дождаться ночи" : "Отдых недоступен") };
-                    result.Hint = "Назначение улучшений жилища ещё не выбрано";
+                    if (game.RunDriver.Run.UsesDaytimeGates)
+                    {
+                        result.ShowSleep = true; result.SleepAvailable = dwelling.CanSkipDay;
+                        result.SleepUnavailableReason = Stage3DwellingPresentation.GetSleepUnavailableReason(dwelling, game);
+                        result.Stats = new[] { Stat("Пробуждение", "До начала ночи") };
+                        result.Hint = "Сон доступен у входа · только вне боя";
+                    }
+                    else
+                    {
+                        result.Stats = new[] { Stat("У входа", dwelling.CanSkipDay ? "E · дождаться ночи" : "Отдых недоступен") };
+                        result.Hint = "Назначение улучшений жилища ещё не выбрано";
+                    }
+                    break;
+                case Stage3BuildingSelectionKind.Forge:
+                    var forge=GetComponent<Stage3Forge>();var rules=forge.EquipmentDriver.Rules;
+                    result.Title="Кузница";result.Icon=forge.Art?.worldSprite;result.WorldPosition=forge.Position;
+                    result.Subtitle="Ступень "+rules.ForgeLevel+" / "+rules.Catalog.ForgeStageCount;
+                    result.ShowForge=true;result.ForgeAvailable=forge.CanUse;
+                    result.ForgeUnavailableReason=forge.NearEntrance?"Кузница сейчас недоступна":"Подойдите ко входу в кузницу";
+                    result.UpgradeAvailable=forge.CanUpgradeBuilding;result.UpgradeUnavailableReason=forge.UpgradeUnavailableReason;
+                    result.UpgradePriceLabel=rules.Blueprints==null?null:"Условие";
+                    result.UpgradePrice=rules.ForgeLevel<rules.Catalog.ForgeStageCount?(rules.Blueprints==null?"1 свиток":
+                        rules.EvaluateForgeUpgrade()==Stage2EquipmentResult.Ready?"Допуск изучен":"Изучите чертёж"):null;
+                    result.Stats=rules.Blueprints==null?new[]{Stat("Предел качества",rules.MaximumQuality),Stat("Свитки",rules.ForgeUpgradeScrolls)}:
+                        new[]{Stat("Предел качества",rules.MaximumQuality),Stat("Улучшение",rules.ForgeLevel>=rules.Catalog.ForgeStageCount?"Максимум":
+                        rules.EvaluateForgeUpgrade()==Stage2EquipmentResult.Ready?"Допуск изучен":"Нужен чертёж")};
+                    result.Hint="Изготовление и улучшение предметов · E у входа";
                     break;
                 default:
-                    result.Title = "Трон"; result.Subtitle = "Защищаемый купол";
+                    var throneRun = game.RunDriver.Run;
+                    result.Title = "Трон"; result.Subtitle = "Усиления " + throneRun.ThroneUpgradeCount + " / " + throneRun.ThroneUpgradeLimit;
                     result.WorldPosition = scene.ThroneMarker.position;
                     var dome = scene.ThroneMarker.GetComponentInChildren<Stage3LandmarkSprite>();
                     result.Icon = dome != null && dome.Body != null ? dome.Body.sprite : null;
-                    result.Stats = new[] { Stat("Здоровье", game.RunDriver.Run.ThroneHealth + "/" + game.RunDriver.Run.ThroneMaximum) };
-                    result.UpgradeUnavailableReason = "Усиление +5 максимального HP · следующий этап";
+                    result.Stats = new[] { Stat("Здоровье", throneRun.ThroneHealth + "/" + throneRun.ThroneMaximum) };
+                    var throneUpgrade = throneRun.EvaluateThroneUpgrade();
+                    result.UpgradeAvailable = throneUpgrade == Stage2ThroneUpgradeResult.Ready;
+                    result.UpgradeUnavailableReason = throneUpgrade == Stage2ThroneUpgradeResult.MaximumUpgrades ? "Максимальное усиление" :
+                        throneUpgrade == Stage2ThroneUpgradeResult.InsufficientResources ? "Недостаточно ресурсов" : "Сейчас недоступно";
+                    if (throneRun.TryGetThroneUpgradeCost(out var thronePrice))
+                    {
+                        result.UpgradePrice = FormatCost(thronePrice);
+                        var delta = throneRun.ThroneHealthPerUpgrade;
+                        result.UpgradePreview = $"HP {throneRun.ThroneHealth}/{throneRun.ThroneMaximum} → {throneRun.ThroneHealth + delta}/{throneRun.ThroneMaximum + delta} · +{delta} к текущему и максимуму";
+                    }
+                    else result.Hint = "Максимальное усиление";
                     break;
             }
             return result;

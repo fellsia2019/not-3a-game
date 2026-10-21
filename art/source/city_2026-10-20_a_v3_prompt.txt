@@ -1,0 +1,12 @@
+Use case: precise-object-edit.
+Asset type: owner-requested merchant-readability revision A_v3 of the supplied expanded fantasy city concept.
+Input image1 is the EDIT TARGET. Edit ONLY the permanent merchant building on the RIGHT SIDE OF THE CENTRAL SQUARE and its immediate paved forecourt. The shop currently has an orange multi-gabled roof and blends with housing.
+Primary request: make this permanent fantasy trading house instantly identifiable in a full-town thumbnail, using real architectural silhouette and color contrast, not a UI marker.
+
+REPLACE that shop's orange multi-gabled residential roof with ONE BROAD LOW HIPPED ROOF of rich saturated COBALT-BLUE GLAZED TILES, substantial coherent blue roof mass with restrained warm BRASS RIDGE fittings. This MUST be the ONLY BLUE ROOF in the ENTIRE TOWN; all residential orange roofs remain exactly orange. Keep shop modest, roughly its present height and footprint, no tower or upper floors. Eliminate its little residential roof gables.
+
+Redesign its facade into a WIDE OPEN TRADING PORTAL framed by MASSIVE DARK TIMBER POSTS. TWO LARGE MERCHANDISE DISPLAY BAYS, one CENTRAL SOLID WOODEN COUNTER and exactly ONE merchant clearly visible at this front. Show simple rolled scrolls and wrapped goods to convey trade. Above portal, physically attached to the building facade, a LARGE PLUM-AND-GOLD BALANCE-SCALES CREST about ONE THIRD of facade width. Bold readable scales symbol, no text. It is a building sign, not floating game UI.
+Give shop a CLEAR PALE PAVED APRON across its front and visible sides; remove immediately adjoining busy flowers/shrubs/excess barrels which camouflage its outline. A few packaged goods remain neatly against wall. Maintain clear approach from city entrance and square.
+
+STRICT INVARIANTS: Preserve the expanded town and all orange-roofed residential houses, original green surroundings, ambient people, entrance/traveler, well, streets and open square, elevated orthographic isometric camera, image composition, hand-painted chunky cartoon shading/materials and soft daylight. The blue shop is the single commercial focal point within the same original city. No other blue roofs or added stalls.
+AVOID: fabric tent/awning/canopy, extra merchant, other services/new gameplay building, palace, tower, enormous oversized roof, glowing outline, spotlight, floating marker, label/text/logo/watermark, HUD or panels. One full coherent city image. Strong blue roof contrast and broad open commercial facade should remain readable when the entire image is viewed at600px width.

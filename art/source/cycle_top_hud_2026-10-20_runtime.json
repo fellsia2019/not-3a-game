@@ -1,0 +1,24 @@
+{
+  "decision": "D-107",
+  "date": "2026-10-20",
+  "tool": "Built-in image_gen.imagegen",
+  "reference": "art/concepts/cycle_top_hud_2026-10-20/dial_a_ratio_v7.png",
+  "prompt": "art/source/cycle_top_hud_2026-10-20_runtime_prompt.txt",
+  "source": "art/concepts/cycle_top_hud_2026-10-20/runtime/cycle_dial_v1.png",
+  "sha256": "f736892fcb5830b399b174369533e693b64608abb3c4ea19e03cd7caff5b48ba",
+  "rights": "New generated own-project approved concept derivation; no external game pixels imported/traced",
+  "status": "Native import and all25phase/UIframes PASS; no visible alpha fringe at48/60/72px",
+  "astra_source_review": {
+    "shape_materials": "PASS",
+    "dimensions": [
+      1774,
+      887
+    ],
+    "alpha_audit": "bright yellow5063 atalpha>=1,0at>=16; brightred4993at>=1,93at>=16 (may include face miasma); low-alpha toolpreviewfringe awaits native60px check",
+    "byte_policy": "SourcePNG unchanged; sprite rects measured during Unityimport, no runtime pixel scan"
+  },
+  "runtime_texture": "Assets/Stage3/PlayerInterface/Resources/Stage3CycleDial.png",
+  "import": "Not3A.Stage3.PlayerInterface.Editor.Stage3CycleArtImporter.BuildAssets",
+  "verification": "art/source/cycle_top_hud_2026-10-21_verification.json",
+  "runtime_sha256": "f736892fcb5830b399b174369533e693b64608abb3c4ea19e03cd7caff5b48ba"
+}

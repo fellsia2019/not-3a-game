@@ -1,0 +1,135 @@
+{
+  "date": "2026-10-21",
+  "decisions": [
+    "D-116",
+    "D-117"
+  ],
+  "platform": "Local Mac Unity6000.6.2f1 development player; Windows/Steam unverified.",
+  "behavior": {
+    "camps": "Two separate modular authored camp environments, hide/timber orcs and stone ruins ogres,40/41 props.44x40 territory reserved before manual resources; centreR10 and W/E/S corridors width6 clear. Three broken natural shoulders, no surrounding fence. Existing enemies distributed over field, same population/stats/rewards. Camp edge remains at least20units from city bounds.",
+    "collision": "30/31 substantial prop footprints in the same HeroObstacleMap used by hero/enemies/Blink. Low flowers carry no collider. Rebinding removes old rectangles, full reset/refill does not duplicate scenery.",
+    "lifecycle": "Current-progress throne retry preserves camps/contracts; full reset restores baseline actors. World regeneration relocates survivors with IDs/generation/health/earned kills preserved, clears stale exploration flights.",
+    "city": "Fixed manually authored layout, never random internal filler. Enlarged dominant guild left, temple opposite right with nearby open portal court; common civic paving/well foreground; stepped housing quarters, blue shop separate. Whole-city safe origin still selected by world. Shared footprints/anchors follow layout."
+  },
+  "checks": {
+    "initial": {
+      "total": "77",
+      "passed": "77",
+      "failed": "0",
+      "skipped": "0",
+      "result": "Passed",
+      "start-time": "2026-10-21 16:27:53Z",
+      "end-time": "2026-10-21 16:33:31Z"
+    },
+    "final_focused": {
+      "total": "30",
+      "passed": "30",
+      "failed": "0",
+      "skipped": "0",
+      "result": "Passed",
+      "start-time": "2026-10-21 16:49:03Z",
+      "end-time": "2026-10-21 16:51:56Z"
+    },
+    "distinct_latest_total": 82,
+    "distinct_latest_passed": 82,
+    "summary": "Artifacts/CAMPS-2026-10-21/test-summary.json",
+    "coverage": [
+      "Several actual regenerated seeds and all arena ground/three broad swept retreat paths at radius.6",
+      "Solid props stop movement; no duplicated footprints/presentation across reset/retry/rebind",
+      "Current contract/earned kills/survivor health preserved across regeneration",
+      "City BFS from actual entrance to guild/shop/portal at.35/.6 radius",
+      "Existing guild rules/accept/turn-in/world bow/melee/death, travel, merchant, interface/manual resources/hero combat/recovery"
+    ],
+    "diff_check": "PASS"
+  },
+  "build": {
+    "result": "Success exit0",
+    "log": "Artifacts/CAMPS-2026-10-21/build-final.log",
+    "import": "Artifacts/CAMPS-2026-10-21/import-final.log",
+    "player": "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app",
+    "managed_sha256": {
+      "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app/Contents/Resources/Data/Managed/Not3A.Stage2.RunState.dll": "7c20774c2cd4ba72cdd8cdd71b444adce6bc717ce94b6773021f1baba36e46a6",
+      "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app/Contents/Resources/Data/Managed/Not3A.Stage1.dll": "99ec8d9d87c9ed8e4e6515bf62cde0a38db077ef1ec53b11051985c22d6dda86",
+      "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app/Contents/Resources/Data/Managed/Not3A.Stage2.Navigation.dll": "37f7e8f9ac54709e8af830b88d892e2206d547d1557c7be8ed0557f6ee2e6ac1",
+      "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app/Contents/Resources/Data/Managed/Not3A.Stage2.Integration.dll": "3e9e551613ddc0dd106f86954eb99b80da754bc14210b7e007fa438cd98781ed",
+      "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app/Contents/Resources/Data/Managed/Not3A.Stage2.Economy.dll": "7811b0fe23725186b95317e179a50e86b22bafde04bbc0952c05d4cbe34b7407",
+      "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app/Contents/Resources/Data/Managed/Not3A.Stage2.Defense.dll": "6a2898d70596c015addfbaa8ac6d6aad3c1ed1e1cd04a69b37949f19710d664f",
+      "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app/Contents/Resources/Data/Managed/Not3A.Stage2.Map.dll": "e11edefd9a4918cffcc919997ff3292e96703699b43a216d6bba047a591ad254",
+      "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app/Contents/Resources/Data/Managed/Not3A.Stage2.WavesAI.dll": "f467fb42559b54a41620877c6548af790ce0c4b1399cd531cf8825dc10b62f5e"
+    }
+  },
+  "native": {
+    "directory": "Artifacts/CAMPS-2026-10-21/native-final",
+    "frames": [
+      "1280x720-orc-overview",
+      "1280x720-orc-props",
+      "1280x720-ogre-overview",
+      "1280x720-ogre-props",
+      "1280x720-city-overview",
+      "1280x720-city-civic",
+      "1280x720-city-guild",
+      "1280x720-city-portal",
+      "1280x720-city-shop",
+      "1600x900-orc-overview",
+      "1600x900-orc-props",
+      "1600x900-ogre-overview",
+      "1600x900-ogre-props",
+      "1600x900-city-overview",
+      "1600x900-city-civic",
+      "1600x900-city-guild",
+      "1600x900-city-portal",
+      "1600x900-city-shop",
+      "1920x1080-orc-overview",
+      "1920x1080-orc-props",
+      "1920x1080-ogre-overview",
+      "1920x1080-ogre-props",
+      "1920x1080-city-overview",
+      "1920x1080-city-civic",
+      "1920x1080-city-guild",
+      "1920x1080-city-portal",
+      "1920x1080-city-shop",
+      "orc-night",
+      "ogre-night",
+      "input-camp-ready"
+    ],
+    "fixture": "Explicit opt-in NOT3A_CAMP_CAPTURE_DIRECTORY holds clock/AI/bow/regen, legal hero reposition and explicitly centred camera for appearance comparison. No item/XP/quest grants. Night via real test-clock command. Ordinary restart clears fixture.",
+    "camp_review": "GPT-6 Astra FINAL VISUAL PASS:12day overview/prop frames720/900/1080 and2night900; no translucent tents, no clipped/neighbor fragments, open centre/retreats and coherent broken natural shoulders.",
+    "city_review": "Separate GPT-6 Astra FINAL VISUAL PASS:15city overview/civic/guild/portal/shop frames720/900/1080, strict approved reference comparison; structural blockers resolved. This is local reviewer qualification, not owner appearance acceptance or pixel match.",
+    "actual_input": "CUA real A-key retreat1200ms on open arena; before/after/settled screenshots show moved hero/world. AI/bow deliberately held in appearance fixture; combat verified in PlayMode.",
+    "actual_input_files": [
+      "Artifacts/CAMPS-2026-10-21/native-final/input-before-retreat.png",
+      "Artifacts/CAMPS-2026-10-21/native-final/input-after-retreat.png",
+      "Artifacts/CAMPS-2026-10-21/native-final/input-retreat-settled.png"
+    ],
+    "first_pass_return": "Earlier native/ directory retained as RETURN: town-adjacent camp, clumped orcs, lack of landscape shoulders, transparent ground ordering and split city plaza. All corrected before native-final.",
+    "logs": "Artifacts/CAMPS-2026-10-21/native-final-player.log"
+  },
+  "ordinary": {
+    "log": "Artifacts/CAMPS-2026-10-21/ordinary-player.log",
+    "screenshot": "Artifacts/CAMPS-2026-10-21/ordinary-startup.png",
+    "result": "Fresh process without capture env, live simulation, LVL1/XP0/gold5/HP100/MP100. No modal/debug grants; left running."
+  },
+  "console": "No new attributable runtime/compile errors in final runs. Nonblocking existing Unity licensing access-token diagnostic during build; build succeeds.",
+  "wiring": "No scene/Inspector migration or packages. Tactical startup prepares camp territories before manual generation when Stage3PlayerInterfaceBinding is present; existing binding configures same GuildWorldDriver. Importer creates Resources/Stage3CampArt.asset and CampGround.mat, preserves original sprite IDs/PNG bytes. New C#/.meta pairs imported by Unity.",
+  "source_sha256": {
+    "Assets/Stage3/Guild/Runtime/Stage3GuildWorldDriver.cs": "47c2bcfa314c2886ed079732389bf2a3f6c77eae9934d61faf994eeee0fc918f",
+    "Assets/Stage3/Guild/Runtime/Stage3GuildWorldDriver.Camps.cs": "ea7902b0969e975bdc9c4406f1a0ba07d4afb799bbf1b8107d6d5ec080b11445",
+    "Assets/Stage3/Guild/Runtime/Stage3CampArt.cs": "3466d7f1bc3c0b7247e8b7adbaf120570e8cd549ef770a1fc120b68c47e00012",
+    "Assets/Stage3/Guild/Runtime/Stage3CampPresentation.cs": "3ad04883e372541536fd68bdebc0b720a5dffc000cf7a5527e2aaaf430277579",
+    "Assets/Stage3/Guild/Runtime/Stage3CampReview.cs": "572577d1f77626b3fc1e3be17fcc2f9bd27d25e892e36032a5ef740a8f8ce7a0",
+    "Assets/Stage3/PlayerInterface/Editor/Stage3CampArtImporter.cs": "4fe408f0018475ddf63e5d835f04d61f2f0810b4d10cc812bc3f8edee1bac4c4",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3InterfaceCapture.cs": "0833a73113c3e726e91980055cb76d6748bf8b892da834d674dd0810fe4ece6d",
+    "Assets/Stage3/VisualPilot/Runtime/Stage3TacticalPresentation.cs": "f0cc8d8483f684e111e05261fd82c5ed07da8c948fea538446893bd34282b6b2",
+    "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3OpenCampTests.cs": "e6693aa6097e2a98441a0082e0142d27c22c88c0a350a2833a10e85b1d96d2d7",
+    "Assets/Stage2/Integration/Runtime/Stage2GuildEnemy.cs": "d88aec3f7af21089ded846a8fd93480043fc7be846539653064de9d776fa64ee",
+    "Assets/Stage3/WorldTravel/Runtime/Stage3CityPresentation.cs": "b4db002e5cd1cede27233af0dbeda0e6e952ed2c58135739b1cc6fbf7f0d7661"
+  },
+  "provenance": "art/source/world_camps_2026-10-21_runtime.json",
+  "remaining": [
+    "Windows/Steam validation",
+    "Night visual check beyond900p",
+    "Sustained play/final balance",
+    "Owner review of actual city appearance; source illustration density not claimed identical to modular runtime"
+  ],
+  "git": "Preexisting dirty tree preserved; no commit/push requested for this task."
+}

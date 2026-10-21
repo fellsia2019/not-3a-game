@@ -193,7 +193,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Assert.That(visible.x,Is.InRange(.1f,.9f));
             Assert.That(visible.y,Is.InRange(.1f,.9f));
             AssertBaseVisible(bootstrap,artwork,false,new Vector2(.47f,.13f));
-            Assert.That(run.StartWave(),Is.True);
+            Assert.That(Stage3TestCycle.StartNight(run),Is.True);
             var enemy=composition.Enemies.GetEnemy(0);
             enemy.SetAutomaticTick(false);
             var visited=new HashSet<Vector2Int>();
@@ -578,7 +578,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Assert.That(ChangedRedPixels(pausedFrame,CapturePortal(bootstrap)),Is.Zero,
                 "Pausing the run must freeze the visible vortex.");
             composition.RunDriver.SetPaused(false);
-            Assert.That(composition.RunDriver.Run.StartWave(),Is.True);
+            Assert.That(Stage3TestCycle.StartNight(composition.RunDriver.Run),Is.True);
             Assert.That(composition.Enemies.ActiveCount,Is.EqualTo(1));
             Assert.That((Vector2)composition.Enemies.GetEnemy(0).transform.position,Is.EqualTo(origin));
             yield return new WaitForSeconds(.3f);
@@ -776,7 +776,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             if (TowerSprite(rebuilt) != null) AssertTowerArtwork(rebuilt);
             else Assert.That(rebuilt.GetComponentInChildren<MeshRenderer>().sharedMaterial.GetTexture("_BaseMap"), Is.Not.Null);
             Assert.That(inventory.Gold, Is.Zero);
-            Assert.That(composition.RunDriver.Run.StartWave(), Is.True);
+            Assert.That(Stage3TestCycle.StartNight(composition.RunDriver.Run), Is.True);
             yield return null;
             Assert.That(composition.RunDriver.Run.Phase, Is.EqualTo(Stage2RunPhase.Wave));
         }
@@ -802,7 +802,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             var map = bootstrap.MapDefinition;
             var startingAspect = camera.aspect;
             foreach (var aspect in new[]{startingAspect,2.4f})
-            foreach (var zoom in new[]{2.5f,5f,10f})
+            foreach (var zoom in new[]{2.5f,5f,10f,15f})
             foreach (var cell in new[]{map.MinimumCell,map.MaximumCell})
             {
                 camera.aspect = aspect;
@@ -843,7 +843,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             yield return null;
             var defense = composition.Building.Defense;
             var inventory = composition.Gathering.Economy.Inventory;
-            defense.SelectRole(1);
+            Stage3TestCycle.StudyBlueprint(composition,Stage2BlueprintKind.Longshot);defense.SelectRole(1);
             var catalog = defense.SelectedCatalog;
             Assert.That(catalog.TowerPrefab.name, Does.Contain("Longshot"));
             if (TowerSprite(catalog.TowerPrefab) != null)
@@ -1245,13 +1245,13 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Assert.That(camera.orthographicSize,Is.EqualTo(2.5f).Within(.02f));
             follow.ZoomByPinchScale(.001f);
             yield return new WaitForSecondsRealtime(1f);
-            Assert.That(camera.orthographicSize,Is.EqualTo(10f).Within(.02f));
+            Assert.That(camera.orthographicSize,Is.EqualTo(15f).Within(.02f));
             follow.enabled=false;
             Assert.That(Stage2MacTrackpad.IsAvailable,Is.False);
             follow.ZoomByPinchScale(2f);
             follow.enabled=true;
             yield return new WaitForSecondsRealtime(.2f);
-            Assert.That(camera.orthographicSize,Is.EqualTo(10f).Within(.02f),"No stale pinch or zoom rebase on resume.");
+            Assert.That(camera.orthographicSize,Is.EqualTo(15f).Within(.02f),"No stale pinch or zoom rebase on resume.");
             follow.ZoomByPinchScale(100f);
             yield return new WaitForSecondsRealtime(1f);
             Assert.That(camera.orthographicSize,Is.EqualTo(2.5f).Within(.02f));
@@ -1311,15 +1311,15 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Assert.That(camera.orthographicSize, Is.EqualTo(startSize * .5f).Within(.02f));
 
             var map = bootstrap.MapDefinition;
-            Assert.That(bootstrap.PlayerMover.PlanarEdgeClearance,Is.EqualTo(1f));
+            Assert.That(bootstrap.PlayerMover.PlanarEdgeClearance,Is.EqualTo(1.5f));
             bootstrap.PlayerMover.transform.position = map.CellToWorld(new Vector2Int(0, 0));
             follow.SnapToTarget();
             input.Set(mouse.scroll, new Vector2(0, -2400));
             yield return null;
             input.Set(mouse.scroll, Vector2.zero);
             yield return new WaitForSecondsRealtime(1.1f);
-            Assert.That(camera.orthographicSize, Is.EqualTo(startSize * 2f).Within(.02f));
-            Assert.That(camera.orthographicSize, Is.EqualTo(10f).Within(.02f));
+            Assert.That(camera.orthographicSize, Is.EqualTo(startSize * 3f).Within(.02f));
+            Assert.That(camera.orthographicSize, Is.EqualTo(15f).Within(.02f));
             Assert.That(map.Contains(new Vector2Int(map.MinimumCell.x-1,map.MinimumCell.y)), Is.False);
 
             var ground = new Plane(Vector3.forward, Vector3.zero);
@@ -1328,14 +1328,13 @@ namespace Not3A.Stage3.VisualPilot.Tests
                 bootstrap.PlayerMover.transform.position = map.CellToWorld(cellPosition);
                 follow.SnapToTarget();
                 yield return null;
-                Assert.That(camera.orthographicSize, Is.EqualTo(startSize * 2f).Within(.02f),
+                Assert.That(camera.orthographicSize, Is.EqualTo(startSize * 3f).Within(.02f),
                     "Moving to a map edge must not change zoom.");
                 if(cellPosition!=Vector2Int.zero)
                 {
-                    var expected=cellPosition==map.MinimumCell
-                        ? map.MinimumCell+Vector2Int.one : map.MaximumCell-Vector2Int.one;
+                    var expected=map.CellToWorld(cellPosition)+(cellPosition==map.MinimumCell?Vector2.one:-Vector2.one)*1.5f;
                     Assert.That(Vector2.Distance(bootstrap.PlayerMover.transform.position,
-                        map.CellToWorld(expected)),Is.LessThan(.001f));
+                        expected),Is.LessThan(.001f));
                 }
                 var heroViewport = camera.WorldToViewportPoint(bootstrap.PlayerMover.transform.position);
                 Assert.That(heroViewport.x, Is.InRange(0f,1f));
@@ -1371,7 +1370,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             bootstrap.PlayerMover.transform.position = map.CellToWorld(map.MinimumCell);
             follow.SnapToTarget();
             var stopped = camera.transform.position;
-            bootstrap.PlayerMover.transform.position = map.CellToWorld(map.MinimumCell+Vector2Int.one);
+            bootstrap.PlayerMover.transform.position = map.CellToWorld(map.MinimumCell)+Vector2.one*1.5f;
             follow.SnapToTarget();
             Assert.That(Vector3.Distance(camera.transform.position,stopped), Is.LessThan(.001f),
                 "The camera must stay fixed while the hero crosses the last cells.");
@@ -1483,7 +1482,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             for (var wave = 1; wave <= run.WaveCount; wave++)
             {
                 Assert.That(run.WaveNumber, Is.EqualTo(wave));
-                Assert.That(run.StartWave(), Is.True);
+                Assert.That(Stage3TestCycle.StartNight(run), Is.True);
                 for (var step = 0; step < 2000 && run.Phase == Stage2RunPhase.Wave; step++)
                 {
                     run.Tick(0.2f);
@@ -1523,7 +1522,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
                             Assert.That(economy.AdvanceGather(kind, economy.WorldPosition(kind), true, node.GatherSeconds, true), Is.True);
                         }
                     }
-                    defense.SelectRole(1);
+                    Stage3TestCycle.StudyBlueprint(composition,Stage2BlueprintKind.Longshot);defense.SelectRole(1);
                     var throneCell = composition.GetComponent<Stage2SceneBootstrap>().MapDefinition.Throne;
                     for (var y = 3; y >= -3 && towers[3] == null; y--)
                         for (var x = -2; x >= -4 && towers[3] == null; x--)
@@ -1584,7 +1583,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Assert.That(tower.GetComponent<SpriteRenderer>().sprite, Is.SameAs(sprite));
             Assert.That(inventory.Get(MapResourceKind.Wood), Is.Zero);
             Assert.That(inventory.Gold, Is.Zero);
-            Assert.That(composition.RunDriver.Run.StartWave(), Is.True);
+            Assert.That(Stage3TestCycle.StartNight(composition.RunDriver.Run), Is.True);
             yield return null;
             Assert.That(composition.RunDriver.Run.Phase, Is.EqualTo(Stage2RunPhase.Wave));
             composition.RunDriver.ResetRun();

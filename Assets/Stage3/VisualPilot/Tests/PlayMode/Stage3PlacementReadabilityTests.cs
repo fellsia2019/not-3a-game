@@ -35,7 +35,8 @@ namespace Not3A.Stage3.VisualPilot.Tests
             world=game.GetComponent("Stage3ResourceDistrictWorld");
             world.GetType().GetMethod("Regenerate").Invoke(world,new object[]{164032});
             camera=scene.CameraFollow.BoundCamera; scene.CameraFollow.enabled=false; camera.orthographicSize=5;
-            game.RunDriver.ResetRun(); Directory.CreateDirectory(Evidence); yield return null;
+            game.RunDriver.ResetRun();Stage3TestCycle.StudyBlueprint(game,Stage2BlueprintKind.Longshot);
+            Directory.CreateDirectory(Evidence); yield return null;
         }
         [UnityTearDown] public IEnumerator Cleanup()
         {
@@ -138,6 +139,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Assert.That(found,Is.True);
             foreach(var role in new[]{0,1})
             {
+                Stage3TestCycle.StudyBlueprint(game,Stage2BlueprintKind.Longshot);
                 Point(map.CellToWorld(cell)); game.Building.SelectAndBeginPlacement(role);
                 yield return null; yield return null;
                 Assert.That(game.Building.PreviewResult,Is.EqualTo(PlacementResult.Ready));
@@ -203,7 +205,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Assert.That(grid.gameObject.activeSelf,Is.False);
             Production.SelectAndBeginPlacement(ResourceProductionBuilding.Sawmill); yield return null;
             Assert.That(grid.gameObject.activeSelf,Is.False,"Generators use their own locked pads.");
-            game.Building.SelectAndBeginPlacement(1); yield return null;
+            Stage3TestCycle.StudyBlueprint(game,Stage2BlueprintKind.Longshot);game.Building.SelectAndBeginPlacement(1); yield return null;
             Assert.That(Production.IsPlacing,Is.False); Assert.That(grid.gameObject.activeSelf,Is.True);
             game.RunDriver.SetPaused(true); yield return null;
             Assert.That(grid.gameObject.activeSelf,Is.False);
@@ -254,7 +256,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
                     Assert.That(pixels.xMin-previous.xMax,Is.GreaterThan(1f),"Adjacent rendered silhouettes must have a visible gap.");
                     previous=pixels;
                 }
-                Point(map.CellToWorld(row[0])); game.Building.SelectAndBeginPlacement(1); yield return null; yield return null;
+                Point(map.CellToWorld(row[0])); Stage3TestCycle.StudyBlueprint(game,Stage2BlueprintKind.Longshot);game.Building.SelectAndBeginPlacement(1); yield return null; yield return null;
                 preview=GameObject.Find("Tactical mesh placement preview");
                 Assert.That(preview,Is.Not.Null);
                 camera.transform.position=(Vector3)map.CellToWorld(row[2])+Vector3.up*.5f-camera.transform.forward*30;

@@ -1977,6 +1977,697 @@ by visual approval.
 Prompts, generated references and approval state are recorded in
 art/source/hero_progression_2026-10-19_generation.json.
 
+## D-087 — Retry rewinds time while preserving current world progress
+
+Date: 2026-10-19. Status: explicit owner correction; supersedes D-062 full-world
+restoration for the active continuing-day Stage3 game and D-074 snapshot proposal.
+The owner rejects losing the day's development and the resulting progression
+trap. Keep current inventory, earned XP/points/ranks, research/discovery,
+resource stock/recovery, production and current buildings/upgrades/sales.
+Return morning with preparation for the same pending night tier, restore the
+throne and clear failed-attempt enemies/shots/transient actions. No simulated
+income is added by changing the clock. Ordinary subsequent ticks produce normally.
+Current damage/destruction/spending are current world state, not an old snapshot.
+New enemies in a new attempt award normal XP/gold when killed; no persistent
+cross-attempt kill suppression. Legacy finite Stage2 fixtures retain old retry.
+The earlier request to snapshot living creeps is superseded: they are not restored
+by this time-only recovery. D-074 gates and removal of both skips remain active.
+
+## D-088 — Dwelling sleep until ten game minutes before the night horde
+
+Date: 2026-10-19. Status: owner explicitly restores an intentional day skip.
+This supersedes D-074's complete removal of dwelling time advancement: the
+owner clarifies one Sleep action, not repeated ten-minute rests. Sleep advances
+to ten in-game minutes before the next20:00 horde (19:50), leaving preparation.
+Block it during any battle: open daytime stream, live creeps/pending attacks or
+mandatory horde. No early-dawn skip after victory. The existing local dwelling
+interaction and selected-building card carry Sleep; no separate window/layout.
+Clock change grants no simulated skipped-time production/recovery. A later
+sleep cannot move time backwards. D-087 time-only defeat retry still applies.
+
+## D-089 — One base item per type, quality-specific appearance; forge concepts first
+
+Date: 2026-10-19. Status: owner scope brief and all four final concepts approved;
+no runtime implementation delivered by the concept step.
+The owner activates ImageGen concepts for the item inventory, forge building and
+forge interface. Initially each item type has one basic family, not named,
+elemental or special-affix alternatives. Numerical level1–100 is separate from
+quality F/E/D/C/B/A/S/SSS. Increasing quality changes the actual item/icon design:
+rough primitive brown/wooden/simple materials become iron/steel and increasingly
+refined red/gold ornament. Do not merely recolor the same rarity border or draw
+100 different icons for numerical levels. Apply the same rule across equipment
+and tools. More item families wait for later content/balance work.
+The sword is the owner's example of this principle; it does not settle a new
+melee combat system. Existing agreed bow/staff, four armor parts, shield and
+separate axe/pickaxe remain the concept coverage. Preserve existing
+fullscreen Lunar Porcelain language and fixed world-camera readability.
+Main produces ImageGen; Astra owns visual review and subsequent approved Unity
+appearance. Prices, percentages, item stats and forge-stage budgets are not
+approved by illustrative concept labels. D-087 keeps current items/forge progress
+on defeat; no old full-world rollback is reintroduced.
+
+Owner acceptance,2026-10-19: «Утверждаю все четыре». This approves the selected
+inventory_items_v2, forge_building_v1, forge_interface_v2 and
+item_quality_progression_v1, including their layout/appearance and shown quality
+palette/lineage. Stat numbers remain illustrative; prices/stage caps are not
+assigned. Version hashes/prompts and acceptance are in
+art/source/equipment_forge_2026-10-19_generation.json. Do not request approval
+again for these unchanged designs.
+
+## D-090 — Three scroll-gated forge stages; bow and wand only
+
+Date:2026-10-19. Status: direct human clarification during approved D-089 implementation.
+Supersedes six/eight proposed forge stages, forge-made SSS, and the shield/staff
+coverage in D-075/D-089. Five combat slots: head/chest/arms/legs/weapon, plus
+separate pickaxe/axe. Weapons are bow and short magic wand; no sword or shield.
+Keep eight item qualities F/E/D/C/B/A/S/SSS and independent numerical1–100.
+Forge building has exactly three stages:1 F–D,2 F–B,3 adds A–S while retaining
+lower qualities. Upgrading the building requires special forge scrolls ONLY;
+there is no resource/gold substitute. These scrolls have no current loot source.
+SSS is exclusive to future ultra-rare drops and cannot be crafted/reforged.
+The three operation tabs remain Create/Level/Reforge. New items start F1;
+reforging advances one quality while preserving item ID/numerical level. Trial
+costs/stats live in Stage3Equipment data, not illustrative concept labels.
+Building is local, paid in wood/stone/metal; world selection opens its service
+and explains missing upgrade scroll. D-087 keeps current items, equipped state,
+forge/stage and paid costs on defeat; only full Reset starts over.
+
+## D-091 — Visible equipped bow/tools and bag separate from loadout
+
+Date:2026-10-20. Status: direct human corrections to D-089/D-090 presentation.
+The owner reports crooked bow/world equipment missing. Correct actual held bow,
+pickaxe and axe only; preserve hero armor/clothing appearance. Quality-specific
+bow uses proper facing projections/grip, and actual equipped axe/pick replaces
+the baked starter tool during harvesting, preserving existing poses/strike facts.
+No armor redressing, new weapon/content family, gameplay stats/costs or spells.
+The owner additionally requires equipped items to appear only in their loadout
+slots, never duplicated in the left bag grid. Equip removes the item from the
+bag; unequip returns it. Replacing a weapon returns the previous one to bag.
+This is one owned instance moving between views, not deletion/copy/payment or
+new inventory capacity. Selection/details can inspect either location.
+
+## D-092 — Gathering mastery and approved profession page
+
+Date:2026-10-20. Status: accepted by owner: «Утверждаю, внедряй через Astra».
+Approved concepts: gatherer_miner_v3 and gatherer_logger_v2. Existing fullscreen
+O gains inner combat/profession tabs. Рудокоп (stone+metal/pickaxe) and Лесоруб
+(wood/axe) have independent mastery1–100, actual-material XP, points and first
+strength/tempo/reach talents, three ranks each. These are separate from hero
+combat XP and equipment quality/level. Only actual manual material grants earn
+profession XP; automatic production, cancelled/empty work and refunds do not.
+Talents combine with actual equipped tool stats, consume the same node stock
+and cannot replace a missing tool. Reach scales permitted edge gap, never
+collision/model size. Rank/tool changes cancel unfinished work until release.
+The page shows independent numerical XP/points, three talent cards, one action,
+current→next results and the unchanged equipped tool. Main owns gameplay and
+ImageGen; GPT-6 Astra owns native UI. D-087 keeps CURRENT mastery/points/ranks
+after defeat; full Reset clears them. XP curve/effect sizes are trial data in
+Stage3Professions, not illustrative concept values. Larger trees, explorer,
+base upgrades and scroll sources remain later slices. Scene/GUID/packages kept.
+
+## D-093 — Five paid production stages, prototype without research gates
+
+Date:2026-10-20. Status: accepted by owner: «Да,5ступеней, пока без исследований».
+Sawmill/quarry/iron mine have five per-building stages, producing1/2/3/4/5units
+per cycle. Existing intervals remain5/7/10seconds. Upgrade each owned building
+through the existing selected card, paid with materials and gold. New building
+construction still costs only materials and starts at level1. Current prototype
+allows all paid stages without research; the future technology/trader/workshop
+route remains planned. No new upgrade centre or blanket free upgrades.
+Upgrade pays once, retains existing fractional cycle and never grants immediate
+production. The actual instance's output rises; other buildings stay unchanged.
+D-087 retry keeps CURRENT level/progress/investment; full Reset removes buildings.
+Existing building art, footprint, collision, pads, HUD/card geometry and prices
+of new construction remain intact. No generator sale/merge/relocation, profession
+XP from automation, offline or skipped-time income. Prices are trial data in
+the existing ProductionCatalog; older5-stage/research recommendations are
+superseded only for this approved prototype access and stage/output choice.
+
+## D-094 — Three paid throne reinforcements through the existing card
+
+Date:2026-10-20. Status: implementation of the owner's accepted D075 three
+upgrades of+5max HP, requested as the next base-growth slice.
+Each purchase adds5current HP as well, preserving absolute existing damage:
+3/5→8/10. With current base5HP, caps are5/10/15/20; no fourth transaction.
+Use the existing D078 selected-throne card and shared materials/gold wallet.
+Prices are trial runtime data in HordeRun, not new research or a repair system.
+Active preparation/wave permits paid upgrades; pause/modal/loss/reentrant payment
+and insufficient funds reject unchanged. No upgrade may resurrect zero HP.
+D087 retry preserves CURRENT upgrade count/spending and restores the upgraded
+maximum; full Reset returns count0/base HP. Historical finite snapshots restore
+count/HP/wallet together. Existing dome/damage/defeat visual rules and geometry
+stay intact; effects use effective HP maximum. No new building or visual asset.
+
+## D-095 — First fantasy-city concepts, one initial active merchant
+
+Date:2026-10-20. Status: concept scope accepted by the owner's new request.
+Prepare2–3significantly different city prototypes; choose three original ImageGen
+studies consistent with the existing fantasy/isometric art. They are alternative
+directions for the first city, not three approved cities. It has NPC inhabitants;
+only one merchant will be active initially. Other NPC functionality is deferred.
+This supersedes D063's earlier instruction not to prepare a city at that time
+for the current concept phase. Appearance, location, trade UI/catalog/prices and
+runtime implementation are not approved by this request alone. Main generates
+and documents; Astra owns visual direction/review and later approved visuals.
+
+Owner appearance selection: first concept A with orange terracotta roofs,
+timber/cream-plaster houses and open square. Merchant stands visibly near the
+entrance on the square's near-right edge. Astra concept PASS all three; A chosen
+for later implementation. Source: art/concepts/city_2026-10-20/a_market_square_v1.png.
+Exact dimensions/counts/site/stock and decorative edge water are not runtime rules.
+
+Owner follow-up: make the selected city larger and its merchant shop more
+distinctive, replacing the tent with a permanent building. Preserve the orange
+roof/timber direction for housing; only one active merchant remains. A_v2 permanent
+shop still blended into the background according to the owner. A_v3 proposes a
+unique cobalt-blue hipped roof, open commercial front and large attached scales
+sign with clear paved apron. This revised shop appearance is pending owner review,
+not approved merely because A_v1 was chosen.
+
+Owner accepted A_v3: «Пойдет», then requested the merchant window. Expanded town
+and distinctive cobalt-roof permanent shop are the selected visual direction.
+
+## D-096 — Merchant window requested, concept before visual implementation
+
+Date:2026-10-20. Status: owner request after A_v3 city approval.
+Prepare the merchant window in the current fullscreen interface family, using
+existing gold and clear goods/description/price/purchase action. ImageGen concept
+and owner appearance approval precede Astra's visual Unity work. The accepted
+future merchant→research workshop route is relevant; a generic window request
+does not fix catalogue/prices or add sellback, refresh, currencies, NPC services
+or forge-scroll sources. Concept values are illustrative; runtime transactions
+and access need actual rules/binding/tests. CITY_AND_TRADE.md owns this slice.
+
+Owner rejected first storefront-style window and clarified two simultaneous
+inventories: the player's bag and merchant's goods, like RPG trade screens. V2
+must emphasize two item grids and compact identity portraits, with contextual
+buy/sell selection; actual stock/sale values remain illustrative, not approved
+balance or the tower half-refund rule. BG3/DOS2 are visual-pattern inspiration
+only; no third-party UI art or additional barter/reputation mechanics are adopted.
+
+Owner correction: merchant header displays gold only; wood/stone/metal are not
+trading currencies and must be hidden in this window. A possible later trade
+resource is not chosen and adds no current placeholder or currency.
+
+## D-097 — Quality marking belongs to all item UI, not just trading
+
+Date:2026-10-20. Status: requirement and final appearance accepted by owner;
+implemented in existing item UI by Astra, local qualification recorded below.
+Every equipment item UI presentation needs a rank-colored cell background and/or
+border in addition to its quality letter and level. Start rough brown/grey and
+progress toward gold; retain8ranks F/E/D/C/B/A/S/SSS, no SS. This supplements
+rank-specific item art, without recoloring the hero/world or changing stats.
+Astra proposes inner quality border/light wash and separate outer cyan selection.
+Apply consistently in bag/loadout/forge/trading/actual tool previews after ImageGen
+appearance approval. Ungraded research scrolls/empty slots stay neutral; generic
+category symbols do not gain fake item ranks. EQUIPMENT_AND_RUNES.md owns scope.
+
+The owner rejected blue-grey D versus blue C and muted gold, requesting one
+all-item/all-quality sheet. Approved final64-cell board: «Во, это уже другое дело».
+D is saturated GREEN, C royal BLUE; S visibly polished precious gold with crisp
+bevels/reflections over dark warm backing. SSS is radiant WHITE-HOT GOLD over
+dark plum with local halo/glints, sharp item contours retained. This replaces
+earlier subdued/no-glow/steel-D proposals. Existing rank-specific art/stats stay;
+the catalogue is approval material, not a new runtime atlas or stock table.
+
+Owner correction after seeing runtime: the flat opaque dark blue/red/brown fills
+and thick gold bars are rejected. Earlier native visual PASS is superseded for
+appearance. Reproduce the approved sheet itself: painted multitone gradients,
+subtle surface texture, thin shaped/luminous metal framing and rich S/SSS glow.
+No new appearance proposal is needed to restore the already approved reference.
+
+Main prepared eight empty skins by ImageGen editing that original; Astra gave
+asset PASS and replaced the procedural rendering with the actual raster. One
+borrowed Resources atlas uses measured pixel bounds, painted centres and thin
+frame patches; no per-item texture generation or synthetic sparkle overlay.
+Pixel-rounded edges and explicit scroll target/UV clipping remain. Existing
+item atlases, gameplay, input positions and world art remain current. The narrow
+quality-art importer preserves PNG bytes and generates normal Unity metadata;
+no scene/Inspector/package wiring. Trading/city runtime will reuse this treatment.
+
+After correction: 17 relevant PlayMode checks pass, Mac build succeeds, Astra
+strict-reference visual PASS on 27 native views at720/900/1080p. Main actual
+selection/equip/forge scroll works; ordinary startup restored without QA grants.
+Windows remains unverified; tiny HUD cells retain hue/edge/radiance while losing
+some engraving detail. Owner final runtime acceptance is not claimed by local QA.
+Source/rights: art/source/item_quality_cells_2026-10-20_skins_generation.json.
+Qualification: art/source/item_quality_cells_2026-10-20_verification.json.
+
+Owner additionally requires safe areas and centring for every item: the bow was
+too close to the frame, while helmet/arms/legs had vertical drift. Use baked
+UI-only visible alpha bounds for all 64 type/rank pairs and proportional safe
+padding, with uniform aspect-preserving fit. Preserve source artwork, held-world
+pivots, skin appearance and input; no hand-tuned per-item UI displacement.
+
+## D-098 — City services readable as interactive; paired circle in the city
+
+Date:2026-10-20. Status: owner requirement accepted; updated visual concept
+pending review. City/NPC/trade runtime remains outside the current item fix.
+
+Local interactive services must be recognizable as clickable. Initially the sole
+service is the merchant shop: add a visible colored contour and a small attractive
+colored illustrated role icon above it. The icon must read as a merchant, with
+painted fantasy detail rather than a generic square/circle/flat vector placeholder.
+Future service roles will use their own icons; do not mark decorative housing or
+invent additional active NPC services. Keep the approved cobalt-roof shop identity.
+
+The city must contain the remote endpoint of the existing paired ground-circle
+teleport. Reuse the approved seal and base-to-remote pair, not a third circle,
+enemy portal or vertical arch. Research/discovery and existing travel gates remain
+the contract. This supersedes the old deferred-city placement in WORLD_TELEPORTS.md
+for the active concept; actual world placement follows the city's ready layout.
+
+Main prepares the ImageGen city revision from approved A_v3 and the existing seal;
+Astra directs/reviews and later implements approved appearance. Exact contour,
+icon and city integration are shown before visual implementation. No merchant
+stock, prices, extra currency or new travel network is inferred.
+
+Current proposal: A_v5, compact plum/gold scales badge above the roof, thin
+turquoise outer shop contour, original-style flat seal off the gate axis. Astra
+concept PASS; owner appearance approval remains pending. A_v4 oversized cues
+remain revision history. Exact prompts/references/output hashes:
+art/source/city_2026-10-20_generation.json. No runtime city or portal placement
+is changed by this concept delivery.
+
+## D-099 — Temple-side city teleport and one opened-destination menu
+
+Date:2026-10-20. Status: owner behavior/placement requirement accepted;
+ImageGen city A_v6 and teleport-menu v1 passed Astra concept review; owner then
+approved implementation («делай»). Modular city/native menu/network are integrated,
+and locally qualified on Mac/Metal.16/16 focused PlayMode and native mouse/E
+roundtrip plus three-resolution visual evidence are recorded in
+art/source/city_runtime_2026-10-20_verification.json. Windows remains unverified.
+
+The city teleport belongs beside a modest temple in a quiet side court, not on
+the central square, market route or entrance axis. Preserve the approved ground
+seal and the shop's distinct architecture/interaction cues. The temple is a
+setting for the portal, not a newly approved NPC service, religion or progression
+system. D-098's A_v5 square placement is superseded.
+
+Clicking a travel portal opens the same destination menu everywhere: at the
+base, in this city and at future world/city points. The player chooses among
+opened teleports and explicitly confirms travel. This supersedes the pair-only
+product limit and immediate counterpart hop in D-063/D-098; the existing
+two-point runtime is migrated to that common menu; there are still only two
+initial points in shipped data. No future town
+count or third current runtime endpoint is invented.
+
+Retain research and personal-discovery gates: unknown destinations are not
+travel options. Distinguish the current point from the selected destination;
+travelling to the current point is disabled. Closing the menu does not travel,
+and arrival requires new deliberate input before another transition. Preserve
+existing local proximity/mode/clear-arrival validation, free same-world travel
+and D-087 current-progress retry. Existing E may open the same menu as the
+mouse; it no longer bypasses selection with an instant hop.
+
+The v1 proposal uses the Lunar Porcelain panel on subdued world context,
+two opened rows «База»/«Город», «Вы здесь», destination preview, route and one
+«Телепортироваться» action plus close. No resource bar, fee, fuel, cooldown,
+new currency, fake locked city or enemy-invasion control. Exact prompts and
+source/output hashes: art/source/city_2026-10-20_generation.json and
+art/source/teleport_menu_2026-10-20_generation.json. WORLD_TELEPORTS owns the
+travel contract; CITY_AND_TRADE owns setting; PLAYER_INTERFACE owns presentation.
+
+## D-100 — First finite merchant inventory and gold buy/sell
+
+Date:2026-10-20. Status: owner requested implementation of the approved shop
+window and explicitly accepted the first stock/sale/restock proposal. Implemented
+and locally Mac-qualified41/41PlayMode,21native frames, actual mouse buy/sell and
+Astra visual PASS; Windows remains unverified.
+
+Click the existing city shop to open both player and merchant inventory grids.
+Buy and sell existing equipment for gold; exclude equipped items from the bag
+and sale. Reuse D096's dual-inventory composition, D097's current painted skins
+and D091's item identity/visible bounds. Wallet shows gold only.
+
+First stock is exactly one of each8existing types,F/LVL1. Sale pays half current
+purchase value; no automatic replenishment. Type/quality/level trial prices are
+serialized in Stage3Merchant. Sold items remain finite merchant stock and retain
+identity; purchasing does not equip automatically. No new scroll source, rune,
+resource trade or item family is approved here. Local transaction validation,
+D087 current-progress retry and separate full reset remain in force. Contract:
+CITY_AND_TRADE.md. Qualification: art/source/merchant_2026-10-20_verification.json.
+
+## D-101 — Medieval magical blueprint is the research/upgrade document base
+
+Date:2026-10-20. Status: owner category and final rect_categories_shop_v3
+appearance approved («апрув»); runtime implementation not yet performed.
+
+Research documents should resemble medieval magical fantasy engineering plans,
+not rolled spell scrolls or modern blueprints on blue paper. Begin with a common
+base item/icon, then derive documents for research and building improvements
+(workshop/forge and later others), new towers and weapon research. Spell scrolls
+may serve future magic acquisition; that possibility is not a shipped system.
+
+This clarifies the intended future appearance/category of the earlier generic
+research/forge scroll wording. It does not change D090 forge stages/caps/SSS
+restrictions, choose a source/price/consumption rule, or make every current paid
+building upgrade require a blueprint. Current runtime scroll-counter naming and
+merchant equipment-only stock remain until a ready approved implementation.
+Main generates concepts/provenance; Astra directs/reviews and implements visuals
+only after owner selection. Contract: RESEARCH.md and EQUIPMENT_AND_RUNES.md.
+Owner correction after context review: tilted/unfolded forms and the later modern
+white-sheet mockup are rejected. Reuse the earlier light paper texture/drafting
+pattern in a straight rectangular sheet fitted to fixed-size cells/rows; metadata
+or icon height must never resize/reflow other cells. Distinguish unlock,
+construction and upgrade uses. NO equipment F–SSS or independent LVL1–100 on
+blueprints: an upgrade number means TARGET BUILDING LEVEL. Examples4–5/forgeIV
+do not extend the current D090 three-stage forge. Owner then resumed generation
+and explicitly requires the SAME earlier aged paper colour, texture and ink style,
+not plain white paper. One shared rectangular shell has TWO primary categories:
+opening new content (including construction access) and upgrading existing
+content. Owner approved rect_categories_shop_v3: same-position cyan spark for
+opening and muted brass chevron for upgrade, with target-stage II/III only;
+no item quality classes or item LVL. Approval covers shell/material/marks/fixed
+cell treatment, not the illustrative catalogue,100gold price, stock/source,
+consumption or runtime forge-counter migration. Standalone runtime art and a
+ready implementation brief remain; do not request appearance approval again.
+Source: art/source/research_blueprints_2026-10-20_generation.json.
+
+## D-102 — Purchased blueprints are studied in a permanent single-level workshop
+
+Date:2026-10-20. Status: owner requested runtime implementation and accepted the
+first catalog in an explicit question reply: Longshot build unlock, wand recipe,
+forge targetII/III. No new tower/weapon type is approved by this slice.
+
+The research workshop itself has exactly one level and no improvement action,
+superseding D075's proposed workshop advancement. Purchase at a merchant,
+research at the workshop and use of the resulting building/recipe permission are
+separate actions. D101 approved rectangular paper/category appearance remains.
+Owner approved the three-column study window, then known/history concepts:
+study consumes the owned paper; knowledge remains under «Изучено». Duplicate
+papers in trade/bag show a small silver/teal checkmark and «Изучено» detail pill,
+without changing paper appearance or blocking trade. Repeat study spends nothing.
+Use «Открывает улучшение кузницы»; actual upgrade remains a separate action in the
+forge, with no second document/legacy-scroll spend. Scope/rules and current status:
+RESEARCH.md/DEVELOPMENT_PLAN.md; visuals/provenance:
+art/source/research_workshop_2026-10-20_generation.json.
+
+## D-103 — Hero starting vitals, ranked Blink and test-wave launch
+
+Accepted2026-10-20: owner requests100HP/100MP at start. Blink has4ranks
+(initialI plus3upgrades): mana100/75/50/25 and cooldown5/4/3/2seconds;
+confirmed recovery1HP/s and5MP/s per active game second. Existing300/500/800/1000
+ranges and point costs remain. Failed/blocked casts spend neither resource nor
+cooldown. Current retry preserves current mana; full Reset restores full vitals.
+No hero damage source/death is added by the starting-vitals slice.
+
+Owner requests working F3 next-wave launch for testing. Ordinary Stage3 start
+stays clock-gated; explicit development command moves clock to next pending
+night without skipped-time economy/regen, closes daytime gate and retains live
+creeps/shots. Pause/active wave/terminal block duplicate launches. Existing
+camera max10(size2xstart5) is extended to15(3x) on both wheel and pinch, close
+limit2.5 and starting5 unchanged. Measured top-edge body clipping is corrected
+by existing hero edge clearance1→1.5, preserving strict camera ground bounds
+and art/angle/scale. Existing HUD layout/artwork stay; Astra binds
+real numeric bars/costs to the current approved presentation.
+
+Owner further requests a Debug WTF toggle: all currently implemented active
+abilities (currently Blink) consume no mana and have ZERO cooldown. The earlier
+0.5s phrasing was explicitly corrected. Toggle clears an existing cooldown;
+turning off restores ordinary costs/rank timings; full Reset/HUD disable clears
+WTF. It does not bypass pause, modal UI or collision/landing validation, grant
+ranks/XP or refund spent mana. No extra active spell is invented.
+
+## D-104 — Hero death and recoverable bag, accepted next feature
+
+Accepted2026-10-20: portal-path enemies attack throne/blockers and must NOT
+hurt the hero. Future exploration enemies can hurt/kill the hero. Death gives
+free reincarnation at the base portal, removes half the XP accumulated within
+the current level and never lowers that level. Only the BAG drops: equipped
+armor/weapon/tools stay on the hero. Currency/resource counters are separate
+from the bag; no additional currency/resource penalty was requested.
+
+Dropped owned instances remain recoverable at the death location, visible in
+world and on the map, with a world direction indicator leading to the body.
+Owner explicitly chose implementation as the NEXT SEPARATE STEP, after current
+HP/MP/Blink/debug/zoom work and an approved marker concept. No current death,
+corpse drop/claim, respawn or new exploration-enemy source is implemented by
+D103. During the approved D104 implementation, routine details are: lose
+floor(currentXP/2), retain all earned levels/points/ranks/Blink cooldown; restore
+HP/MP at immediate safe base-anchor respawn without unlocking travel research.
+Every nonempty drop persists until recovered, including across further deaths
+and throne retries; empty bag creates no marker; full Reset clears all drops.
+E pickup claims the interaction frame and requires fresh press after death/retry.
+F3 development death command adds no items/XP and uses these same rules.
+
+Latest owner correction: label «Выпавшие вещи», recovery «E · Забрать вещи».
+Offscreen cue is a compact text tooltip with a small arrow on the destination
+side, rotating through8bearings and clamped clear of existing HUD/top cards.
+Large standalone arrows/medallion pointers and earlier labels are superseded.
+Owner approved final world_marker_v3/map_marker_v2/offscreen_tooltip_v4 and
+subsequent native implementation; qualification is in the canonical plan.
+
+## D-105 — Unbounded daytime flow of the last CLEARED night's difficulty
+
+Accepted2026-10-20, clarified by owner: daytime gates repeat only the last WON
+night's difficulty, never a newly attempted/lost night. D074 last-cleared tier
+selection remains correct. D087 retry returns morning before the same pending
+night and keeps current world progression; it does not unlock the failed tier.
+Before the first night victory there is no cleared tier to farm.
+
+Daytime is an endless stream until manual close or19:30 cutoff before20:00.
+Repeat that cleared tier's spawn interval, HP/siege multipliers and existing
+creep type; do NOT copy its finite night enemy count. No total-spawn quota or
+old24-live-enemy throttle: both would interrupt the requested ongoing stream.
+Closing/cutoff stop only new spawns; living enemies/shots remain. Reopening
+preserves remaining spawn time; closing cannot bank a catch-up burst. Types
+remain the current single type; future typed profiles are not invented here.
+Infinite flow requires positive profile intervals; legacy finite instant waves
+remain valid with daytime gates disabled. Old serialized daytime cadence/cap
+fields remain only for compatibility and do not control the current flow.
+
+Owner also delegates a modest first-horde buff. Current HordeRun first profile
+gets more enemies and shorter spacing, mirrored in its builder; later night
+profiles, HP growth, clocks, XP/gold and retry rules stay. Trial tuning lives in
+runtime data. No new UI design, resource, package or scene migration.
+
+## D-106 — Ten-minute day and three-minute continuously spawning night
+
+Accepted2026-10-20 during D104 concept work: daylight lasts10active real minutes,
+night3at normal speed. Pause/simulation speed apply normally. Clock hours stay
+08:00–20:00 day and20:00–08:00 night; separate rates map these to600/180seconds.
+Night spawns are time-driven, never limited by authored enemy count. New spawns
+stop at dawn; living enemies/shots remain. Victory/tier advancement requires
+dawn plus all remaining threats cleared. No early win before dawn, no stacked
+mandatory nights while an earlier one is unresolved. D105 daytime stream stays
+last WON difficulty, with19:30 cutoff; D088 sleep still ends19:50 outside combat.
+D087 retry preserves current progress and returns full morning for same tier.
+
+Current Stage3 explicitly opts into timed nights via nightDurationSeconds=180;
+zero retains finite legacy fixtures/catalogs. Day duration stays in existing
+wave preparation data, set600. Old finite count remains legacy data/forecast
+only in Stage3, not a spawn limit. Existing per-tier intervals/HP/current type
+are retained initially: longer spawning sharply increases density (tier2 at
+0.12s produces about1500 creeps/night), so live economy/defense balance remains
+trial tuning to qualify, not an automatically approved new tower balance.
+No new visual UI, package, manager, scene migration or automatic time skip.
+
+## D-107 — Centered analog cycle and shaped top HUD
+
+Accepted2026-10-20: replace floating resource/HH:MM corners with a slim shaped
+upper HUD attached to screen top. Compact resources left, day count/development
+access right, small complete day/night dial centered, whole rim inside screen.
+Keep world visible under tapered/concave bridges; no massive empty ivorybar.
+Owner approved v2 silhouette and selected variantA smoke-glass after v7ratio
+correction. DAY10minutes is10/13ofcircle, NIGHT3minutes is3/13≈83degrees;
+this latest ratio supersedes the earlier10:30-to3 illustrative sector request.
+Dawn starts at3o'clock, clockwise through277degree day to~12:14, then83degree
+night backto3. Arrow follows continuous13minute cycle, pauses/retry/sleep with
+world clock; entering night sector starts mandatory stream by existing D106rules.
+
+Soft atmospheric transition, no sharp radialpiechart boundary. Mutedgreyolive/
+ivory daylight, almostblack/charcoal night with restrained darkbloodredmiasma;
+no cheerfulpurple/starfield or landscape/ruins/creature illustrations in dial.
+Astra owns native visual implementation using approved A assets/native existing
+UI style; main owns cycle fraction/binding/tests/provenance. No new clock rules,
+currencies, controls or UI stack. Reference/approval/prompts:
+art/source/cycle_top_hud_2026-10-20_generation.json.
+
+## D-108 — Temple mage and purple ogre appearance; orc scale revision
+
+Supersession: D110 cancels temple mage/quest-site direction; approved orc/ogre
+appearance remains. Prior approvals below are historical.
+
+Status: Accepted appearance, 2026-10-21; concept-only work.
+Owner response to the v2 sheets: «Орку чуть-чуть меньше сделать. остальное ок».
+Temple mage v2 (long silver hair/beard, ivory/plum/gold ceremonial robe and
+cross-shaped staff) and purple ogre v2 are approved. Retain their appearance;
+reduce the orc slightly from v2 while keeping him larger than hero C.
+
+The owner also asks to see the NPC with temple/portal in map context. D099
+already supplies both city elements; show a separate courtyard placement study
+with mage beside the steps and open door/street/portal approaches. Final orc
+scale and placement initially awaited review. Follow-up owner reply «Утверждаю
+размещение и размер орка» approves orc_ogre_comparison_v5 and
+temple_courtyard_placement_v1, completing the appearance approval.
+«Хорад/Хород» was dictation, not a city name.
+Main owns ImageGen/provenance; Astra owns visual direction/review and later
+approved visual implementation. Quest rules/rewards/combat slice are still open.
+Reference: art/source/quest_npc_world_enemies_2026-10-21_generation.json;
+CITY_AND_TRADE.md records the current concept state and D099 runtime evidence.
+
+## D-109 — Temple quest window and separate open-world encounter spots
+
+Supersession: D110 replaces the temple quest-giver/window with an adventurers'
+guild board. Separate camp/ruin spots and future-enemy scope remain accepted.
+
+Status: Accepted intent, 2026-10-21; window appearance pending concept approval.
+Clicking the city temple mage should open a window for selecting/receiving
+quests. First prepare an ImageGen sketch in the current fullscreen UI style;
+main generates, Astra directs/reviews the appearance. No new global shortcut
+or quest-system implementation is inferred from this concept request.
+
+The world will contain distinct encounter spots such as camps and ruins with
+different enemy kinds. Current orcs and ogres occupy separate spots, not one
+mixed encounter. Goblins and other undead are future content examples, not
+current asset/content requirements. Exact camp count/placement, populations,
+reset/respawn, objectives, quest lifetime and reward values are still open.
+OBJECTIVES.md owns the active quest brief, HERO_COMBAT.md the world-enemy intent.
+
+## D-110 — Adventurers' guild, physical contract board and rank trials
+
+Status: Accepted direction/progression, 2026-10-21; appearances awaiting sketches.
+Owner explicitly cancels the temple/elder quest-giver and rejects the form-like
+quest window. Replace that quest-service concept with an adventurers' guild:
+paper orders pinned to a beautiful in-world board, with location and reward.
+Group/filter orders by F/E/D/C/B/A/S rank through game-like rank boards/tabs;
+show available categories and distinguish unavailable access. No SS/SSS quest
+category or extra currency is inferred from equipment quality.
+
+The player starts with an F guild/adventurer badge. Three successful current-rank
+quests unlock the ability to accept one next-rank trial. Completing that trial
+grants the new rank/badge and access to all orders of that rank. Repeat toward S;
+three completions alone do not promote. This is personal guild progression,
+not a request for guild-building upgrades. No tier above S is assigned.
+
+Orc and ogre appearances and separate world spots remain; the temple mage and
+its quest-site appearance from D108 are superseded. Existing city temple/portal
+runtime is not silently changed; first sketch a guild replacement in that corner,
+keeping the nearby teleport endpoint/network. Main generates through ImageGen;
+Astra directs/reviews appearances and later implements approved native visuals.
+Exact rewards, whether repeat orders count, trial contents/failure/retry, multiple
+active contracts, token inventory behavior and encounter refresh remain open.
+OBJECTIVES.md owns the active brief. These decisions do not implement quests.
+
+## D-111 — Approved guild implementation, repeat orders and board turn-in
+
+Status: Accepted,2026-10-21. Owner approved board_f_v1, trial_e_v1 and final
+city_v4_open_temple with «делай / апрув». Keep BOTH green-roof guild/board and
+small original temple; teleport has its own open public temple forecourt, with
+no front fences/gates or road blockage. Temple elder quest NPC remains canceled.
+
+Repeat orders count toward the three current-rank successes. Accepting a new
+order refills/resets its typed spot; selecting/opening/turning in never refills.
+After clearing, return to the guild board to turn in and collect the reward.
+No automatic contract reward/promotion at the camp. Guild ranks remain F…S.
+Main owns plain gameplay/AI, integration/data/tests; Astra owns approved native
+city/board/actor visuals. First slice reuses separate orc/ogre spots with data
+profiles for each rank and one next-rank trial. One active order per spot avoids
+resetting another active objective. Exact balance is trial serialized data.
+Retry preserves CURRENT guild/contracts/camp state; full reset returns F.
+
+D111 follow-up: owner makes the outdoor notice board purely decorative: smaller,
+slightly right of the guild entrance, clear/even spacing. Click the GUILD BUILDING
+to open the contract-board menu. Local actions use the free entrance approach,
+not the decorative board. No separate board interaction or new shortcut.
+
+D111 second placement refinement: the owner still found the board in front of
+the entry and too prominent. Move it substantially farther right, parallel to
+the entrance, reduce it again and mute its opaque colors. It remains decoration;
+Guild building click and free entrance interaction anchor are unchanged.
+
+## D-112 — Visible city navigation independent of teleport discovery
+
+Status: Accepted corrective request,2026-10-21. Owner cannot find city on the
+HUD minimap or M. The city has its own persistent navigation marker from world
+initialization, independent of unopened/research-gated city teleport. M initially
+shows the complete map with a city landmark; later user zoom/pan is
+retained. Local minimap depicts city in range or its direction at the rim.
+This is navigation only: no automatic discovery, research, teleport or map-click
+travel. Marker follows actual generated CityOrigin and survives full gameplay
+reset while the city exists; regeneration updates it and ClearCity removes it.
+Existing approved city art/UI is reused by Astra; no new currency/control/art
+family. Main owns marker data/lifecycle and relevant tests/native qualification.
+
+D112 owner refinement: remove «Город» and «Вы здесь» captions from M; keep
+recognizable city/hero icons, the safe overlap offset and minimap bearing. Red
+world points currently represent individual living enemies, not static camp icons.
+
+## D-113 — Starter teleport construction and readable clock
+
+Accepted owner request,2026-10-21. Teleportation is the one research available
+from the beginning without a merchant. Use the owner's allowed direct-study
+option: a pinned starter blueprint entry in the workshop, not a removable bag
+instance. It cannot be sold, thrown away or dropped on death. Studying locally
+unlocks a construction card; it no longer creates a base circle automatically.
+Player places one circle on valid free ground. Current prototype research/build
+remain free; no new prices are inferred. Existing discovered destination rules
+remain. D087 retry preserves current knowledge/circle/location; Reset clears.
+Future tutorial and user map pins/active guidance remain deferred.
+Remove the automatic direction-to-city on the minimap; show a local city icon
+only in its actual crop. M stays icon-only and known from start. Increase the
+approved analog dial to about twice its former size, keeping10:3 and make the
+painted hand brighter. Existing face/shape/style retained.
+
+## D-114 — Guild interaction and stationary-only hero bow
+
+Accepted owner correction,2026-10-21. Quest acceptance must work from the normal
+building approach. Service proximity follows the actual guild ground footprint
+and existing interaction reach, rather than one tiny displaced point. Far
+preview stays readable and asks to approach the GUILD, never the decorative
+board; remote turn-in remains blocked. Accept resets only its typed camp and
+turn-in still requires a return to the building.
+Hero automatic bow cannot start a shot while ground-moving in any direction.
+Cooldown continues during walking; released arrows still land. No forward-fire
+moving skill is introduced; that remains a possible future idea. Walking visuals
+immediately follow movement instead of holding a previous shot pose.
+
+## D-115 — City fidelity correction and open world-camp concepts
+
+Accepted owner request,2026-10-21. Current city layout/density fails the approved
+city_v4_open_temple appearance. Preserve existing merchant and guild buildings;
+match organic populated blocks, connected streets, gardens and set dressing
+using original approved modular art, with a separate open temple portal court.
+No new service/NPC is assigned. Native review against the approved reference is
+required; this is a correction, not acceptance of a new city direction.
+Prepare ImageGen concepts for separate orc and purple-ogre spots. Initial v1
+closed camps were rejected. Required v2: a WIDE OPEN encounter territory with
+multiple broad escape/reposition routes for stationary-only shooting. Camp/ruin
+props belong beside the combat field, not enclosing it or funneling the entrance.
+Concepts do not assign enemy populations, loot, new systems or runtime scenery
+until owner appearance approval. Owner subsequently approved both open v2
+concepts («Да, оба подходят»); environment runtime remains a later step after
+this sketch request, with no new population/loot tuning implied.
+
+## D-116 — Approved open camp environments in the world
+
+Accepted implementation request,2026-10-21. Implement both approved orc_camp_v2
+and ogre_camp_v2 as separate world environments. Keep wide open fighting fields
+and several broad retreat/reposition routes for stationary-only bow combat.
+Modular hide/timber orc props and ancient-stone ogre ruins cluster to one side;
+no enclosing fences, gates, central collision clutter or baked actor backdrop.
+Reserve entire encounter territories before additional resource generation.
+Substantial visible props share actual ground footprints; existing species,
+population, combat tuning, quest repeat/turn-in and retry rules are unchanged.
+Main owns ImageGen/site/lifecycle/collision/tests; Astra owns native visuals.
+No new quest, NPC, currency or loot source is inferred from this environment task.
+
+## D-117 — Fixed authored city layout and renewed reference correction
+
+Accepted owner correction,2026-10-21. Previous D115 local visual PASS was NOT
+owner appearance acceptance: current city still fails reference layout/structure.
+A separate Astra must correct actual arrangement against city_v4_open_temple.
+This city has a fixed authored internal composition, NOT random filling or
+procedurally shuffled blocks. Future cities get individual authored layouts and
+styles. Selecting one clear world location for the whole city remains allowed;
+internal buildings/streets/courts/planting keep their designed relationships.
+Keep original service art and mechanics; enlarged guild to the left, temple
+and its open portal court to the right, shared civic space/well and compact
+housing quarters must read as the approved reference. No new city service.
+Require centred native views for honest comparison; do not equate tests with
+owner visual approval.
+
 ## Pending Product Decisions
 
 
@@ -1988,24 +2679,25 @@ art/source/hero_progression_2026-10-19_generation.json.
   Первые три авторские орды продолжаются усиливающимися ночами по D-065;
   параметры остаются пробными. Старые размеры и
   P-004/P-008 анализы остаются историческими свидетельствами в feature specs.
-  D-074 задаёт новый целевой цикл без пропусков и с дневным фармом; cutoff,
-  темп ночи, живые остатки перед checkpoint и дневное поражение ещё требуют
-  окончательного контракта и реализации. Старый D-065 пока работает в билде.
+  D-074/D-087/D-088 уже реализуют дневной фарм, непрерывную ночь, сон до19:50
+  вне боя и повтор с сохранением текущего развития. Cutoff и темп длинной ночи
+  остаются пробным балансом; старый D-065 описывает историческое поведение.
 - D-039–D-041 повторно проверяют спрайтовое производство для выбранных объектов;
   D-027 остаётся историческим решением о 3D, камера сохраняется. Прежний состав
   MVP D-032 уточняется по D-062; вид каждой следующей модели и бюджет массового
   производства открыты.
 - Финальный UI stack и необходимость сохранения незаконченного забега
   решаются, когда начнётся соответствующая работа. Старые P-005/P-006 не
-  блокируют первый играбельный билд. D-062 утверждает снимок для повтора волны
-  в текущей игре; сохранение между запусками приложения этим не определено.
+  блокируют первый играбельный билд. D-087 заменил полный снимок сохранением
+  текущего прогресса при повторе; сохранение между запусками этим не определено.
 - Позднее отдельно определить правила мирных зданий на зелёной зоне,
   исследований и улучшений. По D-063 первый срез мастерской и пары кругов
   внедрён вместе со строительством мастерской; дальнейшие исследования, город и торговля
-  ещё открыты. P-007 о tool progression перешёл в активный концепт D-073/D-074;
-  runtime ещё не добавлен. Бюджет каталога/очков, пределы рун, совместимость
-  щита, правила move/слияния/возврата и исход смерти героя ещё открыты.
-  Шесть мест/восемь качеств, оба способа апа башен и три апа трона приняты
-  по D-075. Место боя с боссами, цены/ступени кузницы/мастерской/генераторов
+  ещё открыты. P-007 о tool progression реализован первым предметным срезом
+  D-089/D-090; профессии ещё не добавлены. Бюджет каталога/очков, пределы рун
+  и исход смерти героя ещё открыты. Щит удалён D-090; move/слияние/возврат
+  башен реализованы D-079. Пять боевых мест/восемь качеств, оба способа апа
+  башен и три апа трона приняты
+  по D-075/D-090. Место боя с боссами, цены/ступени мастерской/генераторов
   и параметры нового дерева технологий требуют следующего среза.
   Бриф второго врага S2-AI-01 не является активным заданием.

@@ -1,0 +1,98 @@
+{
+  "date": "2026-10-20",
+  "decision": "D-104",
+  "status": "Owner approved concepts; gameplay/native visuals locally qualified, actual keyboard pickup PASS",
+  "tool": "Built-in image_gen.imagegen",
+  "owners": {
+    "main": "ImageGen/reference research/provenance",
+    "visual": "GPT-6 Astra direction/review; native visuals only after owner approval"
+  },
+  "outputs": [
+    "art/concepts/death_recovery_2026-10-20/world_marker_v3.png",
+    "art/concepts/death_recovery_2026-10-20/map_marker_v2.png",
+    "art/concepts/death_recovery_2026-10-20/offscreen_tooltip_v4.png"
+  ],
+  "prompts": {
+    "world_v1": "Use case: ui-mockup.\nCreate ONE polished in-game concept image for our own existing isometric fantasy tower-defense/RPG, based on the supplied OWN-PROJECT native screenshot. Landscape 16:9, high resolution and crisp small UI. This is a proposed visual mockup, not proof of implemented gameplay.\nReference image role: exact existing game art, character, grass/ground, camera and Lunar Porcelain HUD reference. Preserve the current game's composition and hand-painted soft-volume look. Remove only the macOS title bar, purple capture badge and Development Build watermark; the canvas should be the game view.\nPRIMARY CHANGE: show a recoverable lost inventory bag at the hero's death location, now being approached by the living hero. The dropped object is a small grounded brown leather satchel with a broad flap and a pale silver clasp, roughly knee-high to the hero, a convincing contact shadow, and a short restrained pale-lavender mist at its base. It is a personal lost bag, not treasure, a chest, a building, a gravestone, or a portal. No dead NPC, duplicate hero, blood, or new armor.\nAbove the physical satchel: a compact readable 32–36px-at-900p faceted silver/ivory medallion containing the SAME upright leather bag silhouette, plum shadows and a very thin lavender rim. Tiny tasteful fantasy craft, not a flat generic vector pin. Do not frame it in gold or use a rarity beam, gemstones, skulls, portal rings or exclamation marks.\nPut the bag near the living hero on visible open ground, separated enough to read both silhouettes. The medallion must align with the pouch underneath it and remain smaller than the hero's head/upper body. Add one short existing-style nearby interaction label, text EXACTLY: \"E · Забрать сумку\". Optional compact name directly above it: \"Потерянная сумка\".\nThe same simplified bag motif appears once on the existing circular minimap near the hero marker, at about18–20px-at-900p. Keep hero and bag markers distinct.\nPRESERVE HUD: one continuous wide bottom Lunar Porcelain dock; narrow icon/key navigation ribbon immediately above it; ten ability slots in two rows of five; left circular minimap and hero portrait; current HP/MP/XP colored numeric tracks on the right. Preserve the source HP/MP100/100, XP0/100 and labels HP, MP, XP. Do not redesign the HUD, shrink its safe zones, add menus or invent new stats/currencies.\nIMPORTANT BEHAVIOR shown in this image: bag is in view, so NO screen-edge directional arrow is visible. No navigation route or glowing trail. No large explanatory text, no diagrams, no poster, no multiple panels, no logos, no comparison layout. A faithful full-game-view mockup with one new recoverable bag and its world/minimap marker.",
+    "world_v2": "Edit this OWN-PROJECT generated concept. Change ONLY the two small labels beside the dropped leather bag. Replace \"Потерянная сумка\" with EXACTLY \"Место гибели\". Replace \"E · Забрать сумку\" with EXACTLY \"E · Забрать вещи\". Preserve all other pixels/composition as closely as possible: living hero, same pouch, same silver-ivory medallion and lavender mist, same world ground and bottom Lunar Porcelain HUD/minimap/ten ability slots. No new markers or arrow, no new visual redesign, no gravestone/corpse. Crisp correctly spelled Cyrillic. This remains a visual proposal, not an engine screenshot.",
+    "map_v1": "Use case: ui-mockup. Create one crisp landscape fullscreen MAP concept for our OWN isometric fantasy RPG/tower-defense. Input1 is our own existing native fullscreen map and is the layout/cartography reference. Input2 is our own generated world-marker concept and is the EXACT lost-death-items badge/style reference. Preserve Input1's green map, simple pale road geometry, top plum navigation/resource bar and ivory footer, current player marker, red gate and blue throne. Do NOT turn this into a parchment fantasy painting, redesign the map, add buildings, quest routes or new menus.\nPRIMARY CHANGE: a single personal death-location marker on the map, away from the current hero marker. Use precisely the brown leather satchel silhouette with pale silver clasp, silver/ivory four-point/faceted medallion, plum shadows and thin soft lavender edge from Input2. A small crisp map icon, about28–32px at1600x900, not a huge oversized loot chest. Add a neat compact selected-marker label beside it, text EXACTLY \"Место гибели\". Use the same visual size/safe padding logic as existing map markers. Retain clear map land around the icon. No skull, gold rarity beam, gemstones, tombstone, quality rank, item level or exclamation pin.\nKeep the player position distinct and retain the existing \"Вы здесь\" label. In the footer legend add the same compact badge with text \"Место гибели\", preserving existing legend/control safe zones. Show existing zoom controls unobstructed. The world concept Input2's bottom hero HUD is NOT the map layout and should NOT be pasted into this fullscreen map; only borrow its new marker motif. No directions route, navigation trail, death screen, XP penalty text or revive button.\nSingle game-view mockup, no poster, no split panels, no explanatory insets, no OS chrome, no watermarks. This is a proposed visual design only, not implemented gameplay.",
+    "arrow_v1": "Use case: precise-object-edit. Create a second contextual state of this OWN-PROJECT fantasy game concept.\nInput image is the world-marker proposal and exact world/HUD/art reference. Preserve camera, hero, grass, trees, same Lunar Porcelain bottom HUD, narrow navigation ribbon, circular minimap, ten spell slots and HP/MP/XP tracks100/100,100/100,0/100. No macOS chrome.\nCHANGE ONLY THE DEATH MARKER STATE: the bag is now FAR OUTSIDE the world camera toward the upper-right. Remove the physical satchel on the ground, its ground mist, its hovering world medallion, and both nearby labels from the visible scene. Restore the original grass where they were. The living hero stays alone in the world.\nInstead, show ONE screen-edge bearing pointer in the upper-right side of playable world view, below and clear of the clock/debug cards and far above the bottom HUD. Keep at least32px screen-edge inset at900p, never flush to border. The pointer is a compact32–36px silver/ivory faceted medallion with the SAME upright brown leather satchel and silver clasp motif; an attached short sculpted silver/lavender arrowhead points outward toward upper-right. The BAG illustration stays upright; only the small outside arrowhead indicates bearing. Restrained pale-lavender rim, no bright beam, gold, skull, exclamation mark, raw flat vector triangle or giant UI panel. Optional tiny plum/ivory caption directly beneath: EXACTLY \"Место гибели\", short and unobtrusive.\nThe world bag is OFFSCREEN, so no world bag/marker may remain visible. The minimap can retain the same bag icon if its position lies within minimap bounds; do not fabricate a route/trail or extra waypoint at hero. No distance number or invented units. This is a straight bearing indicator, not a promise of pathfinding.\nSingle faithful game-view concept, no side-by-side panels, no diagram, no additional controls or changes to game stats.",
+    "arrow_v2": "Precise edit of this OWN-PROJECT game concept. Preserve the entire hero/world, bottom HUD and existing text. Correct only the offscreen death-location pointer and restore the debug button it displaced.\nMove the whole small pointer medallion + arrowhead + \"Место гибели\" label down to the middle-right world edge, around y=36% of game canvas height, 40px inset from the right edge at1600px width. It must remain far above the bottom HUD and below the top-right time/debug cards. Make the small arrowhead point up-right and keep the icon upright.\nRestore the original compact plum/ivory \"F3 · Отладка\" button below the clock at its original upper-right y≈165px position. No overlap with the pointer.\nInside the pointer medallion use a BROWN LEATHER SATCHEL WITH A BROAD CLOSED FLAP AND SILVER CLASP, not a cinched money sack. Keep the existing silver/ivory frame and restrained lavender accent. The bag remains outside camera: no physical bag, light plume, ground marker or recovery label may appear in the world. No distance number or route. Do not change minimap size, spell slots, hero equipment, HP/MP/XP, world colors, or add any UI controls. Single full-game-view concept.",
+    "arrow_v3": "Edit this OWN-PROJECT full-game-view concept. Change ONLY the offscreen direction indicator at middle-right. The owner explicitly wants a real ARROW, not a circular medallion with a tiny tip. Remove the circular satchel medallion and its tiny attached arrowhead completely.\nReplace it with one clearly readable, elegant fantasy DIRECTION ARROW pointing diagonally up-right toward the offscreen death location. A substantial sculpted silver/ivory arrowhead and short tapered shaft, plum bevel shadows and restrained lavender edge light, matching our Lunar Porcelain UI. About50–60px long at1600px width, crisp silhouette, no circle, no bag picture inside it, no big badge, no generic flat vector triangle. Rotate the entire arrow toward the destination. Keep its safe placement at middle-right below the F3/clock controls, 32px inset from the screen edge and far above the HUD. Keep the compact label beneath, EXACTLY \"Место гибели\".\nPreserve ALL other image content: full world, hero, original clock and F3 button, continuous bottom HUD, minimap, ten spell slots, HP/MP/XP, and no visible ground bag. Bag icon can remain on minimap. No route line, path dots, trail or distance units. This is a concept-only change; no game mechanic is shown.\n",
+    "world_v3": "Precise edit of this OWN-PROJECT game concept. Owner's FINAL label is \"Выпавшие вещи\", not \"Место гибели\". Replace ONLY the nearby title with EXACTLY \"Выпавшие вещи\"; keep action \"E · Забрать вещи\". Keep everything else: bag grounded next to hero, lavender local light, existing HUD, same marker positions. In the small world medallion and minimap use a brown leather satchel WITH CLOSED BROAD FLAP/SILVER CLASP rather than a money sack, matching the physical bag. No round money-pouch icon. No edge pointer because bag is visible. No other changes. Concept only.",
+    "map_v2": "Precise edit of this OWN-PROJECT fullscreen map concept. Replace BOTH occurrences of \"Место гибели\" with EXACTLY \"Выпавшие вещи\": the selected marker label on the map and the footer legend entry. Preserve all other map/HUD/cartography/markers, the existing brown flap satchel icon/lavender contour, safe padding, sizing and zoom controls. Do not add routes, menus, type ranks or new markers. Concept only.",
+    "offscreen_tooltip_v4": "Precise edit of this OWN-PROJECT game concept. Owner says the standalone direction arrow is much too large. Remove the entire large silver arrow AND its separate label. Replace them with ONE SMALL HORIZONTAL TOOLTIP at the middle-right screen edge, clear of the clock/F3 and bottom HUD. The tooltip must be only about180–205px wide and28–30px high at1600px view width, with existing soft plum background, thin ivory/lavender trim and slight rounded/beveled corners, not heavy filigree.\nInside the tooltip: left-aligned small readable text EXACTLY \"Выпавшие вещи\" and a SMALL16px direction arrow at the RIGHT end pointing diagonally upper-right ↗. Padding8–10px. The arrow must be integrated beside the text, no big arrow outside, no circle or bag medallion. This view's destination is beyond the upper-right edge, so ↗ is correct. For other target directions the arrow would rotate to any of8bearings and the tooltip would clamp to that screen side; show only this ONE state here, no extra tooltips or diagram.\nKeep at least32px from the right screen edge and ample distance below F3. Preserve all other source content: hero, grass, trees, clock, F3 button, continuous Lunar Porcelain HUD, minimap, ten ability slots, HP/MP/XP values. Bag is offscreen: no ground bag or world marker. No distance number, navigation route or trail. Crisp Cyrillic, single full-game-view concept."
+  },
+  "rejected": {
+    "world_v1": "Owner rejected wording Потерянная сумка; appearance not yet approved",
+    "arrow_v1": "Displaced F3; corrected in v2",
+    "arrow_v2": "Owner requests actual arrow instead of medallion with attached tip",
+    "arrow_v3": "Owner says arrow too big: wants compact text tooltip with small arrow at any of8bearings"
+  },
+  "terminology": {
+    "proposal": "Выпавшие вещи / E · Забрать вещи",
+    "owner_response": "Latest explicit owner correction overrides earlier Место гибели approval: final requested name Выпавшие вещи",
+    "sources": [
+      {
+        "title": "Enshrouded official server gameplay settings — Tombstone Mode",
+        "url": "https://enshrouded.zendesk.com/hc/en-us/articles/20453241249821-Server-Gameplay-Settings"
+      },
+      {
+        "title": "World of Warcraft official manual — Dying & Corpse Retrieval",
+        "url": "https://bnetcmsus-a.akamaihd.net/cms/template_resource/LO0VQ46XB1281555957773363.pdf"
+      }
+    ]
+  },
+  "rights": "Own-project native screenshots and newly generated concept pixels only; external sources used for terminology, no external game images imported/traced; concepts not imported as runtime assets.",
+  "references": [
+    "Artifacts/S3-GATE-REPLAY-20261020/normal-startup.png",
+    "Artifacts/S3-FULLSCREEN-INTERFACE-20261018/final-1600x900/Map.png"
+  ],
+  "notes": [
+    "Generated mockups are visual proposals, not native gameplay evidence; incidental HUD/text drift is not approved change",
+    "World bag in view: edge pointer hidden; bag offscreen: compact tooltip and small rotating arrow; no pathfinding promise",
+    "No corpse store/drop/death/respawn code changed; equipment/tools retained per D104",
+    "One bag shown only; multi-death storage and XP rounding remain implementation brief details"
+  ],
+  "behavior": "Compact edge tooltip Выпавшие вещи with a small arrow on destination side, 8bearings ↑↗→↘↓↙←↖; world target visible hides edge tooltip; on-map bag remains. No pathfinding promise.",
+  "files": [
+    {
+      "path": "art/concepts/death_recovery_2026-10-20/world_marker_v3.png",
+      "sha256": "16706a1fd2d847de89013b91dd91b8ff487007d993f81a942d964915ab783ea2",
+      "bytes": 2378299,
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "path": "art/concepts/death_recovery_2026-10-20/map_marker_v2.png",
+      "sha256": "f2e92ae9d0b8b60c381ba3702cf513c961f12d94d3b7374f508ab92cfb7c803f",
+      "bytes": 1431665,
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "path": "art/concepts/death_recovery_2026-10-20/offscreen_tooltip_v4.png",
+      "sha256": "9de96fb75143b49e9fc087607841fcb43df05d077ccfe4386c639ba01897dc87",
+      "bytes": 2327461,
+      "dimensions": [
+        1672,
+        941
+      ]
+    }
+  ],
+  "approval": {
+    "owner": "Да, внедряй",
+    "scope": [
+      "world_marker_v3",
+      "map_marker_v2",
+      "offscreen_tooltip_v4"
+    ],
+    "final_label": "Выпавшие вещи",
+    "action": "E · Забрать вещи"
+  },
+  "verification": "art/source/death_recovery_2026-10-20_verification.json"
+}

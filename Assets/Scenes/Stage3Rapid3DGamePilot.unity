@@ -258,7 +258,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Not3A.Stage2.Integration::Not3A.Stage2.Integration.Stage2PlayerMover
   mapDefinition: {fileID: 11400000, guid: d4ba9d0d3c262af4aa7a973e0b4aded0, type: 2}
   speed: 4.2
-  planarEdgeClearance: 1
+  planarEdgeClearance: 1.5
 --- !u!1 &543686300
 GameObject:
   m_ObjectHideFlags: 0

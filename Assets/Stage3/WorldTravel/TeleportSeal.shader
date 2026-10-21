@@ -7,6 +7,7 @@ Shader "Not3A/Ground Teleport Seal"
         _MaskHigh ("Full line opacity (linear)", Range(0,1)) = .5
         _OutlinePixels ("Contact outline pixels", Range(0,4)) = 1.5
         _Opacity ("Opacity", Range(0,1)) = 1
+        _ContactColor ("Ground contact contour", Color) = (.015,.025,.025,1)
     }
     SubShader
     {
@@ -26,6 +27,7 @@ Shader "Not3A/Ground Teleport Seal"
             CBUFFER_START(UnityPerMaterial)
                 float4 _MainTex_TexelSize;
                 half _MaskLow, _MaskHigh, _OutlinePixels, _Opacity;
+                half4 _ContactColor;
             CBUFFER_END
             struct Attributes { float3 positionOS:POSITION; float2 uv:TEXCOORD0; };
             struct Varyings { float4 positionCS:SV_POSITION; float2 uv:TEXCOORD0; };
@@ -45,7 +47,7 @@ Shader "Not3A/Ground Teleport Seal"
                     Coverage(SAMPLE_TEXTURE2D(_MainTex,sampler_MainTex,input.uv-float2(0,step.y)).rgb)));
                 half alpha=max(stroke,edge*.65h)*_Opacity;
                 clip(alpha-.005h);
-                half3 color=lerp(half3(.015h,.025h,.025h),art,saturate(stroke/max(.001h,alpha)));
+                half3 color=lerp(_ContactColor.rgb,art,saturate(stroke/max(.001h,alpha)));
                 return half4(color,alpha);
             }
             ENDHLSL

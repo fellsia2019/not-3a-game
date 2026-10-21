@@ -39,6 +39,7 @@ namespace Not3A.Stage2.Integration
         public Camera BoundCamera => GetComponent<Camera>();
         public bool TacticalView => tacticalView;
         public Stage2CameraZoomSettings ZoomSettings => zoomSettings;
+        public float MaximumTacticalSize=>tacticalStartingSize*(zoomSettings!=null?zoomSettings.MaximumDistanceMultiplier:2f);
 
         public void ConfigureTacticalZoom(Stage2CameraZoomSettings settings)
         {
@@ -50,7 +51,7 @@ namespace Not3A.Stage2.Integration
             if (!tacticalView) return;
             if (tacticalStartingSize <= 0f) tacticalStartingSize = BoundCamera.orthographicSize;
             tacticalTargetSize = Mathf.Clamp(BoundCamera.orthographicSize,
-                tacticalStartingSize * .5f, tacticalStartingSize * 2f);
+                tacticalStartingSize * .5f, MaximumTacticalSize);
             Stage2MacTrackpad.Initialize();
             ApplyFollow(true);
         }
@@ -90,6 +91,7 @@ namespace Not3A.Stage2.Integration
             if (tacticalView)
             {
                 var camera = BoundCamera;
+                tacticalTargetSize=Mathf.Clamp(tacticalTargetSize,tacticalStartingSize*.5f,MaximumTacticalSize);
                 var factor = 1f - Mathf.Exp(-7f * Time.deltaTime);
                 camera.orthographicSize = Mathf.Lerp(camera.orthographicSize, tacticalTargetSize, factor);
             }
@@ -148,7 +150,7 @@ namespace Not3A.Stage2.Integration
         private void ApplyZoomScale(float scale)
         {
             tacticalTargetSize = Mathf.Clamp(tacticalTargetSize * scale,
-                tacticalStartingSize * .5f, tacticalStartingSize * 2f);
+                tacticalStartingSize * .5f, MaximumTacticalSize);
         }
 
         private static bool CanReceivePinch()

@@ -1,0 +1,13 @@
+{
+  "date": "2026-10-21",
+  "tool": "built-in image_gen.imagegen",
+  "request": {
+    "key": "orc_ogre_comparison_v4",
+    "output": "art/concepts/quest_npc_world_enemies_2026-10-21/orc_ogre_comparison_v4.png",
+    "transparent_background": false,
+    "referenced_image_paths": [
+      "/Users/artemmusket/game-dev/not-3a-game/art/concepts/quest_npc_world_enemies_2026-10-21/orc_ogre_comparison_v3.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Correct ONLY the ORC SCALE in this own-project comparison concept image. Everything else is approved and MUST remain unchanged as closely as possible.\nThe orc in this supplied image became too small after an overcorrection. Target a precise modest intermediate size: in EACH ROW the orc's full height from boot soles to top of hair should be ABOUT1.25 times the neighboring HERO'S full height. Enlarge the whole upper-left orc with his axe, preserving proportions and identity, anchored at the existing foot-contact ground baseline. On the supplied1536x1024 sheet, the TOP ROW orc's hair top should now be approximately y105 and boot soles y680–685, giving full height~575px compared with hero~460px. Do NOT leave the hair top aroundy145 as in the supplied image, and do NOT make him as huge as the earlier large version.\nApply the SAME RATIO~1.25 to the smaller ORC in the LOWER GRASS ROW relative to that row's own hero; adjust him independently to match this local scale, not to copy upper-row pixel height. Same full-body uniform scaling including clothing/hair/axe; no selective head or shoulder reshaping. Orc remains larger than hero and clearly smaller than purple ogre.\nPRESERVE the center HERO EXACTLY size, placement, blue coat, hair, anatomy in BOTH rows. PRESERVE the right PURPLE OGRE EXACTLY size, pose, purple colors, body, clothing, club in BOTH rows. Preserve background parchment and grass, labels «ОРК», «ГЕРОЙ», «ОГР», camera, lighting, margins and overall composition. No redesigns, no added items/text/UI. Only these two corresponding orc figure sizes change; feet stay firmly planted and silhouettes complete."
+  }
+}

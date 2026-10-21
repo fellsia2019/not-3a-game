@@ -1,5 +1,122 @@
 # Hero progression
 
+## D-103 — starting vitals and ranked Blink (locally qualified)
+
+Owner accepted100HP/100MP, recovery1HP/s and5MP/s per active simulation second.
+BlinkI/II/III/IV keep four existing ranges, cost100/75/50/25MP and recharge
+5/4/3/2seconds. Actual values live in Stage3HeroProgression. StartingI is free;
+three further point upgrades remain. Blocked/invalid/paused casts spend nothing;
+regen freezes on pause/loss, follows game speed and continues while modal world
+time runs. Retry keeps current vitals; full Reset restores100/100. HP is a real
+starting stat without a current damage source; it does not fake hero combat.
+Existing v4 bars/art remain; Astra binds actual numeric values and fractions.
+
+Debug WTF is explicitly accepted: current active ability Blink casts at0MP and
+0s cooldown. It clears the current cooldown on enabling, never refunds mana,
+keeps collision/pause/UI checks, and clears on full Reset/HUD disable. Ability
+ranks/XP do not change. Normal rank data stays visible in the development page;
+current HUD tooltip reflects the effective debug cost/cooldown.
+
+27EditMode and27PlayMode checks pass, including real driver/HUD WTF on/off,
+pause/invalid landing, mana/regen/retry/reset, explicit debug wave launch and
+strict camera bounds. Native Q confirms ordinary100MP/5s; F3 opens debug.
+Native automated command fixtures exercise consecutive zero-MP casts and first
+night launch. Mouse-click qualification is degraded because the computer-use
+tool cannot dispatch coordinate clicks to this Unity window; it is not claimed
+as passed. Astra approves23HUD/rank/zoom frames. Windows remains unverified.
+Evidence: art/source/hero_vitals_2026-10-20_verification.json.
+
+## D-104 — approved markers; death/recovery locally qualified2026-10-21
+
+Latest owner wording is «Выпавшие вещи» / «E · Забрать вещи». Direction cue is
+compact tooltip + small arrow at any of8bearings, not a large standalone arrow
+or medallion. Current world/map/tooltip proposals are in
+art/concepts/death_recovery_2026-10-20/; latest3approved «Да, внедряй». Main rules/
+binding/tests and Astra native art/presentation are implemented.75sharedPlayMode
+checks PASS;34nativeframes at720/900/1080 AstraPASS, actual keyboardE/I confirms
+pickup. Windows/future exploration enemies remain. Evidence:
+art/source/death_recovery_2026-10-20_verification.json.
+
+Only future exploration enemies hurt the hero; portal-path creeps keep targeting
+throne/blockers. Free death respawn at base portal; lose half XP within current
+level, never levels. Drop only bag instances (including spare gear/documents),
+keep equipped gear/tools. Wallet/resource counters are separate. Recoverable
+body location needs world/map marker and world direction indicator. Owner chose
+this as next separate step with marker concepts before implementation.
+Implementation details: lose floor(currentXP/2), retain level/points/ranks and
+Blink cooldown. Immediate safe base travel-anchor respawn restores HP/MP, without
+unlocking travel research. Every nonempty bag remains recoverable through later
+deaths/throne retries; empty bag creates no false marker; full Reset clears.
+E pickup is exclusive to recovery that frame, release required after death/retry.
+Development F3 death command allows testing without adding exploration enemies.
+No death API/source, corpse store, recovery or respawn was added in D103.
+
+## D-092 gathering first slice — approved and locally qualified2026-10-20
+
+Owner approved both concepts and first rules: «Утверждаю, внедряй через Astra».
+Main implements gameplay and GPT-6 Astra the native Unity page. The approved
+scope is below; exact XP/effect sizes remain trial serialized tuning.
+Local qualification:38PlayMode +17legacy economy EditMode checks passed;
+native mouse spending and nine720/900/1080p Mac frames passed Astra review.
+No new attributable console errors; Windows remains unverified. Sources,
+wiring and evidence: art/source/gatherer_professions_2026-10-20_verification.json.
+«Добытчик» groups two independently advancing professions: Рудокоп (stone and
+metal, equipped pickaxe) and Лесоруб (wood, equipped axe). Mastery cap
+is100 each, separate from hero level and item level. Explorer, production/base
+upgrades and forge scroll sources remain later slices.
+
+Initial XP/points:1profession XP per material unit actually granted by a
+confirmed manual extraction. A35-stock deposit grants35total XP regardless
+of strike count. Stone/metal advance Рудокоп; wood advances Лесоруб. Empty,
+cancelled or out-of-range strikes, forging/refunds and automatic production
+grant none; gathering grants no combat hero XP. Each profession starts at1,
+has its own points, and grants one at mastery5,10,…100 (20total). One point
+buys one talent rank. Stage3Professions.asset is authoritative trial tuning:
+RequiredXp(level) currently starts20 and grows5per mastery level. The shown
+concept140/300 and40/100 are illustrative, not runtime thresholds.
+
+First slice: three talents with three ranks per profession (6nodes/18ranks
+across both). The broader12-node-per-profession budget below stays a future
+proposal; unused points can be retained for future nodes, not silently spent.
+No decorative locked branches or functioning explorer in this UI.
+
+| Talent, independently ranked for each profession | Initial trial effect per rank |
+| --- | --- |
+| Сила удара | +1unit of extraction power, added to actual equipped tool power |
+| Темп работы | +5% work speed, multiplying the actual tool work-speed factor |
+| Досягаемость | +10% allowed interaction gap from the resource edge |
+
+Power = tool power + strength rank. Work duration = node base duration /
+(tool speed × (1 +0.05×tempo rank)). Reach multiplies only the permitted edge
+gap, never resource visual/collision radius; the already comfortable base
+range needs no talent. No matching equipped tool means no extraction even
+with trained talents. No combat/automatic-production effects are implied.
+Yield remains min(power, remaining node stock, wallet room); only actual grant
+earns XP. Depletion/stages/collision use the same stock. Tool/rank/stat changes
+cancel unfinished strikes until release instead of granting early completion.
+
+D-087 retry preserves CURRENT profession XP/points/ranks and current world
+stock; only full Reset starts professions over. Pause/modal/loss suspend work.
+Integration consumes Economy.Gathered(kind,actualGrant), combines item
+and talent facts once, and exposes read-only UI facts. No new global manager,
+currency, package or scene migration is required by this concept.
+
+Approved screen: existing fullscreen O → «Боевые навыки» / «Профессии».
+Left: both professions with independent mastery/numeric orange XP/points.
+Middle: three talent cards and rank indicators. Right: selected talent,
+current→next actual harvest results, one action and read-only equipped tool
+quality/LVL. Learning leaves item quality/level unchanged; forging stays local.
+Keep existing global navigation/wallet/footer. Main owns rules/ImageGen;
+GPT-6 Astra owns appearance. Selected miner_v3/logger_v2 concepts live in
+art/concepts/gatherer_professions_2026-10-20/; prompts/source/rights/review:
+art/source/gatherer_professions_2026-10-20_generation.json.
+
+Implementation acceptance: real held-E awards separate XP only
+for granted material; combined effects consume exact stock and share the same
+interaction ranges across selection/E/marker; spending/cap/overflow/tool swap,
+pause/Reset/retry do not lose or duplicate points; actual O values and native
+720/900/1080p presentation pass tests and Astra visual review.
+
 ## D-085 / D-086 — approved first playable slice
 
 2026-10-19: the owner approved the fullscreen development page, HUD, Blink/XP
@@ -26,7 +143,7 @@ Current contracts:
   inside world bounds and clear of resources/buildings; invalid landings
   consume no cooldown. There is no attack, splash or mana cost.
 - Three personal passives have three ranks each: «Точный удар» adds integer
-  damage to one bow target; «Быстрые руки» improves personal attack cadence;
+  damage to one equipped-weapon target; «Быстрые руки» improves personal attack cadence;
   «Лёгкий шаг» improves walking speed independently of the F3 multiplier.
   Cards show current → next bonuses. They do not improve towers or tools.
 - O is the existing fullscreen development page. The v4 dock keeps minimap,
@@ -52,9 +169,10 @@ Assets/Stage3/HeroProgression/Resources/Stage3HeroProgression.asset. Existing
 Stage2 scenes do not receive the opt-in driver. Combat and mover apply personal
 bonuses without mutating shared catalogs or tower stats.
 
-D-062 checkpoint captures XP, level, points, all ranks and Blink cooldown at
-BeforeWaveStarted. Retry restores these and derived stats without XP/level-up
-reward events; failed-future kills and purchases do not survive restoration.
+D-087 supersedes the active Stage3 rewind: keep current XP/level/points/ranks/
+Blink cooldown and personal stats. Retry clears transient feedback but does not
+replay rewards or restore an old progression snapshot. New kills in repeated
+attempts award normal XP again. Legacy finite fixtures retain old snapshots.
 
 Audio: Resources/Stage3HeroLevelUpSound currently contains only the accepted
 three-part female chord (bone666138, Freesound274121, CC0) and stereo echoes.
@@ -257,11 +375,13 @@ RESOURCE_PRODUCTION_BUILDINGS.md. Ремонт и производственны
 
 ## Checkpoints and first implementation
 
-Уровни, очки, ранги, профессии, мана, заряды, перезарядки и временные эффекты
-принадлежат текущему миру и входят в снимок D-062. Провал не сохраняет XP
-проигранного будущего. Постоянная руна означает постоянство в текущем мире,
-а не roguelite-метапрогрессию. Дневные врата и живые остатки врагов требуют
-расширения checkpoint по PORTAL_CONTROL.md до реализации фарма.
+Уровни, очки, ранги и будущие профессии принадлежат текущему миру.
+D-087 supersedes the active Stage3 D-062 snapshot: retry keeps CURRENT
+XP/points/ranks/equipment/world progress and returns morning for the same
+pending horde. Do not roll back gathering mastery or replay awarded points.
+Legacy finite Stage2 retains its snapshot behavior. Постоянная руна означает
+постоянство в текущем мире, а не roguelite-метапрогрессию. Дневные врата и
+семантика текущего повтора реализованы: PORTAL_CONTROL.md.
 
 По текущему D-085 первый срез использует каталог с пределом 100, блинк,
 первые три предложенные пассивки и проверяемый XP. Дополнительный одиночный
@@ -282,3 +402,15 @@ RESOURCE_PRODUCTION_BUILDINGS.md. Ремонт и производственны
 — опубликованный разработчиком референс раздельного боевого и мирного развития.
 Это источники принципов, а не наших количеств или текущего баланса этих игр.
 WoW/Dota названы владельцем ориентиром управления блинком.
+
+
+## D-089/D-090 weapon integration
+
+The opt-in EquipmentDriver provides actual equipped bow/wand base damage,
+range, cadence and flight. Existing personal passives compose with that profile;
+they do not replace item bonuses or apply to towers. Unequipping the weapon
+halts attacks and preserves its remaining cooldown (no equip-spam free shots).
+The HUD reads effective current stats and actual weapon icon/name. Both weapons
+remain single-target with no new area spell. Forge placement participates in
+existing draft cancellation/Blink ownership. D-087 retry preserves equipped
+items and personal progression independently; full Reset restores starters.

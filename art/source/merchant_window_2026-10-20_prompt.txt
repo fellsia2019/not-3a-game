@@ -1,0 +1,21 @@
+Use case: precise-object-edit / ui-mockup.
+Asset type: fullscreen fantasy MERCHANT WINDOW concept for owner appearance approval.
+INPUT ROLES: Image1 (approved forge interface) is the EDIT TARGET / fullscreen UI TEMPLATE. Preserve its existing Lunar Porcelain shell and typography/material family, while REPLACING ALL forge content with the merchant window specified below. Image2 (approved cobalt-roof city shop) is a REFERENCE ONLY for the sole merchant's appearance and plum/gold scales crest; do NOT put the city painting into the UI background.
+Output: ONE polished full landscape16:9screen, no collage/insets, no world/HUD/minimap behind it.
+
+Preserve shell: ivory parchment/porcelain surfaces, deep plum global navigation and buttons, restrained bronze-gold filigree, small turquoise gems, cyan selected outlines, readable dark-plum Russian text. Keep full-width global header, common resource wallet strip and bottom return strip matching Image1. Remove every forge heading/control/bow/quality ladder/old sidebar. No gear, craft, upgrade or reforge controls remain.
+
+GLOBAL HEADER exact labels: “Инвентарь I”, “Исследования P”, “Развитие героя O”, “Карта M”, “Esc · Закрыть”. No global merchant tab/hotkey.
+WALLET exact values: gold icon “Золото 250”, wood icon “Дерево 0”, stone icon “Камень 0”, metal icon “Металл 0”; right “День 1 · 08:00”.
+BOTTOM return exact label: “Esc · Вернуться в город”.
+
+Main content: THREE carefully spaced columns, left25percent, middle35percent, right40percent. Strong heading hierarchy, ample padding, decorative borders never intersect letters.
+
+LEFT: heading “Торговец”, subtitle “Свитки исследований”. Waist-up portrait of the SAME single male shopkeeper from reference2, cream linen shirt and dark brown waistcoat, approachable middle-aged human. Modest decorative arch with cobalt accents and a small physically framed plum/gold BALANCE-SCALES crest. Portrait is subordinate to merchandise and Buy controls, not a cinematic full body splash. No name/lore/dialogue/reputation options.
+
+MIDDLE: heading “Товары”. EXACTLY ONE generously sized selected product card, cyan outline and pearl surface. Clear icon of rolled parchment tied with cord and a wax seal. Title “Свиток исследования”. Subtitle “Изучается в мастерской”. Gold coin icon with price “150”. No other products, no empty future-product grid, no filter categories, no quantity or stock counters. Give the card enough scale to balance the portrait, while preserving intentional breathing room.
+
+RIGHT: heading “Свиток исследования”, larger image of the SAME parchment roll/seal. Concise readable description exactly: “Приобретите свиток у торговца, затем изучите исследование в своей мастерской”. No invented specific technology/effect. Below, clearly separated purchase area with exact labels “Стоимость”, “150 золота”, “У вас: 250 золота”, and ONE large plum action button “Купить”. Gold250must agree with top wallet. Purchase price150must agree with product card. Button looks enabled.
+No immediate research-completion button, no automatic building/unlock claim.
+
+Constraints: one merchant, one research-scroll example, gold only purchase; no sell/sellback, restock timer, quantity selector, extra currency, equipment catalogue, future locked tabs, quests, text about code/prototype/mock data, faction logos, watermarks. Do not introduce a small floating modal: interface covers entire screen in the existing family. Russian labels must be legible and spelled exactly.

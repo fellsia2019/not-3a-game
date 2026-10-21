@@ -7,6 +7,7 @@ namespace Not3A.Stage3.PlayerInterface
     {
         private void DrawInventory(Rect content)
         {
+            if(equipment!=null){DrawEquipmentInventory(content);return;}
             var s=UiScale;
             var left=new Rect(content.x,content.y,content.width*.31f,content.height);
             var hero=new Rect(content.x+content.width*.33f,content.y,content.width*.36f,content.height);

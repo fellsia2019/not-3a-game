@@ -1,5 +1,322 @@
 # Art Direction
 
+## D116/D117 current implementation,2026-10-21
+
+Implement approved open orc/ogre camp_v2 using standalone original modular kits,
+not concept screenshots or terrain pictures. Main ImageGen; Astra native art/
+layout. Wide open fighting meadow, side/rear prop cluster, broad W/E/S retreat
+lanes. Low painted ground details never become a collision grid.
+Owner returned D115 city AGAIN for layout/structure; its earlier local PASS was
+not owner approval. Separate Astra corrects the actual fixed composition against
+city_v4_open_temple. No random internal layout/filling; every future city has
+its own authored style/plan. Native city review must be explicitly centred and
+include civic space, not a remote frame with the town cropped to one side.
+
+D116/D117 final local review:camp14frames and city15frames pass Astra after
+first native RETURN. Camp derived ground queue2450 stays below sprites; only
+true foreground occlusion enables the existing small hero aperture. Camp PNG
+bytes unchanged, silhouette groups measured at import. City authored civic
+relationships pass, reference illustrative density is not pixel matched.
+Evidence:art/source/world_camps_2026-10-21_verification.json.
+
+## D113/D115 current refinements,2026-10-21
+
+Keep the approved smoke-glass face and painted hand; enlarge dial60->120px at
+900p and raise hand contrast. Recovery cues respect the new top safe edge.
+Research/buildcard use existing teleport icon and native shell; a pinned starter
+record introduces no new inventory art. City correction follows the approved
+city_v4_open_temple, retaining original shop/guild and open temple portal court.
+Camp concept v1 is rejected as enclosed: v2 must emphasize a broad open field,
+widely spaced enemies and several open routes; scenery clusters to the side.
+Main ImageGen, Astra native visual implementation/review. No camp runtime yet.
+
+## D-112 city navigation correction,2026-10-21
+
+Reuse the approved painted city house from Stage3CityArt, framed in ivory/plum.
+M uses icons without «Город»/«Вы здесь» captions after owner refinement;
+D113 removes far-city guidance entirely: minimap shows a house only locally. Keep the north caption/gem and hero marker readable. No new
+bitmap, map style, travel shortcut or discovery glow is introduced. Main owns
+marker lifecycle; Astra owns native presentation. Evidence lives in
+art/source/city_map_2026-10-21_verification.json.
+
+## D110/D111 guild — approved native implementation,2026-10-21
+
+Approved board_f_v1/trial_e_v1/city_v4_open_temple: physical dark wood, pinned
+warm parchment, brass rank shields F…S, personal badge and wax success seals.
+Two visible orders scroll; one next-rank trial is shown first when eligible.
+Both guild and small original temple stay; public portal forecourt has no front
+fences/gates. Latest owner refinement makes the world notice board smaller and
+slightly right of the entrance, decorative only; guild building carries the
+existing interactive contour and opens the menu. No temple quest NPC.
+Orc v5 and matte-purple ogre use separate isolated pose sheets and shared hero
+lighting, original pixels unchanged. Main generated/project-provenance; Astra
+owns native visual implementation and review. Astra native PASS final relocation/board/UI/enemies/arrow at720/900/1080. Source/evidence: art/source/guild_2026-10-21_generation.json and verification.json. Windows remains unverified.
+
+
+## D-107 analog cycle/topHUD — locally qualified2026-10-21
+
+Owner approved thinshapedv2upperedgeHUD with openworldbeneathtaperedbridges,
+compact resourcesleft/day+F3right and centeredWHOLEsmallclock. FinaldialA smoke-
+glass chosen afterv7ratio10:3; noHH:MM. Faceabstractgreyolive/ivory haze to
+nearblack/darkbloodredmiasma with broadsoftduskfade, no radialdivider, scenery
+pictures/ruins/prettyvioletnight. Night3/13≈83degrees, day10/13≈277degrees,
+arrowsteady13minute revolution; exact geometry from Run.DayNightCycleProgress.
+Nativeclock60pxat900p fits inside screen; AstraPASS all25nativephase/UIframes
+at720/900/1080, no visible alpha fringe. Windows remains unverified.
+Astra owns implementation; main ImageGen/data/binding/tests/provenance. Source:
+art/source/cycle_top_hud_2026-10-20_generation.json and runtime.json.
+
+## D-104 death recovery markers — locally qualified,2026-10-20
+
+Owner final label is «Выпавшие вещи», action «E · Забрать вещи». World: grounded
+leather bag with restrained local lavender light and small ivory/silver marker.
+Map: recognizable flap-satchel icon and same label/legend, with minimap variant.
+Owner rejected large pointer: offscreen cue is a small plum/ivory text tooltip
+with a small arrow on destination side,8bearings, clamped away from HUD/top
+cards; hidden when world target is visible. No route/pathfinding, distance units,
+new currencies, gold rarity beam or death runtime is implied. ImageGen source
+and latest3proposals:art/source/death_recovery_2026-10-20_generation.json.
+Owner approved latest3concepts; Astra implemented and approved all34nativeframes.
+Actual E/I pickup verified; Windows unverified. Evidence:
+art/source/death_recovery_2026-10-20_verification.json.
+
+## D-103 — vitals and Blink numerical presentation,2026-10-20
+
+Reuses approved v4 ruby HP/cyan MP tracks with actual current/max numbers and
+fractions; inactive0/0 only without a bound source. Four existing Blink rank
+rows include compact mana/cooldown lines inside safe frame insets. Astra reduced
+only each rank-frame ornament footprint to avoid text/bevel overlap; row52 and
+controls/overall composition remain. Debug WTF reuses the existing button style.
+No new bitmap or external asset. Astra visual PASS on23native HUD/rank/zoom
+frames at720/900/1080. Windows and HUD-safe corner visibility remain unqualified;
+strict viewport bounds pass. Evidence:
+art/source/hero_vitals_2026-10-20_verification.json.
+
+## D-102 — research workshop and known documents, implemented2026-10-20
+
+Owner approved ImageGen window_v2 three-column layout and known_merchant_v1/
+known_history_v1. Astra implements native fixed4x3 research grid,14% paper inset,
+upright original D101 paper art and native RomanII/III. No blueprint equipment
+rank/LVL. Shared known marker is a small silver/teal check inside the cell's upper
+right corner, separate from cyan selection; details use «Изучено» pill. Study
+consumes paper, history retains knowledge and shows «Чертёж израсходован» with
+disabled «Изучено». No new quality palette or UI stack. Astra visual PASS on all
+18Mac native frames across720/900/1080; Windows unverified. Source/approval and
+runtime asset provenance: art/source/research_workshop_2026-10-20_generation.json,
+art/source/research_blueprints_2026-10-20_runtime.json. QA:
+art/source/research_blueprints_2026-10-20_verification.json.
+
+## D-101 magical blueprint base — owner approved,2026-10-20
+
+Latest owner correction: use the SAME COLOR/TEXTURE/DRAFTING PATTERN of the earlier
+paper concepts, but a normal straight rectangular sheet fitted to the cell, with
+no tilt or unfolded wings. The later modern white architectural-sheet mockup was
+also rejected. The original A_v2 warm aged ivory/amber material and plum ink are
+the style reference; do not replace it with plain white architectural paper.
+Do not treat the modern poster drawing as approved. A/B technical CONCEPT
+PASS and white-v1 direction review are historical, not appearance approval.
+
+Two approved functional categories are opening new content (a tower/weapon or
+construction access) and improving existing content. Owner approved the cyan
+four-point spark seal and muted brass upward chevron in the same upper-left
+position in rect_categories_shop_v3; previous lock/house/C/D examples stay rejected.
+Blueprints DO NOT use equipment F–SSS or independent item LVL1–100. For upgrades,
+a number denotes the TARGET BUILDING LEVEL, e.g. forge→II/III. Mentions ofIV/V
+are explanatory examples, not new building caps or approved current items.
+
+All inventory/trade cells have ONE FIXED square size, fixed row pitch and fixed
+metadata budget. Any sheet/label/symbol must fit its cell; content must never
+enlarge a row, shift cells below or shrink other items. Preserve aspect and at
+least12%visible inset. Judge future concepts in ordinary trade cells plus detail.
+Main ImageGen/Astra direction-review ownership remains. Owner resumed the concept:
+one merchant-context study uses four equal neutral cells, tower/wand openings
+and forge-II/III upgrades, with A_v2 as material reference. Approved marks are a
+cyan four-point spark seal and muted brass upward chevron at the same upper-left
+location. Only upgrades carry target-stage II/III; no F–SSS/LVL or quality frames.
+Owner approved these marks and appearance with «апрув». The view contains blueprint examples
+only to remove distracting equipment metadata; actual shop stock is untouched.
+Current output is blueprint_rect_categories_shop_v3.png. Narrow ImageGen edits
+restore equal neutral6×5cells/safe-fit and replace the copied ring device with a
+recognisable forge furnace/chimney/anvil in both upgrade sheets and centre.
+All generated mockups and
+price100/QA wallet are illustrative, not native runtime evidence or new shop goods.
+No Unity asset/import/wiring changes in this slice. Prepare standalone runtime
+art/imports and a ready gameplay brief next; this approval does not assign stock,
+prices, unlocks, consumption or changes to current forge counters/stage caps.
+Source: art/source/research_blueprints_2026-10-20_generation.json.
+
+## D-100 merchant — approved layout implementation,2026-10-20
+
+Owner requested native implementation of the approved dual-inventory window.
+Use D096 buy/sell layout with two large grids/compact portraits/central selected
+item and gold-only wallet; old v3 sample colors are superseded by current D097
+actual painted quality skins and64safe visible bounds. Astra implements native
+existing-stack UI and reuses existing hero portrait, city merchant head crop and
+painted scales badge. No new bitmap, currency or illustrative stock is added.
+Astra final native PASS on21frames at720/900/1080: round portraits, proper five-row
+scroll clipping, safe-centred icons, quality/cyan distinction and readable long
+disabled reason. Windows unverified; CITY_AND_TRADE owns rules/data.
+Evidence: art/source/merchant_2026-10-20_verification.json.
+
+## D-095 first city —concept preparation,2026-10-20
+
+Three substantially different fantasy settlements, consistent with cartoonB and
+the approved forge/workshop. Astra owns direction/review; main uses ImageGen.
+Show an entrance, walkable streets and one readable active merchant; residents
+are ambient. Fixed elevated orthographic view, grounded human scale and clear
+foreground sightlines remain required. Astra concept PASS all3; owner selected A:
+orange terracotta gables, cream plaster/timber, open square and visible merchant.
+Images: art/concepts/city_2026-10-20/. Simplify fine decoration for actual scale;
+edge water/counts are illustrative. No scene/runtime art or additional NPC service
+is approved by the studies.
+Owner requested a larger city and a distinctive permanent shop, replacing the
+tent. A_v2's orange-roof shop blended into housing and was rejected. Astra's A_v3
+proposal keeps orange residential roofs but gives the sole shop a broad cobalt
+hipped roof/brass ridge, open trading front, attached large scales crest and clean
+paved apron. Owner approved A_v3; preserve this city identity.
+Brief: features/CITY_AND_TRADE.md.
+
+D-098 historical city proposal A_v5 adds one thin light-turquoise outer shop contour,
+a compact painted plum-enamel/gold scales medallion above the roof with a clear
+air gap, and one white/silver-cyan/lilac ground seal on free paving off the gate
+axis. Keep only the merchant marked, preserve the orange/cobalt architecture,
+and reuse the original paired teleport seal for runtime. A_v4 oversized cues
+were reduced/repositioned by ImageGen. Astra concept PASS A_v5; the owner then
+requested and approved A_v6, whose integration supersedes this placement below.
+Source/prompt/rights: art/source/city_2026-10-20_generation.json.
+
+D-099 supersedes A_v5 portal placement: current A_v6 has a modest pale-stone
+temple at the left city edge and the sole ground seal in its quiet walkable
+side court; old square paving is restored. Temple has no new NPC/service/icon.
+Shop cues, orange/cobalt identity and main streets remain. Shared menu v1 uses
+a Lunar Porcelain panel on subdued city context, current/selected opened rows,
+arrival preview, route and one travel action; no wallet/tabs/fake destinations.
+Astra concept PASS both; owner approved implementation. Astra built native
+Lunar Porcelain UI and modular city sprites/tiled streets, preserving original
+ImageGen PNG bytes. Rounded courts/connected streets and green pockets replace
+the first rectangular paving pass; ground draw order avoids terrain holes.
+The city seal uses a light contact outline on paving; the base's previous
+grass treatment stays current. Arrival previews fit fully inside thin frames.
+Local evidence:16native city/menu frames at720/900/1080p, Astra final review in
+art/source/city_runtime_2026-10-20_verification.json. Windows remains unverified.
+UI source/prompt: art/source/teleport_menu_2026-10-20_generation.json. The preview
+illustration does not approve a new base layout. WORLD_TELEPORTS owns behavior.
+
+## D-097 global item quality — source-skin correction implemented, 2026-10-20
+
+The approved 64-item catalogue is the appearance authority, not merely a palette.
+Owner rejected the first procedural implementation's flat dark fills/thick gold
+bars. Match painted multitone illumination, engraved texture, fine shaped metal
+rims and local luminous edges. Preserve distinct green D/blue C, polished amber/
+gold S and radiant plum/gold SSS; cyan selection stays separate, icons stay crisp.
+
+Main used ImageGen editing of the approved original to prepare eight empty skins.
+Astra asset PASS, then direct raster integration in the existing shared renderer:
+measured UVs, complete textured centres and fine surrounding frame patches.
+No generated plates/rails/stars remain. Generic/empty cells stay neutral; actual
+item atlas/world art and layout/input are unchanged. The native correction must
+be judged against the original picture, not only label readability or absence
+of errors. Merchant runtime remains pending. EQUIPMENT_AND_RUNES.md owns scope.
+Source/rights: art/source/item_quality_cells_2026-10-20_skins_generation.json.
+Qualification: art/source/item_quality_cells_2026-10-20_verification.json.
+Astra strict-reference PASS: 27 Mac frames at720/900/1080p, no visible seams,
+cut ornaments or overlaps. Tiny HUD cells simplify engraving detail while
+preserving hue/edge/radiance. Windows and final owner response remain open.
+
+Safe-area revision: centre each actual visible item silhouette inside a consistent
+safe rectangle, preserving aspect and a proportional gap to frame ornaments.
+Helmet/arms/legs must not inherit vertical drift from transparent source padding;
+bows must not touch the metal edge. Apply to all 64 type/rank combinations and
+every actual item view. Source skins/art/held-world pivots remain current.
+
+## D-096 merchant window —concept active,2026-10-20
+
+Reuse Lunar Porcelain fullscreen shell, plum global navigation, pearl/ivory panels,
+bronze filigree and cyan selection. Astra owns composition; main uses ImageGen.
+Merchant/scales identity relates to the approved cobalt-roof shop. Clear catalogue,
+owned gold, selected item description/price and Buy action. No gameplay HUD beneath
+the window or new remote-trade shortcut. Goods/prices are illustrative until a
+ready trade brief; appearance approval precedes runtime visuals.
+Owner rejected the large portrait/single-card storefront. V2 must show two large
+item grids simultaneously, player bag left/merchant right, small medallion
+identities, compact selected-item/contextual buy-or-sell area. Main inspected
+BG3/DOS2 screens; take layout principles, no copied artwork/extra game systems.
+Latest owner correction hides wood/stone/metal in merchant wallet, retaining only
+gold. Global quality markings D097 apply to both grids; scrolls carry no ranks/LVL.
+
+## D-094 throne reinforcement —reuse D078 presentation,2026-10-20
+
+Reuse the approved long selected-building card. One health stat, upgrade count,
+next price/result and disabled cap; no second HP bar, larger dome or new asset.
+Damage/fracture/shake already reads current/effective max HP. Main owns live
+data binding; Astra reviews the resulting native card/defeat states.
+
+## D-093 generator upgrades —reuse D078 presentation,2026-10-20
+
+No new appearance or art: keep existing generator sprites, pads/footprints,
+HUD and selected-card geometry. Existing title/subtitle/stats/upgrade price/
+preview fields now carry actual production levels and rates. Astra reviewed
+17native Mac frames with final visual PASS:3types at1/2/5, prices and unfunded
+at900p, maximum over construction HUD at720/1080p. No clipping or new layout
+revision needed. Tower-only level badges remain tower-only. No new ImageGen
+asset or screenshot background added. Evidence: production_upgrades_2026-10-20_verification.json.
+
+## D-092 gathering professions —owner approved2026-10-20
+
+Keep current native Lunar Porcelain fullscreen O, plum global navigation,
+wallet/footer. Add inner «Боевые навыки»/«Профессии» tabs. Astra selects three
+columns: profession cards left, three large talent cards centre, selected
+talent/current→next harvest facts right with one action and a read-only actual
+equipped tool. Each profession has its own mastery1–100, numeric orange XP
+and points. Cyan marks selection; three circles show ranks. Only Рудокоп
+(pickaxe/stone/metal) and Лесоруб (axe/wood). No world HUD or hero/armor redress.
+Tool F/LVL1 stays the same before/after a talent; no future tool, forge-quality
+ladder or resource/gold price. Selected concepts: gatherer_miner_v3 and
+gatherer_logger_v2; earlier versions are superseded corrections. Numbers are
+examples. Main used built-in ImageGen from owned native/progression references;
+prompts/source hashes/rights/review:
+art/source/gatherer_professions_2026-10-20_generation.json. Owner approved
+both and requested Astra implementation. Native layout/text/tracks use existing
+UI assets; only eight ImageGen medallions are imported as a4×2 alpha atlas.
+Runtime derivation/source/rights: gatherer_professions_2026-10-20_runtime.json.
+
+## D-091 equipped appearance correction —2026-10-20
+
+Repair the actual hero's bow/pickaxe/axe only; retain existing clothing/armor
+appearance. Bow quality family/palette stays approved, with physically correct
+straight string and facing-specific projection/grip. Work poses use additive
+tool-free body layers and the actual equipped tool quality as a separate item,
+not a baked starter or duplicate head. Main uses built-in ImageGen for targeted
+repairs from owned sources; Astra owns import/registration and actual visual QA.
+Original HeroArt and body/idle/walk/armor sources remain intact. Inventory left
+bag excludes equipped objects, which are represented in the loadout slots.
+
+## D-089 equipment and forge concepts — owner approved,2026-10-19
+
+Owner requests ImageGen inventory/forge-building/fullscreen-forge concepts.
+Initially one basic item per type; quality changes its actual materials/form/
+ornament from primitive brown to refined red/gold, not just frame tint. Eight
+qualities F/E/D/C/B/A/S/SSS; numerical1–100 is separate. No elemental/named
+families or100 icon versions. Sword is an illustrative example, not a new combat
+implementation. D-090 replaces staff with short wand and removes shield/slot.
+Bow/wand, four armor parts and separate tools are current coverage. The sheet
+uses bow/pickaxe/helmet at the sameLVL1. Inventory has five combat slots plus
+separate axe/pickaxe. Earlier shield compatibility is no longer a decision. Existing Lunar Porcelain
+shell, heroC and fixed orthographic world architecture guide the proposals.
+Forge has a compact open work bay, visible anvil/furnace, timber/cream stone/
+terracotta and a clear approach; no NPC or late celestial palace is approved.
+Forge fullscreen separates Create, numerical level and quality reforging;
+E→D leavesLVL12 unchanged. Owner explicitly approves all four selected concepts:
+«Утверждаю все четыре». Their layouts, building appearance and shown quality
+lineage/palette are accepted; stat numbers remain illustrative, prices unspecified.
+Selected versions: inventory_items_v2, forge_building_v1, forge_interface_v2,
+item_quality_progression_v1. No new approval of these same designs is needed.
+Four selected original PNGs/provenance/prompts:
+art/source/equipment_forge_2026-10-19_generation.json.
+Runtime derivatives are imported byte-identically; Astra implements the approved
+inventory/forge screens, world cutout and held weapon. No UI stack/scene migration.
+Source prompts/hashes/import ownership: art/source/equipment_forge_2026-10-19_runtime.json.
+
 ## D-085 approved progression / D-086 level-up revision, 2026-10-19
 
 Keep the existing fullscreen O shell and approved Lunar Porcelain HUDv4, with

@@ -28,7 +28,9 @@ namespace Not3A.Stage3.VisualPilot
         public void BeginWorkshopPlacement()
         {
             if (!ConstructionAllowed || state.WorkshopBuilt) return;
-            game.Building.CancelPlacement(); game.Production?.CancelPlacement(); CancelWorkshopPlacement();
+            game.Building.CancelPlacement(); game.Production?.CancelPlacement(); CancelConstructionPlacement();
+            GetComponent<Stage3Dwelling>()?.CancelPlacement();GetComponent<Stage3Forge>()?.CancelPlacement();
+            PlacementStarting?.Invoke();
             IsPlacingWorkshop = true; confirmRequiresRelease = true; requiresRelease = true;
             game.Gathering.SetProductionBuildMode(true);
             if (workshopPreviewMaterial == null) workshopPreviewMaterial = Stage2PlacementVisuals.Material(true);
@@ -61,6 +63,7 @@ namespace Not3A.Stage3.VisualPilot
                 return WorkshopPlacementResult.InvalidGround;
             point = SnapWorkshop(point);
             var area = PlacementArea(point); var map = scene.MapDefinition;
+            if(OverlapsCity(area))return WorkshopPlacementResult.Occupied;
             var min = map.WorldToCell(area.min); var max = map.WorldToCell(area.max);
             for (var y = min.y; y <= max.y; y++) for (var x = min.x; x <= max.x; x++)
             {
@@ -116,7 +119,7 @@ namespace Not3A.Stage3.VisualPilot
         private void DisableConstructionInput()
         {
             confirmWorkshop?.Dispose(); cancelWorkshop?.Dispose(); confirmWorkshop = cancelWorkshop = null;
-            CancelWorkshopPlacement();
+            CancelConstructionPlacement();
         }
         private void ReleaseConstructionMaterials()
         {

@@ -24,6 +24,31 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: f5138de7cf1a34147875ca1a7d6c0660, type: 3}
     visualWidth: 3
     footprintSize: {x: 1.4, y: 0.8}
+    upgrades:
+    - cost:
+        wood: 12
+        stone: 6
+        metal: 0
+        gold: 10
+      outputAmount: 2
+    - cost:
+        wood: 24
+        stone: 12
+        metal: 0
+        gold: 25
+      outputAmount: 3
+    - cost:
+        wood: 48
+        stone: 24
+        metal: 0
+        gold: 60
+      outputAmount: 4
+    - cost:
+        wood: 96
+        stone: 48
+        metal: 0
+        gold: 140
+      outputAmount: 5
   - building: 1
     displayName: "\u041A\u0430\u043C\u0435\u043D\u043E\u043B\u043E\u043C\u043D\u044F"
     woodCost: 5
@@ -35,6 +60,31 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 4891673c41f3e44c3b91bf03cb637981, type: 3}
     visualWidth: 2.8
     footprintSize: {x: 1.4, y: 0.8}
+    upgrades:
+    - cost:
+        wood: 10
+        stone: 12
+        metal: 0
+        gold: 10
+      outputAmount: 2
+    - cost:
+        wood: 20
+        stone: 24
+        metal: 0
+        gold: 25
+      outputAmount: 3
+    - cost:
+        wood: 40
+        stone: 48
+        metal: 0
+        gold: 60
+      outputAmount: 4
+    - cost:
+        wood: 80
+        stone: 96
+        metal: 0
+        gold: 140
+      outputAmount: 5
   - building: 2
     displayName: "\u0416\u0435\u043B\u0435\u0437\u043D\u0430\u044F \u0448\u0430\u0445\u0442\u0430"
     woodCost: 6
@@ -46,4 +96,29 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: d81b5b566e6c44b1eb0dfd6afdb668bd, type: 3}
     visualWidth: 2.8
     footprintSize: {x: 1.4, y: 0.8}
+    upgrades:
+    - cost:
+        wood: 12
+        stone: 16
+        metal: 6
+        gold: 10
+      outputAmount: 2
+    - cost:
+        wood: 24
+        stone: 32
+        metal: 12
+        gold: 25
+      outputAmount: 3
+    - cost:
+        wood: 48
+        stone: 64
+        metal: 24
+        gold: 60
+      outputAmount: 4
+    - cost:
+        wood: 96
+        stone: 128
+        metal: 48
+        gold: 140
+      outputAmount: 5
   spriteMaterial: {fileID: 2100000, guid: 9f0c9dc121241944e9892c77fdb19dda, type: 2}

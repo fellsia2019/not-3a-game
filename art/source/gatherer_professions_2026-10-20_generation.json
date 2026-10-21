@@ -1,0 +1,112 @@
+{
+  "date": "2026-10-20",
+  "task": "Gatherer first-slice mechanics and ImageGen profession UI concepts",
+  "status": "Owner approved both selected concepts and first-slice mechanics; implementation authorized2026-10-20",
+  "generation_mode": "Built-in image_gen__imagegen; no CLI/API fallback",
+  "visual_owner": "GPT-6 Astra: composition and final concept visual review",
+  "selected": [
+    {
+      "path": "art/concepts/gatherer_professions_2026-10-20/gatherer_miner_v3.png",
+      "sha256": "3f87ac83ee78da50d2e4761e86c300731b26f95513c27f1baab1513288ceaa34",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "path": "art/concepts/gatherer_professions_2026-10-20/gatherer_logger_v2.png",
+      "sha256": "a22fd2477a9279ac90194c5a9d62c0bbd1d5da669139fbdd3ca70f5c07c075cd",
+      "width": 1672,
+      "height": 941
+    }
+  ],
+  "references": [
+    {
+      "path": "Artifacts/S3-EQUIPMENT-VISIBLE-20261020/native-final/final-empty-bag-starters-only.png",
+      "sha256": "09ea8278fbaaff0b5d0170ee20485ff18335423acb490e6f76d31ec0bc590876",
+      "role": "Owned current native UI identity: fullscreen shell, color, spacing, navigation"
+    },
+    {
+      "path": "art/concepts/hero_progression_2026-10-19/hero_progression_fullscreen_v1.png",
+      "sha256": "8ce7e72d612c46ba269d287d006dfa9ce90d21eab59d397b2c10037aef0732ec",
+      "role": "Owned approved development-page skill/rank medallion reference"
+    }
+  ],
+  "rights": "AI-generated derivatives from project-owned native UI/art and prior approved project ImageGen artwork. No third-party game image/audio was imported, traced or sampled. No separate CC0 claim. Concept images are not installed as runtime assets.",
+  "canonical_spec": "gamedesign/features/HERO_PROGRESSION.md — Gatherer first-slice proposal, owner review pending",
+  "rules_proposal": {
+    "professions": [
+      "Рудокоп: stone+metal, pickaxe",
+      "Лесоруб: wood, axe"
+    ],
+    "mastery_cap": 100,
+    "xp": "1 profession XP per actual manually granted material unit; no combat XP or automatic-production XP",
+    "points": "1 independent point at mastery5,10,...100; exact XP curve pending calibration",
+    "first_nodes": "3 per profession,3 ranks each;6 nodes/18 ranks total, future full-tree budget remains proposal",
+    "strength": "+1 extraction power per rank added to equipped tool",
+    "tempo": "+5% work-speed per rank multiplying tool speed",
+    "reach": "+10% permitted edge interaction gap per rank, no collision/visual-radius scaling",
+    "retry": "D087 preserves CURRENT XP/points/ranks; only full Reset starts over",
+    "balance": "All displayed XP/current character values illustrative; no runtime balance change"
+  },
+  "astra_review": {
+    "result": "PASS for selected miner_v3/logger_v2 concepts; not human approval",
+    "corrections": [
+      "Logger XP fill enlarged from early inaccurate draft",
+      "Miner tool-power breakdown separated from talent bonus; upgrade CTA clarified",
+      "Logger tempo icon changed from residual pickaxe to axe"
+    ],
+    "criteria": [
+      "Same existing Lunar Porcelain O shell",
+      "Two professions, separate mastery/XP/points",
+      "Three first talents with3 rank indicators",
+      "Actual equipped F1 tool unchanged by talent purchase",
+      "Miner1+(2→3) yields3→4, unchanged.76s",
+      "Logger tempo0→1: .80/1.05≈.76s, extraction remains1",
+      "No new currency/equipment/forge ladder/hero armor changes"
+    ],
+    "limitations": "Raster XP fills are illustrative, not pixel-exact native tracks; actual responsive720/900/1080p layout and gameplay tests wait for implementation."
+  },
+  "verification": {
+    "files": "Selected generated PNGs copied unchanged into workspace; SHA256 recorded",
+    "code_review": "Inspected Economy.Gathered actual grant, tool stats and current equipment driver; no runtime edits",
+    "tests": "Not rerun for concept/documentation-only work",
+    "build": "Not rebuilt; running ordinary build retained"
+  },
+  "generations": [
+    {
+      "version": "gatherer_miner_v1.png",
+      "prompt": "Use case: ui-mockup\nAsset type: single fullscreen in-game profession talent screen, landscape 16:9, polished production concept.\nCreate the profession-page revision of our OWN fantasy game's approved fullscreen development screen. Image 1 is the CURRENT inventory UI reference: retain its cream porcelain background, dark plum top navigation bar, restrained silver/rose-metal filigree, tiny turquoise stones, warm readable typography. Image 2 is the approved hero progression screen, reference for skill medallions, rank circles and spacing only. This is a new page WITHIN the existing Development O section, not a new app or new UI style. Do not reproduce the hero or inventory items.\nExact upper navigation: \"Инвентарь I\" | \"Исследования P\" | selected \"Развитие героя O\" | \"Карта M\" | \"Esc · Закрыть\".\nExisting thin wallet underneath: \"Золото 5\", \"Дерево 0\", \"Камень 0\", \"Металл 0\", far right \"День 1 · 08:00\", with existing material icons.\nNext row heading \"Развитие\" and two inner tabs: inactive \"Боевые навыки\", selected \"Профессии\". Content uses the entire screen with THREE columns roughly24%,40%,36%; generous but efficient spacing. No world HUD visible while fullscreen page is open.\nLEFT COLUMN heading \"Профессии\": exactly TWO large vertical profession cards, each has a medallion and distinct own progress. Selected \"Рудокоп\", subtitle \"Камень и металл\", pickaxe icon; text \"Мастерство 20 / 100\", orange numerical experience track \"XP 140 / 300\", \"Очки профессии: 1\". Unselected \"Лесоруб\", subtitle \"Дерево\", axe icon; text \"Мастерство 5 / 100\", orange numerical experience track \"XP 40 / 100\", \"Очки профессии: 1\". Selected card cyan outline and small diamond, unselected subdued plum/cream. Do not add third profession.\nMIDDLE COLUMN heading \"Таланты рудокопа\": exactly THREE broad vertical skill cards with original hand-painted medallion icons and3small rank circles each. Top SELECTED card \"Сила удара\", subtitle \"Больше ресурса за удар\", rank \"2 / 3\",2filled cyan rank circles1empty; icon pick striking rock. Second card \"Темп работы\", subtitle \"Быстрее завершает удар\", rank \"1 / 3\",1filled2empty; icon pick and a curved motion trail. Third card \"Досягаемость\", subtitle \"Удобнее доставать до залежи\", rank \"0 / 3\",all3empty; icon pick beside a small measured reach arc. No long sprawling branching graph, no locked future skills, no duplicated learn buttons here.\nRIGHT COLUMN heading \"Сила удара\", small rank transition \"Ранг 2 → 3\". One-line description \"Извлекает больше камня и металла за удар.\" Detailed current-to-next table:\n\"Добыча за удар\" \"3 → 4 ед.\"\n\"Время удара\" \"0,76 → 0,76 с\"\n\"Бонус досягаемости\" \"0 → 0%\"\nHighlight ONLY changed3→4in cyan, unchanged rows muted.\nBelow table a readable explanation: \"Инструмент: 1  +  Талант: 2 → 3\". Then one wide plum button \"Изучить · 1 очко\".\nBelow with a clear divider is a compact READ-ONLY actual tool card: heading \"Надето\", a single primitive iron PICKAXE with wood/leather grip, \"Кирка\", silver small quality badge \"F\" and \"LVL 1 / 100\". No second tool or future upgraded icon. This talent does not reforge or change equipped item.\nBottom quiet explanatory line \"Мастерство растёт за добытый материал\". Existing footer \"O · Закрыть     Esc · Вернуться в игру\"; tiny bottom right \"Эскиз · Числа предварительные\".\nText must be legible accurate RUSSIAN Cyrillic. Keep body labels large enough for1280×720. Flat orthographic UI, no perspective display or physical monitor, no branding or watermark. Calm tactile cream panels, slim elegant ornamented frames, dark plum text/buttons, turquoise selection, orange XP. No dark gritty/gothic style, no giant gold ornament, no combat XP/HP/MP, no gold costs for profession points, no new resources, no sword/shield, no extra tabs, no character redressing. Distinguish professional mastery20from toolLVL1.",
+      "output": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-e21cadaa-4a95-484c-ae09-15910fc05d2e.png",
+      "status": "superseded: logger XP fill too short; ambiguous breakdown/CTA",
+      "sha256": "f0c068a9e1cf1bea04b80449a4f2f27e292c3973a4fde4cfded82eaa106515d3"
+    },
+    {
+      "version": "gatherer_miner_v2.png",
+      "prompt": "Use case: precise-object-edit\nAsset type: final profession-page concept revision.\nEdit this one owned fullscreen game UI image with MINIMAL changes. Keep ALL current composition, typography, Russian text, card selection, tool illustration, colors, silver/plum/cyan ornament, upper/lower navigation, rank values and table values exactly unchanged.\nCorrect the two numeric experience-track fill amounts so their geometry matches the adjacent numbers: selected Рудокоп XP140/300 must fill precisely46.7percent of usable track width from its left inside edge, and unselected Лесоруб XP40/100 must fill precisely40percent. Both remain orange-to-amber filled segments over plum empty tracks. In the current image the lower Лесоруб fill is too short: extend it to40percent. Do not change either XP number or mastery number to compensate.\nAlso make the table's label for the last row explicitly \"Бонус досягаемости\", retaining \"0 → 0%\". Retain the single actual equipped Кирка F LVL1/100 card and one learn button, current rank2→3 and harvest3→4. No other edits or new elements. Landscape16:9, accurate legible Cyrillic.",
+      "output": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-366a2ec7-ddb0-49d2-abbe-7ea0b18ab6d5.png",
+      "status": "superseded: clarify breakdown and upgrade CTA",
+      "sha256": "b795f2c4c9c72746f96bf49a17821f37c1edcfc40e92599e0aeb9c67b8d035a9"
+    },
+    {
+      "version": "gatherer_miner_v3.png",
+      "prompt": "Use case: text-localization\nAsset type: final approved-style fullscreen profession concept.\nChange ONLY TWO TEXT AREAS in the attached owned game UI; preserve all remaining pixels, layout, icon artwork, XP fills, numeric values, selections, frames, colors and navigation.\n1. The small explanatory line above the right learn button currently says \"Инструмент: 1 + Талант: 2 → 3\". Replace it with TWO short centered lines \"Сила кирки: 1\" and \"Бонус таланта: +2 → +3\". Use the same quiet plum font small enough to fit without touching table/button; enough room between them. This clearly shows the tool itself does not change.\n2. The right plum purchase button currently says \"Изучить · 1 очко\". Change to \"Улучшить · 1 очко\" because this is rank2→3.\nAll other text exact and unchanged. In particular actual harvest total remains3→4, mastery20/100, XP140/300with46.7%fill and loggerXP40/100with40%fill. Preserve16:9fullpage.",
+      "output": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-74e87631-90ab-4314-a6a4-b0ddee6c3664.png",
+      "status": "Selected and owner approved; Astra native implementation authorized",
+      "sha256": "3f87ac83ee78da50d2e4761e86c300731b26f95513c27f1baab1513288ceaa34"
+    },
+    {
+      "version": "gatherer_logger_v1.png",
+      "prompt": "Use case: precise-object-edit\nAsset type: second state of the SAME fullscreen profession concept, landscape16:9.\nSwitch the attached own game profession UI to its LOGGER tab and select the work-tempo talent. Preserve EXACT same panel geometry, background, typography sizes, cream/plum/silver/cyan visual identity, wallet, top global navigation, inner \"Профессии\" tab and footer. This is one page in a different state, NOT a new style.\nLEFT: Рудокоп now UNSELECTED. Keep its data Мастерство20/100, XP140/300 with46.7percent orange fill, Очки профессии:1. Лесоруб now SELECTED with turquoise outline. Keep its data Мастерство5/100, XP40/100 with40percent orange fill, Очки профессии:1.\nCENTRE heading becomes \"Таланты лесоруба\". Keep exactly three cards and original three-rank presentation. All three logger talents currently rank0/3(all circles empty).\nTop \"Сила удара\", subtitle \"Больше дерева за удар\", original painted AXE striking log icon, rank\"0 / 3\". Not selected.\nMiddle SELECTED \"Темп работы\", subtitle \"Быстрее завершает замах\", AXE with curved cyan motion trail icon, rank\"0 / 3\".\nBottom \"Досягаемость\", subtitle \"Удобнее доставать до дерева\", axe beside reach-arc icon, rank\"0 / 3\". Not selected.\nRIGHT heading \"Темп работы\", small \"Ранг 0 → 1\". Description \"Ускоряет рубку дерева.\" Same comparison table rows:\n\"Добыча за удар\" \"1 → 1 ед.\" muted, unchanged\n\"Время удара\" \"0,80 → 0,76 с\" highlight changed0.76in cyan\n\"Бонус досягаемости\" \"0 → 0%\" muted, unchanged\nBelow table two short centered breakdown lines \"Темп топора: 100%\" and \"Бонус таланта: +0 → +5%\". Wide plum CTA becomes \"Изучить · 1 очко\".\nRead-only tool card heading \"Надето\"; replace pickaxe with ONE primitive steel AXE with wooden/leather grip, name\"Топор\", quality\"F\", \"LVL 1 / 100\". No future item or equipment changes.\nKeep bottom explanatory line \"Мастерство растёт за добытый материал\", existing footer and \"Эскиз · Числа предварительные\". Text must remain accurate legible Russian. No added hero, no bag, no third profession, no new resource/currency, no forge progression buttons or quality upgrades. Orange XP fills MUST match46.7%and40%.",
+      "output": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-7ed36d22-c5fe-432d-8796-705007a44b8b.png",
+      "status": "superseded: tempo skill still showed pickaxe, replaced with axe",
+      "sha256": "d874caacfc7bb8760a0d9fbc66ebaf7d3d00a2274ba86311942798bf92875e03"
+    },
+    {
+      "version": "gatherer_logger_v2.png",
+      "prompt": "Use case: precise-object-edit\nAsset type: local two-detail repair of own profession UI concept.\nEdit ONLY the selected MIDDLE skill medallion in centre column and the lower left XP bar. Preserve all other text, values, layout, frames, icons, selection, color palette, tool equipment and navigation unchanged.\nThe selected \"Темп работы\" skill for Лесоруб incorrectly contains a two-ended PICKAXE. Replace that single medallion's TOOL with an AXE, clearly identifiable as a wood-handled hatchet with ONE broad triangular curved steel blade on one side of the handle. Use the same actual primitive AXE silhouette as the existing \"Надето: Топор\" card at bottom right, with no pointed pick head on either end. Preserve the sweeping cyan circular motion trail, plum circle background and same silver/cyan round frame. The icon must read as an AXE for chopping WOOD at a glance.\nThe lower-left logger XP track says40/100: extend orange fill to exactly40percent of its usable width; about four tenths, not one third. Keep upper140/300trackunchanged.\nDo not change any numbers, labels or remaining illustrations. Top talent axe/log stays; third talent axe stays; read-only F1axe stays. No extra tool, no hammer, no character, no quality change. Accurate Russian UI as original.16:9.",
+      "output": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-c2b57441-fe98-4be1-bff7-cf8b30e96de6.png",
+      "status": "Selected and owner approved; Astra native implementation authorized",
+      "sha256": "a22fd2477a9279ac90194c5a9d62c0bbd1d5da669139fbdd3ca70f5c07c075cd"
+    }
+  ],
+  "owner_approval": "Утверждаю, внедряй через Astra"
+}

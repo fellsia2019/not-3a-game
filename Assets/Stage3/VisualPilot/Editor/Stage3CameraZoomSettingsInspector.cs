@@ -16,6 +16,8 @@ namespace Not3A.Stage3.VisualPilot.Editor
                 "Двигайте ползунок во время игры и сразу пробуйте колесо. " +
                 "Настройка сохранится после выхода из Play Mode.", MessageType.Info);
             EditorGUILayout.Slider(multiplier, 1.05f, 3f, new GUIContent("Сила за шаг"));
+            EditorGUILayout.Slider(serializedObject.FindProperty("maximumDistanceMultiplier"), 1f, 5f,
+                new GUIContent("Предел отдаления ×"));
             if (serializedObject.ApplyModifiedProperties()) AssetDatabase.SaveAssets();
             EditorGUILayout.LabelField("Текущее значение", $"×{multiplier.floatValue:0.00}");
             EditorGUILayout.Space();

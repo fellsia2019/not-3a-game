@@ -1,0 +1,15 @@
+Use case: precise-object-edit.
+Asset type: Unity RPG UI quality-cell skin atlas.
+Input image 1 is the edit target and already owner-approved project artwork, not an optional mood reference.
+
+Edit the supplied approved 64-item quality catalogue. Extract and reconstruct the EXACT painted empty cell skins from its eight quality columns. This is faithful asset extraction and object removal, not a redesign. Remove the equipment and lettering, reconstructing the background previously hidden behind each item.
+
+Deliver one clean 4-by-2 atlas of eight equal square UI cell skins. Top row: F, E, D, C. Bottom row: B, A, S, SSS. Do not print those labels. Target 2048x1024, each tile512x512. Each cell has approximately32pixels of transparent outer margin. All frames use consistent aligned bounds. Keep the painted interiors opaque; outside the frame and its contained glow use genuine transparency, not a checkerboard image.
+
+Match the original cell artwork precisely: fine multitone painted texture, subtle engraved pattern, diagonal illumination, darker edge shading, thin layered metallic rims, small ornate jewellery-like corner joints. The metal rim should be slender (roughly10–14pixels on a512pixel tile), not a wide block or rail. Preserve the rich brown, graphite-grey, saturated green, royal blue, purple and ruby-red interiors from the original F through A columns. Do not replace them with uniform colour fills.
+
+S must reproduce the original rich amber-to-near-black background and slender polished-gold rim, with fine bright reflections and dark amber depth. No broad yellow bars or chunky bevels.
+
+SSS must reproduce the original dark plum-to-violet luminous background and delicate ornate gold frame, bright white-gold light filament, controlled local golden radiance and irregular small sharp glints. Keep the cell and frame crisp. Glow fades completely before each tile boundary. No uniform thick white frame, no fog over the interior, and no three mechanically placed floating stars.
+
+All eight skins remain completely EMPTY: no items, silhouettes, shadows left by removed items, letters, numbers, labels, selected-state cyan, outer page decoration or connecting grid lines between tiles. Preserve the approved original visual treatment rather than introducing a new style. Do not make pastel flat blocks or generic vector rounded rectangles. Preserve true alpha outside each skin and all gradients/texture inside.

@@ -17,7 +17,7 @@ namespace Not3A.Stage3.PlayerInterface
             new Rect(MapRecenterRect.x-55f*UiScale,MapRecenterRect.y,44f*UiScale,44f*UiScale);
         public Rect MapZoomOutRect => ActiveWindow!=Stage3PlayerWindow.Map ? Rect.zero :
             new Rect(MapZoomInRect.x-55f*UiScale,MapZoomInRect.y,44f*UiScale,44f*UiScale);
-        public float MapZoom { get; private set; } = 3f;
+        public float MapZoom { get; private set; } = 1f;
         public Vector2 MapCenter => scene == null ? Vector2.zero : scene.MapDefinition.CellCoordinatesToWorld(mapCenterCells);
 
         private void InitializeMapView()
@@ -34,7 +34,7 @@ namespace Not3A.Stage3.PlayerInterface
             mapDragging = false;
             ResetMapTouchInput();
         }
-        private void ReleaseMapView() { ReleaseMapDrag(); mapSource = null; mapInitialized = false; mapMarkerStyle = null; }
+        private void ReleaseMapView() { ReleaseMapDrag(); mapSource = null; guildMapSource=null; mapInitialized = false; mapMarkerStyle = null; }
 
         public void RecenterMap()
         {
@@ -114,20 +114,14 @@ namespace Not3A.Stage3.PlayerInterface
                     if (mapSource.DistrictTerrain != null) DrawMapTerrain(terrainRect,mapSource.DistrictTerrain);
                     foreach (var marker in mapSource.Markers)
                     {
+                        if (marker.Kind == Stage2MinimapMarkerKind.City) continue;
                         var p = WorldToLargeMapPoint(marker.World) - MapViewportRect.position;
                         if (p.x < 0 || p.y < 0 || p.x > MapViewportRect.width || p.y > MapViewportRect.height) continue;
                         DrawWorldMapMarker(p, marker.Kind, s);
                     }
-                    foreach (var marker in mapSource.Markers)
-                    {
-                        if (marker.Kind != Stage2MinimapMarkerKind.Hero) continue;
-                        var p = WorldToLargeMapPoint(marker.World) - MapViewportRect.position;
-                        if (p.x < 0 || p.y < 0 || p.x > MapViewportRect.width || p.y > MapViewportRect.height) continue;
-                        var badge = new Rect(Mathf.Clamp(p.x+22f*s,8f*s,MapViewportRect.width-104f*s),
-                            Mathf.Clamp(p.y+18f*s,8f*s,MapViewportRect.height-34f*s),96f*s,26f*s);
-                        Fill(badge,PlumInk);
-                        PaleLabel(Inset(badge,3f*s),"Вы здесь",14,TextAnchor.MiddleCenter);
-                    }
+                    DrawGuildMapMarkers();
+                    DrawRecoveryMapMarkers();
+                    DrawCityLargeMapMarker();
                 }
                 finally { GUI.EndGroup(); }
             }
@@ -157,7 +151,15 @@ namespace Not3A.Stage3.PlayerInterface
                 DrawWorldMapMarker(new Vector2(x,y+22f*s),legendKinds[i],s*.8f);
                 Label(new Rect(x+20f*s,y,84f*s,44f*s),legendNames[i],14,TextAnchor.MiddleLeft);
             }
-            Label(new Rect(408f*s,y,Mathf.Max(10f,MapZoomOutRect.x-432f*s),44f*s),
+            var recoveryLegend=recoveryArt!=null&&recoveryView?.Drops!=null&&recoveryView.Drops.Length>0;
+            if(recoveryLegend)
+            {
+                DrawIcon(new Rect(370f*s,y+8f*s,28f*s,28f*s),recoveryArt.MapIcon);
+                Label(new Rect(406f*s,y,148f*s,44f*s),RecoveryCaption,14,TextAnchor.MiddleLeft);
+            }
+            var hintX=(recoveryLegend?568f:408f)*s;
+            Label(new Rect(hintX,y,Mathf.Max(10f,MapZoomOutRect.x-hintX-16f*s),44f*s),
+                recoveryLegend?"Перетаскивание · Обзор     Колесо · Масштаб":
                 "Перетаскивание / 2 пальца · Обзор     Колесо / Pinch · Масштаб",14,TextAnchor.MiddleCenter,true);
         }
 

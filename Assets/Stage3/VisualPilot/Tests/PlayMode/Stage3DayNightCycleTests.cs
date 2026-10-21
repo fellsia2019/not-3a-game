@@ -76,27 +76,27 @@ namespace Not3A.Stage3.VisualPilot.Tests
         private void ClearNight()
         {
             var run = game.RunDriver.Run; Assert.That(run.IsNight, Is.True);
-            run.Tick(60f); Assert.That(run.SpawningFinished, Is.True);
+            run.Tick(run.NightDuration); Assert.That(run.SpawningFinished, Is.True);
             for (var i = game.Enemies.ActiveCount - 1; i >= 0; i--)
             {
                 var enemy = game.Enemies.GetEnemy(i); enemy.SetAutomaticTick(false); enemy.TakeDamage(enemy.Health);
             }
-            Assert.That(run.IsDay, Is.True);
-            Assert.That(run.PreparationRemaining, Is.EqualTo(1200f));
+            Assert.That(run.Phase, Is.EqualTo(Stage2RunPhase.Preparation));
+            Assert.That(run.IsNightTime, Is.False, "A streaming night can only finish at/after dawn.");
         }
 
-        [UnityTest] public IEnumerator DayIsTwentyActiveMinutesAndSpaceCannotStartNightRemotely()
+        [UnityTest] public IEnumerator DayIsTenActiveMinutesAndSpaceCannotStartNightRemotely()
         {
             var run = game.RunDriver.Run;
-            Assert.That(run.PreparationRemaining, Is.EqualTo(1200f));
-            run.SetPaused(true); run.Tick(1200f); Assert.That(run.IsDay, Is.True);
-            Assert.That(run.PreparationRemaining, Is.EqualTo(1200f));
+            Assert.That(run.PreparationRemaining, Is.EqualTo(600f));
+            run.SetPaused(true); run.Tick(600f); Assert.That(run.IsDay, Is.True);
+            Assert.That(run.PreparationRemaining, Is.EqualTo(600f));
             game.RunDriver.enabled = true; run.SetPaused(false);
             input.Press(Keyboard.current.spaceKey); yield return null; yield return null;
             Assert.That(run.IsDay, Is.True);
             input.Release(Keyboard.current.spaceKey); game.RunDriver.enabled = false; game.SetPaused(false);
             run.Tick(run.PreparationRemaining - 1f); Assert.That(run.IsDay, Is.True);
-            run.Tick(1f); Assert.That(run.IsNight, Is.True);
+            run.Tick(1.001f); Assert.That(run.IsNight, Is.True);
             Assert.That(game.Enemies.ActiveCount, Is.EqualTo(1));
             yield return null;
         }
@@ -166,7 +166,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             input.Release(Mouse.current.leftButton);
         }
 
-        [UnityTest] public IEnumerator LocalRestSkipsOnlyDayAndDoesNotAwardSkippedProductionOrRecovery()
+        [UnityTest] public IEnumerator HomeSleepStopsBeforeNightWithoutSkippedProductionOrRecovery()
         {
             BuildHome();
             var production = game.Production;
@@ -189,33 +189,39 @@ namespace Not3A.Stage3.VisualPilot.Tests
             scene.PlayerMover.transform.position += Vector3.right * 10f;
             Assert.That((bool)Call("TrySkipDay"), Is.False, "Rest requires the real doorway.");
             scene.PlayerMover.transform.position = Get<Vector2>("InteractionPosition");
+            var time = game.RunDriver.Run.WorldMinutes;
             Assert.That((bool)Call("TrySkipDay"), Is.True);
-            Assert.That(game.RunDriver.Run.IsNight, Is.True);
+            Assert.That(game.RunDriver.Run.WorldMinutes, Is.GreaterThan(time));
+            Assert.That(game.RunDriver.Run.ClockHour, Is.EqualTo(19));
+            Assert.That(game.RunDriver.Run.ClockMinute, Is.EqualTo(50));
+            Assert.That(game.RunDriver.Run.IsDay, Is.True);
             Assert.That(building.ProgressSeconds, Is.EqualTo(progress));
             Assert.That(node.RecoveryRemaining, Is.EqualTo(recovery));
             Assert.That(new[] { inventory.Get(MapResourceKind.Wood), inventory.Get(MapResourceKind.Stone), inventory.Get(MapResourceKind.Metal) }, Is.EqualTo(resources));
             Assert.That((bool)Call("TrySkipDay"), Is.False);
-            Assert.That(game.Enemies.ActiveCount, Is.EqualTo(1));
+            Assert.That(game.Enemies.ActiveCount, Is.Zero);
             yield return null;
         }
 
-        [UnityTest] public IEnumerator HeldRestInputCannotSkipNextDayAndLaterNightsContinueGrowing()
+        [UnityTest] public IEnumerator HeldHomeSleepCannotStartNightAndLaterNightsContinueGrowing()
         {
             BuildHome(); scene.PlayerMover.transform.position = Get<Vector2>("InteractionPosition");
             input.Release(Keyboard.current.eKey); yield return null;
             input.Press(Keyboard.current.eKey); yield return null; yield return null;
-            Assert.That(game.RunDriver.Run.IsNight, Is.True);
-            ClearNight(); yield return null; yield return null;
-            Assert.That(game.RunDriver.Run.IsDay, Is.True, "Held E from last night must not skip a new day.");
+            Assert.That(game.RunDriver.Run.IsDay, Is.True);
+            Assert.That(game.RunDriver.Run.ClockHour, Is.EqualTo(19));
+            Assert.That(game.RunDriver.Run.ClockMinute, Is.EqualTo(50));
+            Assert.That((bool)Call("TrySkipDay"), Is.False);
+            Stage3TestCycle.StartNight(game.RunDriver.Run); ClearNight();
             input.Release(Keyboard.current.eKey); yield return null;
-            var counts = new int[4];
-            for (var night = 0; night < counts.Length; night++)
+            var tiers = new int[4];
+            for (var night = 0; night < tiers.Length; night++)
             {
-                counts[night] = game.RunDriver.Run.WaveEnemyCount;
-                Assert.That((bool)Call("TrySkipDay"), Is.True); ClearNight();
+                Assert.That(Stage3TestCycle.StartNight(game.RunDriver.Run), Is.True);
+                tiers[night] = game.Enemies.GetEnemy(0).ThreatLevel; ClearNight();
                 Assert.That(Get<bool>("IsBuilt"), Is.True);
             }
-            Assert.That(counts, Is.EqualTo(new[] { 120, 240, 300, 360 }));
+            Assert.That(tiers, Is.EqualTo(new[] { 2, 3, 4, 5 }), "Timed nights increase difficulty, not a finite spawn quota.");
             Assert.That(game.RunDriver.Run.WaveNumber, Is.EqualTo(6));
             Assert.That(game.RunDriver.Run.IsTerminal, Is.False);
         }
@@ -229,11 +235,11 @@ namespace Not3A.Stage3.VisualPilot.Tests
             var run = game.RunDriver.Run;
             var lighting = game.GetComponent("Stage3DayNightPresentation");
             Assert.That(lighting, Is.Not.Null);
-            Assert.That(run.StartWave(), Is.True);
+            Assert.That(Stage3TestCycle.StartNight(run), Is.True);
             for (var i = 0; i < game.Enemies.ActiveCount; i++) game.Enemies.GetEnemy(i).SetAutomaticTick(false);
             yield return new WaitForSeconds(.65f);
             Assert.That((float)lighting.GetType().GetProperty("NightAmount").GetValue(lighting), Is.GreaterThan(.95f));
-            run.Tick(1200f);
+            run.Tick(run.NightDuration);
             for (var i = 0; i < game.Enemies.ActiveCount; i++) game.Enemies.GetEnemy(i).SetAutomaticTick(false);
             Assert.That(run.ClockHour, Is.EqualTo(8));
             Assert.That(run.IsNightTime, Is.False);
@@ -242,14 +248,16 @@ namespace Not3A.Stage3.VisualPilot.Tests
             input.Press(Keyboard.current.eKey);
             yield return new WaitForSeconds(.65f);
             Assert.That((float)lighting.GetType().GetProperty("NightAmount").GetValue(lighting), Is.LessThan(.05f));
-            Assert.That(run.StartWave(), Is.False);
+            Assert.That(Stage3TestCycle.StartNight(run), Is.False);
             Assert.That(run.WaveNumber, Is.EqualTo(1));
             Assert.That(game.Enemies.ActiveCount, Is.EqualTo(run.WaveEnemyCount));
             for (var i = game.Enemies.ActiveCount - 1; i >= 0; i--)
             { var enemy = game.Enemies.GetEnemy(i); enemy.TakeDamage(enemy.Health); }
             yield return null; yield return null;
             Assert.That(run.IsDay, Is.True, "Held E from combat must not skip the newly earned preparation.");
-            Assert.That(run.PreparationRemaining, Is.EqualTo(1200f));
+            // StartNight crosses the clock boundary by1ms; continuous time keeps
+            // that remainder rather than rounding the world's clock backwards.
+            Assert.That(run.PreparationRemaining, Is.EqualTo(600f).Within(.01f));
             input.Release(Keyboard.current.eKey);
         }
 

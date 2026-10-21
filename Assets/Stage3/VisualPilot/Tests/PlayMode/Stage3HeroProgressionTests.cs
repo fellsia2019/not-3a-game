@@ -86,6 +86,58 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Assert.That(damage, Is.EqualTo(combatCatalog.AttackDamage + 1)); Assert.That(splash, Is.Zero);
             Assert.That(combat.CooldownRemaining, Is.LessThan(combatCatalog.FireInterval));
         }
+
+        [TestCase(1,100,5)] [TestCase(2,75,4)] [TestCase(3,50,3)] [TestCase(4,25,2)]
+        public void EachBlinkRankSpendsItsManaAndStartsItsOwnCooldown(int rank,int cost,float cooldown)
+        {
+            Assert.That(rules.Health,Is.EqualTo(100));Assert.That(rules.MaximumHealth,Is.EqualTo(100));
+            Assert.That(rules.Mana,Is.EqualTo(100));Assert.That(rules.MaximumMana,Is.EqualTo(100));
+            rules.AwardExperience(int.MaxValue);for(var i=1;i<rank;i++)Assert.That(rules.TryUpgradeBlink(),Is.True);
+            Assert.That(rules.BlinkManaCost,Is.EqualTo(cost));Assert.That(rules.BlinkCooldownDuration,Is.EqualTo(cooldown));
+            Assert.That(rules.TryBlink(Vector2.zero,Vector2.right,_=>false,out _),Is.False);
+            Assert.That(rules.Mana,Is.EqualTo(100));Assert.That(rules.BlinkCooldownRemaining,Is.Zero);
+            var nested=true;
+            Assert.That(rules.TryBlink(Vector2.zero,Vector2.right,_=>
+                {nested=rules.TryBlink(Vector2.zero,Vector2.up,p=>true,out _);return true;},out _),Is.True);
+            Assert.That(nested,Is.False);Assert.That(rules.Mana,Is.EqualTo(100-cost));Assert.That(rules.BlinkCooldownRemaining,Is.EqualTo(cooldown));
+        }
+        [Test] public void ManaRegeneratesAtFivePerActiveSecondAndCannotCastEarlyOrOverflow()
+        {
+            rules.TryBlink(Vector2.zero,Vector2.right,_=>true,out _);rules.Tick(10,false);
+            Assert.That(rules.Mana,Is.Zero);Assert.That(rules.BlinkCooldownRemaining,Is.EqualTo(5));
+            rules.Tick(5,true);Assert.That(rules.Mana,Is.EqualTo(25));Assert.That(rules.BlinkCooldownRemaining,Is.Zero);
+            var called=false;Assert.That(rules.TryBlink(Vector2.zero,Vector2.right,_=>{called=true;return true;},out _),Is.False);
+            Assert.That(called,Is.False);Assert.That(rules.Mana,Is.EqualTo(25));
+            rules.Tick(14.9f,true);Assert.That(rules.CanBlink,Is.False);rules.Tick(.1f,true);
+            Assert.That(rules.Mana,Is.EqualTo(100).Within(.001));Assert.That(rules.CanBlink,Is.True);
+            rules.Tick(10000,true);Assert.That(rules.Mana,Is.EqualTo(100));
+        }
+        [Test] public void SnapshotAndResetCarryVitalValuesAndObserversSeeTheRestoredState()
+        {
+            rules.TryBlink(Vector2.zero,Vector2.right,_=>true,out _);rules.Tick(3.5f,true);
+            var snapshot=rules.CaptureSnapshot();rules.Reset();Assert.That(rules.Mana,Is.EqualTo(100));
+            var observed=-1f;rules.Changed+=()=>observed=rules.Mana;rules.RestoreSnapshot(snapshot);
+            Assert.That(rules.Mana,Is.EqualTo(17.5f));Assert.That(observed,Is.EqualTo(17.5f));Assert.That(rules.Health,Is.EqualTo(100));
+        }
+        [Test] public void UpgradingBlinkDoesNotRewriteTheActiveCastCooldown()
+        {
+            rules.TryBlink(Vector2.zero,Vector2.right,_=>true,out _);rules.AwardExperience(100);Assert.That(rules.TryUpgradeBlink(),Is.True);
+            Assert.That(rules.BlinkCooldownDuration,Is.EqualTo(4));Assert.That(rules.BlinkCooldownTotal,Is.EqualTo(5));
+            Assert.That(rules.BlinkCooldownRemaining,Is.EqualTo(5));Assert.That(catalog.HealthPerSecond,Is.EqualTo(1));
+            rules.Tick(1000,true);Assert.That(rules.Health,Is.EqualTo(100));Assert.That(rules.Mana,Is.EqualTo(100));
+        }
+        [Test] public void WtfCastsWithoutManaOrCooldownAndOffAndResetRestoreOrdinaryRules()
+        {
+            rules.TryBlink(Vector2.zero,Vector2.right,_=>true,out _);Assert.That(rules.Mana,Is.Zero);
+            rules.SetWtfForTesting(true);Assert.That(rules.BlinkCooldownRemaining,Is.Zero);
+            for(var i=0;i<3;i++)Assert.That(rules.TryBlink(Vector2.zero,Vector2.right,_=>true,out _),Is.True);
+            Assert.That(rules.Mana,Is.Zero);Assert.That(rules.BlinkCooldownRemaining,Is.Zero);
+            Assert.That(rules.BlinkRank,Is.EqualTo(1));Assert.That(rules.AvailablePoints,Is.Zero);
+            rules.SetWtfForTesting(false);Assert.That(rules.CanBlink,Is.False);rules.Tick(20,true);
+            Assert.That(rules.TryBlink(Vector2.zero,Vector2.right,_=>true,out _),Is.True);Assert.That(rules.Mana,Is.Zero);
+            Assert.That(rules.BlinkCooldownRemaining,Is.EqualTo(5));rules.SetWtfForTesting(true);rules.Reset();
+            Assert.That(rules.WtfForTesting,Is.False);Assert.That(rules.Mana,Is.EqualTo(100));
+        }
     }
 
     public sealed class Stage3HeroProgressionTests
@@ -156,25 +208,26 @@ namespace Not3A.Stage3.VisualPilot.Tests
             yield return null;
         }
 
-        [UnityTest] public IEnumerator FailedWaveRestoresXpPointsRanksCooldownAndPersonalStatsWithoutAwardEvents()
+        [UnityTest] public IEnumerator FailedWaveKeepsCurrentXpPointsRanksCooldownAndPersonalStatsWithoutAwardEvents()
         {
             var rules = driver.Rules;
             rules.AwardExperience(driver.Catalog.RequiredXp(1) + 7); Assert.That(rules.TryUpgradePassive(Stage2HeroPassive.PreciseStrike), Is.True);
             var origin = FindClear(new Vector2(110, 110)); scene.PlayerMover.transform.position = origin;
             Assert.That(driver.TryBlink(FindNear(origin)), Is.True); driver.Tick(.5f);
             var remaining = rules.BlinkCooldownRemaining;
-            Assert.That(Run.StartWave(), Is.True);
+            Assert.That(Stage3TestCycle.StartNight(Run), Is.True);
             rules.AwardExperience(2000); rules.TryUpgradeBlink(); rules.TryUpgradePassive(Stage2HeroPassive.LightStep); driver.Tick(30);
+            var level = rules.Level; var xp = rules.XpWithin; var points = rules.AvailablePoints; var blinkRank = rules.BlinkRank;
             for (var i = 0; i < 30 && !Run.IsTerminal; i++)
             { var enemy = game.Enemies.SpawnAt(scene.MapDefinition.Throne); enemy.SetAutomaticTick(false); enemy.Tick(.01f); }
             Assert.That(Run.Phase, Is.EqualTo(Stage2RunPhase.Lost));
             var awards = 0; rules.ExperienceGained += _ => awards++;
             Assert.That(Run.RetryFailedWave(), Is.True);
-            Assert.That(rules.Level, Is.EqualTo(2)); Assert.That(rules.XpWithin, Is.EqualTo(7)); Assert.That(rules.AvailablePoints, Is.Zero);
-            Assert.That(rules.BlinkRank, Is.EqualTo(1)); Assert.That(rules.PassiveRank(Stage2HeroPassive.LightStep), Is.Zero);
+            Assert.That(rules.Level, Is.EqualTo(level)); Assert.That(rules.XpWithin, Is.EqualTo(xp)); Assert.That(rules.AvailablePoints, Is.EqualTo(points));
+            Assert.That(rules.BlinkRank, Is.EqualTo(blinkRank)); Assert.That(rules.PassiveRank(Stage2HeroPassive.LightStep), Is.EqualTo(1));
             Assert.That(rules.DamageBonus, Is.EqualTo(driver.Catalog.DamagePerRank));
             Assert.That(game.HeroCombat.Rules.EffectiveDamage, Is.EqualTo(game.HeroCombat.Catalog.AttackDamage + rules.DamageBonus));
-            Assert.That(rules.BlinkCooldownRemaining, Is.EqualTo(remaining)); Assert.That(awards, Is.Zero);
+            Assert.That(rules.BlinkCooldownRemaining, Is.Zero); Assert.That(awards, Is.Zero);
             Assert.That(Run.PreparationRemaining, Is.EqualTo(Run.PreparationDuration));
             Assert.That((bool)Read(game.GetComponent("Stage3HeroLevelUpPresentation"), "IsPlaying"), Is.False);
             yield return null;
@@ -229,6 +282,35 @@ namespace Not3A.Stage3.VisualPilot.Tests
             purchase(0); yield return null;
             Assert.That(driver.Rules.PassiveRank(Stage2HeroPassive.PreciseStrike), Is.EqualTo(1));
             Assert.That((int)view.GetType().GetField("WeaponDamage").GetValue(view), Is.EqualTo(game.HeroCombat.Rules.EffectiveDamage));
+        }
+
+        [UnityTest] public IEnumerator LiveManaMatchesHudFreezesOnPauseAndCurrentRetryDoesNotRefundBlink()
+        {
+            var rules=driver.Rules;Assert.That(rules.Health,Is.EqualTo(100));Assert.That(rules.Mana,Is.EqualTo(100));
+            var origin=FindClear(new Vector2(110,110));scene.PlayerMover.transform.position=origin;
+            Assert.That(driver.TryBlink(FindNear(origin)),Is.True);Assert.That(rules.Mana,Is.Zero);
+            driver.Tick(1);game.SetPaused(true);driver.Tick(10);Assert.That(rules.Mana,Is.EqualTo(5));
+            game.SetPaused(false);yield return null;
+            var view=Read(game.GetComponent("Stage3FantasyHud"),"HeroProgressionView");
+            Assert.That((float)view.GetType().GetField("Mana").GetValue(view),Is.EqualTo(5));
+            Assert.That((int)view.GetType().GetField("MaximumMana").GetValue(view),Is.EqualTo(100));
+            Assert.That(Stage3TestCycle.StartNight(Run),Is.True);
+            for(var i=0;i<10&&!Run.IsTerminal;i++){var enemy=game.Enemies.SpawnAt(scene.MapDefinition.Throne);enemy.SetAutomaticTick(false);enemy.Tick(.01f);}
+            Assert.That(Run.RetryFailedWave(),Is.True);Assert.That(rules.Mana,Is.EqualTo(5));Assert.That(rules.Health,Is.EqualTo(100));
+            game.RunDriver.ResetRun();Assert.That(rules.Mana,Is.EqualTo(100));
+        }
+        [UnityTest] public IEnumerator DebugWtfUsesActualDriverAndHudAndCannotBypassPauseOrBlockedLanding()
+        {
+            var tools=game.GetComponent<Stage2GameHud>();var origin=FindClear(new Vector2(110,110));scene.PlayerMover.transform.position=origin;
+            var target=FindNear(origin);Assert.That(driver.TryBlink(target),Is.True);Assert.That(driver.Rules.Mana,Is.Zero);
+            tools.SetWtfMode(true);Assert.That(tools.WtfMode,Is.True);yield return null;
+            var view=Read(game.GetComponent("Stage3FantasyHud"),"HeroProgressionView");
+            Assert.That((int)view.GetType().GetField("BlinkManaCost").GetValue(view),Is.Zero);
+            Assert.That((float)view.GetType().GetField("BlinkCooldownDuration").GetValue(view),Is.Zero);
+            game.SetPaused(true);Assert.That(driver.TryBlink(origin),Is.False);game.SetPaused(false);
+            Assert.That(driver.TryBlink(new Vector2(float.NaN,0)),Is.False);Assert.That(driver.TryBlink(origin),Is.True);
+            Assert.That(driver.TryBlink(target),Is.True);Assert.That(driver.Rules.Mana,Is.Zero);Assert.That(driver.Rules.BlinkCooldownRemaining,Is.Zero);
+            tools.enabled=false;Assert.That(tools.WtfMode,Is.False);
         }
 
         private Vector2 FindClear(Vector2 centre)

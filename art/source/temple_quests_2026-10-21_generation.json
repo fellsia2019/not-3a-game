@@ -1,0 +1,65 @@
+{
+  "date": "2026-10-21",
+  "decision": "D-109",
+  "status": "Owner requested revision (Нужна доработка); specific changes are being clarified. V1 is not approved.",
+  "tool": "built-in image_gen.imagegen",
+  "model": "Tool-managed; not separately selected",
+  "prompt_file": "art/source/temple_quests_2026-10-21_v1_prompt.json",
+  "ownership": {
+    "main": "ImageGen/provenance, active brief and future gameplay integration",
+    "visual": "GPT-6 Astra direction/review and later approved visual implementation"
+  },
+  "accepted_intent": [
+    "Click temple NPC to open a quest-selection/receiving window.",
+    "Distinct open-world camp/ruin spots, current orcs and ogres in separate spots.",
+    "Goblins and other undead are future content examples only."
+  ],
+  "references": [
+    {
+      "path": "art/concepts/research_workshop_2026-10-20/window_v2.png",
+      "role": "Approved own-project fullscreen Lunar Porcelain style/layout vocabulary",
+      "sha256": "ce4b67da58b8cb713a9aed8c571e4bc8e5075d9d303cd3d84d61d710976b3018"
+    },
+    {
+      "path": "art/concepts/quest_npc_world_enemies_2026-10-21/temple_mage_v2.png",
+      "role": "Approved temple mage portrait identity",
+      "sha256": "2284b5b3d352f9e93d2b38a6244d430ba79f28373491135d7c93a29ff5c9df57"
+    },
+    {
+      "path": "art/concepts/quest_npc_world_enemies_2026-10-21/orc_ogre_comparison_v5.png",
+      "role": "Approved orc and purple ogre appearances",
+      "sha256": "a2aff295826a976c43d2f7e7adaf13ad3868a325aa4e07b80f1bb9670ad76d27"
+    }
+  ],
+  "source_and_rights": {
+    "origin": "Original ImageGen artwork derived only from original own-project images; no external game artwork copied/traced.",
+    "runtime_ready": false,
+    "reason": "Static UI concept, not native UI or modular camp/quest assets."
+  },
+  "images": [
+    {
+      "path": "art/concepts/temple_quests_2026-10-21/window_v1.png",
+      "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-e4e9106d-936c-46c7-8706-f368aaa5e21d.png",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "bytes": 1855735,
+      "sha256": "0fe0c715a50f0667154ad87af5ccb4f697fae21582d01f5b77a7a61f43d35681",
+      "appearance_approved": false
+    }
+  ],
+  "verification": {
+    "main": "Inspected complete fullscreen composition, two equal separate quest cards, selected objective/place and one accept action; no reward values/counters or new enemy types.",
+    "astra": "CONCEPT PASS. Cards/readability/selection/detail/action/safe zones and shared Lunar shell accepted for owner review. Left column wider than numeric brief is acceptable.",
+    "limitation": "Palisade, tower, flags/emblems in artwork band are generated illustrative scenery, not approved modular camp/environment, faction lore or runtime assets. Quest names/objective text are illustrative, not final quest rules.",
+    "native_qa": false,
+    "code_tests": "Not applicable: concept/docs only, no Unity/runtime changes."
+  },
+  "remaining": [
+    "Clarify requested changes, revise quest-window concept, then obtain owner appearance approval.",
+    "Ready quest/world-enemy brief: objectives, rewards, population/respawn, acceptance/completion/turn-in/repeat rules and navigation.",
+    "Then approved visual implementation by Astra, gameplay integration by main and runtime verification."
+  ],
+  "supersession": "D110/D111 cancel temple mage/quest window. Enemy orc v5/purple ogre approval retained; city now both guild and open temple teleport court."
+}

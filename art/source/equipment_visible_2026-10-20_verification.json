@@ -1,0 +1,76 @@
+{
+  "date": "2026-10-20",
+  "decision": "D091",
+  "status": "PASS: 20 unique latest PlayMode checks, final native controls and world/inventory review",
+  "changes": [
+    "Quality-specific physically correct bow projection and hand grip; upright neutral front carry in world and inventory hero.",
+    "Additive tool-free work poses plus actual equipped axe/pickaxe quality, one detached tool during harvesting.",
+    "Inventory bag excludes all equipped items; equip/replace/unequip moves same owned ID between bag and loadout.",
+    "Existing clothing/armor appearance, item stats/costs, scenes/packages and original HeroArt/body/idle/walk assets preserved."
+  ],
+  "tests": {
+    "initial": "10/10 passed. Extended phase test initially had an NUnit constraint overload compile typo; fixed before execution.",
+    "regression": "20/20 passed: equipped world bow/tool quality, clear-edge phases0–5, pause/unequip/restore, real forge/pay/equip/retry, bag replacement/no loss, motion, startup and combat.",
+    "finalNarrow": "4/4 passed after upright front/paperdoll refinement (bow facings, bag lifecycle, startup).",
+    "uniqueLatest": 20,
+    "failed": [],
+    "results": [
+      "Artifacts/S3-EQUIPMENT-VISIBLE-20261020/regression-final.xml",
+      "Artifacts/S3-EQUIPMENT-VISIBLE-20261020/front-bag-final.xml"
+    ]
+  },
+  "visual": {
+    "astraWorld": "PASS for F/S bow four facings; both tools F/S neutral/raised/contact/recovery from actual gathering, physical clear approaches. Original side-cell feet clipping corrected by extending only crop to transparent gutter y280, pivot/PPU unchanged.",
+    "nativeFirst": "Initial native controls/tools passed; horizontal front bow was rejected on visual review and replaced by upright carry. Use native-final images as final appearance evidence.",
+    "captures": "Artifacts/S3-EQUIPMENT-VISIBLE-20261020/playmode",
+    "native": "Artifacts/S3-EQUIPMENT-VISIBLE-20261020/native",
+    "setup": "PlayMode and native fixture explicitly grant F/S items through future-loot API and pose/reposition camera/hero for QA; no ordinary loot or free startup items. Native clock/combat stopped only in disposable QA. Normal startup still3F1equipped, bag empty.",
+    "nativeFinal": "PASS native I: equip S bow removes it from bag, returns replaced F bow; unequip clears loadout and hero overlay and returns S bow, re-equip restores. Actual held E wood/metal captures verify S axe/pick windup/contact and return to bow. FullReset screenshot verifies empty bag/3equipped F1 starters. Final upright bow shape/registration replaces horizontal-front candidate.",
+    "nativeFinalDirectory": "Artifacts/S3-EQUIPMENT-VISIBLE-20261020/native-final",
+    "evidence": "Artifacts/S3-EQUIPMENT-VISIBLE-20261020/native-final/verification.txt",
+    "astraFinal": "Final visual PASS on9native-final frames: F/S upright bow at hand in I/world, chest/slots unobstructed; loadout items absent from bag, empty bag message correct; equipped tools/whole feet/no baked duplicate; clothing/HUD preserved. No remaining blockers."
+  },
+  "remaining": [
+    "No armor redressing or hero HP/protection in this correction.",
+    "Windows player unverified; local editor lacks Windows module.",
+    "Existing future loot/forge-scroll sources/runes/disk-save remain deferred."
+  ],
+  "source": "art/source/equipment_visible_2026-10-20_generation.json",
+  "build": {
+    "result": "Succeeded",
+    "target": "StandaloneOSX development player",
+    "path": "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app",
+    "bytes": 629319823,
+    "log": "Artifacts/S3-EQUIPMENT-VISIBLE-20261020/build-final.log"
+  },
+  "evidenceFiles": [
+    {
+      "path": "Artifacts/S3-EQUIPMENT-VISIBLE-20261020/regression-final.xml",
+      "sha256": "2fbf7ceb84ece851aa058bcaca75eb508122eb20dbdaf07e30fb3869e481b1ec"
+    },
+    {
+      "path": "Artifacts/S3-EQUIPMENT-VISIBLE-20261020/front-bag-final.xml",
+      "sha256": "9297b6ba695705e540873f76d9831b8855cfda3691be68a86edc5954e66473a4"
+    },
+    {
+      "path": "Artifacts/S3-EQUIPMENT-VISIBLE-20261020/build-final.log",
+      "sha256": "11195f43831e809b7c40fceec7f3566a644a625ae313660da2bf74859b5a00b5"
+    },
+    {
+      "path": "Artifacts/S3-EQUIPMENT-VISIBLE-20261020/native-final/verification.txt",
+      "sha256": "4616d2aa3636d682435c4afb4263834c816f9cdd681446185fffa201a5dc2b4b"
+    },
+    {
+      "path": "Artifacts/S3-EQUIPMENT-VISIBLE-20261020/native-final/02-native-S-bow-inventory.png",
+      "sha256": "926143d1f06e3cad6fde73ad820479e2469e34dc92fe7aa7754b4171d988544b"
+    },
+    {
+      "path": "Artifacts/S3-EQUIPMENT-VISIBLE-20261020/native-final/final-empty-bag-starters-only.png",
+      "sha256": "09ea8278fbaaff0b5d0170ee20485ff18335423acb490e6f76d31ec0bc590876"
+    },
+    {
+      "path": "Artifacts/S3-EQUIPMENT-VISIBLE-20261020/native-final/bow-S-direction-3.png",
+      "sha256": "c4d0206308b9797fcf5d97ce59d1e1b2d9f078ebd482388f7e007db51f204d64"
+    }
+  ]
+}

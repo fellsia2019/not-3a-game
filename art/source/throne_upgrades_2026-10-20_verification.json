@@ -1,0 +1,119 @@
+{
+  "date": "2026-10-20",
+  "decision": "D-094",
+  "status": "Implemented and locally qualified",
+  "authorization": "Owner D075 exactly three throne max-HP upgrades of+5; requested next base-growth slice (дальше).",
+  "behavior": {
+    "base_hp": 5,
+    "paid_upgrades": 3,
+    "health_added_per_upgrade": 5,
+    "maximums": [
+      5,
+      10,
+      15,
+      20
+    ],
+    "health_transfer": "Fill added capacity only, preserve absolute damage:3/5→8/10; no separate repair/resurrection.",
+    "purchase": "Existing selected-throne card above regular and B construction HUD. Shared resource+gold prices; one transaction per upgrade, no fourth payment.",
+    "gates": "Active preparation/wave only; pause, modal, lost/terminal, disposed, retry/reentrant transaction, insufficient funds reject unchanged.",
+    "retry": "D087 keeps CURRENT upgrade count/spending, restores upgraded max HP and morning. Full Reset clears count/baseHP. Legacy finite checkpoint restores count/HP/wallet together.",
+    "effects": "Current damage/defeat presentation already uses effective HP maximum; upgrading does not emit damage event. Cupola/HUD/art unchanged."
+  },
+  "runtime_data": {
+    "path": "Assets/Stage3/CombatSlice/HordeRun.asset",
+    "sha256": "7a9ab678205b4995654088a19daf38e8501f4ff23130072b528d0be4c676a290",
+    "migration": "Additive throneHealthPerUpgrade and3serialized prices in existing HordeRun, retaining baseHP/waves/clock/GUID. Empty legacy arrays opt out.",
+    "installer": "Not3A.Stage3.PlayerInterface.Editor.Stage3ThroneUpgradeInstaller.Install",
+    "tuning": "Provisional prices live in data asset, not final balance."
+  },
+  "contracts": {
+    "rules": "Stage2Run.ThroneUpgradeCount/ThroneUpgradeLimit/ThroneMaximum/EvaluateThroneUpgrade/TryUpgradeThrone",
+    "catalog": "Stage2RunCatalog.ConfigureThroneUpgrades/TryGetThroneUpgradeCost; validates count, complete nonzero costs and HP overflow",
+    "binding": "Stage3PlayerInterfaceBinding.TryUpgradeSelectedThrone; existing Upgrade event dispatch and selected DTO price/preview/status",
+    "wiring": "No scene/Inspector/package/asmdef change; existing binding and HordeRun reference. No new visual asset/appearance, so existing D078 approval reused; Astra review only."
+  },
+  "tests": [
+    {
+      "file": "Artifacts/S3-THRONE-UPGRADES-20261020/editmode.xml",
+      "platform": "EditMode",
+      "total": 30,
+      "passed": 30,
+      "failed": 0
+    },
+    {
+      "file": "Artifacts/S3-THRONE-UPGRADES-20261020/playmode.xml",
+      "platform": "PlayMode",
+      "total": 9,
+      "passed": 9,
+      "failed": 0
+    }
+  ],
+  "total_unique_checks": 39,
+  "new_checks": {
+    "EditMode": 5,
+    "PlayMode": 2
+  },
+  "coverage": [
+    "exact complete one-time payments and three-step cap",
+    "preserved missing HP and no false damage event",
+    "pause/funds/modal/loss/reentrant rejection",
+    "D087 current-upgrade retention after prewave anchor, legacy snapshots and full Reset",
+    "real selected card above normal/B docks",
+    "existing damage/defeat/retry and tower upgrade/sale regression"
+  ],
+  "build": {
+    "path": "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app",
+    "bytes": 637762906,
+    "result": "Succeeded",
+    "log": "Artifacts/S3-THRONE-UPGRADES-20261020/build.log",
+    "host": "Mac/Metal",
+    "windows": "Unverified"
+  },
+  "native": {
+    "directory": "Artifacts/S3-THRONE-UPGRADES-20261020/native",
+    "frames": 9,
+    "fixture": "Opt-in Debug-only NOT3A_THRONE_UPGRADE_CAPTURE_DIRECTORY, explicit5000resources/gold and2actual enemy contacts, frozen clock. Not a natural playthrough.",
+    "states": "1600x900 base5/5,damaged3/5,8/10,13/15,18/20cap,unfunded,interactive; max above B at1280x720/1920x1080.",
+    "review": "GPT-6 Astra visual PASS all9frames; no blockers/edits. HP/result/upgrade-count/two-row prices/unfunded/cap readable; no clipping/overlap above regular/B docks.",
+    "limitations": "Mac frames only. Prices/preview at1600x900, cap additionally1280x720/1920x1080. Actual clicks/retry/reset separately qualified by main/tests. Windows unverified."
+  },
+  "native_mouse": {
+    "method": "CUA actual mouse; first purchase above hero dock, second/third after actual B+world click selecting throne.",
+    "log": "Artifacts/S3-THRONE-UPGRADES-20261020/native.log",
+    "transactions": [
+      {
+        "count": 1,
+        "hp": "8/10",
+        "gold": 4980
+      },
+      {
+        "count": 2,
+        "hp": "13/15",
+        "gold": 4920
+      },
+      {
+        "count": 3,
+        "hp": "18/20",
+        "gold": 4780
+      }
+    ],
+    "outcome": "Gold5005→4980→4920→4780, correct20/40/80wood,15/30/60stone,5/10/20metal paid. Extra click on disabled max did not emit transaction/spend."
+  },
+  "ordinary_start": {
+    "log": "Artifacts/S3-THRONE-UPGRADES-20261020/normal-start.log",
+    "qa_environment": false,
+    "observed": "Actual native player5gold/0materials, normal hero start and clock08:04; no QA funding/upgrades/damage.",
+    "running_session": 67716
+  },
+  "console": {
+    "new_attributable_errors": 0,
+    "scanned": "Installer, EditMode, PlayMode, build, native and ordinary startup logs; no new compiler/game exceptions. Unity licensing access-token warning did not block successful tests/build."
+  },
+  "remaining": [
+    "Windows/Steam qualification",
+    "Balance tuning",
+    "Workshop advancement/technology route",
+    "Forge scroll sources",
+    "Bosses/world camps/runes remain separate future slices"
+  ]
+}

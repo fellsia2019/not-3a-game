@@ -24,16 +24,18 @@ namespace Not3A.Stage2.Integration
         private Vector2 scroll;
         private string feedback = "Изменения действуют только в текущем запуске.";
         private Func<Vector2, bool> playerPresentation;
-        private Func<Rect> playerResourcesRect, playerBuildRect, playerStatusRect;
+        private Func<Rect> playerResourcesRect, playerBuildRect, playerStatusRect, playerDebugButtonRect;
         public bool HasPlayerPresentation => playerPresentation != null;
         public void BindPlayerPresentation(Func<Vector2, bool> pointerHitTest, Func<Rect> resources = null,
-            Func<Rect> construction = null, Func<Rect> status = null)
+            Func<Rect> construction = null, Func<Rect> status = null, Func<Rect> debugButton = null)
         {
             playerPresentation = pointerHitTest;
             playerResourcesRect = resources; playerBuildRect = construction; playerStatusRect = status;
+            playerDebugButtonRect = debugButton;
         }
         public string WorldInteractionHint { get; set; }
         public string DwellingInteractionHint { get; set; }
+        public string PortalInteractionHint { get; set; }
         private Sprite dwellingIcon;
         private Func<Stage2WorkshopBuildStatus> dwellingStatus;
         private Func<bool> canSelectDwelling;
@@ -74,7 +76,7 @@ namespace Not3A.Stage2.Integration
         public Rect DebugRect => new Rect(Width - 408f, 132f, 392f, Height - 148f);
         public Rect ResourcesRect => playerResourcesRect?.Invoke() ?? new Rect(16f, 16f, Mathf.Min(476f, Width * .55f - 24f), 70f);
         public Rect StatusRect => playerStatusRect?.Invoke() ?? new Rect(Width - 320f, 16f, 304f, 98f);
-        public Rect DebugButtonRect => new Rect(Width - 146f, 120f, 130f, 32f);
+        public Rect DebugButtonRect => playerDebugButtonRect?.Invoke() ?? new Rect(Width - 146f, 120f, 130f, 32f);
         public Rect OutcomeRect => new Rect((Width - 400f) * .5f, (Height - 220f) * .42f, 400f, 220f);
         public Rect HintRect => new Rect(BuildRect.x, BuildRect.y - 35f, BuildRect.width, 27f);
         public Rect BuildRect
@@ -187,7 +189,19 @@ namespace Not3A.Stage2.Integration
             ApplyClock();
         }
 
-        public bool StartNextWave() => game != null && game.RunDriver.Run.StartWave();
+        private Stage2HeroProgressionDriver heroDebugTools;
+        public bool WtfMode=>heroDebugTools?.Rules?.WtfForTesting??false;
+        public bool CanUseWtf=>isActiveAndEnabled&&DebugAvailable&&heroDebugTools?.Rules!=null&&game!=null&&!game.RunDriver.Run.IsTerminal;
+        public void BindHeroProgressionTools(Stage2HeroProgressionDriver driver)
+        {heroDebugTools?.Rules?.SetWtfForTesting(false);heroDebugTools=driver;}
+        public void SetWtfMode(bool enabled)
+        {if(!enabled||CanUseWtf)heroDebugTools?.Rules?.SetWtfForTesting(enabled);}
+        public bool CanTestHeroDeath=>isActiveAndEnabled&&DebugAvailable&&game?.HeroRecovery?.Active==true;
+        public bool TestHeroDeath()=>CanTestHeroDeath&&game.HeroRecovery.TryApplyExplorationDamage(float.MaxValue);
+        public bool CanStartNextWave=>game!=null&&(game.RunDriver.Run.UsesDaytimeGates?
+            DebugAvailable&&game.RunDriver.Run.CanStartNextWaveForTesting:!game.RunDriver.Run.IsPaused&&game.RunDriver.Run.Phase==Stage2RunPhase.Preparation);
+        public bool StartNextWave() => CanStartNextWave&&(game.RunDriver.Run.UsesDaytimeGates?
+            game.RunDriver.Run.StartNextWaveForTesting():game.RunDriver.Run.StartWave());
 
         public void RestartRun()
         {
@@ -272,6 +286,7 @@ namespace Not3A.Stage2.Integration
 
         private void OnDisable()
         {
+            heroDebugTools?.Rules?.SetWtfForTesting(false);
             toggle?.Dispose();
             toggle = null;
             if (ownsClock) Time.timeScale = previousTimeScale;
@@ -534,6 +549,8 @@ namespace Not3A.Stage2.Integration
 
         private string NearbyResourceHint()
         {
+            if (!string.IsNullOrEmpty(PortalInteractionHint))
+                return DebugPaused ? "Игра на паузе · продолжить в дебаг-меню" : PortalInteractionHint;
             if (!string.IsNullOrEmpty(DwellingInteractionHint))
                 return DebugPaused ? "Игра на паузе · продолжить в дебаг-меню" : DwellingInteractionHint;
             if (!string.IsNullOrEmpty(WorldInteractionHint))
@@ -587,12 +604,12 @@ namespace Not3A.Stage2.Integration
             Label(new Rect(r.x + 18f, r.y + 13f, 270f, 28f), "ИНСТРУМЕНТЫ РАЗРАБОТКИ", title);
             if (GUI.Button(new Rect(r.xMax - 47f, r.y + 10f, 32f, 30f), "×", button)) SetDebugOpen(false);
             var view = new Rect(r.x + 14f, r.y + 52f, r.width - 28f, r.height - 64f);
-            scroll = GUI.BeginScrollView(view, scroll, new Rect(0, 0, view.width - 20f, 508f));
+            scroll = GUI.BeginScrollView(view, scroll, new Rect(0, 0, view.width - 20f, 590f));
             var w = view.width - 20f;
             Label(new Rect(4, 0, w, 20), "ЗАБЕГ", muted);
             GUI.enabled = !game.RunDriver.Run.IsTerminal;
             if (GUI.Button(new Rect(0, 26, w, 32), DebugPaused ? "Продолжить игру" : "Пауза", button)) SetDebugPaused(!DebugPaused);
-            GUI.enabled = game.RunDriver.Run.Phase == Stage2RunPhase.Preparation && !game.RunDriver.Run.IsPaused;
+            GUI.enabled = CanStartNextWave;
             var waveLabel = game.RunDriver.Run.Phase == Stage2RunPhase.Wave ? "Волна уже идёт" :
                 game.RunDriver.Run.IsTerminal ? "Забег завершён" : "Запустить следующую волну";
             if (GUI.Button(new Rect(0, 66, w, 32), waveLabel, button)) StartNextWave();
@@ -607,7 +624,14 @@ namespace Not3A.Stage2.Integration
             if (GUI.Button(new Rect(0, 376, w * .5f - 5f, 32), "+100 каждого", button)) AddAllResources(100);
             if (GUI.Button(new Rect(w * .5f + 5f, 376, w * .5f - 5f, 32), "+1 000 каждого", button)) AddAllResources(1000);
             if (GUI.Button(new Rect(0, 422, w, 34), "Перезапустить забег", button)) RestartRun();
-            Label(new Rect(0, 466, w, 40), feedback, muted);
+            GUI.enabled = CanUseWtf;
+            if (GUI.Button(new Rect(0, 466, w, 32), WtfMode ? "WTF: вкл. · без MP / отката" : "WTF: выкл. · без MP / отката", button))
+                SetWtfMode(!WtfMode);
+            GUI.enabled = true;
+            GUI.enabled=CanTestHeroDeath;
+            if(GUI.Button(new Rect(0,506,w,32),"Проверить смерть героя",button))TestHeroDeath();
+            GUI.enabled=true;
+            Label(new Rect(0, 550, w, 40), feedback, muted);
             GUI.EndScrollView();
         }
 

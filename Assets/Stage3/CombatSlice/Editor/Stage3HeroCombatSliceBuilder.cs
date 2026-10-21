@@ -32,7 +32,7 @@ namespace Not3A.Stage3.VisualPilot.Editor
             {
                 run = ScriptableObject.CreateInstance<Stage2RunCatalog>();
                 run.ConfigureWaves(new[] {
-                    new Stage2WaveDefinition(180f, 12, 2.4f),
+                    new Stage2WaveDefinition(180f, 16, 2.2f),
                     new Stage2WaveDefinition(180f, 120, .12f),
                     new Stage2WaveDefinition(180f, 240, .08f)
                 }, 5);
@@ -73,12 +73,13 @@ namespace Not3A.Stage3.VisualPilot.Editor
             var serialized = new SerializedObject(hero);
             serialized.FindProperty("attackDamage").intValue = 2;
             serialized.ApplyModifiedPropertiesWithoutUndo();
-            var preparation = run.ContinuousDays ? 1200f : 180f;
+            var preparation = run.ContinuousDays ? 600f : 180f;
             run.ConfigureWaves(new[] {
-                new Stage2WaveDefinition(preparation, 12, 2.4f),
+                new Stage2WaveDefinition(preparation, 16, 2.2f),
                 new Stage2WaveDefinition(preparation, 120, .12f),
                 new Stage2WaveDefinition(preparation, 240, .08f)
             }, 5);
+            if(run.ContinuousDays)run.ConfigureClockDurations(600f,180f);
             EditorUtility.SetDirty(hero); EditorUtility.SetDirty(run); AssetDatabase.SaveAssets();
             Debug.Log("S3_HERO_COMBAT_TUNING: bow needs two hits on baseline skeleton; relaxed first cadence, dense later hordes.");
         }

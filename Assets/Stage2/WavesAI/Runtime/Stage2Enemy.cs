@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace Not3A.Stage2.WavesAI
 {
+    public enum Stage2EnemySource { Night, Daytime }
     [DisallowMultipleComponent]
     public sealed class Stage2Enemy : MonoBehaviour
     {
@@ -24,11 +25,15 @@ namespace Not3A.Stage2.WavesAI
         private SpriteRenderer spriteRenderer;
         private Color restingColor;
         private float hitFlashRemaining;
+        private int siegeDamage;
 
         public Vector2Int CurrentCell { get; private set; }
         public Vector2Int? StepDestination => stepDestination;
         public NavigationPlan Plan => plan;
         public int Health => health;
+        public int MaximumHealth { get; private set; }
+        public int ThreatLevel { get; private set; } = 1;
+        public Stage2EnemySource Source { get; private set; }
         public bool IsAlive => configured && !removed && health > 0;
         public bool WasKilled { get; private set; }
         public bool IsAtCellCenter => !stepDestination.HasValue;
@@ -62,6 +67,8 @@ namespace Not3A.Stage2.WavesAI
             CurrentCell = startCell;
             transform.position = definition.CellToWorld(startCell);
             health = settings.Health;
+            MaximumHealth = health; siegeDamage = settings.SiegeDamage;
+            ThreatLevel = 1; Source = Stage2EnemySource.Night;
             spriteRenderer = GetComponent<SpriteRenderer>();
             if (spriteRenderer != null)
             {
@@ -84,6 +91,15 @@ namespace Not3A.Stage2.WavesAI
 
         public void SetPaused(bool value) => paused = value;
         public void SetAutomaticTick(bool value) => automaticTick = value;
+        internal void SetThreat(Stage2EnemySource source, int tier, float healthMultiplier, float siegeMultiplier)
+        {
+            if (tier < 1 || healthMultiplier < 1 || siegeMultiplier < 1 ||
+                float.IsInfinity(healthMultiplier) || float.IsNaN(healthMultiplier) ||
+                float.IsInfinity(siegeMultiplier) || float.IsNaN(siegeMultiplier)) throw new ArgumentOutOfRangeException(nameof(tier));
+            Source = source; ThreatLevel = tier;
+            MaximumHealth = health = (int)Math.Min(int.MaxValue, Math.Ceiling(catalog.Health * (double)healthMultiplier));
+            siegeDamage = (int)Math.Min(int.MaxValue, Math.Ceiling(catalog.SiegeDamage * (double)siegeMultiplier));
+        }
 
         public bool TakeDamage(int amount)
         {
@@ -164,7 +180,7 @@ namespace Not3A.Stage2.WavesAI
 
             if (siegeRemaining > 0f) return;
             siegeRemaining = catalog.SiegeInterval;
-            tower.TakeDamage(catalog.SiegeDamage);
+            tower.TakeDamage(siegeDamage);
         }
 
         private void AdvanceStep(float elapsedSeconds)

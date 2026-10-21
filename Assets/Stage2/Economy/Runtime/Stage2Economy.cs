@@ -150,11 +150,15 @@ namespace Not3A.Stage2.Economy
         public float FillFraction => Remaining / (float)Capacity;
 
         internal bool TryTakeUnit()
+            => TryTakeUnits(1) == 1;
+
+        internal int TryTakeUnits(int amount)
         {
-            if (IsDepleted) return false;
-            Remaining--;
+            if (IsDepleted || amount <= 0) return 0;
+            var taken = Math.Min(amount, Remaining);
+            Remaining -= taken;
             if (Remaining == 0) RecoveryRemaining = RecoverySeconds;
-            return true;
+            return taken;
         }
 
         public void Tick(float activeSeconds)
@@ -202,6 +206,40 @@ namespace Not3A.Stage2.Economy
         private readonly float interactionRange;
         private readonly Stage2ManualResourceSettings manualResources;
         private float gatherProgress;
+        private int axePower = 1, pickaxePower = 1;
+        private float axeSpeed = 1f, pickaxeSpeed = 1f;
+        private int axeProfessionPower, pickaxeProfessionPower;
+        private float axeProfessionSpeed = 1f, pickaxeProfessionSpeed = 1f;
+        private float woodReachMultiplier = 1f, mineralReachMultiplier = 1f;
+
+        public int HarvestPower(MapResourceKind kind)
+        {
+            var tool = kind == MapResourceKind.Wood ? axePower : pickaxePower;
+            var bonus = kind == MapResourceKind.Wood ? axeProfessionPower : pickaxeProfessionPower;
+            return tool <= 0 ? 0 : (int)Math.Min(int.MaxValue, (long)tool + bonus);
+        }
+        public float GatherDuration(Stage2ResourceNode node) => node.GatherSeconds /
+            (node.Resource == MapResourceKind.Wood ? axeSpeed * axeProfessionSpeed : pickaxeSpeed * pickaxeProfessionSpeed);
+        public void SetManualProfessionStats(int woodPower, int mineralPower, float woodSpeed, float mineralSpeed,
+            float woodReach, float mineralReach)
+        {
+            if (woodPower < 0 || mineralPower < 0 || !float.IsFinite(woodSpeed) || woodSpeed < 1 ||
+                !float.IsFinite(mineralSpeed) || mineralSpeed < 1 || !float.IsFinite(woodReach) || woodReach < 1 ||
+                !float.IsFinite(mineralReach) || mineralReach < 1) throw new ArgumentException("Invalid profession bonuses.");
+            if (axeProfessionPower == woodPower && pickaxeProfessionPower == mineralPower &&
+                axeProfessionSpeed == woodSpeed && pickaxeProfessionSpeed == mineralSpeed &&
+                woodReachMultiplier == woodReach && mineralReachMultiplier == mineralReach) return;
+            CancelGather(); axeProfessionPower = woodPower; pickaxeProfessionPower = mineralPower;
+            axeProfessionSpeed = woodSpeed; pickaxeProfessionSpeed = mineralSpeed;
+            woodReachMultiplier = woodReach; mineralReachMultiplier = mineralReach;
+        }
+        public void SetManualToolStats(int axe, int pickaxe, float woodSpeed, float mineralSpeed)
+        {
+            if (axe < 0 || pickaxe < 0 || !float.IsFinite(woodSpeed) || woodSpeed <= 0 ||
+                !float.IsFinite(mineralSpeed) || mineralSpeed <= 0) throw new ArgumentException("Invalid manual tool stats.");
+            if (axePower == axe && pickaxePower == pickaxe && axeSpeed == woodSpeed && pickaxeSpeed == mineralSpeed) return;
+            CancelGather(); axePower = axe; pickaxePower = pickaxe; axeSpeed = woodSpeed; pickaxeSpeed = mineralSpeed;
+        }
 
         public Stage2Economy(Stage2MapDefinition map, Stage2EconomyCatalog catalog)
         {
@@ -283,8 +321,10 @@ namespace Not3A.Stage2.Economy
             (playerWorld - node.WorldPosition).sqrMagnitude <=
             (InteractionRange(node) + node.InteractionRadius) * (InteractionRange(node) + node.InteractionRadius);
 
-        private float InteractionRange(Stage2ResourceNode node) => manualResources == null ? interactionRange :
-            node.Resource == MapResourceKind.Wood ? manualResources.treeInteractionRange : manualResources.MineralInteractionRange(node.Size);
+        public float InteractionRange(Stage2ResourceNode node) =>
+            (manualResources == null ? interactionRange : node.Resource == MapResourceKind.Wood ?
+                manualResources.treeInteractionRange : manualResources.MineralInteractionRange(node.Size)) *
+            (node.Resource == MapResourceKind.Wood ? woodReachMultiplier : mineralReachMultiplier);
 
         public Stage2ResourceNode NearestAvailableNode(Vector2 playerWorld)
         {
@@ -309,7 +349,7 @@ namespace Not3A.Stage2.Economy
         }
 
         // The caller supplies the held state and unpaused Preparation/Wave state.
-        // A completed interaction consumes exactly one unit and emits one fact.
+        // A completed strike consumes at most the tool power and remaining stock, emitting one strike fact.
         public bool AdvanceGather(MapResourceKind kind, Vector2 playerWorld, bool held, float elapsedSeconds, bool allowed)
             => AdvanceGather(GetNode(kind), playerWorld, held, elapsedSeconds, allowed);
 
@@ -318,7 +358,7 @@ namespace Not3A.Stage2.Economy
             if (elapsedSeconds < 0f || float.IsNaN(elapsedSeconds) || float.IsInfinity(elapsedSeconds))
                 throw new ArgumentOutOfRangeException(nameof(elapsedSeconds));
             if (node == null || !ownedNodes.Contains(node) || !allowed || !held ||
-                !IsInRange(node, playerWorld) || node.IsDepleted)
+                !IsInRange(node, playerWorld) || node.IsDepleted || HarvestPower(node.Resource) <= 0)
             {
                 CancelGather();
                 return false;
@@ -329,12 +369,14 @@ namespace Not3A.Stage2.Economy
                 gatherProgress = 0f;
             }
             gatherProgress += elapsedSeconds;
-            if (gatherProgress < node.GatherSeconds) return false;
+            if (gatherProgress < GatherDuration(node)) return false;
             gatherProgress = 0f;
-            if (Inventory.Get(node.Resource) == int.MaxValue || !node.TryTakeUnit()) return false;
-            Inventory.TryAdd(node.Resource, 1);
+            var grant = Math.Min(HarvestPower(node.Resource), int.MaxValue - Inventory.Get(node.Resource));
+            grant = node.TryTakeUnits(grant);
+            if (grant == 0) return false;
+            Inventory.TryAdd(node.Resource, grant);
             NodeGathered?.Invoke(node);
-            Gathered?.Invoke(node.Resource, 1);
+            Gathered?.Invoke(node.Resource, grant);
             return true;
         }
 

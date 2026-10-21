@@ -1,3 +1,25 @@
+# Current Stage3 cycle and recovery override — D-074/D-087/D-088
+
+Active implementation2026-10-19: Stage3 opts into daytime gates in HordeRun.
+D-087 replaces its full-world loss snapshot: keep all current development,
+restore throne, clear failed threats and return morning for the pending tier.
+Living-creep snapshots are superseded by that explicit owner correction.
+D-088 Sleep until19:50 is blocked during combat; no automatic dawn on victory.
+The older full-snapshot description below applies to legacy Stage2 fixtures.
+Current clock/gate contract: PORTAL_CONTROL.md. Qualification is in the plan.
+
+D105 retains LastClearedTier after retry. Daytime copies its night-profile
+interval and strength, not its count. It has no total quota/live cap and ends
+only on close/cutoff. D106 supersedes finite Stage3 nights:600s day/180s night,
+spawn until dawn, then wait for all living threats/shots. Stage2 finite catalogs
+retain their quota. Old serialized day interval/cap remain compatibility fields only.
+
+D-094 adds exactly three paid throne reinforcements of+5current/max HP. Run owns
+count/health/payment; prices live in HordeRun. D-087 keeps the CURRENT count and
+spending, then restores the effective maximum on retry. Full Reset clears count.
+Legacy finite checkpoints capture/restore count alongside health and inventory;
+old catalogs with no upgrade array retain their original fixed HP. See OBJECTIVES.md.
+
 # Feature: Stage 2 Run State And Cadence
 
 ## D-075 campaign/base-growth target — not implemented
@@ -14,9 +36,8 @@ by a real-scene failed-wave retry test.
 
 Future snapshots must also include item/tool instances, forge/workshop/generator
 stages, purchased/studied new research and boss flags/rewards once implemented.
-Throne has exactly three target max-HP upgrades of +5; preserve count and actual
-current/maximum HP when that slice ships. See OBJECTIVES.md. These future systems
-are not supported by current D-062 runtime yet.
+Throne upgrades are now covered by D-094 above. The other future systems in this
+historical snapshot proposal are not supported by the finite D-062 runtime yet.
 
 ## New cadence/checkpoint target — D-074, not implemented
 

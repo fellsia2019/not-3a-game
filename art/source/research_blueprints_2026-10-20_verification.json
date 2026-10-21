@@ -1,0 +1,269 @@
+{
+  "date": "2026-10-20",
+  "decision": "D-102",
+  "status": "Implemented and locally qualified on Mac; Windows unverified",
+  "owners": {
+    "main": "Blueprint instances/catalog/trade/knowledge/access rules, workshop E/bindings, nonvisual integration, tests and docs",
+    "visual": "GPT-6 Astra: approved art import, shared paper renderer, known badge/history and research native layout"
+  },
+  "approval": "Owner approved first4documents, permanent single-level workshop, three-column window, corrected Открывает wording, consumption, then known/history visual concepts.",
+  "contracts": [
+    "Finite4blueprint stock beside8equipment, gold-only/50% sale, same owned identity shared with equipment, no auto-restock",
+    "Local explicit study consumes1paper and retains knowledge; duplicates cannot consume again and remain tradable",
+    "ForgeIII knowledge requires studiedII; actual forge upgrade separate, no second legacy scroll/document payment; capsD/B/S and SSSdrop-only preserved",
+    "Longshot actual construction and wand actual crafting guard research; existing bought/looted wands remain equippable",
+    "Retry keeps current owned papers, knowledge, trades/buildings; fullReset clears/restocks with fresh monotonicIDs",
+    "E at workshop opens research; freeTeleportation studied explicitly on page; no workshop upgrade"
+  ],
+  "tests": {
+    "distinct_cases": 83,
+    "passed": 83,
+    "unresolved": [],
+    "runs": [
+      {
+        "path": "Artifacts/S3-BLUEPRINTS-20261020/tests-3.xml",
+        "total": "52",
+        "passed": "52",
+        "failed": "0"
+      },
+      {
+        "path": "Artifacts/S3-BLUEPRINTS-20261020/regression.xml",
+        "total": "31",
+        "passed": "27",
+        "failed": "4"
+      },
+      {
+        "path": "Artifacts/S3-BLUEPRINTS-20261020/regression-2.xml",
+        "total": "11",
+        "passed": "10",
+        "failed": "1"
+      },
+      {
+        "path": "Artifacts/S3-BLUEPRINTS-20261020/placement-final.xml",
+        "total": "1",
+        "passed": "1",
+        "failed": "0"
+      }
+    ],
+    "note": "Initial failures were stale fixture assumptions after gating/explicit study, plus new fixture using a point inside workshop instead of interaction position. Fixed fixtures and reran affected suites/case; final merged83/83. No guards weakened."
+  },
+  "build": {
+    "platform": "Mac standalone development/Metal",
+    "unity": "6000.6.2f1",
+    "path": "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app",
+    "bytes_from_report": 681976675,
+    "log": "Artifacts/S3-BLUEPRINTS-20261020/build-final.log",
+    "success": true
+  },
+  "native": {
+    "frames": [
+      {
+        "path": "Artifacts/S3-BLUEPRINTS-20261020/native/1280x720-bag-known-duplicate.png",
+        "bytes": 661797,
+        "sha256": "cfbd412b372bb775d29b7217dcc3ed5263fb47e6e56334d83dea9b62931116f6",
+        "dimensions": [
+          1280,
+          720
+        ]
+      },
+      {
+        "path": "Artifacts/S3-BLUEPRINTS-20261020/native/1280x720-forge-iii-prerequisite.png",
+        "bytes": 689247,
+        "sha256": "8da59222b2a1b4c75f1312296416d6c057f6d6326fbc7492b9d2bdfbc0eaeac4",
+        "dimensions": [
+          1280,
+          720
+        ]
+      },
+      {
+        "path": "Artifacts/S3-BLUEPRINTS-20261020/native/1280x720-merchant-blueprints.png",
+        "bytes": 624539,
+        "sha256": "2c0d2936c4c93a78aabb39a388993666602fc052638bb40d1fe4da0c5d53de75",
+        "dimensions": [
+          1280,
+          720
+        ]
+      },
+      {
+        "path": "Artifacts/S3-BLUEPRINTS-20261020/native/1280x720-merchant-known-duplicate.png",
+        "bytes": 631285,
+        "sha256": "4b5c12b4dabe153465a60c38e893014b484bf9f0c641e2fb0691ef437a0c6e54",
+        "dimensions": [
+          1280,
+          720
+        ]
+      },
+      {
+        "path": "Artifacts/S3-BLUEPRINTS-20261020/native/1280x720-workshop-owned.png",
+        "bytes": 692296,
+        "sha256": "3c8de04f7c1825058ee739a416027471f2d3457c226c19a7dc53b35340e63f8e",
+        "dimensions": [
+          1280,
+          720
+        ]
+      },
+      {
+        "path": "Artifacts/S3-BLUEPRINTS-20261020/native/1280x720-workshop-studied.png",
+        "bytes": 673747,
+        "sha256": "13766f87231dc7db61ed89ecbe4eeefb55257dcbfb8213be42012142f47f80a5",
+        "dimensions": [
+          1280,
+          720
+        ]
+      },
+      {
+        "path": "Artifacts/S3-BLUEPRINTS-20261020/native/1600x900-bag-known-duplicate.png",
+        "bytes": 937832,
+        "sha256": "14dd9159610715b0bd212ae621ab9b156714c7c407c2cfa989d5e006ad42f616",
+        "dimensions": [
+          1600,
+          900
+        ]
+      },
+      {
+        "path": "Artifacts/S3-BLUEPRINTS-20261020/native/1600x900-forge-iii-prerequisite.png",
+        "bytes": 974287,
+        "sha256": "c96456c5ff67c3ddcc1a711d80317c1893090a4205677a2c1710148c7447d80d",
+        "dimensions": [
+          1600,
+          900
+        ]
+      },
+      {
+        "path": "Artifacts/S3-BLUEPRINTS-20261020/native/1600x900-merchant-blueprints.png",
+        "bytes": 897378,
+        "sha256": "64d983cf2f3647374aa409dca3d9e2a7a4ed41305f59a49385a7b38119e6c92b",
+        "dimensions": [
+          1600,
+          900
+        ]
+      },
+      {
+        "path": "Artifacts/S3-BLUEPRINTS-20261020/native/1600x900-merchant-known-duplicate.png",
+        "bytes": 909670,
+        "sha256": "d53479111cbe37bdc684b37154a40fc74a335124f8a5db93a9ad0159b040bb1a",
+        "dimensions": [
+          1600,
+          900
+        ]
+      },
+      {
+        "path": "Artifacts/S3-BLUEPRINTS-20261020/native/1600x900-workshop-owned.png",
+        "bytes": 980026,
+        "sha256": "92f3313459e9cd7128c4a8d2f236aabe0c236d929620d2cf9685a0519e23418b",
+        "dimensions": [
+          1600,
+          900
+        ]
+      },
+      {
+        "path": "Artifacts/S3-BLUEPRINTS-20261020/native/1600x900-workshop-studied.png",
+        "bytes": 948063,
+        "sha256": "99284d3841cd18de0540393b279053b1ab2c4ebb0843f81bfbec6ff038e249f5",
+        "dimensions": [
+          1600,
+          900
+        ]
+      },
+      {
+        "path": "Artifacts/S3-BLUEPRINTS-20261020/native/1920x1080-bag-known-duplicate.png",
+        "bytes": 1247071,
+        "sha256": "fa1a34050ad6b556b2764f45b65e7437a5864bf0f9f19767bf936a2e80ca11ed",
+        "dimensions": [
+          1920,
+          1080
+        ]
+      },
+      {
+        "path": "Artifacts/S3-BLUEPRINTS-20261020/native/1920x1080-forge-iii-prerequisite.png",
+        "bytes": 1299401,
+        "sha256": "aaf6f415c9181e7b9867dec9be679221f2432ce5e121362271d5860908d7d23b",
+        "dimensions": [
+          1920,
+          1080
+        ]
+      },
+      {
+        "path": "Artifacts/S3-BLUEPRINTS-20261020/native/1920x1080-merchant-blueprints.png",
+        "bytes": 1235975,
+        "sha256": "d2310f01e5c86b469677a35f1157fe4afffbf0417bc3da25034a9115a2a9aca5",
+        "dimensions": [
+          1920,
+          1080
+        ]
+      },
+      {
+        "path": "Artifacts/S3-BLUEPRINTS-20261020/native/1920x1080-merchant-known-duplicate.png",
+        "bytes": 1256458,
+        "sha256": "6ea7a4788710c8fcb86be5a05d1bb2e3175fe8959bef1d97a97d67d400925252",
+        "dimensions": [
+          1920,
+          1080
+        ]
+      },
+      {
+        "path": "Artifacts/S3-BLUEPRINTS-20261020/native/1920x1080-workshop-owned.png",
+        "bytes": 1309535,
+        "sha256": "16d910f4726ea363fb8502093bfd7ded7a213a0c482b91e283254bdf87e310e8",
+        "dimensions": [
+          1920,
+          1080
+        ]
+      },
+      {
+        "path": "Artifacts/S3-BLUEPRINTS-20261020/native/1920x1080-workshop-studied.png",
+        "bytes": 1264636,
+        "sha256": "1c7257d21b3b5dc57c06b182d42cca366ac21e1d219a01e3fcf727a9065f312e",
+        "dimensions": [
+          1920,
+          1080
+        ]
+      },
+      {
+        "path": "Artifacts/S3-BLUEPRINTS-20261020/native/actual-mouse-sale.png",
+        "bytes": 243722,
+        "sha256": "c86acc09943fab2cc1f6a4d9c09bd10daec67b0e11aa68e00c0c68663f60335e",
+        "dimensions": [
+          4718592,
+          4292935744
+        ]
+      }
+    ],
+    "input_study_frame": {
+      "path": "Artifacts/S3-BLUEPRINTS-20261020/input/actual-input-studied.png",
+      "bytes": 948063,
+      "sha256": "99284d3841cd18de0540393b279053b1ab2c4ebb0843f81bfbec6ff038e249f5",
+      "dimensions": [
+        1600,
+        900
+      ]
+    },
+    "astra_review": "PASS on all18layout frames: fixed equal cells,14%inset, original paper, RomanII/III, no paper equipment labels/stats, known marker separate from selection, no overlaps.",
+    "actual_input": [
+      "Click city shop opens merchant",
+      "BuyForgeII:1005→805gold, paper transferred to bag; sell805→905gold, same document returns to merchant",
+      "Fresh local E opens workshop; mouse selectsForgeII and clicksStudy; consumes paper, auto-selects knowledge history, does not auto-upgrade forge",
+      "Click Не изучено filter shows only remaining3papers"
+    ],
+    "fixtures": "Explicit opt-in env-driven development QA: frozen clock, temporary gold, legal workshop, bought papers, second finite merchant to simulate duplicate. Closed QA and restarted normal player without env grants."
+  },
+  "scene_wiring": "Saved scene unchanged. Existing Stage3PlayerInterfaceBinding enables research only for UsesDaytimeGates. Resources/Stage3Blueprints + Stage3BlueprintArt loaded; Stage3BlueprintInstaller.Install creates/imports catalog/art. Keep new metas.",
+  "console": {
+    "attributable_runtime_errors": 0,
+    "logs": [
+      "Artifacts/S3-BLUEPRINTS-20261020/player.log",
+      "Artifacts/S3-BLUEPRINTS-20261020/input-player.log",
+      "Artifacts/S3-BLUEPRINTS-20261020/normal-player.log"
+    ],
+    "note": "Existing obsolete-Unity-API/unused-event editor warnings and editor licensing-token diagnostics are not new gameplay errors."
+  },
+  "remaining": [
+    "Windows qualification",
+    "Trial prices/final economy tuning",
+    "Future document/drop/restock sources and new content; no disk persistence added"
+  ],
+  "sources": [
+    "art/source/research_workshop_2026-10-20_generation.json",
+    "art/source/research_blueprints_2026-10-20_runtime.json"
+  ]
+}

@@ -112,7 +112,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             var replacement = production.Rules.Points[0];
             production.SelectAndBeginPlacement(replacement.Building);
             Assert.That(production.TryBuildAt(0), Is.EqualTo(ProductionPlacementResult.Built));
-            var run = game.RunDriver.Run; run.StartWave();
+            var run = game.RunDriver.Run; Stage3TestCycle.StartNight(run);
             var method = run.GetType().GetMethod("OnReachedThrone", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
             method.Invoke(run, new object[] { run.ThroneMaximum });
             Assert.That(run.IsTerminal, Is.True); before = inventory.Get(point.Resource); production.Rules.Tick(100);

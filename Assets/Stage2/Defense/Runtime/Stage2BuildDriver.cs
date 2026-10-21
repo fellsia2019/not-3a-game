@@ -31,6 +31,9 @@ namespace Not3A.Stage2.Defense
         private bool paused;
         private Func<Vector2, bool> pointerBlocker;
         private Func<bool> inputBlocker;
+        private Func<int,bool> roleAvailable;
+        public void SetRoleAvailability(Func<int,bool> available)
+        {roleAvailable=available;defense?.SetRoleAvailability(available);}
         public bool UseBuildShortcut { get; set; } = true;
         public void SetInputBlocker(Func<bool> blocker) => inputBlocker = blocker;
 
@@ -56,7 +59,7 @@ namespace Not3A.Stage2.Defense
 
         public bool CanBeginPlacement(int role)
         {
-            if (defense == null || paused || (inputBlocker?.Invoke() ?? false) || phase == Stage2BuildPhase.Inactive || role < 0 || role >= defense.RoleCount) return false;
+            if (defense == null || paused || (inputBlocker?.Invoke() ?? false) || phase == Stage2BuildPhase.Inactive || !defense.IsRoleAvailable(role)) return false;
             var data = defense.GetCatalog(role);
             return gathering.Economy.Inventory.CanAfford(data.WoodCost, data.StoneCost, data.MetalCost, data.GoldCost);
         }
@@ -107,6 +110,7 @@ namespace Not3A.Stage2.Defense
                 defense = new Stage2Defense(mapDefinition, navigation, gathering.Economy.Inventory,
                     roles, () => player.position, selected => Instantiate(selected.TowerPrefab));
                 defense.SetRunState(phase, paused);
+                defense.SetRoleAvailability(roleAvailable);
                 CreateGhost();
                 return true;
             }

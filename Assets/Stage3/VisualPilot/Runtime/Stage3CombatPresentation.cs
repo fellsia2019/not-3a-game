@@ -10,7 +10,7 @@ using UnityEngine.Rendering;
 namespace Not3A.Stage3.VisualPilot
 {
     /// <summary>Observes run-owned shots; never applies damage, selects targets or uses physics.</summary>
-    public sealed class Stage3CombatPresentation : MonoBehaviour
+    public sealed partial class Stage3CombatPresentation : MonoBehaviour
     {
         private sealed class Flight
         {
@@ -211,7 +211,9 @@ namespace Not3A.Stage3.VisualPilot
         private void LateUpdate()
         {
             if (composition == null || composition.RunDriver?.Run == null) return;
+            ObserveGuildShots();
             if (composition.RunDriver.Run.IsPaused) return;
+            AdvanceGuildShots();
             foreach (var motion in motions) if (motion != null)
             {
                 motion.TrackTarget(composition.Enemies);
@@ -265,6 +267,7 @@ namespace Not3A.Stage3.VisualPilot
 
         private void OnDestroy()
         {
+            ReleaseGuildShots();
             if (composition != null)
             {
                 if (composition.Building?.Defense != null) composition.Building.Defense.Built -= Bind;

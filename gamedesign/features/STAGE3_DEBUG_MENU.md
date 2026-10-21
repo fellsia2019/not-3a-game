@@ -1,4 +1,30 @@
+# D-104 development hero-death command
+
+Existing F3 development viewport adds «Проверить смерть героя» beneath WTF.
+It invokes the same exploration-damage/reincarnation rules, with lethal damage;
+no XP, ranks or bag items are granted. An empty bag creates no false drop marker.
+Only development builds, live unpaused run, safe base spawn required. No ordinary
+hotkey or portal-enemy damage was added. The command is integration-tested;
+native button appearance AstraPASS; actual E pickup/I bag return and F3 toggle
+are qualified. Coordinate mouse clicks and Windows are not claimed.
+
 # Feature: Stage 3 Player HUD And Development Menu
+
+## D-103: explicit test launch and WTF
+
+The Stage3 F3 next-wave command now explicitly advances the clock to the next
+pending night and starts it once, including on day1. It credits no skipped-time
+income or regeneration; living daytime creeps/shots remain, and the daytime
+gate closes. Pause/active wave/outcome block launch. Ordinary clock-gated wave
+start remains unchanged; older normal-preparation command descriptions below
+are historical for Stage3. Legacy finite Stage2 retains its normal start rule.
+
+The development-only WTF toggle sets the current active ability Blink to0MP
+and ZERO cooldown, immediately clearing an existing cooldown. Disabling restores
+normal rank costs/timings. Full Reset or disabling the bound HUD clears WTF.
+Pause, modal UI and valid landing checks still apply; it grants no ranks/XP or
+mana refund. Existing scrollable debug panel/frame is reused. Verification:
+art/source/hero_vitals_2026-10-20_verification.json. Windows needs qualification.
 
 Status: implemented and Windows-verified, owner-requested 2026-10-16 (D-052). Workstream: UI/UX +
 Integration. Surface: scene-owned HUD, player movement multiplier, existing

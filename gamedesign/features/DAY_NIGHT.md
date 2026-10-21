@@ -1,6 +1,45 @@
+# Current cycle update — D-074/D-087/D-088
+
+## D-106 — timed day/night stream,2026-10-20
+
+Current Stage3 day is10active real minutes (08:00–20:00); night is3
+(20:00–08:00) at normal speed. Pause/speed apply to both. Mandatory night
+spawns continue at the pending tier's interval/HP/type for the whole night,
+independent of the old authored enemy count. Dawn stops new spawns; living
+creeps/shots remain. The tier clears only after dawn AND all threats resolve.
+An unresolved horde blocks day farming/sleep and never queues overlapping nights.
+D105 day gates still repeat the last WON tier until close or19:30; D088 sleep
+ends19:50 without skipped-time income. D087 retry keeps current development
+and gives a full morning before the same pending tier.
+
+HordeRun owns600seconds of day and180seconds of night. New optional
+nightDurationSeconds=0 preserves finite legacy Stage2 behavior; no scene or
+package migration. WaveEnemyCount is a full-night forecast for old observers,
+never a timed-night quota. Existing cadence/HP profiles remain trial tuning;
+tier2's0.12s interval now means about1500spawns per full night, so old finite
+combat budgets do not automatically qualify this balance.
+Qualified2026-10-21:36EditMode+26PlayMode PASS, including first-night bow and
+boundedpaiddefense tiers2/3. Native D107 phase fixture confirms dawn/live-creep
+behavior. Trial balance and Windows/sustained natural playtest remain separate.
+Evidence:art/source/timed_nights_2026-10-20_verification.json.
+
+
+D105 clarifies the optional day stream: last WON night difficulty, continuous
+spawning until manual close or19:30, no finite night quota/old live cap. Losing
+the next night does not unlock it for farming. Initial night trial buff lives
+in HordeRun. Current contract/qualification: PORTAL_CONTROL.md.
+
+Implemented and locally qualified2026-10-19: mandatory nights use continuous game time;
+early victory does not jump to dawn. Day gates repeatedly farm the last cleared
+tier, close before night and retain spawned enemies. Explicit dwelling Sleep
+ends at19:50 and is blocked by an open stream, live creeps/shots or active horde.
+D-087 defeat recovery keeps current world/hero progression and returns morning
+for the same pending tier. The older rest/full-world-snapshot behavior below is
+superseded for Stage3; see PORTAL_CONTROL.md and DEVELOPMENT_PLAN.md.
+
 # Feature: Continuing Days, Night Hordes And Dwelling
 
-## New target — D-074, not implemented
+## Historical D-074 target — sleep revised by D-088
 
 Владелец подтвердил отмену обоих пропусков: дом больше не заканчивает день,
 ранняя победа не переводит часы к рассвету. Ночью приходит обязательная
@@ -10,7 +49,7 @@
 Закрытие не удаляет уже вышедших врагов. Дом сохраняется, следующая его
 функция не выбрана. Текущая длинная ночь требует проверки темпа без пропуска.
 Полный новый контракт: `PORTAL_CONTROL.md`; последовательность внедрения —
-`../DEVELOPMENT_PLAN.md`. Ниже описано ещё работающее старое поведение.
+`../DEVELOPMENT_PLAN.md`. Ниже сохранено историческое поведение D-065, заменённое текущим контрактом.
 
 ## Implemented prototype baseline
 

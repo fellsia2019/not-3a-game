@@ -355,7 +355,10 @@ namespace Not3A.Stage3.VisualPilot.Tests
                 Assert.That(game.Gathering.GatheringNode, Is.SameAs(node));
                 Assert.That(Read<bool>(avatar, "IsHarvesting"), Is.True);
                 Assert.That(Read<MapResourceKind?>(avatar, "EquippedHarvestResource"), Is.EqualTo(kind));
-                Assert.That(Read<SpriteRenderer>(avatar, "Equipment").enabled, Is.False, "Bow is hidden while axe/pick is equipped.");
+                Assert.That(Read<SpriteRenderer>(avatar, "Equipment").enabled, Is.True, "The actual equipped tool must be visible during harvesting.");
+                Assert.That(Read<bool>(avatar, "UsesDetachedHarvestTool"), Is.True, "A baked starter tool cannot represent owned quality.");
+                Assert.That(Read<int>(avatar, "DisplayedEquipmentType"), Is.EqualTo(kind == MapResourceKind.Wood ? 7 : 6));
+                Assert.That(Read<int>(avatar, "DisplayedEquipmentQuality"), Is.Zero);
                 Assert.That(economy.Inventory.Get(kind), Is.EqualTo(before), "Anticipation cannot pay early.");
                 for (var i = 0; i < 200 && economy.Inventory.Get(kind) < before + 2; i++) yield return null;
                 Assert.That(economy.Inventory.Get(kind), Is.EqualTo(before + 2));

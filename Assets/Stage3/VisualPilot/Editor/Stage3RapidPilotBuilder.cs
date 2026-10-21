@@ -474,7 +474,7 @@ namespace Not3A.Stage3.VisualPilot.Editor
             var camera = bootstrap.CameraFollow;
             bootstrap.MapDebugRenderer.Configure(map);
             mover.Configure(map,mover.Speed);
-            mover.ConfigurePlanarEdgeClearance(1f);
+            mover.ConfigurePlanarEdgeClearance(1.5f);
             mover.transform.position = map.CellToWorld(Stage3DiagonalMapBuilder.HeroStart);
             camera.Configure(mover.transform,map,7f);
             camera.ConfigureTacticalView(5f);

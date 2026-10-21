@@ -19,6 +19,7 @@ namespace Not3A.Stage2.Integration
         private float personalSpeedMultiplier = 1f;
         private HeroObstacleMap obstacles;
         private float collisionRadius = .2f;
+        private int lastMovementFrame = -1;
         private System.Func<bool> inputBlocker;
         public void SetInputBlocker(System.Func<bool> blocker) => inputBlocker = blocker;
 
@@ -34,6 +35,9 @@ namespace Not3A.Stage2.Integration
         public HeroObstacleMap Obstacles => obstacles;
         public float CollisionRadius => collisionRadius;
         public int OverlapRecoveryCount { get; private set; }
+        // Combat runs after movement. A successful ground step suppresses a new shot
+        // for that frame; teleports and a held direction against a wall are not walking.
+        public bool IsMoving => lastMovementFrame == Time.frameCount;
 
         public bool CanTeleportTo(Vector2 target)
         {
@@ -50,6 +54,7 @@ namespace Not3A.Stage2.Integration
         {
             if (!CanTeleportTo(target)) return false;
             transform.position = new Vector3(target.x, target.y, transform.position.z);
+            lastMovementFrame = -1;
             return true;
         }
 
@@ -76,6 +81,7 @@ namespace Not3A.Stage2.Integration
             var target = ClampMovement(start + displacement);
             var next = obstacles == null ? target : obstacles.Move(start, target - start, collisionRadius);
             next = ClampMovement(next);
+            if ((next - start).sqrMagnitude > .00000001f) lastMovementFrame = Time.frameCount;
             transform.position = new Vector3(next.x, next.y, transform.position.z);
         }
 
@@ -114,6 +120,7 @@ namespace Not3A.Stage2.Integration
 
         private void OnDisable()
         {
+            lastMovementFrame = -1;
             moveAction?.Dispose();
             moveAction = null;
         }

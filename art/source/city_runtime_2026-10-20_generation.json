@@ -1,0 +1,87 @@
+{
+  "date": "2026-10-20",
+  "decision": "D-099",
+  "authorization": "Owner said делай after A_v6 city + teleport menu_v1 presentation/approval question. Both appearances approved for Astra implementation.",
+  "tool": "built-in image_gen.imagegen edit",
+  "source_rights": "Original ImageGen cutouts using only project-owned approved original city/menu; no external copied/traced game material.",
+  "references": [
+    "art/concepts/city_2026-10-20/a_temple_courtyard_portal_v6.png",
+    "art/concepts/teleport_menu_2026-10-20/teleport_menu_v1.png"
+  ],
+  "assets": [
+    {
+      "kind": "shop",
+      "source": "art/concepts/city_2026-10-20/runtime/shop_v1.png",
+      "runtime": "Assets/Stage3/WorldTravel/Resources/Stage3CityShop.png",
+      "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-ed6a8d33-9c06-4268-9c02-23c0c38318b8.png",
+      "prompt_file": "art/source/city_runtime_2026-10-20_shop_prompt.txt",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "bytes": 2181585,
+      "sha256": "8b66cb6ff2069c9a5cc55931a6d98b8a0a7cebee96113a73eab168604d972392",
+      "transform": "Byte-identical; original alpha/PNG unchanged. Importer measures Sprite regions/pivots."
+    },
+    {
+      "kind": "temple",
+      "source": "art/concepts/city_2026-10-20/runtime/temple_v1.png",
+      "runtime": "Assets/Stage3/WorldTravel/Resources/Stage3CityTemple.png",
+      "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-0ae7eb61-51ad-4497-a2c8-0f312e79fdd2.png",
+      "prompt_file": "art/source/city_runtime_2026-10-20_temple_prompt.txt",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "bytes": 1965832,
+      "sha256": "91568b1ba17babf60ea70aa282bb0fc547753b722ebc05c492571735390e6a44",
+      "transform": "Byte-identical; original alpha/PNG unchanged. Importer measures Sprite regions/pivots."
+    },
+    {
+      "kind": "kit",
+      "source": "art/concepts/city_2026-10-20/runtime/kit_v1.png",
+      "runtime": "Assets/Stage3/WorldTravel/Resources/Stage3CityKit.png",
+      "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-d10a1216-23d4-4848-b31d-b4d30dacf856.png",
+      "prompt_file": "art/source/city_runtime_2026-10-20_kit_prompt.txt",
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "bytes": 1662940,
+      "sha256": "7f2e8e4042229952a4c9fc00b692fd64b97a7a6512a38528ff948526cd04eff6",
+      "transform": "Byte-identical; original alpha/PNG unchanged. Importer measures Sprite regions/pivots."
+    },
+    {
+      "kind": "paving",
+      "source": "art/concepts/city_2026-10-20/runtime/paving_v1.png",
+      "runtime": "Assets/Stage3/WorldTravel/Resources/Stage3CityPaving.png",
+      "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-267ef069-1c5f-4dd3-be63-3b5d44d362a5.png",
+      "prompt_file": "art/source/city_runtime_2026-10-20_paving_prompt.txt",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "bytes": 2771292,
+      "sha256": "d88824eddaf18e4a7d3163361975ef3c38d3b30b6d48661f85630f6844b00f94",
+      "transform": "Byte-identical; original alpha/PNG unchanged. Importer measures Sprite regions/pivots."
+    },
+    {
+      "kind": "previews",
+      "source": "art/concepts/city_2026-10-20/runtime/previews_v1.png",
+      "runtime": "Assets/Stage3/WorldTravel/Resources/Stage3TeleportPreviews.png",
+      "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-33365f29-d348-42a9-b48a-05696a7f9bec.png",
+      "prompt_file": "art/source/city_runtime_2026-10-20_previews_prompt.txt",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "bytes": 2534625,
+      "sha256": "34b20228c8ca11f908c3b8e7736f83ca71460fecc125d9a57676a237a4a35a9e",
+      "transform": "Byte-identical; original alpha/PNG unchanged. Importer measures Sprite regions/pivots."
+    }
+  ],
+  "runtime": "Stage3CityArtImporter.BuildAssets; new Resources/Stage3CityArt with isolated measured sprites and shared materials. Modular city, native tiledXYground, original existing groundseal.",
+  "status": "Imported/compiled;16/16 focused PlayMode, final Mac/Metal native mouse/E roundtrip and Astra final visual PASS. Ordinary player restored. Windows unverified.",
+  "limitations": "Preview illustration decorative, not exact base geometry; temple no newservice/NPC/lore. No merchant stock/prices defined; trade transactions remain separate.",
+  "verification": "art/source/city_runtime_2026-10-20_verification.json"
+}

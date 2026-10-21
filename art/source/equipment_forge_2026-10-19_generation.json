@@ -1,0 +1,152 @@
+{
+  "date": "2026-10-19",
+  "decision": "D-089",
+  "status": "All four selected concepts explicitly approved by owner; runtime implementation not yet performed",
+  "generator": "Built-in image_gen.imagegen",
+  "mode": "Built-in image generation/editing; no CLI/API fallback",
+  "authorization": [
+    "Owner requests ImageGen sketches of item inventory, forge building and forge interface, to show for approval.",
+    "One basic item of each type initially; no named/elemental alternate families. Quality changes object/icon appearance from crude primitive brown to increasingly refined red/gold. Numerical level1–100 is separate."
+  ],
+  "scope": {
+    "combatSlots": [
+      "Шлем",
+      "Нагрудник",
+      "Руки",
+      "Ноги",
+      "Оружие",
+      "Щит"
+    ],
+    "workingTools": [
+      "Кирка",
+      "Топор"
+    ],
+    "currentWeapons": [
+      "Лук",
+      "Посох"
+    ],
+    "qualities": [
+      "F",
+      "E",
+      "D",
+      "C",
+      "B",
+      "A",
+      "S",
+      "SSS"
+    ],
+    "swordExample": "Owner's sword example establishes the one-base-type/quality-appearance rule; no melee combat mechanic or sword runtime is introduced.",
+    "numericalLevels": "1–100, independent from quality; same icon per quality, not100 different icon variants",
+    "limits": "Grid count is a layout example, no capacity contract. Forge stage count/caps, prices and stats remain separate gameplay decisions; comparison illustrates an eligible upgraded forge. Shield slot stays empty; bow-plus-shield compatibility unresolved.",
+    "unchanged": "Existing approved hero/world/HUD, current UI stack and uncommitted gates work preserved. No Unity assets, scene, prefab, package or gameplay code changed for these concepts.",
+    "approvedPalette": "F crude brown/wood/leather; E rough iron; D clean steel; C cool blue steel; B plum inlay; A red detail; S gold; SSS pale gold/white inlay. Approved as shown by the four-concept acceptance."
+  },
+  "rights": "Original generated project concepts. Reference images are this project's generated approved inventory and actual game frame. No third-party reference pixels, tracing or downloaded assets. Concept images are not imported as runtime assets.",
+  "selected": [
+    {
+      "key": "inventory",
+      "path": "art/concepts/equipment_forge_2026-10-19/inventory_items_v2.png",
+      "source": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-98e39c88-6fd0-4505-be28-b32fb2af88e1.png",
+      "prompt": "Use case: precise-object-edit. Edit the provided NEW item inventory mockup with ONLY these two corrections. Keep exact canvas size, all layout geometry, all four header tabs, wallet, typography, hero, bag grid, item detail, selected bow, six combat equipment slots and separate two tool slots unchanged. Correction1: the \"Щит\" slot at the right of the hero must be EMPTY: remove the wooden shield item art, leave its existing empty ivory slot frame and the exact label \"Щит\", with only a very faint neutral empty-slot shield outline. Do not remove this sixth equipment slot and do not put the shield in the hero's hands. Keep a shield icon in the BAG inventory unchanged. This avoids claiming simultaneous shield use with a bow. Correction2: remove the small cyan/grey horizontal progress meter immediately below \"LVL 12 / 100\" in the right detail area. Keep the text \"LVL 12 / 100\" unchanged, with clean ivory background below. Numerical item level has no per-item XP bar. Do not remove any other selection indicator or UI ornament. Keep all other pixels/layout as close to reference as possible; no new elements. This is concept art only. No watermark.",
+      "reference_images": [
+        "art/concepts/equipment_forge_2026-10-19/inventory_items_v1.png"
+      ],
+      "parentPrompt": "Use case: ui-mockup. Edit the provided inventory concept into the NEW ITEM INVENTORY concept for this same game. This is an approval mockup, not runtime UI. Reference image1 is the edit target and authoritative Lunar Porcelain UI shell and hero style. Preserve its fullscreen wide landscape aspect ratio, ivory pearl-ceramic surfaces, restrained plum top bar, thin silver dividers, turquoise selected accents, elegant restrained fantasy corners and modern readable Cyrillic sans-serif. Keep the same FOUR global tabs verbatim: \"Инвентарь I\", \"Исследования P\", \"Развитие героя O\", \"Карта M\", plus \"Esc · Закрыть\". No construction or forge global tab. Keep the slim top wallet row gold/wood/stone/metal and day/time. All main content fills screen, no lower gameplay HUD.\nReplace the old four oversized resource rows with a practical item inventory. Three clearly separated balanced regions: LEFT around36% is \"Предметы\" with a compact item grid, several large recognizable original item icons and empty slots; CENTER around36% is the SAME blue-clad dark-haired tied-hair short-bearded hero with exactly SIX combat equipment slots clearly named \"Шлем\", \"Нагрудник\", \"Руки\", \"Ноги\", \"Оружие\", \"Щит\", placed without obscuring his body; RIGHT around28% is the selected item detail card. Hero's hands are empty, bow worn on back; shield slot empty, no implied bow-plus-shield use. A separate small pair below the equipment region is \"Инструменты\" with \"Кирка\" and \"Топор\", visually distinct from the six combat slots.\nExactly one basic type each: bow, staff, helmet, chest armor, gloves, leg armor, shield, pickaxe, axe. No elemental, named or affix variants, no swords/new combat mechanics, no rings/amulets/additional armor slots. Bag may show different owned qualities of the SAME base type, not extra variants. Item icons are painted volumetric objects consistent with this game. Primitive F items look rough and brown/simple; higher quality icons themselves acquire better materials, construction and refinement, never just a recolored frame.\nSelect a simple item titled exactly \"Лук\". Show separate clear fields \"Качество D\", \"LVL 12 / 100\", an enlarged steel-reinforced bow icon, three concise illustrative stat rows and a clean \"Надеть\" action. Numeral level never substitutes for quality. Subtle rarity framing, letters legible at small size. Avoid excessive ornament behind information, no popups over hero or bag, no skill trees, no shop/new currency, no hardcoded gear or bag-capacity mechanics. Tiny footer outside the main content says \"Эскиз · значения примерные\". Keep simple bottom \"I · Закрыть    Esc · Вернуться в игру\". All Russian text correctly spelled and readable. Cohesive polished game UI concept, matching reference, no watermark.",
+      "sha256": "b55e292c7b234b58acf21d6859362cf9a97008d44592d1586bc08d2b65403202",
+      "width": 1672,
+      "height": 941,
+      "pngColorType": 2,
+      "ownerApproved": true
+    },
+    {
+      "key": "forge_building",
+      "path": "art/concepts/equipment_forge_2026-10-19/forge_building_v1.png",
+      "source": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-b2a9d88b-f00f-4695-8307-c4cc7ffa8f76.png",
+      "prompt": "Use case: stylized-concept. Edit the provided actual game screenshot into an original FORGE BUILDING approval concept for the SAME game. The screenshot is the edit target and authoritative architecture, current hero, world rendering and fixed camera reference. Replace the cottage with a modest believable fantasy forge workshop. Keep the fixed near-frontal elevated orthographic tactical view and soft painted volumetric cartoon rendering, medium dark outlines, cream plaster/pale stone, warm timber construction and weathered terracotta roof, coordinated with the existing cottage and research workshop.\nOne single forge building, fully visible, taking the central half of the wide landscape canvas. A squat pale-stone furnace and masonry chimney are integrated into one side, with a small warm orange fire clearly sheltered beneath the roof. A recognizable heavy steel anvil and sturdy workbench occupy an OPEN FRONT work bay. Leather bellows, a small tool rack, metal stock stored neatly under the bench. Roof/canopy must not hide the anvil or furnace. No blacksmith NPC. Preserve a clear front interaction approach and ground-contact/base, short believable contact shadow on the SAME green grass setting. HeroC from reference stands to one side at the same relative scale as the screenshot, no changed character design. Keep the building practical and readable, not a cathedral or celestial palace, no levitating parts or giant magical machinery. Localized fire glow only, no flood of particles or bloom. Existing wood/stone/metal only; materials depicted decoratively do not introduce new game resource chains.\nRemove ALL gameplay HUD/interface panels/top resource counters/text/debug overlays from screenshot, yielding a clean world-building concept. Add only a small quiet caption on empty margin \"Кузница · эскиз\". No palette alternatives, no upgrade-stage row, no different camera angles, no new buildings. The requested artifact is a beautiful original game-art concept fitting exactly into the existing village architecture. No watermark.",
+      "reference_images": [
+        "Artifacts/S3-GATES-20261019/native/04-sleep-card-ready.png"
+      ],
+      "sha256": "0b3615a854030a916efa4f80df57c36617e019c8725e7ea3e67bb4a57226c50e",
+      "width": 1672,
+      "height": 941,
+      "pngColorType": 2,
+      "ownerApproved": true
+    },
+    {
+      "key": "forge_interface",
+      "path": "art/concepts/equipment_forge_2026-10-19/forge_interface_v2.png",
+      "source": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-35a7ea5f-b878-4943-a63a-9b7bad07acb5.png",
+      "prompt": "Use case: precise-object-edit. Edit this fullscreen forge approval mockup with ONLY the following two targeted corrections. Preserve exact canvas size, the Lunar Porcelain shell, all main column geometry, the forge title, the9-item list, E→D bows and BOTH LVL12 labels, all sample stats, undefined prices, three operation tabs, item-quality strip F/E/D/C/B/A/S/SSS and primary action exactly.\n1. This forge is a contextual building service, not the inventory page. Make ALL FOUR top global navigation tabs neutral. Specifically remove the cyan underline, selected plum tab panel/beveled outline and bold active styling from \"Инвентарь I\"; make it the SAME neutral plum bar treatment/font as \"Исследования P\", \"Развитие героя O\", \"Карта M\". Keep all four tab texts and positions. Keep \"Esc · Закрыть\" at top right. Do not introduce a forge global tab/hotkey. At bottom REMOVE \"I · Закрыть\" and its small adjacent vertical separator. Retain only \"Esc · Вернуться в игру\" centered in the footer, plus the existing small far-right concept disclaimer.\n2. In the right result/cost column, add a clearly readable two-line neutral status text exactly \"Предел качества кузницы\" on line1 and \"не определён\" on line2. Use the currently empty breathing space BETWEEN the last result stat row (\"Интервал\") and the \"Стоимость\" heading, with smaller normal readable plum sans-serif text. Rebalance only this small gap if necessary. Do not overlap the stats or cost title. No decorative button/frame around this status. This status explicitly marks the forge quality cap as pending gameplay definition, not automatically SSS. Do not add a forge level number, recipe cost, percentage or new mechanic. All other artwork and layout remain as close to input as possible. No watermark.",
+      "reference_images": [
+        "art/concepts/equipment_forge_2026-10-19/forge_interface_v1.png"
+      ],
+      "sha256": "07112d8deb48b3b256f279ebac93010e4a0847ca0cc4d43d48a8ac12776d4322",
+      "width": 1672,
+      "height": 941,
+      "pngColorType": 2,
+      "ownerApproved": true
+    },
+    {
+      "key": "item_quality",
+      "path": "art/concepts/equipment_forge_2026-10-19/item_quality_progression_v1.png",
+      "source": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-7f444a95-e7cb-4e28-906c-b34e3a4bb2de.png",
+      "prompt": "Use case: stylized-concept. Asset type: ORIGINAL item-quality progression approval sheet for a painted volumetric cartoon fantasy RPG/tower-defense game. Create a clean wide landscape high-detail concept sheet on a warm ivory/pearl background, plum headings, fine silver separation lines, restrained turquoise accent. Eight EXACTLY aligned columns and THREE rows of large individual item icons. The column headers, left to right, must be exactly \"F\", \"E\", \"D\", \"C\", \"B\", \"A\", \"S\", \"SSS\". No SS, no SSSS. All eight columns equal width, with clear spacing. Rows are exactly \"Лук\", \"Кирка\", \"Шлем\". Draw one single base item lineage for each row in the same orientation and scale through all eight qualities, not unrelated weapons/classes. Painted strong silhouettes, soft material volumes, crisp edges, readable at in-game icon size. This sheet must prove the OBJECT design changes, not merely a frame color.\nF: ugly crude brown branch bow with basic string, rough simple pickaxe head lashed to brown wood, coarse brown hide/leather cap. E: roughly shaped dark iron fittings/heads and simple stitched reinforced cap. D: clean purposeful iron/steel craftsmanship, steel reinforcement and helmet. C: finer cool polished steel and restrained silver detailing, still practical same identity. B: elegant steel silhouettes with restrained deep plum inlays/fittings. A: richer scarlet/red accents integrated into metal/leather, refined purposeful ornate construction. S: unmistakable rich polished gold trim/engraving on steel, noble controlled finish. SSS: magnificently refined radiant pale gold craftsmanship with rich gold and pearly-white inlay; a slight contained magical sheen, no flames/sparks or huge effects covering the silhouette. B/A/S/SSS get progressively more refined, but no enormous impractical shapes, new elemental powers or named variants. These material/colour assignments are proposals for approval, not extra gameplay resource types. The higher-quality bow remains a bow, the pickaxe remains a useful mining tool, the helmet remains recognizable as protective headgear.\nAll three rows aligned under the same quality headers; keep equal generous icon cells. Small identical tag \"LVL 1\" under EACH column to make it explicit that numerical level is unchanged while QUALITY evolves. Main title verbatim \"КАЧЕСТВО ПРЕДМЕТОВ\". Short subtitle \"Один тип · восемь качеств\". Bottom caption \"Уровень 1–100 развивается отдельно\". No stat numbers, no rarity loot drop rates, no extra item types or skill UI. No copied game assets, no brand, no watermark. Beautiful cohesive original premium game-art approval board.",
+      "reference_images": [],
+      "sha256": "26cb77290c2dcb35b76ff61fcd0ca3b5fbe25b9b775e6ebb7856caab2b4b2e97",
+      "width": 1774,
+      "height": 887,
+      "pngColorType": 2,
+      "ownerApproved": true
+    }
+  ],
+  "superseded": [
+    {
+      "key": "inventory_v1",
+      "path": "art/concepts/equipment_forge_2026-10-19/inventory_items_v1.png",
+      "source": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-2fd8b860-2cc8-4649-850d-5107b2dfd94a.png",
+      "prompt": "Use case: ui-mockup. Edit the provided inventory concept into the NEW ITEM INVENTORY concept for this same game. This is an approval mockup, not runtime UI. Reference image1 is the edit target and authoritative Lunar Porcelain UI shell and hero style. Preserve its fullscreen wide landscape aspect ratio, ivory pearl-ceramic surfaces, restrained plum top bar, thin silver dividers, turquoise selected accents, elegant restrained fantasy corners and modern readable Cyrillic sans-serif. Keep the same FOUR global tabs verbatim: \"Инвентарь I\", \"Исследования P\", \"Развитие героя O\", \"Карта M\", plus \"Esc · Закрыть\". No construction or forge global tab. Keep the slim top wallet row gold/wood/stone/metal and day/time. All main content fills screen, no lower gameplay HUD.\nReplace the old four oversized resource rows with a practical item inventory. Three clearly separated balanced regions: LEFT around36% is \"Предметы\" with a compact item grid, several large recognizable original item icons and empty slots; CENTER around36% is the SAME blue-clad dark-haired tied-hair short-bearded hero with exactly SIX combat equipment slots clearly named \"Шлем\", \"Нагрудник\", \"Руки\", \"Ноги\", \"Оружие\", \"Щит\", placed without obscuring his body; RIGHT around28% is the selected item detail card. Hero's hands are empty, bow worn on back; shield slot empty, no implied bow-plus-shield use. A separate small pair below the equipment region is \"Инструменты\" with \"Кирка\" and \"Топор\", visually distinct from the six combat slots.\nExactly one basic type each: bow, staff, helmet, chest armor, gloves, leg armor, shield, pickaxe, axe. No elemental, named or affix variants, no swords/new combat mechanics, no rings/amulets/additional armor slots. Bag may show different owned qualities of the SAME base type, not extra variants. Item icons are painted volumetric objects consistent with this game. Primitive F items look rough and brown/simple; higher quality icons themselves acquire better materials, construction and refinement, never just a recolored frame.\nSelect a simple item titled exactly \"Лук\". Show separate clear fields \"Качество D\", \"LVL 12 / 100\", an enlarged steel-reinforced bow icon, three concise illustrative stat rows and a clean \"Надеть\" action. Numeral level never substitutes for quality. Subtle rarity framing, letters legible at small size. Avoid excessive ornament behind information, no popups over hero or bag, no skill trees, no shop/new currency, no hardcoded gear or bag-capacity mechanics. Tiny footer outside the main content says \"Эскиз · значения примерные\". Keep simple bottom \"I · Закрыть    Esc · Вернуться в игру\". All Russian text correctly spelled and readable. Cohesive polished game UI concept, matching reference, no watermark.",
+      "reference_images": [
+        "art/concepts/fullscreen_interface_2026-10-18/inventory_fullscreen_v2.png"
+      ],
+      "reason": "Remove occupied shield slot while using bow; remove unintended per-item XP meter.",
+      "sha256": "b11a575426ea14b14173ea91dd0c439fa6175cfa05adf42445fb3950fbd71d4e",
+      "width": 1672,
+      "height": 941,
+      "pngColorType": 2
+    },
+    {
+      "key": "forge_interface_v1",
+      "path": "art/concepts/equipment_forge_2026-10-19/forge_interface_v1.png",
+      "source": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-2ca7e198-f215-44ab-8bc1-522509625b90.png",
+      "prompt": "Use case: ui-mockup. Edit the provided approved fullscreen inventory shell into a NEW FULLSCREEN FORGE INTERFACE approval concept for the same game. Reference1 supplies the exact screen style: opaque pearl ivory ceramic, thin silver separators, restrained plum header, turquoise selection accents, tasteful corner ornaments and modern Cyrillic sans-serif. Wide landscape composition, readable typography and purposeful content. Preserve the global four tabs exactly \"Инвентарь I\", \"Исследования P\", \"Развитие героя O\", \"Карта M\", and \"Esc · Закрыть\"; all neutral since this page is a local building service. Preserve slim wallet gold/wood/stone/metal and day/time. No extra global forge tab, no invented forge hotkey, no construction page, no lower gameplay HUD. Body heading \"Кузница\", subtitle \"Оружие, броня и инструменты\".\nThree local operation tabs verbatim: \"Создать\", \"Повысить уровень\", \"Перековать качество\"; last one selected turquoise. LEFT26% column is a clean list of owned base item types: \"Лук\", \"Посох\", \"Шлем\", \"Нагрудник\", \"Руки\", \"Ноги\", \"Щит\", \"Кирка\", \"Топор\". Select \"Лук\". Each base type occurs once, no elemental/named versions. CENTER46% is a strong readable before/after presentation of the SAME bow family: a rough iron-reinforced plain bow \"E\" → a more refined steel-reinforced bow \"D\", with visibly improved object/icon detail and material, not only recolored borders. Under BOTH bows show the SAME \"LVL 12 / 100\"; quality improvement does NOT silently change numeral level. Above comparison \"Перековка: E → D\". Below, an eight-step compact quality strip exactly \"F  E  D  C  B  A  S  SSS\", never SS or SSSS. Distinguish current and target. RIGHT28% shows concise \"Результат\" and a few illustrative stat changes, then \"Стоимость\" using only existing wood, stone and metal resource icons with price text \"Не определена\" rather than made-up quantities, and one clear plum \"Перековать\" button. No chance percentages, failure, durability/repair or new ingredients/currency. No invented forge-stage count, no upgrade-all button, no shops, no affix reroll.\nKeep empty breathing space around large item icons while providing useful dense layout. Only operation changes, not a collage of several screens. Retain shared footer styling with \"Esc · Вернуться в игру\" and small \"Эскиз · характеристики примерные\". The screen makes numerical level versus visual quality unmistakably independent. No watermark.",
+      "reference_images": [
+        "art/concepts/fullscreen_interface_2026-10-18/inventory_fullscreen_v2.png"
+      ],
+      "sha256": "c4ce451adfa889cba8978099d3b20d48f12dbcd736270a77287c50bdf43ad4b8",
+      "width": 1672,
+      "height": 941,
+      "pngColorType": 2,
+      "reason": "Astra requests neutral global header/Esc-only footer and explicit unspecified forge quality cap."
+    }
+  ],
+  "astraReview": "PASS for owner presentation on all four selected images. Inventory has6combat slots and2tools, empty shield and no item-XP meter. Building fits existing architecture/view. Sheet has8qualities/noSS and sameLVL1. Forge interface v2 has neutral global navigation, Esc-only footer, explicit unspecified forge quality cap, E→D leavesLVL12 unchanged. This is visual review, not human appearance approval.",
+  "approval": {
+    "date": "2026-10-19",
+    "source": "Direct human answer to four-concept approval question",
+    "answer": "Утверждаю все четыре",
+    "approved": [
+      "inventory_items_v2",
+      "forge_building_v1",
+      "forge_interface_v2",
+      "item_quality_progression_v1"
+    ],
+    "limits": "Appearance/layout/quality progression approved. Illustrative stats, prices, forge-stage budgets and shield compatibility remain separate gameplay decisions."
+  },
+  "verification": "Visual/concept/source review only. Runtime unchanged; no Unity tests/build rerun for PNG/documentation-only work.",
+  "laterHumanCorrectionD090": {
+    "source": "Direct human answers during implementation",
+    "forge": "3 building stages: F–D, F–B, adds A–S; upgrade only with special scrolls, currently absent. SSS ultra-rare drop only.",
+    "weapons": "Bow and short wand only; remove sword/shield and shield slot. Five combat slots plus two tools.",
+    "effect": "Supersedes historical staff/shield coverage and unspecified proposed stage counts; preserves approved layout/style/lineage."
+  }
+}

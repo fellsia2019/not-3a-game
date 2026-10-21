@@ -1,0 +1,41 @@
+{
+  "date": "2026-10-21",
+  "decision": "D-116",
+  "tool": "built-in image_gen.imagegen",
+  "prompt_set": "art/source/world_camps_2026-10-21_runtime_prompts.json",
+  "source_rights": "Original ImageGen modular assets using only project-owned owner-approved camp_v2 references. No third-party material, traced external asset or concept screenshot shipped.",
+  "references": [
+    "art/concepts/world_camps_2026-10-21/orc_camp_v2.png",
+    "art/concepts/world_camps_2026-10-21/ogre_camp_v2.png"
+  ],
+  "assets": [
+    {
+      "kind": "orc",
+      "source": "art/concepts/world_camps_2026-10-21/runtime/orc_kit_v1.png",
+      "runtime": "Assets/Stage3/Guild/Resources/Stage3CampOrcKit.png",
+      "sha256": "f0097c143c829fcae27fd95e420538599ef7b8b75b00ca2e02dc573760e91c40",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "source_bytes_preserved": true
+    },
+    {
+      "kind": "ogre",
+      "source": "art/concepts/world_camps_2026-10-21/runtime/ogre_kit_v1.png",
+      "runtime": "Assets/Stage3/Guild/Resources/Stage3CampOgreKit.png",
+      "sha256": "39dd7cc162c6caca182d99668326d254a109e99100afdb4ebe41316b4fa30c81",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "source_bytes_preserved": true
+    }
+  ],
+  "alpha": "RGBA0..254. Orc1040983 fully transparent pixels; ogre953885; corner alpha0 except ogre bottom-left1. Measured group ROI includes two disconnected ogre logs and shelter stones.",
+  "visual_review": "GPT-6 Astra FINAL VISUAL PASS after native RETURN corrections;12day frames720/900/1080 and2night900.",
+  "transform": "Byte-identical PNG copy. Importer measures original silhouettes with3px margin; original pixels unmodified.",
+  "status": "Imported and implemented; final native Mac review PASS, relevant latest82/82 tests pass.",
+  "verification": "art/source/world_camps_2026-10-21_verification.json",
+  "reused_assets": "Existing approved ResourceDistrict trees/rocks/materials and CityGarden lowflowers; no new external artwork. Separate derived CampGround material queue2450 prevents ground wash over sprites."
+}

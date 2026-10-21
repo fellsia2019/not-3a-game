@@ -1,0 +1,13 @@
+{
+  "date": "2026-10-21",
+  "tool": "built-in image_gen.imagegen",
+  "request": {
+    "key": "guild_city_open_temple_v4",
+    "output": "art/concepts/guild_2026-10-21/city_v4_open_temple.png",
+    "transparent_background": false,
+    "referenced_image_paths": [
+      "/Users/artemmusket/game-dev/not-3a-game/art/concepts/guild_2026-10-21/city_v3_temple_court.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Make ONE LOCAL OPENNESS/ACCESSIBILITY CORRECTION to our OWN guild-and-temple city concept. Owner APPROVES the temple/portal placement and guild, but rejects the temple's fences: a temple should be an OPEN PUBLIC PLACE, not a closed private courtyard.\nEDIT ONLY the TEMPLE FORECOURT WALLS in the RIGHT THIRD of the image. COMPLETELY REMOVE the FRONT temple fence/wall, the TWO TALL GATE POSTS/LANTERN POSTS at the front entrance, and the LEFT SIDE wall facing the town street. Replace their former footprints with matching walkable cobblestone. There must be NO narrow gate, no shoulder-high barrier, no doorway-like access restriction or tall remaining isolated entrance pillar around the portal. Make the whole front and street-facing side of the temple terrace a BROAD OPEN PUBLIC APPROACH.\nKeep the temple area recognizably a dedicated forecourt, rather than moving the portal onto a street: use its warm subtly patterned/light cobblestone field, a flat stone edging/inlay, and only VERY LOW flower-bed curbs along the OUTER SIDE/BACK edges, no higher than the hero's ANKLE. No front planter strip across the approach. Low flowers/greenery may stay toward the back/corners but MUST NOT obscure the portal, its glow, the temple steps or approach. Open paving must connect naturally from square/street into the public temple forecourt, with generous width across its entire frontage.\nPRESERVE EXACTLY AS CLOSELY AS POSSIBLE: approved pale-stone temple roof/window/door/steps, SAME silver/cyan ground teleport seal with SAME size/pattern/location beside the temple steps; the whole green-roof adventurers' guild with compass crest/sign/paper noticeboard, hero's position/appearance, well/bench, town houses, main street, camera, scale, lighting and painted style. DO NOT move the temple or portal, do not put a portal at guild entrance or on the public through-road. The one portal remains entirely visible on the dedicated temple paving.\nNO temple mage, new NPC, quest marker, UI, arrows, text or new building. No new walls/arches/pedestals. One corrected spacious isometric game-world concept. Only the obstructing temple-front/street-side fencing becomes open paving and tiny side/back curbs; everything else remains."
+  }
+}

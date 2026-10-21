@@ -1,0 +1,22 @@
+{
+  "date": "2026-10-21",
+  "decision": "D-115",
+  "tool": "built-in image_gen.imagegen",
+  "reference": "art/concepts/guild_2026-10-21/city_v4_open_temple.png",
+  "authorization": "Owner requested restoring city fidelity to approved concept; these original garden masses/fence sections derive from that approved appearance, no new service or city direction.",
+  "source_rights": "Original ImageGen extraction/reconstruction using project-owned approved reference only. No external material.",
+  "asset": {
+    "source": "art/concepts/guild_2026-10-21/runtime/garden_kit_v1.png",
+    "runtime": "Assets/Stage3/WorldTravel/Resources/Stage3CityGardenKit.png",
+    "dimensions": [
+      1536,
+      1024
+    ],
+    "sha256": "8f168f0d752607a4e1c881a14f344731e891a811d1a1bebe3a2a8c41f9492734",
+    "transformation": "Byte-identical RGBA PNG; Sprite importer measures cells/alpha crop; no pixel edits."
+  },
+  "alpha_qualification": "RGBA, alpha range0..254,929055fully transparent pixels; corners alpha0.",
+  "layout": "3columns x2rows: shrub,flowerhedge,fencefront / fenceside,lantern,groundflowers",
+  "status": "Imported with Stage3CityArtImporter.BuildAssets; final Mac720/900/1080 reviewed by GPT-6 Astra:FINAL VISUAL PASS, no adjacent-alpha fragments/black halos. Source bytes unchanged.",
+  "verification": "art/source/iteration_2026-10-21_verification.json"
+}

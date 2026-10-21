@@ -1,0 +1,56 @@
+{
+  "date": "2026-10-20",
+  "decision": "D-099",
+  "status": "Owner approved A_v6 city + teleport_menu_v1 and requested implementation; native runtime qualification in progress.",
+  "tool": "built-in image_gen.imagegen edit/style adaptation",
+  "visual_direction": "GPT-6 Astra; main generates and records provenance",
+  "prompt_file": "art/source/teleport_menu_2026-10-20_v1_prompt.txt",
+  "references": [
+    {
+      "path": "art/concepts/equipment_forge_2026-10-19/forge_interface_v2.png",
+      "role": "Lunar Porcelain materials/shell; replace all forge content",
+      "sha256": "07112d8deb48b3b256f279ebac93010e4a0847ca0cc4d43d48a8ac12776d4322"
+    },
+    {
+      "path": "art/concepts/city_2026-10-20/a_temple_courtyard_portal_v6.png",
+      "role": "Subdued world context/current temple medallion",
+      "sha256": "0aae98205ed517bbe24f9c2ce2d8f22170d9ca8d823ad7fc9a4eef7ed0ea5810"
+    },
+    {
+      "path": "art/concepts/research_and_travel_2026-10-17/teleport_circles_v4_seal.png",
+      "role": "Approved identical ground-seal pattern",
+      "sha256": "e00e1049a597ef28d2c9682def4c96d11d9cd80074b9c071394d987e4f1b2e76"
+    }
+  ],
+  "image": {
+    "path": "art/concepts/teleport_menu_2026-10-20/teleport_menu_v1.png",
+    "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-c6a2f6a3-ccb4-484e-9a14-601b990b2861.png",
+    "dimensions": [
+      1672,
+      941
+    ],
+    "bytes": 2087133,
+    "sha256": "ca59860b617eb804d4c8b933db9e1aee411b7bd53fddee542b0ae540ee4d4ce4"
+  },
+  "appearance": "Centred Lunar Porcelain panel over subdued city context; currentCity distinct from selectedBase, exactly2opened rows, arrival preview, route, oneTeleportaction andclose; no currency/resourcebars/fees/cooldowns/fakecities.",
+  "main_review": "All exact Russian labels legible and semantically consistent, safe margins for medallions/preview/button; no forge/quality content carried over.",
+  "astra_review": "CONCEPT PASS: currentTown/selectedBase distinct; route and sole action agree; legible labels/no overlaps, existing style maintained. Larger panel acceptable, context visible. No unapproved currency/fees/points/services. Base illustration is conceptual, not geometry approval.",
+  "source_and_rights": {
+    "origin": "Original built-in ImageGen edit of project-owned generated art, no external game artwork provided/copied/traced.",
+    "runtime_ready": false,
+    "reason": "Full-screen concept painting is not shipped as a clickable UI; after owner approval Astra implements native existing-stack appearance and main binds travel behavior."
+  },
+  "contract": "gamedesign/features/WORLD_TELEPORTS.md",
+  "related_city": "art/source/city_2026-10-20_generation.json",
+  "accepted_behavior": "Any nearby available travel portal opens same menu; only opened destinations; currentlocation disabled; explicitconfirm; preserve research/discovery/local mode/arrival checks andD087retry. ExistingE opens same menu when integrated.",
+  "runtime_status": "Existing instant-E pair, scene/WorldTravelData/packages/Inspector and ordinary running game unchanged by this concept phase.",
+  "verification": "Both concepts visually reviewed, source copies byte-identical, PNG headers and reference/output hashes checked; JSON/links/diff validation. No Unity/test/build run for art/spec-only changes.",
+  "remaining": [
+    "Owner appearance approval",
+    "Native menu and shared network implementation/qualification",
+    "City modular assets/site/collision/arrival integration",
+    "Future additional destinations are not current runtime content"
+  ],
+  "runtime_generation": "art/source/city_runtime_2026-10-20_generation.json",
+  "runtime_verification": "art/source/city_runtime_2026-10-20_verification.json"
+}

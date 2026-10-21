@@ -1,0 +1,182 @@
+{
+  "date": "2026-10-21",
+  "decisions": [
+    "D-113",
+    "D-114",
+    "D-115"
+  ],
+  "qualification": "Local Mac Unity6000.6.2f1 development player; Windows/Steam unverified.",
+  "behavior": {
+    "starter": "Pinned workshop kind-1 starter entry cannot be sold/dropped; local study unlocks manual B/Base circle, does not create it. One free prototype circle on valid free ground. Discovered destinations required. Current-progress retry preserves; reset clears.",
+    "guild": "Local actions measure normal approach to actual GuildFootprint. Remote preview explains approach; no remote turn-in. Click building, decoration remains nonfunctional.",
+    "bow": "No new shots during successful ground movement in all directions. Cooldown continues; arrows already released resolve. Walking clears old shot visual pose.",
+    "hud": "120px dial at900p with brighter original hand;10:3 unchanged. Far city minimap cue removed; local City and known M icon retained.",
+    "city": "15 homes,92 garden elements,27 trees,125 footprints inside44x36 district. Original service sprites, separate public temple portal court, connected streets. Raster path checks clear entry/guild/shop/portal/three lanes at.3/.6 clearance.",
+    "camps": "Both open v2 concepts approved by owner. Runtime scenery not implemented in this concept request; no population/loot changes."
+  },
+  "checks": {
+    "latest_distinct_outcomes": {
+      "total": 81,
+      "passed": 81,
+      "source": "Artifacts/ITERATION-2026-10-21/test-summary.json"
+    },
+    "initial_full": {
+      "total": "81",
+      "passed": "79",
+      "failed": "2",
+      "skipped": "0",
+      "result": "Failed(Child)",
+      "start-time": "2026-10-21 15:07:05Z",
+      "end-time": "2026-10-21 15:10:55Z"
+    },
+    "focused": {
+      "total": "2",
+      "passed": "1",
+      "failed": "1",
+      "skipped": "0",
+      "result": "Failed(Child)",
+      "start-time": "2026-10-21 15:14:58Z",
+      "end-time": "2026-10-21 15:15:05Z"
+    },
+    "final_actual_wasd": {
+      "total": "1",
+      "passed": "1",
+      "failed": "0",
+      "skipped": "0",
+      "result": "Passed",
+      "start-time": "2026-10-21 15:18:10Z",
+      "end-time": "2026-10-21 15:18:13Z"
+    },
+    "final_city_and_ui": {
+      "total": "37",
+      "passed": "37",
+      "failed": "0",
+      "skipped": "0",
+      "result": "Passed",
+      "start-time": "2026-10-21 15:43:55Z",
+      "end-time": "2026-10-21 15:46:30Z"
+    },
+    "fixture_repairs": "Initial two failures: map rect observed before LateUpdate; queued Press/Release keyboard snapshots conflicted across directions. Fixed fixtures and reran; runtime unchanged during these repairs.",
+    "diff_check": "git diff --check PASS",
+    "build": {
+      "result": "Success exit0",
+      "log": "Artifacts/ITERATION-2026-10-21/final-build.log",
+      "app": "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app",
+      "bytes": 737165044,
+      "managed_hashes": {
+        "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app/Contents/Resources/Data/Managed/Not3A.Stage2.RunState.dll": "7c20774c2cd4ba72cdd8cdd71b444adce6bc717ce94b6773021f1baba36e46a6",
+        "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app/Contents/Resources/Data/Managed/Not3A.Stage1.dll": "99ec8d9d87c9ed8e4e6515bf62cde0a38db077ef1ec53b11051985c22d6dda86",
+        "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app/Contents/Resources/Data/Managed/Not3A.Stage2.Navigation.dll": "37f7e8f9ac54709e8af830b88d892e2206d547d1557c7be8ed0557f6ee2e6ac1",
+        "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app/Contents/Resources/Data/Managed/Not3A.Stage2.Integration.dll": "f507eb750559de8e77ed853aeaa851dba16f8d7a8e79133013228caec3817e89",
+        "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app/Contents/Resources/Data/Managed/Not3A.Stage2.Economy.dll": "7811b0fe23725186b95317e179a50e86b22bafde04bbc0952c05d4cbe34b7407",
+        "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app/Contents/Resources/Data/Managed/Not3A.Stage2.Defense.dll": "6a2898d70596c015addfbaa8ac6d6aad3c1ed1e1cd04a69b37949f19710d664f",
+        "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app/Contents/Resources/Data/Managed/Not3A.Stage2.Map.dll": "e11edefd9a4918cffcc919997ff3292e96703699b43a216d6bba047a591ad254",
+        "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app/Contents/Resources/Data/Managed/Not3A.Stage2.WavesAI.dll": "f467fb42559b54a41620877c6548af790ce0c4b1399cd531cf8825dc10b62f5e"
+      }
+    },
+    "import": {
+      "method": "Not3A.Stage3.PlayerInterface.Editor.Stage3CityArtImporter.BuildAssets",
+      "log": "Artifacts/ITERATION-2026-10-21/garden-import.log",
+      "result": "Success; six alpha-cropped sprite meshes, source PNG bytes unchanged."
+    }
+  },
+  "native": {
+    "frames_directory": "Artifacts/ITERATION-2026-10-21/native-final",
+    "count": 28,
+    "frames": [
+      "1280x720-dawn-far-city-hidden",
+      "1280x720-starter-blueprint",
+      "1280x720-studied-unbuilt",
+      "1280x720-base-construction-card",
+      "1280x720-base-built",
+      "1280x720-city-overview",
+      "1280x720-guild-approach",
+      "1280x720-guild-accept-ready",
+      "1280x720-night-city",
+      "1600x900-dawn-far-city-hidden",
+      "1600x900-starter-blueprint",
+      "1600x900-studied-unbuilt",
+      "1600x900-base-construction-card",
+      "1600x900-base-built",
+      "1600x900-city-overview",
+      "1600x900-guild-approach",
+      "1600x900-guild-accept-ready",
+      "1600x900-night-city",
+      "1920x1080-dawn-far-city-hidden",
+      "1920x1080-starter-blueprint",
+      "1920x1080-studied-unbuilt",
+      "1920x1080-base-construction-card",
+      "1920x1080-base-built",
+      "1920x1080-city-overview",
+      "1920x1080-guild-approach",
+      "1920x1080-guild-accept-ready",
+      "1920x1080-night-city",
+      "input-guild-ready"
+    ],
+    "fixture": "Opt-in NOT3A_ITERATION_CAPTURE_DIRECTORY; holds clock/AI/bow/regen, moves hero and builds/studies via actual rules. No inventory/XP grants or injected UI data.900p deliberately waits for real native mouse build.",
+    "input": [
+      {
+        "proof": "Artifacts/ITERATION-2026-10-21/native-final/input-circle-invalid.png",
+        "result": "Real click under hero: red invalid footprint, no construction."
+      },
+      {
+        "proof": "Artifacts/ITERATION-2026-10-21/native-final/1600x900-base-built.png",
+        "result": "Fresh real click valid ground constructed circle;900p capture could not proceed without BaseBuilt."
+      },
+      {
+        "proof": "Artifacts/ITERATION-2026-10-21/native-final/input-guild-before-accept.png",
+        "result": "Real click guild building opens board; local accept available."
+      },
+      {
+        "proof": "Artifacts/ITERATION-2026-10-21/native-final/input-guild-accepted.png",
+        "result": "Real click accept changes to Выполняется, objective0/3."
+      }
+    ],
+    "resolved_capture_issue": "Earlier disposable QA attempt timed out180s waiting for actual mouse while CUA window binding returned noWindowsAvailable. Rebound by bundleID/raised window and restarted unchanged build; final log reaches S3_ITERATION_NATIVE_READY with no exception. Earlier log preserved as native-final-first-attempt.log.",
+    "visual_review": {
+      "reviewer": "GPT-6 Astra",
+      "result": "FINAL VISUAL PASS",
+      "coverage": "All27 scenario frames at720/900/1080 plus manual-input frames. City matches approved direction, no alpha-neighbor fragments/black halos; cards/research/dial clear."
+    },
+    "final_runtime_log": "Artifacts/ITERATION-2026-10-21/native-final-player.log",
+    "ordinary": {
+      "log": "Artifacts/ITERATION-2026-10-21/ordinary-player.log",
+      "startup": "Artifacts/ITERATION-2026-10-21/ordinary-startup.png",
+      "map": "Artifacts/ITERATION-2026-10-21/ordinary-map.png",
+      "result": "Fresh process without capture env; LVL1/XP0/gold5/HP100/MP100, no modal/debug, automatic simulation active. M known city confirmed; then closed. Ordinary player left running."
+    }
+  },
+  "console": "No new attributable runtime/compile errors in final native/ordinary runs. Build has nonblocking Unity licensing access-token diagnostic; build succeeds.",
+  "wiring": "No scene/Inspector migration or packages. Importer updates existing Resources Stage3CityArt with gardens[6]. Existing optional capture router only activates on explicit env.",
+  "source_sha256": {
+    "Assets/Stage2/Integration/Runtime/Stage2HeroCombat.cs": "094e023a70d2c208ae2328fc85372bf7207f051ac0cf4796d795dc13ab665e17",
+    "Assets/Stage2/Integration/Runtime/Stage2HeroCombatDriver.cs": "d3c1a762aac35aea95ea63be2b0614fd9af150125c29a93e1dbd24dc8b67eb17",
+    "Assets/Stage2/Integration/Runtime/Stage2PlayerMover.cs": "71691af1959dae1c9a8be22c9560d087314a7a4eee433493ef2583e087a4552b",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3PlayerInterfaceBinding.Guild.cs": "3ff50aa10c3cf3f393a4621f7e1bd1e74684f179ce1508a99b94cc96caf619a6",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Construction.cs": "c1c0dc39d3907804fd16ff29de10553c29004bd59be2b1da73fd9746ea89b794",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Research.cs": "3f26eeb15f616e8344a9ed7f695e73a3bc783da7950b0865098a7e7343125d17",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.CityMap.cs": "1d70591bd2fc39de950ef438ac6bba7cd9dbf2db37c7b89e494f4042a2949d4f",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Cycle.cs": "02e10604900901adb7bf791b7637f0903163fa92bc8d5756410cbfa71040b9c2",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Recovery.cs": "be66389f49874eda327365dba5d6d6b36bd0fa851aba143abb75ad15a7517cc7",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3IterationReview.cs": "b8ea3b2db0570fd26751cc6332abd532665dead62fe728e71925e559c408f0e7",
+    "Assets/Stage3/DayNight/Runtime/Stage3HeroAvatar.cs": "a517c8ae806d04d76bf5d5fb15da1f5ae28d3af3a6d6d0f00b55321872f86c7b",
+    "Assets/Stage3/WorldTravel/Runtime/Stage3CityPresentation.cs": "61cceefa6fcad6ff170d84e553908dcba79cdb50ca0a021df46f1f286dd14d07",
+    "Assets/Stage3/WorldTravel/Runtime/Stage3CityArt.cs": "20c18a5d7b17811255c4235f0b59191b88f978c74cd25fd98141a3b54b8118e7",
+    "Assets/Stage3/WorldTravel/Runtime/Stage3TravelState.cs": "d138ac8accd706212f281a5e04f8c9a4a25703c45ed74d9c834be018c2ee16e6",
+    "Assets/Stage3/WorldTravel/Runtime/Stage3WorldTravel.cs": "0ab8bee7dc46c9fbbdfc629029ca77eb5340b36e1c02faa4dae82525fc90db28",
+    "Assets/Stage3/WorldTravel/Runtime/Stage3WorldTravel.BaseConstruction.cs": "6835c260b438e6db5711773b4eacd34bafc41612f6794c628f39b6d2c815ca89",
+    "Assets/Stage3/WorldTravel/Runtime/Stage3WorldTravel.BaseCirclePresentation.cs": "5bc2e1ca2d6cc5d105b951a02e1a1e387f90ef4883a3f4c270c16c6c6748d140"
+  },
+  "art_provenance": [
+    "art/source/city_gardens_2026-10-21_generation.json",
+    "art/source/world_camps_2026-10-21_generation.json",
+    "art/source/world_camps_2026-10-21_prompts.json"
+  ],
+  "remaining": [
+    "Windows/Steam verification",
+    "Sustained gameplay and final balance",
+    "Separately observed green valid-placement preview; actual valid construction and red invalid preview proven",
+    "Later runtime implementation of approved camp environments"
+  ],
+  "git": "Large preexisting dirty tree preserved. No commit/push requested for this correction."
+}

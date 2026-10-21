@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: TacticalZoomSettings
   m_EditorClassIdentifier: Not3A.Stage2.Integration::Not3A.Stage2.Integration.Stage2CameraZoomSettings
   stepMultiplier: 1.205
+  maximumDistanceMultiplier: 3

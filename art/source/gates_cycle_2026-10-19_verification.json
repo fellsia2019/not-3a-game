@@ -1,0 +1,109 @@
+{
+  "date": "2026-10-19",
+  "feature": "D074/D087/D088 daytime gates, time-only defeat recovery and local Sleep",
+  "status": "implemented and locally qualified; Astra text/button visual PASS",
+  "contracts": [
+    "Night20:00 is mandatory; early victory keeps the clock and never forces dawn. Unfinished horde never overlaps another.",
+    "Local E opens/closes last cleared tier after first victory; persistent spawn cadence and bounded population. Before-night closure retains existing enemies.",
+    "Sleep uses local dwelling E or its selected-card action;19:50 only outside open flow/live creeps/pending attacks/mandatory horde.",
+    "Retry clears failed threats and restores throne/morning for same pending tier, keeping current resources, XP/ranks/points/cooldowns, research, buildings, purchases/sales, damage/destruction and hero position.",
+    "New real kills reward normal XP/gold again; resetting/despawning does not. No skipped-time production/recovery."
+  ],
+  "migration": {
+    "data": "Stage2RunCatalog new daytimeGates defaults false; only active Stage3 HordeRun explicitly opts in. Cadence/cap/cutoff/tier growth/Sleep buffer are serialized there.",
+    "legacy": "Existing finite Stage2 assets retain original full snapshot and StartWave behavior; tests passed.",
+    "wiring": "Stage3PlayerInterfaceBinding adds local Stage3DaytimeGate to existing scene composition at runtime. Existing HUD/presentation surfaces reused; no scene/prefab/GUID/package change.",
+    "resource_refresh": "Temporal retry anchor survives resource-population replacement; identity validation remains for legacy full snapshots."
+  },
+  "tests": {
+    "editMode": {
+      "passed": 37,
+      "total": 37,
+      "result": {
+        "path": "Artifacts/S3-GATES-20261019/editmode-final.xml",
+        "sha256": "b365ed4e2b85e80d92c3d228b90920e5cef7092620cc7c302870a17c046d6634"
+      }
+    },
+    "playMode": {
+      "uniquePassed": 43,
+      "uniqueTotal": 43,
+      "latestPerCase": true,
+      "results": [
+        {
+          "path": "Artifacts/S3-GATES-20261019/playmode.xml",
+          "sha256": "ad37100e85ab66dfe19aedbef05d101227bfdc4aa1c3aea222ed2120a712dd13"
+        },
+        {
+          "path": "Artifacts/S3-GATES-20261019/integration.xml",
+          "sha256": "0008ed1cdfab0b1bb53c915910b4602d18b240df62352d09a785b6eff8250923"
+        },
+        {
+          "path": "Artifacts/S3-GATES-20261019/visual-cycle-final.xml",
+          "sha256": "04df46b4782dee1a117db66e9c06fd14de7651c469a1536a2a97c188129a49aa"
+        }
+      ],
+      "qualification": "Initial playmode24/25 and integration18/19 contain superseded failures. Later integration passes retry and selected-house Sleep; final visual-cycle replaces outdated night-hint/early-dawn assertions. Latest unique cases are43/43 PASS."
+    },
+    "covers": [
+      "cadence/cap/cutoff, mixed day/night creeps, tier HP, pause and long elapsed time",
+      "day/night defeat preserves current world/XP and repeat rewards",
+      "Sleep open-flow/live-creep/pending-attack/night locks, no skipped income",
+      "actual E press/hold/release and input arbitration",
+      "selected dwelling live available/disabled state and action",
+      "production/world-travel owners, startup, progression, fractures and retry readiness"
+    ]
+  },
+  "build": {
+    "target": "StandaloneOSX / Metal development review",
+    "result": "Success",
+    "path": "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app",
+    "log": {
+      "path": "Artifacts/S3-GATES-20261019/build.log",
+      "sha256": "50c0b8d26a13cf232109ba69f54f7ffafafd21019ad314eea97559c5b2a081ed"
+    },
+    "bytes": 536910143,
+    "newAttributableCompileRuntimeErrors": 0
+  },
+  "native": {
+    "resolution": "1600x900",
+    "result": "PASS actual E open/close and actual selected-house Sleep click",
+    "verification": {
+      "path": "Artifacts/S3-GATES-20261019/native/verification.txt",
+      "sha256": "59ff196286897d051fb6b264224d786de8bc9935ab81fc44f659e1d23fa6a85a"
+    },
+    "log": {
+      "path": "Artifacts/S3-GATES-20261019/native-player.log",
+      "sha256": "15619281bcb21442869bfd73add9415f3e899f4ea4e85999501bb8dbd4d53f18"
+    },
+    "captures": [
+      {
+        "path": "Artifacts/S3-GATES-20261019/native/01-local-gate-ready.png",
+        "sha256": "7474a85685314a0cc4039bfd40a6a0a82d949e6600bb3a1790f7d3488dda19a3"
+      },
+      {
+        "path": "Artifacts/S3-GATES-20261019/native/02-open-live-creep.png",
+        "sha256": "92afb19599e495d136bc2d8ce7c342372a06879f34ddba8e73c7b8ce6025343f"
+      },
+      {
+        "path": "Artifacts/S3-GATES-20261019/native/03-closed-live-creep.png",
+        "sha256": "48450e4aebe5534255950a21441ee8d4355c3aa3b54a9d7485a5e8e0277798ad"
+      },
+      {
+        "path": "Artifacts/S3-GATES-20261019/native/04-sleep-card-ready.png",
+        "sha256": "9628715e6a28586e6b86c07fa66c9f40d712c1c7d91fc90fec2a455eb8898414"
+      },
+      {
+        "path": "Artifacts/S3-GATES-20261019/native/05-slept-1950.png",
+        "sha256": "9e4f55a426e358bd6cdfda9f402cbb40dc2adcf49e956468c9130b10c2c216ca"
+      }
+    ],
+    "setup": "Explicit disposable opt-in NOT3A_GATE_CYCLE_CAPTURE_DIRECTORY:10wood house, simulated first-night kills/clock/dawn, frozen automatic clock/combat; native E and mouse actions are real. Not a natural full-day balance test. Process closed afterwards.",
+    "astraReview": "PASS all five1600x900 frames: gate open/close hints, Sleep icon/action and19:50 disabled reason fit, original v4 geometry preserved. Combat disabled reason and new defeat text were not visible in these five frames; combat reason is covered by PlayMode."
+  },
+  "remaining": [
+    "Windows/Steam module unavailable; product-target build/runtime unverified",
+    "Full natural-day pacing, long-night usefulness and late-tier tuning not qualified",
+    "Equipment/forge, professions/base upgrades, trade/research, world loot and bosses remain future canonical stages"
+  ],
+  "evidencePolicy": "Native screenshots/logs/test XML stay in ignored Artifacts; no new runtime artwork or tracked screenshot bulk."
+}

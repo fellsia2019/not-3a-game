@@ -1,0 +1,84 @@
+{
+  "date": "2026-10-20",
+  "status": "Owner selectedA smoke-glass; native topHUD/cycle locally qualified, AstraPASS25frames",
+  "tool": "Built-in image_gen.imagegen",
+  "prompts": "art/source/cycle_top_hud_2026-10-20_prompts.json",
+  "references": [
+    "Artifacts/S3-GATE-REPLAY-20261020/normal-startup.png"
+  ],
+  "research": [
+    {
+      "url": "https://www.dota2.com/700/hud/",
+      "role": "Official Valve HUD layout reference, inspiration only; no pixels imported or traced"
+    },
+    {
+      "url": "https://www.dota2.com.cn/article/details/20160831/141848.html",
+      "role": "Official Dota top-center day/night status reference"
+    }
+  ],
+  "owner_intent": "Top-center analog cycle dial, day10min/night3min, top edge attached shaped slimHUD; gentle daylight/twilight/darkrednight rather than flat green/redpie",
+  "v1_rejection": "massive straight emptybar, largeclock, crudehardphasecolors",
+  "v2_caveats": "ImageGen circle still touches/crops top; native must fit WHOLEdial<=60pxat900p and softly blendphaseboundary; no incidental bottomHUDchange approved",
+  "files": [
+    {
+      "path": "art/concepts/cycle_top_hud_2026-10-20/top_hud_v1_rejected.png",
+      "sha256": "8d7490db36f84c554fbcc8050de6c80ec3bf046106225e0ddc34214cc7ae2d6b",
+      "bytes": 2498043
+    },
+    {
+      "path": "art/concepts/cycle_top_hud_2026-10-20/top_hud_v2.png",
+      "sha256": "014bde519b0b3b9446139130a236b0eac7615faa78ee7476c9b311e5933d6477",
+      "bytes": 2313024
+    },
+    {
+      "path": "art/concepts/cycle_top_hud_2026-10-20/top_hud_v3.png",
+      "sha256": "5a01f3020a5dcf974c2abc62d21e10c1a41fd0752199f0431dac417b6d99620f",
+      "bytes": 2274503
+    },
+    {
+      "path": "art/concepts/cycle_top_hud_2026-10-20/top_hud_v4.png",
+      "sha256": "17db9f836717615b921a91d170bc2139890d9139cd7ecac5a462305a80733f88",
+      "bytes": 2290207
+    },
+    {
+      "path": "art/concepts/cycle_top_hud_2026-10-20/top_hud_v5.png",
+      "sha256": "44eb7d146364b14ee0b5af2744de8fc80667e90bda8a33ac8af3c91c879d8a9f",
+      "bytes": 2254436
+    },
+    {
+      "path": "art/concepts/cycle_top_hud_2026-10-20/dial_variants_v6.png",
+      "sha256": "0f7df8311630cde9aa8549d6756f806f50550ec0825f1d56b341327c5e07dd3a",
+      "bytes": 1949045
+    },
+    {
+      "path": "art/concepts/cycle_top_hud_2026-10-20/dial_a_ratio_v7.png",
+      "sha256": "6513ebef8a54732e3a98aad1a00017cc7c33d40338b82c27ebd48168284b6d7e",
+      "bytes": 1737481
+    },
+    {
+      "path": "art/concepts/cycle_top_hud_2026-10-20/dial_b_ratio_v7.png",
+      "sha256": "00432a7b7f8e58441875473b6bb9b14f2d0898e3014d7b158d3b987bd8502a97",
+      "bytes": 1885539
+    }
+  ],
+  "owner_response": "Худ пойдет, только часы пока переделай",
+  "v2_clock_rejection": "Cheerful day/night contradicts dangerous exploration and undead/miasma nights",
+  "v3_prompt": "art/source/cycle_top_hud_2026-10-20_v3_prompt.txt",
+  "latest_owner_request": "варианты а и б подходят только скоректируй под наше соотношение дня и ночи10минут день3мин ночь",
+  "latest_ratio": {
+    "day_seconds": 600,
+    "night_seconds": 180,
+    "night_degrees": 83.07692307692308,
+    "day_degrees": 276.9230769230769,
+    "mapping": "10:3 geometric ratio supersedes older135degree10:30-to3 request; soft edge is appearance, native phase boundaries exact",
+    "appearance": "Aselectedfornativeimplementation; final exactsectorgeometryfromrules, broadsofttransitionkept"
+  },
+  "latest_prompts": "art/source/cycle_top_hud_2026-10-20_ratio_v7_prompts.json",
+  "approval": {
+    "shape": "Худ пойдет, только часы пока переделай",
+    "materials": "варианты а и б подходят только скоректируй под наше соотношение дня и ночи10минут день3мин ночь",
+    "final_selection": "А — дымчатое стекло",
+    "chosen": "art/concepts/cycle_top_hud_2026-10-20/dial_a_ratio_v7.png"
+  },
+  "verification": "art/source/cycle_top_hud_2026-10-21_verification.json"
+}

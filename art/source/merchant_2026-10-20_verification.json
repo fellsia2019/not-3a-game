@@ -1,0 +1,387 @@
+{
+  "date": "2026-10-20",
+  "decision": "D-100",
+  "status": "Implemented and locally Mac-qualified; Astra final visual PASS; ordinary player restored.",
+  "authorization": [
+    "Owner requested click shop -> approved dual inventory -> gold buy/sell.",
+    "Owner accepted8existing types,F/LVL1,one each,50% sale,no auto restock; exact trial pricing in data."
+  ],
+  "owners": {
+    "main": "Item transfer/payment rules, catalog, world click/access/binding, QA/tests/docs",
+    "visual": "GPT-6 Astra / gatherer_concept_astra; native merchant window and narrow HUD hooks"
+  },
+  "runtime_contract": [
+    "8finite initial F1 items; no automatic restock. Player sold items become finite stock and can be repurchased at ordinary buy value.",
+    "Same object/ID/type/quality/level transfers between inventories. Purchase does not equip. Equipped instances excluded from sale bag and rejected by rules.",
+    "Only gold changes; wood/stone/metal unchanged. Revalidate side/ID, availability, proximity, ownership, equipped state, price, funds/credit overflow. Stale/repeated/failed attempts do not transfer/spend.",
+    "Ownership moves before wallet notification; reentrant equipment operations blocked through payment. Observers see ownership and wallet committed together.",
+    "Click visible shop to inspect; actual transactions require hero near entrance/merchant and no pause/loss/debug/draft/other modal. Long disabled reason explains local proximity.",
+    "Modal blocks hero/build input; world time/threats continue. Esc/navigation closes; source press needs release before reopening.",
+    "D087 retry keeps CURRENT merchant stock/trades/items/wallet; closes unfinished UI. Full Reset restores8F1stock and starter loadout, no old IDs reused. No disk-save migration."
+  ],
+  "appearance_and_sources": {
+    "layout": "art/concepts/merchant_2026-10-20/merchant_window_v3_buy_superseded_colors.png and sell counterpart. Owner requested approved geometry; old sample colors replaced by actual D097 skins.",
+    "provenance": [
+      "art/source/merchant_window_2026-10-20_generation.json",
+      "art/source/item_quality_cells_2026-10-20_skins_generation.json",
+      "art/source/item_safe_areas_2026-10-20_verification.json",
+      "art/source/city_runtime_2026-10-20_generation.json"
+    ],
+    "reuse": "Existing fullscreen Lunar Porcelain shell, equipment atlases, original painted quality skins/64visible bounds, hero portrait, merchant kit[8] head crop, painted scales kit[11].",
+    "new_pngs_or_source_edits": false,
+    "new_currency_or_item_families": false,
+    "presentation": "Player bag left, finite merchant grid right, compact round portraits, central selected item/stats/live gold price, one contextual Buy/Sell action, gold-only wallet;6columns,5visible rows and independent scrolling."
+  },
+  "wiring": {
+    "installer": "Not3A.Stage3.PlayerInterface.Editor.Stage3MerchantInstaller.Install",
+    "new_data_asset": "Assets/Stage3/PlayerInterface/Resources/Stage3Merchant.asset",
+    "tuning": "Validated ordered8type base gold prices,8quality multipliers,level growth,sale50%,local radius. Trial values serialized; no independent Markdown tuning table.",
+    "binding": "Existing Stage3PlayerInterfaceBinding.Start binds Merchant after Equipment/Teleports; Update handles world click/live availability; OnDestroy unbinds. No new global manager.",
+    "serialization": "Merchant appended to existing UI window enum; old names/IDs/scenes/prefabs/asmdefs/packages/project settings preserved."
+  },
+  "tests": {
+    "result": "Passed",
+    "total": 41,
+    "passed": 41,
+    "failed": 0,
+    "duration_seconds": 76.9596218,
+    "start_utc": "2026-10-20 14:40:38Z",
+    "end_utc": "2026-10-20 14:41:55Z",
+    "xml": "Artifacts/S3-MERCHANT-20261020/playmode-final.xml",
+    "filter": "Stage3MerchantRulesTests;Stage3MerchantTests;Stage3EquipmentRulesTests;Stage3EquipmentForgeTests;Stage3WorldTravelTests;Stage3StartupTests",
+    "new_checks": 10,
+    "names": [
+      "Not3A.Stage3.VisualPilot.Tests.Stage3EquipmentForgeTests.BagShowsOnlyUnequippedItemsAndWeaponReplacementReturnsPreviousItem",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3EquipmentForgeTests.CraftedWandUsesWeaponSlotAndLiveCombatProfileAndFiveCombatSlots",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3EquipmentForgeTests.DefeatKeepsForgeCurrentItemsAndInvestmentButFullResetClearsThem",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3EquipmentForgeTests.LocalEOpensActualForgeAndBindingCreatesPaidItemWithoutAutoEquipping",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3EquipmentForgeTests.RealConstructionPaysOnceProtectsGroundAndStartsAtDWithoutScrolls",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3EquipmentForgeTests.ReforgedPickaxeChangesRealHarvestAndUnequippedToolCannotGather",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3EquipmentForgeTests.RemotePauseModalAndDebugCannotUseForgeOrSpendResources",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3EquipmentRulesTests.BowAndWandShareOneSlotAndUnequipKeepsBothOwned",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3EquipmentRulesTests.CraftIsPaidOnceAndReentrantWalletListenerCannotBuyAnotherItem",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3EquipmentRulesTests.ForgeHasThreeScrollOnlyStagesAndNeverPaysResourcesOrGoldForThem",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3EquipmentRulesTests.FreshEquipmentHasThreeActualStarterToolsAndNoArmorOrShieldType",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3EquipmentRulesTests.FullResetRemovesForgeLootAndScrollsButDoesNotRecycleOldItemIds",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3EquipmentRulesTests.LevelAndReforgePreserveInstanceAndKeepTheirTwoAxesIndependent",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3EquipmentRulesTests.LevelsReach100WithoutChangingQualityAndMaxLevelDoesNotSpend",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3EquipmentRulesTests.LootCanReceiveSSSWithoutMakingItCraftableAndInvalidItemsDoNotEnterBag",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3EquipmentRulesTests.SequentialQualityCapsRejectSkippedStagesAndSSSCannotBeForged",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3EquipmentRulesTests.StrongToolsGrantOnlyRemainingStockAndOneStrikeEventWithCorrectTiming",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3EquipmentRulesTests.WeaponProfileCombinesPassivesWithoutSplashOrSwapCooldownReset",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3MerchantRulesTests.EquippedItemCannotBeSoldAndSaleBuybackKeepQualityLevelAndIdentity",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3MerchantRulesTests.FullResetCreatesFreshFiniteStockWithoutRecyclingSoldOrPurchasedIds",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3MerchantRulesTests.InitialStockIsFiniteEightF1TypesAndNeverOverlapsPlayerOwnership",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3MerchantRulesTests.MissingGoldAndCreditOverflowCannotLoseItemsOrAlterOtherResources",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3MerchantRulesTests.PurchaseMovesExactlyTheSameInstanceOnceAndSpendsOnlyGold",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3MerchantRulesTests.WalletObserversSeeCommittedOwnershipAndCannotReenterItemTransactions",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3MerchantTests.DefeatRetryKeepsCurrentTradeWhileFullResetRestocksAndClearsTheWindow",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3MerchantTests.PaidBuyAndSaleRefreshBothInventoriesAndCannotReplayAStaleSelection",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3MerchantTests.ShopMouseClickOpensDualInventoryAndEscapeConsumesHeldClickWithoutPausingWorld",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3MerchantTests.UnfundedFarPausedAndHiddenWindowAttemptsCannotSpendOrTransfer",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3StartupTests.DirectStartAndReloadHaveFinalWorldAndHudInTheirFirstFrame",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3StartupTests.LegacyStage2KeepsItsOwnVisibleMarkersAndHud",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3WorldTravelTests.ApprovedSealRendersAtThreeZoomsWithTransparentSourceBackground",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3WorldTravelTests.BuildMenuMousePlacementIsFreeSingleAndMatchesPreviewBeforeResearch",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3WorldTravelTests.CityCollisionsAndStreetArrivalAreSeparateAndResourcesCannotSpawnInside",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3WorldTravelTests.ConfiguredThirdEndpointRendersAndUsesTheSameOpenedDestinationMenu",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3WorldTravelTests.DiscoveryAndMenuTravelWorkBothWaysWithoutBounceOrBlockedArrival",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3WorldTravelTests.DiscoveryBeforeResearchPersistsThroughStudyAndWaveButTerminalBlocksTravel",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3WorldTravelTests.PauseBuildAndDebugBlockResearchAndHeldInputDoesNotReplay",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3WorldTravelTests.PlacementRejectsRoadHeroResourcesCirclesObstaclesAndMenuClicksAndCancellationWins",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3WorldTravelTests.ResearchCreatesBaseCircleAndResetRemovesItWithoutSpendingOrGranting",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3WorldTravelTests.WorkshopPlacementYieldsToOtherModesAndCannotSurvivePauseDebugTerminalOrReset",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3WorldTravelTests.WorldRegenerationRebindsOneWorkshopObstacleAndKeepsArrivalSitesClear"
+    ],
+    "ordering": "After gameplay/binding/catalog integration. Subsequent changes limited to portrait/scroll visual repair and QA-only far-reason capture; final native build covers these."
+  },
+  "build": {
+    "result": "Succeeded",
+    "unity": "6000.6.2f1",
+    "platform": "Mac standalone Metal development",
+    "bytes": 675630467,
+    "log": "Artifacts/S3-MERCHANT-20261020/build-final.log",
+    "player": "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app"
+  },
+  "native": {
+    "log": "Artifacts/S3-MERCHANT-20261020/native-final.log",
+    "directory": "Artifacts/S3-MERCHANT-20261020/native-final",
+    "fixture_frames": 21,
+    "sizes": [
+      [
+        1280,
+        720
+      ],
+      [
+        1600,
+        900
+      ],
+      [
+        1920,
+        1080
+      ]
+    ],
+    "states": [
+      "buy with empty player bag",
+      "unfunded buy",
+      "too far buy",
+      "sell SSS100",
+      "player scroll with41bag items",
+      "merchant scroll after actual sale transactions",
+      "empty merchant after actual purchases"
+    ],
+    "astra_review": {
+      "result": "PASS",
+      "reviewed": "All21native-final fixture frames at720/900/1080",
+      "findings": "Round portraits, no extra horizontal scrollbar/cut captions, readable grids/quality/cyan selection/price/CTA and long disabled reason, gold-only wallet; no visual blockers."
+    },
+    "actual_mouse": {
+      "final": "Shop click opens, buy F1bow20gold (105→85), select that instance in bag, sell10gold (85→95), Esc closes back to city.",
+      "earlier": "Before the visual-only repair, actual Esc/reopen also verified stock/balance retained without auto restock.",
+      "proofs": [
+        "Artifacts/S3-MERCHANT-20261020/native-final/actual-Escape.png",
+        "Artifacts/S3-MERCHANT-20261020/native-final/actual-buy-105-to85.png",
+        "Artifacts/S3-MERCHANT-20261020/native-final/actual-open.png",
+        "Artifacts/S3-MERCHANT-20261020/native-final/actual-sale-selected.png",
+        "Artifacts/S3-MERCHANT-20261020/native-final/actual-sell-85-to95.png"
+      ]
+    },
+    "qa_isolation": "NOT3A_MERCHANT_CAPTURE_DIRECTORY is explicit development-only.21states use disposable gold/41existing-type quality/level grants, actual product trades, frozen run driver. Reset clears them before small actual-click fixture105gold/E12helmet. Ordinary startup has no grants, clock freeze or shop opening.",
+    "frames": [
+      {
+        "path": "Artifacts/S3-MERCHANT-20261020/native-final/1280x720-buy-empty-bag.png",
+        "bytes": 588345,
+        "sha256": "2234be7377f21e9be24b2970f8f2f5e91b95fed576189970bd3f5725e0363f8d"
+      },
+      {
+        "path": "Artifacts/S3-MERCHANT-20261020/native-final/1280x720-empty-stock.png",
+        "bytes": 667909,
+        "sha256": "2dc2a016f203fc78ca3c4f4b7717778e872f17ba3904869b3e40f08c44a0a3b7"
+      },
+      {
+        "path": "Artifacts/S3-MERCHANT-20261020/native-final/1280x720-merchant-scroll.png",
+        "bytes": 701080,
+        "sha256": "ccb785e068c898f0d3a44369f524c0e1b09ed0435b04631b8cf1740f5234af3a"
+      },
+      {
+        "path": "Artifacts/S3-MERCHANT-20261020/native-final/1280x720-player-scroll.png",
+        "bytes": 752014,
+        "sha256": "4cb001908d76ec3f888f47a1629145a084a3d1b2e42b2b7fce3474c67e0978ff"
+      },
+      {
+        "path": "Artifacts/S3-MERCHANT-20261020/native-final/1280x720-sell-sss.png",
+        "bytes": 717918,
+        "sha256": "c9c49d69a0c144a7f42dbae06eb189733a774743e21635350d0bcc8b2027f2af"
+      },
+      {
+        "path": "Artifacts/S3-MERCHANT-20261020/native-final/1280x720-too-far.png",
+        "bytes": 587845,
+        "sha256": "38d94e709c1e6c050bda3ed7d732f1115007dd71d5f39690748d021ad8e12a36"
+      },
+      {
+        "path": "Artifacts/S3-MERCHANT-20261020/native-final/1280x720-unfunded.png",
+        "bytes": 586144,
+        "sha256": "59467d2f4a8b176991b0224e080267cc74bf62dee1a28bae5de199d6e014454a"
+      },
+      {
+        "path": "Artifacts/S3-MERCHANT-20261020/native-final/1600x900-buy-empty-bag.png",
+        "bytes": 839486,
+        "sha256": "8f94855f498015bb1546791e9d4a6352fc4c889d05ec522eeba13e3f799916d8"
+      },
+      {
+        "path": "Artifacts/S3-MERCHANT-20261020/native-final/1600x900-empty-stock.png",
+        "bytes": 958022,
+        "sha256": "605ee1f5213f381fe971e4bc83b3b05819182b62c6c880bf449ab4c2bb8b0819"
+      },
+      {
+        "path": "Artifacts/S3-MERCHANT-20261020/native-final/1600x900-merchant-scroll.png",
+        "bytes": 1005735,
+        "sha256": "16d4e9246c4c932814799429f04c06cd24ee8d4593bafcf59bb6d0551458111f"
+      },
+      {
+        "path": "Artifacts/S3-MERCHANT-20261020/native-final/1600x900-player-scroll.png",
+        "bytes": 1084741,
+        "sha256": "d5a6c82088b3f7aa1ca7ac12a249be827ba02690019276d533f27d8b2de626bf"
+      },
+      {
+        "path": "Artifacts/S3-MERCHANT-20261020/native-final/1600x900-sell-sss.png",
+        "bytes": 1043970,
+        "sha256": "33bda8a242852c8d9d2a5c493b15bcf2089f155bf593e28e23137e16756e35da"
+      },
+      {
+        "path": "Artifacts/S3-MERCHANT-20261020/native-final/1600x900-too-far.png",
+        "bytes": 837584,
+        "sha256": "b42a5e4f3c3c4cb51498a2d36f5a8aab890db946d71ec8d3019d4ddf1b561cab"
+      },
+      {
+        "path": "Artifacts/S3-MERCHANT-20261020/native-final/1600x900-unfunded.png",
+        "bytes": 835052,
+        "sha256": "c3bbddae07eff32d58c77f2c7e066fec491eb2a4522e21d74398b19e44877bab"
+      },
+      {
+        "path": "Artifacts/S3-MERCHANT-20261020/native-final/1920x1080-buy-empty-bag.png",
+        "bytes": 1160321,
+        "sha256": "f88dfcb7eeef64147bf85ebb014e88332ed698d03634a66fa65b1a942cad8802"
+      },
+      {
+        "path": "Artifacts/S3-MERCHANT-20261020/native-final/1920x1080-empty-stock.png",
+        "bytes": 1304640,
+        "sha256": "82da044e719bdb7d917c9b92eec38688f42e5d91f7f532acd8806194beae4c55"
+      },
+      {
+        "path": "Artifacts/S3-MERCHANT-20261020/native-final/1920x1080-merchant-scroll.png",
+        "bytes": 1370179,
+        "sha256": "23066405e39213e90c6318db806c80c656662a214c74416b63db705e4bbf9860"
+      },
+      {
+        "path": "Artifacts/S3-MERCHANT-20261020/native-final/1920x1080-player-scroll.png",
+        "bytes": 1477170,
+        "sha256": "5c9552f15cad5e8ed85a0a422add09bbcdbce876a7c48ad19af502e1fd3f573a"
+      },
+      {
+        "path": "Artifacts/S3-MERCHANT-20261020/native-final/1920x1080-sell-sss.png",
+        "bytes": 1415793,
+        "sha256": "4053bb487f2529c6ce9320b3f9e760c500cb587d1c1ad0480826d72bcb751e55"
+      },
+      {
+        "path": "Artifacts/S3-MERCHANT-20261020/native-final/1920x1080-too-far.png",
+        "bytes": 1157211,
+        "sha256": "c34044d3d7693c467d8cb6323a502cc61d79847948c2f9d391931c4ba4c243f9"
+      },
+      {
+        "path": "Artifacts/S3-MERCHANT-20261020/native-final/1920x1080-unfunded.png",
+        "bytes": 1153885,
+        "sha256": "61341d8fdf50613c0bc15022087ded26ddffa53597d99a38fc3929268f41e52c"
+      },
+      {
+        "path": "Artifacts/S3-MERCHANT-20261020/native-final/actual-Escape.png",
+        "bytes": 552832,
+        "sha256": "2c01c6133f1692029e04aee3385dbc0108016041397c3b63f5a220dc2a8f3c68"
+      },
+      {
+        "path": "Artifacts/S3-MERCHANT-20261020/native-final/actual-buy-105-to85.png",
+        "bytes": 231903,
+        "sha256": "24df1c3d359fca2698c370175624b2a4b34a9586fc72e4801e2aa89b2d47b52a"
+      },
+      {
+        "path": "Artifacts/S3-MERCHANT-20261020/native-final/actual-open.png",
+        "bytes": 249721,
+        "sha256": "1473ff9660104925b2729a094c32ec0d14afc4dcb82250ad24421f859ac0582b"
+      },
+      {
+        "path": "Artifacts/S3-MERCHANT-20261020/native-final/actual-sale-selected.png",
+        "bytes": 249036,
+        "sha256": "401d1961d1dff7cf019d14cb555bb7f44399245774191ecb3bf019984af7d46b"
+      },
+      {
+        "path": "Artifacts/S3-MERCHANT-20261020/native-final/actual-sell-85-to95.png",
+        "bytes": 231922,
+        "sha256": "89c387159ab5de8e6ec28845a9f1fd00850f069b0cdbb583c3f77dc884701231"
+      }
+    ]
+  },
+  "normal_restore": {
+    "running": true,
+    "qa_environment_removed": true,
+    "qa_seed_removed": true,
+    "observed": "5gold,0materials,LVL1/XP0,clock advanced08:07→08:17; I shows empty bag with only three equipped F1starter bow/pickaxe/axe. Esc returned to ordinary world.",
+    "log": "Artifacts/S3-MERCHANT-20261020/normal.log",
+    "proofs": [
+      {
+        "path": "Artifacts/S3-MERCHANT-20261020/normal-restored.png",
+        "bytes": 526835,
+        "sha256": "1bb7f85821fd2a72bfdd8b1c18b8fb309d2783f48afbdc48da472976b4274cc7"
+      },
+      {
+        "path": "Artifacts/S3-MERCHANT-20261020/normal-empty-bag.png",
+        "bytes": 185133,
+        "sha256": "470c8c56a9131555838b7f88bae40d95a7a8ab82b320ce645261408c8744b400"
+      }
+    ]
+  },
+  "console": {
+    "new_attributable_compile_shader_runtime_errors": 0,
+    "limits": "Existing unused URP/font fallback/licensing/Unity telemetry messages remain baseline; final build successful and native/normal logs have no attributable exceptions."
+  },
+  "repair_history": [
+    "First focused run40/41: retry test caused loss before a night checkpoint; fixed preparation to start the night, then all41passed. No gameplay retry weakening.",
+    "First native18frames: portrait corners and720p scrollbar/partial-row labels identified by Astra. Final Merchant.cs uses existing round masks and physical-pixel-safe5-row scroll viewport;21frames PASS."
+  ],
+  "remaining": [
+    "Windows/Steam player qualification unavailable: local Windows module absent.",
+    "Trial price tuning/playtest. Research/forge scroll stock/sources, runes, resource trade, restock systems and merchant budget remain outside first authorized slice.",
+    "No new loot/drop source, NPC AI/quests/services, armor appearance, currency or disk persistence."
+  ],
+  "files": [
+    {
+      "path": "Assets/Stage2/Integration/Runtime/Stage2Equipment.cs",
+      "bytes": 9020,
+      "sha256": "0f33a4efcf4f2bdd2c08b295d566e27001dc18902220eb79860465ca7ffe0fd2"
+    },
+    {
+      "path": "Assets/Stage2/Integration/Runtime/Stage2Equipment.Trading.cs",
+      "bytes": 2204,
+      "sha256": "8e88b8559494561b5b7e2484884a9068d5d575a3404afb51c889c36569fb753e"
+    },
+    {
+      "path": "Assets/Stage2/Integration/Runtime/Stage2Merchant.cs",
+      "bytes": 2048,
+      "sha256": "019c4d19ba729f1571f9f6bd9411e543d92035b8b2aefcafa9e70c1cf970340e"
+    },
+    {
+      "path": "Assets/Stage2/Integration/Runtime/Stage2MerchantCatalog.cs",
+      "bytes": 2123,
+      "sha256": "4f593a5a6e0fc6428305ca3ee0a5643e3ebf8c37cfaccbf7c8cb59b8803679e8"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Resources/Stage3Merchant.asset",
+      "bytes": 707,
+      "sha256": "11cc05830348c4203d10a614643bd6abc44daa3f049fd7f3f417c2c09130581a"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Editor/Stage3MerchantInstaller.cs",
+      "bytes": 798,
+      "sha256": "92a493623aa05511bd343b32a3477682f6fcde0324a63a1b45d96ca5635674d7"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.cs",
+      "bytes": 37305,
+      "sha256": "ce6d041a11f87c4d74c037a9bdcc0a3d632f062350d7c7af6b8e9595169a6dc3"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Merchant.cs",
+      "bytes": 14677,
+      "sha256": "80e4a0c1e98efd06e2030f62612af7635f9cb89560f2388b6aed443e881a20cd"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Runtime/Stage3PlayerInterfaceBinding.cs",
+      "bytes": 7782,
+      "sha256": "6e2a80de241cae65ff714bcda6b2f3252a3d95f4005cfc6c4a6b632d450d5bf2"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Runtime/Stage3PlayerInterfaceBinding.Merchant.cs",
+      "bytes": 7675,
+      "sha256": "6e53f7b374642a53a7ffdb7ca9aa636015845eebf24317b03b1776306b1fb0b6"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Runtime/Stage3MerchantReview.cs",
+      "bytes": 5366,
+      "sha256": "4e5cd792bed41842fda66f8a2df9ef727fc2d10b338982e8e9c770474d1f0cd5"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Runtime/Stage3InterfaceCapture.cs",
+      "bytes": 24225,
+      "sha256": "2ae5c5add88b896e2339577361a91d2ce0f918de3d19c2a207effb49a2fdbcec"
+    },
+    {
+      "path": "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3MerchantRulesTests.cs",
+      "bytes": 6427,
+      "sha256": "898891576b9ffb7ebfabe1b4c6061bf56ebbff96bf65d534f51246d2c745e206"
+    },
+    {
+      "path": "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3MerchantTests.cs",
+      "bytes": 8323,
+      "sha256": "e07fdc1eb99a16b3f22ba3f1e7781a598e04a8fb8ea3961ffba8d8b751e232ce"
+    }
+  ]
+}

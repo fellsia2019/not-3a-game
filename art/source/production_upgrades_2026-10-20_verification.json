@@ -1,0 +1,133 @@
+{
+  "date": "2026-10-20",
+  "decision": "D-093",
+  "status": "Implemented and locally qualified",
+  "owner_approval": "Да,5ступеней, пока без исследований",
+  "behavior": {
+    "types": [
+      "Лесопилка",
+      "Каменоломня",
+      "Железная шахта"
+    ],
+    "levels": 5,
+    "output_per_cycle": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "intervals_seconds": [
+      5,
+      7,
+      10
+    ],
+    "purchase": "Per owned instance, materials+gold; prototype no research gate",
+    "new_construction": "Existing material-only price, starts1",
+    "timing": "Preserves current partial cycle, no tick or income on upgrade",
+    "lifetime": "D087 keeps CURRENT buildings/level/progress/investment; full Reset clears; legacy snapshot now carries level",
+    "unchanged": "Sprites, footprint, pad, collision, scene/GUID/packages, existing HUD/card geometry; no production sale/merge/move, offline/skipped-time income or profession XP"
+  },
+  "runtime_data": {
+    "path": "Assets/Stage3/ResourceDistricts/Production/ProductionCatalog.asset",
+    "migration": "Additive four serialized transitions on each existing entry, preserving base fields/GUID; old empty catalogs remain one-stage legacy",
+    "installer": "Not3A.Stage3.PlayerInterface.Editor.Stage3ProductionUpgradeInstaller.Install",
+    "tuning": "Prices are provisional runtime data, not a fixed Markdown balance table",
+    "sha256": "6c6f5cdec98f7fefdb6813d7915d58cf5e4a8e29532c65e2a048830f99c2676f"
+  },
+  "contracts": {
+    "rules": "Stage2ProductionBuilding.Level/OutputAmount/IntervalSeconds; Stage2Production.EvaluateUpgrade/TryUpgrade; snapshot Level",
+    "data": "Stage2ProductionEntry.upgrades / MaximumLevel / TryGetUpgrade",
+    "driver": "Stage2ProductionDriver.EvaluateUpgrade/TryUpgrade",
+    "binding": "TryUpgradeSelectedProduction; existing selected DTO fields and upgrade event",
+    "visuals": "Existing D078 card/assets only. Astra reviewed unchanged appearance with new live facts. No new generated bitmap or sketch needed."
+  },
+  "tests": [
+    {
+      "file": "Artifacts/S3-PRODUCTION-UPGRADES-20261020/economy.xml",
+      "platform": "EditMode",
+      "total": 31,
+      "passed": 31,
+      "new_upgrade_checks": 4
+    },
+    {
+      "file": "Artifacts/S3-PRODUCTION-UPGRADES-20261020/regression.xml",
+      "platform": "PlayMode",
+      "total": 29,
+      "passed": 29,
+      "new_upgrade_checks": 3
+    },
+    {
+      "file": "Artifacts/S3-PRODUCTION-UPGRADES-20261020/selection.xml",
+      "platform": "PlayMode",
+      "total": 6,
+      "passed": 6,
+      "coverage": "Existing selected tower upgrade/sale/selection, production card, construction input and startup"
+    }
+  ],
+  "total_unique_checks": 66,
+  "coverage": [
+    "one-time complete resource+gold payment",
+    "per-instance level isolation",
+    "partial-cycle retention, no upgrade-time income",
+    "higher actual output and fixed intervals",
+    "max/inactive/unfunded/stale/reentrant rejection",
+    "snapshot and D087 retry versus full Reset",
+    "unchanged real sprite/collision/footprint",
+    "auto income does not award profession XP"
+  ],
+  "build": {
+    "path": "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app",
+    "result": "Succeeded",
+    "bytes": 637752035,
+    "log": "Artifacts/S3-PRODUCTION-UPGRADES-20261020/build.log",
+    "host": "Mac/Metal",
+    "windows": "Unverified; only local Mac qualification"
+  },
+  "native": {
+    "directory": "Artifacts/S3-PRODUCTION-UPGRADES-20261020/native",
+    "frames": 17,
+    "fixture": "Explicit development-only QA funding/builds, clock and automatic production frozen for repeatable frames. Not a natural playthrough.",
+    "states": "Three types at levels1/2/5 on1600x900; max above B on1280x720/1920x1080; unfunded and interactive level2",
+    "review": "GPT-6 Astra visual PASS17frames; no clipping/overlap, two-row gold prices/next output/max/unfunded distinct",
+    "limitations": "Prices/unfunded at900p; max additionally720/1080p. Windows unverified."
+  },
+  "native_mouse": {
+    "method": "CUA actual mouse in native player",
+    "log": "Artifacts/S3-PRODUCTION-UPGRADES-20261020/native.log",
+    "transactions": [
+      {
+        "level": 3,
+        "output": 3,
+        "gold": 4265
+      },
+      {
+        "level": 4,
+        "output": 4,
+        "gold": 4205
+      },
+      {
+        "level": 5,
+        "output": 5,
+        "gold": 4065
+      }
+    ],
+    "outcome": "Level2→3→4→5 charged25/60/140gold respectively and correct materials; extra click at max generated no transaction and no further spend"
+  },
+  "ordinary_start": {
+    "log": "Artifacts/S3-PRODUCTION-UPGRADES-20261020/normal-start.log",
+    "qa_environment": false,
+    "observed": "5gold/0materials, no QA buildings/grants, ordinary clock08:22→08:31; B→Production left open",
+    "running_session": 33462
+  },
+  "console": {
+    "new_attributable_errors": 0,
+    "scanned": "Installer/EditMode/PlayMode/selection/final build/native/ordinary logs; no new compiler/game exceptions"
+  },
+  "remaining": [
+    "Windows/Steam qualification",
+    "Balance tuning",
+    "Future trader/technology/research gate",
+    "Workshop/throne advancement and forge scroll source"
+  ]
+}

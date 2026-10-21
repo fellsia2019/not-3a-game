@@ -27,21 +27,96 @@ a better option instead of implementing it silently.
   world and base development (D-062). The core is explore/gather -> invest ->
   defend -> recover/develop -> repeat. The current short run is a prototype.
 - The throne is the loss-critical objective. Resources are wood, stone, metal.
-- D-062 approves defeat rewind to the snapshot immediately before the failed
-  wave starts, plus its full preparation timer, for manual and timed starts.
-  Runtime retry restores that checkpoint; continuing days return to its dawn
-  without skipped-time income. Full reset is a separate development operation.
+- D-095 opens first-city concept work: three contrasting fantasy-city studies,
+  NPC inhabitants and only one initial active merchant. Owner selected A:
+  timber/cream plaster, orange terracotta roofs, open square. Location,
+  trade catalog and runtime were pending at that concept gate; D099/D100 now
+  implement city and first trade. This supersedes D063's old city deferral
+  for the current concept phase; other NPC services remain undecided.
+  Owner then requested a larger city and distinctive permanent shop instead of
+  a tent. A_v2 blended into housing; owner approved A_v3 expanded city/blue-roof shop.
+- D-096 requests the merchant window. Use the current fullscreen Lunar Porcelain
+  shell; ImageGen appearance approval precedes Astra visual implementation.
+  Catalogue/prices/sale/restock rules are not inferred from a UI sketch.
+- D-096 merchant window must show player and merchant inventory grids together,
+  with compact portraits; merchant wallet shows gold only, no wood/stone/metal.
+- D-101 requests a shared medieval magical engineering BLUEPRINT item base for
+  future research/building upgrades (workshop/forge etc), new towers/weapons.
+  Owner rejected tilted/unfolded shapes and the later modern white-sheet mockup.
+  Reuse the earlier aged ivory/amber paper COLOR, texture and plum drafting style
+  in a straight rectangular sheet that fits a fixed cell. Two primary categories:
+  opening new content (including construction access) and improving existing content.
+  No equipment F–SSS or independent item LVL1–100 on blueprints: an upgrade number
+  is the TARGET BUILDING LEVEL. Examples4–5 do not change approved building caps.
+  Every inventory/trade cell and row stays fixed; content never shrinks/reflows
+  lower rows. Owner approved rect_categories_shop_v3: cyan spark for opening,
+  muted brass chevron and target II/III for upgrade. This is appearance approval,
+  not runtime stock/price/usage approval. Possible spell-scroll magic use is
+  future only. No current runtime/source/price/consumption/stock migration or
+  blanket prerequisite for all upgrades is implied. RESEARCH.md owns scope.
+- D-102 activates blueprint trade/study: owner accepted Longshot construction,
+  wand forge recipe and forge target stages II/III as the first four documents.
+  Research workshop always has ONE level and is NOT upgradable, superseding
+  D075's workshop-level proposal. Buying a document, studying it locally and
+  building/upgrading the unlocked object are separate actions. Use approved D101
+  item art; study-window and known/history appearance have owner approval after
+  ImageGen review, with native implementation by Astra. Studying consumes one
+  paper; known duplicates stay tradable and marked. RESEARCH.md owns the brief.
+- D-100 implements first finite gold trade through the approved dual-inventory
+  shop window:8existing types,F/LVL1,one each;50% sale,no automatic restock.
+  Trial prices live in Stage3Merchant. Same item instances transfer; equipped
+  items are excluded. Local action validation and D087 current trade/stock retry
+  remain; full Reset restores finite stock. Locally qualified41/41PlayMode and
+ 21Mac native frames, Astra PASS; Windows unverified. Evidence:
+  art/source/merchant_2026-10-20_verification.json. No scroll,
+  rune, resource trade or new item family. CITY_AND_TRADE owns the contract.
+- D-098 adds visible colored interaction contours and small painted role icons
+  to active city services, initially only the merchant. The city contains the
+  remote endpoint of the existing base/world ground-seal pair (no third portal).
+  A_v5 concept passes Astra review and awaits owner; existing research/discovery rules
+  and current runtime placement stay until city integration.
+- D-099 supersedes D-098 square placement and pair-only product scope. City
+  circle belongs in a quiet side courtyard beside a modest temple. Any travel
+  portal opens one shared menu of opened destinations; explicit selection/confirm,
+  current point disabled, existing research/discovery/local arrival checks kept.
+  A_v6 city/menu_v1 are owner-approved for implementation. Modular city and
+  common destination menu are integrated and locally Mac-qualified16/16PlayMode;
+  evidence: art/source/city_runtime_2026-10-20_verification.json; Windows unverified;
+  no temple NPC/service, new currency or invented extra current destination.
+- D-097 requires rank-colored background/border consistently across item UI
+  (bag/loadout/forge/trading/actual tool previews), separate from cyan selection.
+  F/E/D/C/B/A/S/SSS only. Owner approved64cell board: Dgreen/Cblue, polishedgold S,
+  radiantsharpwhite-gold SSS with containedglow. Astra implemented shared frames in
+  Equipment/Forge/Professions/Dock; D100 merchant runtime reuses them. Empty slots/
+  ungraded scrolls stay neutral, world art/stats unchanged. Local qualification:
+  art/source/item_quality_cells_2026-10-20_verification.json; Windows unverified.
+  Owner subsequently rejected the flat dark fills/thick gold rails: the approved
+  original requires painted multitone gradients/texture and thin shaped luminous
+  framing. Astra replaced the procedural approximation with the actual ImageGen
+  source-derived skin atlas (measured UVs, textured centres/thin frame patches).
+  Correction passes17PlayMode and strict-reference27Macframe review; prior local
+  appearance PASS did not mean owner acceptance. Windows remains unverified.
+  Safe-area repair bakes64UI-only full-source silhouette bounds into ForgeArt,
+  validates neighbours and centres with proportional padding. Axe bands share
+  rounded pixel edges. Source PNGs/world pivots unchanged;33Mac frames plus large
+  Aaxe pass Astra. art/source/item_safe_areas_2026-10-20_verification.json.
+- D-087 supersedes the active Stage3 full-world defeat snapshot: retry keeps
+  CURRENT world/inventory/XP/ranks/research/buildings and returns morning for
+  the same pending horde, restoring throne and clearing failed enemies/shots.
+  Legacy finite Stage2 retains D-062 snapshot behavior. Full reset stays separate.
 - D-064 adds a nearest-target automatic hero bow. Portal enemies still target
   the throne/blockers; future open-world enemies target the hero. Hero health
   and death are outside the current bow/barricade/horde slice.
-- Current D-065 runtime adds twenty-minute active days and night hordes until fully cleared.
-  Days continue after the initial sequence. A paid green-ground dwelling skips
-  only the remaining day via local E, with no skipped-time production.
-  Hero C is versatile; the bow is initial equipment, not a fixed class.
-- D-074 target supersedes both runtime time skips: no dwelling day skip and no
-  early dawn after victory. Required night hordes grow; daytime gates repeatedly
-  farm the last cleared tier. This revised cycle is design only; see
-  gamedesign/features/PORTAL_CONTROL.md and its checkpoint prerequisites.
+- D-074 continuing Stage3 uses clock-driven mandatory nights and repeatable
+  daytime gates at the last cleared tier. Closing stops new spawns, not live
+  creeps; mandatory hordes wait for all overlapping threats to clear.
+- D-105 clarifies daytime repeats only last WON night difficulty (interval/HP/
+  current type), never a failed next tier or finite night enemy quota. Continuous
+  spawns until manual close or19:30; obsolete24-live cap removed. Retry keeps
+  previous cleared tier. First horde buff is trial HordeRun data; no new types.
+- D-088 restores explicit dwelling Sleep until19:50, ten game minutes before
+  the20:00 horde, blocked by an open daytime gate, living creeps/shots or an
+  active horde. Early victory never skips to dawn. No skipped-time income.
 - Tutorial flow remains post-MVP. D-074 confirms hero cap 100 and low-splash
   exploration combat; dense matched-tier hordes require towers. Proposed
   ability/passive/profession counts are in HERO_PROGRESSION.md, not shipped.
@@ -51,10 +126,32 @@ a better option instead of implementing it silently.
 - D-075 target ends the campaign after three distinct strong bosses. Boss
   venue is undecided. TD is the main combat XP/gold source; world camps offer
   less XP and better loot chances. Bosses/world combat are not implemented.
-- D-075 equipment has six combat slots (head/chest/arms/legs/weapon/shield),
-  levels 1–100 and eight qualities F/E/D/C/B/A/S/SSS: no SS or current SSSS.
-  Forge crafting/reforging includes pickaxes/axes; production buildings and
-  workshop also advance. Throne has exactly three max-HP upgrades of +5.
+- D-090 equipment has five combat slots (head/chest/arms/legs/weapon) plus
+  pickaxe/axe, levels1–100 and8qualities F/E/D/C/B/A/S/SSS. Weapons: bow and
+  wand only; no sword/shield/SS. Forge stages1/2/3 cap at D/B/S and upgrade
+  with special scrolls only in legacy profiles; D102 opt-in uses studied forge
+  targetII/III blueprints from trade instead, with no second scroll spend. SSS is ultra-rare drop only,
+  never forged. Production advancement is D-093; D102 fixes workshop at one level.
+- D-094 implements exactly three paid throne upgrades of +5 current/max HP,
+  preserving existing missing HP. The existing selected card uses HordeRun prices.
+  D-087 retry keeps current upgrades/spending and fills the upgraded maximum;
+  full Reset clears them. Legacy finite snapshots restore count/HP/wallet together.
+- D-091 excludes equipped items from the inventory bag; show them only in
+  loadout slots. Equip/replace/unequip moves the same instance between views.
+  Actual bow/pickaxe/axe quality is visible on the hero; clothing/armor remains
+  unchanged. Tools replace the baked starter only during harvesting.
+- D-092 adds separate miner/logger mastery1–100, XP from actual manual material
+  grants and independent profession points. O has approved combat/profession
+  tabs; strength/tempo/reach talents combine with equipped tools without extra
+  stock or enabling missing tools. Retry preserves current mastery; Reset clears
+  it. Stage3Professions data owns trial tuning. Larger trees/explorer and base
+  advancement remain later work.
+- D-093 gives each generator5paid stages with1/2/3/4/5units per existing cycle.
+  Upgrade an individual building for materials+gold through its existing card;
+  all stages are available without research in the current prototype. Upgrade
+  preserves partial cycle and never pays income immediately. Retry preserves
+  current level/progress; Reset clears buildings. Art/footprint/pads stay unchanged;
+  new construction still costs only materials. Research gating remains future.
 - D-075 new construction costs only wood/stone/metal. Upgrades/research may
   also use gold; trade is another sink. D-079 removes Stage3 Rapid gold.
   Historical Stage2 Rapid and the free workshop remain legacy data.
@@ -80,8 +177,9 @@ a better option instead of implementing it silently.
   art/source/hud_v4_2026-10-19_verification.json; Windows remains unverified.
 - D-085 adds world-owned hero XP from hero/tower confirmed kills, levels1–100,
   cursor Blink (Q or HUD targeting) and three personal passives. The opt-in
-  Stage3 binding loads Stage3HeroProgression data and restores XP/points/ranks/
-  cooldown at D-062 retry. HP/MP, professions and extra attacks remain deferred.
+  Stage3 binding loads Stage3HeroProgression data and preserves current XP/points/
+  ranks/cooldown at D-087 retry. HP/MP and extra attacks remain deferred;
+  gathering professions are implemented by D-092.
 - D-086 approves polygon_v3 level-up: sharp symmetrical shield, soft outer
   energy waves, only heading/level/awarded points. Reset/retry/loss clears it;
   pause/modal UI freezes without replay. A CC0 recorded female
@@ -93,6 +191,42 @@ a better option instead of implementing it silently.
 - Follow `gamedesign/GAME_VISION.md` for the current scope and non-goals. Do not
   add content counts, currencies, controls, UI, lore, progression, or tuning
   that have not been approved or explicitly delegated.
+
+- D-103 enables100HP/100MP and1HP/s +5MP/s regeneration; BlinkI–IV spends100/75/50/25MP
+  and has5/4/3/2s cooldown. Existing ranges/points unchanged; invalid casts spend
+  nothing. Retry keeps current vitals, Reset fills. F3 explicit test-wave command
+  advances only clock to next night, keeps living threats and credits no skipped
+  income. Ordinary Stage3 start stays clock-gated. Tactical max15, start5/min2.5.
+  Owner requests Debug WTF: no mana cost and ZERO cooldown for current Blink,
+  preserving landing/pause/UI checks; Reset/HUD disable clears cheat.
+- D-106: current Stage3 day600active seconds/night180; night spawns until dawn,
+  then keeps living creeps/shots until cleared. No authored-count quota or early
+  victory; no overlapping mandatory nights. D105 last-WON daytime flow, cutoff
+ 19:30, sleep19:50 and progress-preserving retry stay. Zero timed-night duration
+  preserves finite legacy Stage2. Existing density remains trial balance.
+- D-107 approved thin shaped top-edge HUD and centered complete small analog
+  dialA smoke-glass. Day10/13 and night3/13circle follow Run.DayNightCycleProgress;
+  noHH:MM or separate timer. Softgreyolive/ivoryday to nearblack/bloodredmiasma,
+  no sharp sector seam/scenery illustration. Locally qualified, AstraPASS25native
+  frames; Windows unverified. Evidence:cycle_top_hud_2026-10-21_verification.json.
+- D-104 death/recovery locally qualified: exploration-only hero damage,
+  free base-portal respawn, half XP within current level (no lost levels), drop
+  only bag, keep equipped gear/tools; recoverable world/map/body direction marker.
+  Owner chose next separate step and marker concepts before implementation.
+  Final label «Выпавшие вещи» / «E · Забрать вещи»; offscreen cue is a compact
+  tooltip with small arrow on destination side at8bearings; latest3approved.
+  Keep every nonempty death drop until recovery, including across later deaths
+  and throne retry. Losefloor(currentXP/2), retainlevels/points/ranks/cooldown,
+  restoreHP/MP at safe base-anchor respawn without unlocking travel. Reset clears.
+
+- D-113/D-114:workshop-pinned starter teleport knowledge unlocks manual circle
+  construction; no automatic base circle. World bow launches only while stopped.
+  Guild local actions use the actual GuildFootprint, not one tiny entry point.
+- D-116/D-117:approved separate orc/ogre camps have broad open fields/retreats,
+  reserved before manual resources, shared scenery collision, unchanged combat/
+  quest data. Current city has a fixed manually authored internal layout; future
+  cities get individual layouts/styles. Never replace it with random filling or
+  shuffled housing. Whole-city safe world-origin selection remains allowed.
 
 ## Change Rules
 

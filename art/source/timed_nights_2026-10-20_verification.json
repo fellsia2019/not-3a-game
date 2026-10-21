@@ -1,0 +1,49 @@
+{
+  "date": "2026-10-21",
+  "platform": "Mac development player; Windows unverified",
+  "build": {
+    "path": "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app",
+    "bytes": 694646886,
+    "log": "Artifacts/S3-CYCLE-HUD-20261021/build.log"
+  },
+  "checks": {
+    "distinct_total": 137,
+    "editmode": 36,
+    "playmode": 101,
+    "xml": [
+      "Artifacts/S3-TIMED-NIGHTS-20261020/editmode.xml",
+      "Artifacts/S3-TIMED-NIGHTS-20261020/playmode.xml",
+      "Artifacts/S3-TIMED-NIGHTS-20261020/remaining.xml",
+      "Artifacts/S3-CYCLE-HUD-20261021/playmode.xml"
+    ]
+  },
+  "visual_owner": "GPT-6 Astra",
+  "visual_result": "PASS all59automatednativeframes (34recovery+25cycle) across1280x720,1600x900,1920x1080",
+  "limits": [
+    "Windows not qualified",
+    "No new exploration enemies added; hero damage/reincarnation available through narrow API and existing F3 development death command",
+    "Native full13minute natural playthrough/sustained later-tier load not claimed; rules/declared combat fixtures cover exact timing and survival",
+    "Coordinate mouse clicks not claimed; native keyboard E/I and F3 separately qualified"
+  ],
+  "vcs": "No commit/push requested in this slice; pre-existing dirty work preserved",
+  "decision": "D-106",
+  "status": "Time-driven nights locally qualified",
+  "rules": [
+    "600active seconds day08-20,180night20-08; pause/speed apply",
+    "Night quota removed; spawn until dawn, retain living enemies/shots; no early tierclear before dawn",
+    "Last-WON endless dayflow/cutoff19:30/sleep19:50/current-progress retry retained",
+    "OptionalnightDuration0 keeps finitelegacyStage2; Stage3HordeRun600/180 and builders mirrored"
+  ],
+  "data": "Assets/Stage3/CombatSlice/HordeRun.asset",
+  "balance": "Existing intervals/HP retained; solo firstnight and boundedpaid-defense tiers2/3 declared automated fixtures pass. Values remain prototype tuning.",
+  "ordinary_startup": {
+    "pid": 94553,
+    "x1": true,
+    "wtf": false,
+    "debug_closed": true,
+    "no_qa_flags_or_grants": true,
+    "screenshot": "Artifacts/S3-CYCLE-HUD-20261021/ordinary-startup.png",
+    "log": "Artifacts/S3-CYCLE-HUD-20261021/ordinary-player.log",
+    "keyboard_F3": "PASS open and close; screenshot actual-f3.png"
+  }
+}

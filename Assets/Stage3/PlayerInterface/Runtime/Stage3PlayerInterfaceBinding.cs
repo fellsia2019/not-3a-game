@@ -33,14 +33,16 @@ namespace Not3A.Stage3.PlayerInterface
             minimap = GetComponent<Stage2Minimap>();
             presentation.Initialize(game, scene, legacy);
             presentation.ClockText = DisplayClock;
+            presentation.CycleProgress = () => game.RunDriver.Run.DayNightCycleProgress;
+            presentation.IsNightPhase = () => game.RunDriver.Run.IsNightTime;
             presentation.CancelPlacementRequested += CancelPlacement;
             legacy.BindPlayerPresentation(presentation.IsPointerOverUi,
                 () => ToLegacyRect(presentation.ResourcesRect), () => ToLegacyRect(presentation.BottomRect),
-                () => ToLegacyRect(presentation.StatusRect));
+                () => ToLegacyRect(presentation.StatusRect), () => ToLegacyRect(presentation.DevelopmentAccessRect));
             if (minimap != null) minimap.SuppressPresentation = true;
             game.BindPlayerInputBlocker(Blocked);
             scene.PlayerMover.SetInputBlocker(() => Blocked() || IsDraggingBuilding);
-            game.Gathering.SetInputBlocker(() => Blocked() || IsDraggingBuilding || blinkArmed);
+            game.Gathering.SetInputBlocker(() => Blocked() || IsDraggingBuilding || blinkArmed || heroRecovery?.NearbyDrop!=null);
             game.Building.SetInputBlocker(Blocked);
             scene.CameraFollow.SetPointerBlocker(point => IsDraggingBuilding || game.ContainsScreenPoint(point));
             scene.CameraFollow.SetOverlayTrackpadInput(presentation.AcceptsMapTrackpad, presentation.ApplyMapTrackpadGesture);
@@ -53,6 +55,15 @@ namespace Not3A.Stage3.PlayerInterface
             bound = true;
             BindBuildingSelection();
             BindHeroProgression();
+            BindEquipment();
+            BindBlueprintResearch();
+            BindProfessions();
+            BindTeleports();
+            BindMerchant();
+            BindHeroRecovery();
+            BindGuild();
+            if (game.RunDriver.Run.UsesDaytimeGates && GetComponent<Stage3DaytimeGate>() == null)
+                gameObject.AddComponent<Stage3DaytimeGate>();
             Debug.Log("S3_PLAYER_INTERFACE_READY: approved lunar porcelain HUD; nonmodal construction and independent windows.");
         }
 
@@ -90,8 +101,15 @@ namespace Not3A.Stage3.PlayerInterface
                 ClearBuildingSelection();
             }
             UpdateHeroProgression();
+            UpdateEquipment();
+            UpdateBlueprintResearch();
+            UpdateProfessions();
+            UpdateTeleports();
+            UpdateMerchant();
             UpdateBuildingSelection();
             UpdateBuildingDragPresentation();
+            UpdateHeroRecovery();
+            UpdateGuild();
         }
 
         private void OpenDefense() => OpenConstruction(0);
@@ -113,8 +131,9 @@ namespace Not3A.Stage3.PlayerInterface
         {
             game.Building.CancelPlacement();
             game.Production?.CancelPlacement();
-            GetComponent<Stage3WorldTravel>()?.CancelWorkshopPlacement();
+            GetComponent<Stage3WorldTravel>()?.CancelConstructionPlacement();
             GetComponent<Stage3Dwelling>()?.CancelPlacement();
+            GetComponent<Stage3Forge>()?.CancelPlacement();
             game.Gathering.CancelGatherUntilRelease();
         }
 
@@ -124,7 +143,14 @@ namespace Not3A.Stage3.PlayerInterface
         private void OnDestroy()
         {
             if (!bound) return;
+            UnbindGuild();
             UnbindHeroProgression();
+            UnbindHeroRecovery();
+            UnbindProfessions();
+            UnbindTeleports();
+            UnbindMerchant();
+            UnbindBlueprintResearch();
+            UnbindEquipment();
             UnbindBuildingSelection();
             if (presentation != null) presentation.CancelPlacementRequested -= CancelPlacement;
             if (lighting != null) lighting.NightCondition = null;

@@ -14,6 +14,72 @@ namespace Not3A.Stage3.VisualPilot
         private Camera view;
         private SpriteRenderer body, bow;
         private Vector3 previous;
+        private Stage3ForgeArt equipmentArt;
+        private readonly Sprite[] equipmentSprites=new Sprite[24];
+        private int pickaxeQuality=-1,axeQuality=-1;
+        public int DisplayedEquipmentType { get; private set; }=-1;
+        public int DisplayedEquipmentQuality { get; private set; }=-1;
+        public Vector3 EquipmentGripWorldPosition=>bow!=null?bow.transform.position:transform.position;
+        public bool UsesDetachedHarvestTool { get; private set; }
+        public void SetHarvestEquipmentVisual(int pickaxeQualityOrMinus1,int axeQualityOrMinus1)
+        {
+            pickaxeQuality=Mathf.Clamp(pickaxeQualityOrMinus1,-1,7);axeQuality=Mathf.Clamp(axeQualityOrMinus1,-1,7);
+            if(body!=null)Apply();
+        }
+        private int equipmentType=-2,equipmentQuality;
+        public void SetEquipmentVisual(Stage3ForgeArt artwork,int typeIndex,int qualityIndex)
+        {
+            if(equipmentArt!=artwork)
+            {
+                ReleaseEquipmentSprites();equipmentArt=artwork;
+            }
+            equipmentType=typeIndex;equipmentQuality=Mathf.Clamp(qualityIndex,0,7);
+            if(body!=null)Apply();
+        }
+        private Sprite EquipmentSprite(int type,int quality)
+        {
+            // Relaxed front-facing hands carry the bow upright beside the body.
+            if(type==0)return equipmentArt?.heldEquipment?.Bow(quality,direction==3?0:direction)??art.bowDirections[direction];
+            if(quality<0||equipmentArt==null||type!=1&&type!=6&&type!=7)return null;
+            var index=(type==1?0:type==6?8:16)+quality;
+            if(equipmentSprites[index]!=null)return equipmentSprites[index];
+            if(!equipmentArt.TryGetIcon(type,quality,out var texture,out var uv))return null;
+            var rect=new Rect(uv.x*texture.width,uv.y*texture.height,uv.width*texture.width,uv.height*texture.height);
+            var pivot=new Vector2(.35f,.35f);var ppu=rect.height/.68f;
+            if(type==6)
+            {
+                pivot=new Vector2(.76f,.36f);ppu=100f;
+            }
+            else if(type==7)
+            {
+                var grip=new Vector2((51f+quality*255f)*texture.width/2048f,(768f-608f)*texture.height/768f);
+                pivot=new Vector2((grip.x-rect.x)/rect.width,(grip.y-rect.y)/rect.height);ppu=100f;
+            }
+            var sprite=Sprite.Create(texture,rect,pivot,ppu,0,SpriteMeshType.FullRect);
+            if(type==7)
+            {
+                var vertices=new Vector2[8];var triangles=new ushort[]{0,1,2,0,2,3,4,5,6,4,6,7};
+                for(var band=0;band<2;band++)
+                {
+                    var part=equipmentArt.AxeIconBand(quality,band);
+                    var lo=new Vector2(part.xMin*texture.width,part.yMin*texture.height);
+                    var hi=new Vector2(part.xMax*texture.width,part.yMax*texture.height);
+                    // Sprite.OverrideGeometry takes rect-local pixels; Unity applies pivot/PPU.
+                    var origin=rect.min;
+                    vertices[band*4]=lo-origin;
+                    vertices[band*4+1]=new Vector2(hi.x,lo.y)-origin;
+                    vertices[band*4+2]=hi-origin;
+                    vertices[band*4+3]=new Vector2(lo.x,hi.y)-origin;
+                }
+                sprite.OverrideGeometry(vertices,triangles);
+            }
+            sprite.name="Equipped "+type+" quality "+quality;sprite.hideFlags=HideFlags.DontSave;
+            equipmentSprites[index]=sprite;return sprite;
+        }
+        private void ReleaseEquipmentSprites()
+        {
+            for(var i=0;i<equipmentSprites.Length;i++)if(equipmentSprites[i]!=null){Destroy(equipmentSprites[i]);equipmentSprites[i]=null;}
+        }
         private float stride, shotPose, idleSeconds;
         private int direction = 3;
         private Stage2Economy economy;
@@ -55,11 +121,14 @@ namespace Not3A.Stage3.VisualPilot
             return Mathf.Abs(x) >= Mathf.Abs(y) ? x >= 0f ? 0 : 2 : y >= 0f ? 1 : 3;
         }
 
-        private void OnShot(Stage2Shot shot)
+        private void OnShot(Stage2Shot shot) => NotifyExplorationShot(shot.Origin,shot.Position);
+
+        // Presentation of an already-confirmed shot; targeting, range, damage and projectile facts remain in combat rules.
+        public void NotifyExplorationShot(Vector2 origin,Vector2 target)
         {
-            if (Vector2.Distance(shot.Origin,transform.position) > .01f) return;
+            if (art == null || view == null || game == null || Vector2.Distance(origin,transform.position) > .01f) return;
             if (workNode != null || game.Gathering?.GatheringNode != null) return;
-            direction = Facing((Vector3)shot.Position-transform.position); shotPose = .24f;
+            direction = Facing((Vector3)target-transform.position); shotPose = .24f;
             Apply();
         }
 
@@ -76,7 +145,7 @@ namespace Not3A.Stage3.VisualPilot
                 if (distance > .00001f && distance < 2f)
                 {
                     IsMoving = true; idleSeconds = 0f;
-                    if (shotPose <= 0f) direction = Facing(delta);
+                    shotPose = 0f; direction = Facing(delta);
                     stride = Mathf.Repeat(stride+distance/art.strideCells,1f);
                     Frame = Mathf.FloorToInt(stride*art.WalkFrameCount);
                 }
@@ -98,7 +167,7 @@ namespace Not3A.Stage3.VisualPilot
                     else if (contactSeconds > 0f) HarvestFrame = 5;
                     else
                     {
-                        var progress = Mathf.Clamp01(economy.GatherProgress/workNode.GatherSeconds);
+                        var progress = Mathf.Clamp01(economy.GatherProgress/economy.GatherDuration(workNode));
                         HarvestFrame = progress < .2f ? 0 : progress < .62f ? 1 : 2;
                     }
                     shotPose = 0f;
@@ -137,13 +206,24 @@ namespace Not3A.Stage3.VisualPilot
             if (art == null || !art.IsValid || view == null) return;
             var working = IsHarvesting;
             var idle = !working && !IsMoving && art.HasIdle;
-            body.sprite = working ? art.Work(workNode.Resource == MapResourceKind.Wood, direction, HarvestFrame) :
+            var axe=working&&workNode.Resource==MapResourceKind.Wood;
+            Sprite cleanBody=null;Stage3ToolGripPose toolPose=default;
+            var detached=working&&equipmentArt!=null&&equipmentArt.heldEquipment!=null&&
+                equipmentArt.heldEquipment.TryWork(axe,direction,HarvestFrame,out cleanBody,out toolPose);
+            body.sprite = detached?cleanBody:working ? art.Work(axe, direction, HarvestFrame) :
                 idle ? art.idleDirections[direction] : art.Walk(direction, Frame);
             body.flipX = direction == 2 && (working ? art.mirrorLeftWork :
                 !idle && art.WalkFrameCount == 8 && art.mirrorLeftWalk);
-            bow.sprite = art.bowDirections[direction];
-            // Working sprites carry the registered tool and both hands as a single coherent pose.
-            bow.enabled = !working;
+            var shownType=detached?(axe?7:6):equipmentType==-2?0:equipmentType;
+            var shownQuality=detached?(axe?axeQuality:pickaxeQuality):equipmentQuality;
+            bow.sprite=EquipmentSprite(shownType,shownQuality);
+            // Clean work bodies retain both hands; the separate tool sits behind their fingers.
+            bow.enabled=(!working||detached)&&bow.sprite!=null;
+            bow.flipX=detached?direction==2:!working&&
+                (direction==2&&(equipmentType==1||equipmentArt?.heldEquipment?.HasBows==true)||
+                 direction==3&&shownType==0&&equipmentArt?.heldEquipment?.HasBows==true);
+            UsesDetachedHarvestTool=detached&&bow.enabled;
+            DisplayedEquipmentType=bow.enabled?shownType:-1;DisplayedEquipmentQuality=bow.enabled?shownQuality:-1;
             var breath = idle ? Mathf.Sin(idleSeconds*Mathf.PI*2f/Mathf.Max(.5f,art.idlePeriodSeconds)) : 0f;
             // A neutral planted-foot sprite breathes around its sole pivot; it never cycles walking feet in place.
             body.transform.localScale = new Vector3(1f,1f+breath*art.idleBreathScale,1f);
@@ -157,14 +237,26 @@ namespace Not3A.Stage3.VisualPilot
             body.transform.SetPositionAndRotation(world-view.transform.forward*clearance,view.transform.rotation);
             var grip = art.WalkGrip(direction, Frame);
             if (idle) grip = art.idleGripOffsets[direction];
+            var angle=shotPose>0f?Mathf.Sin(shotPose/.24f*Mathf.PI)*-5f:breath*.6f;
+            bow.transform.localScale=Vector3.one;
+            if(detached)
+            {
+                grip=toolPose.grip;
+                var sourceAngle=axe?63f:125f;
+                if(direction==2)sourceAngle=180f-sourceAngle;
+                var sourceDistance=axe?1.76f:1.37f;
+                angle=toolPose.angleDegrees-sourceAngle;
+                bow.transform.localScale=Vector3.one*(toolPose.headDistance/sourceDistance);
+            }
             bow.transform.SetPositionAndRotation(body.transform.TransformPoint(grip)-view.transform.forward*.005f,
-                view.transform.rotation*Quaternion.Euler(0f,0f,shotPose > 0f ? Mathf.Sin(shotPose/.24f*Mathf.PI)*-5f : breath*.6f));
+                view.transform.rotation*Quaternion.Euler(0f,0f,angle));
             body.sortingOrder = -Mathf.RoundToInt(world.y*100f)+1;
-            bow.sortingOrder = body.sortingOrder+(direction == 1 ? -1 : 1);
+            bow.sortingOrder = body.sortingOrder+(detached||direction==1?-1:1);
         }
 
         private void OnDestroy()
         {
+            ReleaseEquipmentSprites();
             if (game != null && game.Enemies != null) game.Enemies.ShotLaunched -= OnShot;
             if (game != null && game.RunDriver != null)
             { game.RunDriver.Run.Reset -= ResetVisual; game.RunDriver.Run.Rewound -= ResetVisual; }

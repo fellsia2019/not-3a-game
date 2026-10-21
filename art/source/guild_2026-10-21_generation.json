@@ -1,0 +1,181 @@
+{
+  "date": "2026-10-21",
+  "tool": "built-in image_gen.imagegen",
+  "model": "tool-managed",
+  "owner_approval": "делай / апрув; D110/D111",
+  "scope": "Guild hall and open temple teleport court, physical F–S board/trial state, approved orc/ogre runtime poses",
+  "visual_implementation_owner": "GPT-6 Astra",
+  "source_and_rights": {
+    "origin": "Original project ImageGen output based only on own-project approved art. No external game artwork or tracing.",
+    "usage": "Project-generated runtime assets, six unchanged PNG copies imported through measured native sprite/nine-slice metadata. Qualification in verification.json.",
+    "license": "Original generated project art (OpenAI ImageGen), own-project references only. No third-party stock/game-art source or license claimed. Not represented as CC0."
+  },
+  "prompt_files": [
+    "art/source/guild_2026-10-21_city_v3_prompt.json",
+    "art/source/guild_2026-10-21_city_v4_prompt.json",
+    "art/source/guild_2026-10-21_initial_prompts.json",
+    "art/source/guild_2026-10-21_revision_prompts.json",
+    "art/source/guild_2026-10-21_runtime_actor_prompts.json",
+    "art/source/guild_2026-10-21_runtime_prompts.json"
+  ],
+  "assets": [
+    {
+      "path": "art/concepts/guild_2026-10-21/board_f_v1.png",
+      "sha256": "3e659e0cdc8b26ab5c26daab8fbbf2174d5538eaa64e092dea06b4f88d7e6495",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "status": "approved",
+      "generated_source": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-d9679ac1-cb2f-4cc1-870e-3f2ffbb87dfa.png"
+    },
+    {
+      "path": "art/concepts/guild_2026-10-21/city_v1.png",
+      "sha256": "f221cb3a4a112a96820b1673b461924064c748e058946000ba73e4cf023a40fe",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "status": "rejected portal at door",
+      "generated_source": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-4b959659-3518-4b99-9f37-ce87308ff46a.png"
+    },
+    {
+      "path": "art/concepts/guild_2026-10-21/city_v2.png",
+      "sha256": "3dec173f587b571d399f10bafa83b0254326a63a362e817c2550b8b6993b20e3",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "status": "rejected portal on road",
+      "generated_source": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-fb53a0e2-68b2-42b7-8896-19a87159f65b.png"
+    },
+    {
+      "path": "art/concepts/guild_2026-10-21/city_v3_temple_court.png",
+      "sha256": "51e5b1b39298ad9f8cf327b28ca33a6d3692cebc51978bb802f66776fea9b9cc",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "status": "superseded: remove front fences",
+      "generated_source": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-d6297a8f-c0e2-471c-99b6-13f0d54eb98e.png"
+    },
+    {
+      "path": "art/concepts/guild_2026-10-21/city_v4_open_temple.png",
+      "sha256": "3e0d9c34c3ee02d1546a38b4d5e73b430592273a264431f384b26c997c269b81",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "status": "approved final",
+      "generated_source": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-2f1dceb7-a124-4402-8e24-b3c83357171c.png"
+    },
+    {
+      "path": "art/concepts/guild_2026-10-21/runtime/board_backdrop_v1.png",
+      "sha256": "722365048cf24b397142c86a93bf486bb18a982670c08c7dd5c4a94d8bdbec09",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "status": "Runtime derivative of approved direction; native qualified by Astra",
+      "generated_source": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-d8cf05c8-6041-45ca-b15b-f188f1bbf8c6.png"
+    },
+    {
+      "path": "art/concepts/guild_2026-10-21/runtime/ink_v1.png",
+      "sha256": "166411c53004e137f560988891c8c2f716ec791ebede74d30de3e165c69c6b89",
+      "dimensions": [
+        2048,
+        768
+      ],
+      "status": "Runtime derivative of approved direction; native qualified by Astra",
+      "generated_source": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-c83b6037-9813-49ee-8da8-79558f57b75f.png"
+    },
+    {
+      "path": "art/concepts/guild_2026-10-21/runtime/ogre_poses_v1.png",
+      "sha256": "e37537c0c6206dc64c8766eefdc1ac6ecb4cc87f826543f8713b5450972a9303",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "status": "Runtime derivative of approved direction; native qualified by Astra",
+      "generated_source": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-f11a9bb8-5d2d-4466-9dbb-ee7412d2d7d4.png"
+    },
+    {
+      "path": "art/concepts/guild_2026-10-21/runtime/orc_poses_v1.png",
+      "sha256": "095dfb1ae5efe4b613d82986e634c249f9cfa8d0719fbb34a9b72ebf94f0d11d",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "status": "Runtime derivative of approved direction; native qualified by Astra",
+      "generated_source": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-1deab9ad-b456-4073-a5a5-7d9b9743a929.png"
+    },
+    {
+      "path": "art/concepts/guild_2026-10-21/runtime/ui_parts_v1.png",
+      "sha256": "b77340f94f3830d43a3a968f2f04759e1a3d38e6dcfbbb60ba7d64c5aad6bdb6",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "status": "Runtime derivative of approved direction; native qualified by Astra",
+      "generated_source": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-b7d1930f-9e65-45ca-8a4d-f521f23ce357.png"
+    },
+    {
+      "path": "art/concepts/guild_2026-10-21/runtime/world_v1.png",
+      "sha256": "67bd8a1c3e45adff4fdf91a81eccc073001410d8b0f28f4742bcc1dfb4e6fefc",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "status": "Runtime derivative of approved direction; native qualified by Astra",
+      "generated_source": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-5a4eb827-f6f8-4a8f-ad2e-b6327556604d.png"
+    },
+    {
+      "path": "art/concepts/guild_2026-10-21/trial_e_v1.png",
+      "sha256": "7c6d3b28a8aa275387d19aeb731597fb2eab02056fb3303b6aba33c0ba557628",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "status": "approved",
+      "generated_source": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-0a8d26d5-b85b-420c-92ec-0b15229eee29.png"
+    }
+  ],
+  "runtime_importers": [
+    "Stage3GuildArtImporter.BuildAssets",
+    "Stage3GuildEnemyArtImporter.BuildAssets"
+  ],
+  "runtime_copy_hashes": [
+    {
+      "path": "Assets/Stage3/PlayerInterface/Resources/Stage3GuildBoardBackground.png",
+      "sha256": "722365048cf24b397142c86a93bf486bb18a982670c08c7dd5c4a94d8bdbec09",
+      "unchanged_source_copy": "art/concepts/guild_2026-10-21/runtime/board_backdrop_v1.png"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Resources/Stage3GuildInk.png",
+      "sha256": "166411c53004e137f560988891c8c2f716ec791ebede74d30de3e165c69c6b89",
+      "unchanged_source_copy": "art/concepts/guild_2026-10-21/runtime/ink_v1.png"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Resources/Stage3GuildOgre.png",
+      "sha256": "e37537c0c6206dc64c8766eefdc1ac6ecb4cc87f826543f8713b5450972a9303",
+      "unchanged_source_copy": "art/concepts/guild_2026-10-21/runtime/ogre_poses_v1.png"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Resources/Stage3GuildOrc.png",
+      "sha256": "095dfb1ae5efe4b613d82986e634c249f9cfa8d0719fbb34a9b72ebf94f0d11d",
+      "unchanged_source_copy": "art/concepts/guild_2026-10-21/runtime/orc_poses_v1.png"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Resources/Stage3GuildParts.png",
+      "sha256": "b77340f94f3830d43a3a968f2f04759e1a3d38e6dcfbbb60ba7d64c5aad6bdb6",
+      "unchanged_source_copy": "art/concepts/guild_2026-10-21/runtime/ui_parts_v1.png"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Resources/Stage3GuildWorld.png",
+      "sha256": "67bd8a1c3e45adff4fdf91a81eccc073001410d8b0f28f4742bcc1dfb4e6fefc",
+      "unchanged_source_copy": "art/concepts/guild_2026-10-21/runtime/world_v1.png"
+    }
+  ],
+  "owner_runtime_refinement": "Outdoor board purely decorative, substantially farther right and parallel to entrance; width1.05, muted opaque tint, no service contour. Click guild building; free entrance anchor unchanged.",
+  "runtime_qualification": "Native/runtime-ready derivatives: Astra PASS final native city/board/enemies/arrow at720/900/1080. Evidence guild_2026-10-21_verification.json."
+}

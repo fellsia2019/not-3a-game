@@ -1,0 +1,13 @@
+{
+  "date": "2026-10-21",
+  "tool": "built-in image_gen.imagegen",
+  "request": {
+    "key": "orc_ogre_comparison_v5",
+    "output": "art/concepts/quest_npc_world_enemies_2026-10-21/orc_ogre_comparison_v5.png",
+    "transparent_background": false,
+    "referenced_image_paths": [
+      "/Users/artemmusket/game-dev/not-3a-game/art/concepts/quest_npc_world_enemies_2026-10-21/orc_ogre_comparison_v4.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Make ONE STRICTLY LOCAL SCALE CORRECTION in this own-project image. THE ENTIRE UPPER PARCHMENT COMPARISON, from top through y715, IS APPROVED AND COMPLETELY LOCKED. DO NOT change or resize or redraw any upper character, labels, parchment or objects.\nEDIT ONLY the small ORC at the LEFT of the LOWER GRASS STRIP, underneath y715. He is currently wrongly too tall, almost the size of the lower ogre. Uniformly REDUCE this LOWER ORC AND HIS AXE by approximately20% around the foot contact. Keep boot soles grounded aroundy973 in the original1536x1024 image. The new top of lower orc's hair should be aroundy785–790 (currently aroundy738), not y738. His resulting full body height must be about1.25 times the neighboring lower hero's height, clearly SHORTER than the lower purple ogre. Preserve lower orc's same pose, green skin, rust-red clothes, grey shoulderplate, face and anatomy; scale the whole figure and axe together, without selective body reshaping. Fill only the tiny exposed surrounding area with matching grass.\nLOCK ALL OTHER PIXELS/REGIONS AS CLOSELY AS POSSIBLE: upper main row entirely unchanged; lower middle blue hero unchanged in size/position/identity; lower right purple ogre unchanged in size/position/colors/club; all grass/camera/light/margins unchanged except necessary grass behind the resized lower orc. Do NOT make ANY character in the upper row smaller, do NOT scale the whole sheet or crop it. No added text, figures or UI. Only one local lower-left figure becomes20% smaller."
+  }
+}

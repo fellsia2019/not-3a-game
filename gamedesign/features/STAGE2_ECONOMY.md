@@ -1,5 +1,30 @@
 # Feature: Stage 2 Resource Lifecycle
 
+## D-093 generator investment in current Stage3
+
+Owned generators now have5paid levels, output1..5 per original cycle. New
+construction retains material-only cost; individual upgrades use materials and
+gold, serialized in ProductionCatalog. Prototype paid stages are not research
+gated. Upgrade preserves cycle fraction and never ticks production; D087 keeps
+current level/progress/investment on retry. Legacy snapshots also carry level.
+Automatic income grants no profession XP. See RESOURCE_PRODUCTION_BUILDINGS
+for authoritative behavior, tests and migration details.
+
+## D-092 profession/tool composition in current Stage3
+
+Opt-in gathering mastery consumes Economy.Gathered(kind,actualGrant); only real
+manual extraction awards its profession XP. Tool base stats and separate
+profession modifiers combine without overwriting one another. No matching
+equipped tool gives zero extraction power even with strength ranks. Yield is
+bounded by remaining node stock and wallet room; visual stages use that stock.
+Tempo shortens the existing strike duration; reach multiplies only permitted
+edge gap in the shared IsInRange/NearestAvailableNode predicate (also used by E
+and the overhead marker). Talents do not enlarge collision or generate stock.
+Rank/tool changes cancel partial work until release. Defaults leave legacy
+Stage2 unchanged. Current Stage3 D-087 preserves profession and stock on retry;
+full Reset clears ranks/modifiers. HERO_PROGRESSION and Stage3Professions own
+the rules and runtime tuning respectively.
+
 ## D-075 target economy — not implemented
 
 Первичное строительство оплачивается **деревом, камнем и металлом**,
@@ -39,7 +64,10 @@ No further tree sketch is required. Large auto-production forests stay distinct.
 
 The active Stage3 slice adds independent manual nodes to the existing economy.
 Small/medium/large stone and metal reserve values belong in the Stage3 economy
-asset, and each completed strike immediately pays exactly one unit. Every node
+asset. A starter F1 tool pays one unit per completed strike. D-089/D-090
+equipped tools may pay more: clamp the grant to tool power, node remainder
+and inventory room; emit one confirmed strike with the actual amount. No
+unfinished strike pays. Legacy scenes without equipment retain power1. Every node
 retains partial stock across target changes and has its own existing D-013
 active-time recovery after complete depletion. Same-kind nodes never share
 stock or partial strike progress. GetNode(kind) remains the legacy first anchor;
@@ -307,3 +335,14 @@ resource recovery. S2-ECO-02 has since implemented and tested the lifecycle
 as described above. Later package authorization is tracked in
 DEVELOPMENT_PLAN.md; the human has since authorized sequential ready packages
 up to S2-MAP-03.
+
+
+## D-089/D-090 equipment integration
+
+Stage3EquipmentDriver sets axe/pickaxe power and tempo on the same Economy;
+no second wallet/node stock exists. Missing axe disables wood harvesting,
+missing pickaxe disables minerals and local HUD explains which tool to equip.
+Changing a tool cancels its partial strike and requires release. Avatar work
+pose follows Economy.GatherDuration(node), including tool speed. Per-hit
+visual depletion/collision still follows actual Remaining. Production buildings
+are unaffected by manual-tool improvements. See EQUIPMENT_AND_RUNES.

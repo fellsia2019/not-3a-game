@@ -1,0 +1,50 @@
+{
+  "date": "2026-10-21",
+  "platform": "Mac development player; Windows unverified",
+  "build": {
+    "path": "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app",
+    "bytes": 694646886,
+    "log": "Artifacts/S3-CYCLE-HUD-20261021/build.log"
+  },
+  "checks": {
+    "distinct_total": 137,
+    "editmode": 36,
+    "playmode": 101,
+    "xml": [
+      "Artifacts/S3-TIMED-NIGHTS-20261020/editmode.xml",
+      "Artifacts/S3-TIMED-NIGHTS-20261020/playmode.xml",
+      "Artifacts/S3-TIMED-NIGHTS-20261020/remaining.xml",
+      "Artifacts/S3-CYCLE-HUD-20261021/playmode.xml"
+    ]
+  },
+  "visual_owner": "GPT-6 Astra",
+  "visual_result": "PASS all59automatednativeframes (34recovery+25cycle) across1280x720,1600x900,1920x1080",
+  "limits": [
+    "Windows not qualified",
+    "No new exploration enemies added; hero damage/reincarnation available through narrow API and existing F3 development death command",
+    "Native full13minute natural playthrough/sustained later-tier load not claimed; rules/declared combat fixtures cover exact timing and survival",
+    "Coordinate mouse clicks not claimed; native keyboard E/I and F3 separately qualified"
+  ],
+  "vcs": "No commit/push requested in this slice; pre-existing dirty work preserved",
+  "decision": "D-107",
+  "status": "Approved A smoke-glass and shaped topHUD locally qualified",
+  "rules": [
+    "10min:3min maps10/13:3/13, 277/83degrees; dawnat3clock and uniform13minute clockwise revolution",
+    "Read-onlyRun.DayNightCycleProgress; live phase delegates, no independentHUDtimer; pause/sleep/launch/retry/reset follow run",
+    "Whole60pxdial at900p centered top; thinflushcornice/openworldgaps, compactresource/day/F3; noHH:MM",
+    "No new UI stack; old legacy F3 hit region now follows actual visible new button via optional binding"
+  ],
+  "native_manifest": "Artifacts/S3-CYCLE-HUD-20261021/native/manifest.json",
+  "assets": "art/source/cycle_top_hud_2026-10-20_runtime.json",
+  "actual_input": "Native keyboardF3 open/close PASS; screenshotArtifacts/S3-CYCLE-HUD-20261021/actual-f3.png",
+  "ordinary_startup": {
+    "pid": 94553,
+    "x1": true,
+    "wtf": false,
+    "debug_closed": true,
+    "no_qa_flags_or_grants": true,
+    "screenshot": "Artifacts/S3-CYCLE-HUD-20261021/ordinary-startup.png",
+    "log": "Artifacts/S3-CYCLE-HUD-20261021/ordinary-player.log",
+    "keyboard_F3": "PASS open and close; screenshot actual-f3.png"
+  }
+}

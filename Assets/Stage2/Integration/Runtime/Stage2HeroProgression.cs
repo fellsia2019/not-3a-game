@@ -11,16 +11,18 @@ namespace Not3A.Stage2.Integration
         public readonly struct Snapshot
         {
             internal readonly int Level, Xp, Points, Blink, Damage, Attack, Movement;
-            internal readonly float Cooldown;
+            internal readonly float Cooldown, Mana, CooldownTotal, Health;
             internal Snapshot(Stage2HeroProgression r)
             {
                 Level = r.Level; Xp = r.XpWithin; Points = r.AvailablePoints; Blink = r.BlinkRank;
                 Damage = r.ranks[0]; Attack = r.ranks[1]; Movement = r.ranks[2]; Cooldown = r.BlinkCooldownRemaining;
+                Health=r.Health;Mana=r.Mana;CooldownTotal=r.BlinkCooldownTotal;
             }
         }
 
         private readonly Stage2HeroProgressionCatalog catalog;
         private readonly int[] ranks = new int[3];
+        private bool blinking;
         public Stage2HeroProgression(Stage2HeroProgressionCatalog settings)
         {
             if (settings == null || !settings.TryValidate(out _)) throw new ArgumentException("Invalid progression catalog.", nameof(settings));
@@ -33,7 +35,25 @@ namespace Not3A.Stage2.Integration
         public int AvailablePoints { get; private set; }
         public int BlinkRank { get; private set; }
         public float BlinkCooldownRemaining { get; private set; }
+        public float BlinkCooldownTotal {get;private set;}
         public float BlinkRange => catalog.BlinkWorldRange(BlinkRank);
+        public float Health {get;private set;}
+        public int MaximumHealth=>catalog.MaximumHealth;
+        public float Mana {get;private set;}
+        public int MaximumMana=>catalog.MaximumMana;
+        public int BlinkManaCost=>catalog.BlinkManaCost(BlinkRank);
+        public float BlinkCooldownDuration=>catalog.BlinkRankCooldown(BlinkRank);
+        public bool WtfForTesting {get;private set;}
+        public int EffectiveBlinkManaCost=>WtfForTesting?0:BlinkManaCost;
+        public float EffectiveBlinkCooldownDuration=>WtfForTesting?0:BlinkCooldownDuration;
+        public bool CanBlink=>!blinking&&(WtfForTesting||BlinkCooldownRemaining<=0&&Mana>=BlinkManaCost);
+        public void SetWtfForTesting(bool enabled)
+        {
+            if(blinking||WtfForTesting==enabled)return;
+            WtfForTesting=enabled;
+            if(enabled)BlinkCooldownRemaining=BlinkCooldownTotal=0;
+            Changed?.Invoke();
+        }
         public bool CanUpgradeBlink => BlinkRank < catalog.BlinkMaxRank && AvailablePoints >= catalog.RankPointCost;
         public int DamageBonus => ranks[0] * catalog.DamagePerRank;
         public float AttackSpeedMultiplier => 1f + ranks[1] * catalog.AttackSpeedPerRank;
@@ -82,26 +102,44 @@ namespace Not3A.Stage2.Integration
         public bool TryBlink(Vector2 origin, Vector2 cursor, Func<Vector2, bool> teleport, out Vector2 landing)
         {
             landing = origin;
-            if (BlinkCooldownRemaining > 0 || !TryGetBlinkLanding(origin, cursor, _ => true, out var target) ||
-                teleport == null || !teleport(target)) return false;
-            landing = target; BlinkCooldownRemaining = catalog.BlinkCooldown; Changed?.Invoke(); return true;
+            if (!CanBlink || !TryGetBlinkLanding(origin, cursor, _ => true, out var target) || teleport==null) return false;
+            var cost=EffectiveBlinkManaCost;var cooldown=EffectiveBlinkCooldownDuration;
+            blinking=true;
+            try
+            {
+                if(!teleport(target))return false;
+                landing=target;Mana-=cost;BlinkCooldownRemaining=BlinkCooldownTotal=cooldown;
+            }
+            finally {blinking=false;}
+            Changed?.Invoke();return true;
         }
         public void Tick(float elapsed, bool active)
         {
             if (!float.IsFinite(elapsed) || elapsed < 0) throw new ArgumentOutOfRangeException(nameof(elapsed));
             if (!active) return;
             BlinkCooldownRemaining = Mathf.Max(0, BlinkCooldownRemaining - elapsed);
+            Mana=Mathf.Min(MaximumMana,Mana+catalog.ManaPerSecond*elapsed);
+            Health=Mathf.Min(MaximumHealth,Health+catalog.HealthPerSecond*elapsed);
+        }
+        internal void ApplyExplorationDamage(float amount)
+        { Health=Mathf.Max(0f,Health-amount);Changed?.Invoke(); }
+        internal int Reincarnate()
+        {
+            var lost=XpWithin/2;XpWithin-=lost;
+            Health=MaximumHealth;Mana=MaximumMana;
+            Changed?.Invoke();return lost;
         }
         public Snapshot CaptureSnapshot() => new Snapshot(this);
         public void RestoreSnapshot(Snapshot snapshot)
         {
             Level = snapshot.Level; XpWithin = snapshot.Xp; AvailablePoints = snapshot.Points; BlinkRank = snapshot.Blink;
             ranks[0] = snapshot.Damage; ranks[1] = snapshot.Attack; ranks[2] = snapshot.Movement;
-            BlinkCooldownRemaining = snapshot.Cooldown; Changed?.Invoke();
+            BlinkCooldownRemaining = snapshot.Cooldown;BlinkCooldownTotal=snapshot.CooldownTotal;Health=snapshot.Health;Mana=snapshot.Mana;Changed?.Invoke();
         }
         public void Reset()
         {
             Level = 1; XpWithin = 0; AvailablePoints = 0; BlinkRank = 1; BlinkCooldownRemaining = 0;
+            Health=MaximumHealth;Mana=MaximumMana;BlinkCooldownTotal=0;WtfForTesting=false;
             Array.Clear(ranks, 0, ranks.Length); Changed?.Invoke();
         }
         private static int ValidIndex(Stage2HeroPassive passive) => (int)passive is >= 0 and < 3 ? (int)passive :

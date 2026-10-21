@@ -1,0 +1,12 @@
+Use case: precise-object-edit
+Asset type: original fantasy isometric game city concept revision A_v6.
+Input images: FIRST image is the edit target A_v5 city; SECOND is the project's own approved ground-teleport seal, pattern reference only.
+
+Primary request: move the existing single city teleport OFF the main square into a quiet small temple-side courtyard at the LEFT EDGE of town.
+Replace only the modest orange-roof house at the left city boundary (roughly x120–400,y420–625 in the 1672x941 target) with a modest pale-stone fantasy temple of comparable footprint and height: clear arched entrance, small round stone window, low terracotta tiled roof, simple carved stone ridge. Keep human-scale cartoon painted architecture, not a cathedral, not a tower or palace.
+In front/right of this small temple on the existing side lane, create a calm little cobbled garden court with low greenery. Move the ONLY ground seal to this court, around centre x420,y600, about130x75px in this perspective. Entire circle clearly visible with walkable space around it and an open path from square. No tree, roof, bench or plant overlaps the seal.
+Restore ordinary unmarked cobblestone at its OLD location in front of the blue-roof merchant shop. No seal remains on the market square or central entrance route.
+
+Seal: use the exact approved line pattern from reference2, double rim, circular emblem discs and triangular connections. Fine white/silver-cyan/lilac light lines FLAT ON GROUND in correct perspective. The dark background of reference2 is NOT part of the seal: paving must be visible through its centre. No raised platform, vertical arch or beam.
+
+Invariants: preserve all other town architecture/layout/camera/size, orange residential roofs, blue permanent merchant shop, its thin turquoise outer outline and small floating plum/gold scales badge with air gap. Preserve the well, entrance gates, people, merchant, streets, bridge, water and trees except minimal local low vegetation needed for the tiny temple court. Exactly one merchant marker and exactly one city portal. Temple has no interaction badge, coloured outline, priest or extra service. No religion/faction emblem, lettering, dialogue, HUD or arrows. Keep whole-city composition intact.

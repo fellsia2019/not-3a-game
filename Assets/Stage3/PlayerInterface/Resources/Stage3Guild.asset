@@ -1,0 +1,416 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a5e54d533a844933a73430f26c0a494, type: 3}
+  m_Name: Stage3Guild
+  m_EditorClassIdentifier: Not3A.Stage2.Integration::Not3A.Stage2.Integration.Stage2GuildCatalog
+  interactionRadius: 3
+  quests:
+  - id: 1
+    rank: 0
+    enemyKind: 0
+    trial: 0
+    title: "\u041B\u0430\u0433\u0435\u0440\u044C \u043E\u0440\u043A\u043E\u0432"
+    location: "\u041B\u0435\u0441\u043D\u0430\u044F \u043E\u043F\u0443\u0448\u043A\u0430"
+    objective: "\u041F\u043E\u0431\u0435\u0434\u0438\u0442\u044C \u043E\u0440\u043A\u043E\u0432 \u0432 \u043B\u0430\u0433\u0435\u0440\u0435"
+    gold: 50
+    experience: 80
+    population: 3
+    health: 8
+    damage: 6
+    killExperience: 2
+    speed: 1.7
+    attackInterval: 1.6
+    attackWindup: 0.35
+    reach: 1.15
+    aggroRadius: 8
+    leashRadius: 14
+    radius: 0.32
+  - id: 2
+    rank: 0
+    enemyKind: 1
+    trial: 0
+    title: "\u0421\u0442\u043E\u044F\u043D\u043A\u0430 \u043E\u0433\u0440\u043E\u0432"
+    location: "\u041A\u0430\u043C\u0435\u043D\u0438\u0441\u0442\u0430\u044F \u043F\u043E\u043B\u044F\u043D\u0430"
+    objective: "\u041F\u043E\u0431\u0435\u0434\u0438\u0442\u044C \u043E\u0433\u0440\u043E\u0432 \u043D\u0430 \u0441\u0442\u043E\u044F\u043D\u043A\u0435"
+    gold: 80
+    experience: 120
+    population: 1
+    health: 18
+    damage: 12
+    killExperience: 4
+    speed: 1.25
+    attackInterval: 2.2
+    attackWindup: 0.55
+    reach: 1.55
+    aggroRadius: 8
+    leashRadius: 14
+    radius: 0.48
+  - id: 11
+    rank: 1
+    enemyKind: 0
+    trial: 0
+    title: "\u041B\u0430\u0433\u0435\u0440\u044C \u043E\u0440\u043A\u043E\u0432"
+    location: "\u041B\u0435\u0441\u043D\u0430\u044F \u043E\u043F\u0443\u0448\u043A\u0430"
+    objective: "\u041F\u043E\u0431\u0435\u0434\u0438\u0442\u044C \u043E\u0440\u043A\u043E\u0432 \u0432 \u043B\u0430\u0433\u0435\u0440\u0435"
+    gold: 100
+    experience: 160
+    population: 3
+    health: 12
+    damage: 8
+    killExperience: 4
+    speed: 1.7
+    attackInterval: 1.6
+    attackWindup: 0.35
+    reach: 1.15
+    aggroRadius: 8
+    leashRadius: 14
+    radius: 0.32
+  - id: 12
+    rank: 1
+    enemyKind: 1
+    trial: 0
+    title: "\u0421\u0442\u043E\u044F\u043D\u043A\u0430 \u043E\u0433\u0440\u043E\u0432"
+    location: "\u041A\u0430\u043C\u0435\u043D\u0438\u0441\u0442\u0430\u044F \u043F\u043E\u043B\u044F\u043D\u0430"
+    objective: "\u041F\u043E\u0431\u0435\u0434\u0438\u0442\u044C \u043E\u0433\u0440\u043E\u0432 \u043D\u0430 \u0441\u0442\u043E\u044F\u043D\u043A\u0435"
+    gold: 160
+    experience: 240
+    population: 1
+    health: 27
+    damage: 15
+    killExperience: 8
+    speed: 1.25
+    attackInterval: 2.2
+    attackWindup: 0.55
+    reach: 1.55
+    aggroRadius: 8
+    leashRadius: 14
+    radius: 0.48
+  - id: 13
+    rank: 1
+    enemyKind: 1
+    trial: 1
+    title: "\u0418\u0441\u043F\u044B\u0442\u0430\u043D\u0438\u0435 \u043D\u0430 \u0440\u0430\u043D\u0433 E"
+    location: "\u041A\u0430\u043C\u0435\u043D\u0438\u0441\u0442\u0430\u044F \u043F\u043E\u043B\u044F\u043D\u0430"
+    objective: "\u041F\u043E\u0431\u0435\u0434\u0438\u0442\u044C \u043E\u0433\u0440\u043E\u0432 \u043D\u0430 \u0441\u0442\u043E\u044F\u043D\u043A\u0435"
+    gold: 200
+    experience: 300
+    population: 1
+    health: 31
+    damage: 15
+    killExperience: 8
+    speed: 1.25
+    attackInterval: 2.2
+    attackWindup: 0.55
+    reach: 1.55
+    aggroRadius: 8
+    leashRadius: 14
+    radius: 0.48
+  - id: 21
+    rank: 2
+    enemyKind: 0
+    trial: 0
+    title: "\u041B\u0430\u0433\u0435\u0440\u044C \u043E\u0440\u043A\u043E\u0432"
+    location: "\u041B\u0435\u0441\u043D\u0430\u044F \u043E\u043F\u0443\u0448\u043A\u0430"
+    objective: "\u041F\u043E\u0431\u0435\u0434\u0438\u0442\u044C \u043E\u0440\u043A\u043E\u0432 \u0432 \u043B\u0430\u0433\u0435\u0440\u0435"
+    gold: 150
+    experience: 240
+    population: 4
+    health: 17
+    damage: 9
+    killExperience: 6
+    speed: 1.7
+    attackInterval: 1.6
+    attackWindup: 0.35
+    reach: 1.15
+    aggroRadius: 8
+    leashRadius: 14
+    radius: 0.32
+  - id: 22
+    rank: 2
+    enemyKind: 1
+    trial: 0
+    title: "\u0421\u0442\u043E\u044F\u043D\u043A\u0430 \u043E\u0433\u0440\u043E\u0432"
+    location: "\u041A\u0430\u043C\u0435\u043D\u0438\u0441\u0442\u0430\u044F \u043F\u043E\u043B\u044F\u043D\u0430"
+    objective: "\u041F\u043E\u0431\u0435\u0434\u0438\u0442\u044C \u043E\u0433\u0440\u043E\u0432 \u043D\u0430 \u0441\u0442\u043E\u044F\u043D\u043A\u0435"
+    gold: 240
+    experience: 360
+    population: 1
+    health: 38
+    damage: 18
+    killExperience: 12
+    speed: 1.25
+    attackInterval: 2.2
+    attackWindup: 0.55
+    reach: 1.55
+    aggroRadius: 8
+    leashRadius: 14
+    radius: 0.48
+  - id: 23
+    rank: 2
+    enemyKind: 1
+    trial: 1
+    title: "\u0418\u0441\u043F\u044B\u0442\u0430\u043D\u0438\u0435 \u043D\u0430 \u0440\u0430\u043D\u0433 D"
+    location: "\u041A\u0430\u043C\u0435\u043D\u0438\u0441\u0442\u0430\u044F \u043F\u043E\u043B\u044F\u043D\u0430"
+    objective: "\u041F\u043E\u0431\u0435\u0434\u0438\u0442\u044C \u043E\u0433\u0440\u043E\u0432 \u043D\u0430 \u0441\u0442\u043E\u044F\u043D\u043A\u0435"
+    gold: 300
+    experience: 450
+    population: 1
+    health: 44
+    damage: 18
+    killExperience: 12
+    speed: 1.25
+    attackInterval: 2.2
+    attackWindup: 0.55
+    reach: 1.55
+    aggroRadius: 8
+    leashRadius: 14
+    radius: 0.48
+  - id: 31
+    rank: 3
+    enemyKind: 0
+    trial: 0
+    title: "\u041B\u0430\u0433\u0435\u0440\u044C \u043E\u0440\u043A\u043E\u0432"
+    location: "\u041B\u0435\u0441\u043D\u0430\u044F \u043E\u043F\u0443\u0448\u043A\u0430"
+    objective: "\u041F\u043E\u0431\u0435\u0434\u0438\u0442\u044C \u043E\u0440\u043A\u043E\u0432 \u0432 \u043B\u0430\u0433\u0435\u0440\u0435"
+    gold: 200
+    experience: 320
+    population: 4
+    health: 25
+    damage: 11
+    killExperience: 8
+    speed: 1.7
+    attackInterval: 1.6
+    attackWindup: 0.35
+    reach: 1.15
+    aggroRadius: 8
+    leashRadius: 14
+    radius: 0.32
+  - id: 32
+    rank: 3
+    enemyKind: 1
+    trial: 0
+    title: "\u0421\u0442\u043E\u044F\u043D\u043A\u0430 \u043E\u0433\u0440\u043E\u0432"
+    location: "\u041A\u0430\u043C\u0435\u043D\u0438\u0441\u0442\u0430\u044F \u043F\u043E\u043B\u044F\u043D\u0430"
+    objective: "\u041F\u043E\u0431\u0435\u0434\u0438\u0442\u044C \u043E\u0433\u0440\u043E\u0432 \u043D\u0430 \u0441\u0442\u043E\u044F\u043D\u043A\u0435"
+    gold: 320
+    experience: 480
+    population: 2
+    health: 55
+    damage: 21
+    killExperience: 16
+    speed: 1.25
+    attackInterval: 2.2
+    attackWindup: 0.55
+    reach: 1.55
+    aggroRadius: 8
+    leashRadius: 14
+    radius: 0.48
+  - id: 33
+    rank: 3
+    enemyKind: 1
+    trial: 1
+    title: "\u0418\u0441\u043F\u044B\u0442\u0430\u043D\u0438\u0435 \u043D\u0430 \u0440\u0430\u043D\u0433 C"
+    location: "\u041A\u0430\u043C\u0435\u043D\u0438\u0441\u0442\u0430\u044F \u043F\u043E\u043B\u044F\u043D\u0430"
+    objective: "\u041F\u043E\u0431\u0435\u0434\u0438\u0442\u044C \u043E\u0433\u0440\u043E\u0432 \u043D\u0430 \u0441\u0442\u043E\u044F\u043D\u043A\u0435"
+    gold: 400
+    experience: 600
+    population: 2
+    health: 64
+    damage: 21
+    killExperience: 16
+    speed: 1.25
+    attackInterval: 2.2
+    attackWindup: 0.55
+    reach: 1.55
+    aggroRadius: 8
+    leashRadius: 14
+    radius: 0.48
+  - id: 41
+    rank: 4
+    enemyKind: 0
+    trial: 0
+    title: "\u041B\u0430\u0433\u0435\u0440\u044C \u043E\u0440\u043A\u043E\u0432"
+    location: "\u041B\u0435\u0441\u043D\u0430\u044F \u043E\u043F\u0443\u0448\u043A\u0430"
+    objective: "\u041F\u043E\u0431\u0435\u0434\u0438\u0442\u044C \u043E\u0440\u043A\u043E\u0432 \u0432 \u043B\u0430\u0433\u0435\u0440\u0435"
+    gold: 250
+    experience: 400
+    population: 5
+    health: 36
+    damage: 13
+    killExperience: 10
+    speed: 1.7
+    attackInterval: 1.6
+    attackWindup: 0.35
+    reach: 1.15
+    aggroRadius: 8
+    leashRadius: 14
+    radius: 0.32
+  - id: 42
+    rank: 4
+    enemyKind: 1
+    trial: 0
+    title: "\u0421\u0442\u043E\u044F\u043D\u043A\u0430 \u043E\u0433\u0440\u043E\u0432"
+    location: "\u041A\u0430\u043C\u0435\u043D\u0438\u0441\u0442\u0430\u044F \u043F\u043E\u043B\u044F\u043D\u0430"
+    objective: "\u041F\u043E\u0431\u0435\u0434\u0438\u0442\u044C \u043E\u0433\u0440\u043E\u0432 \u043D\u0430 \u0441\u0442\u043E\u044F\u043D\u043A\u0435"
+    gold: 400
+    experience: 600
+    population: 2
+    health: 80
+    damage: 25
+    killExperience: 20
+    speed: 1.25
+    attackInterval: 2.2
+    attackWindup: 0.55
+    reach: 1.55
+    aggroRadius: 8
+    leashRadius: 14
+    radius: 0.48
+  - id: 43
+    rank: 4
+    enemyKind: 1
+    trial: 1
+    title: "\u0418\u0441\u043F\u044B\u0442\u0430\u043D\u0438\u0435 \u043D\u0430 \u0440\u0430\u043D\u0433 B"
+    location: "\u041A\u0430\u043C\u0435\u043D\u0438\u0441\u0442\u0430\u044F \u043F\u043E\u043B\u044F\u043D\u0430"
+    objective: "\u041F\u043E\u0431\u0435\u0434\u0438\u0442\u044C \u043E\u0433\u0440\u043E\u0432 \u043D\u0430 \u0441\u0442\u043E\u044F\u043D\u043A\u0435"
+    gold: 500
+    experience: 750
+    population: 2
+    health: 92
+    damage: 25
+    killExperience: 20
+    speed: 1.25
+    attackInterval: 2.2
+    attackWindup: 0.55
+    reach: 1.55
+    aggroRadius: 8
+    leashRadius: 14
+    radius: 0.48
+  - id: 51
+    rank: 5
+    enemyKind: 0
+    trial: 0
+    title: "\u041B\u0430\u0433\u0435\u0440\u044C \u043E\u0440\u043A\u043E\u0432"
+    location: "\u041B\u0435\u0441\u043D\u0430\u044F \u043E\u043F\u0443\u0448\u043A\u0430"
+    objective: "\u041F\u043E\u0431\u0435\u0434\u0438\u0442\u044C \u043E\u0440\u043A\u043E\u0432 \u0432 \u043B\u0430\u0433\u0435\u0440\u0435"
+    gold: 300
+    experience: 480
+    population: 5
+    health: 52
+    damage: 15
+    killExperience: 12
+    speed: 1.7
+    attackInterval: 1.6
+    attackWindup: 0.35
+    reach: 1.15
+    aggroRadius: 8
+    leashRadius: 14
+    radius: 0.32
+  - id: 52
+    rank: 5
+    enemyKind: 1
+    trial: 0
+    title: "\u0421\u0442\u043E\u044F\u043D\u043A\u0430 \u043E\u0433\u0440\u043E\u0432"
+    location: "\u041A\u0430\u043C\u0435\u043D\u0438\u0441\u0442\u0430\u044F \u043F\u043E\u043B\u044F\u043D\u0430"
+    objective: "\u041F\u043E\u0431\u0435\u0434\u0438\u0442\u044C \u043E\u0433\u0440\u043E\u0432 \u043D\u0430 \u0441\u0442\u043E\u044F\u043D\u043A\u0435"
+    gold: 480
+    experience: 720
+    population: 2
+    health: 116
+    damage: 30
+    killExperience: 24
+    speed: 1.25
+    attackInterval: 2.2
+    attackWindup: 0.55
+    reach: 1.55
+    aggroRadius: 8
+    leashRadius: 14
+    radius: 0.48
+  - id: 53
+    rank: 5
+    enemyKind: 1
+    trial: 1
+    title: "\u0418\u0441\u043F\u044B\u0442\u0430\u043D\u0438\u0435 \u043D\u0430 \u0440\u0430\u043D\u0433 A"
+    location: "\u041A\u0430\u043C\u0435\u043D\u0438\u0441\u0442\u0430\u044F \u043F\u043E\u043B\u044F\u043D\u0430"
+    objective: "\u041F\u043E\u0431\u0435\u0434\u0438\u0442\u044C \u043E\u0433\u0440\u043E\u0432 \u043D\u0430 \u0441\u0442\u043E\u044F\u043D\u043A\u0435"
+    gold: 600
+    experience: 900
+    population: 2
+    health: 133
+    damage: 30
+    killExperience: 24
+    speed: 1.25
+    attackInterval: 2.2
+    attackWindup: 0.55
+    reach: 1.55
+    aggroRadius: 8
+    leashRadius: 14
+    radius: 0.48
+  - id: 61
+    rank: 6
+    enemyKind: 0
+    trial: 0
+    title: "\u041B\u0430\u0433\u0435\u0440\u044C \u043E\u0440\u043A\u043E\u0432"
+    location: "\u041B\u0435\u0441\u043D\u0430\u044F \u043E\u043F\u0443\u0448\u043A\u0430"
+    objective: "\u041F\u043E\u0431\u0435\u0434\u0438\u0442\u044C \u043E\u0440\u043A\u043E\u0432 \u0432 \u043B\u0430\u0433\u0435\u0440\u0435"
+    gold: 350
+    experience: 560
+    population: 6
+    health: 75
+    damage: 18
+    killExperience: 14
+    speed: 1.7
+    attackInterval: 1.6
+    attackWindup: 0.35
+    reach: 1.15
+    aggroRadius: 8
+    leashRadius: 14
+    radius: 0.32
+  - id: 62
+    rank: 6
+    enemyKind: 1
+    trial: 0
+    title: "\u0421\u0442\u043E\u044F\u043D\u043A\u0430 \u043E\u0433\u0440\u043E\u0432"
+    location: "\u041A\u0430\u043C\u0435\u043D\u0438\u0441\u0442\u0430\u044F \u043F\u043E\u043B\u044F\u043D\u0430"
+    objective: "\u041F\u043E\u0431\u0435\u0434\u0438\u0442\u044C \u043E\u0433\u0440\u043E\u0432 \u043D\u0430 \u0441\u0442\u043E\u044F\u043D\u043A\u0435"
+    gold: 560
+    experience: 840
+    population: 3
+    health: 168
+    damage: 36
+    killExperience: 28
+    speed: 1.25
+    attackInterval: 2.2
+    attackWindup: 0.55
+    reach: 1.55
+    aggroRadius: 8
+    leashRadius: 14
+    radius: 0.48
+  - id: 63
+    rank: 6
+    enemyKind: 1
+    trial: 1
+    title: "\u0418\u0441\u043F\u044B\u0442\u0430\u043D\u0438\u0435 \u043D\u0430 \u0440\u0430\u043D\u0433 S"
+    location: "\u041A\u0430\u043C\u0435\u043D\u0438\u0441\u0442\u0430\u044F \u043F\u043E\u043B\u044F\u043D\u0430"
+    objective: "\u041F\u043E\u0431\u0435\u0434\u0438\u0442\u044C \u043E\u0433\u0440\u043E\u0432 \u043D\u0430 \u0441\u0442\u043E\u044F\u043D\u043A\u0435"
+    gold: 700
+    experience: 1050
+    population: 3
+    health: 193
+    damage: 36
+    killExperience: 28
+    speed: 1.25
+    attackInterval: 2.2
+    attackWindup: 0.55
+    reach: 1.55
+    aggroRadius: 8
+    leashRadius: 14
+    radius: 0.48

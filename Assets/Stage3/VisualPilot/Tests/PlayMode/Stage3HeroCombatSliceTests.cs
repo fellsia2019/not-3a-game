@@ -15,6 +15,7 @@ using NUnit.Framework;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using Object = UnityEngine.Object;
@@ -100,7 +101,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             game.HeroCombat.Tick(game.HeroCombat.Catalog.FireInterval);
             Assert.That(game.HeroCombat.Rules.ShotsFired, Is.EqualTo(4), "Out-of-range enemies cannot be shot.");
 
-            game.RunDriver.Run.StartWave();
+            Stage3TestCycle.StartNight(game.RunDriver.Run);
             typeof(Stage2Run).GetMethod("OnReachedThrone", BindingFlags.NonPublic | BindingFlags.Instance)
                 .Invoke(game.RunDriver.Run, new object[] { game.RunDriver.Run.ThroneMaximum });
             game.HeroCombat.Tick(100f);
@@ -114,15 +115,63 @@ namespace Not3A.Stage3.VisualPilot.Tests
 
         [UnityTest] public IEnumerator FirstWaveCanBeClearedByBowAloneWithoutStartingTowersOrMaterialGrants()
         {
+            var expectedGold=game.Gathering.Economy.Inventory.Gold+
+                game.RunDriver.Run.WaveEnemyCount*game.Gathering.Economy.GoldPerKill;
             SimulateWave(false, false);
             Assert.That(game.RunDriver.Run.Phase, Is.EqualTo(Stage2RunPhase.Preparation));
             Assert.That(game.RunDriver.Run.WaveIndex, Is.EqualTo(1));
             Assert.That(game.Building.Defense.TowerCount, Is.Zero);
-            Assert.That(game.Gathering.Economy.Inventory.Gold, Is.EqualTo(17), "Twelve bow kills use the existing reward exactly once.");
+            Assert.That(game.Gathering.Economy.Inventory.Gold, Is.EqualTo(expectedGold), "Each authored first-horde kill pays the existing reward exactly once.");
             foreach (MapResourceKind kind in Enum.GetValues(typeof(MapResourceKind)))
                 Assert.That(game.Gathering.Economy.Inventory.Get(kind), Is.Zero);
             WriteEvidence("first-wave-bow-only");
             yield return null;
+        }
+
+        [UnityTest] public IEnumerator ActualWasdMovementPreventsPortalBowLaunchInEveryDirectionUntilStopped()
+        {
+            var preferred=scene.MapDefinition.CellToWorld(scene.MapDefinition.EnemyEntrance)+Vector2.down*3;
+            var origin=preferred;var found=false;
+            // A legal standing point can still touch a randomly generated trunk/rock.
+            // This fixture needs a genuinely open walking area in all four directions.
+            for(var radius=0;radius<=6&&!found;radius++)
+            for(var y=-radius;y<=radius&&!found;y++)for(var x=-radius;x<=radius;x++)
+            {
+                if(Mathf.Max(Mathf.Abs(x),Mathf.Abs(y))!=radius)continue;
+                var candidate=preferred+new Vector2(x,y);
+                if(!scene.PlayerMover.CanTeleportTo(candidate)||scene.PlayerMover.Obstacles.IsBlocked(candidate,1.5f))continue;
+                origin=candidate;found=true;break;
+            }
+            Assert.That(found,Is.True,"A clear area for four actual WASD walking directions is required.");
+            Assert.That(scene.PlayerMover.TryTeleportTo(origin),Is.True);
+            Assert.That(scene.PlayerMover.isActiveAndEnabled,Is.True);Assert.That(game.PlayerInputBlocked,Is.False);
+            var enemy=game.Enemies.Spawn();enemy.SetAutomaticTick(false);enemy.transform.position=origin+Vector2.right*2;
+            game.HeroCombat.Tick(.01f);Assert.That(game.HeroCombat.Rules.ShotsFired,Is.EqualTo(1));
+            var before=enemy.Health;
+            var keyboard=Keyboard.current;var keys=new[]{Key.S,Key.W,Key.A,Key.D};
+            foreach(var key in keys)
+            {
+                var start=(Vector2)scene.PlayerMover.transform.position;
+                // UnityTest fixture Press/Release queues a full state snapshot. Calling
+                // Release(old) then Press(new) before an input update can reintroduce the
+                // old key from the still-current snapshot, cancelling opposite directions.
+                InputSystem.QueueStateEvent(keyboard,new KeyboardState(key));
+                // Allow the ordinary Input System/player Update cycle to consume the new key state.
+                for(var frame=0;frame<3;frame++)yield return null;
+                Assert.That(keyboard[key].isPressed,Is.True,"The queued "+key+" state must have been consumed by the normal input loop.");
+                Assert.That(Vector2.Distance(start,scene.PlayerMover.transform.position),Is.GreaterThan(.0001f),
+                    "Held "+key+" must move through the clear test area; inputBlocked="+game.PlayerInputBlocked);
+                Assert.That(scene.PlayerMover.IsMoving,Is.True);
+                game.HeroCombat.Tick(game.HeroCombat.Rules.EffectiveFireInterval+1);
+                Assert.That(game.HeroCombat.Rules.ShotsFired,Is.EqualTo(1),"Ground movement must suppress new arrows in every direction.");
+                Assert.That(game.HeroCombat.Rules.CooldownRemaining,Is.Zero);
+                InputSystem.QueueStateEvent(keyboard,new KeyboardState());
+                yield return null;yield return null;
+            }
+            game.Enemies.TickShots(game.HeroCombat.Catalog.ProjectileFlightSeconds);
+            Assert.That(enemy.Health,Is.LessThan(before),"Movement cannot cancel an arrow already released.");
+            yield return null;Assert.That(scene.PlayerMover.IsMoving,Is.False);
+            game.HeroCombat.Tick(.01f);Assert.That(game.HeroCombat.Rules.ShotsFired,Is.EqualTo(2));
         }
 
         [UnityTest] public IEnumerator DenseSecondHordeOverwhelmsEvenBowWithUnrestrictedAccessToEveryTarget()
@@ -181,6 +230,15 @@ namespace Not3A.Stage3.VisualPilot.Tests
         {
             SimulateWave(false, false);
             var inventory = game.Gathering.Economy.Inventory;
+            // Declared combat fixture: actually buy/study D102's Longshot paper,
+            // funding only its exact price so the bounded defense budget stays unchanged.
+            var binding=game.GetComponent("Stage3PlayerInterfaceBinding");
+            var merchant=(Stage2Merchant)binding.GetType().GetProperty("Merchant").GetValue(binding);
+            var paper=merchant.BlueprintItems.Single(item=>item.Kind==Stage2BlueprintKind.Longshot);
+            var gold=inventory.Gold;inventory.TryAddGold(merchant.BlueprintPrice(paper,true));
+            Assert.That(merchant.TryTradeBlueprint(true,paper.Id),Is.EqualTo(Stage2TradeResult.Ready));
+            Assert.That(game.GetComponent<Stage2EquipmentDriver>().Rules.Blueprints.TryStudy(paper.Id),Is.EqualTo(Stage2BlueprintResult.Ready));
+            Assert.That(inventory.Gold,Is.EqualTo(gold));
             inventory.TryAdd(MapResourceKind.Wood, 20); inventory.TryAdd(MapResourceKind.Stone, 14);
             BuildNearEntrance(0, 2);
             BuildNearEntrance(1, 2);
@@ -211,7 +269,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
         {
             var run = game.RunDriver.Run;
             scene.PlayerMover.transform.position = scene.MapDefinition.CellToWorld(scene.MapDefinition.EnemyEntrance) + Vector2.up * 2f;
-            Assert.That(run.StartWave(), Is.True);
+            Assert.That(Stage3TestCycle.StartNight(run), Is.True);
             peakPopulation = game.Enemies.ActiveCount;
             simulatedSeconds = 0f;
             const float dt = .05f;

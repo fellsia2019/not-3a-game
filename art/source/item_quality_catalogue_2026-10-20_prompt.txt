@@ -1,0 +1,25 @@
+Use case: precise-object-edit / ui-mockup.
+Asset type: ONE COMPLETE high-resolution equipment catalogue / global-quality UI approval sheet for an original fantasy RPG.
+INPUT IMAGES are the project's OWN approved equipment atlases; transform these three item plates into ONE unified catalogue board with quality-cell backings. Image1 contains8qualitycolumnsF/E/D/C/B/A/S/SSS with bow,row1;pickaxe,row2;helmet,row3. Image2 has same8columns with chest,row1;gloves,row2;legarmour,row3. Image3 has same8columns with SHORTwand,row1;singlebladeaxe,row2. Preserve recognizable corresponding item designs and progressive materials. Strip old atlas backgrounds, don't reproduce separate atlas panels.
+OUTPUT near-square high-resolution board, prefer2048×2048orhigher. Entire single8-COLUMN by8-ROW matrix fully visible, EXACTLY64gear cells. Use maximum area for large crispicons; small outer bronze filigree on ivory Lunar Porcelain board, darkplum readable typography. NO other panels, portrait, selecteditems, emptyexamples or scrolls.
+
+TITLE exact “Снаряжение: все качества”. Subtitle exact “Все предметы — LVL 1”.
+COLUMN HEADERS exactly8, in THIS order left-to-right: F, E, D, C, B, A, S, SSS. Absolutely NO “SS” rank, no ninthcolumn, no duplicateS.
+ROW LABELS exactly8 at left, in THIS order top-to-bottom:
+1 “Лук” — eight bows.
+2 “Жезл” — eight SHORT one-handed wands.
+3 “Шлем” — eight helmets.
+4 “Нагрудник” — eight chestarmours.
+5 “Перчатки” — eight pairs of gloves.
+6 “Поножи” — eight legarmours/trousersgreaves.
+7 “Кирка” — eight pickaxes.
+8 “Топор” — eight SINGLE-BLADE axes.
+Rowlabels once, gradeheaders once; no repeated rank/level/name inside cells, because wholegridLVL1. Each row's existing Fprimitive→SSSornate whitegold progression follows ownatlas. Existing itemmaterialcolors remain, do NOT make Dsteel items green; GREEN belongs to D cell-frame/backing. No new contentfamily, sword, shield, potion, rune, consumable or longstaff.
+
+GLOBAL QUALITY CELL SYSTEM:
+For all8rows each quality column repeats SAME corresponding quality-cell treatment. Crisp opaque saturated INNER border, controlled bevel, consistent margins and generous gap from item. F matte DARKBROWN#65412B; E neutral GRAY#858585; D unmistakable saturated GREEN#159C3B; C unmistakable ROYALBLUE#2456DC; B PURPLE#9146BA; A RUBYRED#CB424B. FthroughA have25–30percent colored porcelainwash undericon, clearly colored not faded. GREEN D must never be teal, grayblue or lightblue; C is BLUE. Their hues must be obvious even without labels. Every cell includes one centered correctly corresponding icon, same visualscale within its family and fullboundaries no clipping.
+S GOLD: every S cell has substantial POLISHED PRECIOUS GOLD frame, rich yellowgold#F4B900 with deepamber bevel shadows#824000, sharp reflective planes and narrow near-white MIRROR HIGHLIGHTS. Darkwarmbrown interior#302416 supports golditem/frame. Goldlooks dense, lustrous, valuable and desirable, NEVER dullbeige, flat ochre or washedpastel. S existinggolden equipment has crisp polishedmetal highlights, no new design.
+SSS RADIANCE: each SSS cell has DISTINCTIVE DOUBLE WHITE-HOT-GOLD frame: razor-sharp ivorywhite core#FFFDEB, saturatedgold edge#FFD34A, small brilliant star glints/facetedcornerpoints, CONTROLLED radiant GOLDEN HALO behind white-and-golditem and along innerframe. Darkplum interior#292232. SSS must visibly GLOW and feel extraordinary, brighter/moreornate than S. Halo entirely INSIDE cell, NOT overlapping neighbours. Keep sharp icon silhouette/metalengraving/frameedges OVER glow. Strengthen existing polishedmetal highlights without inventing new equipment.
+Allqualityheaders readable: darkplumlettering againstlightheaderexceptS/SSS mayusecoherent darkheadercontrast; don'tlose SSSletters inshine. Outerboard remainslightivory, darkcellbackingsonlyS/SSS.
+
+CRISP OUTPUT: clean precise icon edges, distinct materials, no fog, no blur acrosscells or labels, no globalbloom, no cinematicdepthoffield. Localradiance SSS only. All64cells and8headings fit insideframe; no cut lastrows or lastcolumns. No extra legends, prices, stats, stock, currencies, gameplayHUD, cyan-selectionoutlines, signature/watermark. One complete catalogue for visual comparison of all8qualities/all8families.

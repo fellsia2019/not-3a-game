@@ -1,0 +1,453 @@
+{
+  "date": "2026-10-21",
+  "status": "Locally qualified:89distinct latest tests PASS, native and actual input PASS; ordinary Mac startup restored",
+  "decisions": [
+    "D108 enemy appearances retained",
+    "D110",
+    "D111"
+  ],
+  "behavior": [
+    "Guild building click opens native contract board; small world notice board decorative only, right of free entry",
+    "F/E/D/C/B/A/S; three current-rank turn-ins unlock one next-rank trial; trial turn-in promotes",
+    "Repeated orders count; only acceptance resets typed spot; clear creates claimable state; local guild turn-in awards gold/XP once",
+    "Two separate orc/ogre spots with rank data profiles, local chase/leash/telegraphed melee and existing hero recovery",
+    "One shared hero bow cadence chooses nearest live portal/world target; world units never join horde counters",
+    "Current guild/contracts/world actors survive throne retry; full reset returns F and baseline camps",
+    "World combat blocks dwelling sleep; pause/debug/terminal freeze rules and visual clocks"
+  ],
+  "wiring": {
+    "scene_migration": false,
+    "binding": "Existing Stage3PlayerInterfaceBinding adds GuildWorldDriver after hero progression/equipment/recovery/travel readiness",
+    "data": "Assets/Stage3/PlayerInterface/Resources/Stage3Guild.asset",
+    "installer": "Not3A.Stage3.PlayerInterface.Editor.Stage3GuildInstaller.Install",
+    "visual_importers": [
+      "Stage3GuildArtImporter.BuildAssets",
+      "Stage3GuildEnemyArtImporter.BuildAssets"
+    ],
+    "input": "No new shortcut; click GuildVisual; actions require GuildInteractionPosition proximity"
+  },
+  "tests": {
+    "distinct_latest_passed": 89,
+    "distinct_latest_total": 89,
+    "reports": [
+      "Artifacts/GUILD-2026-10-21/guild-tests.xml",
+      "Artifacts/GUILD-2026-10-21/regression.xml",
+      "Artifacts/GUILD-2026-10-21/graphics-tests.xml",
+      "Artifacts/GUILD-2026-10-21/final-tests.xml",
+      "Artifacts/GUILD-2026-10-21/city-entry-tests.xml"
+    ],
+    "resolved_degradation": "regression.xml ran with -nographics; portal RenderTexture failed there. Same test passed graphics-tests.xml, final-tests.xml and city-entry-tests.xml with graphics.",
+    "native_rank_progression": "Actual contracts F repeats -> trial -> E; full F–S progression also tested in plain rules"
+  },
+  "native_fixture": {
+    "directory": "Artifacts/GUILD-2026-10-21/native",
+    "qualification": "Artifacts/GUILD-2026-10-21/native/qualification.txt",
+    "method": "Actual Mac development player, three resolutions. Real-rule acceptance/kills/turn-in and explicit visual pose/programmatic scroll fixtures. Clock/bow/AI held only for disposable captures. No injected view DTO, no ordinary-start grants.",
+    "visual_review_owner": "GPT-6 Astra",
+    "core_review": "GPT-6 Astra PASS final city/open temple court, final small muted farther-right decorative board, UI safe zones/third-paper scroll, both enemy species at720/900/1080 and mid-flight arrow. No visible blockers.",
+    "arrow": "PASS: real launch, .32s of .8s flight, shaft/head/trail visible in mid-flight; Astra reviewed."
+  },
+  "actual_input": {
+    "method": "CUA native mouse/key actions on updated entry/click runtime; fixture setup resolves camp kills through real rules",
+    "verified": [
+      "Final small muted board beside bench: click leaves menu closed",
+      "Guild door click opens menu",
+      "Rank F tab selects completed F order",
+      "Claim changes action back to Accept; Escape reveals gold355->405 and XP122->202",
+      "Next E order accepted: objective0/3 and disabled InProgress action"
+    ],
+    "images": [
+      "Artifacts/GUILD-2026-10-21/native/input-guild-entrance.png",
+      "Artifacts/GUILD-2026-10-21/native/input-claim-result.png",
+      "Artifacts/GUILD-2026-10-21/native/input-accept-E.png"
+    ],
+    "source_hashes": {
+      "Assets/Stage2/Integration/Runtime/Stage2Guild.cs": "9ba46f9c54b0d400887aad3dabcf60622c6976b4fafede62529f2e05675716b5",
+      "Assets/Stage2/Integration/Runtime/Stage2GuildCatalog.cs": "5755063034bcadf66968c5442ae35882e09b3377e86891729bba8767887bd323",
+      "Assets/Stage2/Integration/Runtime/Stage2GuildEnemy.cs": "6e4512a65e61497c609d2b166f6c4291b46c28adfd2ef63dd97037752d7b26d8",
+      "Assets/Stage2/Integration/Runtime/Stage2HeroCombatDriver.cs": "02e8b53818e878a6f83539579417c9f723e1b2b7360ed0b4c52a347445a904ac",
+      "Assets/Stage3/Guild/Runtime/Stage3GuildWorldDriver.cs": "114b31fe1d07efe30573749b700c0883d05ff52c02295760492d83dd7f6cd5bd",
+      "Assets/Stage3/PlayerInterface/Runtime/Stage3PlayerInterfaceBinding.Guild.cs": "00610bece3c6a631a6bdd5d966b83808b7ded821c654bbeccb4b750c16fd37a9",
+      "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Guild.cs": "76e98dd2e1f78ad84f2d39a27ccffd26cabe7308bf099135329f6d1b889b550f",
+      "Assets/Stage3/WorldTravel/Runtime/Stage3CityPresentation.cs": "df4d5894038aa8bcd81cb595b4ef3d8b6ba1894e027ec83281b644c585ab467d"
+    }
+  },
+  "build": {
+    "target": "StandaloneOSX Development",
+    "path": "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app",
+    "reported_bytes": 730942337,
+    "log": "Artifacts/GUILD-2026-10-21/build.log",
+    "player_log": "Artifacts/GUILD-2026-10-21/native-player.log",
+    "ordinary_restart": "Fresh process without capture environment; actual native HUD shows LVL1,XP0/100,gold5,HP100/100,MP100/100 and no modal. No fixture XP/rank/items or held automatic-tick flags retained.",
+    "ordinary_player_log": "Artifacts/GUILD-2026-10-21/ordinary-player.log",
+    "ordinary_startup_image": "Artifacts/GUILD-2026-10-21/ordinary-startup.png"
+  },
+  "frames": [
+    {
+      "path": "Artifacts/GUILD-2026-10-21/native/(1280, 720)-E-unlocked.png",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "sha256": "77e74184405fa556d6328f21471275a6e56de232ba6aecc324cb64b833ae40e0"
+    },
+    {
+      "path": "Artifacts/GUILD-2026-10-21/native/(1280, 720)-F-board.png",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "sha256": "2cb1e1079cdd7e39cad6369c2ce0c1d5afedfd82e48d9ee60040fa23088b4221"
+    },
+    {
+      "path": "Artifacts/GUILD-2026-10-21/native/(1280, 720)-Ogre-front.png",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "sha256": "5572cd540e42fb993fd71dce976f21ccd68689b15d1ffbe7d0d2106e712cc850"
+    },
+    {
+      "path": "Artifacts/GUILD-2026-10-21/native/(1280, 720)-Ogre-rear.png",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "sha256": "c3fbe20e177dcc1b626b7effb7bbfe9f36b9f5e4da30d3f18a050da0cc500ffd"
+    },
+    {
+      "path": "Artifacts/GUILD-2026-10-21/native/(1280, 720)-Ogre-strike.png",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "sha256": "7e87aab25c20429a2a8f633403e16d6d0deda612363325c0ed21b7bedf74f6ba"
+    },
+    {
+      "path": "Artifacts/GUILD-2026-10-21/native/(1280, 720)-Orc-front.png",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "sha256": "8ed3070b47be102d937cc2bfa9b602149d46bf053be11e262e217826f409b334"
+    },
+    {
+      "path": "Artifacts/GUILD-2026-10-21/native/(1280, 720)-Orc-rear.png",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "sha256": "52222a32956d82646d1a69704432f649f42a6bd8f4b52b8f01ed4152f9aed443"
+    },
+    {
+      "path": "Artifacts/GUILD-2026-10-21/native/(1280, 720)-Orc-strike.png",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "sha256": "1aa1fb1bf20373b4e1422da4008c505e3895141276fd1627fa60b35b682751d4"
+    },
+    {
+      "path": "Artifacts/GUILD-2026-10-21/native/(1280, 720)-city.png",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "sha256": "946f30c004f1a649f5ce6d4b0ae912ea095426b7e86c3c4b326e9640ab2c3749"
+    },
+    {
+      "path": "Artifacts/GUILD-2026-10-21/native/(1280, 720)-remote-disabled.png",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "sha256": "678d1ce0819e6df561da3b3537d1df3fe32be08bf021e6256ef02ec02bccc86c"
+    },
+    {
+      "path": "Artifacts/GUILD-2026-10-21/native/(1280, 720)-third-paper-scroll.png",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "sha256": "330f95373c0ac2d94546ab514f7ae4014fee3012e3c3ba82bee3c94732999f58"
+    },
+    {
+      "path": "Artifacts/GUILD-2026-10-21/native/(1280, 720)-trial-available.png",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "sha256": "f52ee2b74f64b933fbc8c1ac594e787bdfd8c9917923a26da8e070e75bd8fde1"
+    },
+    {
+      "path": "Artifacts/GUILD-2026-10-21/native/(1280, 720)-trial-turn-in.png",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "sha256": "a071501c27f700d52264f7f0d3810a34042fc0554078cbe8033bc31a0f62c470"
+    },
+    {
+      "path": "Artifacts/GUILD-2026-10-21/native/(1600, 900)-E-unlocked.png",
+      "dimensions": [
+        1600,
+        900
+      ],
+      "sha256": "fe87df93c6d64bf9ccd6d4911527cc35a833dc098df52b4d124e7fa436693000"
+    },
+    {
+      "path": "Artifacts/GUILD-2026-10-21/native/(1600, 900)-F-board.png",
+      "dimensions": [
+        1600,
+        900
+      ],
+      "sha256": "1e9e7d095a5b4eb2bde33d8114af3341061b862bc3fe66d61db2a9bb369e3c79"
+    },
+    {
+      "path": "Artifacts/GUILD-2026-10-21/native/(1600, 900)-Ogre-front.png",
+      "dimensions": [
+        1600,
+        900
+      ],
+      "sha256": "28d7b0c3fa3fc9b8fc3ae33ac15c7d4eb4b43e68bed6b088df8ddda927950529"
+    },
+    {
+      "path": "Artifacts/GUILD-2026-10-21/native/(1600, 900)-Ogre-rear.png",
+      "dimensions": [
+        1600,
+        900
+      ],
+      "sha256": "7a2172c8aba3c7bbbc47f94ff762621dc2726ff79462da064f2637541cc7d267"
+    },
+    {
+      "path": "Artifacts/GUILD-2026-10-21/native/(1600, 900)-Ogre-strike.png",
+      "dimensions": [
+        1600,
+        900
+      ],
+      "sha256": "481ff33d155d099baf2c1b5d6a679f6472219239dd3a68c7dd79db04fd6f6d1f"
+    },
+    {
+      "path": "Artifacts/GUILD-2026-10-21/native/(1600, 900)-Orc-front.png",
+      "dimensions": [
+        1600,
+        900
+      ],
+      "sha256": "94e83856167ac003e61249b1a647452c0d39d36b4b4a00781d2cd3288bd9ffd4"
+    },
+    {
+      "path": "Artifacts/GUILD-2026-10-21/native/(1600, 900)-Orc-rear.png",
+      "dimensions": [
+        1600,
+        900
+      ],
+      "sha256": "cbb3c3cae4ec6514f32286d54c116f84b7fb6651b1adbf16e0ace30d6ba2acb7"
+    },
+    {
+      "path": "Artifacts/GUILD-2026-10-21/native/(1600, 900)-Orc-strike.png",
+      "dimensions": [
+        1600,
+        900
+      ],
+      "sha256": "d7df1c194973b613da4a0c3152c08b3585a9890b4a6871b564c7a2d333bd4f45"
+    },
+    {
+      "path": "Artifacts/GUILD-2026-10-21/native/(1600, 900)-city.png",
+      "dimensions": [
+        1600,
+        900
+      ],
+      "sha256": "ef9008d2a231b5670b204d13c49505471680d59938c8bf83ccba3f0d0df56dd7"
+    },
+    {
+      "path": "Artifacts/GUILD-2026-10-21/native/(1600, 900)-remote-disabled.png",
+      "dimensions": [
+        1600,
+        900
+      ],
+      "sha256": "5221713cf72395caf59f5c8a55132f982984eea366ca0e194dae1c0e4ff0e1cb"
+    },
+    {
+      "path": "Artifacts/GUILD-2026-10-21/native/(1600, 900)-third-paper-scroll.png",
+      "dimensions": [
+        1600,
+        900
+      ],
+      "sha256": "38c7723887d2a7e77b7550e68c53ce6a87a3cbfa5c9b9807a52f635a4df52f49"
+    },
+    {
+      "path": "Artifacts/GUILD-2026-10-21/native/(1600, 900)-trial-available.png",
+      "dimensions": [
+        1600,
+        900
+      ],
+      "sha256": "92fd01354054872c49f4d600b1cd125c6844bf5b73b03c3df82f9b3ca63021aa"
+    },
+    {
+      "path": "Artifacts/GUILD-2026-10-21/native/(1600, 900)-trial-turn-in.png",
+      "dimensions": [
+        1600,
+        900
+      ],
+      "sha256": "051b3476b363c6c76478d239ad56c23a358342bdf66ae7463f8bcd76b7c891b9"
+    },
+    {
+      "path": "Artifacts/GUILD-2026-10-21/native/(1920, 1080)-E-unlocked.png",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "sha256": "96a42427d476e1706b5f0376200be2365d4e5386211c142afdd3dc7bf2917297"
+    },
+    {
+      "path": "Artifacts/GUILD-2026-10-21/native/(1920, 1080)-F-board.png",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "sha256": "044676326d7aae8f84383997d86a970b07455f90e520839dd87775646eef3eff"
+    },
+    {
+      "path": "Artifacts/GUILD-2026-10-21/native/(1920, 1080)-Ogre-front.png",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "sha256": "105d8f848b59c1319e339721cd7c2b198f72bab777bd5ef53ba3f3ce67c603a9"
+    },
+    {
+      "path": "Artifacts/GUILD-2026-10-21/native/(1920, 1080)-Ogre-rear.png",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "sha256": "352f0424ed317750a2235631e2287d2c37696a8f9e1e441ef83ea6a37e442165"
+    },
+    {
+      "path": "Artifacts/GUILD-2026-10-21/native/(1920, 1080)-Ogre-strike.png",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "sha256": "dda8bd5b3c3239087d2f6360d8ebd97a0e80bb511fb93c410b9b76cf20096dcc"
+    },
+    {
+      "path": "Artifacts/GUILD-2026-10-21/native/(1920, 1080)-Orc-front.png",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "sha256": "6b0d6934e1c32af5acb85bc25c438e876ade7e1bf810b7aa0fbce201613b9e43"
+    },
+    {
+      "path": "Artifacts/GUILD-2026-10-21/native/(1920, 1080)-Orc-rear.png",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "sha256": "4c534255f53baa10cca2c00b2cc772f1ef333f2f338b7a8819af53ede08df9b3"
+    },
+    {
+      "path": "Artifacts/GUILD-2026-10-21/native/(1920, 1080)-Orc-strike.png",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "sha256": "fd3dd9d51afcb7905de2d499f792498c924c824f90ac693385bf5263c407eb8c"
+    },
+    {
+      "path": "Artifacts/GUILD-2026-10-21/native/(1920, 1080)-city.png",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "sha256": "888cb44c79500064da8a3388567904e87a4acb76b7009aa9224aaa12d5b979ff"
+    },
+    {
+      "path": "Artifacts/GUILD-2026-10-21/native/(1920, 1080)-remote-disabled.png",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "sha256": "06d6ebffcd7387c67b2c08175eaadb3f8dcc458aeadfb9c2213af82472f10008"
+    },
+    {
+      "path": "Artifacts/GUILD-2026-10-21/native/(1920, 1080)-third-paper-scroll.png",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "sha256": "eaefe59d2133378b8f26977638a107ede94945b1ead16027d397c385d477d498"
+    },
+    {
+      "path": "Artifacts/GUILD-2026-10-21/native/(1920, 1080)-trial-available.png",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "sha256": "ad05afb84130fa6c7c39ebea3a0babd261efd91e6a6fa6db60328d47531e216b"
+    },
+    {
+      "path": "Artifacts/GUILD-2026-10-21/native/(1920, 1080)-trial-turn-in.png",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "sha256": "145ca480245d7b41d49a367026849b0d6c00cd9b55af47dc9dba63aa8fb2796c"
+    },
+    {
+      "path": "Artifacts/GUILD-2026-10-21/native/input-accept-E.png",
+      "dimensions": [
+        4718592,
+        4292935744
+      ],
+      "sha256": "4f36a4101687c7e86a407c95b6515d638d257f05e345fdf365b420855ca6dc5e"
+    },
+    {
+      "path": "Artifacts/GUILD-2026-10-21/native/input-claim-result.png",
+      "dimensions": [
+        4718592,
+        4292935744
+      ],
+      "sha256": "3bf449ba6027392a0d8a8703201885920906d40657fa600e3b2ca25fed6adb3c"
+    },
+    {
+      "path": "Artifacts/GUILD-2026-10-21/native/input-guild-entrance.png",
+      "dimensions": [
+        4718592,
+        4292935744
+      ],
+      "sha256": "45ca7efdcb19371ffb01efc78978e171e385ec67f2473a95bb53320f1120cc34"
+    },
+    {
+      "path": "Artifacts/GUILD-2026-10-21/native/input-ready-turn-in.png",
+      "dimensions": [
+        1600,
+        900
+      ],
+      "sha256": "7b819973ca84a8c55bd5e38abfdee897ee5ad2b2f6b9edb6a7471af2ae628418"
+    },
+    {
+      "path": "Artifacts/GUILD-2026-10-21/native/map-world-spots.png",
+      "dimensions": [
+        1600,
+        900
+      ],
+      "sha256": "7a15d304837981ea4e3a3f31a14567502b908cb9ac3e63b5c364f57877b82db2"
+    },
+    {
+      "path": "Artifacts/GUILD-2026-10-21/native/world-bow-in-flight.png",
+      "dimensions": [
+        1600,
+        900
+      ],
+      "sha256": "1e4057d8e24a6fa687368427247123f0c8597ba5a7372f8193313aac63b1fed5"
+    }
+  ],
+  "remaining": [
+    "Windows build/verification",
+    "Final balance and sustained natural playtest",
+    "More spots, environment kits and loot; no additional NPC/monster kind or disk persistence in this slice"
+  ],
+  "console": "No new attributable compile/runtime errors in final build/native/ordinary player logs; old headless render error resolved with graphics."
+}

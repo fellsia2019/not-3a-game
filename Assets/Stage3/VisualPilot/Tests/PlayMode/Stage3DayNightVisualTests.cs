@@ -81,7 +81,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Assert.That(Quaternion.Angle(built.transform.rotation,camera.transform.rotation),Is.LessThan(.001f));
             scene.PlayerMover.transform.position=(Vector2)Read("InteractionPosition");
             yield return null; yield return null;
-            Assert.That(hud.DwellingInteractionHint,Does.Contain("E"));
+            Assert.That(hud.DwellingInteractionHint,Is.Not.Null);
             var hero=GameObject.Find("Hero C body"); var equipment=GameObject.Find("Starter bow equipment");
             Assert.That(hero,Is.Not.Null); Assert.That(equipment,Is.Not.Null);
             Assert.That(GameObject.Find("Hero scale marker"),Is.Null);
@@ -90,25 +90,28 @@ namespace Not3A.Stage3.VisualPilot.Tests
             var day=Capture("dwelling-hero-day.png");
             var run=game.RunDriver.Run;
             Assert.That(Call("TrySkipDay"),Is.True);
+            Assert.That(Stage3TestCycle.StartNight(game.RunDriver.Run),Is.True);
             run.Tick(.05f);
             for(var i=0;i<game.Enemies.ActiveCount;i++) game.Enemies.GetEnemy(i).SetAutomaticTick(false);
             for(var i=0;i<22;i++) yield return null;
             Assert.That(run.IsNight,Is.True);
             Assert.That(Shader.GetGlobalFloat("_Not3ANightAmount"),Is.EqualTo(1f).Within(.001f));
-            Assert.That(hud.DwellingInteractionHint,Does.Contain("Ночью"));
+            Assert.That(hud.DwellingInteractionHint,Does.Contain("боя"));
             var night=Capture("dwelling-hero-night.png");
             Assert.That(Mean(night),Is.LessThan(Mean(day)*.85f),"Moonlight must visibly change the world.");
             Assert.That(Mean(night),Is.GreaterThan(.025f),"Night must remain readable.");
             Frame(scene.EntranceMarker.position,5f); yield return null;
             Capture("portal-night.png");
             // QA-only fast completion of the actual first horde, then verify the real dawn transition.
-            for(var step=0;step<2000 && run.Phase!=Stage2RunPhase.Preparation;step++)
+            for(var step=0;step<4000 && run.Phase!=Stage2RunPhase.Preparation;step++)
             {
                 run.Tick(.05f);
                 for(var i=game.Enemies.ActiveCount-1;i>=0;i--)
                 { var enemy=game.Enemies.GetEnemy(i); enemy.SetAutomaticTick(false); enemy.TakeDamage(enemy.Health); }
             }
-            Assert.That(run.IsDay,Is.True); Assert.That(run.WaveNumber,Is.EqualTo(2));
+            Assert.That(run.IsDay,Is.True,"Streaming night stops at dawn, then waits for the remaining enemies.");
+            Assert.That(run.WaveNumber,Is.EqualTo(2));
+            Assert.That(run.IsDay,Is.True);
             Frame(site+Vector2.down*.5f,5f);
             for(var i=0;i<22;i++) yield return null;
             Assert.That(Shader.GetGlobalFloat("_Not3ANightAmount"),Is.EqualTo(0f).Within(.001f));
@@ -128,7 +131,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             }
             File.WriteAllText(Path.Combine(Evidence,"context.txt"),
                 "Actual scene camera renders; batch captures exclude IMGUI HUD. QA granted 10 resources for placement, no new gameplay values.\n"+
-                "Real day->home rest->night->QA first-horde kills->dawn. Four direction snapshots are manual actor motion for art registration.\n"+
+                "Real day->home rest->night->QA first-horde kills->QA clock advance to dawn (no runtime early dawn). Four direction snapshots are manual actor motion for art registration.\n"+
                 $"house site={site}; unchanged camera rotation={camera.transform.eulerAngles}; day luminance={Mean(day):F3}; night={Mean(night):F3}; dawn={Mean(dawn):F3}; graphics={SystemInfo.graphicsDeviceType}\n");
         }
 

@@ -1,0 +1,55 @@
+{
+  "date": "2026-10-21",
+  "platform": "Mac development player; Windows unverified",
+  "build": {
+    "path": "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app",
+    "bytes": 694646886,
+    "log": "Artifacts/S3-CYCLE-HUD-20261021/build.log"
+  },
+  "checks": {
+    "distinct_total": 137,
+    "editmode": 36,
+    "playmode": 101,
+    "xml": [
+      "Artifacts/S3-TIMED-NIGHTS-20261020/editmode.xml",
+      "Artifacts/S3-TIMED-NIGHTS-20261020/playmode.xml",
+      "Artifacts/S3-TIMED-NIGHTS-20261020/remaining.xml",
+      "Artifacts/S3-CYCLE-HUD-20261021/playmode.xml"
+    ]
+  },
+  "visual_owner": "GPT-6 Astra",
+  "visual_result": "PASS all59automatednativeframes (34recovery+25cycle) across1280x720,1600x900,1920x1080",
+  "limits": [
+    "Windows not qualified",
+    "No new exploration enemies added; hero damage/reincarnation available through narrow API and existing F3 development death command",
+    "Native full13minute natural playthrough/sustained later-tier load not claimed; rules/declared combat fixtures cover exact timing and survival",
+    "Coordinate mouse clicks not claimed; native keyboard E/I and F3 separately qualified"
+  ],
+  "vcs": "No commit/push requested in this slice; pre-existing dirty work preserved",
+  "decision": "D-104",
+  "status": "Gameplay+native visuals locally qualified",
+  "rules": [
+    "Only bag gear/documents move as same instances; equipped gear/tools, knowledge, gold/material wallet stay",
+    "Losefloor(currentlevelXP/2); levels/points/ranks/cooldown stay; instant safe base-anchor respawn fillsHP/MP without unlocking travel",
+    "All nonempty drops persist through further deaths and throne retry; emptybag no marker; fullReset clears",
+    "Exclusive fresh E pickup; remote/pause/modal/debug/build guards; no portal-path hero damage"
+  ],
+  "wiring": "Existing Stage3PlayerInterfaceBinding opts in recovery after progression/equipment/blueprint/travel binding; no serialized scene migration",
+  "native_manifest": "Artifacts/S3-HERO-RECOVERY-20261020/native-final/manifest.json",
+  "actual_input": "Artifacts/S3-HERO-RECOVERY-20261020/native-final/actual-input.json",
+  "repaired": [
+    "Orthographic offscreen direction no longer perspective-flips on negative cameraZ",
+    "Map/minimap marker spacing keeps hero visible, short leader retains actual coordinate"
+  ],
+  "assets": "art/source/death_recovery_2026-10-20_runtime.json",
+  "ordinary_startup": {
+    "pid": 94553,
+    "x1": true,
+    "wtf": false,
+    "debug_closed": true,
+    "no_qa_flags_or_grants": true,
+    "screenshot": "Artifacts/S3-CYCLE-HUD-20261021/ordinary-startup.png",
+    "log": "Artifacts/S3-CYCLE-HUD-20261021/ordinary-player.log",
+    "keyboard_F3": "PASS open and close; screenshot actual-f3.png"
+  }
+}

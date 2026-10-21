@@ -27,12 +27,15 @@ namespace Not3A.Stage3.VisualPilot.Editor
                 for (var i = 0; i < waves.Length; i++)
                 {
                     var wave = run.GetWave(i);
-                    waves[i] = new Stage2WaveDefinition(1200f, wave.EnemyCount, wave.SpawnInterval);
+                    waves[i] = new Stage2WaveDefinition(600f, wave.EnemyCount, wave.SpawnInterval);
                 }
                 run.ConfigureWaves(waves, run.ThroneHealth);
                 run.ConfigureContinuousDays(true, 60);
                 EditorUtility.SetDirty(run);
             }
+            if (!run.DaytimeGates) { run.ConfigureDaytimeGates(true); EditorUtility.SetDirty(run); }
+            if(run.PreparationSeconds!=600f||run.NightDurationSeconds!=180f)
+            {run.ConfigureClockDurations(600f,180f);EditorUtility.SetDirty(run);}
             if (!run.TryValidate(out var reason)) throw new InvalidOperationException(reason);
             AssetDatabase.SaveAssets();
             var scene = EditorSceneManager.OpenScene(Stage3HeroCombatSliceBuilder.ScenePath, OpenSceneMode.Single);

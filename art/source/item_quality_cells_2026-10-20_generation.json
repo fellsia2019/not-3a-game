@@ -1,0 +1,85 @@
+{
+  "date": "2026-10-20",
+  "decision": "D-097",
+  "status": "Original64-cellboard ownerapproved; initialproceduralruntime rejected; source-skin fidelitycorrection implemented andlocallyqualified",
+  "tool": "built-in image_gen.imagegen edit",
+  "visual_direction": "GPT-6 Astra",
+  "path": "art/concepts/item_quality_cells_2026-10-20/all_equipment_qualities_v2.png",
+  "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-3a60a432-7e2b-4e86-a15f-e532471cbe5b.png",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "bytes": 3079920,
+  "sha256": "8c4ccf8eaef02b882266c936334f1c0e79dbf8436d8150b1d17564006311c871",
+  "prompt_file": "art/source/item_quality_catalogue_2026-10-20_prompt.txt",
+  "source_images": [
+    {
+      "path": "art/concepts/equipment_forge_2026-10-19/runtime/items_bow_pickaxe_helmet_v1.png",
+      "sha256": "7b63b3643cd7a0abca877ec83b90523a5aa558fddef06d87c7a9ea36041ac126",
+      "role": "Original approved project item-design atlas, transformed into one catalogue approval sheet; not new runtime icons."
+    },
+    {
+      "path": "art/concepts/equipment_forge_2026-10-19/runtime/items_chest_arms_legs_v1.png",
+      "sha256": "2a7d35783c2788edbec7e39d4d83a3dfc791a91cb0a5292a306f96367ed3e0ed",
+      "role": "Original approved project item-design atlas, transformed into one catalogue approval sheet; not new runtime icons."
+    },
+    {
+      "path": "art/concepts/equipment_forge_2026-10-19/runtime/items_wand_axe_v1.png",
+      "sha256": "25b3c732ad66f0b43254ce05e89644e5520ca67e177e3cbf6066b8de4ebfdbbd",
+      "role": "Original approved project item-design atlas, transformed into one catalogue approval sheet; not new runtime icons."
+    }
+  ],
+  "matrix": {
+    "columns": [
+      "F",
+      "E",
+      "D",
+      "C",
+      "B",
+      "A",
+      "S",
+      "SSS"
+    ],
+    "rows": [
+      "Лук",
+      "Жезл",
+      "Шлем",
+      "Нагрудник",
+      "Перчатки",
+      "Поножи",
+      "Кирка",
+      "Топор"
+    ],
+    "cells": 64,
+    "all_level": 1,
+    "no_ss_rank": true
+  },
+  "current_proposal": {
+    "F": "Matte dark brown",
+    "E": "Neutral gray",
+    "D": "Saturated green #159C3B, replacing rejected blue-grey D",
+    "C": "Royal blue #2456DC, categorically different hue from D",
+    "B": "Purple",
+    "A": "Ruby red",
+    "S": "Polished saturated gold #F4B900, amber bevels, sharp mirror highlights, dark warm-brown backing",
+    "SSS": "White-hot gold #FFFDEB/#FFD34A, double faceted frame, dark plum backing, local radiance and crisp star glints",
+    "shared_rule": "Persistent quality border/backing in all item UI. Selection separate external cyan corners. Empty/ungraded research scroll slots neutral.",
+    "important": "Runtime artwork/stat/rank rules unchanged; sheet is appearance approval, no merchant-stock promise. SSS remains ultra-rare-drop-only and not forged."
+  },
+  "owner_feedback_applied": [
+    "One screen with all item families/all qualities",
+    "C/D too similar; use clearly green D versus blue C",
+    "Gold should look precious/polished, SSS visibly radiant, crisp instead of blurry/muted"
+  ],
+  "source_and_rights": {
+    "origin": "Original ImageGen board from own approved item atlases, no external image inputs. RPG trade reference screenshots were viewed only, not used here.",
+    "runtime_ready": false
+  },
+  "verification": {
+    "main": "Visually counted8headers×8family rows=64cells, allranksordered/noSS; D green/C blue, polished S/radiant SSS; frame/labels fully inbounds.",
+    "astra": "Concept PASS all64; all8families/8ranks, Dgreen/Cblue distinct, S polishedgold/SSSradiantsharp, labels/icons inbounds. No blockers.",
+    "owner": "Approved: Во, это уже другое дело.",
+    "runtime": "Source-derived ImageGenpaintedskins nowdirectlyintegrated byAstra.17PlayModechecks, Macbuild/native27frames andactualmouseequip/scroll pass. Originalboardremains appearanceauthority. Ownerfinalruntimeacceptance not yet claimed. See skins_generation.json and verification.json."
+  }
+}

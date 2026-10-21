@@ -24,7 +24,20 @@ MonoBehaviour:
   - 800
   - 1000
   rangeUnitsPerWorldUnit: 100
-  blinkCooldown: 6
+  blinkCooldown: 5
+  higherBlinkCooldowns:
+  - 4
+  - 3
+  - 2
+  blinkManaCosts:
+  - 100
+  - 75
+  - 50
+  - 25
+  maximumHealth: 100
+  maximumMana: 100
+  healthPerSecond: 1
+  manaPerSecond: 5
   passiveMaxRank: 3
   damagePerRank: 1
   attackSpeedPerRank: 0.1

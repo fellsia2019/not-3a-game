@@ -58,7 +58,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
                 Directory.CreateDirectory(output+"frames");
                 Directory.CreateDirectory("art/review");
                 Time.captureFramerate=15;
-                composition.RunDriver.Run.StartWave();
+                Stage3TestCycle.StartNight(composition.RunDriver.Run);
                 // Advance the long, empty approach through normal rule/movement ticks.
                 // Capture the same ten seconds of combat once the first creep is nearby.
                 composition.RunDriver.enabled=false;

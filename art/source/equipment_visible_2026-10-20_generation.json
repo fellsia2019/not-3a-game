@@ -1,0 +1,112 @@
+{
+  "date": "2026-10-20",
+  "request": "Correct crooked bow and actual hero equipped bow/pickaxe/axe visibility; do not change armor appearance.",
+  "generator": "Built-in ImageGen",
+  "rights": "Original generated assets edited only from project-owned approved heroC/work sheets and equipment quality lineage. No external game art copied/traced.",
+  "appearanceScope": "Repair within approved hero poses/clothing and item quality families. No armor equipment redressing. Six additive tool-free animation sheets; three bow projections/eight qualities.",
+  "removeJobs": [
+    {
+      "key": "hero_axe_work",
+      "path": "/Users/artemmusket/game-dev/not-3a-game/Assets/Stage3/DayNight/hero_axe_work.png",
+      "prompt": "Use case: precise-object-edit. Asset type: existing game animation atlas repair, NOT a redesign. Remove ONLY the existing mining/woodcutting TOOL from EVERY pose: all axe/pickaxe metal heads, exposed wooden handle pieces, tiny handle sections between hands. Keep the character's hands/fingers in EXACTLY their current gripping positions as if holding an invisible shaft. Restore only the tiny skin/clothing area previously hidden by the shaft. ALL character identity, face/hair, armor/clothing, backpack, boots, body anatomy, shading, poses, scale, canvas positions and cell order must remain unchanged. Do not straighten hands, relax arms, shift feet, repaint outfit, change colors, add/delete/reorder characters. Keep exact1536x1024 canvas and the exact original image coordinates of each pose. This is the SAME approved hero and armor; NO armor appearance change is allowed.\nOutput FULLY TRANSPARENT RGBA with true alpha where the tools and background are removed. Preserve existing alpha of body. No background/gradient/ground/shadows/FX, no text/labels/grid/watermark, no weapons remaining. A separate runtime equipment renderer will occupy the unchanged grip positions. Edit target is image1. This source has exactly24poses in6columns×4rows; keepALL24 in place."
+    },
+    {
+      "key": "hero_pick_work",
+      "path": "/Users/artemmusket/game-dev/not-3a-game/Assets/Stage3/DayNight/hero_pick_work.png",
+      "prompt": "Use case: precise-object-edit. Asset type: existing game animation atlas repair, NOT a redesign. Remove ONLY the existing mining/woodcutting TOOL from EVERY pose: all axe/pickaxe metal heads, exposed wooden handle pieces, tiny handle sections between hands. Keep the character's hands/fingers in EXACTLY their current gripping positions as if holding an invisible shaft. Restore only the tiny skin/clothing area previously hidden by the shaft. ALL character identity, face/hair, armor/clothing, backpack, boots, body anatomy, shading, poses, scale, canvas positions and cell order must remain unchanged. Do not straighten hands, relax arms, shift feet, repaint outfit, change colors, add/delete/reorder characters. Keep exact1536x1024 canvas and the exact original image coordinates of each pose. This is the SAME approved hero and armor; NO armor appearance change is allowed.\nOutput FULLY TRANSPARENT RGBA with true alpha where the tools and background are removed. Preserve existing alpha of body. No background/gradient/ground/shadows/FX, no text/labels/grid/watermark, no weapons remaining. A separate runtime equipment renderer will occupy the unchanged grip positions. Edit target is image1. This source has exactly24poses in6columns×4rows; keepALL24 in place."
+    },
+    {
+      "key": "hero_axe_back",
+      "path": "/Users/artemmusket/game-dev/not-3a-game/Assets/Stage3/DayNight/hero_axe_back.png",
+      "prompt": "Use case: precise-object-edit. Asset type: existing game animation atlas repair, NOT a redesign. Remove ONLY the existing mining/woodcutting TOOL from EVERY pose: all axe/pickaxe metal heads, exposed wooden handle pieces, tiny handle sections between hands. Keep the character's hands/fingers in EXACTLY their current gripping positions as if holding an invisible shaft. Restore only the tiny skin/clothing area previously hidden by the shaft. ALL character identity, face/hair, armor/clothing, backpack, boots, body anatomy, shading, poses, scale, canvas positions and cell order must remain unchanged. Do not straighten hands, relax arms, shift feet, repaint outfit, change colors, add/delete/reorder characters. Keep exact1536x1024 canvas and the exact original image coordinates of each pose. This is the SAME approved hero and armor; NO armor appearance change is allowed.\nOutput FULLY TRANSPARENT RGBA with true alpha where the tools and background are removed. Preserve existing alpha of body. No background/gradient/ground/shadows/FX, no text/labels/grid/watermark, no weapons remaining. A separate runtime equipment renderer will occupy the unchanged grip positions. Edit target is image1. This source has exactly6poses in3columns×2rows; keepALL6 in place."
+    },
+    {
+      "key": "hero_axe_front",
+      "path": "/Users/artemmusket/game-dev/not-3a-game/Assets/Stage3/DayNight/hero_axe_front.png",
+      "prompt": "Use case: precise-object-edit. Asset type: existing game animation atlas repair, NOT a redesign. Remove ONLY the existing mining/woodcutting TOOL from EVERY pose: all axe/pickaxe metal heads, exposed wooden handle pieces, tiny handle sections between hands. Keep the character's hands/fingers in EXACTLY their current gripping positions as if holding an invisible shaft. Restore only the tiny skin/clothing area previously hidden by the shaft. ALL character identity, face/hair, armor/clothing, backpack, boots, body anatomy, shading, poses, scale, canvas positions and cell order must remain unchanged. Do not straighten hands, relax arms, shift feet, repaint outfit, change colors, add/delete/reorder characters. Keep exact1536x1024 canvas and the exact original image coordinates of each pose. This is the SAME approved hero and armor; NO armor appearance change is allowed.\nOutput FULLY TRANSPARENT RGBA with true alpha where the tools and background are removed. Preserve existing alpha of body. No background/gradient/ground/shadows/FX, no text/labels/grid/watermark, no weapons remaining. A separate runtime equipment renderer will occupy the unchanged grip positions. Edit target is image1. This source has exactly6poses in3columns×2rows; keepALL6 in place."
+    },
+    {
+      "key": "hero_pick_back",
+      "path": "/Users/artemmusket/game-dev/not-3a-game/Assets/Stage3/DayNight/hero_pick_back.png",
+      "prompt": "Use case: precise-object-edit. Asset type: existing game animation atlas repair, NOT a redesign. Remove ONLY the existing mining/woodcutting TOOL from EVERY pose: all axe/pickaxe metal heads, exposed wooden handle pieces, tiny handle sections between hands. Keep the character's hands/fingers in EXACTLY their current gripping positions as if holding an invisible shaft. Restore only the tiny skin/clothing area previously hidden by the shaft. ALL character identity, face/hair, armor/clothing, backpack, boots, body anatomy, shading, poses, scale, canvas positions and cell order must remain unchanged. Do not straighten hands, relax arms, shift feet, repaint outfit, change colors, add/delete/reorder characters. Keep exact1536x1024 canvas and the exact original image coordinates of each pose. This is the SAME approved hero and armor; NO armor appearance change is allowed.\nOutput FULLY TRANSPARENT RGBA with true alpha where the tools and background are removed. Preserve existing alpha of body. No background/gradient/ground/shadows/FX, no text/labels/grid/watermark, no weapons remaining. A separate runtime equipment renderer will occupy the unchanged grip positions. Edit target is image1. This source has exactly6poses in3columns×2rows; keepALL6 in place."
+    },
+    {
+      "key": "hero_pick_front",
+      "path": "/Users/artemmusket/game-dev/not-3a-game/Assets/Stage3/DayNight/hero_pick_front.png",
+      "prompt": "Use case: precise-object-edit. Asset type: existing game animation atlas repair, NOT a redesign. Remove ONLY the existing mining/woodcutting TOOL from EVERY pose: all axe/pickaxe metal heads, exposed wooden handle pieces, tiny handle sections between hands. Keep the character's hands/fingers in EXACTLY their current gripping positions as if holding an invisible shaft. Restore only the tiny skin/clothing area previously hidden by the shaft. ALL character identity, face/hair, armor/clothing, backpack, boots, body anatomy, shading, poses, scale, canvas positions and cell order must remain unchanged. Do not straighten hands, relax arms, shift feet, repaint outfit, change colors, add/delete/reorder characters. Keep exact1536x1024 canvas and the exact original image coordinates of each pose. This is the SAME approved hero and armor; NO armor appearance change is allowed.\nOutput FULLY TRANSPARENT RGBA with true alpha where the tools and background are removed. Preserve existing alpha of body. No background/gradient/ground/shadows/FX, no text/labels/grid/watermark, no weapons remaining. A separate runtime equipment renderer will occupy the unchanged grip positions. Edit target is image1. This source has exactly6poses in3columns×2rows; keepALL6 in place."
+    }
+  ],
+  "bow": {
+    "prompt": "Use case: precise-object-edit. Asset type: runtime bow projection atlas, preserving approved fantasy item quality family. Image1 HeroCBowSides is authoritative for a PHYSICALLY CORRECT unpulled recurve bow side projection; image2 HeroCBows gives BACK and FRONT foreshortened camera projections only (ignore its incorrectly triangular pulled strings). Image3 is the approved quality MATERIAL/ornament/color lineage only; do NOT reuse its diagonal UI orientation or irregular bent handle.\nMake a single FULLY TRANSPARENT RGBA 2048x1536 atlas with EXACTLY8equal columns by3equal rows (256x512 cells). Columns are qualities F,E,D,C,B,A,S,SSS with NO text labels. Top row: RIGHT side view, bow vertical, smoothly symmetric limbs curving right, straight single vertical string on LEFT, central grip midway in height. Middle row: BACK view, narrow slightly oblique/edge-on vertical view like source second narrow bow; keep central grip midpoint, readable width, no duplicate strings. Bottom row: FRONT view, bow horizontally foreshortened as source last short horizontal bow, curved wooden limbs BELOW the one straight horizontal string, central grip below midpoint at consistent position. All objects centered entirely inside their own equal cell with at least12% transparent gutter. Same size, scale, angle and grip position across all8qualities in each row. Exactly24 bows.\nEach bow must be an anatomically sensible recurve bow: two smooth balanced limbs with central wrapped riser/grip, ONE straight taut string running directly between the two tips. No string attached to grip, triangle or V/string pull, no arrow, no hand/character, no crooked/chunky broken handle, no asymmetrical limbs. Family material evolution Frough brown wood(simple bow, NOT an ugly crooked branch), Eiron fittings, Dsteel, Ccool silver/blue accents, Bplum inlays, Ascarlet, Sgold trim, SSSpale gold/ivory fine ornament. Keep limb geometry graceful and functional; progressive refinement not absurd bulky shapes. Painted volumetric original game art, crisp readable silhouette at small world size, same approved style. No bloom/glow/clouds/FX behind it. Transparent pixels between ALL cells, no background/gradient/text/frames/watermark. These replace only malformed bow presentation, not hero armor or any gameplay mechanic.",
+    "references": [
+      "Assets/Stage3/DayNight/HeroCBowSides.png",
+      "Assets/Stage3/DayNight/HeroCBows.png",
+      "Assets/Stage3/PlayerInterface/Resources/Stage3ItemsBowPickaxeHelmet.png"
+    ]
+  },
+  "bowV2": {
+    "prompt": "Use case: precise-object-edit. Targeted atlas packing correction only. Preserve the EXACT canvas dimensions, exact top two rows and their24? no,16bows, all8quality designs/materials, all transparency and existing positions in the TOP TWO ROWS unchanged. In the BOTTOM ROW ONLY, there are8horizontal front-view bows. Reduce the size of EACH individual bottom bow by20percent around its own current centre and recenter it within its corresponding eighth of the canvas width. The8bottom objects MUST be strictly separated by transparent gutters, with no tip touching/overlapping a neighbor and no object reaching an adjacent column. Keep their bottom row centre height and entire designs, straight strings and symmetric curved limbs unchanged. Exactly8bows per row,3rows. No labels/text/celllines, no new object/background/glow. FULLY TRANSPARENT RGBA, preserve true alpha; this is a sprite atlas used in a game, neighboring objects must not touch. Do not crop canvas, do not change any armor/character (none).",
+    "reference": "art/concepts/equipment_visible_2026-10-20/runtime/bow_world_qualities_v1.png"
+  },
+  "status": "Imported and actual world/native inventory qualified; final evidence in equipment_visible_2026-10-20_verification.json.",
+  "assets": [
+    {
+      "source": "art/concepts/equipment_visible_2026-10-20/runtime/hero_axe_work_clean_v1.png",
+      "runtime": "Assets/Stage3/DayNight/Equipment/hero_axe_work_clean_v1.png",
+      "generatorOutput": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-f409dc9f-5a1a-4090-b82c-a69f8e365650.png",
+      "sha256": "933f5f1e82fe893dfc0eb2f189407a1ce16f025b6ac6e2060d61e852c61a1b00",
+      "transform": "Unchanged copy; sprite rect/pivot/geometry metadata only."
+    },
+    {
+      "source": "art/concepts/equipment_visible_2026-10-20/runtime/hero_pick_work_clean_v1.png",
+      "runtime": "Assets/Stage3/DayNight/Equipment/hero_pick_work_clean_v1.png",
+      "generatorOutput": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-50e5d2b5-0971-4969-83e0-b09615ae6ce9.png",
+      "sha256": "a09fd599c207adba709d5e5c50aeab033f7ff77f6fd648c4509c1715ce28ef50",
+      "transform": "Unchanged copy; sprite rect/pivot/geometry metadata only."
+    },
+    {
+      "source": "art/concepts/equipment_visible_2026-10-20/runtime/hero_axe_back_clean_v1.png",
+      "runtime": "Assets/Stage3/DayNight/Equipment/hero_axe_back_clean_v1.png",
+      "generatorOutput": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-eb53f8d5-edc1-4d8c-b836-e457adbe5840.png",
+      "sha256": "699b5e2acfcf44b383771510f314f208a21c796075be76169bea2d816f85f288",
+      "transform": "Unchanged copy; sprite rect/pivot/geometry metadata only."
+    },
+    {
+      "source": "art/concepts/equipment_visible_2026-10-20/runtime/hero_axe_front_clean_v1.png",
+      "runtime": "Assets/Stage3/DayNight/Equipment/hero_axe_front_clean_v1.png",
+      "generatorOutput": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-33a11453-a7da-4f5b-b918-fb19ffe4c75a.png",
+      "sha256": "1a080fdf6d056988eb8536c36f731e68e19feec2cbfe632b9555528390022b11",
+      "transform": "Unchanged copy; sprite rect/pivot/geometry metadata only."
+    },
+    {
+      "source": "art/concepts/equipment_visible_2026-10-20/runtime/hero_pick_back_clean_v1.png",
+      "runtime": "Assets/Stage3/DayNight/Equipment/hero_pick_back_clean_v1.png",
+      "generatorOutput": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-4a5a14f9-aefa-4936-91ca-b9d390901f28.png",
+      "sha256": "c0f00f90c486e4a57d8cef45c7b629fcc668f3f3f8ec22da3b0382a5fdfeeda6",
+      "transform": "Unchanged copy; sprite rect/pivot/geometry metadata only."
+    },
+    {
+      "source": "art/concepts/equipment_visible_2026-10-20/runtime/hero_pick_front_clean_v1.png",
+      "runtime": "Assets/Stage3/DayNight/Equipment/hero_pick_front_clean_v1.png",
+      "generatorOutput": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-d0234bd0-86c0-4bd1-adbd-e99d3f75cb74.png",
+      "sha256": "2df7b0511450af3d6b4b887d21255a31566f36f97828456711fc7d11516c693a",
+      "transform": "Unchanged copy; sprite rect/pivot/geometry metadata only."
+    },
+    {
+      "source": "art/concepts/equipment_visible_2026-10-20/runtime/bow_world_qualities_v2.png",
+      "runtime": "Assets/Stage3/DayNight/Equipment/bow_world_qualities_v2.png",
+      "generatorOutput": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-6ce3a828-94f8-4fd8-9850-7c229c7cba20.png",
+      "sha256": "fefcc7f2a9568d5d9e438346dc74fb4b88472aa84083d1990c41939cfc6da13e",
+      "transform": "Unchanged copy; sprite rect/pivot/geometry metadata only."
+    }
+  ],
+  "superseded": {
+    "source": "art/concepts/equipment_visible_2026-10-20/runtime/bow_world_qualities_v1.png",
+    "generatorOutput": "exec-e9a75c1c-abad-47a4-90f1-3c1c6abd518b.png",
+    "reason": "Front-view bow tips nearly touch adjacent cell; v2 shrinks only that row."
+  },
+  "importer": "Not3A.Stage3.VisualPilot.Editor.Stage3HeroEquipmentArtImporter.BuildAssets",
+  "data": "Assets/Stage3/DayNight/Equipment/Resources/Stage3HeroEquipmentArt.asset",
+  "registrationNote": "Astra preserves original absolute sole pivot/PPU. SIDE extends into clear gutter y280 to keep soles intact. Held tool grips follow repaired fists and original strike axes. Axes use two-band runtime sprite mesh from existing atlas. Bow RIGHT/LEFT and narrow BACK are used; neutral FRONT and I paperdoll use upright side projection mirrored outwards. Horizontal front row is retained in owned atlas but not used by relaxed carrying pose.",
+  "uiBag": "BagItems is an event-refreshed unequipped-only array; Items remains full ID lookup for loadout/details. No per-OnGUI filtering allocation."
+}

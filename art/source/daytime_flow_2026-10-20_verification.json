@@ -1,0 +1,83 @@
+{
+  "date": "2026-10-20",
+  "decision": "D-105",
+  "status": "Implemented and locally qualified on Mac; Windows unverified",
+  "owner": "Main: Run/profile semantics, first-horde asset/builder, rule/scene tests and docs; no appearance change",
+  "accepted_clarification": "Repeat last WON tier after retry, never a failed newer night. Endless day flow copies interval/HP/current type, not finite night enemy count. Stop new spawns only on manual close or19:30 cutoff.",
+  "changes": [
+    "Run derives daytime interval from last-cleared authored/generated night profile, using existing health/siege multipliers and same enemy catalog",
+    "Removed old24-live-enemy throttle; no night quota or number-of-repeats limit controls day spawning",
+    "Closing/cutoff retain living creeps/shots; reopen preserves remaining interval without banking closed-time bursts; retry keeps last cleared progression/current world",
+    "First HordeRun profile12→16creeps and2.4→2.2s spacing; current later profiles, HP growth, clocks/rewards unchanged; builder mirrored",
+    "Positive profile intervals required with infinite day gates; legacy finite instant waves remain valid",
+    "Old serialized day interval/cap fields retained for compatibility with explicit legacy tooltips; no current flow control",
+    "Test and opt-in QA first-night fixtures wait for authored spawning completion rather than assume30seconds"
+  ],
+  "tests": {
+    "distinct_cases": 59,
+    "passed": 59,
+    "runs": [
+      {
+        "path": "Artifacts/S3-GATE-REPLAY-20261020/editmode-final.xml",
+        "total": 31,
+        "passed": 31,
+        "failed": 0,
+        "skipped": 0
+      },
+      {
+        "path": "Artifacts/S3-GATE-REPLAY-20261020/playmode-final.xml",
+        "total": 28,
+        "passed": 27,
+        "failed": 1,
+        "skipped": 0
+      },
+      {
+        "path": "Artifacts/S3-GATE-REPLAY-20261020/defense-final.xml",
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "skipped": 0
+      }
+    ],
+    "unresolved": [],
+    "coverage": [
+      "After clears then next-night defeat/retry at tier2/3, replay last WON tier with matching HP/timing",
+      "Flow continues beyond2xauthored night count and obsolete24-live cap",
+      "Actual E open/close and displayed threat1 after failed night2",
+      "Manual close/cutoff retain live threats; pause/sleep/overlapping night/retry/reset",
+      "First horde cleared by starter bow, dense later horde exceeds bow and paid defenses clear later nights",
+      "Legacy finite Run checks"
+    ],
+    "note": "Initial1.8s trial made first horde fail the prior solo-bow acceptance; softened to2.2s and reran relevant suites. The one remaining old combat fixture assumed Longshot available before D102; updated fixture actually buys/studies the paper with exact-price temporary funding and asserts unchanged defense gold budget, then passed. Production research guards unchanged. Latest result per59distinct case is passed. Earlier reproduction expectations of last-started tier were withdrawn after explicit owner clarification; those diagnostic files are not current acceptance."
+  },
+  "build": {
+    "platform": "Mac standalone development/Metal",
+    "unity": "6000.6.2f1",
+    "path": "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app",
+    "bytes_from_report": 681995748,
+    "log": "Artifacts/S3-GATE-REPLAY-20261020/build.log",
+    "success": true
+  },
+  "native": {
+    "scope": "Ordinary startup smoke only; no QA env/grants/freezing. The flow scenario uses real saved-scene PlayMode InputTestFixture E, not a claimed standalone manual playthrough.",
+    "observed": "Normal fresh day1,100HP/100MP,LVL1,5gold; F3 keyboard opens/closes, left ordinary game active with debug closed.",
+    "screenshot": {
+      "path": "Artifacts/S3-GATE-REPLAY-20261020/normal-startup.png",
+      "bytes": 528057,
+      "sha256": "762ec94f9c5034b599c8b4da17f60cf011e3e08eb9b7dff6af614158287b14b6",
+      "dimensions": [
+        4718592,
+        4292935744
+      ]
+    },
+    "log": "Artifacts/S3-GATE-REPLAY-20261020/player.log",
+    "new_attributable_errors": []
+  },
+  "wiring": "Existing HordeRun asset and same Run/gate binding; no scene/prefab/package change or new runtime asset. Existing local E and hint use LastClearedTier unchanged.",
+  "remaining": [
+    "Windows qualification",
+    "Owner playtest of first-horde trial balance and sustained farm load",
+    "Additional creep types remain future content; current day/night use the same single type"
+  ],
+  "source": "No new art, generated image, audio or external source material used."
+}

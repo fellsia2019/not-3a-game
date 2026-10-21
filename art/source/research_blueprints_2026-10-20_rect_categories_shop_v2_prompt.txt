@@ -1,0 +1,21 @@
+Use case: precise-object-edit
+Asset type: fixed-grid inventory-context concept, narrow icon-safe-fit correction ONLY.
+Input1 is EDIT TARGET rect_categories_shop_v1; its warm rectangular parchment items, category seals and central detail are correct. Input2 is GEOMETRY REFERENCE ONLY: original native merchant UI. Do NOT copy its equipment, F/LVL labels or central bow.
+
+FIX THE RIGHT GRID, DO NOT REDESIGN:
+Restore the merchant grid to the SAME regular6columns×5rows and same row tops/bottoms as the empty left player grid. Use the original thin neutral ivory square-cell borders. Paper is an ITEM INSIDE A CELL, not the cell background and not a replacement for its border.
+In the1672x941target, ordinary cell size is approximately86x86px. ALL row tops approximately259,373,486,599,712; all cell bottoms about86pxbelow each respective top. Merchant column lefts approximately1040,1135,1227,1322,1417,1510. Preserve the current panels and make every row/column equal/aligned. No row stagger/compression. The source left grid shows exactly the desired fixed regular geometry.
+
+Only first merchant row columns1–4 contain items. Uniformly SHRINK each of the4existing complete parchment papers to about60%OF ITS CURRENT SIZE: visible HEIGHT about54–57px INSIDE an86pxSQUARE CELL. Same5:6paper aspect ratio and visible size on all4. Centre each at the centre of its native cell, leaving a VERY OBVIOUS EMPTY IVORY GAP between paper and cell frame on ALL4sides (roughly15px). The original neutral cell border MUST be VISIBLE AROUND the paper. Do not make a full-cell parchment fill. Keep category seals as part of the scaled paper. Preserve the paper texture/colour/diagrams andII/III; no rotation/folds/white material.
+
+Shorten FIRST ROW captions ONLY to exact single lines:
+col1 "Башня"
+col2 "Жезл"
+col3 "Кузница II"
+col4 "Кузница III"
+All4captions use the SAME compact font size and ONE FIXED baseline beneath the row, aroundy362, without widening cells or increasing row height. Do not wrap. Other26merchant slots are empty, same size and row pitch.
+Only col3 has thin cyan selection corners on its CELL BORDER, never on the enlarged central paper; preserve neutral ivory/brown borders on other cells, no quality skins.
+
+KEEP COMPLETELY UNCHANGED: left empty inventory/grid, entire centre LARGE aged parchment with chevron+II, heading "Кузница → II", "Улучшение до ступени II", price100gold, wallet10005gold, buttons, all navigation, portraits, panel framing, colour palette, typography and entire screen canvas. No additional overlays or callouts.
+NO F/E/D/C/B/A/S/SS/SSS item quality letters, NO LVL/Level or item levels. Do not restore the original8equipment; Input2 is GRID GEOMETRY ONLY.
+This is strictly a repair of right-grid geometry,4small paper illustration scales and shortened captions, nothing else.

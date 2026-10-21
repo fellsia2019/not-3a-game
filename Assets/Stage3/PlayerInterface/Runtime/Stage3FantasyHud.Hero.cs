@@ -6,6 +6,13 @@ namespace Not3A.Stage3.PlayerInterface
     {
         private void DrawHero(Rect content)
         {
+            DrawHeroDevelopmentTabs();
+            if(showProfessions) DrawProfessions();
+            else DrawHeroCombatDevelopment(HeroDevelopmentContentRect);
+        }
+
+        private void DrawHeroCombatDevelopment(Rect content)
+        {
             if(heroProgression==null){DrawUnavailableHero(content);return;}
             RefreshHeroProgressionLabels();
             var v=heroProgression;var s=UiScale;var left=HeroOverviewRect;
@@ -30,10 +37,11 @@ namespace Not3A.Stage3.PlayerInterface
             for(var i=0;i<4;i++)
             {
                 var row=BlinkRankRow(i);var learned=i<v.BlinkRank;var next=i==v.BlinkRank;
-                DrawPanel(row);
+                DrawSliced(row,art.panelFrame,true,.12f*s);
                 if(next)Stroke(Inset(row,3f*s),Accent,1.5f*s);
-                Label(new Rect(row.x+20f*s,row.y,row.width*.49f,row.height),blinkRangeLabels[i],21,TextAnchor.MiddleLeft);
-                Label(new Rect(row.center.x,row.y,row.width*.46f,row.height),learned?"Изучено":next?"Следующий ранг":"Недоступно",15,TextAnchor.MiddleRight,true);
+                Label(new Rect(row.x+22f*s,row.y+5f*s,row.width*.46f,24f*s),blinkRangeLabels[i],20,TextAnchor.MiddleLeft);
+                Label(new Rect(row.center.x,row.y+5f*s,row.width*.5f-22f*s,24f*s),learned?"Изучено":next?"Следующий ранг":"Недоступно",15,TextAnchor.MiddleRight,true);
+                Label(new Rect(row.x+22f*s,row.y+28f*s,row.width-44f*s,18f*s),blinkRankResourceLabels[i],13,TextAnchor.MiddleLeft,true);
                 if(next)
                 {
                     Label(new Rect(row.x,row.yMax+1f*s,row.width,25f*s),"Скачок к курсору",16,TextAnchor.MiddleCenter);
@@ -59,7 +67,7 @@ namespace Not3A.Stage3.PlayerInterface
                 var textX=medal.xMax+6f*s;var textWidth=card.xMax-textX-17f*s;
                 Label(new Rect(textX,card.y+18f*s,textWidth,28f*s),p.Title,21,TextAnchor.MiddleLeft);
                 Label(new Rect(textX,card.y+47f*s,textWidth,24f*s),p.Description,16,TextAnchor.MiddleLeft,true);
-                Label(new Rect(textX,card.y+74f*s,textWidth,26f*s),p.EffectText,14,TextAnchor.MiddleLeft,true);
+                Label(new Rect(textX,card.y+71f*s,textWidth,23f*s),p.EffectText,14,TextAnchor.MiddleLeft,true);
                 var button=HeroPassiveUpgradeRect(i);
                 var dotSide=17f*s;var dotGap=7f*s;var dotsY=button.y+3f*s;
                 for(var j=0;j<Mathf.Min(p.MaxRank,3);j++)

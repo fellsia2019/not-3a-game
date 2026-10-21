@@ -1,0 +1,153 @@
+{
+  "date": "2026-10-20",
+  "decision": "D-097",
+  "status": "Implemented and locally qualified; final Astra visual PASS, owner response pending",
+  "request": "All item icons need consistent safe areas and actual silhouette centring; bow too close to frame, helmet/arms/legs displaced.",
+  "ownership": "GPT-6 Astra visual implementation; main audit fixture, QA, build, docs.",
+  "implementation": {
+    "contract": "Additive Rect[64] uiVisibleBounds in existing Stage3ForgeArt, index type*8+quality, validated fallback for legacy data. Original sprites/world registration unchanged.",
+    "bake": "Editor only: alpha>=16, global connected source silhouettes, dominant overlap with old logical tile, full source AABB without tile clipping; up to2 source pixels fringe reduced before foreign silhouette; all64 validated including axe two-band masks. Temporary decoded textures destroyed.",
+    "fit": "Uniform aspect-preserving centring inside proportional frame/ornament inset; same renderer in bag/loadout/detail/forge/profession/HUD. Axe masked quad destination edges pixel-rounded to shared boundary.",
+    "runtime_pixel_scans": 0,
+    "new_per_frame_textures": 0,
+    "scene_inspector_package_migration": "None; rebake existing ForgeArt asset through narrow importer; old data has fallback.",
+    "sha256": {
+      "Assets/Stage3/VisualPilot/Runtime/Stage3ForgeArt.cs": "78e659400a5238e0e4c54ac49b26c093bacb8d9ce213ed893c77110a05a3a8ef",
+      "Assets/Stage3/PlayerInterface/Editor/Stage3ForgeArtImporter.cs": "83cf1842ea897e50ebc57f49bc3e182d2803ac2a58cf1a5a15c266b38d0f6c46",
+      "Assets/Stage3/PlayerInterface/Resources/Stage3ForgeArt.asset": "f8823fb1b8063720689e0a5bef5f27fca8890f3758ae5115283a2c8610fc917a",
+      "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Equipment.cs": "fe1dd4e7c27e1141af7d53d00e8024a92ec2037c8788307aa710195aaebac8a3",
+      "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Quality.cs": "3bd676426c6b54082b22d3b9e2c7e649cfffc278759bb24466443ea14dcb9f7f",
+      "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Forge.cs": "1a76c928863cc7ae51b95febdad4593d977a11dc8ae147ef3760d17a41028d9b",
+      "Assets/Stage3/PlayerInterface/Runtime/Stage3ItemIconSafeAreaReview.cs": "624b3a10513f840ea76536fdda9ab1e7e6524ec830c57053c4a23ed69764e53c",
+      "Assets/Stage3/PlayerInterface/Runtime/Stage3InterfaceCapture.cs": "80af15b39e154ecbb540294b9d202b8441ba759358c3ee4a5150eb73ff0db1b3"
+    },
+    "source_png_unchanged_verified_against_provenance": {
+      "Assets/Stage3/PlayerInterface/Resources/Stage3ForgeWorld.png": "d9dffeef4194bebfda85ff4de61cac91547152f8e0885bff6add238cc442bcb9",
+      "Assets/Stage3/PlayerInterface/Resources/Stage3ItemsBowPickaxeHelmet.png": "7b63b3643cd7a0abca877ec83b90523a5aa558fddef06d87c7a9ea36041ac126",
+      "Assets/Stage3/PlayerInterface/Resources/Stage3ItemsChestArmsLegs.png": "2a7d35783c2788edbec7e39d4d83a3dfc791a91cb0a5292a306f96367ed3e0ed",
+      "Assets/Stage3/PlayerInterface/Resources/Stage3ItemsWandAxe.png": "25b3c732ad66f0b43254ce05e89644e5520ca67e177e3cbf6066b8de4ebfdbbd",
+      "Assets/Stage3/PlayerInterface/Resources/Stage3EquipmentQualitySkins.png": "1540bf221d75cfeee61df1b4567b181bd1946a8ec3ef85269eccf25e4432f1fb"
+    }
+  },
+  "bake": {
+    "result": "64/64 valid and foreign-silhouette-free",
+    "method": "Not3A.Stage3.PlayerInterface.Editor.Stage3ForgeArtImporter.BakeUiIconBounds",
+    "log": "Artifacts/S3-ITEM-SAFE-AREAS-20261020/bake-final.log",
+    "bounds": "Artifacts/S3-ITEM-SAFE-AREAS-20261020/baked-bounds.json"
+  },
+  "tests": {
+    "result": "Passed",
+    "total": 17,
+    "passed": 17,
+    "failed": 0,
+    "duration_seconds": 41.4314597,
+    "file": "Artifacts/S3-ITEM-SAFE-AREAS-20261020/playmode.xml",
+    "suites": [
+      "Stage3EquipmentForgeTests",
+      "Stage3HeldEquipmentTests",
+      "Stage3ProfessionTests",
+      "Stage3StartupTests"
+    ],
+    "timing": "After safe-area fit; before final Editor-only global-component bake and axe pixel-edge repair. Those final corrections verified by explicit content bake, compile/build and native all64 audit; broad tests not repeated for visual rounding."
+  },
+  "build": {
+    "result": "Succeeded",
+    "host": "Mac/Metal",
+    "bytes": 644077799,
+    "log": "Artifacts/S3-ITEM-SAFE-AREAS-20261020/build-seam.log",
+    "path": "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app",
+    "windows": "Unverified"
+  },
+  "native": {
+    "directory": "Artifacts/S3-ITEM-SAFE-AREAS-20261020/native-qualified",
+    "fixture_frames": 33,
+    "extra_actual_mouse_frames": 1,
+    "resolutions": [
+      "1280x720",
+      "1600x900",
+      "1920x1080"
+    ],
+    "coverage": "All64 combinations in6 matrices plus27 real inventory/loadout/detail/forge/profession/HUD frames; extra large real A-axe forge screenshot.",
+    "fixture": "Opt-in Debug-only NOT3A_ITEM_SAFE_AREA_CAPTURE_DIRECTORY; audit DTOs use exact DrawEquipmentCell and do not grant64 items. Preceding existing quality fixture grants disposable items/funds/two QAforge scrolls, paid forge and stopped clock, never normal startup.",
+    "astra_review": "Final visual PASS all33 native-qualified frames:6all64matrices+27realwindows at720/900/1080, plus actual-mouse-forge-A-axe. No foreign fragments/chopped own edges/distortion; centred safe margins. Aaxe seam gone in all matrices and large realA→Spreview. Painted gradients/thinframes/SSSradiance and independentcyan selection preserved. No blockers. Native Mac only.",
+    "main_review": "Final64 page1/page2 no neighbour fragments or clipped primary silhouettes, equal visual margins/centres. LargeAaxe no line after shared rounded edges.",
+    "frames": [
+      "Artifacts/S3-ITEM-SAFE-AREAS-20261020/native-qualified/1280x720-HUD-SSS-bow.png",
+      "Artifacts/S3-ITEM-SAFE-AREAS-20261020/native-qualified/1280x720-all64-page1.png",
+      "Artifacts/S3-ITEM-SAFE-AREAS-20261020/native-qualified/1280x720-all64-page2.png",
+      "Artifacts/S3-ITEM-SAFE-AREAS-20261020/native-qualified/1280x720-forge-A-to-S.png",
+      "Artifacts/S3-ITEM-SAFE-AREAS-20261020/native-qualified/1280x720-forge-D-to-C.png",
+      "Artifacts/S3-ITEM-SAFE-AREAS-20261020/native-qualified/1280x720-inventory-C.png",
+      "Artifacts/S3-ITEM-SAFE-AREAS-20261020/native-qualified/1280x720-inventory-D.png",
+      "Artifacts/S3-ITEM-SAFE-AREAS-20261020/native-qualified/1280x720-inventory-S.png",
+      "Artifacts/S3-ITEM-SAFE-AREAS-20261020/native-qualified/1280x720-inventory-SSS.png",
+      "Artifacts/S3-ITEM-SAFE-AREAS-20261020/native-qualified/1280x720-logger-S-tool.png",
+      "Artifacts/S3-ITEM-SAFE-AREAS-20261020/native-qualified/1280x720-miner-SSS-tool.png",
+      "Artifacts/S3-ITEM-SAFE-AREAS-20261020/native-qualified/1600x900-HUD-SSS-bow.png",
+      "Artifacts/S3-ITEM-SAFE-AREAS-20261020/native-qualified/1600x900-all64-page1.png",
+      "Artifacts/S3-ITEM-SAFE-AREAS-20261020/native-qualified/1600x900-all64-page2.png",
+      "Artifacts/S3-ITEM-SAFE-AREAS-20261020/native-qualified/1600x900-forge-A-to-S.png",
+      "Artifacts/S3-ITEM-SAFE-AREAS-20261020/native-qualified/1600x900-forge-D-to-C.png",
+      "Artifacts/S3-ITEM-SAFE-AREAS-20261020/native-qualified/1600x900-inventory-C.png",
+      "Artifacts/S3-ITEM-SAFE-AREAS-20261020/native-qualified/1600x900-inventory-D.png",
+      "Artifacts/S3-ITEM-SAFE-AREAS-20261020/native-qualified/1600x900-inventory-S.png",
+      "Artifacts/S3-ITEM-SAFE-AREAS-20261020/native-qualified/1600x900-inventory-SSS.png",
+      "Artifacts/S3-ITEM-SAFE-AREAS-20261020/native-qualified/1600x900-logger-S-tool.png",
+      "Artifacts/S3-ITEM-SAFE-AREAS-20261020/native-qualified/1600x900-miner-SSS-tool.png",
+      "Artifacts/S3-ITEM-SAFE-AREAS-20261020/native-qualified/1920x1080-HUD-SSS-bow.png",
+      "Artifacts/S3-ITEM-SAFE-AREAS-20261020/native-qualified/1920x1080-all64-page1.png",
+      "Artifacts/S3-ITEM-SAFE-AREAS-20261020/native-qualified/1920x1080-all64-page2.png",
+      "Artifacts/S3-ITEM-SAFE-AREAS-20261020/native-qualified/1920x1080-forge-A-to-S.png",
+      "Artifacts/S3-ITEM-SAFE-AREAS-20261020/native-qualified/1920x1080-forge-D-to-C.png",
+      "Artifacts/S3-ITEM-SAFE-AREAS-20261020/native-qualified/1920x1080-inventory-C.png",
+      "Artifacts/S3-ITEM-SAFE-AREAS-20261020/native-qualified/1920x1080-inventory-D.png",
+      "Artifacts/S3-ITEM-SAFE-AREAS-20261020/native-qualified/1920x1080-inventory-S.png",
+      "Artifacts/S3-ITEM-SAFE-AREAS-20261020/native-qualified/1920x1080-inventory-SSS.png",
+      "Artifacts/S3-ITEM-SAFE-AREAS-20261020/native-qualified/1920x1080-logger-S-tool.png",
+      "Artifacts/S3-ITEM-SAFE-AREAS-20261020/native-qualified/1920x1080-miner-SSS-tool.png",
+      "Artifacts/S3-ITEM-SAFE-AREAS-20261020/native-qualified/actual-mouse-forge-A-axe.png"
+    ]
+  },
+  "actual_mouse": {
+    "bounds_build": {
+      "directory": "Artifacts/S3-ITEM-SAFE-AREAS-20261020/native-final",
+      "outcome": "Select helmet/arms/legs large details centred; select/equipC bow works, oldSSS returns bag; E localforge, dragscrollbar/selectSSS chip, cap disabled.",
+      "proofs": [
+        "Artifacts/S3-ITEM-SAFE-AREAS-20261020/native-final/actual-mouse-helmet-detail.png",
+        "Artifacts/S3-ITEM-SAFE-AREAS-20261020/native-final/actual-mouse-arms-detail.png",
+        "Artifacts/S3-ITEM-SAFE-AREAS-20261020/native-final/actual-mouse-legs-detail.png",
+        "Artifacts/S3-ITEM-SAFE-AREAS-20261020/native-final/actual-mouse-C-bow-equipped.png",
+        "Artifacts/S3-ITEM-SAFE-AREAS-20261020/native-final/actual-mouse-forge-scroll.png"
+      ]
+    },
+    "final_seam_build": {
+      "outcome": "SelectAxe/Reforge and five paidlegal clicksF→E→D→C→B→A in disposableQA, total40wood40metal; whole largeAaxe, no seam.",
+      "proof": "Artifacts/S3-ITEM-SAFE-AREAS-20261020/native-qualified/actual-mouse-forge-A-axe.png"
+    }
+  },
+  "normal_restart": {
+    "log": "Artifacts/S3-ITEM-SAFE-AREAS-20261020/normal.log",
+    "proof": "Artifacts/S3-ITEM-SAFE-AREAS-20261020/normal-restored.png",
+    "outcome": "QA player closed; normal executable launched without capture environment, one live process.5gold and runningdayclock, no5000QAgrants. Human continued ordinary play/gathering; no reset performed."
+  },
+  "console": {
+    "new_attributable_errors": 0,
+    "qualification": "NoC# errors/exceptions/assertions in finalbuild/native/normal logs. Existing URP stripped effect warnings and Unity online telemetry Curl DNS/connectivity messages are outside this change.",
+    "performance": "No profiler/FPS claim; bounded Editor bake and runtime Rect arithmetic/one existing shared texture."
+  },
+  "repair_history": [
+    {
+      "directory": "Artifacts/S3-ITEM-SAFE-AREAS-20261020/native",
+      "result": "Blocked: old logical tiles clipped own edges and admitted neighbour fragments; superseded by global-source component bake."
+    },
+    {
+      "directory": "Artifacts/S3-ITEM-SAFE-AREAS-20261020/native-final",
+      "result": "64 silhouette/spacing repair good;1080Aaxe fractional-band hairline blocked; superseded by shared pixel-rounded destination edges and native-qualified."
+    }
+  ],
+  "remaining": [
+    "Windows qualification",
+    "Owner response to repaired appearance"
+  ],
+  "related_city_concept": "D-098 is separate, owner approval pending; no runtime city/trade/travel changes."
+}

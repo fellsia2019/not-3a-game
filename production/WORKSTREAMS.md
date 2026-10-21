@@ -1,5 +1,11 @@
 # Workstreams And Chat Handoffs
 
+D111 latest owner correction: the small world notice board is decoration only,
+placed right of the guild door with a free approach. Click the guild BUILDING
+to open the contract-board window; D114 now measures local actions from the
+actual GuildFootprint rather than a single entry point.
+
+
 Этот файл — единая координация отдельных чатов. Один активный владелец на
 систему/сцену/контракт; параллельные агенты не редактируют одни и те же файлы.
 Для новой работы читать текущий блок и handoff затрагиваемой системы. Старые
@@ -9,6 +15,825 @@ D-017: каждый новый Stage 2–7 ведёт новый агент в �
 сверяет предыдущий gate и использует стартовый промпт соответствующего этапа
 в `reports/development-roadmap.html`; внутри stage мелкие задачи не дробятся
 по агентам. На переходе обновляются этот handoff и канонический план.
+
+### 2026-10-21 — Shared prototype save / commit handoff
+
+- Owner requests saving and committing all current work, including accumulated
+  gates/cycle, equipment/forge/professions, trade/research, recovery/vitals,
+  guild/world combat, starter travel, camp scenery and authored city corrections.
+  Canonical plan/vision/agent guidance updated to current D117 status.
+- Runtime remains the already verified build; this save adds documentation only.
+  Latest relevant evidence:82/82 distinct PlayMode outcomes, final Mac build,
+  camp/city Astra reviews and ordinary restart; Windows remains unverified.
+- Source/assets/.meta/concepts/provenance are versioned together. Existing
+  ignore rules keep build outputs, Unity caches and Artifacts local. No cleanup
+  or deletion of prior work, no remote push requested in this save step.
+
+### 2026-10-21 — D116/D117 camps and authored city -> Locally verified handoff
+
+- Owner authorizes runtime orc/ogre environments from approved camp_v2 sketches.
+  Main owns ImageGen, deterministic site reservation, obstacle/lifecycle
+  integration, tests/native captures/docs. Astra owns new modular camp artwork,
+  importer, presentation/layout and ground visuals. Other surfaces stay frozen.
+- Dependencies:existing GuildWorld/catalog/quests/enemies, resource districts,
+  manual generation, shared HeroObstacleMap, original approved camp_v2 art.
+- Acceptance:large open battle ground, scenery concentrated on one side,
+  at least three broad independent escape routes; generated resources never
+  fill reserved ground; colliders follow substantial visible props, low details
+  remain walkable. Existing acceptance/kill/turn-in/retry/reset work without
+  population/reward tuning. Native720/900/1080 plus actual movement/combat.
+- Owner also returned city arrangement/structure. Separate city_layout_astra
+  owns CityPresentation only (Art/Importer if needed), preserves LocalBounds;
+  fixed authored composition, no random filler. Camp Astra touches new files
+  only; main integrates/captures both and coordinates one Unity process.
+- Completed contracts/files:GuildWorldDriver.Camps reserves44×40 before manual
+  generation; main integrates bounds/obstacles/relocation; CampArt/Presentation/
+  Importer provide40/41 props and30/31 solids, no colliding lowflowers. City only
+  changes authored CityPresentation layout/anchors; old bounds/scene preserved.
+- Verification:77/77 initial +30/30 final focused;82 distinct latest PASS.
+  New seed/retreat/collision/lifecycle checks and actual city entrance→services
+  BFS at.35/.6 pass. Fresh import/build success,30native frames720/900/1080,
+  camp/city Astra FINAL VISUAL PASS; actual A-key retreat and clean ordinary
+  restart verified. First native was RETURN and corrected; no attributable final
+  runtime/compile errors, git diff --check clean. Evidence:
+  art/source/world_camps_2026-10-21_verification.json.
+- Wiring:import Stage3CampArtImporter.BuildAssets; no scene/Inspector migration,
+  package or new global manager. Ordinary Mac player left running at baseline.
+- Remaining:Windows/Steam, night beyond900p, sustained balance and owner actual
+  city appearance review. No new NPC/quest/type/currency/loot/save or package.
+
+### 2026-10-21 — D113/D114/D115 corrections -> Locally verified handoff
+
+- Main: ImageGen open camp proposals, integration, captures/tests/docs. Existing
+  Astra: native clock/minimap/research/buildcard/base preview/avatar and city
+  fidelity to city_v4_open_temple. guild_bow_fix: Guild binding, stationary shared
+  bow, mover flag, regressions. starter_teleport_rules: Travel state/placement/
+  cancellation/binding and regressions. User explicitly requested parallel work.
+- Contracts: pinned workshop starter kind-1, local study -> manual one-circle
+  construction; current free prototype, no automatic destination discovery.
+  NearGuild uses actual GuildFootprint, no remote rewards. Ground movement blocks
+  new bow launches while cooldown/previous arrows continue. Minimap no city rim
+  cue, clock120px at900p with brighter source hand, same10:3. Original shop/guild
+  art retained; denser natural city and public portal court, synced obstacles.
+- Acceptance: real local study/build/route, invalid placement/modal/retry/reset
+  checks; real guild accept click updates objective; WASD/backward/diagonal bow
+  checks; native720/900/1080 clock/city/mini/research/build and ordinary restart.
+  Camp v2 has broad open combat ground; owner approved both appearances.
+  Runtime camp scenery is a later step, beyond the current sketch request.
+- Verification:81 distinct latest PlayMode outcomes PASS; after final garden
+  import/layout and four-card caption correction,37/37 relevant checks PASS.
+  Fresh Mac build succeeds.28 native frames cover720/900/1080; Astra FINAL
+  VISUAL PASS for city/reference, clock/hand, minimap, starter study and cards.
+  Actual native mouse rejects hero footing, builds one circle at a valid site,
+  opens guild by building click and accepts the order (Выполняется,0/3).
+  Scene/Inspector wiring unchanged; Stage3CityArtImporter.BuildAssets updates the
+  existing Resources asset with six garden sprites. No attributable runtime/
+  compile error in final capture or ordinary process; git diff --check passes.
+- Ordinary process restarted without any capture environment:LVL1/XP0/gold5/
+  HP100/MP100, automatic simulation active, no modal/debug grants. M shows city
+  from initialization. Evidence:art/source/iteration_2026-10-21_verification.json.
+- Remaining:Windows/Steam, sustained play/balance, a separately observed green
+  valid preview and later approved camp-environment implementation. No new
+  gameplay price, item rank, service, package or save format.
+
+### 2026-10-21 — City map visibility -> Locally verified handoff
+
+- Owner refinement: remove «Город» and «Вы здесь» captions on M, keep icons
+  and safe hero/city separation. Main capture/docs; Astra native draw removal.
+  Verified: fresh Mac build,28 native frames and ordinary M; icons remain visible
+  before discovery, no captions. Astra PASS6 overview/overlap frames720/900/1080.
+- D112 corrects missing city navigation: independent City marker at actual
+  CityOrigin, visible before research/discovery. M first fits the complete map,
+  then retains user zoom/pan; the historical rim bearing is removed by D113 above.
+  Only the local house remains on the minimap.
+  Navigation does not grant discovery, research or teleport access.
+- Main owns Stage2Minimap marker data, WorldTravel lifecycle, regressions and
+  opt-in capture; Astra owns FantasyHud.CityMap and narrow Map/HUD hooks using
+  approved city house art. Existing bindings/scene need no Inspector migration.
+  Reset preserves the city; regeneration rebinds it; ClearCity removes it.
+- Verification:29 distinct latest PlayMode checks pass (full29 + focused3 after
+  initial projection correction).28 native frames at720/900/1080 cover overview,
+  retained view, local/rim bearings, hero overlap and clear; ordinary Mac input M
+  opens the map with city visible. No attributable runtime/compile errors.
+  Evidence: art/source/city_map_2026-10-21_verification.json.
+- Remaining: Windows/Steam verification. No new art, shortcut, package, gameplay
+  unlock, scene migration or inventory/world-state grant.
+
+### 2026-10-21 — Adventurers' guild / ranked contracts -> Locally verified handoff
+
+- D110/D111 approved board_f_v1/trial_e_v1/city_v4_open_temple. Final owner
+  correction: world board is SMALL, muted, decorative only, well right of the
+  entry and parallel to its frontage. Guild building click opens the menu;
+  GuildInteractionPosition is the free entrance anchor. Temple court stays open.
+- Main owns Stage2Guild/catalog/enemy rules, Stage3GuildWorldDriver, binding,
+  one shared hero bow targeting bridge, installer/tests/docs. Astra owns native
+  Guild HUD/art/importers, City layout and enemy/arrow/map presentation. Existing
+  XP/equipment/recovery/obstacles/travel reused; no scene migration or package.
+- Repeat successes count; ACCEPT resets/refills its typed spot. CLEAR marks
+  ready; TURN-IN at guild awards gold/XP/count/rank once. Three current-rank
+  turn-ins unlock one trial; trial turn-in promotes. Seven ranks F…S, one active
+  order per spot, two independent orc/ogre spots with provisional data profiles.
+- Hero melee damage uses recovery/death API; shared bow chooses nearest portal/
+  world target. World actors never enter horde counters. Sleep blocks during
+  actual world combat. Current contracts/camps survive throne retry; full reset
+  returns F/baseline camps. Guild closes/transient input clears as other windows.
+- Verification:89distinct latest PlayMode outcomes PASS, including full F→S
+  rules, repeated acceptance/turn-in, stale IDs, reward reentry/overflow, real
+  scene click/range/modal gates, bow/melee/death, current-progress retry/reset,
+  existing merchant/travel/research/progression/day gates. Headless portal
+  RenderTexture limitation resolved by repeated PASS with graphics.
+- Native720/900/1080: actual F repeats→trial→E, disabled/turn-in states, third
+  paper scroll, both species front/rear/strike, map and real mid-flight arrow.
+  Astra PASS all surfaces including final farther-right muted decorative board.
+  Actual CUA: decoration no-op, guild door opens, F reward355→405gold and
+  122→202XP, next E acceptance0/3. Source/evidence:
+  art/source/guild_2026-10-21_generation.json and verification.json.
+- Fresh ordinary Mac process restored LVL1/XP0/gold5/100HP/100MP, all automatic
+  simulation enabled, no fixture grants. No new attributable console errors.
+- Remaining: Windows, final balance/sustained playtest; more spots/environment kits/loot are later content.
+  No disk persistence or extra NPC/monster kind. Existing dirty tree preserved.
+
+### 2026-10-21 — Temple NPC quest window / separate world spots -> Superseded by D110
+
+- Owner now requests the missing quest-selection window on clicking the temple
+  mage. Main owns ImageGen/provenance/brief/docs; Astra owns visual direction
+  and review. Existing fullscreen Lunar Porcelain UI and approved mage/enemy art
+  are dependencies; no Unity/runtime edits in this step.
+- Acceptance: clear available-quest list, selected objective/location and one
+  accept action, readable fixed panel geometry matching current fullscreen UI.
+  Show orc camp and ogre spot separately; no mixed encounter, goblin/undead
+  assets or gameplay counts inferred. Exact rewards/respawn/quest rules open.
+- Latest owner approval completes D108 character/placement appearance: mage v2,
+  purple ogre v2, orc scale v5 and temple_courtyard_placement_v1 all approved.
+- Delivered art/concepts/temple_quests_2026-10-21/window_v1.png. Astra CONCEPT
+  PASS: equal separate cards, clear selected detail/goal/place/action, safe text
+  and shared fullscreen style. Camp scenery/banners in preview are illustrative,
+  not approved modular environment/faction assets. Prompt/source/hash/review:
+  art/source/temple_quests_2026-10-21_generation.json. No code tests/build needed
+  for concept-only work; Unity unchanged. Remaining: owner appearance approval,
+  then ready quest/world-enemy rules before gameplay and native UI implementation.
+- Owner returned v1 with «Нужна доработка»; asked for specific appearance/layout
+  changes before generating another version. V1 is not approved; D108 remains
+  approved. No runtime/Unity work started on the quest surface.
+
+### 2026-10-21 — Temple quest NPC / world-enemy concepts -> Appearance approved
+
+- Owner requests sketches of a new city temple mage/quest giver and orc/ogre
+  alternatives. «Хорад/Хород» was dictation error, not an approved city name.
+- Main owns ImageGen, own-project references/provenance and documentation;
+  Astra owns visual brief/review. Concept files only, no Unity/runtime changes.
+- Dependencies: approved city A_v6 temple court, hero C and painted tactical art.
+  Acceptance: readable matching silhouettes, NPC at human scale, visibly distinct
+  orc/ogre sizes beside the same hero; no portal/city redesign. Appearance and
+  later quest/combat brief await owner review; no rewards/stats/factions inferred.
+- Delivered temple_mage_v1 and orc_ogre_comparison_v1 in
+  art/concepts/quest_npc_world_enemies_2026-10-21/. Astra CONCEPT PASS both:
+  NPC outside seal, distinct enemy silhouettes/materials. Ogre drawn about1.4–1.5
+  hero heights rather than illustrative1.7; runtime scale remains open. Small
+  tactical strip is generated art, not native QA. Prompts/hashes/rights in
+  art/source/quest_npc_world_enemies_2026-10-21_*.json. No code tests/build needed;
+  Unity/scene/runtime unchanged. Remaining: owner review and later gameplay brief.
+- Owner returned v1 for revision: larger orc, purple ogre; long-haired/bearded
+  ceremonial temple mage with cross staff, not a travelling elder. V2 generated
+  as temple_mage_v2 / orc_ogre_comparison_v2; v1 retained as history. Current
+  appearance approval remains pending. Owner's publishing concern is Steam;
+  official rules checked, no asserted blanket cross ban or Valve review approval.
+- Astra V2 CONCEPT PASS both sheets: complete coherent silhouettes, clear temple
+  identity, larger orc and matte purple ogre, free court/seal approach. V2 prompt
+  file: art/source/quest_npc_world_enemies_2026-10-21_v2_prompts.json. PNG copies/
+  hashes and JSON validated; no runtime testing applicable. Owner review remains.
+- Owner approved mage v2 and purple ogre v2, requested only slightly smaller orc
+  (D108). Separate temple_courtyard_placement_v1 now answers the placement question:
+  existing D099 temple/portal retained; mage stands beside steps with free paths.
+  Main owns ImageGen/provenance, Astra owns correction/review; approved characters
+  preserved. Orc scale/placement review remains, no quest/UI/runtime work added.
+- Final candidates: orc_ogre_comparison_v5 and temple_courtyard_placement_v1.
+  Astra CONCEPT PASS both; intermediate orc scale mismatch corrected locally.
+  Eight documented PNG source/copy/hash/dimension checks and five prompt JSONs
+  validated; diff check clean. Mage v2 / ogre v2 owner approval recorded in D108;
+  only final orc size and separate placement await owner review. No Unity changes.
+- Owner final reply «Утверждаю размещение и размер орка» approves both pending
+  candidates, completing D108 appearance. Next surface is the NPC quest window
+  above; these review sheets do not implement characters, encounters or quests.
+
+### 2026-10-21 — D-104 hero death/recovery -> Locally verified handoff
+
+- Owner approved final world/map/compact-tooltip concepts, label «Выпавшие вещи».
+  Main owns plainRecovery/driver, bag instance transfers, progression penalty,
+  binding/E/debug/test contracts; Astra owns native art/map/minimap/tooltip.
+- Death losesfloor(currentlevelXP/2), keeps levels/points/ranks/cooldown and all
+  equipped gear/tools/knowledge/wallet. Immediate safe base-anchor respawn fills
+  HP/MP without unlocking travel. Bag gear/documents retain same IDs/instances.
+  All nonempty drops persist until pickup, including further deaths/throne retry;
+  empty bag creates no marker; fullReset clears. Fresh exclusive E pickup prevents
+  same-frame harvesting/teleport/sleep/gate activation. Portal creeps never hurt hero.
+- Existing Stage3binding opts in after progression/equipment/blueprints/travel;
+  no scene migration. Existing F3 adds death test without grants. New ArtSO/importer
+  uses generated source byte-identically; .meta retained, no new package/manager.
+- Verification:75shared PlayMode checks PASS with D107, including10new recovery
+  cases and inventory/trade/research/progression regressions. Astra visual PASS
+  all34nativeframes at720/900/1080,8bearings, world/E/map/minimap/debug. Actual
+  native E removes markers and I confirms helmet returned; same-instance rules
+  additionally tested. Repaired orthographic negativeZ arrow flip and overlapping
+  hero/map markers before final qualification. Evidence:
+  art/source/death_recovery_2026-10-20_verification.json.
+- Remaining: Windows and future exploration-enemy damage-source integration.
+  API/F3 available now; no new enemies added. Mouse clicks not claimed.
+
+### 2026-10-21 — D-107 top day/night dial and shaped upper HUD -> Locally verified handoff
+
+- Owner approved thinshapedv2upperHUD and chose A smoke-glass after10:3ratio
+  correction. Main owns readonly Run.DayNightCycleProgress/delegate binding,
+  optional legacyF3hitrect/test/capture/docs; Astra owns native HUD/art/importer.
+- Whole centered dial48/60/72px at720/900/1080, thinflushcornice with openworld
+  gaps, compact resourcesleft/day+F3right, noHH:MM. Abstract soft day/night fade,
+  no scenery/pie seam. Exact day10/13/night3/13; dawnat3clock and uniform13minute
+  clockwise hand follows pause/sleep/launch/retry/reset, no independent HUDtimer.
+- Shader rotates the separate generated hand; bounded textures/material released.
+  SourcePNG byte-identical; importer measures alpha islands/pivot, no runtime scan.
+  Existing UIstack retained, modal nav/trade-onlygold unchanged. F3 hit rectangle
+  follows visible button through optional binding, legacy fallback preserved.
+- Verification:36EditMode+75sharedPlayMode PASS; Astra PASS all25nativephase/UI
+  frames, no clipping/color fringe at actual size, correct hand/phase at night
+  entry/midnight/dawn. Ordinary Mac startup restored x1/WTFoff, native F3 toggles
+  debug, then closed. Evidence:art/source/cycle_top_hud_2026-10-21_verification.json.
+- Remaining: Windows and owner balance feedback; coordinate mouse clicks not
+  claimed. No commit/push requested. Existing dirty workspace preserved.
+
+### 2026-10-21 — D-106 10-minute day / 3-minute streaming night -> Locally verified handoff
+
+- Main owns Run/catalog/HordeRun/builders/tests/docs; Astra preserves D107 visual
+  binding. Day600active seconds, night180; stream until dawn regardless oldcount.
+  Live creeps/shots remain and tier clears only after dawn+allthreats. No stacked
+  mandatory nights, last-WON dayfarm/cutoff19:30/sleep19:50/progressretry retained.
+- Optional nightDurationSeconds=0 preserves finitelegacyStage2. HordeRun and
+  builders explicitly set600/180; no scene/package migration. Existing profile
+  intervals/HP retained, so values remain trial balance; old count only forecast.
+- Verification:36EditMode+26PlayMode PASS including pause/retry/large clocksteps,
+  cutoff/localE/sleep, firstnight solo bow and tiers2/3 boundedpaiddefenses. D107
+  nativephase fixture confirms dawn retains live threats. Combined D104/D106/D107
+  union137distinctchecks PASS,59nativeframes AstraPASS. Mac build694646886bytes,
+  clean final native logs/ordinary startup. Evidence:
+  art/source/timed_nights_2026-10-20_verification.json.
+- Remaining: Windows, natural fullcycle/sustained later-tier load and owner balance
+  playtest. No new creep types or tower stats invented.
+
+### 2026-10-20 — D-105 unbounded last-cleared daytime flow -> Locally verified handoff
+
+- Main owns Run cadence/stream logic, first-horde data/builder, relevant
+  rules/scene integration checks and canonical docs. Existing scene/art/approved
+  UI remain. Dependencies: D074 last-cleared gates/cutoff, D087 current-progress
+  retry, D103 explicit debug launch and existing night profile data.
+- Owner clarification: repeat last WON tier after retry, never the failed next
+  night. Daytime copies difficulty (interval/HP/current type), not night count;
+  it continues until manual close or19:30. Initial gates locked before first
+  victory; day kills never clear/promote pending night. First horde buff delegated.
+- Acceptance: reproduce clears/failure/retry at authored tiers2/3, same cleared
+  HP/timing/hint, keep spawning beyond2xnight count and beyond obsolete24-live
+  cap; local E close/cutoff retain living threats; reopening keeps cadence;
+  retry keeps current world/XP/economy, Reset clears access. Finite legacy
+  Stage2 and instant finite profiles unaffected. No art/scene migration.
+- Contracts/files: Stage2Run removes count throttle and reads cleared-profile
+  cadence; RunCatalog retains obsolete serialized fields and validates positive
+  flow intervals. HordeRun first profile/builder buff; existing gate hint stays
+  LastClearedTier. First-night test/QA helpers follow actual spawn completion.
+- Verification:59distinct checks passed (31EditMode,28PlayMode, latest-case
+  merge). Actual InputTestFixture E verifies failed-night retry and endless
+  cleared-tier stream/close; solo bow and paid-defense balance checks pass.
+  Mac development build681995748bytes; ordinary standalone startup/F3 keyboard
+  smoke passes, no attributable console errors, game left running without QA
+  flags/grants/debug. Evidence:art/source/daytime_flow_2026-10-20_verification.json.
+- Remaining: Windows qualification, owner balance/sustained-load playtest and
+  future creep types. Standalone manual full-cycle playthrough not claimed.
+  Old combat fixture now buys/studies D102 Longshot with exact-price fixture
+  funding, asserting unchanged defense gold budget; production gates unchanged.
+
+### 2026-10-20 — D-103 vitals/Blink/debug wave/zoom -> Locally verified handoff
+
+- Main owns existing HeroProgression rules/catalog/driver binding, explicit
+  Run test-launch and development HUD command, camera limits/data, tests/docs.
+  Astra owns FantasyHud Dock/Hero/Progression partials for real HP/MP and Blink
+  rank/tooltip numeric facts, preserving existing approved art/layout.
+- Dependencies: existing opt-in Stage3 progression, run clock/daytime gates,
+  world camera and numeric HUD. Accepted100HP/100MP,5MP/s,4rank costs/CD.
+- Acceptance: failed cast spends nothing; successful cast spends proper mana/CD,
+  active-time regen/cap and retry/reset; first-day F3 starts pending night once,
+  no skipped income and living threats retained; wheel/pinch clamp15 consistently;
+  numeric HUD/rank values legible and actual controls work in local player.
+- WTF added on explicit owner request: no MP/CD (zero, not0.5s), with original
+  footprint/pause/modal checks and no XP/rank grants; Reset/HUD disable clears.
+  Scene migration: planarEdgeClearance1→1.5 only, via Unity installer, preserving
+  full hero at max zoom and ground frustum inside world; builders retain it.
+- Contracts/files: HeroProgression/catalog data owns vitals and per-rank costs;
+  explicit Run.StartNextWaveForTesting changes only test-clock semantics;
+  Stage2GameHud binds one progression owner for development WTF; narrow binding
+  supplies numeric DTO. Camera settings store multiplier3, Inspector exposes it.
+- Verification:27EditMode+27PlayMode pass, Mac development build681995703bytes,
+ 26native frames Astra visual PASS. Actual Q consumes100MP/starts5s, F3 opens.
+  Automated same-HUD-command native fixture verifies2zero-mana WTF casts and
+  first-day launch. Mouse qualification DEGRADED: computer-use coordinate clicks
+  fail with noWindowsAvailable; do not claim actual button clicks passed. No new
+  attributable console errors; ordinary launch restored with WTFoff/full vitals
+  and advancing clock. Evidence: art/source/hero_vitals_2026-10-20_verification.json.
+- Remaining: Windows qualification and ordinary mouse acceptance; HUD-safe
+  hero visibility at extreme map corners remains separate (strict viewport test
+  passes, existing timecard/dock can overlay). No hero damage/death added here.
+- D104 is accepted NEXT work: exploration-only hero damage, base respawn,
+  half current-level XP, recoverable bag only, world/map/body indicator. Owner
+  explicitly deferred implementation to next separate step with marker concept.
+
+### 2026-10-20 — D-102 blueprint trade/study -> Locally verified handoff
+
+- Scope: owner requests buyable/studiable documents and permanently single-level
+  workshop. Explicitly accepted first4: Longshot construction, wand recipe,
+  forgeII/III. No new content type, equipment ranks on blueprints or workshop ap.
+- Main owns Stage2BlueprintCatalog/Blueprints, narrow Equipment/merchant rule
+  extensions, Defense availability guard, research/trade/equipment bindings,
+  workshop interaction, installer, focused tests and canonical docs/provenance.
+  Astra owns blueprint art/import/Resources and FantasyHud DTO/renderers/pages;
+  main does not edit those surfaces while Astra works. D101 item art, new research
+  screen and known/history concepts approved; Astra native implementation ready.
+- Contract: local one-paper study records knowledge, forgeIII depends on studied
+  forgeII, no automatic building upgrade/placement, no double scroll spending.
+  Current-world paper/knowledge/trades survive retry; Reset clears/restocks with
+  monotonic shared identities. Old free teleport study remains. Trial prices in
+  runtime data, fixed grid geometry, no blueprint quality/LVL, no new UI stack.
+- Observable gate: buy/sell same instances atomically; study cannot bypass
+  ownership/locality/mode/prerequisite; actual Longshot/wand/forge actions enforce
+  access. UI research ready/missing/known/far/wrong-order, inventory and trade at
+ 720/900/1080; focused rules/PlayMode and native review.
+- Verification:83distinct checks pass (rules/trade/forge/research/travel/build/
+  selection/defeat). Mac build681976675bytes;18native frames Astra visual PASS.
+  Actual mouse merchant click/buy200/sell100 and E→ForgeII→Study consume/history
+  pass; no attributable runtime errors. Scene unchanged: existing opt-in binding
+  loads Resources/Stage3Blueprints + Stage3BlueprintArt; installer imports both.
+  Ordinary launch restored without QA grants/frozen clock. Detailed evidence:
+  art/source/research_blueprints_2026-10-20_verification.json.
+- Remaining: Windows qualification, trial economy tuning and future documents/
+  drops/restock, additional content/research remain separate work. No disk-save
+  format, workshop level-up or blanket prerequisite for all upgrades was added.
+
+### 2026-10-20 — D-101 rectangular blueprint -> Appearance approved, implementation brief next
+
+- Behavior/direction: owner asks for a common medieval magical fantasy BLUEPRINT
+  item/icon, distinct from rolled spell scroll, with two examples first. Future
+  research/new towers/weapons and upgrades of workshop/forge/other buildings may
+  use derivatives. Possible magic-acquisition scrolls remain a separate idea.
+- Owners/dependencies: main ImageGen/provenance/art-only QA/docs; GPT-6 Astra
+  visual direction and concept review. Uses cartoonB painted volume, ivory/plum
+  material palette and existing visible-bounds safe-fit principle. Source surface:
+  art/concepts/research_blueprints_2026-10-20 and art/source records; RESEARCH,
+  EQUIPMENT_AND_RUNES, ART_DIRECTION, vision/plan/D101/AGENTS updated together.
+- Historical result (owner rejected): A_v2 broad creased single sheet/folded corner; B_v2 connected3panel
+  unfolded plan/subdued brass clips. Engineering ink diagrams plus restrained
+  cyan magic, no rolled ends/modern blue paper/rank/LVL/external quality frame.
+  Both original1254RGBA PNGs with true alpha; workspace/original byte-identical.
+  Exact original/edit prompts, source/rights/hash and bounds in
+  art/source/research_blueprints_2026-10-20_generation.json. Earlier v1 retained
+  as framing history. ImageGen v2 scales whole items without manual pixel edits.
+- Historical context revision (owner rejected): owner deferred A/B choice until seeing actual inventory/
+  sale context. A_shop_v2/B_shop_v2 are ImageGen edits of the D100 native merchant
+  capture, each with one selected row2/col3 blueprint and a large central detail.
+  Empty player bag, existing8equipment and gold-only purchase context remain;
+  blueprint has no rank/LVL/weapon stats/equipment-quality frame. Narrow v2 edits
+  reduce small icons and B's central preview for safe margins/comparable scale.
+  Price100 and QA wallet10005 are illustrative only. ImageGen re-renders some UI/
+  equipment details: these concepts are not pixel-identical runtime captures or
+  proof that blueprint trade exists. No new Unity asset/stock/transaction added.
+  Astra final CONCEPT PASS both shop_v2: silhouettes readable in ordinary cells,
+  safe margins, preserved proportions and no equipment attributes. All1276
+  protected runtime files rechecked unchanged after the context revision.
+- Historical white-sheet attempt (owner rejected): owner rejects both tilted/unfolded shapes and asks for an
+  ordinary upright WHITE sheet. Visual types must distinguish tower unlock and
+  building construction, with class/level/category information. Main prepares
+  one new ImageGen merchant-context example using current native UI and owned
+  D097 skin reference; Astra directs/reviews the white-sheet category treatment.
+  Schematics/category marks separate uses; class/LVL stay readable outside paper,
+  quality belongs to the cell while paper stays white. C/D, LVL10/5 and100gold are
+  illustrative only; no numerical blueprint mechanics or new item stock approved.
+- Historical correction: owner also rejects modern white-sheet drawing and C/D,
+  LVL10/5 interpretation. Reuse earlier light paper texture/drafting pattern in a
+  straight rectangle fitted to fixed cells. No equipment grades/independent item
+  levels on blueprints: an upgrade number means target BUILDING level. Examples
+  4–5/forgeIV do not extend D090's current3stages. Separate unlock/construction/
+  upgrade categories; actual marking remains unapproved. Every cell, row pitch
+  and metadata area is fixed; icons/labels never reflow/squeeze cells below.
+  White v1/v2 retained as rejected history; no final visual PASS/owner approval.
+  That generation stop was temporary; the owner then resumed with explicit
+  SAME aged-paper colour/style as A_v2. Main now prepares a rectangular variant
+  using A_v2 material and native D100 UI references; Astra proposes/reviews cyan
+  spark versus muted brass chevron in the same spot for the two primary uses:
+  opening new content and upgrading existing content. Four blueprint-only
+  illustrative slots compare tower/wand openings and forge-II/III; no quality
+  ranks/LVL/skins, one fixed metadata line and equal regular6×5grid. Actual shop
+  equipment stock, imports, forge counters/rules and current game stay untouched.
+- Current result: rect_categories_shop_v3 uses the original aged paper style in
+  upright rectangles. v2 repaired equal neutral cells/safe insets/short captions
+  (Astra geometry PASS); v3 replaces copied ring devices with one recognisable
+  forge furnace/chimney/anvil drawing forII/III and central preview. Spark versus
+  chevron and target numerals remain; no quality ranks/LVL/skins. Astra final
+  CONCEPT PASS v3: warm original style, rectangular shell, recognisable forge,
+  equal cells/safe margins and correct category/target-stage semantics. Owner
+  approved rect_categories_shop_v3 with «апрув» on2026-10-20. Appearance gate is
+  complete: shared rectangular aged-paper shell, spark versus chevron, target
+  II/III only, fixed cells. Catalogue/100gold/source/usage are still illustrative.
+  All1276protectedruntime files unchanged; no Unity
+  tests/build needed/rerun, no runtime integration or wiring in this slice.
+- Historical verification: Astra CONCEPT PASS both v2 plus native browser256/96/64px proof
+  on ivory/plum, visible-bounds uniform fit76%cell (12%inset). A recommended for
+  square cells; B side diagrams become texture at64px. No visible coloured
+  fringe in normal composition. B source still has6.7%side margin instead of
+  requested14%; do not claim raw-margin compliance. Safe cell composition uses
+  measured visible bounds. Original images are concepts, not runtime-ready assets.
+  All1276 Assets/Packages/ProjectSettings files match pre-work SHA256; no Unity
+  test/build needed or rerun, no scene/Inspector/import/package/asmdef/running
+  game changes. QA page/capture/baseline remain ignored Artifacts.
+- Remaining: standalone runtime art/import/safe-fit and ready
+  item/source/price/usage/consumption brief. Same appearance needs no reapproval.
+  No new stock/unlock catalogue or
+  blanket blueprint gate for all current paid upgrades. Existing generic forge
+  scroll-counter naming is not silently migrated by concept preparation.
+
+### 2026-10-20 — D-100 merchant buy/sell -> Runtime handoff
+
+- Behavior: clicking the existing city shop opens the approved fullscreen dual
+  inventory. Player bag excludes equipped instances; select either side for one
+  live-price Buy/Sell action. Only gold is shown/spent/credited. Initial stock is
+  8 existing types, F/LVL 1, one each; owner accepted 50% sale and no auto restock.
+  Same item/ID/type/quality/level transfers; no automatic equip or duplicated loot.
+  Sold equipment remains finite merchant stock for ordinary repurchase.
+- Ownership/dependencies: main owns Stage2Merchant/Catalog, narrow partial
+  Equipment.Trading, PlayerInterfaceBinding.Merchant, installer, opt-in QA/tests/
+  docs. GPT-6 Astra owns native FantasyHud.Merchant and narrow HUD hooks/review.
+  Uses D099 city shop, D090/D091 instances, existing gold wallet and D097 actual
+  painted skins/64visible bounds. No new PNG, scene/prefab/package/asmdef or global
+  service. Existing hero portrait/city merchant head/scales are reused with masks.
+- Contracts: inspect by visible shop click; transaction requires local proximity
+  and live service, correct selected side/ID, owned unequipped item, current price,
+  funds/credit capacity, no pause/loss/debug/draft/other modal. Failures preserve
+  items/gold/materials; wallet observers see completed ownership and balance, with
+  nested item transactions blocked. Modal blocks hero/build input without freezing
+  the world. Esc/navigation closes and requires release before a fresh shop click.
+  Reopen/D087 retry preserve current stock/trades/wallet; full Reset restores8F1
+  and starter loadout without recycling IDs. No disk-save format introduced.
+- Wiring: Stage3MerchantInstaller.Install creates validated Resources/Stage3Merchant
+  data. Ordered8type prices/quality multipliers/level growth/local radius are trial
+  data; sale50% is accepted. Existing binding Start/Update/OnDestroy owns the service;
+  Merchant enum appended, serialized old names/IDs/art references preserved.
+- Verification:41/41 focused PlayMode in 76.960s (10 new rules/integration plus
+  equipment/forge/travel/startup regression); final Mac/Metal development build
+  675630467 bytes. 21 native frames at720/900/1080 cover buy/sell/unfunded/far/empty
+  and both scroll grids; Astra final visual PASS all21. Actual final mouse shop
+  click, buy20/sell10,105→85→95gold, same item moves and Esc returns to city;
+  earlier actual reopen also retained changed stock. No new attributable errors.
+  First retry test lacked a night checkpoint; fixture fixed, no retry rule change.
+  First native portrait corners/720p scrollbar/cut rows repaired before final PASS.
+  Normal player restored5gold/0materials, running clock and empty bag/three equipped
+  F1starters, no QA grant or frozen clock. Captures/logs/XML stay ignored Artifacts.
+  Evidence/rights/reused assets: art/source/merchant_2026-10-20_verification.json;
+  art/source/merchant_window_2026-10-20_generation.json. CITY_AND_TRADE owns rules.
+- Remaining: Windows/Steam qualification (module unavailable), price playtest,
+  owner response to native appearance; research/forge scroll sources/stock, runes,
+  resource trade, restock systems and NPC budget/quests remain separate briefs.
+  No new content family/currency/loot source or armor/world-appearance change.
+
+### 2026-10-20 — D-099 city and shared teleport menu -> Runtime handoff
+
+- Behavior: approved A_v6 modular orange-roof city, cobalt shop with turquoise
+  contour/painted scales badge, ambient residents and a modest left-side temple.
+  The sole remote seal is in its quiet walkable court. Nearby click/E opens the
+  same opened-destination menu at every point; selection plus confirmation
+  replaces the old instant counterpart hop. Current point is disabled, close
+  cancels, blocked/unknown targets fail without movement/payment, arrival needs
+  fresh input. Research, personal discovery and D087 current-progress retry stay.
+- Ownership/dependencies: main owns ImageGen/provenance, plain travel rules,
+  world integration, binding/tests/docs; GPT-6 Astra owns all city/UI appearance
+  and visual review. Depends on approved A_v6/menu_v1, ground seal v4, existing
+  Lunar Porcelain shell, HeroObstacleMap and resource/placement clearances.
+  Observable acceptance covers free arrival/approach, city collision, no nodes
+  inside streets, click/E/current/close/held input and reset/retry; additional
+  test points use the same menu without inventing current product towns.
+- Contracts/files: Stage3TravelState registers IDs/openings/snapshots; WorldTravel
+  Network/City partials bind shared routing, city footprints and point events.
+  PlayerInterfaceBinding.Teleports mediates validated modal confirmation;
+  FantasyHud.Teleports is native existing-stack UI, not a flat concept screenshot.
+  Stage3CityArt/Presentation use five original ImageGen PNG sources, isolated
+  sprites/shared materials, tiled curved streets, green pockets and existing
+  garden trees. Manual resources/grass/flowers and new workshop/dwelling/forge
+  placement exclude city bounds. Reset keeps physical city but clears openings;
+  D087 retry preserves current research/discovery and closes unfinished UI.
+- Wiring/migration: run Stage3CityTravelInstaller.Install (art importer plus
+  SaveConfiguration) to reproduce Resources/Stage3CityArt and serialize additive
+  WorldTravelData.cityOrigin/empty additionalPoints. Existing art links/offsets,
+  scenes, prefabs, packages, asmdefs and project settings are preserved. Initial
+  registry has only base/city; legacy worldCirclePosition stays a fallback.
+- Verification:16/16 focused PlayMode in48.665s, including configured third
+  endpoint rendering/menu, unknown/blocked/current targets, research, modes,
+  retry/reset/regeneration, collision and startup. Final Mac/Metal development
+  build675598347bytes succeeded;16 city/menu frames at720/900/1080p, plus actual
+  mouse city→base→city, E opening, Esc cancellation and disabled-current click.
+  First grid paving, terrain holes and preview crop/frame were repaired before
+  final native review. Early capture setup paused its own run; QA now explicitly
+  resets/unpauses after freezing the clock, without weakening gameplay gates.
+  No new attributable console errors. Normal player restored with running clock,
+  5gold/0materials, no QA workshop/openings or grants. Screenshots/logs/XML remain
+  ignored Artifacts, not duplicated into runtime. Astra final visual PASS on all16frames plus actual city arrival; evidence:
+  art/source/city_runtime_2026-10-20_verification.json; source/prompts/rights:
+  art/source/city_runtime_2026-10-20_generation.json.
+- Remaining: Windows/Steam qualification (module unavailable), owner response
+  to native appearance, merchant interaction/stock/prices/buy-sell transactions
+  as a separate ready slice. No trade source, temple service, new currency,
+  third current city, extra combat/quest/NPC AI or disk-save system added.
+
+### 2026-10-20 — D-097 item safe areas and visible centring qualified
+
+- Owner reports bow touching the frame and helmet/arms/legs vertically displaced.
+  Scope: all 8 item types × 8 ranks and every existing item UI surface, preserving
+  the approved painted skins, source icons and world-held sprite registration.
+- Astra owns shared UI fitting, baked visible bounds in existing ForgeArt plus
+  narrow importer, Equipment/Quality/Forge/Professions/Dock. Main owns opt-in
+  Stage3ItemIconSafeAreaReview/InterfaceCapture QA, checks/build/native/docs.
+- Dependencies: actual atlas alpha bounds (axe uses two allowed bands), current
+  source skins and scroll/input contracts. Acceptance: proportional inset from
+  frame ornaments, actual visible bounds centred without distortion/clipping,
+  all 64 combinations plus actual windows at720/900/1080p. No pixel scanning or
+  texture allocation per frame; no new appearance proposal/gameplay scope.
+- Result/handoff: complete source connected-component bounds replace unequal
+  tile padding, with foreign-silhouette validation64/64 and fallback for legacy
+  data; original PNGs and held pivots unchanged. Equipment/Quality/Forge share
+  centred proportional fitting; masked axe destinations share rounded edges.
+  Initial tile-bound audit exposed neighbours/clipped own edges; corrected bake
+  fixed these. Final1080 axe seam fixed separately. Main's opt-in QA calls exact
+  product cell renderer for64DTOs plus existing real-window fixture, no new
+  product controls/grants. No scene/Inspector/package migration; rebake ForgeArt
+  using Stage3ForgeArtImporter.BakeUiIconBounds.
+- Verification:17/17PlayMode after safe fit, before final Editor/pixel corrections;
+  final bake64/64/build644077799bytes successful.33native frames at3sizes plus
+  actual mouse helmet/arms/legs/equip/forge scroll and large Aaxe after5paid
+  reforges. No new attributable errors, normal player restored without QA grants.
+  Final Astra visual PASS all33frames plus largeAaxe, no blockers; evidence in
+  art/source/item_safe_areas_2026-10-20_verification.json.
+  Remaining: Windows, owner response to repaired appearance. City D098 stays
+  separate and concept-only pending owner approval.
+
+### 2026-10-20 — D-098 city service concept; portal placement superseded by D099
+
+- Owner adds colored interactive contours and small painted role badges to
+  local city services, initially only the merchant; city also contains the
+  remote endpoint of the existing paired ground seal. Main owns ImageGen/docs;
+  Astra owns composition/review and later approved Unity appearance.
+- Dependencies: selected A_v3 cobalt-roof shop and approved teleport seal v4,
+  existing research/discovery travel contract. No extra service, third portal,
+  merchant stock or new currency. Preserve current runtime world placement.
+- Acceptance: clear clickable shop contour, one beautiful compact colored role
+  icon with roof/sign safe spacing, same ground seal in a clear city approach/
+  arrival area; original style/composition retained. Save/show reviewed concept
+  before visual implementation. Item safe-area repair remains active separately.
+- Result/handoff: ImageGen A_v5 preserves A_v3 architecture and adds one thin
+  turquoise shop outline, compact plum/gold scales badge above roof and one flat
+  paired seal off the gate axis. A_v4 oversized badge/seal retained as history;
+  final A_v5 Astra concept PASS, no blockers. Prompt/output/reference hashes and
+  rights in art/source/city_2026-10-20_generation.json. CITY_AND_TRADE,
+  WORLD_TELEPORTS, ART_DIRECTION/DECISIONS/plan record D-098. No scene/runtime
+  city, merchant transaction or WorldTravelData changed; no gameplay test needed
+  for this concept-only surface. Remaining: owner appearance approval, modular
+  runtime assets/site/collision/arrival/interaction qualification and a ready
+  trade stock/pricing brief; existing paired-circle research/discovery retained.
+  Owner's D099 rejects A_v5 square placement and replaces pair-only product
+  target with a shared opened-destination menu; latest result is above.
+
+### 2026-10-20 — D-097 quality-cell reference fidelity correction qualified
+
+- Owner rejected the shipped appearance: flat opaque dark fills and thick gold
+  bars do not match the approved all_equipment_qualities_v2 sheet. Prior local
+  checks establish functioning input/clipping only, not owner appearance approval.
+- Main owns source inspection, ImageGen asset preparation/provenance and native
+  qualification. Astra owns visual matching and the common quality renderer plus
+  Equipment/Forge/Professions/Dock/import wiring. Dependencies: approved original
+  raster, existing item icon atlases and preserved scroll/selection contracts.
+- Acceptance: reference-like multitone gradients, texture, thin shaped luminous
+  frames and rich S/SSS materials in actual windows at720/900/1080p. Preserve item
+  actions, rank colors, clipping and bounded texture lifetime. No gameplay or
+  merchant/city scope change. The existing approved reference authorizes this
+  repair; a new concept/appearance decision is not required.
+- Result: eight painted skins prepared by ImageGen editing the approved original,
+  Astra asset PASS. Imported PNG byte-identical, measured UVs and full textured
+  centres/thin frame patches now replace procedural plates/rails/stars. One
+  borrowed Resources atlas, no per-item/per-frame texture allocation. Narrow
+  importer only; scene/Inspector/packages/input geometry unchanged.
+- Verification: import/build successful, 17/17 PlayMode checks after correction.
+  Mac build644070019bytes; Astra strict-reference PASS all27native frames at720/
+  900/1080p, no seams/cut ornaments/overlap. Actual mouse equip/forge scroll pass,
+  ordinary game restored without QA grants, no new attributable console errors.
+  Tiny HUD skins lose some engraving detail but retain rank/light. Windows and
+  final owner response remain open. Source/prompt/rights:
+  art/source/item_quality_cells_2026-10-20_skins_generation.json; qualification:
+  art/source/item_quality_cells_2026-10-20_verification.json.
+
+### 2026-10-20 — D-097 initial implementation; appearance rejected by owner
+
+- Owner requires colored background/border for quality across all item UI, not
+  just merchant. Main owns brief/ImageGen/provenance; Astra owns visual tokens
+  and approved shared UI treatment. No gameplay balance or world art change.
+- Scope:8ranks, bag/loadout/forge/actual tool and weapon previews; rank letters/LVL
+  remain, selected cyan separate from persistent quality color. Neutral empty/
+  generic cells; future trading reuses the same renderer. The final64-cell board
+  is approved; corrected merchant concepts/runtime remain a separate D096 surface.
+- Owner approved final64-cell all_equipment_qualities_v2 after rejecting weakD/C
+  and mutedgold. FinalDgreen/Cblue, polishedS/radiantsharpSSS. Astra owns HUD
+  Equipment/Forge/Professions/Dock +sharedQuality partial and narrowDestroycleanup;
+  main owns opt-in Stage3ItemQualityReview/InterfaceCapture, checks/build/docs.
+  Existing itematlases retained; no gameplay/scene/package/stock change. Acceptance:
+  consistent frames across actual itemviews, visible quality while selected,
+  readable720/900/1080p, boundedcachedtextures, unchanged equip/craft/profession
+  behavior, no newerrors; nativeAstrareview then normalgame restored.
+- Runtime implemented by Astra; final Mac build637778927bytes after initial
+  native review found fractional frame seams, escaped custom scroll draws and
+  weakSSSradiance. Pixel-rounded parts, explicit UV/geometry clipping and a shared
+  SSSglint fixed these. Cache bound8×128²+64²RGBA32 with HUD cleanup.17PlayMode
+  regressions passed before final visual-only repair; final build compiles.
+  Main native actual selection/equip/forge scroll pass. Astra visual PASS all
+  27 final frames at720/900/1080p and two extra forge scroll frames, no blockers.
+  Ordinary game restored without QA grants. Windows remains unverified.
+  Evidence: art/source/item_quality_cells_2026-10-20_verification.json.
+
+### 2026-10-20 — D-096 merchant window concept active
+
+- Owner approved city A_v3 and requested the merchant window. Main owns brief,
+  generation/provenance and docs; Astra owns composition/review and later approved
+  visual implementation. Current surface: concept files, no Unity edits yet.
+- Dependencies: existing fullscreen inventory/forge Lunar Porcelain shell, approved
+  merchant/scales shop identity, shared gold and planned research-item purchase
+  route. Stock/prices/sellback/refresh are not fixed by this visual request.
+- Acceptance: readable fullscreen catalogue/selection, owned gold, item detail,
+  explicit purchase price/action and close/back; original ImageGen proposal
+  saved/reviewed/shown before implementation. Preserve uncommitted runtime work.
+- Owner rejected v1's portrait/single-product storefront. Active V2 requires
+  simultaneous player/merchant inventory grids, compact identities and contextual
+  buy/sell. Main visually inspected BG3/DOS2 trade references; no external image
+  downloaded/generated/copied/shipped. Astra revises composition; prices/stock
+  remain illustrative and equipment worn by player stays out of bag D091.
+- New owner requirement: gold-only wallet for merchant, hide material counters.
+  Final buy/sell concepts also apply global quality colors D097; no future trade
+  currency/finite merchant wallet or stock rule is inferred.
+
+### 2026-10-20 — D-095 expanded city A_v3 approved
+
+- Scope: three substantially different fantasy-city ImageGen studies for owner
+  selection. One first active merchant; all other NPCs are ambient/future roles.
+  Main owns CITY_AND_TRADE brief, generation/provenance and canonical docs;
+  GPT-6 Astra owns art direction and visual review. No Unity surface is claimed.
+- Dependencies: approved cartoonB/equipment-forge style, fixed tactical camera,
+  existing hero scale and future merchant→research workshop route. D095 replaces
+  the older D063 defer-city restriction only for concept preparation now.
+- Acceptance: three distinct silhouettes/materials/street arrangements, visible
+  walkable entrance and merchant, ambient residents without extra services;
+  saved original images/prompts, Astra review, owner shown before implementation.
+  Preserve all accumulated uncommitted runtime work and the open game.
+- Result:3original concepts saved under art/concepts/city_2026-10-20/ with exact
+  prompts/hashes in art/source/city_2026-10-20_*.json. Astra concept PASS all3;
+  owner selected A with orange roofs, timber/cream houses and open square.
+  Runtime unchanged; next implementation needs site/layout/NPC/merchant binding.
+- New owner revision: enlarge city with more quarters/streets and replace the
+  tent with a distinctive permanent merchant shop. A_v2 still blended into housing
+  per owner. Astra designed A_v3: unique cobalt hipped roof/brass ridge, open
+  commercial front, attached large scales crest and clear apron. Main generated
+  and inspected A_v3; one merchant unchanged. Astra concept PASS, no blockers;
+  owner approved A_v3: «Пойдет». Next surface is the merchant window D096.
+
+### 2026-10-20 — D-094 throne reinforcement locally qualified
+
+- Scope: the accepted D075 three max-HP upgrades of+5, through the existing D078
+  throne card. Main owns Run/Catalog, binding/data/installer/tests/docs; Astra
+  reviews existing card/defeat presentation. No new visual asset/HUD/scene change.
+- Dependencies: shared material/gold wallet, live throne health/max, D087 retry
+  and existing damage/defeat effects. New capacity is filled by+5current HP too,
+  preserving the amount of previous damage rather than fully healing it.
+- Acceptance: three paid upgrades and no fourth; exact one-time prices; live
+  current/max card and max/unfunded/pause/loss gating; damage still ends at zero,
+  retry restores upgraded maximum and keeps current investment; full Reset
+  clears upgrades. Legacy finite catalogs retain their existing behavior.
+- Result:30EditMode +9PlayMode pass; Mac build637762906bytes, Astra visual
+  PASS9native frames. Actual mouse0→3, exact costs and no fourth payment checked
+  above normal/B docks. Normal unfunded game relaunched; Windows unverified.
+
+### 2026-10-20 — D-093 production advancement locally qualified
+
+- Owner approved5generator stages,1/2/3/4/5units per cycle, resource+gold upgrades
+  per building, all stages available in the current prototype without research.
+- Main owns Production rules/catalog/data/driver, selected-building binding,
+  regression/native verification and docs. Astra reviews existing D078 card
+  presentation; building art/HUD geometry/packages/scenes stay unchanged.
+- Dependencies: existing generator points/shared wallet/active-time production,
+  selected card fields and D087 preservation. No merge/sale/movement of production
+  buildings, new structure, manual-profession multiplier or skipped-time income.
+- Acceptance: real paid local level1→5, exact one-time prices, growing real yield,
+  retained cycle progress, no upgrade-time reward, rejected/max/pause gating,
+  current level/progress preserved by retry and cleared by full Reset; native
+  card above regular/build HUD remains readable. Existing uncommitted work kept.
+- Result:66unique checks pass (31EditMode/35PlayMode), Mac build succeeds,
+  Astra visual PASS17frames; actual mouse2→5/max verified. Normal build is
+  relaunched without QA funds/buildings. Windows remains unverified.
+
+### 2026-10-20 — D-092 gathering professions locally qualified
+
+- Owner approved miner_v3/logger_v2 and the first slice: independent mastery100,
+  actual-material XP/points, strength/tempo/reach talents; asked Astra to implement.
+- Main owns Stage2ProfessionCatalog/Professions/Driver, Economy modifiers,
+  Stage3 binding/installer, tests, ImageGen runtime icon atlas and documentation.
+  Astra owns HUD Professions DTO/native layout, inner O tabs and art importer.
+- Dependencies: actual Gathered grants and equipped tool stats, shared interaction
+  range for E/marker, D-087 preservation, existing fullscreen shell. Existing
+  uncommitted gates/items/held art preserved; no scene/package/GUID migration.
+- Acceptance: real held-E progress, separate point spend, bounded stock, combined
+  tool/talent effects, pause/modal/tool-swap cancellation, reset versus retry,
+  native O controls and720/900/1080p Astra appearance review. Tuning stays trial.
+- Result:38PlayMode +17EditMode passed, final Mac build637740179bytes. Actual
+  native clicks bought miner strength2→3 and logger tempo0→1 with separate points.
+  Nine final native frames passed Astra visual review; no new attributable
+  errors. Windows unverified. Remaining base/scroll/explorer work is separate.
+
+### 2026-10-20 — Gathering professions concept -> approved for implementation
+
+- Surface: existing HERO_PROGRESSION spec, plan/art/handoff and ImageGen
+  concepts only. Main owns rules/provenance; GPT-6 Astra owns composition/review.
+  No runtime, scene, package or serialized equipment changes in this slice.
+- Dependencies: Economy.Gathered actual grants, current equipped tool stats,
+  D-087 current-progress retry and existing Lunar Porcelain fullscreen O.
+- Proposal: separate miner/logger mastery/XP/points, first strength/tempo/reach
+  talents. Numbers/budget require review; no new accepted decision implied.
+- Selected miner_v3/logger_v2: Astra final concept visual PASS; owner approval
+  pending. Tool icon, point/XP ownership and current→next values reviewed.
+- Acceptance: two readable consistent states, independent numeric progress,
+  same equipped item and clear current→next harvest results, preserved shell;
+  show owner before Astra native implementation. Existing uncommitted gate/
+  equipment work retained; building/scroll implementation remains later.
+
+### 2026-10-20 — D-091 equipped appearance and inventory bag locally qualified
+
+- Owner reports crooked bow and equipped items missing on actual hero. Current
+  scope: bow/pickaxe/axe only; preserve hero clothing/armor appearance.
+- Main owns ImageGen repair derivatives, equipment tool-quality binding, gameplay
+  tests/native QA and canonical docs. Astra owns HeroAvatar/Art/ForgeArt, narrow
+  import and held-item presentation. Earlier uncommitted gates/equipment retained.
+- Dependencies: actual equipped item instances/qualities, existing tool harvest
+  facts/six poses, four facing directions and approved heroC/quality palette.
+- Owner added D091: left bag contains only unequipped items; equipped items
+  appear only in loadout slots. Astra owns BagItems DTO/draw; main filters binding
+  and verifies equip/replacement/unequip without duplication/loss.
+- Acceptance: correct bow perspective/grip in idle/walk/shot, visibly different
+  actual tool quality in all six work phases, no baked duplicate tool, correct
+  hide/restore on unequip/harvest/pause/reset/retry. Same armor/body identity;
+  no item stats/cost, new spells or package/scene/GUID migration.
+
+### 2026-10-19 — D-089/D-090 equipment/forge locally qualified
+
+- Main owns Stage2 item catalog/rules/lifetime and combat/manual-harvest integration,
+  Stage3 forge placement/local service and binding, tests, ImageGen and docs.
+  Astra owns inventory/forge HUD DTO/presentation, forge art importer/world visuals
+  and final native visual review. Surface ownership is coordinated before edits.
+- Dependencies: existing shared resource wallet, hero combat/progression, local
+  building occupancy/input, D090 five combat slots plus tools, approved four concepts,
+  D087 preservation of current progress. Preserve earlier uncommitted gates work.
+- Acceptance: real owned item instances/equip,8qualities/levels1–100, one base type
+  each, atomic resource-paid craft/level/reforge, local paid forge and upgrade cap,
+  live weapon/tool effects without extra splash, actual new screens/actions, reset
+  versus loss semantics. Existing scenes/packages/GUIDs remain; data tuning trial.
+- Owner answered D090:3forge stages cap D/B/S; special-scroll building upgrades
+  only (no current source), SSS ultra-rare drop only. Weapons bow/wand, no shield.
+  Rules/scene and regression unique latest results91/91 passed (67PlayMode,24EditMode).
+  Actual Mac/Metal E/mouse craft→level→reforge→equip passed. Layout720/900/1080p
+  reviewed; rebuilt ordinary-start inventory has corrected full axe UV. See handoff.
+
+### 2026-10-19 — D-089 equipment/forge concepts approved; implementation next
+
+- Main owns concept generation/provenance and canonical brief. Astra owns visual
+  direction/review. Surfaces: existing EQUIPMENT_AND_RUNES, ART_DIRECTION, plan,
+  decisions and concept images only; preserve uncommitted gates/runtime changes.
+- Dependencies: approved fullscreen inventory shell/Lunar Porcelain, heroC and
+  house/workshop architecture, six combat slots, axe/pickaxe, eight qualities.
+- Acceptance: show inventory, fixed-view forge building, fullscreen forge and
+  readable item-quality progression. One basic item family per type; actual
+  art changes by quality, numerical1–100 stays separate. No elemental variants,
+  SS or new currency/extra gear slots. Owner approved all4; values illustrative.
+- This is concept work. No gameplay/UI implementation or scene/package changes.
+
+### 2026-10-19 — D-087/D-088 gates, time-only retry and Sleep locally qualified
+
+- Main owns Run/clock/gates, enemy source/tier facts, retry-owner integration,
+  local portal E binding, tests and canonical documentation. Existing approved
+  UI/art and scene references remain; no new visual layout is introduced.
+- Latest owner instruction supersedes the requested live-population snapshot:
+  defeat keeps CURRENT inventory/XP/ranks/research/buildings/world progress.
+  Restore throne, clear the failed enemies/shots, return morning and retry the
+  same pending night tier. Do not restore old live creeps or old world owners.
+- Dependencies: shared EnemyGroup, continuous Stage3 catalog, existing Rewound
+  cleanup/defeat readiness, D085 XP and existing local interaction hint surface.
+- Acceptance: no early dawn; D088 local dwelling Sleep stops at19:50 and
+  refuses any live/pending fight; day gates repeatedly farm the last
+  cleared tier, preserve cadence/cap, auto-close before night without despawning
+  existing enemies; mandatory nights grow and never overlap. Retry preserves
+  earned/spent progress and repeated real kills award normal XP/gold.
 
 ### 2026-10-19 — D-085/D-086 progression and visual PASS / accepted reward cue without hammer
 
@@ -3612,6 +4437,286 @@ Current playability check is in
 ```
 
 ## Handoff Register
+
+### 2026-10-20 — D-097 reference fidelity repair -> Runtime handoff
+
+- Behavior: owner-rejected flat opaque fills and thick gold rails replaced with
+  the actual ImageGen source-derived painted skin atlas: multitone gradients,
+  engraved texture, thin shaped rims, amber/gold S and plum/radiant-gold SSS.
+  Same shared treatment covers bag/loadout/details, forge, professions and HUD.
+- Contract/files: Astra changed Quality renderer and removed obsolete Forge
+  glint overlay; added Stage3EquipmentQualityArtImporter and one shared Resources
+  Stage3EquipmentQualitySkins.png (original bytes, measured Rect[8], no generated
+  textures). Rounded shared edges/scroll UV clipping/selection/input retained.
+  No scene/Inspector/package migration or gameplay/item-icon change. Main owns
+  ImageGen/provenance, checks/build/native evidence and canonical docs.
+- Verification: import successful, 17/17 PlayMode, Mac644070019bytes; Astra
+  strict-reference PASS27frames at720/900/1080p. Main actual mouse D/C/equipC,
+  SSS details and forge horizontal scroll/select pass. Ordinary game restored
+  5gold/0materials, no QA grants/frozen clock, no new attributable console errors.
+  art/source/item_quality_cells_2026-10-20_verification.json preserves the rejected
+  procedural attempt explicitly; skins_generation.json records source/rights.
+- Remaining: final owner appearance response, Windows qualification. Small HUD
+  cells simplify engraving detail. Merchant/city runtime is still separate and
+  should reuse this artwork. No new stock, price, loot or research source implied.
+
+### 2026-10-20 — D-097 initial procedural equipment quality -> Appearance superseded
+
+- Behavior: eight approved persistent quality frames across bag/loadout/details,
+  forge source/result/owned chips/rank chain, actual profession tools and HUD
+  weapon. Dgreen/Cblue, polishedS/radiantSSS; cyan selection stays distinct.
+  Existing rank-specific item atlases, gameplay/stats/input geometry unchanged.
+- Contract/files: Astra owns Stage3FantasyHud.Quality/Equipment/Forge/Professions/
+  Dock, narrow HUD destruction cleanup. Eight128px textures plus one64pxglint,
+  lazy bounded cache, nine-slice shared pixel edges and explicit scroll target/UV
+  clipping. Main owns Debug-only opt-in Stage3ItemQualityReview/InterfaceCapture,
+  checks/build/provenance/docs. No new scene/Inspector/package/asmdef wiring.
+- Verification:17existing PlayMode equip/forge/held-tool/profession/startup checks
+  pass; final visual-only repair compiles/builds. Mac637778927bytes,27finalnative
+  frames at720/900/1080p. Main actual mouse choosesD/C/equipsC, oldSSSreturnsbag,
+  then drags forge scrollbar and selectsSSS with readable labels/correct cap.
+  Astra visual PASS all27finalframes plus two forge scroll frames, no blockers.
+  No new attributable errors; old unusedURP
+  shader warnings match D094baseline. Normal game restored5gold/0materials.
+  Evidence: art/source/item_quality_cells_2026-10-20_verification.json.
+- Remaining: Windows/Steam qualification. City/merchant still concept-phase;
+  final merchant window, world site/NPC access, stock/prices/sell rules and scroll
+  sources require their own ready brief. Reuse D097 there, no fake scroll rank.
+
+### 2026-10-20 — D-095 city concepts -> A appearance selected
+
+- Outcome: three original fantasy-city alternatives generated; owner chose A:
+  orange terracotta gables, timber/cream houses, open stone square and one merchant
+  visible from entrance. Other NPCs are ambient; future functions undecided.
+- Contract/files: CITY_AND_TRADE.md owns active concept brief/selection; accepted
+  scope/appearance D095; ART_DIRECTION/vision/plan updated. Three saved original
+  PNGs in art/concepts/city_2026-10-20/, exact prompts/source/rights/hashes in
+  art/source/city_2026-10-20_prompts.json and generation.json. No Assets/scene/
+  prefab/package/code/console mutation; accumulated runtime work retained.
+- Verification: all3PNG copies match originals; visually inspected, Astra concept
+  PASS all3, no blockers. A has strongest small-city identity/clear merchant.
+  No Unity tests/build required for this art-only concept phase.
+- Owner revision: expand city and replace tent with a distinctive permanent
+  shop. A_v2 shop contrast rejected. Latest a_cobalt_trading_house_v3.png keeps
+  expanded orange-roof neighbourhoods, gives one shop a cobalt roof/open frontage/
+  scales crest and clean forecourt. Main generation/inspection complete;
+  Astra concept PASS, no blockers; owner approved A_v3 («Пойдет»). Exact edit targets/prompts/
+  hashes in generation.json and city_2026-10-20_a_v2/v3_prompt.txt.
+- Remaining: selected-city modular assets and actual world site/footprints,
+  collision/occlusion, ambient NPC behavior, merchant interaction/fullscreen UI,
+  stock/prices/research-item transactions. Fine detail needs scale simplification;
+  depicted counts/water are illustrative, not approved gameplay.
+
+### 2026-10-20 — D-094 throne reinforcement -> Runtime handoff
+
+- Outcome: exactly3paid upgrades add5current/max HP without repairing old
+  damage; current base5→10→15→20. Existing selected-throne card shows count,
+  liveHP/next price/result and disabled cap. No fourth payment or resurrection.
+- Contract/files: Stage2Run owns upgrade count/effective max/paid transaction
+  and reentry guard; legacy checkpoint includes count. Stage2RunCatalog owns
+  three costs/+5, with empty-array legacy fallback. Existing HordeRun updated
+  additively by Stage3ThroneUpgradeInstaller.Install; Binding.Selection exposes
+  TryUpgradeSelectedThrone and existing HUD event dispatch. D087 keeps CURRENT
+  count/spending and refills effective max; full Reset clears count. No scene,
+  Inspector, package, asmdef or new visual wiring; existing damage uses maxHP.
+- Verification:30EditMode +9PlayMode pass (7new checks, run/gates/defeat/card
+  regressions). Mac build637762906bytes; native CUA bought3/5→8/10→13/15→18/20,
+  gold5005→4980→4920→4780, exact material prices, no spend on extra max click.
+  Astra visual PASS9frames: base/damage/upgrade/unfunded at900p, cap above B
+  additionally720/1080p. No new attributable errors. Qualification:
+  art/source/throne_upgrades_2026-10-20_verification.json.
+- Remaining: Windows/Steam qualification, price tuning, workshop advancement
+  and forge scroll sources; bosses/camps/runes remain separate future slices.
+
+### 2026-10-20 — D-093 generator advancement -> Runtime handoff
+
+- Behavior: each sawmill/quarry/mine owns levels1–5 and output1/2/3/4/5 per
+  original5/7/10s cycle. Four paid material+gold transitions use the existing
+  selected-card action; prototype has no research gate. Constructor remains
+  materials-only/level1. Upgrade preserves partial cycle and gives no immediate
+  output; D087 keeps current level/progress/spend, full Reset clears buildings.
+- Contracts/files: ProductionEntry additive upgrade table; ProductionBuilding
+  owns Level/derived OutputAmount; plain Production validates paid transactions
+  with reentry guard and snapshots carry level. Driver/binding expose production
+  upgrade and live card facts. ProductionCatalog updated additively by
+  Stage3ProductionUpgradeInstaller.Install; GUID/art/footprint/scene/packages kept.
+- Verification:31EditMode +29affectedPlayMode +6selection/startupPlayMode pass
+  (66unique;7new upgrade checks). Native Mac build637752035bytes. Scripted
+  declared-QA setup captures3types at1/2/5 and max above B720/1080 plus unfunded
+  state. Actual CUA clicks upgraded an individual sawmill2→3→4→5 with exact gold
+  debits25/60/140; extra max click did not spend. Native review recorded in
+  art/source/production_upgrades_2026-10-20_verification.json.
+- Astra final visual PASS17frames: all3types/1/2/5, next prices/unfunded at900p,
+  max over construction HUD720/1080p. No new attributable console errors.
+- Remaining: Windows/Steam qualification, price tuning, future technology gate,
+  workshop/throne advancement and forge scroll sources. No generator sale/merge/
+  move, new image, profession bonus/XP or skipped-time/offline income introduced.
+
+### 2026-10-20 — D-092 gathering professions -> Runtime handoff
+
+- Behavior: O combat/profession tabs; independent miner/logger mastery1–100,
+  actual manually granted material XP, own milestone points and strength/tempo/
+  reach3ranks. Talents combine with equipped items and finite stock, never enable
+  absent tools. Rank/tool changes cancel partial work until release. D-087
+  preserves current mastery/points/ranks/stock; full Reset clears progression.
+- Contracts/files: Stage2ProfessionCatalog/Professions/Driver in Integration;
+  Economy separates item stats from profession modifiers and shares edge range
+  across E/target/marker. Binding.Professions owns validated buys/dirty UI facts;
+  Astra owns HUD.Professions DTO/layout, inner O navigation and art importer.
+  Existing scene/GUID/packages retained. Resource data Stage3Professions.asset;
+  installer and importer entry points recorded in runtime provenance JSON.
+- Verification:38PlayMode (9new profession checks +29affected regressions),
+  17legacy economy EditMode, final Mac build637740179bytes. Actual held-E grants,
+  bounded remainder, item+talent composition, independent spend, Reset/retry and
+  startup covered. CUA clicks in final native build bought miner2→3 and logger0→1;
+  nine final720/900/1080p miner/logger/combat frames passed Astra review after
+  repairing panel insets/tool-card height. No attributable console error.
+- Evidence: art/source/gatherer_professions_2026-10-20_runtime.json and
+  verification.json; Artifacts/S3-PROFESSIONS-20261020/. Explicit QA XP/resolution
+  fixture is development opt-in only; ordinary startup has mastery1/XP0/points0.
+- Remaining: Windows/Steam qualification, tuning, larger trees/explorer and
+  production/workshop/throne upgrades plus forge scroll source. No disk save,
+  new building, combat spell, hero HP/MP or armor redress added by this slice.
+
+### 2026-10-20 — Gatherer rules / ImageGen concepts -> Owner approval
+
+- Behavior: concept only. Two independent gathering professions with proposed
+  actual-material XP, separate points, three first talents each and actual
+  equipment+talent harvest comparison. D-087 keeps current mastery on retry.
+- Contracts/files: HERO_PROGRESSION.md contains proposal/acceptance;
+  DEVELOPMENT_PLAN/ART_DIRECTION track status; selected miner_v3/logger_v2 PNGs
+  in art/concepts/gatherer_professions_2026-10-20/. Source prompts/hashes/rights
+  and Astra review: art/source/gatherer_professions_2026-10-20_generation.json.
+- Verification: main inspected extraction/tool contracts and current native
+  UI; selected miner_v3/logger_v2 have Astra concept visual PASS. No C#/scene/package/runtime
+  art changes, so Unity tests/build are not rerun for this concept-only step.
+- Remaining: owner approval, XP calibration/data, gameplay implementation and
+  Astra native UI with actual held-E/Reset/retry/720p verification. Larger trees,
+  explorer, auto-production/building upgrades and scroll sources remain later.
+
+
+### 2026-10-20 — D-091 bow/tools and bag correction -> Runtime handoff
+
+- Behavior: equipped bow quality now uses correct upright carrying projection,
+  straight string and facing/grip in world and I hero preview. Axe/pick actually
+  show equipped quality during existing six-phase harvesting, via separate tool
+  over additive clean work poses. Old duplicate baked tools removed from active
+  layer; clothing/armor identity, original HeroArt/idle/walk images unchanged.
+  Equip/replace/unequip moves the same ID between left bag and loadout. Bag
+  excludes every equipped item, full lookup still serves slot selection/details.
+- Contracts/files: Astra owns HeroAvatar, new HeroEquipmentArt/importer, additive
+  Equipment textures/Resources, ForgeArt link and Equipment HUD/paperdoll. Main
+  binds actual tool qualities, builds BagItems on state changes and owns tests/
+  native fixture/docs. No gameplay stats/cost, package, scene or existing GUID
+  migration. BuildAssets entry: Stage3HeroEquipmentArtImporter; source/rights/
+  prompts/hashes art/source/equipment_visible_2026-10-20_generation.json.
+- Verification:20/20 PlayMode incl quality/held E,6phases, clear physical approach,
+  pause, unequip/return, motion, forge/retry, bag lifecycle/no loss, startup/combat.
+  Final upright carry refinement reran4/4 subset,20unique latest PASS. Native
+  macOS/Metal I mouse equip/unequip/re-equip and E wood/metal passed; both F/S
+  inventory/world and tool raised/contact captured. Astra final visual PASS.
+  Body side cropping adjusted to transparent gutter y280, sole pivot/PPU retained.
+  Horizontal front bow candidate rejected on native review; final carry is upright.
+  Mac build success629319823bytes; no new attributable compile/runtime errors.
+  Verification art/source/equipment_visible_2026-10-20_verification.json.
+- Fixture limits: QA explicitly grants S items and positions/camera, stops clock/
+  combat; no natural loot proof. Final fullReset snapshot shows3equipped F1,
+  empty bag; ordinary fresh game relaunched after QA. Artifacts captures/logs stay
+  ignored. Windows unverified (local module absent). Remaining: earlier deferred
+  loot/scroll sources/runes/disk saving, hero HP/armor protection; armor appearance
+  explicitly remains unchanged. Prior uncommitted gates/equipment work retained.
+
+### 2026-10-19 — D-089/D-090 equipment/forge -> Runtime handoff
+
+- Behavior:8single-family item types, independent1–100 and8qualities, actual
+  owned instances,5combat slots+2tools. Bow/wand single-target profiles and
+  manual-tool power/tempo affect existing combat/economy. StarterF1bow/axe/pick
+  retain playability; unequip blocks its action. Armor slots/stats work but hero
+  protection/HP and armor redressing remain deferred, explicitly shown in UI.
+- Local forge: resource-paid B/Base third blueprint, collision/clear entrance,
+  E or selected-card service; CreateF1/Level/Reforge pay once, preserve item ID
+  and independent axis.3building stages capD/B/S, upgrade only special scrolls;
+  no source yet. SSS exclusively future ultra-rare loot, never forged.
+- Contracts/files: Stage2EquipmentCatalog/Equipment/Driver, existing combat and
+  Economy tool parameters; Stage3ForgeCatalog/Forge/ForgePresentation/ForgeArt;
+  Equipment binding and Astra Inventory/Forge/Selection/Dock/Avatar. Resources
+  assets wire existing scene at startup; no scene/package/GUID migration.
+  Installer Stage3EquipmentInstaller.Install, importer Stage3ForgeArtImporter.
+  D087 retry preserves current bag/equipped/stage/building/cost; fullReset resets.
+- Verification: initial23/23, regression66/67 with one old clock test1ms precision
+  failure; corrected tolerance and entire affected8-test class8/8. Unique latest
+  PlayMode67/67 +EditMode24/24. Actual native Mac/Metal E and mouse creation,
+  level2, reforgeE2, equip/world/card passed; explicit disposable QA stock/site,
+  clock/combat stop and later loot grants documented (not natural-play evidence).
+  Layout720/900/1080p reviewed. Final build success570544627bytes; ordinary
+  unmodified starting wallet/items captured after axe UV fix. No new attributable
+  console errors. Evidence art/source/equipment_forge_2026-10-19_verification.json;
+  original art/prompts/hashes runtime.json. Windows unverified: no build module.
+- Remaining: loot tables/source/rates (including SSS/forge-scroll source), rune
+  effects, hero HP/protection/world enemies, armor redressing, disk saving and
+  fine balance. TryReceiveLoot/TryReceiveForgeScrolls are future-source APIs only;
+  ordinary game grants neither armor nor scrolls. Existing gates changes retained.
+
+### 2026-10-19 — D-089 owner acceptance -> Equipment/forge implementation
+
+- Outcome: direct human «Утверждаю все четыре» approves inventory v2, forge
+  building v1, forge interface v2 and item-quality sheet v1. Layout, appearance
+  and shown quality palette/lineage are accepted; no repeat approval needed.
+- Contract/files: generation manifest approval/version hashes, D089, feature
+  spec, ART_DIRECTION and canonical plan now agree. Existing runtime preserved.
+- Verification: selected PNG hashes unchanged; JSON parses and diff whitespace
+  checks pass. Documentation-only acceptance, no Unity tests/build rerun.
+- Remaining: implement approved visuals through Astra and item/forge gameplay;
+  prices/stats/stage budgets and shield compatibility still require concrete rules.
+
+
+### 2026-10-19 — D-089 item/forge ImageGen concepts -> Owner approval
+
+- Outcome: four coherent concepts saved: item inventory v2, fixed-view forge
+  building v1, contextual fullscreen forge v2 and eight-quality item sheet v1.
+  One basic type has eight actual appearance variants, separately from level1–100.
+  Inventory has six combat slots plus axe/pickaxe, empty shield with bow. Forge
+  E→D keepsLVL12, shows unspecified cap/prices; sheet compares all atLVL1.
+- Contract/files: D089, EQUIPMENT_AND_RUNES, vision/plan/ART_DIRECTION updated.
+  Source/prompts/owned reference roles/hashes/selected versus superseded revisions:
+  art/source/equipment_forge_2026-10-19_generation.json. Latest D087 item retention
+  replaces the old full-world-rollback paragraph in the feature spec.
+- Verification: original generated PNGs copied unchanged and dimensions/hash
+  checked; visual review covers slot count, item-quality independence, noSS,
+  coherent existing shell/world style. Astra requested and ImageGen corrected
+  accidental item-XP/occupied shield, contextual header/footer and forge cap.
+  Astra final visual PASS on all4 selected images is recorded in the generation
+  manifest. No new runtime
+  art import, code/scene/package changes; Unity tests/build not rerun for concepts.
+- Remaining: explicit owner appearance approval. Prices/stats/forge-stage budgets,
+  shield compatibility and concrete gameplay implementation still need the active
+  feature brief. Concepts do not approve new weapon mechanics or elemental items.
+
+
+### 2026-10-19 — D-074/D-087/D-088 gates, recovery and Sleep -> Player review
+
+- Outcome: local portal E opens/closes continuous daytime farming of the last
+  cleared tier. Cadence/cap survive toggles; cutoff keeps existing creeps. Night
+  tiers strengthen, unfinished hordes never overlap, early victory keeps night.
+  Dwelling E/selected-card «Сон» ends at19:50 only outside any live/pending fight.
+  Retry restores throne/morning for the same pending tier, keeping current world,
+  XP/skills/resources/research/buildings/spending/damage. Fresh kills reward again.
+- Contract/files: Stage2 Run/Catalog and Enemy/Group, retry-owner guards, HordeRun,
+  local Stage3DaytimeGate, existing FantasyHud/Selection/Dwelling bindings.
+  D087 cancels full-world/live-creep snapshot restoration for active Stage3;
+  D088 restores intentional dwelling day advancement. Legacy Stage2 stays opt-out.
+  Resource-population changes invalidate only legacy snapshots, not time anchors.
+  No scene/prefab/GUID/package migration; gate is added by existing scene binding.
+- Verification:37/37 EditMode and43/43 unique targeted PlayMode (latest per case),
+  Mac/Metal development build; real native E open/close and selected Sleep click,
+  actual08:00→19:50 and unchanged rewards. Explicit native fixture constructs one
+  paid home/clears first night/advances dawn for setup; no natural-day pacing claim.
+  Astra PASS five1600x900 hint/Sleep frames; no new attributable code/runtime errors.
+  Evidence: art/source/gates_cycle_2026-10-19_verification.json. Temporary QA images
+  stay ignored in Artifacts. Disposable player was closed after review.
+- Remaining: Windows/Steam module absent; full-day/long-night balance and late
+  tiers still need playtesting. Next canonical slice: equipment/forge. No new
+  item/rune/profession/trader/boss content or save-to-disk system in this change.
 
 
 ### 2026-10-19 — D-085/D-086 all-changes checkpoint -> Next: D-074 gates/clock

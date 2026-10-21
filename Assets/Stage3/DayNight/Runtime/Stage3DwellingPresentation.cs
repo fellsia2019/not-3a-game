@@ -94,9 +94,24 @@ namespace Not3A.Stage3.VisualPilot
             hud.DwellingInteractionHint = dwelling.IsPlacing ? visible && dwelling.PreviewResult == DwellingPlacementResult.Ready ?
                 "ЛКМ · построить жилище    Esc / ПКМ · отменить" :
                 "Выберите свободную зелёную землю · нужно 10 дерева · Esc / ПКМ отменяет" :
-                dwelling.IsBuilt && dwelling.NearEntrance ? dwelling.CanSkipDay ?
+                dwelling.IsBuilt && dwelling.NearEntrance ? game != null && game.RunDriver.Run.UsesDaytimeGates ?
+                    dwelling.CanSkipDay ? "E · сон до начала ночи" : GetSleepUnavailableReason(dwelling, game) : dwelling.CanSkipDay ?
                     "E · дождаться ночи в жилище" : game != null && game.RunDriver.Run.IsNight ?
                     "Сначала отбейте орду · ждать пока нельзя" : "Жилище героя" : null;
+        }
+
+        public static string GetSleepUnavailableReason(Stage3Dwelling dwelling, Stage2GameComposition game)
+        {
+            if (dwelling == null || !dwelling.IsBuilt) return "Сначала постройте жилище";
+            if (!dwelling.NearEntrance) return "Подойдите ко входу в жилище";
+            var run = game.RunDriver.Run;
+            if (run.IsPaused) return "Сначала продолжите игру";
+            if (run.IsTerminal) return "Забег завершён";
+            if (run.DaytimeGateOpen || run.ActiveEnemies > 0 || game.Enemies.PendingShotCount > 0 || run.IsNight)
+                return "Во время боя сон недоступен";
+            if (run.IsNightTime) return "Ночью сон недоступен";
+            if (!run.CanSleepUntilNight) return "Уже пора готовиться к ночи";
+            return dwelling.CanSkipDay ? null : "Сначала завершите размещение";
         }
 
         private void Align(SpriteRenderer renderer, Vector2 position)

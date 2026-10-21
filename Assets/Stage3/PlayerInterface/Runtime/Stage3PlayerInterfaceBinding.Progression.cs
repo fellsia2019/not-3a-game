@@ -23,6 +23,7 @@ namespace Not3A.Stage3.PlayerInterface
             heroProgression = GetComponent<Stage2HeroProgressionDriver>();
             if (heroProgression == null) heroProgression = gameObject.AddComponent<Stage2HeroProgressionDriver>();
             heroProgression.Configure(game, scene.PlayerMover, catalog);
+            legacy?.BindHeroProgressionTools(heroProgression);
             heroProgression.ControlBlocked = () => !bound || !isActiveAndEnabled || !presentation.isActiveAndEnabled ||
                 Blocked() || IsDraggingBuilding || HasBuildingDraft ||
                 legacy != null && legacy.DebugOpen;
@@ -35,13 +36,19 @@ namespace Not3A.Stage3.PlayerInterface
             observedHeroLevel = heroProgression.Rules.Level;
             progressionView = new Stage3HeroProgressionView {
                 BlinkRanges = new float[catalog.BlinkMaxRank],
+                BlinkManaCosts = new int[catalog.BlinkMaxRank],BlinkCooldowns=new float[catalog.BlinkMaxRank],
                 Passives = new[] {
                     new Stage3HeroPassiveView { Title="Точный удар", Description="Урон по одной цели" },
                     new Stage3HeroPassiveView { Title="Быстрые руки", Description="Скорость атаки" },
                     new Stage3HeroPassiveView { Title="Лёгкий шаг", Description="Скорость движения" }
                 }
             };
-            for (var i = 0; i < catalog.BlinkMaxRank; i++) progressionView.BlinkRanges[i] = catalog.BlinkDisplayRange(i + 1);
+            for (var i = 0; i < catalog.BlinkMaxRank; i++)
+            {
+                progressionView.BlinkRanges[i]=catalog.BlinkDisplayRange(i+1);
+                progressionView.BlinkManaCosts[i]=catalog.BlinkManaCost(i+1);
+                progressionView.BlinkCooldowns[i]=catalog.BlinkRankCooldown(i+1);
+            }
             presentation.SetHeroProgression(progressionView);
             presentation.BlinkArmRequested += ArmBlink;
             presentation.BlinkCancelRequested += CancelBlink;
@@ -58,7 +65,7 @@ namespace Not3A.Stage3.PlayerInterface
         }
         public void ArmBlink()
         {
-            if (heroProgression == null || !heroProgression.CanCast || heroProgression.Rules.BlinkCooldownRemaining > 0) return;
+            if (heroProgression == null || !heroProgression.CanCast || !heroProgression.Rules.CanBlink) return;
             ClearBuildingSelection(); game.Gathering.CancelGatherUntilRelease(); blinkArmed = true;
             RefreshHeroProgression();
         }
@@ -139,14 +146,17 @@ namespace Not3A.Stage3.PlayerInterface
             view.RankPointCost = catalog.RankPointCost;
             view.XpWithin = rules.XpWithin; view.RequiredXp = rules.RequiredXp; view.AvailablePoints = rules.AvailablePoints;
             view.BlinkRank = rules.BlinkRank; view.BlinkCooldownRemaining = rules.BlinkCooldownRemaining;
-            view.BlinkCooldownDuration = catalog.BlinkCooldown; view.BlinkArmed = blinkArmed;
-            view.CanArmBlink = heroProgression.CanCast && rules.BlinkCooldownRemaining <= 0;
-            view.BlinkUnavailableReason = rules.BlinkCooldownRemaining > 0 ? "Перезарядка" : "Сейчас недоступно";
+            view.Health=rules.Health;view.MaximumHealth=rules.MaximumHealth;view.Mana=rules.Mana;view.MaximumMana=rules.MaximumMana;
+            view.BlinkManaCost=rules.EffectiveBlinkManaCost;
+            view.BlinkCooldownDuration = rules.EffectiveBlinkCooldownDuration; view.BlinkArmed = blinkArmed;
+            view.BlinkCooldownTotal=rules.BlinkCooldownTotal;
+            view.CanArmBlink = heroProgression.CanCast && rules.CanBlink;
+            view.BlinkUnavailableReason = rules.BlinkCooldownRemaining > 0 ? "Перезарядка" : rules.Mana<rules.EffectiveBlinkManaCost?"Недостаточно MP":"Сейчас недоступно";
             view.CanUpgradeBlink = CanSpendHeroPoints && rules.CanUpgradeBlink;
             view.BlinkUpgradeReason = rules.BlinkRank >= catalog.BlinkMaxRank ? "Максимальный ранг" :
                 !CanSpendHeroPoints ? "Сейчас недоступно" : "Нужно очко героя";
             view.WeaponDamage = game.HeroCombat.Rules.EffectiveDamage;
-            view.WeaponRange = game.HeroCombat.Catalog.AttackRange;
+            view.WeaponRange = game.HeroCombat.Rules.EffectiveRange;
             view.WeaponInterval = game.HeroCombat.Rules.EffectiveFireInterval;
             for (var i = 0; i < 3; i++)
             {
@@ -168,6 +178,7 @@ namespace Not3A.Stage3.PlayerInterface
         }
         private void UnbindHeroProgression()
         {
+            legacy?.BindHeroProgressionTools(null);
             if (presentation != null)
             {
                 presentation.BlinkArmRequested -= ArmBlink; presentation.BlinkCancelRequested -= CancelBlink;

@@ -1,6 +1,42 @@
 # Feature: Resource Production Buildings And Build Menu
 
-## D-075 target: production advancement, not implemented
+## D-093 production advancement —approved and locally qualified2026-10-20
+
+Owner approved5stages with1/2/3/4/5units per cycle and individual material+gold
+upgrades. All stages are available without research in the current prototype;
+future technology acquisition/research is not added by this slice. Existing
+intervals5/7/10seconds, building art/footprint/pads and construction costs stay.
+The existing D078 selected card shows actual level/output/interval and next
+output/price; no new visual layout or ImageGen art is needed for live data.
+Astra reviews native card states; main owns rules/integration/tests.
+
+Each building owns Level; its catalog owns the four paid transitions. On
+upgrade, validate active state, current ownership, maximum and whole price,
+then charge once and advance that instance. Preserve ProgressSeconds unchanged;
+no production tick occurs during purchase. Fixed intervals preserve fractional
+progress automatically. Payment callbacks cannot reenter the transaction.
+Tick uses instance OutputAmount; overflow is discarded as before. Original
+construction starts1. D087 retry keeps CURRENT buildings/level/progress/spending;
+full Reset/world replacement removes them. Legacy finite snapshots now carry
+level as well as fractional progress, without repurchasing or income.
+
+Authoritative trial prices: existing ProductionCatalog.asset, extended additively
+without GUID/scene/package migration. Stage3ProductionUpgradeInstaller.Install
+writes the four paid transitions without touching base costs/art/intervals.
+Older catalogs with no transitions retain one-stage legacy behavior. No sale,
+merge, relocation, auto-profession XP, offline income or skipped-time simulation.
+Acceptance: real selected-card upgrade for all3types; exact price once, growing
+output, preserved fraction, unfunded/max/pause/stale/reentry rejection, D087
+versus Reset, unchanged collision/art and readable regular/construction HUD.
+
+Qualification:31EditMode +35PlayMode checks passed (66unique;7new). Native Mac
+build succeeded; actual mouse upgraded an individual sawmill2→3→4→5 with
+exact price once and disabled max. Astra visual PASS on17native frames: three
+types at1/2/5, current/next price and unfunded at900p, max above B at720/1080p.
+No new attributable console errors. Windows unverified. Evidence/data migration:
+art/source/production_upgrades_2026-10-20_verification.json.
+
+## D-075 longer target: technology-gated production advancement
 
 Владелец активировал развитие лесопилки, каменоломни и железного рудника.
 Рекомендуемый путь использует существующую исследовательскую мастерскую:
@@ -8,7 +44,7 @@
 Город и торговец D-071 пока будущие; новый дублирующий «центр апгрейдов»
 не выбран. Технология разрешает ступень, а не улучшает все здания бесплатно.
 
-Предлагаемый предел — **5 ступеней каждого генератора** с базовой первой.
+По D-093 принят предел **5 ступеней каждого генератора** с базовой первой.
 Основной эффект — рост реальной добычи за активную секунду. Можно менять
 выход за цикл/интервал, но проверять их совместно; работники, доставка,
 склады, офлайн-доход и истощение больших районов не добавляются автоматически.
@@ -23,13 +59,14 @@
 и не выдавать немедленную награду от смены интервала. Успешный ап платит
 один раз, отклонённый ничего не списывает. Точка, тип, исходный footprint
 и правила коллизии сохраняются до отдельно выбранной визуальной ступени.
-Здание/ступень, изученные технологии, дробный прогресс и расход денег
-входят в D-062. Пауза/исход замораживают производство по текущим правилам.
+В current Stage3 D-087 сохраняет текущее здание/ступень, дробный прогресс и
+расход денег при повторе; только legacy Stage2 использует D-062 snapshot.
+Пауза/исход замораживают производство по текущим правилам.
 
 Приёмка будущего среза: технология и локальный ап различимы; растёт
 измеренный выпуск, а не только надпись; нет двойной оплаты/дохода при
 смене интервала, отмене и повторе; ручная добыча/коллизия остаются корректны.
-Ниже — реализованный D-058–D-060 прототип без этих апгрейдов.
+Ниже — исторический реализованный D-058–D-060 прототип до D-093.
 
 Status: D-058 and D-059 construction readability implemented and verified on Mac,
 2026-10-16.

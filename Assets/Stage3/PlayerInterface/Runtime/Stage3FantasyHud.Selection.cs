@@ -19,8 +19,13 @@ namespace Not3A.Stage3.PlayerInterface
         public Sprite Icon;
         public Stage3SelectedBuildingStat[] Stats;
         public bool ShowUpgrade, ShowSell, ShowResearch;
+        public bool ShowSleep, SleepAvailable;
+        public bool ShowForge, ForgeAvailable;
+        public string ForgeUnavailableReason;
+        public string SleepUnavailableReason;
         public bool UpgradeAvailable, SellAvailable;
         public string UpgradePrice, SellRefund, UpgradePreview;
+        public string UpgradePriceLabel;
         public string UpgradeUnavailableReason, SellUnavailableReason, Hint;
         public Bounds WorldBounds;
         public Vector2 WorldPosition;
@@ -90,6 +95,8 @@ namespace Not3A.Stage3.PlayerInterface
         public event Action SelectedBuildingCloseRequested;
         public event Action SelectedBuildingUpgradeRequested;
         public event Action SelectedBuildingSellRequested;
+        public event Action SelectedBuildingSleepRequested;
+        public event Action SelectedBuildingForgeRequested;
         public bool HasSelectedBuilding => selectedBuilding!=null &&
             (ActiveWindow==Stage3PlayerWindow.None || ActiveWindow==Stage3PlayerWindow.Construction);
         public Rect SelectedBuildingRect => HasSelectedBuilding
@@ -107,16 +114,18 @@ namespace Not3A.Stage3.PlayerInterface
                 return SelectedBuildingActionRect(0);
             }
         }
+        public Rect SelectedBuildingSleepRect => !HasSelectedBuilding||!selectedBuilding.ShowSleep?Rect.zero:SelectedBuildingActionRect(0);
         public Rect SelectedBuildingUpgradeRect => !HasSelectedBuilding||!selectedBuilding.ShowUpgrade?Rect.zero:
-            SelectedBuildingActionRect(selectedBuilding.ShowResearch?1:0);
+            SelectedBuildingActionRect(selectedBuilding.ShowResearch||selectedBuilding.ShowSleep||selectedBuilding.ShowForge?1:0);
         public Rect SelectedBuildingSellRect => !HasSelectedBuilding||!selectedBuilding.ShowSell?Rect.zero:
-            SelectedBuildingActionRect((selectedBuilding.ShowResearch?1:0)+(selectedBuilding.ShowUpgrade?1:0));
+            SelectedBuildingActionRect((selectedBuilding.ShowResearch||selectedBuilding.ShowSleep||selectedBuilding.ShowForge?1:0)+(selectedBuilding.ShowUpgrade?1:0));
+        public Rect SelectedBuildingForgeRect => !HasSelectedBuilding||!selectedBuilding.ShowForge?Rect.zero:SelectedBuildingActionRect(0);
         private Rect SelectedBuildingActionRect(int index)
         {
             var r=SelectedBuildingActionsRect;var width=r.width/SelectedBuildingActionCount;
             return new Rect(r.x+index*width,r.y,width-8f*UiScale,64f*UiScale);
         }
-        private int SelectedBuildingActionCount => (selectedBuilding.ShowResearch?1:0)+(selectedBuilding.ShowUpgrade?1:0)+(selectedBuilding.ShowSell?1:0);
+        private int SelectedBuildingActionCount => (selectedBuilding.ShowResearch||selectedBuilding.ShowSleep||selectedBuilding.ShowForge?1:0)+(selectedBuilding.ShowUpgrade?1:0)+(selectedBuilding.ShowSell?1:0);
         private Rect SelectedBuildingActionsRect
         {
             get {var r=SelectedBuildingRect;return new Rect(r.x+r.width*.72f,r.y+42f*UiScale,r.width*.26f-10f*UiScale,102f*UiScale);}
@@ -156,7 +165,7 @@ namespace Not3A.Stage3.PlayerInterface
             if(!string.IsNullOrEmpty(preview))
                 FitText(new Rect(stats.x,outer.yMax-33f*s,stats.width,20f*s),preview,12,false);
             var actions=SelectedBuildingActionsRect;var actionCount=SelectedBuildingActionCount;
-            var researchRequested=false;var upgradeRequested=false;var sellRequested=false;
+            var researchRequested=false;var upgradeRequested=false;var sellRequested=false;var sleepRequested=false;var forgeRequested=false;
             if(actionCount>0)
             {
                 DrawRule(new Rect(actions.x-12f*s,r.y+8f*s,1f*s,r.height-16f*s));
@@ -164,8 +173,12 @@ namespace Not3A.Stage3.PlayerInterface
                 {
                     researchRequested=DrawBuildingAction(SelectedBuildingResearchRect,"Исследования",true,BuildingAction.Research);
                 }
+                if(view.ShowForge) forgeRequested=DrawPricedBuildingAction(SelectedBuildingForgeRect,"Кузница",BuildingAction.Forge,
+                    view.ForgeAvailable,null,null,view.ForgeUnavailableReason);
+                if(view.ShowSleep) sleepRequested=DrawPricedBuildingAction(SelectedBuildingSleepRect,"Сон",BuildingAction.Sleep,
+                    view.SleepAvailable,null,null,view.SleepUnavailableReason);
                 if(view.ShowUpgrade) upgradeRequested=DrawPricedBuildingAction(SelectedBuildingUpgradeRect,"Улучшить",BuildingAction.Upgrade,
-                    view.UpgradeAvailable,view.UpgradePrice,"Цена",view.UpgradeUnavailableReason);
+                    view.UpgradeAvailable,view.UpgradePrice,view.UpgradePriceLabel??"Цена",view.UpgradeUnavailableReason);
                 if(view.ShowSell) sellRequested=DrawPricedBuildingAction(SelectedBuildingSellRect,"Продать",BuildingAction.Sell,
                     view.SellAvailable,view.SellRefund,"Возврат",view.SellUnavailableReason);
             }
@@ -173,9 +186,11 @@ namespace Not3A.Stage3.PlayerInterface
             else if(researchRequested) SetWindow(Stage3PlayerWindow.Research);
             else if(upgradeRequested) SelectedBuildingUpgradeRequested?.Invoke();
             else if(sellRequested) SelectedBuildingSellRequested?.Invoke();
+            else if(sleepRequested) SelectedBuildingSleepRequested?.Invoke();
+            else if(forgeRequested) SelectedBuildingForgeRequested?.Invoke();
         }
 
-        private enum BuildingAction { Research, Upgrade, Sell }
+        private enum BuildingAction { Research, Upgrade, Sell, Sleep, Forge }
         private Sprite buildingUpgradeIcon;
         private bool buildingUpgradeIconLoaded;
 
@@ -202,6 +217,8 @@ namespace Not3A.Stage3.PlayerInterface
             DrawMedallion(circle);
             if(action==BuildingAction.Sell) DrawIcon(Inset(circle,17f*s),art.resourceIcons[0]);
             else if(action==BuildingAction.Research) DrawIcon(Inset(circle,15f*s),art.menuIcons[2]);
+            else if(action==BuildingAction.Forge) DrawIcon(Inset(circle,10f*s),equipmentArt?.worldSprite);
+            else if(action==BuildingAction.Sleep) DrawIcon(Inset(circle,15f*s),art.dwellingIcon);
             else
             {
                 if(!buildingUpgradeIconLoaded)

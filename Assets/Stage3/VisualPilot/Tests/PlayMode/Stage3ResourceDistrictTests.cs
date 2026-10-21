@@ -326,7 +326,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Assert.That(minimap.DistrictTerrain,Is.Not.Null);
             Assert.That(minimap.DistrictTerrain.width,Is.EqualTo(512));
             Assert.That(minimap.ContainsScreenPoint(new Vector2(minimap.PanelRect.center.x,Screen.height-minimap.PanelRect.center.y)),Is.True);
-            Assert.That(game.RunDriver.Run.StartWave(),Is.True);
+            Assert.That(Stage3TestCycle.StartNight(game.RunDriver.Run),Is.True);
             Assert.That(game.Enemies.ActiveCount,Is.GreaterThan(0));
             yield return null;
         }

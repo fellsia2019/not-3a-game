@@ -1,0 +1,547 @@
+{
+  "date": "2026-10-21",
+  "decision": "D-112",
+  "status": "Locally verified Mac including owner caption removal; Astra native PASS; ordinary player restarted with M open",
+  "cause": "Only discovery-gated teleport had a map marker; city had none and initial M zoom3 cropped distant city.",
+  "behavior": [
+    "Independent known City marker follows actual CityOrigin before research/discovery",
+    "M initially fits entire map; subsequent opening retains player zoom/pan",
+    "Local minimap shows approved house or rim bearing; north N and hero safe areas preserved",
+    "Reset preserves marker; regeneration moves it; ClearCity removes data and presentation",
+    "No teleport discovery, research, travel, items or XP granted"
+  ],
+  "wiring": {
+    "scene_or_inspector_migration": false,
+    "packages_added": false,
+    "new_bitmap": false,
+    "source_art": "Existing Stage3CityArt.kit[0], provenance art/source/city_runtime_2026-10-20_generation.json",
+    "lifecycle": "Stage3WorldTravel.RefreshMarkers -> Stage2Minimap.SetCityMarker; ClearCity clears; existing native HUD draws data",
+    "owners": "Main lifecycle/rules/tests/docs, GPT-6 Astra native presentation"
+  },
+  "tests": {
+    "distinct_latest_passed": 29,
+    "distinct_latest_total": 29,
+    "reports": [
+      "Artifacts/CITY-MAP-2026-10-21/tests.xml",
+      "Artifacts/CITY-MAP-2026-10-21/focused.xml"
+    ],
+    "qualification": "Full run28/29 initially; first-open projection fixed by clamping map center during SetWindow. All3 new regressions rerun PASS; latest union29/29. No later gameplay change."
+  },
+  "native": {
+    "directory": "Artifacts/CITY-MAP-2026-10-21/native",
+    "frames": 28,
+    "review_owner": "GPT-6 Astra",
+    "review": "PASS720/900/1080 overview, reopen, local/rim/cardinal bearings, north caption safe area, city/hero labels, clear",
+    "fixture": "Opt-in development player environment; holds automatic clock/combat and repositions hero only. No grants/discovery or DTO injection. Replaced by fresh ordinary process. West direction uses legal local check because city sits near eastern map boundary; far rim verified at start and other cardinal directions.",
+    "resolved_capture_only_failures": "Initial fixture used an unreachable offset outside actual -50..199 bounds; bounded legal footing search fixed capture without changing runtime movement."
+  },
+  "actual_input": {
+    "method": "CUA ordinary native player, actual m key",
+    "result": "Default whole-map view and labelled City visible before first visit. Startup HP100/100 MP100/100 XP0/100 LVL1 gold5; mini bearing visible. Left map open to show user.",
+    "images": [
+      "Artifacts/CITY-MAP-2026-10-21/ordinary-minimap.png",
+      "Artifacts/CITY-MAP-2026-10-21/ordinary-M-city.png"
+    ]
+  },
+  "build": {
+    "path": "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app",
+    "target": "StandaloneOSX Development",
+    "reported_bytes": 730957200,
+    "log": "Artifacts/CITY-MAP-2026-10-21/build.log",
+    "native_player_log": "Artifacts/CITY-MAP-2026-10-21/native-player.log",
+    "ordinary_player_log": "Artifacts/CITY-MAP-2026-10-21/ordinary-player.log",
+    "new_attributable_console_errors": 0,
+    "tooling_note": "Unity licensing refresh warning did not prevent successful compile/build; no gameplay/runtime exception in final logs."
+  },
+  "source_hashes": {
+    "Assets/Stage2/Integration/Runtime/Stage2Minimap.cs": "6bbbda01e2813e86f62a8ab47d40b61f0669494d042962fd1e81af6a3526897c",
+    "Assets/Stage3/WorldTravel/Runtime/Stage3WorldTravel.cs": "513e288675c881052dc626fe6aa7fd83c4be14a3adbab7afd764e7b1d348df56",
+    "Assets/Stage3/WorldTravel/Runtime/Stage3WorldTravel.City.cs": "9c22643cd48bec56009e7093f623336f61f9a3a9f50f30c8e2e12f6c21781973",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.CityMap.cs": "ff473b84244190f97c925e7adb8009ae1090856935988141a028f193867b8910",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Map.cs": "65d77ab71cbf8ea78eaa2d41e959cee54b86c4978ef4dd222e5c118ffb69724b",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.cs": "5234b77c02f86504662b19aad53f6b96a77907cadbb1af5dc5b1f8bc0896e569",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3CityMapReview.cs": "acdf5c8def6a85bf9c08e5a79b7ca43fe6d02c804a7c89c1a3d696f94025a204",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3InterfaceCapture.cs": "2a595c1a8b7da40aa6bc497cb29d172a4c48f3d6b3bbf4588451b7193c140ee8",
+    "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3WorldTravelTests.cs": "aa7cb972c13a5cb7a26cc84fbdcc647f1309f899cbcb1fe47faced00206ceccf"
+  },
+  "frames": [
+    {
+      "path": "Artifacts/CITY-MAP-2026-10-21/native/1280x720-M-city-hero-overlap.png",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "sha256": "9836dc60cb6fdaa70681367957ff73c6dc6a3b35d1d6993a01d0b011fe9b9f96"
+    },
+    {
+      "path": "Artifacts/CITY-MAP-2026-10-21/native/1280x720-M-overview.png",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "sha256": "c615346f045cfd9244117a0614e41b7cc5ea96da3d200912db2fbfab32d26c15"
+    },
+    {
+      "path": "Artifacts/CITY-MAP-2026-10-21/native/1280x720-M-reopened.png",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "sha256": "fa668ae259916b414962afc01b07308a04848c54bed3f51bf63e00564ac317d8"
+    },
+    {
+      "path": "Artifacts/CITY-MAP-2026-10-21/native/1280x720-bearing-(-1.00, 0.00).png",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "sha256": "fb47ba55bf6b3304e30c3c6ac2531f0955df66c28a4320f9badfb6dcd3fd8832"
+    },
+    {
+      "path": "Artifacts/CITY-MAP-2026-10-21/native/1280x720-bearing-(0.00, -1.00).png",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "sha256": "9398eb63130231e0550a8725d1041a81938e6572fe2a29407937ec68e7f21a42"
+    },
+    {
+      "path": "Artifacts/CITY-MAP-2026-10-21/native/1280x720-bearing-(0.00, 1.00).png",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "sha256": "36b035c96ae9d25bcf2e55eb4ee5da5d0de3f19db03028e2a1b6eb42e133ec7b"
+    },
+    {
+      "path": "Artifacts/CITY-MAP-2026-10-21/native/1280x720-bearing-(1.00, 0.00).png",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "sha256": "39db1c011a7cda64301c368fa17684fc4aa6995415cf97e64890795ffc57925e"
+    },
+    {
+      "path": "Artifacts/CITY-MAP-2026-10-21/native/1280x720-near-city-minimap.png",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "sha256": "c18a32d8bb53530ec8780c4e6166aa8fb50669526d65e0ee496a4f25c8d67398"
+    },
+    {
+      "path": "Artifacts/CITY-MAP-2026-10-21/native/1280x720-start-minimap.png",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "sha256": "b32fd2478b5d1e73d7cbbf5102d093a1be61e1aff09bf867ee98e0041e526d53"
+    },
+    {
+      "path": "Artifacts/CITY-MAP-2026-10-21/native/1600x900-M-city-hero-overlap.png",
+      "dimensions": [
+        1600,
+        900
+      ],
+      "sha256": "b9b988f5b7340d8e95a82fc8f74f9184991c4b4c3233986c548cb02a8d5ec683"
+    },
+    {
+      "path": "Artifacts/CITY-MAP-2026-10-21/native/1600x900-M-overview.png",
+      "dimensions": [
+        1600,
+        900
+      ],
+      "sha256": "e17ec07c1ca07078727282967a6ee1209dbddc6f65509be8c75465a980b31fb3"
+    },
+    {
+      "path": "Artifacts/CITY-MAP-2026-10-21/native/1600x900-M-reopened.png",
+      "dimensions": [
+        1600,
+        900
+      ],
+      "sha256": "39fc52203b36f7ff739ee1fd77274817d262a56423da7d03dc8ab423e8a5a708"
+    },
+    {
+      "path": "Artifacts/CITY-MAP-2026-10-21/native/1600x900-bearing-(-1.00, 0.00).png",
+      "dimensions": [
+        1600,
+        900
+      ],
+      "sha256": "6c07a54f286f32fb9d650f972d25e1c1092a3f34a034109dad084b5ab7d3c819"
+    },
+    {
+      "path": "Artifacts/CITY-MAP-2026-10-21/native/1600x900-bearing-(0.00, -1.00).png",
+      "dimensions": [
+        1600,
+        900
+      ],
+      "sha256": "1099c5bb6829f4f34e2a2aa15bbd3a1d4e833f4fe348e29d2a318853bf49afd0"
+    },
+    {
+      "path": "Artifacts/CITY-MAP-2026-10-21/native/1600x900-bearing-(0.00, 1.00).png",
+      "dimensions": [
+        1600,
+        900
+      ],
+      "sha256": "fab24956a4ecdc0301cc5124020156690f3b7ee7d19617ef1e2ac63d6bdbd93b"
+    },
+    {
+      "path": "Artifacts/CITY-MAP-2026-10-21/native/1600x900-bearing-(1.00, 0.00).png",
+      "dimensions": [
+        1600,
+        900
+      ],
+      "sha256": "2d5e04ba1fa3e2b07a380c01f67ca08843e94bcf0b88d3a781c35217c0c24f0d"
+    },
+    {
+      "path": "Artifacts/CITY-MAP-2026-10-21/native/1600x900-near-city-minimap.png",
+      "dimensions": [
+        1600,
+        900
+      ],
+      "sha256": "e1190c33b799e45afa3bf799d1205862a43a33e26fd7806e4622ea34bf3b24b2"
+    },
+    {
+      "path": "Artifacts/CITY-MAP-2026-10-21/native/1600x900-start-minimap.png",
+      "dimensions": [
+        1600,
+        900
+      ],
+      "sha256": "dbd7ae07a76f86a2e70fb9e586b2b4a1f699551fc5e0d78dc49bfe3f012c75d2"
+    },
+    {
+      "path": "Artifacts/CITY-MAP-2026-10-21/native/1920x1080-M-city-hero-overlap.png",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "sha256": "7c649c04f8c2e404aa6bae405edf3ff2d971c860f7eecf36ffe02490e5365018"
+    },
+    {
+      "path": "Artifacts/CITY-MAP-2026-10-21/native/1920x1080-M-overview.png",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "sha256": "1a6333d7dd5f3bbf1c3fc5a175c08f2184ec4034fee5ac5b9ec96140210ae7a5"
+    },
+    {
+      "path": "Artifacts/CITY-MAP-2026-10-21/native/1920x1080-M-reopened.png",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "sha256": "23088a66798d8c747b457e248d0202910dbf3772c787d84186513c036c294ca6"
+    },
+    {
+      "path": "Artifacts/CITY-MAP-2026-10-21/native/1920x1080-bearing-(-1.00, 0.00).png",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "sha256": "3ac16d56210ade6c15580b5080e7c67f7bd9476c47cbe79f7dd4f3a8e7b9c0eb"
+    },
+    {
+      "path": "Artifacts/CITY-MAP-2026-10-21/native/1920x1080-bearing-(0.00, -1.00).png",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "sha256": "94bcf3591ef244cfbae1a02acf21bac27fcf18fec73392246007c3224544b285"
+    },
+    {
+      "path": "Artifacts/CITY-MAP-2026-10-21/native/1920x1080-bearing-(0.00, 1.00).png",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "sha256": "26ee3c24ba76bc976fb53203a95ee1469160a1af79aeadfcb78545a2a8a293e5"
+    },
+    {
+      "path": "Artifacts/CITY-MAP-2026-10-21/native/1920x1080-bearing-(1.00, 0.00).png",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "sha256": "31a970a6f853856bb7f739c9bd7a6e913f5a90d8e31fec0b3e3f7647cc0ade28"
+    },
+    {
+      "path": "Artifacts/CITY-MAP-2026-10-21/native/1920x1080-near-city-minimap.png",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "sha256": "5815f1b1568860d4dfeacda4a92b50b82f8178d07f07e96aaf790e3a414f3538"
+    },
+    {
+      "path": "Artifacts/CITY-MAP-2026-10-21/native/1920x1080-start-minimap.png",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "sha256": "a09968b36cc0ad5eaf100bae5106492c2253b9866d49ea6464c32d0b6134a45a"
+    },
+    {
+      "path": "Artifacts/CITY-MAP-2026-10-21/native/clear-city-removes-marker.png",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "sha256": "248b2bf6c5d244503e1ac31d515c4e2034874e81806087bb4d776ada2352dfdb"
+    }
+  ],
+  "remaining": [
+    "Windows/Steam verification"
+  ],
+  "owner_caption_refinement": {
+    "request": "Remove Город and Вы здесь map captions, retain icons.",
+    "changes": [
+      "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Map.cs",
+      "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.CityMap.cs",
+      "Assets/Stage3/PlayerInterface/Runtime/Stage3CityMapReview.cs"
+    ],
+    "source_hashes": {
+      "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Map.cs": "2fe353f8c5e14f4d15a9e1bf1d1de4110cd117bee3301559a192f3c3a38da150",
+      "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.CityMap.cs": "dbcf73798e99cf2b00ee85c9e42a012baadb612001450e2e16d57e0d144c756c",
+      "Assets/Stage3/PlayerInterface/Runtime/Stage3CityMapReview.cs": "fb388c04502e7d300f0c512d13825150927c8bb4900bcb81547f7bd03f2dac1d"
+    },
+    "verification": "Fresh successful Mac build;28 native assertion frames, CityLargeMapLabelRect zero. Astra visual PASS6 overview/overlap frames at720/900/1080; actual m key ordinary screenshot confirms absence. Existing29 PlayMode gameplay outcomes remain prior baseline; label-only removal does not change those contracts.",
+    "frames": [
+      {
+        "path": "Artifacts/CITY-MAP-2026-10-21/without-labels/native/1280x720-M-city-hero-overlap.png",
+        "dimensions": [
+          1280,
+          720
+        ],
+        "sha256": "d235476b876599b7b2d4de01d0a0a70154a343f2c0856cb6dad42939b676c223"
+      },
+      {
+        "path": "Artifacts/CITY-MAP-2026-10-21/without-labels/native/1280x720-M-overview.png",
+        "dimensions": [
+          1280,
+          720
+        ],
+        "sha256": "8bad8a37312fa6bc8f932eff7337380dac19c835900d9fcbd8a3853578c7b6f6"
+      },
+      {
+        "path": "Artifacts/CITY-MAP-2026-10-21/without-labels/native/1280x720-M-reopened.png",
+        "dimensions": [
+          1280,
+          720
+        ],
+        "sha256": "b5cf8c79ffa867171753ee226e04dc7b6915b5d40b2c1ad42ad2fd6a42e1eb96"
+      },
+      {
+        "path": "Artifacts/CITY-MAP-2026-10-21/without-labels/native/1280x720-bearing-(-1.00, 0.00).png",
+        "dimensions": [
+          1280,
+          720
+        ],
+        "sha256": "73f75afb4e1a376981698f5dbe0f1d725d4607f6077ba18d6d711a5a8b87316c"
+      },
+      {
+        "path": "Artifacts/CITY-MAP-2026-10-21/without-labels/native/1280x720-bearing-(0.00, -1.00).png",
+        "dimensions": [
+          1280,
+          720
+        ],
+        "sha256": "f51eca3575186f6cf54a9efcfc43246abd0704ec32e35ba57a3d7ba6f5da13ff"
+      },
+      {
+        "path": "Artifacts/CITY-MAP-2026-10-21/without-labels/native/1280x720-bearing-(0.00, 1.00).png",
+        "dimensions": [
+          1280,
+          720
+        ],
+        "sha256": "689cb3368790a61a6c06ec36d554e21754560c2837ee74dc32bd3c403258aa91"
+      },
+      {
+        "path": "Artifacts/CITY-MAP-2026-10-21/without-labels/native/1280x720-bearing-(1.00, 0.00).png",
+        "dimensions": [
+          1280,
+          720
+        ],
+        "sha256": "e017645c567e4dd0aaa70038baa7da8db912f45ee31db7d36c7a1db76365275d"
+      },
+      {
+        "path": "Artifacts/CITY-MAP-2026-10-21/without-labels/native/1280x720-near-city-minimap.png",
+        "dimensions": [
+          1280,
+          720
+        ],
+        "sha256": "df6cc562297538c7faace9731bb3fb04ac3d056f58a54f22e8f4b0501f52c22c"
+      },
+      {
+        "path": "Artifacts/CITY-MAP-2026-10-21/without-labels/native/1280x720-start-minimap.png",
+        "dimensions": [
+          1280,
+          720
+        ],
+        "sha256": "7547fcd65ae4d39fd92d5203b497f5ff984bb8b1b0ef5774b2987091c098f478"
+      },
+      {
+        "path": "Artifacts/CITY-MAP-2026-10-21/without-labels/native/1600x900-M-city-hero-overlap.png",
+        "dimensions": [
+          1600,
+          900
+        ],
+        "sha256": "746f89ba3f0ac7463573b4cb864a9e6f38cef7188d9003f045c390fc5f8cc431"
+      },
+      {
+        "path": "Artifacts/CITY-MAP-2026-10-21/without-labels/native/1600x900-M-overview.png",
+        "dimensions": [
+          1600,
+          900
+        ],
+        "sha256": "0777d7b2cc56908d9410eb30f7d45296a5066fa613edae1b31416c0a06047038"
+      },
+      {
+        "path": "Artifacts/CITY-MAP-2026-10-21/without-labels/native/1600x900-M-reopened.png",
+        "dimensions": [
+          1600,
+          900
+        ],
+        "sha256": "275e8c9ed6584d9c9d3310e112cf04e61332c68110a17e50b5964bf87ac23a35"
+      },
+      {
+        "path": "Artifacts/CITY-MAP-2026-10-21/without-labels/native/1600x900-bearing-(-1.00, 0.00).png",
+        "dimensions": [
+          1600,
+          900
+        ],
+        "sha256": "2c95af159fe8bb3cdf173a8d8d623bb378ea254a20ba5ed310b03de4d0fded84"
+      },
+      {
+        "path": "Artifacts/CITY-MAP-2026-10-21/without-labels/native/1600x900-bearing-(0.00, -1.00).png",
+        "dimensions": [
+          1600,
+          900
+        ],
+        "sha256": "75f27e592182ec1b0c8fc559f701148e8ea1c7a25c11a5ae6095b281796f1118"
+      },
+      {
+        "path": "Artifacts/CITY-MAP-2026-10-21/without-labels/native/1600x900-bearing-(0.00, 1.00).png",
+        "dimensions": [
+          1600,
+          900
+        ],
+        "sha256": "256cc944e7f4f9f08878358db0f97a28669cb803f011d863dcfb3747b6430334"
+      },
+      {
+        "path": "Artifacts/CITY-MAP-2026-10-21/without-labels/native/1600x900-bearing-(1.00, 0.00).png",
+        "dimensions": [
+          1600,
+          900
+        ],
+        "sha256": "ec350d643effcb84e8736b00b0ed228ecbb72a44d6c77b11656f843e5335a881"
+      },
+      {
+        "path": "Artifacts/CITY-MAP-2026-10-21/without-labels/native/1600x900-near-city-minimap.png",
+        "dimensions": [
+          1600,
+          900
+        ],
+        "sha256": "3adf56f933305fad9f7e431c4bc70b3c4801604bf749f4ed0f2b2f4c3f1e9f9e"
+      },
+      {
+        "path": "Artifacts/CITY-MAP-2026-10-21/without-labels/native/1600x900-start-minimap.png",
+        "dimensions": [
+          1600,
+          900
+        ],
+        "sha256": "b88340513c8eadc93c3ae15120c0e1b45b7f5a6685d3b045506ed70d4f4c83c4"
+      },
+      {
+        "path": "Artifacts/CITY-MAP-2026-10-21/without-labels/native/1920x1080-M-city-hero-overlap.png",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "aee8684dca2d90ee5653ee1bf5a13640f7f1246b0384d71d4d1dfbe01261f98d"
+      },
+      {
+        "path": "Artifacts/CITY-MAP-2026-10-21/without-labels/native/1920x1080-M-overview.png",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "17bb812659d6b5ea2d9fea295520575bd49b13fe71279466e1a52f6c858ded26"
+      },
+      {
+        "path": "Artifacts/CITY-MAP-2026-10-21/without-labels/native/1920x1080-M-reopened.png",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "0afb9deae6b9b4f0038ea2a67bf6ee75d5dd9353d08f3f6d3866ef0c2270bd0b"
+      },
+      {
+        "path": "Artifacts/CITY-MAP-2026-10-21/without-labels/native/1920x1080-bearing-(-1.00, 0.00).png",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "269b9e4289a8a0fa0b758343e5a93924e1cdc5425d66143888542e40893872ac"
+      },
+      {
+        "path": "Artifacts/CITY-MAP-2026-10-21/without-labels/native/1920x1080-bearing-(0.00, -1.00).png",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "63c0bdfbf112df522c181fe8d33d9af29ec2c1b14f3c0fa50c785816018df281"
+      },
+      {
+        "path": "Artifacts/CITY-MAP-2026-10-21/without-labels/native/1920x1080-bearing-(0.00, 1.00).png",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "3bac7dce2fc6ff8a0a1bb7e24367908c7016eaa805c8a18c036e855d34a77b70"
+      },
+      {
+        "path": "Artifacts/CITY-MAP-2026-10-21/without-labels/native/1920x1080-bearing-(1.00, 0.00).png",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "7cfffbb4240a682cdbe9969f6e68f372f8e0eda0d051ca95a43b0ced93565ce9"
+      },
+      {
+        "path": "Artifacts/CITY-MAP-2026-10-21/without-labels/native/1920x1080-near-city-minimap.png",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "e959071bcd8e552f4db42d8ed4f7dcc7c2a16434747d076a7260d937b1f8de79"
+      },
+      {
+        "path": "Artifacts/CITY-MAP-2026-10-21/without-labels/native/1920x1080-start-minimap.png",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "e96a94f30facce922082ef7dfe5552ddafd2aa62ef034548132e666b17ae382b"
+      },
+      {
+        "path": "Artifacts/CITY-MAP-2026-10-21/without-labels/native/clear-city-removes-marker.png",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "d5511bdc0e6548a67d03e76620a822e389dba4f5c394d4ce74eee1e7a82a18b1"
+      }
+    ],
+    "ordinary_image": "Artifacts/CITY-MAP-2026-10-21/without-labels/ordinary-M.png",
+    "logs": [
+      "Artifacts/CITY-MAP-2026-10-21/without-labels/build.log",
+      "Artifacts/CITY-MAP-2026-10-21/without-labels/native-player.log",
+      "Artifacts/CITY-MAP-2026-10-21/without-labels/ordinary-player.log"
+    ],
+    "new_attributable_errors": 0,
+    "red_points": "Individual live world orc/ogre and portal-horde enemies; not static camp markers.",
+    "remaining": [
+      "Windows/Steam verification"
+    ]
+  }
+}

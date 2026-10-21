@@ -6,6 +6,7 @@ using UnityEngine;
 namespace Not3A.Stage2.Economy
 {
     public enum ProductionPlacementResult { NotPlacing, Ready, Built, Inactive, InvalidPoint, WrongType, Occupied, HeroBlocked, InsufficientResources, MissingVisual, InvalidFootprint }
+    public enum ProductionUpgradeResult { Ready, Upgraded, Inactive, InvalidBuilding, MaximumLevel, InsufficientResources }
     public sealed class Stage2ProductionBuilding
     {
         internal Stage2ProductionBuilding(int pointIndex, Stage2ProductionEntry entry, Rect footprint)
@@ -13,6 +14,9 @@ namespace Not3A.Stage2.Economy
         public int PointIndex { get; }
         public Stage2ProductionEntry Entry { get; }
         public Rect Footprint { get; }
+        public int Level { get; internal set; } = 1;
+        public int OutputAmount => Entry.OutputForLevel(Level);
+        public float IntervalSeconds => Entry.IntervalSeconds;
         public double ProgressSeconds { get; internal set; }
     }
 
@@ -31,8 +35,9 @@ namespace Not3A.Stage2.Economy
             internal readonly int Point;
             internal readonly ResourceProductionBuilding Kind;
             internal readonly double Progress;
+            internal readonly int Level;
             internal BuildingState(Stage2ProductionBuilding building)
-            { Point = building.PointIndex; Kind = building.Entry.Building; Progress = building.ProgressSeconds; }
+            { Point = building.PointIndex; Kind = building.Entry.Building; Progress = building.ProgressSeconds; Level = building.Level; }
         }
         private readonly Stage2ProductionCatalog catalog;
         private readonly Stage2Inventory inventory;
@@ -66,7 +71,7 @@ namespace Not3A.Stage2.Economy
             {
                 var entry = catalog.Get(saved.Kind);
                 buildings.Add(new Stage2ProductionBuilding(saved.Point, entry, Footprint(saved.Point, entry))
-                    { ProgressSeconds = saved.Progress });
+                    { ProgressSeconds = saved.Progress, Level = saved.Level });
             }
         }
         public void SetActive(bool value) => active = value;
@@ -78,6 +83,28 @@ namespace Not3A.Stage2.Economy
         }
         public void Reset() => buildings.Clear();
         public bool IsOccupied(int index) { foreach (var building in buildings) if (building.PointIndex == index) return true; return false; }
+        public ProductionUpgradeResult EvaluateUpgrade(Stage2ProductionBuilding building)
+        {
+            if (!active || purchasing) return ProductionUpgradeResult.Inactive;
+            if (building == null || !buildings.Contains(building)) return ProductionUpgradeResult.InvalidBuilding;
+            if (!building.Entry.TryGetUpgrade(building.Level, out var upgrade)) return ProductionUpgradeResult.MaximumLevel;
+            return inventory.CanAfford(upgrade.cost) ? ProductionUpgradeResult.Ready : ProductionUpgradeResult.InsufficientResources;
+        }
+        public ProductionUpgradeResult TryUpgrade(Stage2ProductionBuilding building)
+        {
+            var result = EvaluateUpgrade(building);
+            if (result != ProductionUpgradeResult.Ready) return result;
+            purchasing = true;
+            try
+            {
+                building.Entry.TryGetUpgrade(building.Level, out var upgrade);
+                if (!inventory.TrySpend(upgrade.cost)) return ProductionUpgradeResult.InsufficientResources;
+                building.Level++;
+                // Same interval/progress/visual/footprint. An upgrade never ticks production.
+                return ProductionUpgradeResult.Upgraded;
+            }
+            finally { purchasing = false; }
+        }
         public Rect Footprint(int index, Stage2ProductionEntry entry) => new Rect(points[index].Position - entry.FootprintSize * .5f, entry.FootprintSize);
         public ProductionPlacementResult Evaluate(int index, ResourceProductionBuilding kind, Vector2 hero, float radius)
         {
@@ -130,11 +157,11 @@ namespace Not3A.Stage2.Economy
             {
                 var entry = building.Entry;
                 var total = building.ProgressSeconds + elapsed;
-                var cycles = Math.Floor(total / entry.IntervalSeconds);
-                building.ProgressSeconds = total % entry.IntervalSeconds;
+                var cycles = Math.Floor(total / building.IntervalSeconds);
+                building.ProgressSeconds = total % building.IntervalSeconds;
                 if (cycles < 1) continue;
                 var space = int.MaxValue - inventory.Get(entry.Resource);
-                var produced = (int)Math.Min(space, cycles * entry.OutputAmount);
+                var produced = (int)Math.Min(space, cycles * building.OutputAmount);
                 if (produced > 0) inventory.TryAdd(entry.Resource, produced);
                 // Overflow output is discarded; it cannot turn into a deferred burst later.
             }

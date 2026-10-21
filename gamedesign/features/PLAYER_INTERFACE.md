@@ -1,4 +1,174 @@
+# D-107 current upperHUD override — approved2026-10-20
+
+D113 current override: no offscreen city pointer on minimap. Only a local city
+icon, while M remains a known city/hero icon without captions. Analog clock is
+120px at900p with a brighter original hand and unchanged10:3 timing. Starter
+teleport record is clearly labelled in workshop; study opens a Base build card,
+using existing approved artwork and UI stack.
+
+
+D112: city landmark uses existing painted house/ivory-plum marker, no «Город»/«Вы здесь» captions on M after owner refinement and a rim direction on local minimap when outside its crop. First M zoom fits the entire map; reopening retains player zoom/pan. Reuses existing gesture/input stack; no map-click travel. Main marker lifecycle, Astra native presentation. Mac qualification:29 distinct latest PlayMode PASS,28 native frames at720/900/1080 and ordinary M input; Windows unverified. Evidence: art/source/city_map_2026-10-21_verification.json.
+
+
+D111 latest owner correction: the small world notice board is decoration only,
+placed substantially farther right of the guild door with a free approach,
+smaller and muted to avoid attracting attention. Click the guild BUILDING
+to open the contract-board window; local actions use GuildInteractionPosition.
+
+
+D111 implementation update,2026-10-21: approved Guild board native window opens from outdoor city board. Physical rank seals F…S, personal badge and three successes, pinned order papers/location/reward, detail and contextual accept/in-progress/claim action. Two visible papers scroll for further orders/trial; preview never accepts. Actions require nearby board; no new hotkey. Both city guild and open temple portal court retained. Astra owns native visuals; main binds guild state. Local qualification in art/source/guild_2026-10-21_verification.json.
+
+
+Replaces floating resource/HH:MM corner cards with shaped upperedgeHUD: compact
+resourcesleft, daycount/developmentF3right, small whole analogdial centered.
+Thin cornice and tapered/concave bridges leave world visible between groups.
+Owner approved v2silhouette and A smoke-glass v7. Abstractgreyolive/ivory day,
+nearblack/darkbloodredmiasma night, broadsoftfade, no piechart divider/pictures.
+Normal-time day10min/night3:night3/13circle≈83°, day277°, dawnat3o'clock,
+continuous clockwisehand. Main supplies Run.DayNightCycleProgress and phase
+through readonlyHUDdelegates; Astra draws native assets in existingUIstack.
+Pause/sleep/debuglaunch/retry/reset follow world clock, no separate HUDtimer.
+Existing fullscreen navigation/trade-onlygold/mousehitregions must remain.
+Qualified2026-10-21:36EditMode+75sharedPlayMode PASS,25nativephase/UIframes
+AstraPASS; actual ordinary F3 keyboard toggles. Windows/mouse clicks not claimed.
+Sourceart/source/cycle_top_hud_2026-10-20_generation.json; evidence
+art/source/cycle_top_hud_2026-10-21_verification.json.
+
 # Feature: Player Interface
+
+## D-110: physical guild board — active appearance concepts
+
+Owner replaces the temple/elder quest UI with a fullscreen physical contract
+board: dark wood/brass, pinned paper orders, location/reward, personal guild
+badge and engraved rank-board filters F/E/D/C/B/A/S. Current rank F plus three
+successful same-rank orders opens ONE next-rank trial; new rank/full board only
+after passing it. This page is deliberately material/world-like, replacing the
+rejected plain-form proposal. Existing other fullscreen interfaces remain current.
+OBJECTIVES.md owns accepted rules and open gameplay details. Main generates,
+Astra directs/reviews the appearance; no native UI or quest binding added yet.
+
+## D-109: temple NPC quest window — superseded by D110
+
+Clicking the temple mage is intended to open a fullscreen quest-selection window
+matching the current Lunar Porcelain style. V1 proposes equal orc/ogre quest
+cards left, selected objective/place/action right and compact mage portrait in
+the header. Familiar navigation/Esc, no new quest shortcut, wallet, rewards or
+numeric targets in this sketch. The NPC and its courtyard placement are already
+approved. OBJECTIVES.md owns the active concept/remaining gameplay brief;
+art/source/temple_quests_2026-10-21_generation.json records source and review.
+No native UI or quest input binding is added yet.
+
+## D-103: live vitals and Blink facts
+
+Existing approved HP/MP tracks now show actual numeric current/maximum values
+and fractions from HeroProgression: initially100/100 each. HP recovers1/s and
+MP5/s during active simulation. The inactive0/0 fallback remains only without
+a progression source. Existing ruby/cyan artwork, geometry and XP track remain.
+Blink rank rows show actual mana/cooldown; the current HUD tooltip reflects
+effective0MP/0s during Debug WTF. Cooldown ring uses the duration of the actual
+cast, even if the rank changes. Astra owns these presentation changes.
+Verification: art/source/hero_vitals_2026-10-20_verification.json.
+
+## D-100: fullscreen merchant — implemented and locally qualified
+
+Clicking the city shop opens the owner-approved dual-inventory Lunar Porcelain
+layout: player's bag left, merchant stock right, compact portraits and a central
+selected-item panel with stats, price and one contextual Buy/Sell action.
+Six columns and independent scrolling on both sides retain large grids; use
+current D097 actual painted skins and shared visible-silhouette safe fitting,
+with cyan selection separate from quality. Existing global tabs/Esc remain;
+the trade wallet shows gold only, hiding wood/stone/metal. Footer returns to city.
+
+UI only sends selected side/instance ID; binding supplies both current views,
+prices, balance and action availability. Equipped items never appear in sale bag.
+No selected/empty/unfunded/far state must trigger a transaction. Failures explain
+why the action is disabled. Navigation/close consumes input; no remote shop button
+or automatic pause. World threats/time continue while modal blocks hero/build
+input. Actual local transaction/lifetime rules belong to CITY_AND_TRADE.
+
+No new PNG required: current item atlases/painted skins, existing hero portrait,
+city merchant head crop and painted scales badge supply the appearance. Native
+review PASS on21frames at720/900/1080 covers buy/sell/unfunded/far/empty/scroll
+and gold-only wallet. Round masks and pixel-safe five-row viewport repair the
+initial portrait/scroll defects.41/41 focused PlayMode and actual mouse buy/sell
+pass; Windows unverified. Evidence: art/source/merchant_2026-10-20_verification.json.
+
+## D-099: shared teleport destination menu — implemented and locally qualified
+
+Clicking an available nearby travel circle opens the same menu at base, city
+and future opened world points. Existing E opens this same menu, replacing the
+instant counterpart hop. Opening/closing never travels by itself.
+Travel gates, discovery, free same-world movement and arrival validation belong
+to WORLD_TELEPORTS.md; enemy-invasion gate controls remain separate.
+
+The approved ImageGen reference uses a centred Lunar Porcelain panel over subdued
+world context, plum header «Телепорты»/«Esc · Закрыть», no gameplay HUD/resource
+bar/global tabs. Two opened rows illustrate the initial scope: selected «База»
+has cyan selection, current «Город» has «Вы здесь». Right: selected point name,
+small arrival preview, route «Город → База», one «Телепортироваться» action.
+There are no invented locked towns, fees/currency/cooldown or extra controls.
+Further opened points extend the same list; there is no separate city-only menu.
+Selecting the current point disables travel with «Вы уже здесь». Revalidate
+eligibility on confirmation; consume the source click/E and require fresh input
+after arrival. No hidden map click or immediate second transition.
+
+Source: art/concepts/teleport_menu_2026-10-20/teleport_menu_v1.png; exact prompt,
+references, rights and Astra concept PASS:
+art/source/teleport_menu_2026-10-20_generation.json. Owner approved both appearances and requested implementation. Astra built native
+UI from existing Lunar Porcelain assets; main binds click/E to the same opened
+registry and revalidates confirmation. Five ImageGen runtime sources provide
+modular city sprites/paving and measured arrival illustrations; no concept
+screenshot is shipped as an interactive window. Normal gameplay remains live
+while modal UI blocks hero/build input. Native menu/network qualification passed:
+16/16 focused PlayMode,16 city/menu frames at720/900/1080p, actual mouse/E travel,
+Esc cancellation and current-location disabled action. Previews fit proportionally
+inside thin frames; current-location reasons stay inside the footer. Evidence:
+art/source/city_runtime_2026-10-20_verification.json; Windows unverified.
+
+## D-094: throne reinforcement uses the existing selected card
+
+The selected throne shows «УсиленияN/3», one current/max HP stat, live next price
+and HP result preserving existing damage (3/5→8/10). The existing Upgrade button
+pays once; after3upgrades it shows «Максимальное усиление» with no next price.
+Pause/modal/loss or missing materials/gold block the action. This uses the D078
+card above both regular and construction docks; no additional control/HP bar or
+cupola art change. Rules/retry: OBJECTIVES.md and STAGE2_RUN_STATE.md.
+
+## D-093: generator upgrades reuse the existing selected card
+
+No new window or visual layout: existing D078 card shows each generator's real
+level1–5, output per cycle, original interval and next output/whole resource+gold
+price. Its existing Upgrade action invokes the owned-instance transaction.
+At maximum the button is disabled with «Максимальный уровень» and no price;
+unfunded state explains «Недостаточно ресурсов». Card works above both regular
+and construction HUD. No generator sell/move/merge/Research action is added.
+World building art/footprint and tower-only LVL badges remain unchanged.
+Native appearance is reviewed by Astra using existing approved assets.
+
+## D-092: gathering professions inside fullscreen development
+
+Approved miner_v3/logger_v2 are implemented by Astra in native O inner tabs:
+«Боевые навыки» retains existing Blink/passives; «Профессии» shows independent
+miner/logger mastery/XP/points, three ranked talents, current→next actual harvest
+facts and the equipped tool. One action spends that profession's point. Tool
+quality/level never change from talent learning; forging stays in its service.
+HP/MP, main HUD, armor and global navigation remain unchanged. Data/upgrade
+validation belongs to gameplay binding, not OnGUI. No screenshot background
+is used: only eight owned ImageGen medallions are imported. See HERO_PROGRESSION
+and Stage3Professions data for rules/trial tuning; native QA is recorded in handoff.
+
+## D-087/D-088: daytime gates, time-only retry and dwelling Sleep
+
+Existing local interaction hint shows E at the invasion gate: open/close the
+last cleared threat tier, or explain first-victory/night lock. Gate control is
+local and respects modal/pause/debug/build-placement input blocks.
+The existing selected-house strip has a «Сон» action in its existing action
+slot, with the existing dwelling icon. No new window, layout or artwork.
+It uses the same dwelling rule as local E: near the entrance, outside any fight,
+advance to19:50. Its live disabled reason includes active enemies after closing
+the daytime gate. The defeat screen says progress is kept and a new preparation
+day begins; active Stage3 no longer promises to restore a full world snapshot.
+See PORTAL_CONTROL.md for rules and migration/qualification evidence.
 
 ## D-085: first hero-progression concepts approved, implementation active
 
@@ -317,7 +487,7 @@ Hovering/clicking the ribbon never pays or builds behind it; confirmation needs
 a fresh world click. Built workshop and home retain their one-instance rules.
 
 Keep useful local interaction hints, including E at the dwelling and workshop.
-The day-only dwelling skip contract from D-065 is unchanged.
+The dwelling rest behavior now follows D-088 above.
 
 The owner first asked to preserve the prototype minimap, then explicitly
 allowed complete redesign of both map and minimap. A future large world uses
@@ -335,8 +505,10 @@ fractures/whiteout cover every page and hide ordinary HUD, independent of camera
 position; simulation and world input stop, while the unscaled transition finishes.
 The lunar retry screen reads «Ещё одна попытка», «Вернитесь к подготовке и
 измените исход», «Повторить волну». Button and R become actionable only after
-the transition. They restore the pre-wave checkpoint and full preparation, close
-pages, clear effects/placements and require fresh E. See `STAGE2_RUN_STATE.md`.
+the transition. D-087 now keeps current world/hero progress, restores the throne,
+clears failed threats and returns morning with preparation for the same pending
+night tier. Pages/effects/placements clear and E requires release. The old full
+checkpoint remains only in legacy Stage2. See `PORTAL_CONTROL.md`.
 
 ## Appearance and prototype content
 
@@ -483,3 +655,27 @@ pressed and physical touch have no separate capture. The host has only the
 MacStandaloneSupport module, so current Windows build/runtime validation is
 degraded and the older D-068 Windows evidence does not validate this revision.
 Current evidence: art/source/fullscreen_interface_2026-10-18_verification.json.
+
+
+## D-089/D-090 item inventory and local forge
+
+Approved inventory/forge layouts now bind real item instances through the existing
+IMGUI fullscreen stack. Inventory has five combat slots and two tools; no shield
+or sword, short wand replaces staff. Actual owned items scroll without invented
+capacity. Right action equips/unequips the selected instance; level/quality/stats
+come from equipment data. Armor explicitly says hero protection is not opened.
+Construction Base has third Forge card; blueprint remains in world. Local E or
+selected Forge card opens the service, with neutral global tabs and Esc-only
+footer. Create/Level/Reforge show current/outcome, actual cost and active cap;
+quality reforge retains numerical level. SSS is ultra-rare loot only. Selected
+building strip shows stage/cap/scroll count, disabled upgrade reason without a
+special scroll and Open Forge action. No new global hotkey/window for building.
+Astra owns approved presentation and world/held-weapon art; main owns validated
+binding and rules. See EQUIPMENT_AND_RUNES and runtime provenance.
+
+
+D-091 correction (2026-10-20): bag grid excludes every equipped item. Slots
+and right details use the same full owned instance lookup, so inspecting an
+already equipped item still works. Equip/replace/unequip immediately updates
+both views; all three starter items leave the initial bag empty. Empty bag
+means no spare items, not no owned equipment. No capacity/drop change.

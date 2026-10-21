@@ -89,6 +89,92 @@ namespace Not3A.Stage3.PlayerInterface
                 yield break;
             }
             var walkDirectory = Environment.GetEnvironmentVariable("NOT3A_WALK_PROFILE_DIRECTORY");
+            var campDirectory=Environment.GetEnvironmentVariable("NOT3A_CAMP_CAPTURE_DIRECTORY");
+            if(!Application.isBatchMode&&Debug.isDebugBuild&&!string.IsNullOrWhiteSpace(campDirectory)&&Path.IsPathFullyQualified(campDirectory))
+            {yield return Stage3CampReview.Capture(gameObject,campDirectory);yield break;}
+            var iterationDirectory=Environment.GetEnvironmentVariable("NOT3A_ITERATION_CAPTURE_DIRECTORY");
+            if(!Application.isBatchMode&&Debug.isDebugBuild&&!string.IsNullOrWhiteSpace(iterationDirectory)&&Path.IsPathFullyQualified(iterationDirectory))
+            {yield return Stage3IterationReview.Capture(gameObject,iterationDirectory);yield break;}
+            var cityMapDirectory=Environment.GetEnvironmentVariable("NOT3A_CITY_MAP_CAPTURE_DIRECTORY");
+            if(!Application.isBatchMode&&Debug.isDebugBuild&&!string.IsNullOrWhiteSpace(cityMapDirectory)&&Path.IsPathFullyQualified(cityMapDirectory))
+            {yield return Stage3CityMapReview.Capture(gameObject,cityMapDirectory);yield break;}
+            var guildDirectory=Environment.GetEnvironmentVariable("NOT3A_GUILD_CAPTURE_DIRECTORY");
+            if(!Application.isBatchMode&&Debug.isDebugBuild&&!string.IsNullOrWhiteSpace(guildDirectory)&&Path.IsPathFullyQualified(guildDirectory))
+            {yield return Stage3GuildReview.Capture(gameObject,guildDirectory);yield break;}
+            var cycleDirectory=Environment.GetEnvironmentVariable("NOT3A_CYCLE_HUD_CAPTURE_DIRECTORY");
+            if(!Application.isBatchMode&&Debug.isDebugBuild&&!string.IsNullOrWhiteSpace(cycleDirectory)&&Path.IsPathFullyQualified(cycleDirectory))
+            {yield return Stage3CycleReview.Capture(gameObject,cycleDirectory);yield break;}
+            var recoveryDirectory=Environment.GetEnvironmentVariable("NOT3A_HERO_RECOVERY_CAPTURE_DIRECTORY");
+            if(!Application.isBatchMode&&Debug.isDebugBuild&&!string.IsNullOrWhiteSpace(recoveryDirectory)&&Path.IsPathFullyQualified(recoveryDirectory))
+            {yield return Stage3RecoveryReview.Capture(gameObject,recoveryDirectory);yield break;}
+            var vitalsDirectory=Environment.GetEnvironmentVariable("NOT3A_HERO_VITALS_CAPTURE_DIRECTORY");
+            if(!Application.isBatchMode&&Debug.isDebugBuild&&!string.IsNullOrWhiteSpace(vitalsDirectory)&&Path.IsPathFullyQualified(vitalsDirectory))
+            {yield return Stage3HeroVitalsReview.Capture(gameObject,vitalsDirectory);yield break;}
+            var blueprintDirectory=Environment.GetEnvironmentVariable("NOT3A_BLUEPRINT_CAPTURE_DIRECTORY");
+            if(!Application.isBatchMode&&Debug.isDebugBuild&&!string.IsNullOrWhiteSpace(blueprintDirectory)&&Path.IsPathFullyQualified(blueprintDirectory))
+            {yield return Stage3BlueprintReview.Capture(gameObject,blueprintDirectory);yield break;}
+            var merchantDirectory=Environment.GetEnvironmentVariable("NOT3A_MERCHANT_CAPTURE_DIRECTORY");
+            if(!Application.isBatchMode&&Debug.isDebugBuild&&!string.IsNullOrWhiteSpace(merchantDirectory)&&Path.IsPathFullyQualified(merchantDirectory))
+            {yield return Stage3MerchantReview.Capture(gameObject,merchantDirectory);yield break;}
+            var cityDirectory=Environment.GetEnvironmentVariable("NOT3A_CITY_TELEPORT_CAPTURE_DIRECTORY");
+            if(!Application.isBatchMode&&Debug.isDebugBuild&&!string.IsNullOrWhiteSpace(cityDirectory)&&Path.IsPathRooted(cityDirectory))
+            {yield return Stage3CityTeleportReview.Capture(gameObject,cityDirectory);yield break;}
+            var safeAreaDirectory = Environment.GetEnvironmentVariable("NOT3A_ITEM_SAFE_AREA_CAPTURE_DIRECTORY");
+            if (Debug.isDebugBuild && !Application.isBatchMode && !string.IsNullOrWhiteSpace(safeAreaDirectory) &&
+                Path.IsPathFullyQualified(safeAreaDirectory))
+            {
+                yield return Stage3ItemIconSafeAreaReview.Capture(gameObject, safeAreaDirectory);
+                yield break;
+            }
+            var itemQualityDirectory = Environment.GetEnvironmentVariable("NOT3A_ITEM_QUALITY_CAPTURE_DIRECTORY");
+            if (Debug.isDebugBuild && !Application.isBatchMode && !string.IsNullOrWhiteSpace(itemQualityDirectory) &&
+                Path.IsPathFullyQualified(itemQualityDirectory))
+            {
+                yield return Stage3ItemQualityReview.Capture(gameObject, itemQualityDirectory);
+                yield break;
+            }
+            var throneUpgradeDirectory = Environment.GetEnvironmentVariable("NOT3A_THRONE_UPGRADE_CAPTURE_DIRECTORY");
+            if (Debug.isDebugBuild && !Application.isBatchMode && !string.IsNullOrWhiteSpace(throneUpgradeDirectory) &&
+                Path.IsPathFullyQualified(throneUpgradeDirectory))
+            {
+                yield return Stage3ThroneUpgradeReview.Capture(gameObject, throneUpgradeDirectory);
+                yield break;
+            }
+            var productionUpgradeDirectory = Environment.GetEnvironmentVariable("NOT3A_PRODUCTION_UPGRADE_CAPTURE_DIRECTORY");
+            if (Debug.isDebugBuild && !Application.isBatchMode && !string.IsNullOrWhiteSpace(productionUpgradeDirectory) &&
+                Path.IsPathFullyQualified(productionUpgradeDirectory))
+            {
+                yield return Stage3ProductionUpgradeReview.Capture(gameObject, productionUpgradeDirectory);
+                yield break;
+            }
+            var professionDirectory = Environment.GetEnvironmentVariable("NOT3A_PROFESSION_CAPTURE_DIRECTORY");
+            if (Debug.isDebugBuild && !Application.isBatchMode && !string.IsNullOrWhiteSpace(professionDirectory) &&
+                Path.IsPathFullyQualified(professionDirectory))
+            {
+                yield return Stage3ProfessionReview.Capture(gameObject, professionDirectory);
+                yield break;
+            }
+            var heldDirectory = Environment.GetEnvironmentVariable("NOT3A_HELD_EQUIPMENT_CAPTURE_DIRECTORY");
+            if (Debug.isDebugBuild && !Application.isBatchMode && !string.IsNullOrWhiteSpace(heldDirectory) &&
+                Path.IsPathFullyQualified(heldDirectory))
+            {
+                yield return Stage3HeldEquipmentReview.Capture(gameObject, heldDirectory);
+                yield break;
+            }
+            var equipmentDirectory = Environment.GetEnvironmentVariable("NOT3A_EQUIPMENT_FORGE_CAPTURE_DIRECTORY");
+            if (Debug.isDebugBuild && !Application.isBatchMode && !string.IsNullOrWhiteSpace(equipmentDirectory) &&
+                Path.IsPathFullyQualified(equipmentDirectory))
+            {
+                yield return Stage3EquipmentForgeReview.Capture(gameObject, equipmentDirectory);
+                yield break;
+            }
+            var gateDirectory = Environment.GetEnvironmentVariable("NOT3A_GATE_CYCLE_CAPTURE_DIRECTORY");
+            if (Debug.isDebugBuild && !Application.isBatchMode && !string.IsNullOrWhiteSpace(gateDirectory) &&
+                Path.IsPathFullyQualified(gateDirectory))
+            {
+                yield return Stage3GateCycleReview.Capture(gameObject, gateDirectory);
+                yield break;
+            }
             var progressionDirectory = Environment.GetEnvironmentVariable("NOT3A_HERO_PROGRESSION_CAPTURE_DIRECTORY");
             if (Debug.isDebugBuild && !Application.isBatchMode && !string.IsNullOrWhiteSpace(progressionDirectory) &&
                 Path.IsPathFullyQualified(progressionDirectory))

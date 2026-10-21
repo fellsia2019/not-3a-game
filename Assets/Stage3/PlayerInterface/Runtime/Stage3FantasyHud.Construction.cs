@@ -31,7 +31,8 @@ namespace Not3A.Stage3.PlayerInterface
         }
         public Rect BuildChoiceRect(int index)
         {
-            var count=buildGroup==0?Mathf.Max(1,game?.Building?.Defense?.RoleCount??3):buildGroup==1?Mathf.Max(1,game?.Production?.Catalog?.Entries.Count??3):2;
+            var count=buildGroup==0?Mathf.Max(1,game?.Building?.Defense?.RoleCount??3):buildGroup==1?Mathf.Max(1,game?.Production?.Catalog?.Entries.Count??3):
+                2+(game?.GetComponent<Stage3Forge>()?.Catalog!=null?1:0)+(game?.GetComponent<Stage3WorldTravel>()?.IsResearched==true?1:0);
             var r=ConstructionContentRect;var total=r.width*.68f-16f*UiScale;var width=(total-(count-1)*8f*UiScale)/count;
             return new Rect(r.x+index*(width+8f*UiScale),r.y+44f*UiScale,width,r.height-44f*UiScale);
         }
@@ -52,9 +53,22 @@ namespace Not3A.Stage3.PlayerInterface
                 if(Button(box,"",card.Selected,card.Enabled)) {inspectedBuildIndex=i;card.Select?.Invoke();}
                 var safe=ButtonContentRect(box);var iconSide=Mathf.Min(38f*s,safe.width*.30f);
                 var color=GUI.color; if(!card.Enabled) GUI.color=new Color(.65f,.65f,.65f,.8f);
-                DrawIcon(new Rect(safe.x,safe.y,iconSide,iconSide),card.Icon);GUI.color=color;
-                FitPaleLabel(new Rect(safe.x+iconSide+5f*s,safe.y,safe.width-iconSide-5f*s,iconSide),card.Name,14);
-                FitPaleLabel(new Rect(safe.x,safe.yMax-20f*s,safe.width,20f*s),card.Price,12);
+                if(buildGroup==2&&cards.Count>=4)
+                {
+                    // Four base choices retain readable text inside the sculpted button endcaps.
+                    // Give the title the full width, rather than squeezing it beside the icon.
+                    var compactIcon=18f*s;
+                    DrawIcon(new Rect(safe.center.x-compactIcon*.5f,safe.y,compactIcon,compactIcon),card.Icon);GUI.color=color;
+                    PaleLabel(new Rect(safe.x,safe.y+19f*s,safe.width,20f*s),i==3?"Телепорт":card.Name,14,TextAnchor.MiddleCenter);
+                    var split=CompactBuildPrice(card.Price);
+                    PaleLabel(new Rect(safe.x,safe.yMax-32f*s,safe.width,32f*s),split,13,TextAnchor.MiddleCenter);
+                }
+                else
+                {
+                    DrawIcon(new Rect(safe.x,safe.y,iconSide,iconSide),card.Icon);GUI.color=color;
+                    FitPaleLabel(new Rect(safe.x+iconSide+5f*s,safe.y,safe.width-iconSide-5f*s,iconSide),card.Name,14);
+                    FitPaleLabel(new Rect(safe.x,safe.yMax-20f*s,safe.width,20f*s),card.Price,12);
+                }
                 if(box.Contains(Event.current.mousePosition)) inspectedBuildIndex=i;
             }
             if(cards.Count==0) return;
@@ -70,7 +84,7 @@ namespace Not3A.Stage3.PlayerInterface
 
         private List<BuildCard> GetBuildCards()
         {
-            var result=new List<BuildCard>(3);
+            var result=new List<BuildCard>(4);
             if(game==null||legacyHud==null) return result;
             var canAct=!game.RunDriver.Run.IsPaused&&!game.RunDriver.Run.IsTerminal&&!legacyHud.DebugOpen;
             if(buildGroup==0)
@@ -80,7 +94,7 @@ namespace Not3A.Stage3.PlayerInterface
                 {
                     var index=i;var entry=defense.GetCatalog(i);
                     result.Add(new BuildCard {Name=entry.RoleName, Price=BuildPrice(entry.WoodCost,entry.StoneCost,entry.MetalCost,entry.GoldCost),
-                        Detail=entry.CanAttack?"На серой дороге":"Преграда · без атаки",Icon=art!=null&&art.defenseIcons!=null&&i<art.defenseIcons.Length?art.defenseIcons[i]:null,
+                        Detail=!defense.IsRoleAvailable(i)?"Изучите чертёж в мастерской":entry.CanAttack?"На серой дороге":"Преграда · без атаки",Icon=art!=null&&art.defenseIcons!=null&&i<art.defenseIcons.Length?art.defenseIcons[i]:null,
                         Enabled=canAct&&legacyHud.CanSelectTower(i),Selected=defense.IsPlacing&&defense.SelectedRoleIndex==i,Select=()=>legacyHud.SelectTower(index)});
                 }
             }
@@ -101,7 +115,19 @@ namespace Not3A.Stage3.PlayerInterface
                 result.Add(new BuildCard {Name="Мастерская",Price=legacyHud.WorkshopStatus==Stage2WorkshopBuildStatus.Built?"Построена":"Бесплатно",Icon=art?.workshopIcon,
                     Detail="На зелёной земле · исследование у мастерской",Enabled=canAct&&legacyHud.CanSelectWorkshop,Selected=legacyHud.WorkshopStatus==Stage2WorkshopBuildStatus.Placing,Select=legacyHud.SelectWorkshop});
                 result.Add(new BuildCard {Name="Жилище",Price=legacyHud.DwellingStatus==Stage2WorkshopBuildStatus.Built?"Построено":dwelling?.Catalog!=null?BuildPrice(dwelling.Catalog.woodCost,0,0,0):"—",Icon=art?.dwellingIcon,
-                    Detail="На зелёной земле · E у входа днём",Enabled=canAct&&legacyHud.CanSelectDwelling,Selected=legacyHud.DwellingStatus==Stage2WorkshopBuildStatus.Placing,Select=legacyHud.SelectDwelling});
+                    Detail=game.RunDriver.Run.UsesDaytimeGates?"На зелёной земле · сон до начала ночи":"На зелёной земле · E у входа днём",Enabled=canAct&&legacyHud.CanSelectDwelling,Selected=legacyHud.DwellingStatus==Stage2WorkshopBuildStatus.Placing,Select=legacyHud.SelectDwelling});
+                var forge=game.GetComponent<Stage3Forge>();
+                if(forge!=null&&forge.Catalog!=null)
+                {
+                    var cost=forge.Catalog.BuildCost;
+                    result.Add(new BuildCard {Name="Кузница",Price=forge.IsBuilt?"Построена":BuildPrice(cost.Wood,cost.Stone,cost.Metal,0),Icon=forge.Art?.worldSprite,
+                        Detail="На зелёной земле · E у входа · ковка предметов",Enabled=canAct&&forge.CanBeginPlacement,Selected=forge.IsPlacing,Select=forge.BeginPlacement});
+                }
+                var travel=game.GetComponent<Stage3WorldTravel>();
+                if(travel!=null&&travel.IsResearched)
+                    result.Add(new BuildCard {Name="Круг телепортации",Price=travel.BaseBuilt?"Построен":"Бесплатно",Icon=art?.teleportIcon,
+                        Detail="На зелёной земле · переходы к открытым точкам",Enabled=canAct&&travel.CanBeginBaseCirclePlacement,
+                        Selected=travel.IsPlacingBaseCircle,Select=travel.BeginBaseCirclePlacement});
             }
             return result;
         }
@@ -112,6 +138,16 @@ namespace Not3A.Stage3.PlayerInterface
             void Add(int value,string label) {if(value<=0)return;if(price.Length>0)price+=" · ";price+=value+" "+label;}
             Add(gold,"зол.");Add(wood,"дер.");Add(stone,"кам.");Add(metal,"мет.");
             return price.Length==0?"Бесплатно":price;
+        }
+
+        private static string CompactBuildPrice(string price)
+        {
+            if(string.IsNullOrEmpty(price))return "";
+            price=price.Replace("дер.","дер").Replace("кам.","кам").Replace("мет.","мет").Replace("зол.","зол");
+            var first=price.IndexOf(" · ",StringComparison.Ordinal);
+            if(first<0)return price;
+            var second=price.IndexOf(" · ",first+3,StringComparison.Ordinal);
+            return second<0?price:price.Substring(0,second)+"\n"+price.Substring(second+3);
         }
     }
 }

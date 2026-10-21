@@ -10,5 +10,7 @@ namespace Not3A.Stage2.Integration
         private float stepMultiplier = 1.4f;
 
         public float StepMultiplier => Mathf.Clamp(stepMultiplier, 1.05f, 3f);
+        [SerializeField,Range(1f,5f)] private float maximumDistanceMultiplier=2f;
+        public float MaximumDistanceMultiplier=>Mathf.Clamp(maximumDistanceMultiplier,1f,5f);
     }
 }

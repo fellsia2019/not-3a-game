@@ -1,0 +1,9 @@
+Use case: compositing
+Asset type: production sprite atlas derived from OWNER-APPROVED blueprint artwork, no redesign.
+Input image is supporting source: approved old-fantasy blueprint merchant concept. Extract/reconstruct ONLY its rectangular warm parchment ITEM ART into a clean transparent atlas with THREE equal square cells, ONE HORIZONTAL ROW. No UI/screenshot/frame/background/labels. Ideally1536x512canvas;3equal512pxslots.
+Cell1: tower-opening parchment with cyan four-point spark in upperleft.
+Cell2: wand-opening parchment with SAME cyan spark at SAME position.
+Cell3: forge-upgrade parchment with muted brass upward chevron in SAME upperleft. Recognisable forge furnace, chimney and anvil identical to approved source. Leave lower-right paper space blank for runtime target-stage numerals: DO NOT bake II/IIIorANYcharacters into this atlas.
+All3papers have EXACT SAME upright straight rectangular5:6silhouette/size, old aged ivory/amber colour/fibres/soft wear, plum-brown hand-drafted engineering ink with dimensional lines and tiny cyan accents, thin subtle shadow. Match approved source faithfully. No tilt/perspective/unfolded wings/curledcorner/rolledends/clips/white modern poster.
+Each entire paper including shadow must fit72%of its square slot height, centred horizontally AND vertically, at least14%transparent inset on ALL sides. Identical visible extent across3slots, no overlap between neighbours, no cut edges. Transparent background with real alpha; no black/checkerboard/solid matte or coloured fringe.
+No text, Roman numerals, rank letters, LVL, names, numbers, logos, cell borders or labels anywhere. Item drawings only. This is the same approved shell/category system, not new appearance options.

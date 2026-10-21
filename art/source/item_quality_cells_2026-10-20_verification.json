@@ -1,0 +1,254 @@
+{
+  "date": "2026-10-20",
+  "decision": "D-097",
+  "status": "Source-skin fidelity correction implemented and locally qualified; owner has not yet reviewed final runtime screenshot",
+  "authorization": "Owner explicitly rejects flat opaque runtime fills/thickgoldrails and requests one-for-one fidelity to the already approved64-cell ImageGen catalogue.",
+  "reference": "art/concepts/item_quality_cells_2026-10-20/all_equipment_qualities_v2.png",
+  "source": "art/concepts/item_quality_cells_2026-10-20/runtime/quality_skins_reference_v1.png",
+  "generation": "art/source/item_quality_cells_2026-10-20_skins_generation.json",
+  "prompt": "art/source/item_quality_cells_2026-10-20_skins_prompt.txt",
+  "implementation": {
+    "owner": "GPT-6 Astra visual implementation; main ImageGenassetpreparation, native QA/tests/docs",
+    "surfaces": [
+      "bag",
+      "loadout",
+      "item details/quality badge",
+      "forge source/result/owned chips/rank chain",
+      "actual profession tools",
+      "equipped weapon in HUD"
+    ],
+    "renderer": "One shared borrowed Resourcesatlas, measured Rect[8], complete painted gradient/engraved centre plus8frame patches, pixel-rounded shared edges. Explicit target+UVscrollclip and independentcyan selection preserved.",
+    "removed": "Proceduralflatcolorplates, syntheticgoldrails and generatedglintoverlay.",
+    "atlas": "Assets/Stage3/PlayerInterface/Resources/Stage3EquipmentQualitySkins.png",
+    "dimensions": [
+      1774,
+      887
+    ],
+    "guid": "7bb4e43a02bbf41abbf8435859eadd98",
+    "new_per_item_or_frame_texture_allocations": 0,
+    "texture_lifetime": "Resources owns the imported atlas; HUD cleanup resets its borrowed reference. CPUunreadable. No peritem textures.",
+    "rgba32_base_bytes_estimate": 6294152,
+    "performance_scope": "Bounded resource/source inspection, no profiler/FPS benchmark claimed.",
+    "wiring": "New narrow AssetPostprocessor/BuildAssets importer. No scene/Inspector/prefab/package/asmdef migration. Existing icon atlases/gameplay/stats/positions/input kept.",
+    "sha256": {
+      "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Quality.cs": "b488269ad01e42f817033fbbf6ca33473b72ebde37ef6b61f729e92453e1cf8c",
+      "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Equipment.cs": "0b6a999812cdeab3cd2fc4cd211846f3f4bbb66549a1075f63361ca6c80b230a",
+      "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Forge.cs": "34860573cf1528db9c8ba31c39f4f1bd07551b81b19a0acd1703deeaacf58d48",
+      "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Professions.cs": "88d1cdbf8e2117334a6bfdb0ad6a5c30960941a6104cf6dedb4c3135b7358bdf",
+      "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Dock.cs": "5e5efee0c0acadc1a1b286b2b832171b33c4a1ad5f3470112af3f78c56302214",
+      "Assets/Stage3/PlayerInterface/Editor/Stage3EquipmentQualityArtImporter.cs": "d636bc1cc8d15350e2831a547f9748f8bebb68db2a6161ef0ac20514d54b29ed",
+      "Assets/Stage3/PlayerInterface/Resources/Stage3EquipmentQualitySkins.png": "1540bf221d75cfeee61df1b4567b181bd1946a8ec3ef85269eccf25e4432f1fb"
+    }
+  },
+  "tests": {
+    "file": "Artifacts/S3-ITEM-QUALITY-REFERENCE-20261020/playmode.xml",
+    "platform": "PlayMode",
+    "total": 17,
+    "passed": 17,
+    "failed": 0,
+    "duration_seconds": 41.4896502,
+    "suites": [
+      "Stage3EquipmentForgeTests",
+      "Stage3HeldEquipmentTests",
+      "Stage3ProfessionTests",
+      "Stage3StartupTests"
+    ],
+    "scope": "Existing equip/bag/forge/heldtool/harvest/profession/retry/startup regressions, run after source-skin correction. No tests mirroring artwork."
+  },
+  "import": {
+    "result": "Succeeded",
+    "log": "Artifacts/S3-ITEM-QUALITY-REFERENCE-20261020/import.log",
+    "method": "Not3A.Stage3.PlayerInterface.Editor.Stage3EquipmentQualityArtImporter.BuildAssets"
+  },
+  "build": {
+    "result": "Succeeded",
+    "path": "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app",
+    "bytes": 644070019,
+    "host": "Mac/Metal",
+    "windows": "Unverified",
+    "log": "Artifacts/S3-ITEM-QUALITY-REFERENCE-20261020/build.log"
+  },
+  "native": {
+    "directory": "Artifacts/S3-ITEM-QUALITY-REFERENCE-20261020/native",
+    "fixture_frames": 27,
+    "resolutions": [
+      "1280x720",
+      "1600x900",
+      "1920x1080"
+    ],
+    "states_per_resolution": [
+      "inventoryD",
+      "inventoryC",
+      "inventoryS",
+      "inventorySSS",
+      "forgeD→C",
+      "forgeA→S",
+      "minerSSStool",
+      "loggerStool",
+      "HUDSSSbow"
+    ],
+    "fixture": "Existing opt-in Debug-only NOT3A_ITEM_QUALITY_CAPTURE_DIRECTORY: disposableQAgrants8ranks/mixedloadout/S+SSStools/5000funds/2QAforge scrolls, paidlegalforge and frozenclock. No real drop/scrollsource or merchantstock added.",
+    "astra_review": "Strict reference visualPASS all27frames. Texturedgradients/engraving visible, thin shaped rims, S amber/gold and SSS plumdepth/localgoldradiance. No flatplates/thickrails/seams/cutornaments/overlaps. D/C distinct, cyan separate.",
+    "main_review": "Direct native900inventorySSS/C and720forgeA→S compared with approvedboard and importedatlas. Texture/gradient and thin ornate gold preserved.",
+    "limitations": "Mac supplied-frames only. Engraving naturally loses fine detail in tiny HUDcells; rankhue/edge/radiance remain readable. Windows unverified."
+  },
+  "native_mouse": {
+    "method": "CUA actualmouse on final build",
+    "log": "Artifacts/S3-ITEM-QUALITY-REFERENCE-20261020/native.log",
+    "outcome": "SelectD→C then equipC id10; oldSSS21returnsbag,18instances unchanged. SelectSSSdetails. OpenlocalforgeE, dragscrollbar right, selectSSSchip; labels/ornaments clip correctly and reforging disabled atSSScap.",
+    "proofs": [
+      "Artifacts/S3-ITEM-QUALITY-REFERENCE-20261020/native/actual-mouse-equip-C.png",
+      "Artifacts/S3-ITEM-QUALITY-REFERENCE-20261020/native/actual-mouse-SSS-detail.png",
+      "Artifacts/S3-ITEM-QUALITY-REFERENCE-20261020/native/actual-mouse-forge-scroll.png",
+      "Artifacts/S3-ITEM-QUALITY-REFERENCE-20261020/native/actual-mouse-forge-SSS-selected.png"
+    ]
+  },
+  "ordinary_start": {
+    "qa_environment": false,
+    "running_session": 4357,
+    "log": "Artifacts/S3-ITEM-QUALITY-REFERENCE-20261020/normal-start.log",
+    "proof": "Artifacts/S3-ITEM-QUALITY-REFERENCE-20261020/normal-start.png",
+    "observed": "Normalhero,5gold/0materials, moving08:18clock, starterFbow with newtexturedskin; noQAgrants/frozenclock."
+  },
+  "console": {
+    "new_attributable_errors": 0,
+    "baseline": "Same unusedURPDOF/Panini strippedshader warnings as previous builds; licensingwarning did not block successful checks/build. No compiler/game exceptions."
+  },
+  "remaining": [
+    "Owner review of shown runtime appearance",
+    "Windows/Steam qualification",
+    "Merchant/city runtime remain separate; they must reuse accepted globalquality artwork"
+  ],
+  "superseded_procedural_attempt": {
+    "date": "2026-10-20",
+    "decision": "D-097",
+    "status": "Initial implementation locally qualified, then appearance rejected by owner; reference-fidelity correction active",
+    "authorization": "Owner requires quality background/border globally and approved final64-cell ImageGen catalogue: Во, это уже другое дело.",
+    "appearance": {
+      "approved_board": "art/concepts/item_quality_cells_2026-10-20/all_equipment_qualities_v2.png",
+      "generation": "art/source/item_quality_cells_2026-10-20_generation.json",
+      "ranks": [
+        "F",
+        "E",
+        "D",
+        "C",
+        "B",
+        "A",
+        "S",
+        "SSS"
+      ],
+      "palette": "F brown, E gray, D saturatedgreen, C royalblue, B purple, A red, S polishedgold, SSS radiantwhitegold. Dark S/SSS backing, localglints, sharp existing icons.",
+      "selection": "Cyan outer contour/corners remains separate from inner quality color.",
+      "empty_and_generic": "Empty slots and generic category icons neutral; future ungraded research scrolls neutral."
+    },
+    "implementation": {
+      "owner": "GPT-6 Astra visual Unity implementation; main nonvisual QA fixture, verification and docs",
+      "surfaces": [
+        "inventory bag",
+        "equipped loadout",
+        "selected item details and quality badge",
+        "forge source/result",
+        "forge owned-item chips and quality chain",
+        "actual miner/logger tool views",
+        "actual equipped weapon in HUD"
+      ],
+      "renderer": "Shared Stage3FantasyHud.Quality; lazy8textures of128x128RGBA32 plus shared64x64SSSglint; nine-slice with rounded shared edges, explicit target+UV scroll clipping for custom Graphics draws; CPU copies released by Apply(false,true), cache released by HUD OnDestroy.",
+      "cache_bound_bytes": 540672,
+      "performance_scope": "Source-level bounded-cache/lifetime inspection only; no FPS or allocation-profiler benchmark claimed.",
+      "wiring": "Existing HUD/binding, no new scene/Inspector/prefab/package/asmdef change. No new icon atlas imported.",
+      "unchanged": "Equipment stats/ranks/levels/prices/equip/craft rules and world/hero art unchanged.",
+      "sha256": {
+        "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Quality.cs": "788566a642e0fccbbc3630e604a42ed6d22cc1c925a8e8ef5204fa76f0b92805",
+        "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Equipment.cs": "0b6a999812cdeab3cd2fc4cd211846f3f4bbb66549a1075f63361ca6c80b230a",
+        "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Forge.cs": "07ad356a2fe355f8b15c973e2b10b5bc5893576e548a73ead4b545e1b0abedac",
+        "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Professions.cs": "88d1cdbf8e2117334a6bfdb0ad6a5c30960941a6104cf6dedb4c3135b7358bdf",
+        "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Dock.cs": "5e5efee0c0acadc1a1b286b2b832171b33c4a1ad5f3470112af3f78c56302214",
+        "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.cs": "c3b699685605327815791779ac440dbb4cc1242080c0a4555724ba644dbeb1b7",
+        "Assets/Stage3/PlayerInterface/Runtime/Stage3ItemQualityReview.cs": "2113c1682918a490441f2b1d3c6027e4dee9526d888ea5021f817f78b2ab9920",
+        "Assets/Stage3/PlayerInterface/Runtime/Stage3InterfaceCapture.cs": "593eefab67770deeb6e48afb5f292d993820516402638ea4ece7f4ce49fbe942"
+      }
+    },
+    "tests": {
+      "file": "Artifacts/S3-ITEM-QUALITY-20261020/playmode.xml",
+      "platform": "PlayMode",
+      "total": 17,
+      "passed": 17,
+      "failed": 0,
+      "suites": [
+        "Stage3EquipmentForgeTests",
+        "Stage3HeldEquipmentTests",
+        "Stage3ProfessionTests",
+        "Stage3StartupTests"
+      ],
+      "scope": "Existing meaningful equip/bag/forge/harvest/tool/profession/retry/startup regressions. No new tests mirroring reversible visual code.",
+      "timing": "17tests pass before final visual-only seam/clip/glint repair; final C#compilation/build succeeds after it. Native verification covers final renderer; no gameplay/binding contracts changed."
+    },
+    "build": {
+      "path": "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app",
+      "bytes": 637778927,
+      "result": "Succeeded",
+      "host": "Mac/Metal",
+      "log": "Artifacts/S3-ITEM-QUALITY-20261020/build-final.log",
+      "windows": "Unverified"
+    },
+    "native": {
+      "directory": "Artifacts/S3-ITEM-QUALITY-20261020/native-final",
+      "fixture_frames": 27,
+      "resolutions": [
+        "1280x720",
+        "1600x900",
+        "1920x1080"
+      ],
+      "states_per_resolution": [
+        "inventory selectedD",
+        "inventory selectedC",
+        "inventory selectedS",
+        "inventory selectedSSS",
+        "forgeD→C",
+        "forgeA→S",
+        "minerSSStool",
+        "loggerStool",
+        "HUDSSSbow"
+      ],
+      "fixture": "Explicit opt-in Debug-only NOT3A_ITEM_QUALITY_CAPTURE_DIRECTORY; disposable8bow ranks/mixedarmor/S+SSStools+weapon/5000funds/2QAforge scrolls, real paid legal forge, stopped clock/combat. No natural-playthrough or real drop/scroll source/merchant stock claim.",
+      "main_review": "Final720p forge and900p inventory inspected: no seams/escaped chips, Dgreen/Cblue distinct, Sgold andSSSlocally radiant with crispicons. Actual-mouse equip/scroll/SSSselection passed on final build.",
+      "astra_review": "Visual PASS all27finalframes at720/900/1080p plus two additional forge scroll screenshots. Seams eliminated; target+UVclip/labels correct; polishedS/localradiantSSS crisp; cyan selection preserves rank. No overlaps/blockers. Mac supplied-frames scope only; Windows/futuremerchant unverified.",
+      "initial_review_corrections": "Astra rejected first native run for fractional nine-slice seams, Graphics draws escaping scroll clip and weakSSSradiance. Rounded edges, target+UV clipping and bounded sharedglint texture implemented before final rebuild."
+    },
+    "native_mouse": {
+      "method": "CUA actual mouse on final build: selectD→C, existing Надеть in1600x900 inventory; localEforge opening, drag horizontal scrollbar, selectSSSchip.",
+      "outcome": "Cbow id10 moved from bag into weapon; oldSSSbow id21 returned to bag.18total instances unchanged; actual hero preview/weapon cell/cyan selection updated.",
+      "log": "Artifacts/S3-ITEM-QUALITY-20261020/native-final.log",
+      "proof": "Artifacts/S3-ITEM-QUALITY-20261020/native-final/actual-mouse-equip-C.png",
+      "scroll": "After actual horizontal drag, S/SSS chips and labels visible inside viewport; SSS actualclick updates details and correctly disables reforging above cap.",
+      "scroll_proof": [
+        "Artifacts/S3-ITEM-QUALITY-20261020/native-final/actual-mouse-forge-scroll.png",
+        "Artifacts/S3-ITEM-QUALITY-20261020/native-final/actual-mouse-forge-SSS-selected.png"
+      ]
+    },
+    "ordinary_start": {
+      "qa_environment": false,
+      "running_session": 33865,
+      "log": "Artifacts/S3-ITEM-QUALITY-20261020/normal-final.log",
+      "proof": "Artifacts/S3-ITEM-QUALITY-20261020/normal-final.png",
+      "observed": "Normal hero start,5gold/0materials, running08:09clock, starterFbow. No QA grants or frozenclock."
+    },
+    "console": {
+      "new_attributable_errors": 0,
+      "scanned": [
+        "playmode.log",
+        "build-final.log",
+        "native-final.log",
+        "normal-final.log"
+      ],
+      "baseline": "Unused strippedURPGaussian/BokehDOF/Panini warnings match prior D094normal-start baseline. Unity licensing warning did not block successful tests/build. No compiler/game exceptions."
+    },
+    "remaining": [
+      "Windows/Steam qualification",
+      "City/merchant runtime and final trade-window appearance/binding",
+      "Merchant stock/prices/sale rules, research/forge-scroll sources remain separate decisions"
+    ],
+    "owner_appearance_rejection": "Flat opaque dark fills and chunky gold rails do not match the approved painted gradient/textured cells. Previous Astra PASS superseded for appearance; mechanics/input results remain historical evidence."
+  },
+  "safe_area_revision": "art/source/item_safe_areas_2026-10-20_verification.json"
+}

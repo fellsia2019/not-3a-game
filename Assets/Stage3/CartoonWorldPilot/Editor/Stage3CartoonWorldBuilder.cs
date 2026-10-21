@@ -65,7 +65,7 @@ namespace Not3A.Stage3.VisualPilot.Editor
             var composition = Object.FindAnyObjectByType<Stage2GameComposition>();
             var building = Object.FindAnyObjectByType<Stage2BuildDriver>();
             var mover = composition.GetComponent<Stage2SceneBootstrap>().PlayerMover;
-            mover.ConfigurePlanarEdgeClearance(1f);
+            mover.ConfigurePlanarEdgeClearance(1.5f);
             EditorUtility.SetDirty(mover);
             Set(composition,"defenseCatalog",AssetDatabase.LoadAssetAtPath<Stage2DefenseCatalog>(RapidCatalog));
             Set(composition,"longshotCatalog",AssetDatabase.LoadAssetAtPath<Stage2DefenseCatalog>(LongshotCatalog));

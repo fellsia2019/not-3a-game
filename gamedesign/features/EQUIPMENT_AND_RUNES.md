@@ -1,14 +1,135 @@
 # Equipment, forge, tools and runes
 
-Status: D-075 design, 2026-10-19. No forge, item progression or rune consumption
-is implemented. Owner confirms six combat slots, item levels 1–100 separate
-from eight qualities F/E/D/C/B/A/S/SSS, physical bows/magical staves and
-stepwise crafting/improvements including axes/pickaxes. SS is removed; SSS is
-the current maximum. Rune direction D-074 is retained. Proposed budgets,
-forge stages and exact upgrade rules below remain recommendations.
+Status: D-089 concepts approved; D-090 runtime implemented and locally qualified. Five combat slots plus two tools, numerical1–100 and8qualities.
+Bow and wand only; no sword/shield. Three forge stages D/B/S, special-scroll
+building upgrades in legacy profiles; D102 opt-in replaces scroll payment with
+studied target-stage blueprints and gates wand crafting. SSS exclusively future ultra-rare loot. Loot tables,
+scroll sources and rune consumption are not implemented. Runtime tuning lives
+in Stage3Equipment and Stage3ForgeBuilding data, subject to playtest.
 Owner: Stage 3 Game Design. Dependencies: HERO_PROGRESSION.md,
 BOSSES_AND_VICTORY.md, PORTAL_CONTROL.md, RESEARCH.md,
 RESOURCE_PRODUCTION_BUILDINGS.md and STAGE2_RUN_STATE.md.
+
+D102 implementation: four separate non-equippable documents are traded for gold,
+then consumed at the single-level research workshop. ForgeII/III knowledge opens
+the matching upgrade action, with no second document/scroll spend. Recipe study
+gates crafting wands, not equipping an existing wand. D/B/S caps and SSS exclusion
+remain. Known duplicates use neutral paper cells plus «Изучено», no item rank/LVL.
+RESEARCH.md owns the current rules and verification; D101 text below is historical.
+
+## D-101 future upgrade document appearance
+
+The owner asks for a shared medieval magical blueprint base, including future
+forge/workshop building upgrades and research. After rejecting tilted parchment
+and unfolded3panel examples, the owner also rejected the modern white-sheet
+mockup. Reuse the earlier aged ivory/amber colour/texture and plum drafting style
+in a straight rectangular sheet. Two primary uses are opening new content
+(including construction access) and improving existing content. Blueprints do not use
+equipment F–SSS or independent LVL1–100; upgrade numbers denote target BUILDING
+level. Mentioned4–5/forgeIV are examples, not an extension of current forge caps.
+All inventory/trade cells and rows stay fixed regardless of icon/metadata.
+Owner approved rect_categories_shop_v3 appearance/category treatment on2026-10-20.
+This clarifies future item appearance; current
+ForgeUpgradeScrolls storage/source and D090 D/B/S caps/SSS exclusion are unchanged
+until a ready runtime brief. No runtime rank/LVL, generic upgrade prerequisite or
+merchant stock is inferred. RESEARCH.md owns the document concept; source:
+art/source/research_blueprints_2026-10-20_generation.json.
+
+## D-100 merchant ownership and valuation
+
+The first city shop trades existing equipment instances for gold, with8initial
+F/LVL1items,50% sale and no automatic restock. Equipped instances remain only in
+loadout and cannot be sold; spare bag items transfer to merchant stock with the
+same ID/type/quality/level. Purchase transfers that same instance into the bag
+without automatic equip. Sold higher-quality loot may be bought back; this does
+not introduce a new SSS source. No research/forge scroll, rune or resource stock.
+Trial type/quality/level prices live in Stage3Merchant data. D087 retry preserves
+current trades and finite stock; full reset clears them with starter equipment.
+CITY_AND_TRADE owns access/payment rules; current shared skins/safe areas apply
+to both grids and large trade details.41/41 focused PlayMode plus21native frames
+and actual mouse buy/sell locally qualified; Windows unverified. Evidence:
+art/source/merchant_2026-10-20_verification.json.
+
+## Global item-quality cell treatment — D-097, source-skin correction implemented
+
+The owner requires quality to be visible through colored cell artwork everywhere
+item UI is used. Eight ranks F/E/D/C/B/A/S/SSS remain separate from level 1–100.
+The approved reference is the original 64-item catalogue:
+art/concepts/item_quality_cells_2026-10-20/all_equipment_qualities_v2.png.
+
+The initial procedural rendering was rejected by the owner: flat opaque dark
+fills and thick rectangular gold bars did not reproduce that reference. Its
+local visual PASS is superseded for appearance. The accepted target includes
+painted multitone gradients, engraved texture, darker edges, thin shaped metal
+rims and local luminous highlights. D stays green, C royal blue, B purple, A
+ruby; S combines amber-to-near-black depth with fine polished gold, while SSS
+combines plum/violet depth and radiant gold. Rank letters/LVL stay readable;
+separate cyan selection preserves the quality artwork. Empty/ungraded scrolls
+and generic category symbols remain neutral.
+
+Main prepared eight empty painted skins by ImageGen editing the approved original.
+Astra checked the raster against that source and implemented it directly in
+Stage3FantasyHud.Quality. One shared imported Resources atlas has measured pixel
+bounds per rank: the source is not an exact equal grid. Painted centres retain
+multitone texture; eight surrounding frame patches preserve fine corners/edges.
+Shared destination edges are pixel-rounded; custom texture draws retain explicit
+geometry/UV clipping in bag and forge scroll regions. No procedural color plates,
+synthetic gold rails or generated sparkle overlay remain. The HUD borrows the
+single atlas and allocates no per-item or per-frame textures.
+
+Apply it to bag/loadout/details, forge source/result/owned chips/rank chain,
+actual profession tools and equipped HUD weapon. Existing rank-specific icon
+atlases, gameplay/stats/actions/input geometry and world art stay current.
+D100 merchant runtime reuses this treatment; SSS remains future
+ultra-rare loot, never a forged/merchant-stock promise. No scene/Inspector wiring.
+
+Source: art/concepts/item_quality_cells_2026-10-20/runtime/quality_skins_reference_v1.png.
+Runtime: Assets/Stage3/PlayerInterface/Resources/Stage3EquipmentQualitySkins.png.
+Import: Stage3EquipmentQualityArtImporter.BuildAssets, also automatic texture
+preprocessing; original PNG bytes preserved, NPOT/sRGB/alpha/uncompressed/bilinear.
+Generation, exact prompt and rights: art/source/item_quality_cells_2026-10-20_skins_generation.json.
+Current correction qualification: art/source/item_quality_cells_2026-10-20_verification.json.
+After correction, 17/17 PlayMode checks pass and Mac build succeeds. Astra strict
+reference PASS covers 27 native frames at720/900/1080p; actual mouse equip/forge
+scroll pass. Windows is unverified. Tiny HUD skins preserve hue/edge/radiance
+with less engraving detail. Final owner appearance acceptance is not inferred.
+
+Owner safe-area correction: every type/rank must fit by its actual visible
+silhouette, not the full source tile's unequal transparent margins. Bake 64
+UI-only alpha bounds into the existing ForgeArt asset; keep all source PNGs,
+held pivots and world registration. Axes use only their two allowed source bands.
+Use one aspect-preserving, centred fit and proportional inset from the painted
+frame/ornaments, including large details, loadout, forge chips, professions and
+HUD. No runtime pixel scans, per-item offsets or per-frame texture generation.
+Qualification must include all 64 combinations and actual windows at three sizes.
+The bake identifies the dominant connected alpha silhouette by overlap with the
+old logical tile, then takes its complete bounds over the source PNG: old tile
+edges must not truncate artwork. Up to two source pixels preserve the fringe,
+reduced before a neighbouring silhouette enters. All 64 regions are validated
+for foreign silhouettes, including axe masks. Shared pixel-rounded destination
+edges keep the two axe bands from exposing a fractional-quad seam.
+Implementation/qualification: art/source/item_safe_areas_2026-10-20_verification.json.
+Final bake validates64/64; Mac build and all64 native projections at720/900/1080p
+cover the correction.17existing PlayMode checks passed before the final Editor/
+pixel-only repair; actual mouse details/equip/forge scroll also checked. Source
+PNG hashes match prior provenance. Windows and owner appearance response remain.
+
+## Initial content scope — D-089
+
+Сейчас по одному базовому семейству каждого типа: без именных, стихийных и
+особых вариантов. Качество F/E/D/C/B/A/S/SSS меняет саму иконку/внешность:
+от грубого коричневого дерева/простых материалов к железу/стали, красной и
+золотой отделке. Не ограничиваться перекрашиванием рамки. Числовой уровень
+1–100 отдельный и не требует100 рисунков. Новые семейства — позднее, при
+наполнении/балансе. Первоначальные эскизы содержали посох/щит. Прямое уточнение D-090 заменяет
+их коротким жезлом и убирает щит вместе со слотом. Сейчас8типов: лук, жезл,
+четыре части брони, кирка и топор;5боевых слотов и2рабочих.
+Владелец утвердил все четыре эскиза: инвентарь v2, здание кузницы v1,
+fullscreen кузницы v2 и лист качеств v1 («Утверждаю все четыре»). Компоновка,
+вид здания и показанная палитра/развитие внешности приняты. Числа свойств,
+цены этим не назначены. Ступени позднее заданы D-090; runtime-ассеты
+подготовлены ImageGen, интерфейс/внешность внедряет Astra. Источники/версии:
+art/source/equipment_forge_2026-10-19_generation.json.
 
 ## Reward sources
 
@@ -42,8 +163,8 @@ TD даёт основной поток боевого опыта благода
 | Числовой уровень предмета | 1–100 |
 | Качество | F → E → D → C → B → A → S → SSS; 8 ступеней |
 | Места брони | Шлем, нагрудник, руки, ноги |
-| Остальные боевые места | Оружие и щит; всего 6 |
-| Начальные виды оружия | Лук — физический урон; посох — магический |
+| Остальное боевое место | Оружие; всего5боевых слотов |
+| Начальные виды оружия | Лук — физический урон; короткий жезл — магический |
 
 Уровень и качество независимы. SSS первого уровня не обязан превосходить
 F сотого. Уровень источника определяет допустимую добычу, включая качество
@@ -51,59 +172,54 @@ F сотого. Уровень источника определяет допу�
 или числа повторов. Рост качества не означает стократного множителя урона.
 Не нужно рисовать сто версий каждого базового предмета.
 
-Восемь боевых мест из D-074 заменены шестью: отдельные обувь, амулет и кольцо
-сняты, добавлен щит. Кирка/топор — отдельные рабочие предметы. Совместимость
-щита с луком/посохом и правила одной/двух рук ещё требуют выбора до анимаций;
-не назначать бонус неиспользуемого щита молча. Базовых моделей оружия пока
-не посчитано. Герой универсален, смена оружия не закрепляет класс.
+D-090 заменяет прежние6мест пятью, удаляя щит. Кирка/топор — отдельные
+рабочие предметы. Один экземпляр оружия занимает общий слот лука/жезла;
+смена оружия не закрепляет класс. Броня хранится/надевается и имеет свойство
+брони, но HP/защита/смерть героя не открываются этим срезом. UI явно это
+показывает, без вымышленных HP или обещания работающей защиты.
 
 Предметы усиливают одиночную атаку, личную защиту и перемещение. Совместно
 с навыками/рунами они не запускают массовые цепи или взрывы, заменяющие
-башни против соответствующей плотной орды. Магический посох сохраняет
+башни против соответствующей плотной орды. Магический жезл сохраняет
 этот предел, как и физический лук.
 
 ## Forge
 
-Кузница — способ создать и развить оружие, броню и инструменты вместе
-с получением предметов из дропа. Начальная кузница изготавливает F;
-улучшения здания расширяют предел вплоть до SSS. Название «небесная кузница»
-и особая поздняя внешность пока являются идеей. SSSS за пределами текущего
-каталога, SS не существует.
+Кузница создаёт новый предмет F1, повышает числовой уровень1–100 отдельным
+действием и последовательно перековывает качество F→E→D→C→B→A→S.
+Качество/числовой уровень/ID независимы: перековка не сбрасывает уровень,
+повышение уровня не меняет качество. Успех гарантирован, случайной поломки
+и новой валюты нет. SSS доступно только через будущий ультраредкий дроп.
 
-Подтверждено: можно изготовить новый предмет и последовательно перековать
-имеющийся **F → E → D → C → B → A → S → SSS** до предела кузницы.
-Числовое усиление предмета 1–100 предлагается отдельным действием с отдельной
-ценой: повышение качества не меняет числовой уровень автоматически.
-Рекомендация — числовая ковка не опережает доступный уровень героя.
+D-090 задаёт ровно3ступени здания:
 
-Предлагаемая планка — **6 ступеней кузницы**:
-
-| Ступень здания | Максимальное качество |
+| Ступень | Доступные качества |
 | --- | --- |
-| 1 | F |
-| 2 | D; открыты F/E/D |
-| 3 | B; дополнительно C/B |
-| 4 | A |
-| 5 | S |
-| 6 | SSS |
+| 1 | F/E/D |
+| 2 | F/E/D/C/B |
+| 3 | прежние качества + A/S |
 
-Это предложенная группировка, не принятые уровни/цены здания. Даже при
-открытом B перековка F проходит через E/D/C/B. Найденный предмет выше
-предела кузницы не ухудшается; возможность дальнейшей ковки ограничена
-пределом. Кузница не должна требовать победить босса, для которого именно
-её ещё закрытая ступень обязательна.
+Улучшение на следующую ступень требует специальный свиток кузницы; материалы
+и золото его не заменяют. Источника свитков ещё нет, обычная игра начинает
+со ступени1. Найденный предмет выше предела сохраняется/надевается, но
+текущая кузница его не улучшает. SSS не появляется в результате перековки.
 
-До оплаты видны полный ресурсный расход и результат. Рекомендация первого
-среза — гарантированный успех без случайной поломки. Перековка сохраняет
-идентичность/числовой уровень предмета; не превращает лук в посох и не
-перебрасывает свойства бесплатным повтором. Правило роста свойств явное
-в игровых данных. Отмена не платит, успех применяется ровно один раз.
+Новая постройка оплачивается только деревом/камнем/металлом, выбирается
+третьей карточкой группы «База» в B. Нужна свободная лесная площадка;
+коллизия корпуса не закрывает вход. E у входа или кнопка выбранной карточки
+открывает fullscreen-сервис. Издалека, в паузе, debug или другом модальном
+окне сервис не работает. Нельзя оплатить чертёж кликом через UI. Отмена
+не платит; успешное создание/улучшение списывает стоимость ровно один раз.
+До оплаты интерфейс показывает исходный предмет, результат, цену и предел.
+Цены/кривые пробные и сериализованы в Stage3Equipment; footprint/вход/цена
+постройки — в Stage3ForgeBuilding. Новых руд/плавки/ремонта этим не добавлено.
 
-Первичная постройка кузницы оплачивается деревом/камнем/металлом. По
-уточнению D-075 улучшения здания и исследования могут дополнительно
-требовать золото; это отдельный расход от цены новой постройки. Для рецептов
-предлагаются существующие материалы; цены ещё не выбраны. Не добавлять
-новые руды, ремонт или цепочку плавки ради заполнения ступеней.
+Начальный лук, кирка и топор F1 становятся реальными надетыми предметами,
+сохраняя доступность прежней атаки/добычи. Крафт не надевает новую вещь
+автоматически. Снятое оружие отключает автоатаку, снятый инструмент — его
+тип добычи; предмет остаётся в сумке. Одно применение инструмента выдаёт
+не больше силы, остатка узла и свободного места. Смена инструмента отменяет
+незавершённый удар; бесплатного дохода/атаки сменой экипировки нет.
 
 Хороший дроп экономит изготовление и перековку. Ковка F страхует неудачные
 находки, а не делает любые находки заведомо хуже. Поздние рецепты/ступени
@@ -165,17 +281,66 @@ GPT-6 Astra, не новый утверждённый финальный асс�
 
 ## State and acceptance
 
-Предметы/инструменты, их свойства, кузница/её ступень, рецепты, известные
-чертежи, изученные руны, свитки/сроки, журнал наград и состояние случайной
-выдачи входят в снимок вместе с XP/ресурсами. Повтор не оставляет предмет
-из проигранного будущего и не дублирует/перебрасывает награду события.
-Дисковое сохранение и исход смерти героя в мире пока не определены.
+По D-087 поражение сохраняет текущие предметы/инструменты, свойства,
+кузницу/ступень, рецепты, чертежи, руны, свитки/сроки и журнал наград вместе
+с текущими XP/ресурсами. Перемотка часов не возвращает прежний предмет и не
+отменяет оплату. Одно событие выдачи не платит повторно; новые реальные
+убийства новой попытки дают обычную награду. Дисковое сохранение и исход
+смерти героя в мире пока не определены.
 
-Приёмка будущего среза: 6 боевых мест; нет SS; уровень и качество независимы;
+Приёмка текущего среза:5боевых мест +2инструмента; нет SS; уровень и качество независимы;
 автоматическая награда видна и не теряется; источник ограничивает добычу;
 кузница соблюдает предел и ступени, оплачивает операцию один раз; инструмент
-расходует ровно запас узла; снимок восстанавливает предметы/ресурсы/здания
-согласованно. Верхний доступный герой сохраняет ограничение против орды.
+расходует ровно запас узла; повтор сохраняет текущие предметы/ресурсы/здания
+согласованно по D-087. Верхний доступный герой сохраняет ограничение против орды.
 
 Новая внешность кузницы/рун, слоты и выдача проходят ImageGen → одобрение
-владельца → GPT-6 Astra. Этот документ не внедряет игровой код или UI.
+владельца → GPT-6 Astra. Руны/дропы/города/сохранение на диск и визуальная смена надетой брони остаются следующими отдельными задачами.
+
+
+## Runtime ownership and wiring — D-089/D-090
+
+Stage2EquipmentCatalog/Equipment are plain data/rules; EquipmentDriver binds
+current-world lifetime to combat and gathering. No global manager/new package.
+Stage3 binding loads the three Resources assets and initializes the local forge;
+existing scene GUIDs/prefabs/serialized fields remain intact. Installer:
+Not3A.Stage3.PlayerInterface.Editor.Stage3EquipmentInstaller.Install.
+The Forge Art importer creates an owned material/sprite and keeps generated PNG
+bytes unchanged. Resources include all8qualities even when forge cap is lower.
+TryReceiveLoot/TryReceiveForgeScrolls are validated future-source entry points,
+not automatic drops or player cheats. Normal startup receives no armor,
+scrolls or free construction materials. Native QA setup is opt-in development
+player only via NOT3A_EQUIPMENT_FORGE_CAPTURE_DIRECTORY.
+
+
+Qualification:91 unique latest results passed (67PlayMode,24EditMode). The first
+cross-system run had one old clock assertion failing by1ms; its whole8-test class
+passed after a .01sec tolerance, without a runtime clock change. Mac development
+build and actual native E/mouse craft→level→reforge→equip passed. Astra reviewed
+720/900/1080p; final ordinary-start inventory qualifies corrected axe UV. No new
+attributable console errors. Windows player not qualified (module absent).
+Evidence/source: art/source/equipment_forge_2026-10-19_verification.json.
+
+
+## D-091 presentation correction —2026-10-20
+
+The left bag contains only unequipped instances. Equipped armor/weapon/tools
+appear in their actual slots; equip/unequip and replacement move the same item
+between bag/loadout without duplication or loss. Full owned lookup remains
+available for selected-item properties; the bag has a separate filtered view.
+
+Bow/pickaxe/axe appearance must match the equipped quality on the actual hero.
+The old generic inventory bow image cannot substitute for all world facings.
+Additive bow projection sprites and tool-free harvest layers preserve existing
+hero clothing/armor and work poses. Detached tool renderer follows authored grip
+and strike animation, never displays a second baked starter. Missing tool hides
+it, pause freezes, leaving harvesting restores the equipped weapon. Armor
+appearance stays unchanged by explicit request. Sources/rights and final QA:
+art/source/equipment_visible_2026-10-20_generation.json and verification.json.
+
+
+D-091 qualification:20unique latest PlayMode results passed, final native
+Mac/Metal equip/unequip/re-equip and held-E axe/pick passed; Astra final
+world/inventory visual PASS. Empty-bag/3equipped-starter reset captured; ordinary
+game relaunched without QA grants. No new attributable console errors. Windows
+unverified. Exact artifacts/setup/limits are in the verification manifest.

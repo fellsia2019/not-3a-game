@@ -9,9 +9,13 @@ namespace Not3A.Stage3.PlayerInterface
         public int Level, MaxLevel, XpWithin, RequiredXp, AvailablePoints, BlinkRank;
         public int RankPointCost;
         public int WeaponDamage;
+        public int MaximumHealth, MaximumMana, BlinkManaCost;
+        public float Health, Mana;
+        public int[] BlinkManaCosts;
+        public float[] BlinkCooldowns;
         public float WeaponRange, WeaponInterval;
         public float[] BlinkRanges;
-        public float BlinkCooldownRemaining, BlinkCooldownDuration;
+        public float BlinkCooldownRemaining, BlinkCooldownDuration, BlinkCooldownTotal;
         public bool BlinkArmed, CanArmBlink, CanUpgradeBlink;
         public string BlinkUnavailableReason, BlinkUpgradeReason;
         public Stage3HeroPassiveView[] Passives;
@@ -46,14 +50,22 @@ namespace Not3A.Stage3.PlayerInterface
         private string progressionBowStats;
         private readonly string[] blinkRangeLabels=new string[4];
         private readonly float[] displayedBlinkRanges={-1,-1,-1,-1};
+        private readonly string[] blinkRankResourceLabels=new string[4];
+        private readonly int[] displayedBlinkManaCosts={-1,-1,-1,-1};
+        private readonly float[] displayedBlinkCooldowns={-1,-1,-1,-1};
+        private int displayedHealth=-1,displayedMaximumHealth=-1,displayedMana=-1,displayedMaximumMana=-1;
+        private string heroHealthLabel,heroManaLabel,blinkTooltipText,displayedBlinkReason;
+        private int displayedBlinkManaCost=-1;
+        private float displayedBlinkCooldownDuration=-1;
+        private bool displayedBlinkArmed,displayedBlinkCanArm;
         private readonly int[] displayedPassiveRanks={-1,-1,-1}, displayedPassiveCaps={-1,-1,-1};
         private readonly string[] passiveRankLabels=new string[3];
         private static readonly string[] BlinkRankNames={"I","II","III","IV"};
         private static readonly Color ExperienceOrange=new Color(1f,.48f,.06f);
 
-        private Rect HeroOverviewRect => new Rect(WindowContentRect.x,WindowContentRect.y,WindowContentRect.width*.29f,WindowContentRect.height);
-        private Rect HeroBlinkRect => new Rect(WindowContentRect.x+WindowContentRect.width*.33f,WindowContentRect.y,WindowContentRect.width*.30f,WindowContentRect.height);
-        private Rect HeroPassivesRect => new Rect(WindowContentRect.x+WindowContentRect.width*.68f,WindowContentRect.y,WindowContentRect.width*.32f,WindowContentRect.height);
+        private Rect HeroOverviewRect => new Rect(HeroDevelopmentContentRect.x,HeroDevelopmentContentRect.y,HeroDevelopmentContentRect.width*.29f,HeroDevelopmentContentRect.height);
+        private Rect HeroBlinkRect => new Rect(HeroDevelopmentContentRect.x+HeroDevelopmentContentRect.width*.33f,HeroDevelopmentContentRect.y,HeroDevelopmentContentRect.width*.30f,HeroDevelopmentContentRect.height);
+        private Rect HeroPassivesRect => new Rect(HeroDevelopmentContentRect.x+HeroDevelopmentContentRect.width*.68f,HeroDevelopmentContentRect.y,HeroDevelopmentContentRect.width*.32f,HeroDevelopmentContentRect.height);
         private Rect BlinkRankRow(int rank)
         {
             var r=HeroBlinkRect;var s=UiScale;var top=r.y+r.height*.43f;var height=52f*s;
@@ -62,7 +74,7 @@ namespace Not3A.Stage3.PlayerInterface
         }
         public Rect BlinkUpgradeRect
         {
-            get { if(heroProgression==null||heroProgression.BlinkRank>=4||ActiveWindow!=Stage3PlayerWindow.Hero)return Rect.zero;
+            get { if(heroProgression==null||heroProgression.BlinkRank>=4||ActiveWindow!=Stage3PlayerWindow.Hero||showProfessions)return Rect.zero;
                 var r=BlinkRankRow(Mathf.Clamp(heroProgression.BlinkRank,0,3));
                 return new Rect(r.x+r.width*.18f,r.yMax+27f*UiScale,r.width*.64f,43f*UiScale); }
         }
@@ -73,13 +85,29 @@ namespace Not3A.Stage3.PlayerInterface
         }
         public Rect HeroPassiveUpgradeRect(int index)
         {
-            if(index<0||index>=3||ActiveWindow!=Stage3PlayerWindow.Hero||heroProgression==null)return Rect.zero;
+            if(index<0||index>=3||ActiveWindow!=Stage3PlayerWindow.Hero||heroProgression==null||showProfessions)return Rect.zero;
             var r=HeroPassiveCard(index);return new Rect(r.xMax-r.width*.35f-12f*UiScale,r.yMax-67f*UiScale,r.width*.35f,44f*UiScale);
         }
 
         private void RefreshHeroProgressionLabels()
         {
             var v=heroProgression;if(v==null)return;
+            var health=Mathf.FloorToInt(Mathf.Clamp(v.Health,0,Mathf.Max(0,v.MaximumHealth)));
+            var mana=Mathf.FloorToInt(Mathf.Clamp(v.Mana,0,Mathf.Max(0,v.MaximumMana)));
+            if(displayedHealth!=health||displayedMaximumHealth!=v.MaximumHealth)
+            {displayedHealth=health;displayedMaximumHealth=v.MaximumHealth;heroHealthLabel=health+" / "+v.MaximumHealth;}
+            if(displayedMana!=mana||displayedMaximumMana!=v.MaximumMana)
+            {displayedMana=mana;displayedMaximumMana=v.MaximumMana;heroManaLabel=mana+" / "+v.MaximumMana;}
+            if(blinkTooltipText==null||displayedBlinkManaCost!=v.BlinkManaCost||displayedBlinkCooldownDuration!=v.BlinkCooldownDuration||
+                displayedBlinkArmed!=v.BlinkArmed||displayedBlinkCanArm!=v.CanArmBlink||displayedBlinkReason!=v.BlinkUnavailableReason)
+            {
+                displayedBlinkManaCost=v.BlinkManaCost;displayedBlinkCooldownDuration=v.BlinkCooldownDuration;
+                displayedBlinkArmed=v.BlinkArmed;displayedBlinkCanArm=v.CanArmBlink;displayedBlinkReason=v.BlinkUnavailableReason;
+                var controls=v.BlinkArmed?"Блинк · ЛКМ — точка\nПКМ / Esc — отмена":"Блинк · Q — скачок к курсору\nКлик по ячейке — выбрать точку";
+                if(!v.CanArmBlink&&!v.BlinkArmed&&!string.IsNullOrEmpty(v.BlinkUnavailableReason))
+                    controls=v.BlinkUnavailableReason+"\nБлинк · Q — скачок к курсору";
+                blinkTooltipText=controls+"\nМана "+v.BlinkManaCost+" · Перезарядка "+v.BlinkCooldownDuration.ToString("0.#")+" с";
+            }
             if(displayedRankPointCost!=v.RankPointCost)
             {
                 displayedRankPointCost=v.RankPointCost;
@@ -97,7 +125,12 @@ namespace Not3A.Stage3.PlayerInterface
             if(tenth!=displayedCooldown){displayedCooldown=tenth;blinkCooldownLabel=(tenth*.1f).ToString("0.0",System.Globalization.CultureInfo.GetCultureInfo("ru-RU"));}
             for(var i=0;i<4;i++)
             {var range=v.BlinkRanges!=null&&i<v.BlinkRanges.Length?v.BlinkRanges[i]:0;
-                if(displayedBlinkRanges[i]!=range){displayedBlinkRanges[i]=range;blinkRangeLabels[i]=BlinkRankNames[i]+"  ·  "+range.ToString("0.#");}}
+                if(displayedBlinkRanges[i]!=range){displayedBlinkRanges[i]=range;blinkRangeLabels[i]=BlinkRankNames[i]+"  ·  "+range.ToString("0.#");}
+                var manaCost=v.BlinkManaCosts!=null&&i<v.BlinkManaCosts.Length?v.BlinkManaCosts[i]:0;
+                var cooldown=v.BlinkCooldowns!=null&&i<v.BlinkCooldowns.Length?v.BlinkCooldowns[i]:0;
+                if(displayedBlinkManaCosts[i]!=manaCost||displayedBlinkCooldowns[i]!=cooldown)
+                {displayedBlinkManaCosts[i]=manaCost;displayedBlinkCooldowns[i]=cooldown;
+                    blinkRankResourceLabels[i]="Мана "+manaCost+" · Перезарядка "+cooldown.ToString("0.#")+" с";}}
             for(var i=0;i<3;i++)
             {var p=v.Passives!=null&&i<v.Passives.Length?v.Passives[i]:null;if(p==null)continue;
                 if(displayedPassiveRanks[i]!=p.Rank||displayedPassiveCaps[i]!=p.MaxRank)
@@ -143,22 +176,21 @@ namespace Not3A.Stage3.PlayerInterface
             var v=heroProgression;var r=BlinkSlotRect;var s=UiScale;
             var clicked=Button(r,"",v.BlinkArmed,v.CanArmBlink||v.BlinkArmed);
             DrawProgressionIcon(Inset(r,r.width*.12f),0);
-            if(v.BlinkCooldownRemaining>0&&v.BlinkCooldownDuration>0)
+            var cooldownTotal=v.BlinkCooldownTotal>0?v.BlinkCooldownTotal:v.BlinkCooldownDuration;
+            if(v.BlinkCooldownRemaining>0&&cooldownTotal>0)
             {
                 EnsureCooldownSectors();
-                var step=Mathf.Clamp(Mathf.CeilToInt(v.BlinkCooldownRemaining/v.BlinkCooldownDuration*63f),1,63);
+                var step=Mathf.Clamp(Mathf.CeilToInt(v.BlinkCooldownRemaining/cooldownTotal*63f),1,63);
                 DrawUiTexture(Inset(r,r.width*.18f),cooldownSectors,new Rect((step%8)/8f,(7-step/8)/8f,1f/8,1f/8));
                 PaleLabel(new Rect(r.x,r.yMax-25f*s,r.width,20f*s),blinkCooldownLabel,17,TextAnchor.MiddleCenter);
             }
             else PaleLabel(new Rect(r.x,r.yMax-24f*s,r.width,19f*s),"Q",13,TextAnchor.MiddleCenter);
             if(r.Contains(Event.current.mousePosition)||v.BlinkArmed)
             {
-                var tooltip=new Rect(r.x-70f*s,WorldHudRect.y-78f*s,340f*s,70f*s);
+                var tooltip=new Rect(r.x-70f*s,WorldHudRect.y-102f*s,360f*s,94f*s);
                 tooltip.x=Mathf.Clamp(tooltip.x,12f*s,Screen.width-tooltip.width-12f*s);
                 DrawPanel(tooltip);
-                var text=v.BlinkArmed?"Блинк · ЛКМ — точка\nПКМ / Esc — отмена":"Блинк · Q — скачок к курсору\nКлик по ячейке — выбрать точку";
-                if(!v.CanArmBlink&&!v.BlinkArmed&&!string.IsNullOrEmpty(v.BlinkUnavailableReason))text=v.BlinkUnavailableReason+"\nБлинк · Q — скачок к курсору";
-                Label(Inset(tooltip,12f*s),text,15,TextAnchor.MiddleCenter);
+                Label(Inset(tooltip,12f*s),blinkTooltipText,15,TextAnchor.MiddleCenter);
             }
             if(clicked){if(v.BlinkArmed)BlinkCancelRequested?.Invoke();else BlinkArmRequested?.Invoke();}
         }

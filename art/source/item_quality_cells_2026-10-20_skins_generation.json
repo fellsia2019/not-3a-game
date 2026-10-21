@@ -1,0 +1,106 @@
+{
+  "date": "2026-10-20",
+  "decision": "D-097",
+  "status": "Astra assetPASS and source-skin visual integration locallyqualified; finalruntime shown toowner next",
+  "authorization": "Owner rejected flat runtime fills and gold bars, explicitly requests one-for-one implementation of already approved all_equipment_qualities_v2. This asset removes objects/text and reconstructs its empty painted skins; no new design proposal.",
+  "tool": "built-in image_gen.imagegen edit, transparent_background=true",
+  "visual_direction": "GPT-6 Astra",
+  "path": "art/concepts/item_quality_cells_2026-10-20/runtime/quality_skins_reference_v1.png",
+  "dimensions": [
+    1774,
+    887
+  ],
+  "bytes": 1927018,
+  "sha256": "1540bf221d75cfeee61df1b4567b181bd1946a8ec3ef85269eccf25e4432f1fb",
+  "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-1dc27143-d240-48e3-84cf-57643a0ea3f0.png",
+  "prompt": "art/source/item_quality_cells_2026-10-20_skins_prompt.txt",
+  "edit_target": {
+    "path": "art/concepts/item_quality_cells_2026-10-20/all_equipment_qualities_v2.png",
+    "sha256": "8c4ccf8eaef02b882266c936334f1c0e79dbf8436d8150b1d17564006311c871",
+    "role": "Owner-approved original project ImageGen64-cell board; sole artistic input, no external images"
+  },
+  "atlas": {
+    "columns": 4,
+    "rows": 2,
+    "order": [
+      "F",
+      "E",
+      "D",
+      "C",
+      "B",
+      "A",
+      "S",
+      "SSS"
+    ],
+    "content": "Eight empty square item backgrounds/frames. Painted multitone textured interiors, thin ornate luminous metallic rims, true outer alpha; no text/items/selection."
+  },
+  "rights": {
+    "origin": "Original ImageGen derivative of original owned project ImageGen artwork; no external artwork traced/shipped",
+    "runtime_ready": true
+  },
+  "inspection": {
+    "main": "Eight empty skins/order visually inspected; Dgreen/Cblue, S texturedamber-to-nearblack and SSSplum/gold. Actual raster1774x887; UnityUVs must use actual measured bounds. Alpha audit and Astra review pending.",
+    "alpha": "RGBA:470711fullytransparent pixels;859fullyopaque;1101968partialalpha. Painted interior centrealpha≈252–253; genuinealphaoutside, no fakecheckerboard. Source1774x887 positions notexactequaltiles, UVmust use measuredpercardbounds.",
+    "astra": "Asset PASS: reference-like textured gradients and thin luminous frames; directly use raster. S/SSS seamx1302 has totalalpha13over415px, no visibleframeoverlap. MeasuredUVrects required, no nominalequalgrid assumption.",
+    "native": "Astra strictreferencePASS27Macframes at720/900/1080p. Fineengraving becomes less detailed in tinyHUDcells, buthue/edge/radiance visible. No flatplates/thickrails/seams/cutornaments/overlap. Mainactualmouseequip/scroll pass. See verification.json."
+  },
+  "runtime": {
+    "path": "Assets/Stage3/PlayerInterface/Resources/Stage3EquipmentQualitySkins.png",
+    "sha256": "1540bf221d75cfeee61df1b4567b181bd1946a8ec3ef85269eccf25e4432f1fb",
+    "guid": "7bb4e43a02bbf41abbf8435859eadd98",
+    "byte_identical_to_generated_source": true,
+    "importer": "Not3A.Stage3.PlayerInterface.Editor.Stage3EquipmentQualityArtImporter.BuildAssets",
+    "settings": "Default2D, NPOTnone, max2048, sRGB, alphaIsTransparency, Uncompressed, Bilinear, noMipmaps, CPUunreadable",
+    "bounds_top_left_pixels": [
+      [
+        40,
+        30,
+        420,
+        400
+      ],
+      [
+        465,
+        30,
+        420,
+        400
+      ],
+      [
+        890,
+        30,
+        416,
+        400
+      ],
+      [
+        1315,
+        30,
+        420,
+        400
+      ],
+      [
+        40,
+        443,
+        420,
+        405
+      ],
+      [
+        465,
+        443,
+        420,
+        405
+      ],
+      [
+        890,
+        443,
+        416,
+        405
+      ],
+      [
+        1307,
+        430,
+        449,
+        440
+      ]
+    ],
+    "renderer": "One borrowed Resourcesatlas, fullpaintedcentre plus8framepatches, roundedsharededges and explicit geometry/UVscrollclip. No proceduralplate/rail/glintoverlay. No newperitem/perframeTexture2D allocation."
+  }
+}

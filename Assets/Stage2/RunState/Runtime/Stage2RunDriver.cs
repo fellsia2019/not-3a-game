@@ -93,7 +93,7 @@ namespace Not3A.Stage2.RunState
         {
             gathering.CancelGatherUntilRelease();
             building.CancelPlacement();
-            player.position = checkpointPlayerPosition;
+            if (!run.PreserveProgressOnRetry) player.position = checkpointPlayerPosition;
         }
 
         private void OnEnable()

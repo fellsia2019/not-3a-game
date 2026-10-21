@@ -48,9 +48,11 @@ namespace Not3A.Stage3.VisualPilot
             !Active ? Stage2WorkshopBuildStatus.Unavailable : IsPlacing ? Stage2WorkshopBuildStatus.Placing : Stage2WorkshopBuildStatus.Ready;
         public bool NearEntrance => IsBuilt && scene != null &&
             Vector2.Distance(scene.PlayerMover.transform.position, InteractionPosition) <= catalog.interactionRadius;
-        public bool CanSkipDay => Active && IsBuilt && NearEntrance && game.RunDriver.Run.IsDay &&
+        public bool CanSkipDay => Active && IsBuilt && NearEntrance &&
+            !(GetComponent<Stage3GuildWorldDriver>()?.CombatActive??false) &&
+            (game.RunDriver.Run.UsesDaytimeGates ? game.RunDriver.Run.CanSleepUntilNight : game.RunDriver.Run.IsDay) &&
             !IsPlacing && !game.Building.Defense.IsPlacing &&
-            (game.Production == null || !game.Production.IsPlacing) && (travel == null || !travel.IsPlacingWorkshop);
+            (game.Production == null || !game.Production.IsPlacing) && (travel == null || !travel.IsPlacingWorkshop && !travel.IsPlacingBaseCircle);
 
         private IEnumerator Start()
         {
@@ -79,7 +81,7 @@ namespace Not3A.Stage3.VisualPilot
         public void BeginPlacement()
         {
             if (!CanBeginPlacement) return;
-            game.Building.CancelPlacement(); game.Production?.CancelPlacement(); travel?.CancelWorkshopPlacement();
+            game.Building.CancelPlacement(); game.Production?.CancelPlacement(); travel?.CancelConstructionPlacement();
             CancelPlacement(); PlacementStarting?.Invoke(); IsPlacing = true;
             confirmRequiresRelease = true; requiresRelease = true;
             game.Gathering.SetProductionBuildMode(true);
@@ -102,7 +104,8 @@ namespace Not3A.Stage3.VisualPilot
         {
             if (!IsPlacing || !Active || IsBuilt) return DwellingPlacementResult.NotPlacing;
             if (!Finite(point.x) || !Finite(point.y)) return DwellingPlacementResult.InvalidGround;
-            point = Snap(point); var area = FootprintAt(point); var map = scene.MapDefinition;
+            point = Snap(point); var area = FootprintAt(point);
+            if(GetComponent<Stage3WorldTravel>()?.OverlapsCity(area)??false)return DwellingPlacementResult.Occupied; var map = scene.MapDefinition;
             var min = map.WorldToCell(area.min); var max = map.WorldToCell(area.max);
             for (var y = min.y; y <= max.y; y++) for (var x = min.x; x <= max.x; x++)
             {
@@ -155,7 +158,7 @@ namespace Not3A.Stage3.VisualPilot
             if (!CanSkipDay) return false;
             // End the preparation directly. Never tick economy/production through the skipped duration.
             game.Gathering.CancelGatherUntilRelease(); requiresRelease = true;
-            return game.RunDriver.Run.StartWave();
+            return game.RunDriver.Run.UsesDaytimeGates ? game.RunDriver.Run.SleepUntilBeforeNight() : game.RunDriver.Run.StartWave();
         }
 
         private void OnEnable()
@@ -177,7 +180,7 @@ namespace Not3A.Stage3.VisualPilot
             if (IsPlacing)
             {
                 if (game.Building.Defense.IsPlacing || (game.Production != null && game.Production.IsPlacing) ||
-                    (travel != null && travel.IsPlacingWorkshop) || cancel.WasPressedThisFrame()) { CancelPlacement(); return; }
+                    (travel != null && (travel.IsPlacingWorkshop || travel.IsPlacingBaseCircle)) || cancel.WasPressedThisFrame()) { CancelPlacement(); return; }
                 if (!confirm.IsPressed()) confirmRequiresRelease = false;
                 var mouse = Mouse.current; var distance = 0f;
                 var ray = mouse == null ? default : scene.CameraFollow.BoundCamera.ScreenPointToRay(mouse.position.ReadValue());
@@ -201,6 +204,8 @@ namespace Not3A.Stage3.VisualPilot
         private void CaptureCheckpoint() { checkpointBuilt = IsBuilt; checkpointPosition = Position; }
         private void RestoreCheckpoint()
         {
+            if (game.RunDriver.Run.PreserveProgressOnRetry)
+            { CancelPlacement(); confirmRequiresRelease = true; requiresRelease = true; game.Gathering.CancelGatherUntilRelease(); return; }
             ResetDwelling();
             if (checkpointBuilt)
             {

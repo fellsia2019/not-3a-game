@@ -1,0 +1,36 @@
+{
+  "date": "2026-10-21",
+  "tool": "built-in image_gen.imagegen",
+  "requests": [
+    {
+      "key": "guild_ink_runtime_v1",
+      "path": "art/concepts/guild_2026-10-21/runtime/ink_v1.png",
+      "transparent_background": true,
+      "referenced_image_paths": [
+        "/Users/artemmusket/game-dev/not-3a-game/art/concepts/guild_2026-10-21/board_f_v1.png",
+        "/Users/artemmusket/game-dev/not-3a-game/art/concepts/quest_npc_world_enemies_2026-10-21/orc_ogre_comparison_v5.png"
+      ],
+      "prompt": "Use case: background-extraction / stylized-concept. Produce a TRANSPARENT2columns×1row runtime ink-illustration atlas from our OWN approved guild papers. Image1 supplies the exact sepia pen-and-ink style on paper, Image2 supplies approved ORC and OGRE identity.\nLEFT isolated illustration: the same stocky armored olive-orc design, rendered only in dark-brown/sepia ink line and hatching, full upper body with axe and a SMALL simple forest camp behind him, same readable forms as guild paper.\nRIGHT isolated illustration: the same large heavy ogre with cross-strap/club, rendered only in dark-brown/sepia ink (monochrome intentionally, not colored skin change), with a SEPARATE small rocky campsite behind him. Never place orc and ogre together.\nEach drawing has a clearly defined central character and a sparse scenic vignette fading organically into real transparency at outeredges. Lots of empty alpha gutter between the two drawings and aroundcanvas. NO PAPER, parchment rectangle, wood, frame, waxseal, coins, badges, text, letters or numbers anywhere. No background tint, white matte or checkerboard. No new actors, lore or named faction. These are decorative quest illustrations, not modular world-camp assets. Match original approved ink style, don't redesign enemies."
+    },
+    {
+      "key": "guild_orc_runtime_v1",
+      "path": "art/concepts/guild_2026-10-21/runtime/orc_poses_v1.png",
+      "transparent_background": true,
+      "referenced_image_paths": [
+        "/Users/artemmusket/game-dev/not-3a-game/art/concepts/quest_npc_world_enemies_2026-10-21/orc_ogre_comparison_v5.png",
+        "/Users/artemmusket/game-dev/not-3a-game/art/concepts/hero_motion_2026-10-18/hero_C_idle_v1.png"
+      ],
+      "prompt": "Use case: stylized-concept. Create a consistent MODULAR GAME-SPRITE POSE ATLAS of ONLY our approved ORC, derived from own reference Image1. Image2 is only the project's painted sprite/camera style; DO NOT include hero or ogre.\nGenuine transparent RGBA, EXACT4columns×2rows,8separate full-body orc poses on a regular equal-cell grid, generous empty gutters. SAME ONE ORC identity, armor/axe/hair/face/body scale in every cell. Smoke-olive skin, dark tied hair, short ivory lower tusks, rust-red cloth/dark leather, ONE grey iron shoulder plate, compact single-bladed iron axe. No redesign, no different warrior variants.\nTOP ROW elevated orthographic FRONT-three-quarter facing down-right: col1 planted idle; col2 walking left foot forward/right foot back; col3 walking right foot forward/left foot back; col4 clear axe-swing/strike pose, active body weight but all axe/hands/feet contained.\nBOTTOM ROW elevated orthographic REAR-three-quarter facing up-right: SAMEfourposes in the same column order (idle,walkA,walkB,strike). Front row shows face, rear row shows back of same gear. Consistent light direction and perspective as own hero sprites. Other directions will use flipping, don't put side views in this atlas.\nIMPORTANT REGISTRATION: every body SAME height/head size, unchanged axe design, same foot-ground baseline within each equal cell, centered grounded body pivot. Show whole character/weapon in every cell, with at least10%emptyalpha at cell borders, no weapon touches a neighbor or canvas edge. No ground patches/scenery, text, frame lines/numbers, symbols, labels or UI. Hand-painted soft cartoon volumes/clean dark outline/matte materials like references, not photorealism/anime/chibi. No shadows outside smallcontact. Only8isolatedregistered poses of this ONE orc."
+    },
+    {
+      "key": "guild_ogre_runtime_v1",
+      "path": "art/concepts/guild_2026-10-21/runtime/ogre_poses_v1.png",
+      "transparent_background": true,
+      "referenced_image_paths": [
+        "/Users/artemmusket/game-dev/not-3a-game/art/concepts/quest_npc_world_enemies_2026-10-21/orc_ogre_comparison_v5.png",
+        "/Users/artemmusket/game-dev/not-3a-game/art/concepts/hero_motion_2026-10-18/hero_C_idle_v1.png"
+      ],
+      "prompt": "Use case: stylized-concept. Create a consistent MODULAR GAME-SPRITE POSE ATLAS of ONLY our approved PURPLE OGRE from own reference Image1. Image2 supplies ONLY painted sprite/camera style; DO NOT draw hero/orc.\nGenuine transparentRGBA, EXACT4columns×2rows,8separate full-body poses on regular equal-cellgrid with generousgutters. SAMEONEOGRE identity/anatomy/size/gear in every cell. Huge heavy pear-shaped torso, small head/shortneck, powerful largehands/feet, lowerivorytusks. ALL exposed skin unmistakably matte PURPLE, including fingers/toes/face/belly/back, lavenderlitplanes/deepplumshadows. Rough brown leather crossstrap, darkbrown loincloth/rope, one heavy woodenbranchclub. No glow/corruption, no goofy smile, no boss crown or armor redesign.\nTOP ROW elevatedorthographic FRONTthreequarter facingdown-right: col1 groundedidle; col2 heavywalkleftfootforward/rightback; col3 heavywalkrightfootforward/leftback; col4 clearclubstrikepose with weightshift, clubfullyinsidecell.\nBOTTOM ROW elevatedorthographic REARthreequarter facingup-right: SAMEfourposes idle/walkA/walkB/strike, samecreaturefromback. Consistent lighting/perspective as ownhero reference. Do not mixfront/side/back in onerow.\nREGISTRATION: samebodyheight/mass/headsize perframe, sameweaponlength, centeredbodyfootpivot and common footbaseline within eachcell. Wholeclub/hands/head/feet safelyinsideeachcell, at least10%alphamargins/noislandtouchingneighbors. Different actualworldscale tohero will be applied by runtime; do not varysizeperframe. No scenery/groundpatch, text/numbers/framegrid/labels/UI or othercreatures. Paintedsoftcartoonvolume/cleandarkoutline/mattefantasygameartmatchingownreference, notphoto/anime/chibi. Only8isolatedregisteredposes ofthisONEpurpleogre."
+    }
+  ]
+}

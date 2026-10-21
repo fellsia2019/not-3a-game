@@ -1,0 +1,155 @@
+{
+  "date": "2026-10-20",
+  "decision": "D-096",
+  "status": "Owner requested approved dual-inventory native implementation D100. Geometry accepted; old v3 sample colors superseded by actual D097 painted skins/safe bounds. Implemented,41/41PlayMode and Astra21native-frame PASS; ordinary player restored. Windows unverified.",
+  "tool": "built-in image_gen.imagegen edit",
+  "visual_direction": "GPT-6 Astra",
+  "path": "art/concepts/merchant_2026-10-20/merchant_window_v1.png",
+  "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-68837e61-b32b-45a6-bbe1-bb30192e1e3b.png",
+  "dimensions": [
+    1672,
+    941
+  ],
+  "bytes": 1906667,
+  "sha256": "bc71390759cab8a912d09e2e4c62650811b9a8217a7fd84568d341e51c6bd8ae",
+  "prompt_file": "art/source/merchant_window_2026-10-20_prompt.txt",
+  "input_roles": [
+    {
+      "path": "art/concepts/equipment_forge_2026-10-19/forge_interface_v2.png",
+      "role": "Edit target/fullscreen Lunar Porcelain shell template; all old forge content replaced."
+    },
+    {
+      "path": "art/concepts/city_2026-10-20/a_cobalt_trading_house_v3.png",
+      "role": "Reference for single shopkeeper/scales crest/cobalt/plum identity, not UI background."
+    }
+  ],
+  "appearance": {
+    "layout": "Fullscreen3columns: merchant identity/portrait, goods, selected item/details/price/Buy. Existing header/wallet/footer family.",
+    "sample_item": "Generic research scroll; no specific technology/effect/stock chosen.",
+    "illustrative_numbers": {
+      "owned_gold": 250,
+      "price_gold": 150
+    },
+    "important": "These are design samples, not new runtime balance or a merchant stock catalogue. Buying is distinct from studying at workshop."
+  },
+  "source_and_rights": {
+    "origin": "Original built-in generated concept using original project-generated references. No third-party art copied/traced.",
+    "runtime_ready": false,
+    "reason": "Appearance approval and separate native assets/binding/transactions still required."
+  },
+  "verification": {
+    "main": "Visually inspected full image: coherent shell, one merchant, matching gold250and price150, readable selected card/details/Buy, no forge controls/extra services/currency.",
+    "astra": "V1 concept readability/shell PASS, but owner subsequently rejected its storefront composition.",
+    "owner": "Rejected: requires player inventory and merchant inventory simultaneously, like RPG trade screens.",
+    "runtime": "Unchanged. No build/gameplay test required for this concept-only phase."
+  },
+  "references": [
+    {
+      "game": "Baldur’s Gate 3",
+      "page": "https://bg3.wiki/wiki/Trading_and_item_pricing",
+      "image": "https://bg3.wiki/w/images/1/19/Trading_User_Interface.jpg",
+      "inspection": "Opened in background browser and visually inspected; player bag left, merchant bag right, central offer area, small portraits.",
+      "rights": "Third-party screenshot viewed only for UI-pattern inspiration; not downloaded, passed to generation, copied/traced or shipped."
+    },
+    {
+      "game": "Divinity: Original Sin 2",
+      "page": "https://gamerjournalist.com/how-to-identify-items-in-divinity-original-sin-2/",
+      "image": "https://cdn.gamerjournalist.com/primary/2020/07/How-to-identify-items-in-Divinity-Original-Sin-2.png",
+      "inspection": "Opened in background browser and visually inspected; large player/merchant grids with compact identities and central barter area.",
+      "rights": "Third-party screenshot viewed only for UI-pattern inspiration; not downloaded, passed to generation, copied/traced or shipped."
+    },
+    {
+      "game": "Grim Dawn",
+      "page": "https://www.grimdawn.com/guide/gameplay/service-npcs/",
+      "inspection": "Official merchant description read for generic buy/sell service context, not copied economic rules."
+    }
+  ],
+  "revisions": [
+    {
+      "variant": "v2_draft",
+      "path": "art/concepts/merchant_2026-10-20/merchant_window_v2_draft.png",
+      "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-4ffd2670-e928-4974-b627-0a711ace8c34.png",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "bytes": 1963383,
+      "sha256": "44bffe9f155b9e721fd9914b446316eaa2eeca7c258386a8e934de28412dcf4b",
+      "status": "Superseded by gold-only/global-quality owner corrections",
+      "runtime_ready": false
+    },
+    {
+      "variant": "v2_buy",
+      "path": "art/concepts/merchant_2026-10-20/merchant_window_v2_buy_materials.png",
+      "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-dab05259-0db1-4adb-848d-1f9685576d91.png",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "bytes": 1854698,
+      "sha256": "84701ffdd18a4dafe63cd18be0cf5c046e356500d49a5714ebc2c62baed95621",
+      "status": "Superseded by gold-only/global-quality owner corrections",
+      "runtime_ready": false
+    },
+    {
+      "variant": "v2_sell",
+      "path": "art/concepts/merchant_2026-10-20/merchant_window_v2_sell_materials.png",
+      "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-7ca2ed95-6a96-4cc9-9e32-b74c377d50f2.png",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "bytes": 1908093,
+      "sha256": "160f07f50330902eaf32dd7831ae0cf7c5003010830c4598af170104ed908cea",
+      "status": "Superseded by gold-only/global-quality owner corrections",
+      "runtime_ready": false
+    },
+    {
+      "variant": "v3_buy",
+      "path": "art/concepts/merchant_2026-10-20/merchant_window_v3_buy_superseded_colors.png",
+      "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-92e50334-32b3-4956-a623-787c5b46148e.png",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "bytes": 1858834,
+      "sha256": "ee9c407e33da05e7ec672835a7a110ef8f8a3834c87293a29215ec2f6be825f7",
+      "status": "Gold-only wallet applied; blue-grey D/blueC and mutedgold superseded by approved global64catalogue D097.",
+      "runtime_ready": false
+    },
+    {
+      "variant": "v3_sell",
+      "path": "art/concepts/merchant_2026-10-20/merchant_window_v3_sell_superseded_colors.png",
+      "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-264a9d20-85ce-4d47-a27c-8dad741c1d6c.png",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "bytes": 1858401,
+      "sha256": "8d8dce93ea7472d4b31aa65f4c9454480bca3754c6316e04c6631245997c21c9",
+      "status": "Gold-only wallet applied; blue-grey D/blueC and mutedgold superseded by approved global64catalogue D097.",
+      "runtime_ready": false
+    }
+  ],
+  "owner_corrections": [
+    "Player and merchant inventory grids visible together, not giant portrait/single-product storefront.",
+    "Merchant wallet shows gold only; hide wood/stone/metal. No additional tradecurrency yet.",
+    "Item quality marking is global across item UI D097.",
+    "Blue-greyD/C weak contrast and mutedgold rejected; approved global64catalogue uses greenD/blueC, polishedgold S/radiantSSS."
+  ],
+  "illustrative_trade_states": {
+    "gold_before_trade": 250,
+    "buy_research_scroll": 150,
+    "sell_spare_E1_bow": 60,
+    "note": "Not accepted stock/pricing, no tower50percentrefund implied. Research scrolls ungraded."
+  },
+  "prompt_files": [
+    "art/source/merchant_window_2026-10-20_prompt.txt",
+    "art/source/merchant_window_2026-10-20_v2_buy_prompt.txt",
+    "art/source/merchant_window_2026-10-20_v2_buy_final_prompt.txt",
+    "art/source/merchant_window_2026-10-20_v2_sell_prompt.txt",
+    "art/source/merchant_window_2026-10-20_v3_buy_prompt.txt",
+    "art/source/merchant_window_2026-10-20_v3_sell_prompt.txt"
+  ],
+  "implementation": "art/source/merchant_2026-10-20_verification.json"
+}

@@ -1,0 +1,58 @@
+{
+  "date": "2026-10-20",
+  "decision": "D-101/D-102",
+  "tool": "built-in image_gen.imagegen, transparent_background=true",
+  "asset": {
+    "path": "art/concepts/research_blueprints_2026-10-20/runtime/blueprint_items_v1.png",
+    "original": "/Users/artemmusket/.codex/generated_images/01a14f8b-e1fd-73a2-8cbc-728cf145844e/exec-a71cd404-6a2f-4382-855a-0cd1de85717e.png",
+    "prompt": "art/source/research_blueprints_2026-10-20_runtime_atlas_v1_prompt.txt",
+    "reference": "D-101 approved upright aged parchment in merchant shop_v3",
+    "sha256": "c2de130a790ecb61e01b597355dff72fac4788a1e46f6f9ad1a3f2c5ad4cc838",
+    "bytes": 1510403,
+    "appearance_approved": true,
+    "runtime_ready": true
+  },
+  "rights": {
+    "origin": "Original generated derivative of original approved project artwork; no external images"
+  },
+  "inspection": {
+    "dimensions": [
+      2172,
+      724
+    ],
+    "alpha": "True RGBA alpha0-255. No visible pure-red pixels(alpha>=16); red preview fringe was not source pixels.",
+    "astra": "Asset PASS, original parchment shell and category marks retained; no baked numerals; safe native14%inset."
+  },
+  "runtime": {
+    "path": "Assets/Stage3/PlayerInterface/Resources/Stage3BlueprintItems.png",
+    "sha256": "c2de130a790ecb61e01b597355dff72fac4788a1e46f6f9ad1a3f2c5ad4cc838",
+    "byte_identical": true,
+    "importer": "Not3A.Stage3.PlayerInterface.Editor.Stage3BlueprintArtImporter.BuildAssets",
+    "bounds_bottom_left_pixels": [
+      [
+        256,
+        104,
+        453,
+        516
+      ],
+      [
+        860,
+        104,
+        453,
+        516
+      ],
+      [
+        1464,
+        104,
+        455,
+        516
+      ]
+    ],
+    "sprite_order": [
+      "tower",
+      "wand",
+      "forge"
+    ],
+    "stage_labels": "RomanII/III rendered natively, no baked itemlevels/quality"
+  }
+}

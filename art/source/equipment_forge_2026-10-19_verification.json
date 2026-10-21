@@ -1,0 +1,104 @@
+{
+  "date": "2026-10-19",
+  "scope": "D089/D090 equipment and local forge",
+  "status": "PASS: local gameplay, native controls, final visual and resolution review",
+  "implementation": {
+    "weapons": [
+      "Bow",
+      "Wand"
+    ],
+    "slots": "5 combat +2 tools; no sword/shield",
+    "quality": "F/E/D/C/B/A/S/SSS; numeric1–100 independent",
+    "forge": "3 stages cap D/B/S. Scroll-only stage upgrades; currently no source. SSS not forgeable.",
+    "world": "B Base third card. Resource-paid local forge, collision/entry, local E/service/card.",
+    "lifetime": "Current world items/equipped/forge/stage/cost preserved on defeat retry. FullReset restores three starters only.",
+    "data": [
+      "Assets/Stage3/PlayerInterface/Resources/Stage3Equipment.asset",
+      "Assets/Stage3/PlayerInterface/Resources/Stage3ForgeBuilding.asset",
+      "Assets/Stage3/PlayerInterface/Resources/Stage3ForgeArt.asset"
+    ]
+  },
+  "tests": {
+    "initialNewSubset": "23/23 passed",
+    "playMode": "66/67 initially; single failure existing clock assertion1ms boundary overshoot. Assertion tolerance .01sec; whole affected class rerun8/8 passed. No runtime clock change.",
+    "editMode": "24/24 passed (economy/manual resources/gate rules)",
+    "uniqueLatestResults": 91,
+    "uniqueLatestFailures": [],
+    "results": [
+      "Artifacts/S3-EQUIPMENT-FORGE-20261019/tests-initial.xml",
+      "Artifacts/S3-EQUIPMENT-FORGE-20261019/playmode-final.xml",
+      "Artifacts/S3-EQUIPMENT-FORGE-20261019/playmode-clock-rerun.xml",
+      "Artifacts/S3-EQUIPMENT-FORGE-20261019/editmode-final.xml"
+    ]
+  },
+  "native": {
+    "platform": "macOS Metal development player; actual1600x900 E and mouse",
+    "passed": [
+      "E opens forge",
+      "Craft wand F1 pays once, bow remains equipped",
+      "Numeric level2, reforge E retains2",
+      "Inventory native select/equip updates weapon slot/combat",
+      "World held weapon and live dock reflect wand",
+      "Selected Forge shows no-scroll block",
+      "Inventory/Forge/B layout screenshots1280x720/1600x900/1920x1080"
+    ],
+    "setup": "Explicit disposable QA env.3000each stock/gold, paid legal forge, entrance position, clock/combat stopped. Later fourD1armor+S100bow+SSS100wand granted only through declared fixture for layout. Not natural gameplay/drop evidence.",
+    "artifacts": "Artifacts/S3-EQUIPMENT-FORGE-20261019/native",
+    "evidence": "Artifacts/S3-EQUIPMENT-FORGE-20261019/native/verification.txt",
+    "finalLayout": "Artifacts/S3-EQUIPMENT-FORGE-20261019/final-layout/Inventory.png",
+    "finalLayoutContext": "Rebuilt player, ordinary starting state; standard screen-capture fixture only switches windows. No stock/items/time/kills/camera injected. F axe has full blade/no neighboring fragment after two-band UV mapping.",
+    "finalLog": "Artifacts/S3-EQUIPMENT-FORGE-20261019/final-native.log",
+    "finalCapture": "Artifacts/S3-EQUIPMENT-FORGE-20261019/final-layout/context.txt"
+  },
+  "art": "Generated original cutout/atlases; byte-identical PNGs; Astra owns UI/world/held visual implementation. Source prompts/hashes in runtime.json.",
+  "remaining": [
+    "No loot tables, scroll loot source, rune mechanics or disk saving. SSS and upgrade scroll grants are future-source APIs only.",
+    "Armor slots/craft/stats work; hero HP/protection/death and armor redressing remain deferred.",
+    "Prices/stat curves are initial playtest tuning.",
+    "Windows player unverified: local editor has no Windows build support module."
+  ],
+  "build": {
+    "target": "StandaloneOSX development player",
+    "result": "Succeeded",
+    "bytes": 570544627,
+    "path": "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app",
+    "log": "Artifacts/S3-EQUIPMENT-FORGE-20261019/build-final.log",
+    "installerLog": "Artifacts/S3-EQUIPMENT-FORGE-20261019/install.log"
+  },
+  "console": "No attributable compiler errors, runtime exceptions or test console failures. Licensing token refresh warning in batch log is environmental and entitlement resolved. Earlier existing clock assertion precision failure fixed/requalified as documented.",
+  "evidenceFiles": [
+    {
+      "path": "Artifacts/S3-EQUIPMENT-FORGE-20261019/tests-initial.xml",
+      "sha256": "27a817588ea80daebd628f1490cf0184a1e5f76b37ed9f895817bb8ba7b60795"
+    },
+    {
+      "path": "Artifacts/S3-EQUIPMENT-FORGE-20261019/playmode-final.xml",
+      "sha256": "44cbb89f5595895f522fb4054af3347f0d4e329f6435af159662a91d8e488a31"
+    },
+    {
+      "path": "Artifacts/S3-EQUIPMENT-FORGE-20261019/playmode-clock-rerun.xml",
+      "sha256": "a85c2b517f6dc0c5ed67d5a67f515cc8e6c39b700bfb81cf42bfca7d02fa5788"
+    },
+    {
+      "path": "Artifacts/S3-EQUIPMENT-FORGE-20261019/editmode-final.xml",
+      "sha256": "534884da37623a6a50ac21acd39b38ab4fd0995677220597951de9269bd27b0b"
+    },
+    {
+      "path": "Artifacts/S3-EQUIPMENT-FORGE-20261019/build-final.log",
+      "sha256": "c27bbab9cea60412d393955640cbacacda10c34da09bfa6c1b4c464103e8d539"
+    },
+    {
+      "path": "Artifacts/S3-EQUIPMENT-FORGE-20261019/native/verification.txt",
+      "sha256": "a754cf3567e318bdd3180bb072d0563f50796da91c38973ea03bef1ad52dff89"
+    },
+    {
+      "path": "Artifacts/S3-EQUIPMENT-FORGE-20261019/final-layout/Inventory.png",
+      "sha256": "fddac5be789c086d84a59872e7fafde4494efb440f49a8fba400752d556e7707"
+    },
+    {
+      "path": "Artifacts/S3-EQUIPMENT-FORGE-20261019/final-layout/context.txt",
+      "sha256": "cc207802ae08e9615b02a1503b7b8daf09dc7cca10b8010291213e2ac8a45f73"
+    }
+  ],
+  "astraVisualReview": "Final PASS: ordinary-start Inventory.png F axe full/clean in bag and tool slot. Five combat+two working slots,5gold/threeF1starters; no overlaps. Earlier Forge/world/720/900/1080p PASS retained; no blockers."
+}

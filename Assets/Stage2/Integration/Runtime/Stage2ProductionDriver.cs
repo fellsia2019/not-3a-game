@@ -39,6 +39,13 @@ namespace Not3A.Stage2.Integration
         public int PreviewPointIndex { get; private set; } = -1;
         public bool PointerOverUi { get; private set; }
         public event Action PlacementStarting;
+        public ProductionUpgradeResult EvaluateUpgrade(Stage2ProductionBuilding building) =>
+            Active ? Rules.EvaluateUpgrade(building) : ProductionUpgradeResult.Inactive;
+        public ProductionUpgradeResult TryUpgrade(Stage2ProductionBuilding building)
+        {
+            SyncActivity();
+            return Rules.TryUpgrade(building);
+        }
 
         public GameObject GetBuiltVisual(Stage2ProductionBuilding building)
         {
@@ -181,6 +188,7 @@ namespace Not3A.Stage2.Integration
         private void CaptureCheckpoint() => checkpoint = Rules?.CaptureSnapshot();
         private void RestoreCheckpoint()
         {
+            if (run.PreserveProgressOnRetry) { CancelPlacement(); SyncActivity(); return; }
             var saved = checkpoint;
             ResetRun();
             if (saved == null) return;

@@ -19,7 +19,7 @@ namespace Not3A.Stage2.Defense
     {
         Ready, NotPlacing, Inactive, Paused, InvalidCell, Occupied,
         HeroProtected, EnemyProtected, EnemyStateUnavailable, CannotAfford,
-        CreationFailed, RegistrationFailed, PaymentFailed
+        CreationFailed, RegistrationFailed, PaymentFailed, ResearchRequired
     }
 
     /// <summary>Main-thread placement transaction. The scene owner supplies run state and actor protection.</summary>
@@ -49,6 +49,7 @@ namespace Not3A.Stage2.Defense
         private readonly Func<Stage2DefenseCatalog, Stage2Tower> prepareTower;
         private readonly List<Stage2Tower> towers = new List<Stage2Tower>();
         private Func<Vector2Int, bool> enemyProtected;
+        private Func<int, bool> roleAvailable;
         private Func<Vector2, float, int, float, float, bool> attackTarget;
         private bool attackActive = true;
         private Vector2Int? previewCell;
@@ -152,12 +153,15 @@ namespace Not3A.Stage2.Defense
 
         public bool SelectRole(int index)
         {
-            if (committing || index < 0 || index >= catalogs.Count) return false;
+            if (committing || !IsRoleAvailable(index)) return false;
             selectedCatalogIndex = index;
             return true;
         }
 
         public void SetEnemyProtection(Func<Vector2Int, bool> isProtected) => enemyProtected = isProtected;
+        public bool IsRoleAvailable(int index)=>index>=0&&index<catalogs.Count&&(roleAvailable?.Invoke(index)??true);
+        public void SetRoleAvailability(Func<int,bool> available)
+        {roleAvailable=available;if(!IsRoleAvailable(selectedCatalogIndex))CancelPlacement();}
 
         public void SetAttackTarget(Func<Vector2, float, int, float, float, bool> hitNearest)
         {
@@ -180,7 +184,7 @@ namespace Not3A.Stage2.Defense
 
         public bool BeginPlacement()
         {
-            if (committing || paused || phase == Stage2BuildPhase.Inactive) return false;
+            if (committing || paused || phase == Stage2BuildPhase.Inactive || !IsRoleAvailable(selectedCatalogIndex)) return false;
             placing = true;
             previewCell = null;
             return true;
@@ -210,6 +214,7 @@ namespace Not3A.Stage2.Defense
         {
             if (phase == Stage2BuildPhase.Inactive) return PlacementResult.Inactive;
             if (paused) return PlacementResult.Paused;
+            if (!IsRoleAvailable(selectedCatalogIndex)) return PlacementResult.ResearchRequired;
             if (!map.Contains(cell) || map.GetSurface(cell) != MapSurfaceKind.InvasionCorridor ||
                 !map.IsWalkable(cell) || !map.IsBuildable(cell) ||
                 cell == map.EnemyEntrance || cell == map.Throne) return PlacementResult.InvalidCell;

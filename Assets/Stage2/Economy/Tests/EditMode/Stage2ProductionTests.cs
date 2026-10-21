@@ -120,5 +120,68 @@ namespace Not3A.Stage2.Economy.Tests
             Assert.That(nested, Is.EqualTo(ProductionPlacementResult.Inactive));
             Assert.That(inventory.Get(MapResourceKind.Wood), Is.EqualTo(18));
         }
+        private void EnableUpgrades()
+        {
+            foreach (var entry in catalog.Entries)
+            {
+                entry.outputAmount = 1;
+                entry.upgrades = new Stage2ProductionUpgrade[4];
+                for (var i = 0; i < 4; i++) entry.upgrades[i] = new Stage2ProductionUpgrade {
+                    cost = new Stage2ResourceCost(1, 1, 1, 2), outputAmount = i + 2 };
+            }
+            inventory.TryAdd(MapResourceKind.Metal, 50); inventory.TryAddGold(50);
+        }
+        [Test] public void UpgradePaysOncePreservesPartialCycleAndProducesOnlyAtItsNextBoundary()
+        {
+            EnableUpgrades(); Build(); var building = rules.Buildings[0]; var footprint = building.Footprint;
+            rules.Tick(2.5f); var wood = inventory.Get(MapResourceKind.Wood); var gold = inventory.Gold;
+            Assert.That(rules.TryUpgrade(building), Is.EqualTo(ProductionUpgradeResult.Upgraded));
+            Assert.That(building.Level, Is.EqualTo(2)); Assert.That(building.OutputAmount, Is.EqualTo(2));
+            Assert.That(building.ProgressSeconds, Is.EqualTo(2.5d)); Assert.That(building.IntervalSeconds, Is.EqualTo(5));
+            Assert.That(building.Footprint, Is.EqualTo(footprint));
+            Assert.That(inventory.Get(MapResourceKind.Wood), Is.EqualTo(wood - 1)); Assert.That(inventory.Gold, Is.EqualTo(gold - 2));
+            rules.Tick(2.49f); Assert.That(inventory.Get(MapResourceKind.Wood), Is.EqualTo(wood - 1));
+            rules.Tick(.02f); Assert.That(inventory.Get(MapResourceKind.Wood), Is.EqualTo(wood + 1));
+        }
+        [Test] public void UpgradeRejectsUnfundedInactiveStaleAndMaximumWithoutSpending()
+        {
+            EnableUpgrades(); Build(); var building = rules.Buildings[0];
+            inventory.Reset(); Assert.That(rules.TryUpgrade(building), Is.EqualTo(ProductionUpgradeResult.InsufficientResources));
+            inventory.TryCredit(new Stage2ResourceCost(50, 50, 50, 50));
+            rules.SetActive(false); Assert.That(rules.TryUpgrade(building), Is.EqualTo(ProductionUpgradeResult.Inactive));
+            Assert.That(inventory.Gold, Is.EqualTo(50)); rules.SetActive(true);
+            for (var i = 0; i < 4; i++) Assert.That(rules.TryUpgrade(building), Is.EqualTo(ProductionUpgradeResult.Upgraded));
+            Assert.That(building.Level, Is.EqualTo(5)); Assert.That(building.OutputAmount, Is.EqualTo(5));
+            var gold = inventory.Gold; Assert.That(rules.TryUpgrade(building), Is.EqualTo(ProductionUpgradeResult.MaximumLevel));
+            Assert.That(inventory.Gold, Is.EqualTo(gold)); rules.Reset();
+            Assert.That(rules.TryUpgrade(building), Is.EqualTo(ProductionUpgradeResult.InvalidBuilding));
+            Assert.That(inventory.Gold, Is.EqualTo(gold));
+        }
+        [Test] public void SameTypeBuildingsKeepIndependentLevelsAndSnapshotRestoresThemWithoutIncome()
+        {
+            EnableUpgrades(); rules.BindPoints(new[] {
+                new ResourceProductionPoint(0, MapResourceKind.Wood, Vector2.zero, Vector2.one * 2, 0),
+                new ResourceProductionPoint(1, MapResourceKind.Wood, Vector2.right * 8, Vector2.one * 2, 0) });
+            Build(); Build(1); var first = rules.Buildings[0]; var second = rules.Buildings[1];
+            rules.TryUpgrade(first); rules.Tick(2); var saved = rules.CaptureSnapshot();
+            Assert.That(second.Level, Is.EqualTo(1)); Assert.That(second.OutputAmount, Is.EqualTo(1));
+            rules.TryUpgrade(first); var gold = inventory.Gold; var wood = inventory.Get(MapResourceKind.Wood);
+            rules.RestoreSnapshot(saved);
+            Assert.That(rules.Buildings[0].Level, Is.EqualTo(2)); Assert.That(rules.Buildings[1].Level, Is.EqualTo(1));
+            Assert.That(rules.Buildings[0].ProgressSeconds, Is.EqualTo(2));
+            Assert.That(inventory.Gold, Is.EqualTo(gold)); Assert.That(inventory.Get(MapResourceKind.Wood), Is.EqualTo(wood));
+            rules.Tick(3); Assert.That(inventory.Get(MapResourceKind.Wood), Is.EqualTo(wood + 3));
+        }
+        [Test] public void ReentrantUpgradeCannotSpendOrAdvanceTwiceAndCatalogRejectsBrokenSteps()
+        {
+            EnableUpgrades(); Build(); var building = rules.Buildings[0];
+            var nested = ProductionUpgradeResult.Ready; var gold = inventory.Gold;
+            inventory.Changed += () => nested = rules.TryUpgrade(building);
+            Assert.That(rules.TryUpgrade(building), Is.EqualTo(ProductionUpgradeResult.Upgraded));
+            Assert.That(nested, Is.EqualTo(ProductionUpgradeResult.Inactive));
+            Assert.That(building.Level, Is.EqualTo(2)); Assert.That(inventory.Gold, Is.EqualTo(gold - 2));
+            building.Entry.upgrades[1].outputAmount = 1;
+            Assert.That(catalog.TryValidate(out _), Is.False);
+        }
     }
 }

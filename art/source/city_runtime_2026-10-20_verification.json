@@ -1,0 +1,447 @@
+{
+  "date": "2026-10-20",
+  "decision": "D-099",
+  "status": "Implemented and locally qualified:16/16 focused PlayMode, final Mac/Metal player, native mouse/E roundtrip, Astra final visual PASS.",
+  "authorization": "Owner approved A_v6 city plus shared teleport menu_v1 and said делай.",
+  "ownership": {
+    "main": "ImageGen/provenance, plain travel rules, world integration, binding, tests, QA and documentation",
+    "visual": "GPT-6 Astra / gatherer_concept_astra, city and native existing-stack menu presentation"
+  },
+  "behavior": [
+    "Modular orange-roof city, cobalt merchant shop outline/scales badge, ambient residents and quiet temple courtyard ground seal.",
+    "Local click/E opens one shared menu of registered opened points. Current target disabled; explicit destination and confirmation; Esc cancels.",
+    "Confirmation revalidates research/discovery, mode, source proximity and clear arrival; no price or world regeneration; fresh input prevents bounce.",
+    "D087 retry keeps current openings/research and clears unfinished menu; full reset clears openings/workshop/research but retains city.",
+    "City solid footprints in HeroObstacleMap; street/portal free; manual nodes/grass/flowers and workshop/dwelling/forge placement excluded from city bounds.",
+    "Current product has only base/city. Optional additional data registry rendered/routed through same interface; third endpoint exists only in tests."
+  ],
+  "sources": {
+    "generation": "art/source/city_runtime_2026-10-20_generation.json",
+    "original_png_checks": [
+      {
+        "kind": "shop",
+        "source_runtime_original_identical": true,
+        "sha256": "8b66cb6ff2069c9a5cc55931a6d98b8a0a7cebee96113a73eab168604d972392"
+      },
+      {
+        "kind": "temple",
+        "source_runtime_original_identical": true,
+        "sha256": "91568b1ba17babf60ea70aa282bb0fc547753b722ebc05c492571735390e6a44"
+      },
+      {
+        "kind": "kit",
+        "source_runtime_original_identical": true,
+        "sha256": "7f2e8e4042229952a4c9fc00b692fd64b97a7a6512a38528ff948526cd04eff6"
+      },
+      {
+        "kind": "paving",
+        "source_runtime_original_identical": true,
+        "sha256": "d88824eddaf18e4a7d3163361975ef3c38d3b30b6d48661f85630f6844b00f94"
+      },
+      {
+        "kind": "previews",
+        "source_runtime_original_identical": true,
+        "sha256": "34b20228c8ca11f908c3b8e7736f83ca71460fecc125d9a57676a237a4a35a9e"
+      }
+    ],
+    "external_art_copied_or_traced": false,
+    "runtime_png_rewrites": false
+  },
+  "wiring_and_migration": {
+    "entry": "Not3A.Stage3.PlayerInterface.Editor.Stage3CityTravelInstaller.Install",
+    "parts": [
+      "Stage3CityArtImporter.BuildAssets",
+      "Stage3CityTravelInstaller.SaveConfiguration"
+    ],
+    "new_asset": "Assets/Stage3/WorldTravel/Resources/Stage3CityArt.asset",
+    "existing_data": "Assets/Stage3/WorldTravel/WorldTravelData.asset",
+    "additive_fields": {
+      "cityOrigin": [
+        172,
+        162
+      ],
+      "additionalPoints": []
+    },
+    "legacy_preserved": "worldCirclePosition=(94,48) fallback, all old serialized field names/art links/offsets",
+    "scene_prefab_packages_asmdef_settings_changes": "None in this slice; existing Stage3TacticalPresentation worldTravelData binding unchanged.",
+    "preview_bounds_bottom_left_pixels": {
+      "base": [
+        80,
+        107,
+        768,
+        670
+      ],
+      "city": [
+        926,
+        107,
+        768,
+        670
+      ]
+    },
+    "city_seal": "Existing PNG/material reused with city-only MPB contactColor(.65,.9,1,1),OutlinePixels2.5,MaskHigh.35,lift-.05; base retains previous treatment."
+  },
+  "playmode": {
+    "result": "Passed",
+    "total": 16,
+    "passed": 16,
+    "failed": 0,
+    "duration_seconds": 48.6649843,
+    "start_utc": "2026-10-20 13:47:46Z",
+    "end_utc": "2026-10-20 13:48:35Z",
+    "xml": "Artifacts/S3-CITY-TELEPORTS-20261020/playmode-final.xml",
+    "filter": "Stage3WorldTravelTests;Stage3TravelNetworkRulesTests;Stage3StartupTests",
+    "test_names": [
+      "Not3A.Stage3.VisualPilot.Tests.Stage3StartupTests.DirectStartAndReloadHaveFinalWorldAndHudInTheirFirstFrame",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3StartupTests.LegacyStage2KeepsItsOwnVisibleMarkersAndHud",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3TravelNetworkRulesTests.DuplicateDestinationIdsFailBeforeReplacingTheRegistry",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3TravelNetworkRulesTests.SnapshotAndResetPreserveOnlyRegisteredOpenedPointsAndResearch",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3TravelNetworkRulesTests.ThirdOpenedPointUsesTheSameRoutesWithoutUnlockingUnknownPoints",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3WorldTravelTests.ApprovedSealRendersAtThreeZoomsWithTransparentSourceBackground",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3WorldTravelTests.BuildMenuMousePlacementIsFreeSingleAndMatchesPreviewBeforeResearch",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3WorldTravelTests.CityCollisionsAndStreetArrivalAreSeparateAndResourcesCannotSpawnInside",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3WorldTravelTests.ConfiguredThirdEndpointRendersAndUsesTheSameOpenedDestinationMenu",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3WorldTravelTests.DiscoveryAndMenuTravelWorkBothWaysWithoutBounceOrBlockedArrival",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3WorldTravelTests.DiscoveryBeforeResearchPersistsThroughStudyAndWaveButTerminalBlocksTravel",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3WorldTravelTests.PauseBuildAndDebugBlockResearchAndHeldInputDoesNotReplay",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3WorldTravelTests.PlacementRejectsRoadHeroResourcesCirclesObstaclesAndMenuClicksAndCancellationWins",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3WorldTravelTests.ResearchCreatesBaseCircleAndResetRemovesItWithoutSpendingOrGranting",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3WorldTravelTests.WorkshopPlacementYieldsToOtherModesAndCannotSurvivePauseDebugTerminalOrReset",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3WorldTravelTests.WorldRegenerationRebindsOneWorkshopObstacleAndKeepsArrivalSitesClear"
+    ],
+    "ordering": "After gameplay/network/layout/importer changes. Subsequent changes only visual shader/UI safe areas and explicit QA unpause setup; final player build/native evidence covers those."
+  },
+  "build": {
+    "platform": "Mac standalone Metal development",
+    "unity": "6000.6.2f1",
+    "method": "Not3A.Stage3.PlayerInterface.Editor.Stage3PlayerInterfaceBuilder.BuildMacReviewPlayer",
+    "result": "Succeeded",
+    "bytes": 675598347,
+    "log": "Artifacts/S3-CITY-TELEPORTS-20261020/build-reviewed.log",
+    "player": "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app"
+  },
+  "native": {
+    "directory": "Artifacts/S3-CITY-TELEPORTS-20261020/native-reviewed",
+    "log": "Artifacts/S3-CITY-TELEPORTS-20261020/native-reviewed.log",
+    "city_views": 4,
+    "menu_views": 12,
+    "sizes": [
+      [
+        1280,
+        720
+      ],
+      [
+        1600,
+        900
+      ],
+      [
+        1920,
+        1080
+      ]
+    ],
+    "seed": 164032,
+    "city_origin": [
+      163,
+      153
+    ],
+    "city_portal": [
+      148,
+      148
+    ],
+    "solid_footprints": 56,
+    "fixtures": "Explicit development-only NOT3A_CITY_TELEPORT_CAPTURE_DIRECTORY. Free existing prototype workshop/study/personal discovery through product rules, frozen run driver, no money/item grants. Not ordinary startup.",
+    "actual_input": [
+      "Mouse confirm city to base, camera follows and no automatic return",
+      "E opens same menu at base",
+      "Esc closes without movement",
+      "Mouse click on base ground seal opens same menu",
+      "Mouse selects current base; disabled action click does not move hero",
+      "Mouse selects city and confirms base to temple court"
+    ],
+    "frames": [
+      {
+        "path": "Artifacts/S3-CITY-TELEPORTS-20261020/native-reviewed/1280x720-current-base.png",
+        "bytes": 1340465,
+        "sha256": "3d854e19c33489a2a8d38003a3ed676c4c0d36c51fbea1166acc416023c5ff89"
+      },
+      {
+        "path": "Artifacts/S3-CITY-TELEPORTS-20261020/native-reviewed/1280x720-current-city.png",
+        "bytes": 1331320,
+        "sha256": "61825c2ee0f286bec28d8255f68b7f449088d606fd9db8187b76c8f3c7039eee"
+      },
+      {
+        "path": "Artifacts/S3-CITY-TELEPORTS-20261020/native-reviewed/1280x720-from-base.png",
+        "bytes": 1343314,
+        "sha256": "6724ca1ab8ab78f40201766c1d775afc8267c0c0882be43c33dd41d88897fa88"
+      },
+      {
+        "path": "Artifacts/S3-CITY-TELEPORTS-20261020/native-reviewed/1280x720-from-city.png",
+        "bytes": 1331536,
+        "sha256": "57e5d650c5381fd715016138efa75b2c0376ae5eb109ed2eb33ded125e28f8ed"
+      },
+      {
+        "path": "Artifacts/S3-CITY-TELEPORTS-20261020/native-reviewed/1600x900-current-base.png",
+        "bytes": 1967701,
+        "sha256": "d28cabefa527d5ce94e43633f6acc0ba2075cbf69a69e0eb8c0130c849f76826"
+      },
+      {
+        "path": "Artifacts/S3-CITY-TELEPORTS-20261020/native-reviewed/1600x900-current-city.png",
+        "bytes": 1945457,
+        "sha256": "19a493adc2550e54450f0c1b45cf0c000e8872e23d0f65453c164efccfb8562f"
+      },
+      {
+        "path": "Artifacts/S3-CITY-TELEPORTS-20261020/native-reviewed/1600x900-from-base.png",
+        "bytes": 1973388,
+        "sha256": "5fe4a5f26e49f7229ba26d766ae37b92c453ab9a8ed4b3fc1d37c166acdc1dc1"
+      },
+      {
+        "path": "Artifacts/S3-CITY-TELEPORTS-20261020/native-reviewed/1600x900-from-city.png",
+        "bytes": 1946416,
+        "sha256": "9fb6090cfc421cfc56fcd56404b4187bb7393632271137d70e040f25f83e74e6"
+      },
+      {
+        "path": "Artifacts/S3-CITY-TELEPORTS-20261020/native-reviewed/1920x1080-current-base.png",
+        "bytes": 2679316,
+        "sha256": "815c612ae85e16fbe562ed4cae605e76118a1b5e9ee2601631aef372becebe33"
+      },
+      {
+        "path": "Artifacts/S3-CITY-TELEPORTS-20261020/native-reviewed/1920x1080-current-city.png",
+        "bytes": 2703412,
+        "sha256": "1791186a79b66352a0619729adecd83c374d7f5654832a9dd314754393bfd0af"
+      },
+      {
+        "path": "Artifacts/S3-CITY-TELEPORTS-20261020/native-reviewed/1920x1080-from-base.png",
+        "bytes": 2688098,
+        "sha256": "7eb586559526f9d45908a0dc0ace6275a82ff1a94119126ab1d897510a5a8394"
+      },
+      {
+        "path": "Artifacts/S3-CITY-TELEPORTS-20261020/native-reviewed/1920x1080-from-city.png",
+        "bytes": 2705538,
+        "sha256": "ee3c84cc434e422e1847b00884d004f360374b06cf19741a7830a6b0989343ae"
+      },
+      {
+        "path": "Artifacts/S3-CITY-TELEPORTS-20261020/native-reviewed/actual-E-base.png",
+        "bytes": 423660,
+        "sha256": "af0bcc7c6390f12b450452cb0afac513f23f23fca018b885a62240ee8225f72b"
+      },
+      {
+        "path": "Artifacts/S3-CITY-TELEPORTS-20261020/native-reviewed/actual-Escape-no-travel.png",
+        "bytes": 582728,
+        "sha256": "cb6e08c5c96252ff779f1359347d5b1187e4ff97eaa8ad59697caadb9ae9c34c"
+      },
+      {
+        "path": "Artifacts/S3-CITY-TELEPORTS-20261020/native-reviewed/actual-arrive-base.png",
+        "bytes": 582135,
+        "sha256": "b2bbed8312966f441c58c1f107efbb0eaf40427ec76c819a59529350455fed9c"
+      },
+      {
+        "path": "Artifacts/S3-CITY-TELEPORTS-20261020/native-reviewed/actual-arrive-city.png",
+        "bytes": 554605,
+        "sha256": "96f20191997cf97cf2f2204016f62f442a5030d374db226f1d4147129a8228ce"
+      },
+      {
+        "path": "Artifacts/S3-CITY-TELEPORTS-20261020/native-reviewed/actual-before-confirm.png",
+        "bytes": 408264,
+        "sha256": "f10981e6db40e735b0ca880f43ab8fcaedfef71549dfa7ae3b8c46f2c7e94465"
+      },
+      {
+        "path": "Artifacts/S3-CITY-TELEPORTS-20261020/native-reviewed/actual-click-base-open.png",
+        "bytes": 423988,
+        "sha256": "4c6fb27840600e34e1e0210c20e9c5a7a655bed3232745513698289cecc7c76a"
+      },
+      {
+        "path": "Artifacts/S3-CITY-TELEPORTS-20261020/native-reviewed/actual-current-disabled.png",
+        "bytes": 423998,
+        "sha256": "746e9263ec2124dadfbf715bfbde5f2b42123a1d485e2f2cefbf5462e08bf3a7"
+      },
+      {
+        "path": "Artifacts/S3-CITY-TELEPORTS-20261020/native-reviewed/actual-disabled-click-no-travel.png",
+        "bytes": 423596,
+        "sha256": "bce4eedc6024b656df0f100d0556aba1e342bf60ac619e895881b71232181d68"
+      },
+      {
+        "path": "Artifacts/S3-CITY-TELEPORTS-20261020/native-reviewed/city-overview-17.png",
+        "bytes": 2583812,
+        "sha256": "638c6c0326920965f90006a14a3820064582494881b2ee16246c51adae4a11a8"
+      },
+      {
+        "path": "Artifacts/S3-CITY-TELEPORTS-20261020/native-reviewed/city-overview-25.png",
+        "bytes": 2614992,
+        "sha256": "3f7ae0f100c3d270548173c1d630739ef4b1035a3992943a541aea8738285800"
+      },
+      {
+        "path": "Artifacts/S3-CITY-TELEPORTS-20261020/native-reviewed/merchant-shop.png",
+        "bytes": 2434267,
+        "sha256": "1ed0478b2381927a168c5ec31d1ec82640c6255be4b6a084f36d55630905af0b"
+      },
+      {
+        "path": "Artifacts/S3-CITY-TELEPORTS-20261020/native-reviewed/temple-court.png",
+        "bytes": 2401446,
+        "sha256": "407aad56a3753fbb8107a22b6ae9f54cd34600ab6887d1e0522faa58ec510ef7"
+      }
+    ],
+    "visual_review": {
+      "model": "GPT-6 Astra",
+      "status": "PASS",
+      "reviewed": "All16native-reviewed fixture frames plus actual-arrive-city.png",
+      "findings": [
+        "Connected paving without geometric holes; soft street edges.",
+        "Distinct shop; readable quiet temple court and ground seal.",
+        "720/900/1080 menus: full arrival images inside frames, readable current/selected/disabled states and no label overlap."
+      ],
+      "blockers": [],
+      "limits": "Mac native only. Modular implementation of approved city composition, not literal concept screenshot copy."
+    },
+    "fixture_record": "Disposable native QA: frozen clock, free prototype workshop/study through product rules, personally visit city. No funds/items granted. City=(163.00, 153.00); portal=(148.00, 148.00); base=(55.00, 19.00). 4cityviews+12menuviews at720/900/1080; current point disabled. End city→base menu for actualmouse confirm."
+  },
+  "normal_restore": {
+    "running": true,
+    "capture_environment_removed": true,
+    "qa_seed_removed": true,
+    "log": "Artifacts/S3-CITY-TELEPORTS-20261020/normal.log",
+    "proof": {
+      "path": "Artifacts/S3-CITY-TELEPORTS-20261020/normal-restored.png",
+      "bytes": 526957,
+      "sha256": "1ab90a0a537271c87a3acd8cf82d1ed35ca6d9239a4662358865ba951cfca8c9"
+    },
+    "observed": "Ordinary startup hero LVL1/XP0,5gold/0wood/0stone/0metal, no QA workshop/openings; clock advanced to08:14. No capture-ready marker."
+  },
+  "console": {
+    "new_attributable_compile_shader_runtime_errors": 0,
+    "limits": "Known unused URP shader variant/font fallback/Unity telemetry/licensing warnings remain baseline. Successful final build and no runtime exceptions in native/normal logs."
+  },
+  "repair_history": [
+    "First rectangular grid paving rejected by Astra; curved connected streets, courts, green pockets and existing trees replace it.",
+    "Terrain green holes removed by owned ground overlay draw order; city-only light seal contact treatment.",
+    "Arrival preview cropped by heavy frame: final aspect containment, border-derived safe area, thin frame; disabled reason remains inside footer.",
+    "Early native fixture stopped because disabling RunDriver pauses the run. Fixture now resets/unpauses after disable. Gameplay interaction gates unchanged."
+  ],
+  "performance_limits": "Static city objects/shared textures/materials, one ground mesh; no PNG loading or pixel scan every frame. No general FPS/performance-budget claim.",
+  "remaining": [
+    "Windows/Steam build and player unverified: local Windows module unavailable.",
+    "Merchant stock, prices, access and buy/sell transactions remain a separate ready slice; current city supplies artwork/merchant placement only.",
+    "Ambient NPC movement/quests, temple services/lore, further cities, disk save and new currencies are not included.",
+    "Owner response to final native appearance remains open."
+  ],
+  "files": [
+    {
+      "path": "Assets/Stage3/WorldTravel/Runtime/Stage3TravelState.cs",
+      "bytes": 3539,
+      "sha256": "a61107f72e4fd3ccc94937ec21fc65f409ba2c6488a3cd352e85118ff99a29dd"
+    },
+    {
+      "path": "Assets/Stage3/WorldTravel/Runtime/Stage3WorldTravel.cs",
+      "bytes": 17900,
+      "sha256": "800946a6bfc69b44a21717e16491f02ddfece0400ebcbc39402a29d1aaf90d85"
+    },
+    {
+      "path": "Assets/Stage3/WorldTravel/Runtime/Stage3WorldTravel.Network.cs",
+      "bytes": 4654,
+      "sha256": "40f174cb7a3150ce42da3851d0bf43acc925c7f3c069c5d379430a039557e120"
+    },
+    {
+      "path": "Assets/Stage3/WorldTravel/Runtime/Stage3WorldTravel.City.cs",
+      "bytes": 3147,
+      "sha256": "5edbd692abe963a53af5707ccb694e114a6d71653159eaa83de9cea61d0e9dac"
+    },
+    {
+      "path": "Assets/Stage3/WorldTravel/Runtime/Stage3WorldTravelData.cs",
+      "bytes": 962,
+      "sha256": "ecf22be962d9a690161bf60d1b8da402d74819065e1658a536d59cfc6987baa2"
+    },
+    {
+      "path": "Assets/Stage3/WorldTravel/WorldTravelData.asset",
+      "bytes": 6108,
+      "sha256": "14f2407d75a0da8d419fd811447be0dc0b9611659db90ca57269c1fe6a30500f"
+    },
+    {
+      "path": "Assets/Stage3/WorldTravel/Runtime/Stage3CityArt.cs",
+      "bytes": 716,
+      "sha256": "d33054970defec8122f59fd5a980412b69087b5d06e4d83350d708d03a223ad2"
+    },
+    {
+      "path": "Assets/Stage3/WorldTravel/Runtime/Stage3CityPresentation.cs",
+      "bytes": 12243,
+      "sha256": "bfae65fe041db3cc025c50e25ae890d7fc0c6672f7a0417e6b01b88c3e993c21"
+    },
+    {
+      "path": "Assets/Stage3/WorldTravel/CitySprite.shader",
+      "bytes": 2808,
+      "sha256": "72d17f33fdda31d54ac4ad6cc31752f12cb97da3ce77024db292c78a4f00b37c"
+    },
+    {
+      "path": "Assets/Stage3/WorldTravel/CityPaving.shader",
+      "bytes": 1757,
+      "sha256": "c00a38eb35a59b286ff68a48da1edfc5842e2c532feffbe8dba395f9c29f60c7"
+    },
+    {
+      "path": "Assets/Stage3/WorldTravel/TeleportSeal.shader",
+      "bytes": 2667,
+      "sha256": "7470b02f536b06a1cb28f813cd6c5c2e61906b6503eb6020b3c8782526aacca9"
+    },
+    {
+      "path": "Assets/Stage3/WorldTravel/Resources/Stage3CityArt.asset",
+      "bytes": 92843,
+      "sha256": "d998cb268cc3ae268afe14121933ee5b6e71a5ca1c4c0910bd7a2683922f4213"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Editor/Stage3CityArtImporter.cs",
+      "bytes": 9317,
+      "sha256": "04c4cceb26e12ce9914ec8cb7df0700c374dc9001c20353948008efb72b26595"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Editor/Stage3CityTravelInstaller.cs",
+      "bytes": 884,
+      "sha256": "1f1d5be728e138ad09046c5834259e009a6cf98a7ce203091f6b149442803bac"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Runtime/Stage3PlayerInterfaceBinding.Teleports.cs",
+      "bytes": 3568,
+      "sha256": "6896427244e2ba401e099db4625ff1a245208d8ce357874883342c8fc08efb49"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Teleports.cs",
+      "bytes": 11352,
+      "sha256": "60133acce2c0eba553c5bcc9f9b80045a708764e5b13825f3f3411db40e92dfb"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Runtime/Stage3CityTeleportReview.cs",
+      "bytes": 4658,
+      "sha256": "d6d6fb552a5253e8f3a250dee7e3a8f8e74ac44b9f7520c0ebbec27b422c84f5"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Runtime/Stage3InterfaceCapture.cs",
+      "bytes": 23866,
+      "sha256": "9ccb4f4084bb4e37d6d1e678e70516ca5cf38de81dccdcf9f756f7df10eb528c"
+    },
+    {
+      "path": "Assets/Stage3/VisualPilot/Runtime/Stage3TacticalPresentation.cs",
+      "bytes": 38786,
+      "sha256": "e757a88e2ec30b72f348f0199b760f5695007f40754ee25ed914daa76c647330"
+    },
+    {
+      "path": "Assets/Stage3/WorldTravel/Runtime/Stage3WorldTravel.Construction.cs",
+      "bytes": 11077,
+      "sha256": "5cccca737fdebfedfccc39a141a481e7eceaace643d5331d78542ed13e3d6169"
+    },
+    {
+      "path": "Assets/Stage3/DayNight/Runtime/Stage3Dwelling.cs",
+      "bytes": 14400,
+      "sha256": "5db279447314d1c9265b0d01b521d4feedbe8eb7a14be6d49b9a57a9531656cd"
+    },
+    {
+      "path": "Assets/Stage3/VisualPilot/Runtime/Stage3Forge.cs",
+      "bytes": 12379,
+      "sha256": "e2d5e13d492a2a02a033d6a0a03339eac527ce187d9ae8c42d70affb1ad61d9e"
+    },
+    {
+      "path": "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3WorldTravelTests.cs",
+      "bytes": 27372,
+      "sha256": "40706a286596b998aadce951812da8fb0ab0a36dca3b355400f62d1dd0044737"
+    },
+    {
+      "path": "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3TravelNetworkRulesTests.cs",
+      "bytes": 2830,
+      "sha256": "10d0e4d9893618f65cba2f67e4f896a27271a4c615f9d95b036df67e5bf8ef6e"
+    }
+  ]
+}

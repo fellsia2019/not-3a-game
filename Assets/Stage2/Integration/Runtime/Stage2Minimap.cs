@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Not3A.Stage2.Integration
 {
-    public enum Stage2MinimapMarkerKind { Wood, Stone, Metal, Tower, Enemy, Portal, Throne, Hero, Research, Teleport }
+    public enum Stage2MinimapMarkerKind { Wood, Stone, Metal, Tower, Enemy, Portal, Throne, Hero, Research, Teleport, City }
 
     public readonly struct Stage2MinimapMarker
     {
@@ -29,7 +29,7 @@ namespace Not3A.Stage2.Integration
         private Texture2D arrow;
         private GUIStyle textStyle;
         private GUIStyle titleStyle;
-        private Vector2? researchPosition, baseTeleportPosition, worldTeleportPosition;
+        private Vector2? researchPosition, baseTeleportPosition, worldTeleportPosition, cityPosition;
         private static readonly Color Ink = new Color(.07f, .10f, .09f, 1f);
         private static readonly Color Gold = new Color(.72f, .65f, .42f, 1f);
 
@@ -37,6 +37,7 @@ namespace Not3A.Stage2.Integration
         public bool SuppressPresentation { get; set; }
         public Texture2D DistrictTerrain => districtTerrain;
         public IReadOnlyList<Stage2MinimapMarker> Markers => markers;
+        public void SetCityMarker(Vector2? city) => cityPosition=city;
         public void SetWorldTravelMarkers(Vector2? research, Vector2? baseCircle, Vector2? worldCircle)
         {
             researchPosition=research; baseTeleportPosition=baseCircle; worldTeleportPosition=worldCircle;
@@ -150,6 +151,7 @@ namespace Not3A.Stage2.Integration
             if (researchPosition.HasValue) markers.Add(new Stage2MinimapMarker(Stage2MinimapMarkerKind.Research, researchPosition.Value));
             if (baseTeleportPosition.HasValue) markers.Add(new Stage2MinimapMarker(Stage2MinimapMarkerKind.Teleport, baseTeleportPosition.Value));
             if (worldTeleportPosition.HasValue) markers.Add(new Stage2MinimapMarker(Stage2MinimapMarkerKind.Teleport, worldTeleportPosition.Value));
+            if (cityPosition.HasValue) markers.Add(new Stage2MinimapMarker(Stage2MinimapMarkerKind.City, cityPosition.Value));
         }
 
         private void BuildTerrain()

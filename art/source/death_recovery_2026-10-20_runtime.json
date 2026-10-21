@@ -1,0 +1,29 @@
+{
+  "date": "2026-10-20",
+  "decision": "D-104",
+  "tool": "Built-in image_gen.imagegen",
+  "references": [
+    "art/concepts/death_recovery_2026-10-20/world_marker_v3.png",
+    "art/concepts/death_recovery_2026-10-20/map_marker_v2.png"
+  ],
+  "prompts": "art/source/death_recovery_2026-10-20_runtime_prompts.json",
+  "chosen": "art/concepts/death_recovery_2026-10-20/runtime/recovery_satchel_v2.png",
+  "rejected_v1": "cyan gemstones corrected by ImageGen narrow edit to ivory/silver; no external asset",
+  "rights": "Newly generated original runtime derivation of approved own-project concepts; no external game pixels copied/traced",
+  "files": [
+    {
+      "path": "art/concepts/death_recovery_2026-10-20/runtime/recovery_satchel_v1.png",
+      "sha256": "e0cc1a6e9125c46e27adcf76cf3009e0d85035d9931297eca4adc98cb9a22d38",
+      "bytes": 1268871
+    },
+    {
+      "path": "art/concepts/death_recovery_2026-10-20/runtime/recovery_satchel_v2.png",
+      "sha256": "031b5313f5c448e6f61f2ef13d789829c6d9e88c6c055529bc7c8facbbbbeb66",
+      "bytes": 1213407
+    }
+  ],
+  "status": "Native gameplay/art locally qualified; AstraPASS34frames, actual keyboardE/I PASS",
+  "runtime_texture": "Assets/Stage3/PlayerInterface/Resources/Stage3RecoverySprites.png",
+  "runtime_sha256": "031b5313f5c448e6f61f2ef13d789829c6d9e88c6c055529bc7c8facbbbbeb66",
+  "verification": "art/source/death_recovery_2026-10-20_verification.json"
+}

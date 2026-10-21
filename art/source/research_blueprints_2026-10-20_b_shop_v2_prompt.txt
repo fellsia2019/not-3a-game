@@ -1,0 +1,7 @@
+Use case: precise-object-edit
+Asset type: final inventory-context concept, narrow safe-zone correction.
+Input image: the local B_shop_v1 merchant mockup is the EDIT TARGET.
+Change ONLY the scale of the same unfolded parchment blueprint at its two existing positions:
+1. In the cyan-selected third cell of the second merchant row, uniformly SHRINK ONLY THE PAPER ILLUSTRATION by about25%. Center all three connected panels and brass clips within the unchanged selected cell, leaving at least12% EMPTY IVORY INSET on every side. Maximum visible width64px within the approximately88px cell at this1672x941screen. Keep original wide proportions; height correspondingly about41px, not stretched square. Keep the neutral background/cyan selection.
+2. In the central detail preview, uniformly SHRINK ONLY THE PAPER ILLUSTRATION by about22%, from its current360px width to approximately280px maximum width, and keep it centered in the existing space above the unchanged title. Preserve all connected panels, brass clips and engineering diagrams. No cropping/stretching.
+Preserve EVERY other part of the screenshot: panels, fonts, positions, blank player bag, eight equipment icons/quality labels, selected-cell border/size, label "Чертёж", all central title/description text, wallet10005gold, illustrative100gold price, Buy button, top navigation, time and entire aspect ratio/canvas. No redesign, no additional items, no gold quality frame on the blueprint, no black/coloured fringe. Only scale and center these two existing illustrations; no extra elements.

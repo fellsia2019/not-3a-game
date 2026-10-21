@@ -250,8 +250,12 @@ namespace Not3A.Stage3.VisualPilot.Tests
             input.Release(keyboard.eKey);
             yield return null;
             yield return Tap(keyboard.eKey);
-            Assert.That(Read<bool>(travel, "IsResearched"), Is.True, "A fresh local E still performs the existing workshop research.");
-            Record("modal-input", "Research window blocks held E, movement, gathering and purchase; day keeps advancing; closing requires fresh E before local research.");
+            Assert.That(Window,Is.EqualTo("Research"),"A fresh local E opens the research page.");
+            Assert.That(Read<bool>(travel,"IsResearched"),Is.False,"Opening a page does not study.");
+            Call(playerUi,"SelectResearchEntry",-1);
+            Assert.That(Call(game.GetComponent("Stage3PlayerInterfaceBinding"),"TryStudyResearch",-1),Is.True);
+            Assert.That(Read<bool>(travel,"IsResearched"),Is.True);
+            Record("modal-input", "Research window blocks held E, movement, gathering and purchase; day keeps advancing; fresh local E opens the page and explicit Study grants research.");
         }
 
         [UnityTest]

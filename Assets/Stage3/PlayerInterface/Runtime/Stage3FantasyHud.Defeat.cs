@@ -31,6 +31,7 @@ namespace Not3A.Stage3.PlayerInterface
             if (Button(button, "", false, defeatPresentation.CanRetry)) defeatPresentation.Retry();
             PaleLabel(ButtonContentRect(button), "Повторить волну", 26, TextAnchor.MiddleCenter);
             Label(new Rect(center - 480f * s, button.yMax + 32f * s, 960f * s, 34f * s),
+                game.RunDriver.Run.PreserveProgressOnRetry ? "Прогресс сохранён · Новый день для подготовки" :
                 "Состояние до волны · Полное время подготовки", 17, TextAnchor.MiddleCenter, true);
             GUI.color = saved;
         }

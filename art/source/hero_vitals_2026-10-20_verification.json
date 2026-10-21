@@ -1,0 +1,341 @@
+{
+  "date": "2026-10-20",
+  "decision": "D-103",
+  "status": "Implemented; Mac rules/native visual qualification passed; native mouse qualification degraded; Windows unverified",
+  "owners": {
+    "main": "Vitals/Blink rules/catalog/bindings, explicit debug wave command, zoom bounds, tests/docs",
+    "visual": "GPT-6 Astra: existing HUD/rank numerical presentation, camera Inspector and debug button"
+  },
+  "contracts": [
+    "100HP/100MP; active-time recovery1HP/s +5MP/s, capped; retry preserves current, Reset fills",
+    "Blink4ranks:100/75/50/25MP and5/4/3/2seconds, ranges300/500/800/1000 unchanged; invalid/blocked casts spend nothing",
+    "WTF development toggle:zero mana/zero cooldown, immediately clears old cooldown without refund; no rank/XP grant; pause/modal/landing checks retained; Reset/HUD disable clears",
+    "Stage3 F3 explicit test launch jumps only clock to pending night; no skipped income/regen; live daytime creeps/shots retained and gate closed; ordinary start remains clock-gated",
+    "Zoom starts5/min2.5/max15 (formerly10), wheel and pinch share limits; multiplier3 stored in TacticalZoomSettings",
+    "Saved scene migration exactly planarEdgeClearance1→1.5 via Unity installer; builders retain it; strict renderer viewport/ground-frustum assertions unchanged"
+  ],
+  "tests": {
+    "distinct_cases": 54,
+    "passed": 54,
+    "runs": [
+      {
+        "path": "Artifacts/S3-HERO-VITALS-20261020/editmode.xml",
+        "total": 27,
+        "passed": 27,
+        "failed": 0,
+        "skipped": 0
+      },
+      {
+        "path": "Artifacts/S3-HERO-VITALS-20261020/playmode-complete.xml",
+        "total": 27,
+        "passed": 27,
+        "failed": 0,
+        "skipped": 0
+      }
+    ],
+    "note": "Gameplay final54passed; later changes only native QA fixtures and Astra rank-row frame safe insets. Build recompiles final source. Earlier diagnostic failures retained separately; strict viewport assertions were not weakened."
+  },
+  "build": {
+    "unity": "6000.6.2f1",
+    "platform": "Mac standalone development/Metal",
+    "path": "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app",
+    "bytes_from_report": 681995703,
+    "log": "Artifacts/S3-HERO-VITALS-20261020/build.log",
+    "success": true
+  },
+  "native": {
+    "frames": [
+      {
+        "path": "Artifacts/S3-HERO-VITALS-20261020/native/1280x720-hud-empty.png",
+        "bytes": 1531738,
+        "sha256": "1a7c766f3914d86e354c8f19d555f88ada5e47926607b7c5b55d4ad70aa59e56",
+        "dimensions": [
+          1280,
+          720
+        ]
+      },
+      {
+        "path": "Artifacts/S3-HERO-VITALS-20261020/native/1280x720-hud-full.png",
+        "bytes": 1527536,
+        "sha256": "0d9619d1426c9a7bb1760ba00270d3968c3122f76e822548cb1a5146c39604cc",
+        "dimensions": [
+          1280,
+          720
+        ]
+      },
+      {
+        "path": "Artifacts/S3-HERO-VITALS-20261020/native/1280x720-hud-quarter.png",
+        "bytes": 1532209,
+        "sha256": "f40e52c424d9aec8c4d7e565dcb3b3e963060d131266d3320f169fd2efbf6dc1",
+        "dimensions": [
+          1280,
+          720
+        ]
+      },
+      {
+        "path": "Artifacts/S3-HERO-VITALS-20261020/native/1280x720-hud-ready.png",
+        "bytes": 1530760,
+        "sha256": "8feac78c25f797aad909a7ceaef042885899256ef53928a51740a0620701daf3",
+        "dimensions": [
+          1280,
+          720
+        ]
+      },
+      {
+        "path": "Artifacts/S3-HERO-VITALS-20261020/native/1280x720-ranks-max.png",
+        "bytes": 730590,
+        "sha256": "fc28b541bd7d79b63d6c0e9069deaad1b5519db47daec13626912cbab431d614",
+        "dimensions": [
+          1280,
+          720
+        ]
+      },
+      {
+        "path": "Artifacts/S3-HERO-VITALS-20261020/native/1280x720-ranks-start.png",
+        "bytes": 738244,
+        "sha256": "38b26a2fb41c94c81f902dd75ae5a98bfdc66252e2e42d36b91e064e5e54d9c9",
+        "dimensions": [
+          1280,
+          720
+        ]
+      },
+      {
+        "path": "Artifacts/S3-HERO-VITALS-20261020/native/1600x900-hud-empty.png",
+        "bytes": 2256429,
+        "sha256": "a0e8416e51a085651d743341f0e1cf2bfa727828b2120a5ae9a39e1ec1582932",
+        "dimensions": [
+          1600,
+          900
+        ]
+      },
+      {
+        "path": "Artifacts/S3-HERO-VITALS-20261020/native/1600x900-hud-full.png",
+        "bytes": 2250680,
+        "sha256": "59d7b3922a40ec29fe08dcbd8a74974a6ee505e81e92100fad264d77facd8c2d",
+        "dimensions": [
+          1600,
+          900
+        ]
+      },
+      {
+        "path": "Artifacts/S3-HERO-VITALS-20261020/native/1600x900-hud-quarter.png",
+        "bytes": 2257441,
+        "sha256": "248bfbe57c0dcee90cd33469afd3473724bb46a1f8aa1742f8386e67251ff38c",
+        "dimensions": [
+          1600,
+          900
+        ]
+      },
+      {
+        "path": "Artifacts/S3-HERO-VITALS-20261020/native/1600x900-hud-ready.png",
+        "bytes": 2254693,
+        "sha256": "a5169cdcb079b2e12dd92d0a312f20aa9e2e7a7a7564f862f2f49f1d5617c2af",
+        "dimensions": [
+          1600,
+          900
+        ]
+      },
+      {
+        "path": "Artifacts/S3-HERO-VITALS-20261020/native/1600x900-ranks-max.png",
+        "bytes": 1046205,
+        "sha256": "2c792d67846657b88238e59d9e4f83870eec99f73cd37bf815b6f721bf87dad9",
+        "dimensions": [
+          1600,
+          900
+        ]
+      },
+      {
+        "path": "Artifacts/S3-HERO-VITALS-20261020/native/1600x900-ranks-start.png",
+        "bytes": 1056923,
+        "sha256": "80fa69fe7ea4de709d27765d709438cdc105891ece8d00243964a15baef29f22",
+        "dimensions": [
+          1600,
+          900
+        ]
+      },
+      {
+        "path": "Artifacts/S3-HERO-VITALS-20261020/native/1920x1080-hud-empty.png",
+        "bytes": 3072702,
+        "sha256": "408862af7e883f62434cb6b80a9c76714d3e8fb69e9ea5dac0b483c0e4790cd3",
+        "dimensions": [
+          1920,
+          1080
+        ]
+      },
+      {
+        "path": "Artifacts/S3-HERO-VITALS-20261020/native/1920x1080-hud-full.png",
+        "bytes": 3066311,
+        "sha256": "a64dc9a299d1208a8b4ff7b5231c8c97708b75e8f8759dc31d8cfabaf7aed06c",
+        "dimensions": [
+          1920,
+          1080
+        ]
+      },
+      {
+        "path": "Artifacts/S3-HERO-VITALS-20261020/native/1920x1080-hud-quarter.png",
+        "bytes": 3074347,
+        "sha256": "dd97eb17d9b08363936cc50239e417f9916a8361913cb62b1724c9ae86edbbd9",
+        "dimensions": [
+          1920,
+          1080
+        ]
+      },
+      {
+        "path": "Artifacts/S3-HERO-VITALS-20261020/native/1920x1080-hud-ready.png",
+        "bytes": 3070498,
+        "sha256": "08d4971a1fd4f17aab0c4429c20ba24fb77641ce911a558d938b58c47ebe0c1f",
+        "dimensions": [
+          1920,
+          1080
+        ]
+      },
+      {
+        "path": "Artifacts/S3-HERO-VITALS-20261020/native/1920x1080-ranks-max.png",
+        "bytes": 1392123,
+        "sha256": "9223b78440271a0a3b1b459735b02f32671a2258fb2c687df0a26e62549a1f6b",
+        "dimensions": [
+          1920,
+          1080
+        ]
+      },
+      {
+        "path": "Artifacts/S3-HERO-VITALS-20261020/native/1920x1080-ranks-start.png",
+        "bytes": 1406693,
+        "sha256": "b2bdb8e6d092b4a28dc4a9024c09817b39a89339774af981bf8d510c5f6f7c40",
+        "dimensions": [
+          1920,
+          1080
+        ]
+      },
+      {
+        "path": "Artifacts/S3-HERO-VITALS-20261020/native/debug-wave-started.png",
+        "bytes": 2123558,
+        "sha256": "b83478a4fbdba99d6f130208c4f0da5ecb078df493b6c62623039281f192b761",
+        "dimensions": [
+          1600,
+          900
+        ]
+      },
+      {
+        "path": "Artifacts/S3-HERO-VITALS-20261020/native/debug-wtf-off.png",
+        "bytes": 2165309,
+        "sha256": "1bcadc0e0337bdc2a359146e6d4d2ea00de61f40da0e4936eb0100e888f503ff",
+        "dimensions": [
+          1600,
+          900
+        ]
+      },
+      {
+        "path": "Artifacts/S3-HERO-VITALS-20261020/native/debug-wtf-on.png",
+        "bytes": 2166757,
+        "sha256": "032a3232e04d7eabdf273548ab0e110499e1785fce5ca796496b85cedc49ef82",
+        "dimensions": [
+          1600,
+          900
+        ]
+      },
+      {
+        "path": "Artifacts/S3-HERO-VITALS-20261020/native/zoom-10.png",
+        "bytes": 2420799,
+        "sha256": "623fcb3587cb3fdea4b8825f1d7922fbd25e12768c75b56e993de6be76ab01f0",
+        "dimensions": [
+          1600,
+          900
+        ]
+      },
+      {
+        "path": "Artifacts/S3-HERO-VITALS-20261020/native/zoom-15-edge-max.png",
+        "bytes": 2598029,
+        "sha256": "44c6e484d3e06d481f95aca5433be751d973a179d77eb9e1f311cc29a3f2d5e6",
+        "dimensions": [
+          1600,
+          900
+        ]
+      },
+      {
+        "path": "Artifacts/S3-HERO-VITALS-20261020/native/zoom-15-edge-min.png",
+        "bytes": 2615229,
+        "sha256": "8c1aa370c066f32f505b9827a2cdab308723e004f4f5ffc1b7979ad0d8be8344",
+        "dimensions": [
+          1600,
+          900
+        ]
+      },
+      {
+        "path": "Artifacts/S3-HERO-VITALS-20261020/native/zoom-15.png",
+        "bytes": 2579456,
+        "sha256": "5f589baefedb00bebe755be7b86d6b8102a7daab1edab9ba3377d147108340da",
+        "dimensions": [
+          1600,
+          900
+        ]
+      },
+      {
+        "path": "Artifacts/S3-HERO-VITALS-20261020/native/zoom-5.png",
+        "bytes": 2251180,
+        "sha256": "8d3129765481e8fee7a72a962a6dfb56440f248ec4ad86d3e8944211fcf946c4",
+        "dimensions": [
+          1600,
+          900
+        ]
+      }
+    ],
+    "astra_review": "PASS23HUD/rank/zoom +3debug frames; read-only final review",
+    "fixture": "Opt-in NOT3A_HERO_VITALS_CAPTURE_DIRECTORY; explicit temporary XP/rank grants and manual simulation ticks, no normal-start grants. All XP/ranks/vitals/WTF reset after captures. Debug frames invoke same public HUD commands, not physical clicks.",
+    "command_results": [
+      "Two consecutive valid Blink casts at0MP in WTF succeed and keep0MP/0cooldown",
+      "First-day HUD test-wave command starts pending night; native label becomes Волна уже идёт"
+    ],
+    "actual_input": {
+      "Q": "Observed hero teleport, MP1/100 after initial regeneration and4.7s remaining, confirming ordinary100MP/5s cast",
+      "F3": "Actual keyboard opens/closes development menu",
+      "mouse": "DEGRADED: computer-use coordinate clicks fail with noWindowsAvailable despite accessible window/screenshot; no actual button click success claimed"
+    },
+    "ordinary_restore": "Relaunched without QA environment;100HP/100MP,LVL1,5gold,WTFoff, advancing08:13→08:18 clock; debug closed afterwards",
+    "actual_input_frames": [
+      {
+        "path": "Artifacts/S3-HERO-VITALS-20261020/native-input-f3.png",
+        "bytes": 523124,
+        "sha256": "632e3d1b965dbd12fa57ba5b283fa799240ae7db05667020e51dd2c65b44e16f",
+        "dimensions": [
+          4718592,
+          4292935744
+        ]
+      },
+      {
+        "path": "Artifacts/S3-HERO-VITALS-20261020/normal-debug-off.png",
+        "bytes": 487307,
+        "sha256": "2a86528e62a565ac237268f298ddaa4513492dfae7136fff2980049af2f38845",
+        "dimensions": [
+          4718592,
+          4292935744
+        ]
+      },
+      {
+        "path": "Artifacts/S3-HERO-VITALS-20261020/normal-hud.png",
+        "bytes": 528364,
+        "sha256": "497fee267b6f063f5cbca8a37350b644617dabd3f573043aa226957fea58a647",
+        "dimensions": [
+          4718592,
+          4292935744
+        ]
+      }
+    ]
+  },
+  "console": {
+    "new_attributable_runtime_errors": {
+      "player.log": [],
+      "normal-player.log": []
+    },
+    "normal_startup_marker": "S3_PLAYER_INTERFACE_READY",
+    "notes": "Existing debugger-agent listen warning is not a gameplay error."
+  },
+  "wiring": "Existing scene-local opt-in binding loads Stage3HeroProgression; explicit legacy-HUD progression bind/unbind. Installer validates data and changes only saved mover edge-clearance field. No new package, UI stack, manager or art asset.",
+  "remaining": [
+    "Windows/Steam qualification",
+    "Native mouse acceptance remains unverified because tool input is degraded",
+    "At extreme world corners existing HUD/timecard can overlay the hero: strict viewport visibility passes, HUD-safe visibility is outside this slice",
+    "D-104 next: exploration-only damage/death, free base respawn, half current-level XP and recoverable bag only; marker concept first. No damage/death API, corpse or respawn added here."
+  ],
+  "assets": "No new bitmap or external media. Reuses approved v4 art; Astra owns visual code changes."
+}

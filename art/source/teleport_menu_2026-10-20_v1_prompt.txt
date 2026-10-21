@@ -1,0 +1,20 @@
+Use case: precise-object-edit
+Asset type: game teleport destination-menu appearance concept.
+Input images: FIRST reference is the project's own forge UI, to transform into a different menu preserving ONLY the Lunar Porcelain materials/style. SECOND reference is the updated own city for subdued background context. THIRD reference is the own approved ground teleport seal pattern.
+
+Transform reference1 into a clean shared TELEPORT DESTINATION menu. Remove ALL forge content, inventory/research/hero/map navigation tabs, resource currencies, day/time bar, equipment/rank letters, stats, portraits and costs. No crafting at all.
+Framing: wide16:9 game screenshot concept. Full-screen subdued softly defocused isometric-city background based on reference2; no gameplay HUD. In centre one refined rectangular fantasy panel about1000x620 within a1600x900 canvas, comfortable padding. Ivory/pearl softly textured panel with fine bronze filigree, rounded/chamfered frame and plum header. Preserve restrained Lunar Porcelain look of reference1, not heavy gold bars.
+
+Exact Russian text, clear readable typography:
+Header left: "Телепорты"; header right small: "Esc · Закрыть".
+Under header left: "Открытые точки".
+Left half contains EXACTLY TWO wide destination rows with generous padding and small beautiful painted medallion icons, no blank/locked destinations:
+1. "База" — selected; pale cyan tint and thin luminous cyan outline, icon of the approved ground seal on grass. No current-location indicator on this row.
+2. "Город" — neutral pearl row, with smaller subtitle "Вы здесь". Icon of a modest pale-stone temple matching reference2. This is CURRENT LOCATION, not selected destination.
+Under rows subtle helper: "Выберите точку назначения".
+Right half: title "База", below a small framed painted preview of the SAME approved ground seal on a clear grassy patch at the base. No invented castle, enemy portal or throne. The seal must lie flat on ground, white/silver-cyan/lilac thin line pattern from reference3, transparent grass centre, no black disc/arch/beam. Below preview: "Точка прибытия".
+Panel bottom route text: "Город → База".
+ONE main plum/bronze fantasy button bottom right labelled "Телепортироваться".
+Keep left current and selected destinations immediately distinguishable; all decorative medallions and preview centred with safe margins inside their frames. Empty space is calm. Current town remains visible behind panel only as a dim context, not an interactive second menu.
+
+Constraints: exactly2location rows, no fake town names, no map, no extra tabs, no price/gold/wood/stone/metal/resource counters, no travel time, cooldown, fee, fuel, dangerous/safe claim, requirements, locks, rewards or extra action button. No item-quality/rank UI. This is original project-owned game art/style adaptation, no external copied game UI.

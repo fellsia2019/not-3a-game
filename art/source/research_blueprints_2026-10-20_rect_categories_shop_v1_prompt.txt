@@ -1,0 +1,28 @@
+Use case: compositing
+Asset type: final appearance-approval RPG merchant UI concept, common aged-fantasy-blueprint shell with two functional categories.
+INPUT ROLES: Image1 is EDIT TARGET: our own1600x900 native merchant UI. Image2 is SUPPORTING MATERIAL/ILLUSTRATION STYLE reference: original tilted old parchment blueprint A_v2. Use Image2's EXACT warm aged ivory/amber paper palette, fibrous painted texture, uneven warm surface shading, deep plum-brown engineering ink, subtle cyan magical ink accents. Do NOT use Image2's tilt, skew, folded corner, folds or curved silhouette. This reference replaces the rejected clean-white architectural-poster style.
+
+PRIMARY REQUEST: Show4blueprints in a merchant inventory. All share ONE IDENTICAL STRAIGHT RECTANGULAR PARCHMENT SHELL, upright/front-facing, approximately5:6width-to-height, fitted to a square inventory cell. Match the original old fantasy parchment STYLE AND COLOR, not plain printer white. All four paper silhouettes are axis-aligned rectangles with horizontal top/bottom and vertical sides, no perspective/skew/rotation. The warm slightly darker paper-edge texture may remain INSIDE the rectangular perimeter. No folded corners, rolls, curling, wings, accordion, metal clips, leather or book cover. No external quality-coloured frame.
+
+COMMON CATEGORY SYSTEM (functional category, NOT rarity or item level):
+- OPENING/UNLOCK category: small painted CYAN four-point magical spark seal in the upper LEFT of paper. Main schematic is first a tall fantasy tower, second a short magic wand. Same paper proportions/colour and same seal position/size on both.
+- UPGRADE category: small MUTED BRASS upward-chevron seal in that SAME upper-left position and same size. Main schematic is the SAME fantasy forge building on both remaining sheets; a large clear small Roman II or III in the lower-right paper corner indicates the TARGET BUILDING STAGE ONLY. Both forge diagrams and paper shell otherwise identical. No upgrade number on the unlock papers.
+- All main drawings use original-reference PLUM HAND-DRAFTED fantasy engineering ink, confident dimensional lines and restrained cyan accents, not modern grey pencil architectural drawings or rendered colourful objects. One large clear drawing occupies65–70%paper, category seal about18%paper width; no tiny writing/noise.
+- ABSOLUTELY NO equipment-quality letters/ranks (F,E,D,C,B,A,S,SS,SSS), NO "LVL"/"Level" or item level1–100 anywhere on blueprint cells/details. No coloured rarity backgrounds. II/III are functional destination-stage numerals only.
+
+FIXED INVENTORY GEOMETRY — crucial:
+Keep the original source's exact6columns×5rows of equal SQUARE cells and equal row pitch, in both left/right panels. Icon content MUST NOT change cell/row height, push rows down, shrink later cells or create staggered columns. Paper plus seal/shadow fits at maximum76%of unchanged cell height, with minimum12%empty inset on every side. Preserve common5:6paper proportions. All4sheets have SAME visible size and baseline. One FIXED single-line caption area under every cell, same font size/line height; do not wrap or create extra rows. No decorative frame protruding into neighbours.
+
+UI EDITS ONLY:
+1. RIGHT merchant grid: REMOVE ALL8existing equipment icons, their quality skins and F·LVL1labels, restore original neutral empty-cell design. This is an illustrative blueprint-only stock VIEW, not a runtime stock change. Place4new blueprint items in FIRST ROW columns1–4, each in the existing neutral ivory square cells:
+col1 tower/spark; caption exactly "Открытие башни".
+col2 wand/spark; caption exactly "Открытие жезла".
+col3 forge/chevron+II; caption exactly "Кузница → II".
+col4 identical forge/chevron+III; caption exactly "Кузница → III".
+Use compact readable single-line captions in the existing below-cell metadata area; keep all row positions fixed. Remaining26merchant cells EMPTY, including all cells below. Normal neutral frames on all4; only col3 receives thin external CYAN SELECTION CORNERS (not quality frame). Nothing selected elsewhere.
+2. LEFT player bag remains EMPTY and retains original regular6×5grid. No items, labels or changed cell sizes.
+3. CENTRAL selected detail: remove bow, brown rarity square, F·LVL1and ALL weapon stats/values. Show a larger version of the EXACT SAME RECTANGULAR AGED FORGE-II PAPER as col3, including subtle brass chevron and RomanII. Center the whole sheet above the title with comfortable air. Match the old reference paper colour/texture precisely, NO WHITE POSTER, no curl/tilt. About180x216px, fully within central column. Title exactly "Кузница → II". Subtitle exactly "Улучшение до ступени II". No separate LVL/item-rank line or equipment stats.
+4. Keep existing price section, coin, "Цена покупки", price example "100 золота" and purple "Купить" button. Top QA10005gold wallet and time stay as in source.
+5. Preserve whole screen16:9framing, Lunar Porcelain ivory/plum UI, panel borders, compact portraits, scales sign, top navigation and bottom exit. Do not redesign UI, alter font system, invent extra tabs, currencies or properties. Only item content/selected detail changes. Crisp legible Russian labels exactly as specified.
+
+VALIDATE BEFORE OUTPUT: old warm fantasy-paper style preserved; every sheet RECTANGULAR/UPRIGHT; category spark versus chevron; target-stageII/III only; absolutely no F/C/D/etc or LVL/item levels on screen; all60inventory cells remain equally sized with aligned rows; empty player bag; one selected forge-II. This is an original concept mockup from owned references, not a native runtime screenshot or approved stock/unlock catalogue.

@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 
 namespace Not3A.Stage3.PlayerInterface
 {
-    public enum Stage3PlayerWindow { None, Inventory, Construction, Research, Hero, Map }
+    public enum Stage3PlayerWindow { None, Inventory, Construction, Research, Hero, Map, Forge, Teleports, Merchant, Guild }
 
     /// <summary>Scene-local IMGUI presentation. Purchases and interaction stay in the existing rules.</summary>
     [DisallowMultipleComponent, DefaultExecutionOrder(-400)]
@@ -68,15 +68,15 @@ namespace Not3A.Stage3.PlayerInterface
             BottomRect.xMax-18f*UiScale,BottomRect.yMax-12f*UiScale);
         public Rect WorldHudRect => Rect.MinMaxRect(BottomRect.x,HasSelectedBuilding?SelectedBuildingRect.y:NavigationRibbonRect.y,
             BottomRect.xMax,BottomRect.yMax);
-        public Rect ResourcesRect => new Rect(12f*UiScale,12f*UiScale,466f*UiScale,56f*UiScale);
-        public Rect StatusRect => new Rect(Screen.width-218f*UiScale,12f*UiScale,206f*UiScale,82f*UiScale);
+        public Rect ResourcesRect => new Rect(0,0,472f*UiScale,46f*UiScale);
+        public Rect StatusRect => new Rect(Screen.width-304f*UiScale,0,304f*UiScale,46f*UiScale);
         public Rect CurrentWindowRect => IsModalOpen ? new Rect(0,0,Screen.width,Screen.height) : Rect.zero;
         public Rect FullscreenHeaderRect => new Rect(0,0,Screen.width,72f*UiScale);
         public Rect FullscreenWalletRect => new Rect(0,72f*UiScale,Screen.width,60f*UiScale);
         public Rect FullscreenFooterRect => new Rect(0,Screen.height-68f*UiScale,Screen.width,68f*UiScale);
         public Rect WindowContentRect => !IsModalOpen ? Rect.zero : new Rect(64f*UiScale,164f*UiScale,
             Screen.width-128f*UiScale,Screen.height-254f*UiScale);
-        public Rect CloseButtonRect => IsModalOpen ? new Rect(Screen.width-190f*UiScale,10f*UiScale,174f*UiScale,52f*UiScale) : Rect.zero;
+        public Rect CloseButtonRect => GuildOpen ? GuildCloseRect : TeleportsOpen ? TeleportCloseRect : IsModalOpen ? new Rect(Screen.width-190f*UiScale,10f*UiScale,174f*UiScale,52f*UiScale) : Rect.zero;
 
         public Rect FullscreenTabRect(Stage3PlayerWindow window)
         {
@@ -94,7 +94,7 @@ namespace Not3A.Stage3.PlayerInterface
         }
 
         // Public hit-test/capture API always describes the navigation that is currently visible.
-        public Rect MenuButtonRect(Stage3PlayerWindow window) => IsModalOpen ? FullscreenTabRect(window) : HudMenuButtonRect(window);
+        public Rect MenuButtonRect(Stage3PlayerWindow window) => TeleportsOpen || GuildOpen ? Rect.zero : IsModalOpen ? FullscreenTabRect(window) : HudMenuButtonRect(window);
 
         public void ConfigureArt(Stage3FantasyHudArt value) { art=value; labelStyles.Clear(); paleLabelStyles.Clear(); }
         public void Initialize(Stage2GameComposition owner, Stage2SceneBootstrap bootstrap, Stage2GameHud legacy)
@@ -105,6 +105,7 @@ namespace Not3A.Stage3.PlayerInterface
             observedRun=game?.RunDriver?.Run;
             if(observedRun!=null) { observedRun.Reset+=ResetPresentation; observedRun.Rewound+=ResetPresentation; }
             ActiveWindow=Stage3PlayerWindow.None;
+            ResetProfessionPresentation();
             InitializeMapView();
         }
 
@@ -116,8 +117,18 @@ namespace Not3A.Stage3.PlayerInterface
             if(window!=Stage3PlayerWindow.None && (game==null || game.RunDriver.Run.IsTerminal || legacyHud!=null && legacyHud.DebugOpen)) return;
             ReleaseMapDrag();
             game?.Building?.CancelPlacement(); game?.Production?.CancelPlacement(); CancelPlacementRequested?.Invoke();
+            var wasTeleports=TeleportsOpen;
+            var wasMerchant=MerchantOpen;
+            var wasGuild=GuildOpen;
             ActiveWindow=window;
-            if(window==Stage3PlayerWindow.Map) RecenterMap();
+            if(wasTeleports) TeleportClosed?.Invoke();
+            if(wasMerchant) MerchantClosed?.Invoke();
+            if(wasGuild) GuildClosed?.Invoke();
+            if(window==Stage3PlayerWindow.Map)
+            {
+                if(!mapInitialized) InitializeMapView();
+                ClampMapCenter();
+            }
             WindowChanged?.Invoke();
         }
 
@@ -127,7 +138,7 @@ namespace Not3A.Stage3.PlayerInterface
             if(defeatPresentation!=null && defeatPresentation.OwnsLossPresentation) return true;
             if(IsModalOpen) return true;
             var p=new Vector2(screenPoint.x,Screen.height-screenPoint.y);
-            if(WorldHudRect.Contains(p)||ResourcesRect.Contains(p)||StatusRect.Contains(p)) return true;
+            if(CycleCorniceRect.Contains(p)||WorldHudRect.Contains(p)||ResourcesRect.Contains(p)||StatusRect.Contains(p)||CycleDialRect.Contains(p)||CyclePhaseRect.Contains(p)||DevelopmentAccessRect.Contains(p)) return true;
             foreach(var window in MenuWindows) if(MenuButtonRect(window).Contains(p)) return true;
             return false;
         }
@@ -139,6 +150,7 @@ namespace Not3A.Stage3.PlayerInterface
             UpdateMapTouchInput();
             var keyboard=Keyboard.current; if(keyboard==null) return;
             if(keyboard.escapeKey.wasPressedThisFrame) { CloseWindow(); return; }
+            if(TeleportsOpen) return;
             if(keyboard.iKey.wasPressedThisFrame) ToggleWindow(Stage3PlayerWindow.Inventory);
             else if(keyboard.bKey.wasPressedThisFrame) ToggleWindow(Stage3PlayerWindow.Construction);
             else if(keyboard.pKey.wasPressedThisFrame) ToggleWindow(Stage3PlayerWindow.Research);
@@ -146,12 +158,16 @@ namespace Not3A.Stage3.PlayerInterface
             else if(keyboard.mKey.wasPressedThisFrame) ToggleWindow(Stage3PlayerWindow.Map);
         }
 
-        private void ResetPresentation() { CloseWindow(); ReleaseMapView(); InitializeMapView(); inspectedBuildIndex=0; }
-        private void OnDisable() { CloseWindow(); ReleaseMapDrag(); }
+        private void ResetPresentation() { CloseWindow(); ReleaseMapView(); InitializeMapView(); inspectedBuildIndex=0; ResetProfessionPresentation(); }
+        private void OnDisable() { CloseWindow(); ReleaseMapDrag(); if(recoveryPresentation!=null)recoveryPresentation.gameObject.SetActive(false); }
         private void OnDestroy()
         {
+            if(recoveryPresentation!=null)Destroy(recoveryPresentation.gameObject);
+            ReleaseCycleVisuals();
+            ReleaseGuildVisuals();
             ReleaseProgressionVisuals();
             ReleaseBevelTextures();
+            ReleaseEquipmentQualityTextures();
             if(observedRun!=null) { observedRun.Reset-=ResetPresentation; observedRun.Rewound-=ResetPresentation; }
             ReleaseMapView(); if(circularMapMaterial!=null) Destroy(circularMapMaterial);
             if(runtimeFont!=null && ownsRuntimeFont) Destroy(runtimeFont);
@@ -160,6 +176,8 @@ namespace Not3A.Stage3.PlayerInterface
         private void OnGUI()
         {
             if(!IsReady) return;
+            ResetRecoveryPointerMetadata();
+            ResetCityMapMetadata();
             using var sample=HudFrameMarker.Auto();
             var savedMatrix=GUI.matrix; var savedColor=GUI.color; var savedEnabled=GUI.enabled; var savedDepth=GUI.depth;
             var savedBackground=GUI.backgroundColor;var savedContent=GUI.contentColor;
@@ -182,6 +200,7 @@ namespace Not3A.Stage3.PlayerInterface
                     {
                         DrawSelectedBuildingWorldOutline();
                         DrawTowerLevelBadges();
+                        DrawRecoveryWorld();
                         DrawUnifiedDockBackground();
                         DrawLocalMinimap();
                         if(ActiveWindow==Stage3PlayerWindow.Construction) DrawConstructionRibbon(); else DrawHeroDock();
@@ -197,25 +216,7 @@ namespace Not3A.Stage3.PlayerInterface
             finally { GUI.depth=savedDepth; GUI.enabled=savedEnabled; GUI.color=savedColor; GUI.backgroundColor=savedBackground; GUI.contentColor=savedContent; GUI.matrix=savedMatrix; }
         }
 
-        private void DrawResourcesAndClock()
-        {
-            var inventory=game.Gathering.Economy.Inventory;
-            for(var i=0;i<4;i++)
-            {
-                var r=new Rect(ResourcesRect.x+i*118f*UiScale,ResourcesRect.y,112f*UiScale,ResourcesRect.height);
-                DrawPanel(r);
-                var safe=PanelContentRect(r);
-                var iconSide=Mathf.Min(20f*UiScale,safe.height);
-                if(art.resourceIcons!=null && i<art.resourceIcons.Length) DrawIcon(new Rect(safe.x,safe.center.y-iconSide*.5f,iconSide,iconSide),art.resourceIcons[i]);
-                FitText(new Rect(safe.x+iconSide+2f*UiScale,safe.y,safe.width-iconSide-2f*UiScale,safe.height),ResourceNumber(i,i==0?inventory.Gold:inventory.Get((MapResourceKind)(i-1))),18,false);
-            }
-            DrawPanel(StatusRect);
-            var run=game.RunDriver.Run;
-            var status=PanelContentRect(StatusRect);
-            if(displayedDay!=run.CalendarDay) {displayedDay=run.CalendarDay;dayLabel="День "+displayedDay;}
-            Label(new Rect(status.x,status.y-3f*UiScale,status.width,status.height*.5f),dayLabel,18,TextAnchor.MiddleCenter);
-            Label(new Rect(status.x,status.center.y,status.width,status.height*.5f+3f*UiScale),ClockText?.Invoke() ?? "—:—",18,TextAnchor.MiddleCenter);
-        }
+        private void DrawResourcesAndClock() => DrawCycleTopHud();
 
         private string ResourceNumber(int index,int value)
         {
@@ -230,8 +231,7 @@ namespace Not3A.Stage3.PlayerInterface
         private void DrawDevelopmentAccess()
         {
             if(legacyHud==null || !legacyHud.DebugAvailable || legacyHud.DebugOpen) return;
-            var source=legacyHud.DebugButtonRect;
-            var r=new Rect(source.position*legacyHud.Scale,source.size*legacyHud.Scale);
+            var r=DevelopmentAccessRect;
             if(Button(r,"F3 · Отладка")) legacyHud.SetDebugOpen(true);
         }
 
@@ -248,6 +248,8 @@ namespace Not3A.Stage3.PlayerInterface
 
         private void DrawOpenWindow()
         {
+            if(TeleportsOpen) { DrawTeleports(); return; }
+            if(GuildOpen) { DrawGuild(); return; }
             DrawFullscreenShell();
             // Defer navigation until after drawing so one event never mixes two page geometries.
             var requested=ActiveWindow;
@@ -262,8 +264,14 @@ namespace Not3A.Stage3.PlayerInterface
                 case Stage3PlayerWindow.Research: DrawResearch(content); break;
                 case Stage3PlayerWindow.Hero: DrawHero(content); break;
                 case Stage3PlayerWindow.Map: DrawMap(content); break;
+                case Stage3PlayerWindow.Forge: DrawForge(content); break;
+                case Stage3PlayerWindow.Merchant: DrawMerchant(); break;
             }
-            if(ActiveWindow!=Stage3PlayerWindow.Map)
+            if(MerchantOpen)
+                Label(FullscreenFooterRect,"Esc · Вернуться в город",16,TextAnchor.MiddleCenter);
+            else if(ActiveWindow==Stage3PlayerWindow.Forge)
+                Label(FullscreenFooterRect,"Esc · Вернуться в игру",16,TextAnchor.MiddleCenter);
+            else if(ActiveWindow!=Stage3PlayerWindow.Map)
                 Label(FullscreenFooterRect,MenuKeys[Array.IndexOf(MenuWindows,ActiveWindow)]+" · Закрыть       Esc · Вернуться в игру",16,TextAnchor.MiddleCenter);
             if(close) CloseWindow(); else if(requested!=ActiveWindow) SetWindow(requested);
         }
@@ -281,14 +289,14 @@ namespace Not3A.Stage3.PlayerInterface
             }
             Fill(FullscreenHeaderRect,PlumInk);
             var s=UiScale;var wallet=game.Gathering.Economy.Inventory;
-            for(var i=0;i<4;i++)
+            for(var i=0;i<(MerchantOpen?1:4);i++)
             {
                 var r=new Rect((48f+i*205f)*s,82f*s,188f*s,40f*s);
                 if(art.resourceIcons!=null&&i<art.resourceIcons.Length) DrawIcon(new Rect(r.x,r.y,38f*s,38f*s),art.resourceIcons[i]);
-                ResourceNumber(i,i==0?wallet.Gold:wallet.Get((MapResourceKind)(i-1)));
+                ResourceNumber(i,i==0?(MerchantOpen&&merchant!=null?merchant.Gold:wallet.Gold):wallet.Get((MapResourceKind)(i-1)));
                 Label(new Rect(r.x+48f*s,r.y,r.width-48f*s,r.height),resourceHeaders[i],17,TextAnchor.MiddleLeft);
             }
-            Label(new Rect(Screen.width-280f*s,82f*s,232f*s,40f*s),"День "+game.RunDriver.Run.CalendarDay+" · "+(ClockText?.Invoke()??"—:—"),17,TextAnchor.MiddleRight);
+            Label(new Rect(Screen.width-280f*s,82f*s,232f*s,40f*s),FullscreenCycleCaption(),17,TextAnchor.MiddleRight);
             DrawRule(new Rect(0,71f*s,Screen.width,1f*s),false);
             DrawRule(new Rect(32f*s,131f*s,Screen.width-64f*s,1f*s),false);
             DrawRule(new Rect(32f*s,FullscreenFooterRect.y,Screen.width-64f*s,1f*s));
@@ -346,7 +354,10 @@ namespace Not3A.Stage3.PlayerInterface
         private void DrawLocalHint()
         {
             if(IsModalOpen || legacyHud==null) return;
-            var hint=!string.IsNullOrEmpty(legacyHud.DwellingInteractionHint)?legacyHud.DwellingInteractionHint:legacyHud.WorldInteractionHint;
+            var hint=!string.IsNullOrEmpty(legacyHud.PortalInteractionHint)?legacyHud.PortalInteractionHint:
+                !string.IsNullOrEmpty(EquipmentInteractionHint)?EquipmentInteractionHint:
+                !string.IsNullOrEmpty(ForgeInteractionHint)?ForgeInteractionHint:
+                !string.IsNullOrEmpty(legacyHud.DwellingInteractionHint)?legacyHud.DwellingInteractionHint:legacyHud.WorldInteractionHint;
             if(string.IsNullOrEmpty(hint)) return;
             var r=new Rect(Mathf.Max(MinimapRect.xMax+15f*UiScale,Screen.width*.38f),WorldHudRect.y-44f*UiScale,Mathf.Min(520f*UiScale,Screen.width*.48f),35f*UiScale);
             DrawPanel(r); Label(Inset(r,5f*UiScale),hint,14,TextAnchor.MiddleCenter);
@@ -364,14 +375,18 @@ namespace Not3A.Stage3.PlayerInterface
             DrawCircularTexture(inner,source.Terrain,uv); if(source.DistrictTerrain!=null) DrawCircularTexture(inner,source.DistrictTerrain,uv);
             foreach(var marker in source.Markers)
             {
+                if(marker.Kind==Stage2MinimapMarkerKind.City) continue;
                 var cell=map.WorldToCellCoordinates(marker.World)-(Vector2)map.MinimumCell+Vector2.one*.5f;
                 var unit=new Vector2((cell.x/map.Size.x-uv.x)/uv.width,(cell.y/map.Size.y-uv.y)/uv.height);
                 if((unit-Vector2.one*.5f).sqrMagnitude>.235f) continue;
                 var p=new Vector2(inner.x+unit.x*inner.width,inner.yMax-unit.y*inner.height);
                 DrawWorldMapMarker(p,marker.Kind,UiScale*.65f);
             }
+            DrawGuildMinimapMarkers(inner,uv);
+            DrawRecoveryMinimap(inner,uv);
             DrawIcon(outer,art.minimapFrame);
             Label(new Rect(outer.center.x-16f*UiScale,outer.y+6f*UiScale,32f*UiScale,25f*UiScale),"N",15,TextAnchor.MiddleCenter);
+            DrawCityMinimapMarker(source,inner,uv);
         }
 
         private Material CircularMaterial

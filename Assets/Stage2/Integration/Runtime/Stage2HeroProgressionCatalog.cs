@@ -14,7 +14,13 @@ namespace Not3A.Stage2.Integration
         [SerializeField, Min(1)] private int rankPointCost = 1;
         [SerializeField] private float[] blinkRanges = { 300, 500, 800, 1000 };
         [SerializeField, Min(.01f)] private float rangeUnitsPerWorldUnit = 100;
-        [SerializeField, Min(.01f)] private float blinkCooldown = 6;
+        [SerializeField, Min(.01f)] private float blinkCooldown = 5;
+        [SerializeField] private float[] higherBlinkCooldowns = { 4, 3, 2 };
+        [SerializeField] private int[] blinkManaCosts = { 100, 75, 50, 25 };
+        [SerializeField, Min(1)] private int maximumHealth = 100;
+        [SerializeField, Min(1)] private int maximumMana = 100;
+        [SerializeField, Min(0)] private float healthPerSecond = 1;
+        [SerializeField, Min(0)] private float manaPerSecond = 5;
         [SerializeField, Range(1, 10)] private int passiveMaxRank = 3;
         [SerializeField, Min(1)] private int damagePerRank = 1;
         [SerializeField, Min(0)] private float attackSpeedPerRank = .10f;
@@ -30,6 +36,12 @@ namespace Not3A.Stage2.Integration
         public float AttackSpeedPerRank => attackSpeedPerRank;
         public float MovementSpeedPerRank => movementSpeedPerRank;
         public float BlinkCooldown => blinkCooldown;
+        public int MaximumHealth => maximumHealth;
+        public int MaximumMana => maximumMana;
+        public float ManaPerSecond => manaPerSecond;
+        public float HealthPerSecond=>healthPerSecond;
+        public int BlinkManaCost(int rank) => blinkManaCosts[Mathf.Clamp(rank,1,BlinkMaxRank)-1];
+        public float BlinkRankCooldown(int rank) => rank<=1?blinkCooldown:higherBlinkCooldowns[Mathf.Clamp(rank,2,BlinkMaxRank)-2];
         public int RequiredXp(int level) => level >= maxLevel ? 0 :
             (int)System.Math.Min(int.MaxValue, (long)firstLevelXp + (long)(Mathf.Max(1, level) - 1) * xpIncreasePerLevel);
         public float BlinkDisplayRange(int rank) => blinkRanges[Mathf.Clamp(rank, 1, BlinkMaxRank) - 1];
@@ -45,6 +57,10 @@ namespace Not3A.Stage2.Integration
                 !float.IsFinite(rangeUnitsPerWorldUnit) || rangeUnitsPerWorldUnit <= 0 ||
                 !float.IsFinite(blinkCooldown) || blinkCooldown <= 0 || blinkRanges == null || blinkRanges.Length != 4)
                 return false;
+            if(maximumHealth<1||maximumMana<1||!float.IsFinite(healthPerSecond)||healthPerSecond<0||!float.IsFinite(manaPerSecond)||manaPerSecond<0||
+                blinkManaCosts==null||blinkManaCosts.Length!=4||higherBlinkCooldowns==null||higherBlinkCooldowns.Length!=3)return false;
+            foreach(var cost in blinkManaCosts)if(cost<=0||cost>maximumMana)return false;
+            foreach(var cooldown in higherBlinkCooldowns)if(!float.IsFinite(cooldown)||cooldown<=0)return false;
             var previous = 0f;
             foreach (var range in blinkRanges)
             {

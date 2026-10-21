@@ -77,7 +77,7 @@ namespace Not3A.Stage2.Integration
             game.HeroCombat?.Rules.SetPersonalBonuses(Rules.DamageBonus, Rules.AttackSpeedMultiplier);
         }
         private void CaptureCheckpoint() => checkpoint = Rules.CaptureSnapshot();
-        private void RestoreCheckpoint() => Rules.RestoreSnapshot(checkpoint);
+        private void RestoreCheckpoint() { if (!run.PreserveProgressOnRetry) Rules.RestoreSnapshot(checkpoint); }
         private void ResetRules() => Rules.Reset();
         private void Unbind()
         {

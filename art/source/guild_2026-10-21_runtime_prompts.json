@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-21",
+  "tool": "built-in image_gen.imagegen",
+  "requests": [
+    {
+      "key": "guild_world_runtime_v1",
+      "path": "art/concepts/guild_2026-10-21/runtime/world_v1.png",
+      "transparent_background": true,
+      "referenced_image_paths": [
+        "/Users/artemmusket/game-dev/not-3a-game/art/concepts/guild_2026-10-21/city_v4_open_temple.png"
+      ],
+      "prompt": "Use case: background-extraction / stylized-concept. Derive a clean MODULAR RUNTIME SPRITE SHEET from this OWN approved game city concept, without redesigning anything. Output genuine transparent RGBA, no scenery/backdrop.\nTWO SEPARATE ISOLATED ASSETS arranged2columns×1row with very generous empty alpha margins/gutter. LEFT: the exact approved GREEN-ROOF ADVENTURERS' GUILD HALL, complete roof/chimneys/compass-map brass crest/timber/ivory walls/sign «Гильдия»/stone foundation/double entrance and steps. Keep its elevated orthographic3/4 view, direction, proportions, warm painted cartoon volume and all safe silhouette margins. REMOVE the outdoor NOTICEBOARD from the guild building, and all people/portal/paving/landscape/flowerbeds/trees/fences/well/neighborhouses; building alone including necessary entrance steps and small attached lanterns. No ground patch or cast shadow outside modest contact.\nRIGHT: ONE standalone wooden NOTICE BOARD ON TWO POSTS, the same design as beside the guild in the reference, complete wood frame/posts/brass fitting and3physical pinned ivory paper orders; small illegible ink marks okay but no readable UI labels/counters. Separate asset, not touching building. Same elevated3/4 view and light. No person/ground/extra objects.\nThe left building and right board are separate connected alpha islands at least15%emptygutterapart, whole roofs/posts/edges visible with10%emptyalpha around each. No duplicate board baked into building, no montage scenery, no rectangle background, checkerboard, magenta matte, borders or labels. Original project-approved materials, not a newly invented building."
+    },
+    {
+      "key": "guild_board_backdrop_runtime_v1",
+      "path": "art/concepts/guild_2026-10-21/runtime/board_backdrop_v1.png",
+      "transparent_background": false,
+      "referenced_image_paths": [
+        "/Users/artemmusket/game-dev/not-3a-game/art/concepts/guild_2026-10-21/board_f_v1.png"
+      ],
+      "prompt": "Use case: precise-object-edit. Derive an EMPTY DECORATIVE RUNTIME BACKGROUND from our OWN approved guild quest-board concept. Landscape16:9, same straight-on camera, outer darkwood board frame/brass corners, left warm lantern, soft wooden guildhall surroundings at edges and sophisticated warm lighting.\nREMOVE EVERY SINGLE INTERACTIVE/CONTENT ELEMENT ENTIRELY: all text/letters/numbers, all hanging titleplates, personal badge, all ranktabs/shields/locks, progresspaper/checkmarks, all questpapers/mapdrawings/monsters/waxseals, buttons/ribbons/footerplates/currencyicons. Do not leave blank paper cards, empty framed grid cells or shadows shaped like removed content. Entire inner board area should be ONE QUIET CLEAN DARK WALNUT PLANK SURFACE with subtle natural woodgrain, ready for native UI to draw all individual paper orders/text/controls over it. Outer board frame and decorative noninteractive corner hardware remain.\nThis is just a modular background layer, not a complete UI screenshot. Warm polished craft like reference, low-contrast central grain for legibility, no busy carvings across central space. Absolutely NO visible text, typography, placeholders, emblems, paper shapes, badges, quest cards or controls anywhere. Opaque fullimage, same visual world/material style as reference."
+    },
+    {
+      "key": "guild_ui_parts_runtime_v1",
+      "path": "art/concepts/guild_2026-10-21/runtime/ui_parts_v1.png",
+      "transparent_background": true,
+      "referenced_image_paths": [
+        "/Users/artemmusket/game-dev/not-3a-game/art/concepts/guild_2026-10-21/board_f_v1.png",
+        "/Users/artemmusket/game-dev/not-3a-game/art/concepts/guild_2026-10-21/trial_e_v1.png"
+      ],
+      "prompt": "Use case: stylized-concept / background-extraction. Produce a MODULAR UI ASSET ATLAS from our OWN approved physical guild-board interface references. Genuine transparent background. EXACTLY SIX separate isolated assets in a clean3columns×2rows grid, generous12%alpha gutters/edgepadding, no parts touch or clip.\nTOPLEFT: BLANK WIDE PINNED CONTRACT PAPER, aspectabout1.7:1, warm ivory/honey parchment, subtle organic outer edges and four small brass corner pins, calm smooth light text-safe interior. NO ink, map, drawing, seal, letters or numbers.\nTOPMIDDLE: BLANK LARGER DETAIL PAPER, aspectabout1.3:1, same parchment/cornerpins, light calm interior, complete edges, no text/ink/seal.\nTOPRIGHT: BLANK BLUE ENAMEL/BRASS HANGING SHIELD PLATE, exact elegant shape/material from F rank tab, top ring, brass rim, calm blue interior. NO F or other letter, no laurel/lock/number, no inside symbol.\nBOTTOMLEFT: BLANK ROUND RED WAX SEAL with layered wax rim and small short ribbon tails, empty calm central round inset, no F/letter/emblem.\nBOTTOMMIDDLE: BLANK WIDE PLUM-AND-BRASS ACTION BUTTON, longaspectabout4.5:1, exact dimensional purple polished inset and restrained gold rim from approved button, complete tapered endcaps, EMPTY interior. No words/numbers/icon.\nBOTTOMRIGHT: BLANK WIDE CARVED WOOD/BRASS HEADER PLAQUE, aspectabout5:1, warmdarkwood center and complete metal end ornaments/hangingfixture, empty interior.\nAll pieces front-facing/flat for native UI, same hand-painted crafted fantasy volumes, no perspective skew, broad safe central surfaces for runtime text and flexible9-slice borders. Native code will draw all words/ranks/checks/locks/selection; ATLAS CONTAINS ABSOLUTELY ZERO LETTERS, NUMBERS, TYPOGRAPHY, PLACEHOLDERS OR ICON LABELS. No background board, no gridlines, no shadows outside eachisolatedshape beyond slight contained alpha shadow. TransparentRGBA not checkerboard or solid matte. Exactly6wholecomponents in describedpositions."
+    }
+  ]
+}

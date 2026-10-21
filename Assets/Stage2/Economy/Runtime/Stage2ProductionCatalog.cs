@@ -6,6 +6,14 @@ using UnityEngine;
 namespace Not3A.Stage2.Economy
 {
     [Serializable]
+    public sealed class Stage2ProductionUpgrade
+    {
+        public Stage2ResourceCost cost;
+        public int outputAmount;
+        public bool IsValid => cost.IsValid && !cost.IsZero && outputAmount > 0;
+    }
+
+    [Serializable]
     public sealed class Stage2ProductionEntry
     {
         public ResourceProductionBuilding building;
@@ -16,6 +24,7 @@ namespace Not3A.Stage2.Economy
         public Sprite sprite;
         public float visualWidth = 3;
         public Vector2 footprintSize = new Vector2(1.4f, .8f);
+        public Stage2ProductionUpgrade[] upgrades = Array.Empty<Stage2ProductionUpgrade>();
         public ResourceProductionBuilding Building => building;
         public string DisplayName => displayName;
         public int WoodCost => woodCost;
@@ -27,10 +36,34 @@ namespace Not3A.Stage2.Economy
         public Sprite Sprite => sprite;
         public float VisualWidth => visualWidth;
         public Vector2 FootprintSize => footprintSize;
+        public int MaximumLevel => 1 + (upgrades?.Length ?? 0);
+        public bool TryGetUpgrade(int currentLevel, out Stage2ProductionUpgrade upgrade)
+        {
+            upgrade = currentLevel >= 1 && currentLevel < MaximumLevel ? upgrades[currentLevel - 1] : null;
+            return upgrade != null;
+        }
+        public int OutputForLevel(int level)
+        {
+            if (level < 1 || level > MaximumLevel) throw new ArgumentOutOfRangeException(nameof(level));
+            return level == 1 ? outputAmount : upgrades[level - 2].outputAmount;
+        }
         public MapResourceKind Resource => (MapResourceKind)building;
         public bool IsValid => (int)building >= 0 && (int)building < 3 && !string.IsNullOrWhiteSpace(displayName) &&
             woodCost >= 0 && stoneCost >= 0 && metalCost >= 0 && goldCost >= 0 && outputAmount > 0 &&
-            Positive(intervalSeconds) && Positive(visualWidth) && Positive(footprintSize.x) && Positive(footprintSize.y) && sprite != null;
+            Positive(intervalSeconds) && Positive(visualWidth) && Positive(footprintSize.x) && Positive(footprintSize.y) && sprite != null && ValidUpgrades();
+        private bool ValidUpgrades()
+        {
+            // Empty is the preserved legacy catalog. Current Stage3 has four paid steps.
+            if (upgrades == null || upgrades.Length == 0) return true;
+            if (upgrades.Length != 4) return false;
+            var previous = outputAmount;
+            foreach (var upgrade in upgrades)
+            {
+                if (upgrade == null || !upgrade.IsValid || upgrade.outputAmount <= previous) return false;
+                previous = upgrade.outputAmount;
+            }
+            return true;
+        }
         private static bool Positive(float value) => value > 0 && !float.IsNaN(value) && !float.IsInfinity(value);
     }
 

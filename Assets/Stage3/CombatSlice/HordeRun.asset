@@ -12,19 +12,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae409c25ee574664d9ef868875ddb5d4, type: 3}
   m_Name: HordeRun
   m_EditorClassIdentifier: Not3A.Stage2.RunState::Not3A.Stage2.RunState.Stage2RunCatalog
-  preparationSeconds: 180
+  preparationSeconds: 600
   enemyCount: 6
   spawnInterval: 0.8
   throneHealth: 5
+  throneHealthPerUpgrade: 5
+  throneUpgradeCosts:
+  - wood: 20
+    stone: 15
+    metal: 5
+    gold: 25
+  - wood: 40
+    stone: 30
+    metal: 10
+    gold: 60
+  - wood: 80
+    stone: 60
+    metal: 20
+    gold: 140
   waves:
-  - preparationSeconds: 1200
-    enemyCount: 12
-    spawnInterval: 2.4
-  - preparationSeconds: 1200
+  - preparationSeconds: 600
+    enemyCount: 16
+    spawnInterval: 2.2
+  - preparationSeconds: 600
     enemyCount: 120
     spawnInterval: 0.12
-  - preparationSeconds: 1200
+  - preparationSeconds: 600
     enemyCount: 240
     spawnInterval: 0.08
   continuousDays: 1
+  nightDurationSeconds: 180
   additionalEnemiesPerNight: 60
+  daytimeGates: 1
+  gateCutoffMinutes: 30
+  daytimeSpawnInterval: 2.4
+  daytimePopulationLimit: 24
+  healthGrowthPerTier: 0.15
+  siegeGrowthPerTier: 0.1
+  sleepBeforeNightMinutes: 10

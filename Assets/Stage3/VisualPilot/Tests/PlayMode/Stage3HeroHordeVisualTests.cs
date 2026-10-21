@@ -57,7 +57,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Assert.That(game.Building.Defense.TowerCount, Is.Zero);
             // Presentation-only setup: finish the real first wave through normal removal events.
             // No defenses, resources, weapon buffs or replacement enemy population are injected.
-            Assert.That(run.StartWave(), Is.True);
+            Assert.That(Stage3TestCycle.StartNight(run), Is.True);
             for (var step = 0; step < 1000 && run.WaveIndex == 0; step++)
             {
                 run.Tick(.05f);
@@ -82,7 +82,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Time.captureFramerate = 20; // One rendered step per manual .05-second rule tick.
             Stage2Shot latestHeroArrow = null;
             game.Enemies.ShotLaunched += shot => latestHeroArrow = shot;
-            Assert.That(run.StartWave(), Is.True);
+            Assert.That(Stage3TestCycle.StartNight(run), Is.True);
             var seconds = 0f;
             var capturedArrow = false;
             for (var frame = 0; frame < 360; frame++)

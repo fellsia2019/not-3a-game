@@ -1,0 +1,51 @@
+{
+  "date": "2026-10-21",
+  "decision": "D-115",
+  "tool": "built-in image_gen.imagegen",
+  "source_rights": "Original ImageGen concepts edited from project-owned character comparison and original v1 camp; no external copied/traced material.",
+  "prompts": "art/source/world_camps_2026-10-21_prompts.json",
+  "assets": [
+    {
+      "path": "art/concepts/world_camps_2026-10-21/ogre_camp_v1.png",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "sha256": "9ca4d69205eff48f14337808412393960c3d6bd742f69832b8b9cba2a422f383",
+      "status": "owner rejected enclosed camp"
+    },
+    {
+      "path": "art/concepts/world_camps_2026-10-21/ogre_camp_v2.png",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "sha256": "ca6f7be415f4a700faf36bf31711c55157464be52e1b961c4e4cb260ac57b96b",
+      "status": "Owner approved open camp appearance; runtime scenery not part of current sketch request."
+    },
+    {
+      "path": "art/concepts/world_camps_2026-10-21/orc_camp_v1.png",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "sha256": "7f5ee6e9f44bc7654d1c9a188486af3cafbbb4ad3b4d9a844bc8f2fc7545c447",
+      "status": "owner rejected enclosed camp"
+    },
+    {
+      "path": "art/concepts/world_camps_2026-10-21/orc_camp_v2.png",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "sha256": "1aaebca5bdf9d14e26b8394ab032141edf86f08c173705f1774796805e77c0b5",
+      "status": "Owner approved open camp appearance; runtime scenery not part of current sketch request."
+    }
+  ],
+  "runtime": "D116 now implements standalone original modular assets derived from approved v2; concept screenshots are not shipped. See world_camps_2026-10-21_runtime.json and verification.json.",
+  "visual_review": {
+    "reviewer": "GPT-6 Astra",
+    "result": "CONCEPT PASS v2; wide open maneuvering field, landmark props to one side, silhouettes readable. Future central low rocks/flowers must not become dense colliders.",
+    "owner_approval": "Approved both v2 via async reply Да, оба подходят on2026-10-21."
+  }
+}
