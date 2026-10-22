@@ -1,5 +1,17 @@
 # Feature: Stage 2 Building Policy
 
+## D118 — green-ground base placement correction
+
+Workshop/dwelling/forge do not reject a free plot due to unbuilt placeholder
+workshop/circle sites or already-depleted manual sources. Existing city/auto-
+production district, solid footprint, active resources, terrain, hero overlap
+and front approach checks remain. Growing a source back inside a newly built
+solid is blocked until the solid leaves; its recovery clock is held there.
+Cause-specific existing-shell hints distinguish hero overlap, insufficient
+materials, wrong terrain and occupied plot/entrance. Preview/confirm use the
+same rules. No cost/footprint/catalogue/Inspector migration.
+
+
 ## D-079 active Stage3 tower actions
 
 Stage2Defense now owns paid upgrade, same-type/same-level merge, invested-cost

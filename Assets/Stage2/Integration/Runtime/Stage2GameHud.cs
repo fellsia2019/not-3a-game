@@ -253,8 +253,15 @@ namespace Not3A.Stage2.Integration
 
         private void OnEnable()
         {
-            toggle = new InputAction("Development menu", InputActionType.Button, "<Keyboard>/f3");
+            toggle = new InputAction("Development menu", InputActionType.Button, developmentShortcut);
             toggle.Enable();
+        }
+        private string developmentShortcut="<Keyboard>/f3";
+        public void SetDevelopmentShortcut(string path)
+        {
+            if(path!="<Keyboard>/f3"&&path!="<Keyboard>/f10")throw new ArgumentException("Unsupported development shortcut.");
+            developmentShortcut=path;toggle?.Dispose();toggle=null;
+            if(isActiveAndEnabled){toggle=new InputAction("Development menu",InputActionType.Button,path);toggle.Enable();}
         }
 
         private void Update()

@@ -1,5 +1,195 @@
 # Hero progression
 
+## D120 — implemented bow/staff development,2026-10-22
+
+Owner approved hero_tree_v1/hud_v2/equipment_v2, the five-per-weapon catalogue
+and controls. This supersedes D119's ten-active composition and earlier draft
+counts. Current Stage3 has ELEVEN actives: universal Blink Q and five bow/five
+staff abilities on contextual1–5. Both weapons can be equipped; only the active
+weapon supplies stats and can cast its abilities. Z or a weapon thumbnail
+switches them. Switching preserves attack cadence, each cooldown and MP, and
+cancels armed targeting/unfinished aim without spending resources.
+
+| Key | Bow | Staff |
+| --- | --- | --- |
+| 1 | Прицельный выстрел — stationary single aimed hit | Чародейский снаряд — single magic hit |
+| 2 | Пылающая стрела — one burning target | Личный барьер — temporary personal absorption |
+| 3 | Ледяная стрела — single-target slow | Восстановление — personal HP recovery |
+| 4 | Сосредоточенность — temporary attack tempo | Огненный шар — bounded fire burst |
+| 5 | Попутный ветер — temporary movement boost | Грозовой разряд — bounded lightning burst |
+
+O shows one progressive mixed prerequisite graph: shared Blink on the left,
+large active nodes and small passives, bow above/staff below, no left legend or
+specialization menu. Бой/Добыча/Авантюрист remain the top tabs with compact
+level/XP/points. The HUD shows both weapon rows,1–5 only on the active row,
+common Q between them on the left, and square F1–F4 consumable positions.
+Stage3 debug is F10; F3 now uses the mixed potion. Fourth position is reserved.
+
+Exactly20combat passives are implemented:
+
+| Scope | Nodes |
+| --- | --- |
+| Shared4 | Точный удар, Быстрые руки, Лёгкий шаг, Стрельба на ходу |
+| Bow8 | Верный прицел, Собранность, Жар наконечника, Тлеющая рана, Холодный наконечник, Цепкий холод, Глубокое дыхание, Попутный порыв |
+| Staff8 | Магический резонанс, Бережная магия, Прочный барьер, Целительная сила, Жар стихии, Проводник, Запас маны, Поток маны |
+
+The original three passive IDs/ranks/effects remain shared. Learned moving
+attacks apply to automatic bow AND staff attacks; the untrained hero launches
+only while stopped, and aimed shot always requires stopping. Already released
+projectiles retain their weapon appearance and continue flying after Z.
+Equipment/accessory bonuses use the active weapon once; fractional automatic
+attack damage is carried between shots so small percentage bonuses work.
+
+The graph has real level/prerequisite gates. Both first attacks branch from
+free BlinkI; later spells branch within their own weapon, rather than requiring
+every passive or investment in the other weapon. Four ranks per active, three
+per passive. The existing1point per level2–100 gives99points. All43paid active
+ranks +60combat passive ranks +9adventurer ranks total112possible spends,
+creating build choices without increasing point income or the level cap.
+
+Авантюрист has THREE working talents: contract XP, contract gold, and world
+kill XP. Contract bonuses apply once at actual local turn-in and the displayed
+reward matches the payment; world XP applies to orcs/ogres only, with fractional
+carry for low-value kills. Portal XP is unchanged. No invented world gold/drop
+or discovery reward. Добыча retains the existing miner/logger mastery1–100,
+three talents each and independent profession points. The larger gathering and
+six-adventurer lists below are superseded proposals, not locked fake buttons.
+
+Runtime values belong to Resources/Stage3HeroSkills and Stage3HeroProgression,
+not the illustrative concept text. Fire/lightning start at25/30s and have a15s
+rank floor; radius and target budget are bounded (current four targets). Small
+AoE must not replace towers against dense matched-tier hordes. Damage/slow/burn
+use actual portal/world HP and existing confirmed-kill XP paths. Invalid,
+wrong-weapon, unlearned, paused, UI-covered and cancelled aimed casts spend
+nothing. Self-heal cannot spend MP at full HP. Target previews and hit effects
+are presentation only, clear on modal/pause/reset, and use actual cast radius.
+
+Debug WTF extends to learned actives: zero MP/cooldown while preserving target,
+weapon, landing and UI checks. It does not grant ranks or free potions. D087
+retry preserves current XP/points/ranks/equipment/vitals/cooldowns/stock;
+transient targeting/aim is cancelled. Death keeps equipped items and drops bag
+including potions; full Reset restores the ordinary starter profile, clears new
+ranks/buffs/cooldowns and restores finite merchant stock without free bottles.
+
+Wiring: existing Stage3PlayerInterfaceBinding binds Resources/Stage3HeroSkills,
+Stage3Equipment and Stage3Merchant through scene-owned HeroSkillsDriver; no new
+scene, global manager, package or disk-save format. Install/import entry point:
+Stage3HeroLoadoutInstaller.Install.131distinctPlayModePASS and1explicit
+headlessviewportSKIP (Editor640×480 cannot apply720p);80final native frames
+720/900/1080 receive Astra visual PASS after recorded RETURN corrections.
+Actual OS O/node/tab/I/F10/F3-no-debug smoke passes; Windows and sustained
+balance remain unverified. Native verification and final visual review are in art/source/hero_loadout_2026-10-22_verification.json.
+
+UX references are structural only: [GW2 weapon skills](https://www.guildwars2.com/en-gb/news/combat-in-guild-wars-2-secrets-of-the-obscure/),
+[ESO primary/secondary bars](https://help.bethesda.net/app/answers/detail/a_id/8345/~/why-cant-i-swap-weapons-in-the-elder-scrolls-online%3F)
+and [GW2 staged traits](https://www.guildwars2.com/en/news/specializations-part-one-a-primer/).
+All shipped art is original project/ImageGen work; no reference art is copied.
+
+## D119 — historical development proposal, superseded by D120
+
+Owner accepts the new Lunar Porcelain tree appearance and explicitly sets the
+COMBAT library to10 active skills and about20 passive talents. This supersedes
+the older12-active/48-passive proposal below. «Бой», «Добыча», «Авантюрист» are
+three development branches; workshop research P remains building knowledge.
+Only O's profile-like dock icon changes to a rising three-node skill tree.
+Other dock icons and current learned ranks/points remain intact.
+
+Appearance direction approved in hero_development_v1.png. Owner RETURNED
+v2's separate active/passive grids and confusing left specialization menu.
+Required revision is ONE progressive prerequisite graph, large active and
+small passive circles mixed together, lower-to-higher unlocks; no extra
+Оружие/Магия/Подвижность/Выживание sidebar. These names describe design themes,
+not separate menus. Top Бой/Добыча/Авантюрист remain. Revised concept:
+`../../art/concepts/world_ux_2026-10-21/hero_development_v5_compact_tree.png`
+was awaiting approval at this historical gate; D120 supersedes it. Owner also
+removed the entire left legend/info
+sidebar; level/XP/points live in one compact header, reclaimed width belongs
+to the mixed tree. The current
+starter Blink remains level1; generated dodge/reflection labels add no mechanics.
+The source image's crit/branching-shot labels are illustrative, not accepted
+mechanics. Existing «Точный удар» still means actual single-target damage.
+The following named catalogue is a concrete DESIGN PROPOSAL for owner review,
+not the final runtime catalogue. At this historical gate runtime had Blink,
+three passives and three talents per gathering profession. D120 above owns
+the current implementation; no fake live/locked skill buttons are implied.
+
+### Proposed ten combat actives
+
+| Skill | Player decision and limit |
+| --- | --- |
+| Блинк | Existing cursor landing, mana/cooldown and4ranks; preserve learned rank |
+| Прицельный выстрел | Strong physical hit on one target after a short stationary aim; moving cancels the aim |
+| Чародейский снаряд | Immediate single-target magic alternative; no explosion or chain |
+| Огненный шар | Fire splash at a selected point; long cooldown, small area and bounded target budget so night hordes still need towers |
+| Ледяная игла | Modest damage and short slow on one enemy; no frozen field or whole-camp stun |
+| Грозовой разряд | Lightning splash at a selected point; long cooldown and small target budget, no map-wide chain |
+| Сосредоточенность | Brief personal attack tempo; stationary bow launch rule and final cadence cap remain |
+| Попутный ветер | Brief walking acceleration for retreat/reposition; no automatic bow fire while moving |
+| Личный барьер | Temporary personal damage absorption; no throne/building protection |
+| Восстановление | Spend mana/time to recover personal HP; not immortality or free resource generation |
+
+Owner explicitly requests fire/lightning SPLASH with25–30s initial cooldown,
+falling by ranks to a15s minimum. Trial proposal:fire25/22/18/15s, lightning
+30/25/20/15s, limited area/target budget. D119supersedes the older absolute
+no-splash proposal for these two spells; heavy sustained hordes still need TD.
+Four ranks per active. One targeted enemy/point or self/cursor, no summons, giant AoE,
+loot-producing attacks or invented weapon family. Validity is checked before
+mana/cooldown spend; invalid target, blocked landing and cancelled aim cost
+nothing. Current Debug WTF must extend consistently when new actives ship.
+No new hotkeys or ten simultaneous equipped spells are inferred solely from
+library count: exact input/loadout is part of the implementation brief.
+
+### Proposed twenty combat passives
+
+| Branch | Five distinct talents (each up to3ranks) |
+| --- | --- |
+| Оружие | Точный удар (existing personal damage); Быстрые руки (existing cadence); Дальнобойность (personal bow reach); Выверенный прицел (reward a completed stationary aim); Добивающий выстрел (personal bonus against a wounded primary target) |
+| Магия | Глубокий резерв (maxMP); Течение маны (regeneration); Бережный расход (bounded spell efficiency); Острие чар (single-target spell damage); Удержание чар (single-target burn/slow duration, with cap) |
+| Подвижность | Лёгкий шаг (existing walk speed); Дальний скачок (Blink landing range); Быстрое восстановление (bounded Blink recharge); Остаточный ветер (brief speed after a successful Blink); Стрельба на ходу (owner-requested unlock of moving automatic attacks; untrained hero stays stationary-only) |
+| Выживание | Крепкое здоровье (maxHP); Восстановление сил (HP regeneration); Стойкость (bounded world-enemy damage reduction); Прочный барьер (shield capacity); Второе дыхание (bounded self-heal effectiveness) |
+
+Owner additionally requests shooting while moving as a trained Mobility
+talent. Proposed3ranks:unlock with reduced moving-shot damage, reduce penalty,
+remove penalty. Exact penalty is trial data; projectile flight/cooldown keeps
+working while moving, tools remain harvesting-only. This is not a free change
+to all starting heroes. No extra movement weapon or auto-pursuit.
+
+No critical-chance subsystem, armour/resistance types, dodge randomness,
+item durability or permanent tower buffs are needed to fill these20nodes.
+New effects require real gameplay sources before their buttons become available.
+
+### Proposed smaller gathering/adventurer branches
+
+Gathering keeps two independent mastery/point pools, miner/logger1–100;
+hero levels never erase already-earned gathering ranks. Offer8nodes per
+profession with3ranks (24possible spends vs20earned): existing strength,
+tempo and reach, plus work rhythm on consecutive successful strikes, efficient
+last strike, switching between nearby matching resources, focused work while
+stationary and recovery of work rhythm after interruption. The last-strike
+and rhythm nodes change time/comfort, never multiply material beyond stock.
+No weight, durability, extra loot resource or auto-generator bonuses.
+
+Adventurer proposes6nodes with3ranks using HERO points: contract XP,
+contract gold, world-enemy XP, world-enemy gold when that reward source exists,
+travel preparation and exploration movement. Quest bonuses apply once at actual
+local turn-in; world kill bonuses exclude portal enemies. Do not invent a
+world-enemy gold/drop source merely to make a bonus function. Discovery rewards
+remain a separate future contract; no XP for reopening maps or running circles.
+
+Proposed point budget: existing1hero point per level2–100=99. Ten4-rank actives
+with free BlinkI cost39; twenty3-rank passives cost60; six adventurer3-rank
+nodes add18:117possible spends vs99earned. This creates choices without
+raising level cap or awarding fake points. Early tiers provide working choices;
+levels20/40/60/80 open deeper combinations;80–100 finish a chosen build. Exact
+XP curve, effect values, prerequisites, hotkeys/loadout and reward sources
+remain approval/implementation work, not Markdown runtime data.
+
+References for structure only:
+[Guild Wars2specializations](https://www.guildwars2.com/en/news/specializations-part-one-a-primer/)
+— named branches and meaningful choices;
+[Last Epoch skill specialization](https://lastepoch.com/skills/)
+— development of familiar active skills. Use original artwork, no copied UI.
+
 ## D-103 — starting vitals and ranked Blink (locally qualified)
 
 Owner accepted100HP/100MP, recovery1HP/s and5MP/s per active simulation second.
@@ -226,7 +416,7 @@ health/open-world enemies.
 побеждать старых врагов; искусственная неуязвимость к герою не нужна.
 Первый лёгкий бой по D-064 остаётся доступен стартовому луку.
 
-## Proposed complete budget
+## Historical proposed complete budget — superseded by D119
 
 | Система | Планка |
 | --- | --- |

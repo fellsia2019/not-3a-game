@@ -20,6 +20,7 @@ namespace Not3A.Stage3.VisualPilot
             public Vector3 Start;
             public float ReleaseSeconds;
             public SpriteRenderer Sprite;
+            public bool Staff;
         }
         private sealed class Impact
         {
@@ -55,6 +56,9 @@ namespace Not3A.Stage3.VisualPilot
             composition.Enemies.ShotLaunched += Launch;
             composition.Enemies.ShotImpacted += Land;
             composition.Enemies.ShotsCleared += Clear;
+            var feedback=GetComponent<Stage3FieldFeedbackPresentation>();
+            if(feedback==null)feedback=gameObject.AddComponent<Stage3FieldFeedbackPresentation>();
+            feedback.Initialize(owner);
         }
 
         private void Bind(Stage2Tower tower)
@@ -70,6 +74,7 @@ namespace Not3A.Stage3.VisualPilot
         private void Launch(Stage2Shot shot)
         {
             var stone = shot.SplashRadiusCells > 0f;
+            var staff = !stone && IsStaffHeroShot(shot.Origin);
             // Hero equipment and tower motion each supply their visible release socket.
             var start = (Vector3)shot.Origin + Vector3.back * (stone ? 1.45f : .43f);
             if (!stone && heroAvatar != null && Vector2.Distance(shot.Origin,heroAvatar.transform.position)<.01f)
@@ -82,13 +87,14 @@ namespace Not3A.Stage3.VisualPilot
                 start = motion.Fire(shot);
                 releaseSeconds=motion.ReleaseSeconds;
                 towerArt=motion.GetComponentInChildren<Stage3TowerSprite>();
+                staff=false; // A tower release remains an arrow even if the hero stands beside its origin.
                 break;
             }
-            var body = MeshObject(stone ? "Stone in flight" : "Arrow in flight", stone ? stoneMesh : arrowMesh,
+            var body = staff ? StaffBolt("Staff arcane bolt") : MeshObject(stone ? "Stone in flight" : "Arrow in flight", stone ? stoneMesh : arrowMesh,
                 stone ? new Color(.63f,.58f,.48f) : new Color(1f,.79f,.30f));
-            body.localScale = Vector3.one * (stone ? .28f : .72f);
-            var trail = Line("Shot trail", stone ? new Color(.78f,.69f,.5f) : new Color(1f,.86f,.4f), stone ? .055f : .035f, 7);
-            var flight = new Flight { Shot = shot, Body = body, Trail = trail, Start = start, ReleaseSeconds=releaseSeconds };
+            if(!staff)body.localScale = Vector3.one * (stone ? .28f : .72f);
+            var trail = Line("Shot trail", staff ? StaffBoltColor : stone ? new Color(.78f,.69f,.5f) : new Color(1f,.86f,.4f), stone ? .055f : staff ? .045f : .035f, 7);
+            var flight = new Flight { Shot = shot, Body = body, Trail = trail, Start = start, ReleaseSeconds=releaseSeconds, Staff=staff };
             if(stone && towerArt!=null && towerArt.IsLayered)
             {
                 // Preserve the very same painted stone at the cup-to-flight handoff.

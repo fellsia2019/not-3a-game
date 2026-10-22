@@ -41,6 +41,8 @@ namespace Not3A.Stage2.Integration
             if(equipment.ItemMutationActive)return;
             stock.Clear();
             for(var i=0;i<8;i++)stock.Add(equipment.CreateMerchantItem((Stage2ItemType)i));
+            if(equipment.Catalog.ExpandedLoadout)for(var i=11;i<14;i++)
+            {var potion=equipment.CreateMerchantItem((Stage2ItemType)i);potion.Quantity=Catalog.PotionStock;stock.Add(potion);}
             blueprintStock.Clear();
             if(equipment.Blueprints!=null)for(var i=0;i<equipment.Blueprints.Catalog.Count;i++)
                 blueprintStock.Add(equipment.Blueprints.CreateMerchantItem((Stage2BlueprintKind)i));

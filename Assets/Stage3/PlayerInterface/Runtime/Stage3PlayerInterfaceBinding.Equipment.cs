@@ -57,19 +57,22 @@ namespace Not3A.Stage3.PlayerInterface
         public bool TryEquipItem(int id)
         {
             if (!CanManageEquipment || presentation.ActiveWindow != Stage3PlayerWindow.Inventory) return false;
+            var consumable=equipmentDriver.Rules.Find(id);
+            if(consumable!=null&&Stage2EquipmentCatalog.IsConsumable(consumable.Type))
+            {presentation.CloseWindow();RefreshHeroLoadout();return true;}
             LastEquipmentResult = equipmentDriver.Rules.TryEquip(id); MarkEquipmentDirty(); RefreshEquipment();
             return LastEquipmentResult == Stage2EquipmentResult.Ready;
         }
         private void UnequipSlot(int slot) => TryUnequipSlot(slot);
         public bool TryUnequipSlot(int slot)
         {
-            if (!CanManageEquipment || presentation.ActiveWindow != Stage3PlayerWindow.Inventory || slot < 0 || slot > 6) return false;
-            LastEquipmentResult = equipmentDriver.Rules.TryUnequip((Stage2ItemSlot)slot); MarkEquipmentDirty(); RefreshEquipment();
+            if (!CanManageEquipment || presentation.ActiveWindow != Stage3PlayerWindow.Inventory || slot < 0 || slot > 11) return false;
+            LastEquipmentResult = equipmentDriver.Rules.TryUnequipAt((Stage2ItemSlot)slot); MarkEquipmentDirty(); RefreshEquipment();
             return LastEquipmentResult == Stage2EquipmentResult.Ready;
         }
         private void SelectForgeMode(Stage3ForgeMode mode) { forgeMode = mode; MarkEquipmentDirty(); RefreshEquipment(); }
         private void SelectForgeType(int index)
-        { if (index < 0 || index > 7) return; selectedForgeType = (Stage2ItemType)index; selectedForgeItemId = -1; MarkEquipmentDirty(); RefreshEquipment(); }
+        { if (index < 0 || index >= equipmentDriver.Catalog.ForgeTypeCount) return; selectedForgeType = (Stage2ItemType)index; selectedForgeItemId = -1; MarkEquipmentDirty(); RefreshEquipment(); }
         private void SelectForgeItem(int id)
         {
             var item = equipmentDriver.Rules.Find(id); if (item == null || item.Type != selectedForgeType) return;
@@ -116,10 +119,10 @@ namespace Not3A.Stage3.PlayerInterface
             var bag = new List<Stage3EquipmentItemView>();
             foreach (var row in rows) if (!row.IsEquipped) bag.Add(row);
             if (Array.Find(rows,row=>row.Id==selectedEquipmentId)==null) selectedEquipmentId = rows.Length > 0 ? rows[0].Id : -1;
-            var slots = new int[7];
-            for (var i = 0; i < slots.Length; i++) slots[i] = rules.Equipped((Stage2ItemSlot)i)?.Id ?? -1;
+            var slots = new int[12];
+            for (var i = 0; i < slots.Length; i++) slots[i] = rules.EquippedAt((Stage2ItemSlot)i)?.Id ?? -1;
             presentation.SetEquipment(new Stage3EquipmentView { Items = rows, BagItems = bag.ToArray(), EquippedItemIds = slots, SelectedItemId = selectedEquipmentId,
-                CanUnequip = CanManageEquipment && presentation.ActiveWindow == Stage3PlayerWindow.Inventory, UnequipUnavailableReason = "Сейчас недоступно" });
+                ActiveWeapon=rules.ActiveWeaponType==Stage2ItemType.Wand?1:0,CanUnequip = CanManageEquipment && presentation.ActiveWindow == Stage3PlayerWindow.Inventory, UnequipUnavailableReason = "Сейчас недоступно" });
             RefreshForgeView();
             var weapon = rules.Equipped(Stage2ItemSlot.Weapon);
             var avatar = scene.PlayerMover.GetComponent<Stage3HeroAvatar>();
@@ -129,17 +132,23 @@ namespace Not3A.Stage3.PlayerInterface
             avatar?.SetHarvestEquipmentVisual(pickaxe == null ? -1 : (int)pickaxe.Quality, axe == null ? -1 : (int)axe.Quality);
             RefreshHeroProgression();
         }
-        private Stage3EquipmentItemView ItemView(Stage2EquipmentItem item) => ItemView(item.Type, item.Quality, item.Level, item.Id, equipmentDriver.Rules.IsEquipped(item));
+        private Stage3EquipmentItemView ItemView(Stage2EquipmentItem item)
+        {var view=ItemView(item.Type,item.Quality,item.Level,item.Id,equipmentDriver.Rules.IsEquipped(item));view.Quantity=item.Quantity;return view;}
         private Stage3EquipmentItemView ItemView(Stage2ItemType type, Stage2ItemQuality quality, int level, int id = -1, bool equipped = false)
         {
             return new Stage3EquipmentItemView { Id = id, TypeIndex = (int)type, QualityIndex = (int)quality, Level = level,
                 Name = equipmentDriver.Catalog.Get(type).displayName, Properties = ItemProperties(type, quality, level), IsEquipped = equipped,
+                Consumable=Stage2EquipmentCatalog.IsConsumable(type),Quantity=1,CanUse=CanManageEquipment,
                 EquippedLabel = "Надето", CanEquip = id >= 0 && CanManageEquipment && presentation.ActiveWindow == Stage3PlayerWindow.Inventory,
                 EquipUnavailableReason = "Сейчас недоступно" };
         }
         private Stage3SelectedBuildingStat[] ItemProperties(Stage2ItemType type, Stage2ItemQuality quality, int level)
         {
             var stats = equipmentDriver.Catalog.Stats(type, quality, level);
+            if(Stage2EquipmentCatalog.IsConsumable(type))return new[]{new Stage3SelectedBuildingStat("Восстановление",type==Stage2ItemType.HealthPotion?"100 HP":type==Stage2ItemType.ManaPotion?"100 MP":"100 HP + 100 MP"),new Stage3SelectedBuildingStat("Общий КД зелий","20 с")};
+            if(type==Stage2ItemType.Amulet)return new[]{new Stage3SelectedBuildingStat("Урон героя","+"+(stats.DamagePercent*100).ToString("0.#",DisplayCulture)+"%")};
+            if(type==Stage2ItemType.Ring)return new[]{new Stage3SelectedBuildingStat("Максимум MP","+"+Mathf.FloorToInt(stats.ManaBonus))};
+            if(type==Stage2ItemType.Protection)return new[]{new Stage3SelectedBuildingStat("Снижение урона",(stats.ProtectionPercent*100).ToString("0.#",DisplayCulture)+"%"),new Stage3SelectedBuildingStat("Расход MP","Нет")};
             if (stats.Weapon) return new[] { new Stage3SelectedBuildingStat(stats.Magic ? "Магический урон" : "Урон", stats.Damage.ToString()),
                 new Stage3SelectedBuildingStat("Радиус", stats.Range.ToString("0.##",DisplayCulture)),
                 new Stage3SelectedBuildingStat("Интервал", stats.Interval.ToString("0.##",DisplayCulture)+" с") };

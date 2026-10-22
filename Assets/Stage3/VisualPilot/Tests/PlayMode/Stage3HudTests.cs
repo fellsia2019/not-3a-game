@@ -96,10 +96,10 @@ namespace Not3A.Stage3.VisualPilot.Tests
             hud.SetGameSpeed(5);
             hud.SetDebugPaused(true);
             input.Press(keyboard.dKey);
-            input.Press(keyboard.f3Key);
+            input.Press(keyboard.f10Key);
             yield return new WaitForSecondsRealtime(.2f);
-            input.Release(keyboard.dKey); input.Release(keyboard.f3Key);
-            Assert.That(hud.DebugOpen, Is.True, "F3 must work even with zero timeScale.");
+            input.Release(keyboard.dKey); input.Release(keyboard.f10Key);
+            Assert.That(hud.DebugOpen, Is.True, "F10 must work even with zero timeScale.");
             Assert.That(Time.timeScale, Is.Zero);
             Assert.That(enemy.transform.position, Is.EqualTo(position));
             Assert.That(scene.PlayerMover.transform.position, Is.EqualTo(hero));

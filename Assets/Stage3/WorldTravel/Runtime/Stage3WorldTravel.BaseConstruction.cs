@@ -58,7 +58,7 @@ namespace Not3A.Stage3.VisualPilot
             if (DistanceTo(area, scene.PlayerMover.transform.position) <= scene.PlayerMover.CollisionRadius)
                 return WorkshopPlacementResult.HeroOverlap;
             foreach (var rect in obstacles.Rectangles) if (area.Overlaps(rect)) return WorkshopPlacementResult.Occupied;
-            foreach (var circle in obstacles.Circles) if (DistanceTo(area, circle.Center) <= circle.Radius) return WorkshopPlacementResult.Occupied;
+            foreach (var circle in obstacles.Circles) if (circle.Radius>0&&DistanceTo(area, circle.Center) <= circle.Radius) return WorkshopPlacementResult.Occupied;
             if (resourceWorld != null) foreach (var district in resourceWorld.Districts)
             {
                 var b = district.Bounds;
@@ -71,8 +71,9 @@ namespace Not3A.Stage3.VisualPilot
                 DistanceTo(area, scene.ThroneMarker.position) <= data.siteClearance ||
                 DistanceTo(area, scene.EntranceMarker.position) <= data.siteClearance) return WorkshopPlacementResult.Occupied;
             foreach (var node in game.Gathering.Economy.Nodes)
+                if(!node.IsDepleted)
                 if (DistanceTo(area, node.WorldPosition) <= (node == game.Gathering.Economy.GetNode(node.Resource) ?
-                    data.siteClearance : node.HarvestRadius + .5f)) return WorkshopPlacementResult.Occupied;
+                    data.siteClearance : node.InteractionRadius + .5f)) return WorkshopPlacementResult.Occupied;
             return WorkshopPlacementResult.Ready;
         }
 

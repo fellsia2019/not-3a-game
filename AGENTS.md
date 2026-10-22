@@ -104,9 +104,10 @@ a better option instead of implementing it silently.
   CURRENT world/inventory/XP/ranks/research/buildings and returns morning for
   the same pending horde, restoring throne and clearing failed enemies/shots.
   Legacy finite Stage2 retains D-062 snapshot behavior. Full reset stays separate.
-- D-064 adds a nearest-target automatic hero bow. Portal enemies still target
-  the throne/blockers; future open-world enemies target the hero. Hero health
-  and death are outside the current bow/barricade/horde slice.
+- D-064 adds nearest-target automatic hero attacks. Portal enemies target
+  the throne/blockers; D111 world enemies target the hero. D103/D104 implement
+  hero vitals and death/recovery; D120 adds active bow/staff and learned moving
+  attacks. The original D064 slice is historical.
 - D-074 continuing Stage3 uses clock-driven mandatory nights and repeatable
   daytime gates at the last cleared tier. Closing stops new spawns, not live
   creeps; mandatory hordes wait for all overlapping threats to clear.
@@ -118,14 +119,17 @@ a better option instead of implementing it silently.
   the20:00 horde, blocked by an open daytime gate, living creeps/shots or an
   active horde. Early victory never skips to dawn. No skipped-time income.
 - Tutorial flow remains post-MVP. D-074 confirms hero cap 100 and low-splash
-  exploration combat; dense matched-tier hordes require towers. Proposed
-  ability/passive/profession counts are in HERO_PROGRESSION.md, not shipped.
+  exploration combat; dense matched-tier hordes require towers. Larger
+  gathering/rune proposals remain in the feature specs. D120 implements
+  11 actives, 20 combat passives and 3 adventurer talents; HERO_PROGRESSION.md
+  distinguishes current runtime data from superseded proposals.
   Equipment levels 1–100/ranks F–SSS and separate hero/tower runes are the
   target; rune counts, stacking and gathering category remain proposals in
   EQUIPMENT_AND_RUNES.md. Do not treat design tables as runtime data.
 - D-075 target ends the campaign after three distinct strong bosses. Boss
   venue is undecided. TD is the main combat XP/gold source; world camps offer
-  less XP and better loot chances. Bosses/world combat are not implemented.
+  less XP and better loot chances as a target. D111 world combat is implemented;
+  bosses and enemy loot tables remain future work.
 - D-090 equipment has five combat slots (head/chest/arms/legs/weapon) plus
   pickaxe/axe, levels1–100 and8qualities F/E/D/C/B/A/S/SSS. Weapons: bow and
   wand only; no sword/shield/SS. Forge stages1/2/3 cap at D/B/S and upgrade
@@ -144,8 +148,9 @@ a better option instead of implementing it silently.
   grants and independent profession points. O has approved combat/profession
   tabs; strength/tempo/reach talents combine with equipped tools without extra
   stock or enabling missing tools. Retry preserves current mastery; Reset clears
-  it. Stage3Professions data owns trial tuning. Larger trees/explorer and base
-  advancement remain later work.
+  it. Stage3Professions data owns trial tuning. Larger gathering trees remain
+  later work; D120 adds three working adventurer talents. D093 owns generator
+  advancement.
 - D-093 gives each generator5paid stages with1/2/3/4/5units per existing cycle.
   Upgrade an individual building for materials+gold through its existing card;
   all stages are available without research in the current prototype. Upgrade
@@ -220,13 +225,35 @@ a better option instead of implementing it silently.
   restoreHP/MP at safe base-anchor respawn without unlocking travel. Reset clears.
 
 - D-113/D-114:workshop-pinned starter teleport knowledge unlocks manual circle
-  construction; no automatic base circle. World bow launches only while stopped.
+  construction; no automatic base circle. Automatic hero attacks require stopping
+  until the D120 moving-attack talent is learned.
   Guild local actions use the actual GuildFootprint, not one tiny entry point.
 - D-116/D-117:approved separate orc/ogre camps have broad open fields/retreats,
   reserved before manual resources, shared scenery collision, unchanged combat/
   quest data. Current city has a fixed manually authored internal layout; future
   cities get individual layouts/styles. Never replace it with random filling or
   shuffled housing. Whole-city safe world-origin selection remains allowed.
+
+- D118:quest direction on M/minimap after accept, one tracked order; cleared
+  targets local guild turn-in. HP/actual damage/hit effects cover BOTH portal
+  and neutral enemies; MP only from a real source. Manual UI shows actual+yield.
+  Wild camp trees/rocks are harvestable, cities/auto districts exempt. Camp group
+  near authored props shares aggro; existing leash/populations remain. Seal
+  rim opens explicit common travel menu. Empty future sites/depleted nodes do
+  not block buildings; occupied building ground prevents resource regrowth.
+- D119 is the historical ten-active/about-twenty-passive brief, superseded by
+  the implemented D120 catalogue below. Бой/Добыча/Авантюрист and the branching
+  O icon remain; preserve learned hero/profession ranks and other dock icons.
+
+- D-120 implements Q+5bow+5staff,20combat passives,3actual adventurer talents,
+  the mixed prerequisite tree and twelve fixed gear slots in current Stage3.
+  Both weapons are equipped, Z switches active stats/1–5; F1/F2/F3 use finite
+  bag potions, F4 reserved, debugF10. Staff retains Wand/WandRecipe identity.
+  Amulet/rings/«Защитная печать» use equipment quality/level; seal is constant
+  damage reduction without MP. Potions cost100/100/250gold and restore100HP/
+  100MP/100each; stock5each, shared20sCD, no restock/freeReset bottles.
+  HERO_PROGRESSION/EQUIPMENT_AND_RUNES and D120 own the current contracts,
+  superseding older counts/single weapon slot. No current enemy loot drops.
 
 ## Change Rules
 

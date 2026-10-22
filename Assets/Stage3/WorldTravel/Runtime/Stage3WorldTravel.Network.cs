@@ -20,15 +20,17 @@ namespace Not3A.Stage3.VisualPilot
         public event Action OpeningsChanged;
         public Stage3TravelState TravelState=>state;
         public string LastTravelFailure {get;private set;}
+        public float CircleInteractionRadius=>Mathf.Max(data.interactionRadius,data.circleDiameter*.5f+scene.PlayerMover.CollisionRadius);
         public void RequireFreshTravelInput(){requiresRelease=true;pointerRequiresRelease=true;}
         private bool TravelModeAllowed(bool menu)=>ready&&game!=null&&!game.RunDriver.Run.IsPaused&&
             !game.RunDriver.Run.IsTerminal&&Time.timeScale>0f&&!IsPlacingWorkshop&&!IsPlacingBaseCircle&&!game.Building.Defense.IsPlacing&&
-            !(game.Production?.IsPlacing??false)&&!(hud?.DebugOpen??false)&&
+            !(game.Production?.IsPlacing??false)&&!(GetComponent<Stage3Dwelling>()?.IsPlacing??false)&&
+            !(GetComponent<Stage3Forge>()?.IsPlacing??false)&&!(hud?.DebugOpen??false)&&
             (!game.PlayerInputBlocked||(menu&&(GetComponent<Stage3FantasyHud>()?.TeleportsOpen??false)));
         public string NearbyOpenedPoint()
         {
             var p=(Vector2)scene.PlayerMover.transform.position;
-            foreach(var point in state.Points)if(state.IsOpened(point.Id)&&Vector2.Distance(p,point.Position)<=data.interactionRadius)return point.Id;
+            foreach(var point in state.Points)if(state.IsOpened(point.Id)&&Vector2.Distance(p,point.Position)<=CircleInteractionRadius)return point.Id;
             return null;
         }
         public bool TryOpenTeleportMenu(string id)
@@ -65,10 +67,19 @@ namespace Not3A.Stage3.VisualPilot
                 if(point.Id!=Stage3TravelState.BaseId&&Vector2.Distance(hero,point.Position)<=data.discoveryRadius)changed|=state.Discover(point.Id);
             if(changed){RefreshMarkers();OpeningsChanged?.Invoke();}
             if(pointerRequiresRelease||mouse==null||!mouse.leftButton.wasPressedThisFrame||game.ContainsScreenPoint(mouse.position.ReadValue()))return;
-            var ray=scene.CameraFollow.BoundCamera.ScreenPointToRay(mouse.position.ReadValue());
-            if(!new Plane(Vector3.forward,Vector3.zero).Raycast(ray,out var distance))return;
-            var hit=(Vector2)ray.GetPoint(distance);var id=NearbyOpenedPoint();
-            if(id!=null&&state.TryGet(id,out var current)&&Vector2.Distance(hit,current.Position)<=data.circleDiameter*.5f)TryOpenTeleportMenu(id);
+            TryOpenTeleportAtScreen(mouse.position.ReadValue());
+        }
+        public bool TryOpenTeleportAtScreen(Vector2 pointer)
+        {
+            if(!TravelModeAllowed(false)||game.ContainsScreenPoint(pointer))return false;
+            var id=NearbyOpenedPoint();
+            if(id==null||!state.TryGet(id,out var current))return false;
+            var ray=scene.CameraFollow.BoundCamera.ScreenPointToRay(pointer);
+            // Pick the actual painted ground plane, including the temple court lift.
+            var height=Stage3TacticalPresentation.GrassSurfaceZ(current.Position)-
+                (id==Stage3TravelState.CityId&&CityReady ? .05f : .018f);
+            if(!new Plane(Vector3.forward,new Vector3(0,0,height)).Raycast(ray,out var distance))return false;
+            return Vector2.Distance((Vector2)ray.GetPoint(distance),current.Position)<=data.circleDiameter*.5f&&TryOpenTeleportMenu(id);
         }
     }
 }

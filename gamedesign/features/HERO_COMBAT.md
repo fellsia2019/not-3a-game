@@ -1,12 +1,50 @@
 # Feature: Hero Bow And Horde Prototype
 
-## D114 current correction — stationary-only automatic bow
+## D120 — implemented active weapons and bounded spells,2026-10-22
+
+Automatic attacks use the active bow/staff only, sharing the existing nearest
+portal/world target and cadence. Bow launches arrows; staff launches a violet
+magic bolt through the same real flight/damage path. A released projectile keeps
+its appearance after Z. Untrained hero starts attacks only while stopped;
+learned «Стрельба на ходу» unlocks moving automatic attacks, while aimed shot
+always needs a stationary aim and cancels without spend on movement.
+
+Q is common Blink; contextual1–5 provide five bow/five staff actives.
+HERO_PROGRESSION.md owns their exact catalogue, prerequisites and point budget.
+Fireball/lightning use a small radius and at most four actual targets, long
+25/30s initial cooldown with15s floor. Single-target burn/slow also work on
+both enemy families; no extra kill rewards or damage invented by presentation.
+Focus/Wind/Barrier/Recovery are personal. Passive seal reduction consumes no MP,
+then an active barrier absorbs the reduced damage. Portal enemies continue to
+target throne/blockers; protection does not change their AI or defend buildings.
+
+Actual HP/damage/impact feedback applies to portal and world enemies. Current
+enemy profiles have no MP source, so no fake MP bar. Skill radius previews,
+contained effects and magic projectiles preserve isometric readability. Invalid
+casts, cancelled aim and UI-covered/paused actions spend nothing; switching
+preserves all cooldowns. Small percentage damage bonuses accumulate fractional
+automatic damage rather than disappearing through integer rounding.
+Evidence: art/source/hero_loadout_2026-10-22_verification.json.
+
+## D118 — shared enemy vitals and confirmed hit feedback
+
+World neutrals and ordinary red-portal enemies share compact screen-sized HP
+bars, actual-damage floating numbers and small local hit sparks. Hero and tower
+hits use confirmed HP delta, clamped to remaining health; projectile landing
+alone never invents damage. No crit/gore/global shake or fake mana. Current
+profiles have noMP and draw noMP bar. Feedback caps at24floaters, coalesces fast
+hits on one target, avoids HUD, freezes with pause/modal, clears on retry/reset/
+terminal/disable. Numbers never affect damage, targeting, aggro or simulation.
+Existing actual HP sources own all values. Windows still requires qualification.
+
+
+## D114 historical correction — baseline stationary-only automatic bow
 
 Successful ground movement in the current frame prevents a NEW hero shot in
 all directions, for the shared portal/world cadence. Cooldown still runs while
 walking and already launched arrows keep flight/damage. Standing resumes normal
 automatic target selection. Teleportation is not continuous ground walking.
-No moving-attack skill or additional attack is implemented. Walking animation
+D120 now adds the learned moving-attack exception. Walking animation
 faces its movement instead of holding the old shot pose.
 
 

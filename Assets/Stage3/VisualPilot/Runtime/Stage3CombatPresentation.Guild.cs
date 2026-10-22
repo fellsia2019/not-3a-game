@@ -13,6 +13,7 @@ namespace Not3A.Stage3.VisualPilot
             public Vector3 Start,End;
             public float Duration,Elapsed;
             public int LaunchedFrame;
+            public bool Staff;
         }
         private Stage3GuildWorldDriver guildWorld;
         private Stage2GameHud guildLegacyHud;
@@ -31,10 +32,11 @@ namespace Not3A.Stage3.VisualPilot
             if(duration<=0f||material==null||arrowMesh==null)return;
             var start=(Vector3)origin+Vector3.back*.43f;
             if(heroAvatar!=null&&Vector2.Distance(origin,heroAvatar.transform.position)<.01f)start=heroAvatar.ReleasePosition;
-            var body=MeshObject("Exploration arrow in flight",arrowMesh,new Color(1f,.79f,.30f));
-            body.localScale=Vector3.one*.72f;
-            var flight=new GuildFlight{Body=body,Trail=Line("Exploration shot trail",new Color(1f,.86f,.4f),.035f,7),
-                Start=start,End=new Vector3(target.x,target.y,Stage3TacticalPresentation.GrassSurfaceZ(target)-.35f),Duration=duration,LaunchedFrame=Time.frameCount};
+            var staff=IsStaffHeroShot(origin);
+            var body=staff?StaffBolt("Exploration staff arcane bolt"):MeshObject("Exploration arrow in flight",arrowMesh,new Color(1f,.79f,.30f));
+            if(!staff)body.localScale=Vector3.one*.72f;
+            var flight=new GuildFlight{Body=body,Trail=Line("Exploration shot trail",staff?StaffBoltColor:new Color(1f,.86f,.4f),staff ? .045f : .035f,7),
+                Start=start,End=new Vector3(target.x,target.y,Stage3TacticalPresentation.GrassSurfaceZ(target)-.35f),Duration=duration,LaunchedFrame=Time.frameCount,Staff=staff};
             guildFlights.Add(flight);DrawGuildFlight(flight);
         }
         private static Vector3 GuildFlightPoint(GuildFlight shot,float t)=>Vector3.Lerp(shot.Start,shot.End,t)+Vector3.back*.12f*4f*t*(1f-t);

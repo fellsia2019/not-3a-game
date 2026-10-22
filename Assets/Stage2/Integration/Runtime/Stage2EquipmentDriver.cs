@@ -9,6 +9,8 @@ namespace Not3A.Stage2.Integration
         private Stage2GameComposition game;
         public Stage2Equipment Rules { get; private set; }
         public Stage2EquipmentCatalog Catalog { get; private set; }
+        public float ManaBonus {get;private set;}
+        public float ProtectionFraction {get;private set;}
         public void Configure(Stage2GameComposition owner, Stage2EquipmentCatalog data)
         {
             Unbind(); game = owner; Catalog = data;
@@ -21,6 +23,15 @@ namespace Not3A.Stage2.Integration
         private void ApplyEquipment()
         {
             game.Gathering.CancelGatherUntilRelease();
+            var damage=0f;ManaBonus=0;ProtectionFraction=0;
+            for(var i=8;i<12;i++)
+            {
+                var accessory=Rules.EquippedAt((Stage2ItemSlot)i);if(accessory==null)continue;
+                var value=Catalog.Stats(accessory.Type,accessory.Quality,accessory.Level);
+                damage+=value.DamagePercent;ManaBonus+=value.ManaBonus;ProtectionFraction+=value.ProtectionPercent;
+            }
+            ProtectionFraction=Mathf.Min(.65f,ProtectionFraction);
+            game.HeroCombat.Rules.SetEquipmentDamageMultiplier(1+damage);
             var weapon = Rules.Equipped(Stage2ItemSlot.Weapon);
             if (weapon == null) game.HeroCombat.Rules.SetEquippedWeapon(false, 0, 0, 1, 0);
             else

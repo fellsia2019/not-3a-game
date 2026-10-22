@@ -28,7 +28,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
         [Test] public void InitialStockIsFiniteEightF1TypesAndNeverOverlapsPlayerOwnership()
         {
             Assert.That(catalog.TryValidate(out var reason),Is.True,reason);
-            Assert.That(merchant.Items.Select(i=>i.Type),Is.EquivalentTo(System.Enum.GetValues(typeof(Stage2ItemType))));
+            Assert.That(merchant.Items.Select(i=>i.Type),Is.EquivalentTo(System.Enum.GetValues(typeof(Stage2ItemType)).Cast<Stage2ItemType>().Take(8)));
             Assert.That(merchant.Items.All(i=>i.Level==1&&i.Quality==Stage2ItemQuality.F),Is.True);
             Assert.That(merchant.Items.Select(i=>i.Id).Intersect(equipment.Items.Select(i=>i.Id)),Is.Empty);
             Assert.That(merchant.Items.Select(i=>i.Id).Distinct().Count(),Is.EqualTo(8));

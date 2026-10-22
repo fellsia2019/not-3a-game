@@ -86,6 +86,7 @@ namespace Not3A.Stage3.PlayerInterface
             !(legacy != null && legacy.DebugOpen);
         private void OnBlinked(Vector2 from, Vector2 to)
         {
+            CancelHeroSkill();
             heroProgressionEffects.PlayBlink(from, to);
             CancelBlink(); ClearBuildingSelection();
         }

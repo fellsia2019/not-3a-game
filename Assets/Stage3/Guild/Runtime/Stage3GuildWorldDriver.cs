@@ -10,6 +10,8 @@ namespace Not3A.Stage3.VisualPilot
     [DisallowMultipleComponent,DefaultExecutionOrder(110)]
     public sealed partial class Stage3GuildWorldDriver : MonoBehaviour
     {
+        public float KillExperienceBonus {get;set;}
+        private float killExperienceFraction;
         private sealed class Actor
         { public Stage2GuildEnemy Rules;public Stage3GuildEnemyVisual Visual;public float Corpse; }
         private sealed class Shot
@@ -37,6 +39,12 @@ namespace Not3A.Stage3.VisualPilot
         private readonly List<Stage2GuildEnemy> enemyView=new List<Stage2GuildEnemy>();
         public Vector2 SpotPosition(int kind)=>spots[Mathf.Clamp(kind,0,1)];
         public event Action<Vector2,Vector2,float> ShotLaunched;
+        public event Action<Stage2GuildEnemy,int> Damaged;
+        public bool TryGetVisual(Stage2GuildEnemy enemy,out Stage3GuildEnemyVisual visual)
+        {
+            foreach(var actor in actors)if(ReferenceEquals(actor.Rules,enemy)){visual=actor.Visual;return visual!=null;}
+            visual=null;return false;
+        }
         public void Configure(Stage2GameComposition owner,Stage2SceneBootstrap context,Stage2Guild membership,
             Stage2HeroProgressionDriver progression,Stage2HeroRecoveryDriver damage)
         {
@@ -46,7 +54,7 @@ namespace Not3A.Stage3.VisualPilot
             if(combat!=null)combat.TargetingOverride=LaunchNearest;
             game.RunDriver.Run.Reset+=RequestReset;resetPending=true;
         }
-        private void RequestReset(){guild.Reset();resetPending=true;}
+        private void RequestReset(){guild.Reset();killExperienceFraction=0;resetPending=true;}
         private bool Valid(Vector2 p,float radius)
         {
             var map=scene.MapDefinition;var cell=map.WorldToCell(p);
@@ -80,12 +88,13 @@ namespace Not3A.Stage3.VisualPilot
                 foreach(var other in positions)if(Vector2.Distance(p,other)<q.radius*2+.35f)return;
                 positions.Add(p);
             }
-            // Existing population occupies the meadow, rather than one tiny spawn pile.
-            foreach(var offset in CampSpawnOffsets)Consider(spots[kind]+offset);
+            // Cohesive group beside the actual shelter/ruins, with the wide retreat field in front.
+            var anchor=spots[kind]+new Vector2(kind==0?9f:-9f,7f);
+            foreach(var offset in CampSpawnOffsets)Consider(anchor+offset);
             for(var ring=0;ring<10&&positions.Count<q.population;ring++)for(var d=0;d<16&&positions.Count<q.population;d++)
             {
                 if(ring==0&&d>0)break;
-                Consider(spots[kind]+new Vector2(Mathf.Cos(d*Mathf.PI/8),Mathf.Sin(d*Mathf.PI/8))*(ring*.85f));
+                Consider(anchor+new Vector2(Mathf.Cos(d*Mathf.PI/8),Mathf.Sin(d*Mathf.PI/8))*(ring*.85f));
             }
             if(positions.Count!=q.population)return null; // No mutation until every spawn is valid.
             for(var i=actors.Count-1;i>=0;i--)if(actors[i].Rules.Profile.enemyKind==q.enemyKind)
@@ -102,8 +111,15 @@ namespace Not3A.Stage3.VisualPilot
             }
             return new Stage2GuildSpawn{Generation=epoch,EnemyIds=ids};
         }
-        private static readonly Vector2[] CampSpawnOffsets={Vector2.zero,new Vector2(-6,3),new Vector2(6,-3),
-            new Vector2(-5,-5),new Vector2(5,5),new Vector2(0,7)};
+        private static readonly Vector2[] CampSpawnOffsets={Vector2.zero,new Vector2(-1.5f,-.8f),new Vector2(1.5f,-.8f),
+            new Vector2(-.8f,-2.2f),new Vector2(.8f,-2.2f),new Vector2(0,-3.6f)};
+        private void AlertCamp(Stage2GuildEnemy source)
+        {
+            var position=(Vector2)scene.PlayerMover.transform.position;
+            foreach(var actor in actors)
+                if(actor.Rules.Generation==source.Generation&&actor.Rules.Profile.enemyKind==source.Profile.enemyKind)
+                    actor.Rules.Alert(position);
+        }
         private Vector2 Move(Vector2 position,Vector2 displacement,float radius)
         {
             var result=ground.Move(position,displacement,radius);
@@ -132,6 +148,11 @@ namespace Not3A.Stage3.VisualPilot
                 var shot=shots[i];shot.Remaining-=elapsed;if(shot.Remaining>0)continue;
                 shots.RemoveAt(i);Damage(shot.Target,shot.Damage);
             }
+            // Detect the whole pack before ticking movement; list order never delays allies.
+            var heroPosition=(Vector2)scene.PlayerMover.transform.position;
+            foreach(var a in actors)
+                if(a.Rules.Alive&&!a.Rules.Returning&&(a.Rules.Engaged||
+                    Vector2.Distance(a.Rules.Position,heroPosition)<=a.Rules.Profile.aggroRadius))AlertCamp(a.Rules);
             for(var i=actors.Count-1;i>=0;i--)
             {
                 var a=actors[i];var unit=a.Rules;
@@ -162,9 +183,17 @@ namespace Not3A.Stage3.VisualPilot
         }
         public bool Damage(Stage2GuildEnemy target,int amount)
         {
-            if(target==null||!enemyView.Contains(target)||!target.TakeDamage(amount))return false;
+            if(target==null||!enemyView.Contains(target))return false;
+            var before=target.Health;if(!target.TakeDamage(amount))return false;
+            Damaged?.Invoke(target,before-target.Health);
+            AlertCamp(target); // Even a lethal first shot alerts its surviving camp mates.
             if(!target.Alive)
-            {guild.RecordKill(target.Profile.enemyKind,target.Generation,target.Id);hero.Rules.AwardExperience(target.Profile.killExperience);}
+            {
+                guild.RecordKill(target.Profile.enemyKind,target.Generation,target.Id);
+                var exact=target.Profile.killExperience*(1+KillExperienceBonus)+killExperienceFraction;
+                var award=Mathf.FloorToInt(exact+.00001f);killExperienceFraction=Mathf.Max(0,exact-award);
+                hero.Rules.AwardExperience(award);
+            }
             return true;
         }
         private void ClearActors()

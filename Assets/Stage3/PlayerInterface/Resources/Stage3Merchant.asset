@@ -17,3 +17,6 @@ MonoBehaviour:
   levelGrowthPercent: 2
   salePercent: 50
   interactionRadius: 3.5
+  potionPrices: 6400000064000000fa000000i
+  potionStock: 5
+  accessoryBaseGold: 32000000280000003c000000i

@@ -91,14 +91,24 @@ namespace Not3A.Stage3.VisualPilot
                 footprint.transform.position = new Vector3(p.x,p.y,Stage3TacticalPresentation.GrassSurfaceZ(p)-.03f);
             }
             if (hud == null) return;
-            hud.DwellingInteractionHint = dwelling.IsPlacing ? visible && dwelling.PreviewResult == DwellingPlacementResult.Ready ?
-                "ЛКМ · построить жилище    Esc / ПКМ · отменить" :
-                "Выберите свободную зелёную землю · нужно 10 дерева · Esc / ПКМ отменяет" :
+            hud.DwellingInteractionHint = dwelling.IsPlacing ? visible ? PlacementHint(dwelling.PreviewResult) :
+                "Выберите место в мире · Esc / ПКМ · отменить" :
                 dwelling.IsBuilt && dwelling.NearEntrance ? game != null && game.RunDriver.Run.UsesDaytimeGates ?
                     dwelling.CanSkipDay ? "E · сон до начала ночи" : GetSleepUnavailableReason(dwelling, game) : dwelling.CanSkipDay ?
                     "E · дождаться ночи в жилище" : game != null && game.RunDriver.Run.IsNight ?
                     "Сначала отбейте орду · ждать пока нельзя" : "Жилище героя" : null;
         }
+
+        private static string PlacementHint(DwellingPlacementResult result) => result switch
+        {
+            DwellingPlacementResult.Ready => "ЛКМ · построить жилище · Esc / ПКМ · отменить",
+            DwellingPlacementResult.HeroOverlap => "Герой стоит на месте постройки · отойдите · Esc / ПКМ · отменить",
+            DwellingPlacementResult.Occupied => "Место занято · выберите свободный участок · Esc / ПКМ · отменить",
+            DwellingPlacementResult.InvalidGround => "Нужен ровный свободный участок зелёной земли · Esc / ПКМ · отменить",
+            DwellingPlacementResult.InsufficientResources => "Недостаточно ресурсов для жилища · Esc / ПКМ · отменить",
+            DwellingPlacementResult.CreationFailed => "Не удалось построить жилище · выберите другое место · Esc / ПКМ · отменить",
+            _ => "Выберите свободную зелёную землю · Esc / ПКМ · отменить"
+        };
 
         public static string GetSleepUnavailableReason(Stage3Dwelling dwelling, Stage2GameComposition game)
         {

@@ -30,6 +30,11 @@ namespace Not3A.Stage2.Integration
         private readonly List<Stage2GuildContract> active = new List<Stage2GuildContract>();
         private readonly int[] successes = new int[7];
         private bool busy;
+        private float experienceBonus,goldBonus;
+        public void SetRewardBonuses(float experience,float gold)
+        {experience=Math.Clamp(experience,0,.3f);gold=Math.Clamp(gold,0,.3f);if(experienceBonus==experience&&goldBonus==gold)return;experienceBonus=experience;goldBonus=gold;Changed?.Invoke();}
+        public int RewardGold(Stage2GuildQuest quest)=>(int)Math.Min(int.MaxValue,Math.Floor(quest.gold*(1d+goldBonus)));
+        public int RewardExperience(Stage2GuildQuest quest)=>(int)Math.Min(int.MaxValue,Math.Floor(quest.experience*(1d+experienceBonus)));
         public Stage2GuildCatalog Catalog { get; }
         public Stage2GuildRank Rank { get; private set; }
         public IReadOnlyList<Stage2GuildContract> Active { get; }
@@ -54,7 +59,7 @@ namespace Not3A.Stage2.Integration
             var q=Catalog.Find(id); if(q==null) return Stage2GuildAction.Invalid;
             var contract=FindActive(id);
             if(contract!=null) return !contract.Cleared ? Stage2GuildAction.InProgress :
-                q.gold>int.MaxValue-wallet.Gold ? Stage2GuildAction.GoldLimit : Stage2GuildAction.TurnIn;
+                RewardGold(q)>int.MaxValue-wallet.Gold ? Stage2GuildAction.GoldLimit : Stage2GuildAction.TurnIn;
             if(!Available(q)) return Stage2GuildAction.Locked;
             foreach(var other in active) if(other.Quest.enemyKind==q.enemyKind) return Stage2GuildAction.SpotOccupied;
             return Stage2GuildAction.Accept;
@@ -90,12 +95,13 @@ namespace Not3A.Stage2.Integration
             try
             {
                 var c=FindActive(id); var q=c.Quest;
+                var rewardGold=RewardGold(q);var rewardExperience=RewardExperience(q);
                 // Commit membership/ownership before notification; a wallet callback cannot claim twice.
                 active.Remove(c);
                 if(q.trial) Rank=q.rank;
                 else if(q.rank==Rank) successes[(int)Rank]=Math.Min(RequiredForTrial,CompletedForRank+1);
-                if(!wallet.TryAddGold(q.gold)) throw new InvalidOperationException("Prevalidated guild credit failed.");
-                hero.AwardExperience(q.experience); Changed?.Invoke(); return true;
+                if(!wallet.TryAddGold(rewardGold)) throw new InvalidOperationException("Prevalidated guild credit failed.");
+                hero.AwardExperience(rewardExperience); Changed?.Invoke(); return true;
             }
             finally { busy=false; }
         }

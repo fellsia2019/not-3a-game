@@ -42,7 +42,7 @@ namespace Not3A.Stage3.PlayerInterface
             if (minimap != null) minimap.SuppressPresentation = true;
             game.BindPlayerInputBlocker(Blocked);
             scene.PlayerMover.SetInputBlocker(() => Blocked() || IsDraggingBuilding);
-            game.Gathering.SetInputBlocker(() => Blocked() || IsDraggingBuilding || blinkArmed || heroRecovery?.NearbyDrop!=null);
+            game.Gathering.SetInputBlocker(() => Blocked() || IsDraggingBuilding || blinkArmed || armedSkill>=0 || (heroSkills?.IsAiming??false) || heroRecovery?.NearbyDrop!=null);
             game.Building.SetInputBlocker(Blocked);
             scene.CameraFollow.SetPointerBlocker(point => IsDraggingBuilding || game.ContainsScreenPoint(point));
             scene.CameraFollow.SetOverlayTrackpadInput(presentation.AcceptsMapTrackpad, presentation.ApplyMapTrackpadGesture);
@@ -62,6 +62,7 @@ namespace Not3A.Stage3.PlayerInterface
             BindMerchant();
             BindHeroRecovery();
             BindGuild();
+            BindHeroLoadout();
             if (game.RunDriver.Run.UsesDaytimeGates && GetComponent<Stage3DaytimeGate>() == null)
                 gameObject.AddComponent<Stage3DaytimeGate>();
             Debug.Log("S3_PLAYER_INTERFACE_READY: approved lunar porcelain HUD; nonmodal construction and independent windows.");
@@ -101,6 +102,7 @@ namespace Not3A.Stage3.PlayerInterface
                 ClearBuildingSelection();
             }
             UpdateHeroProgression();
+            UpdateHeroLoadout();
             UpdateEquipment();
             UpdateBlueprintResearch();
             UpdateProfessions();
@@ -138,12 +140,13 @@ namespace Not3A.Stage3.PlayerInterface
         }
 
         private void OnEnable() { if (bound) BeginBuildingPointerCapture(); }
-        private void OnDisable() { EndBuildingPointerCapture(); ClearBuildingSelection(); CancelBlink(); }
+        private void OnDisable() { EndBuildingPointerCapture(); ClearBuildingSelection(); CancelBlink();CancelHeroSkill(); }
 
         private void OnDestroy()
         {
             if (!bound) return;
             UnbindGuild();
+            UnbindHeroLoadout();
             UnbindHeroProgression();
             UnbindHeroRecovery();
             UnbindProfessions();

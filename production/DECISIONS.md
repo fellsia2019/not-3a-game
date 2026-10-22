@@ -2668,6 +2668,120 @@ housing quarters must read as the approved reference. No new city service.
 Require centred native views for honest comparison; do not equate tests with
 owner visual approval.
 
+## D-118 — Quest guidance, confirmed field feedback and world corrections
+
+Accepted owner request2026-10-21; both ImageGen directions then appearance-
+approved. Accepting a guild order shows its destination on M/minimap and tracks
+one chosen order. Cleared order points to local guild turn-in; selection may
+switch between accepted orders. No autopath/remote reward or unconditional city
+pointer. Add compact actual HP and hit/floating damage feedback to BOTH world
+neutrals and ordinary red-portal enemies, including tower hits. MP only if an
+actual enemy mana source exists; current orc/ogre/skeleton profiles have none.
+Manual axe/pickaxe feedback shows actual +material grants, chips/dust/spark;
+there is no fabricated resource HP or damage. Cancelled strikes pay nothing.
+
+All visible wild trees/ore/natural rocks are harvestable, including authored
+camp shoulders; city planting and auto-production districts remain exempt.
+Preserve already-approved scenery pixels/positions and bind ordinary finite
+stock/tool/mastery/depletion/recovery/collision instead of duplicate renderers.
+Camp units stand in a compact group near their authored shelter/ruins; contact
+or damage to one alerts its living same-camp generation, lethal first hits too.
+Existing separate camp identities, population/rewards/leash and open retreats
+remain. Teleport click/E opens existing shared explicit destination menu from
+anywhere on/at the seal, using the painted ground for picking; discovery,
+research, local checks, chosen destination and confirm remain mandatory.
+Construction must not reserve invisible unbuilt workshop/circle sites or
+already-depleted manual nodes. Reclaimed building ground blocks resource
+regrowth while occupied; real visible resources/terrain/footing and approach
+constraints still apply. Clear cause-specific hints replace generic red denial.
+
+Main owns rules/events/tests/integration; Astra owns approved native UI/feedback
+and unchanged-art resource adapter. No new damage balance, quest reward source,
+NPC/service, package, scene migration or saved-game format implied.
+
+## D-119 — Hero development expands to ten actives and twenty passives
+
+Owner approves the tree-based Lunar Porcelain direction and requests10active
+combat skills and about20passive combat talents, superseding older12/48
+proposal. Gathering/adventurer trees may be smaller. Categories are Бой / Добыча
+/ Авантюрист; workshop research remains separate. Only the O dock icon is
+replaced with a branching skill-tree sign; other dock icons remain.
+
+HERO_PROGRESSION.md contains a concrete named10/20catalogue for review, smaller
+gathering/adventurer proposals, point budget and explicit implementation gaps.
+Counts/appearance approval do not turn illustrated crits, split arrows, new
+rewards or unimplemented controls into current gameplay. Current earned ranks,
+separate miner/logger mastery and existing hero points must survive migration.
+Owner then explicitly requests fire AND lightning splash with25–30second
+initial cooldown falling by ranks to minimum15seconds, preserving tower
+necessity against dense hordes. Also requests a trained Mobility talent that
+unlocks attacking while moving; starting heroes keep stationary-only launch.
+These supersede older blanket no-splash and unconditional stationary constraints
+only after the relevant skills are learned. Revised catalogue replaces the
+flame-arrow/mark proposal with Fireball/Lightning, keeping10active total.
+Owner returned v2's grid and active/passive tabs: use ONE progressively
+connected graph with large active/small passive nodes, showing prerequisites.
+Remove confusing left specialization navigation; no new class selection.
+Owner then rejects all left legend/info cards as wasted space: remove the
+sidebar entirely, put level/XP/points in one compact header and expand/recompose
+the working graph across the reclaimed width. Current v5compact-tree ImageGen
+awaits appearance review before Astra full-page work.
+Active skill composition/input/effects and trial tuning remain the next ready
+implementation brief, separate from D118field fixes.
+
+## D-120 — Bow/staff loadout, eleven actives and accessory expansion
+
+Date:2026-10-22. Status: owner APPROVED tree_v1/hud_v2/equipment_v2, named5+5,
+Q/Z/1–5/F1–F4/F10 and protection/amulet composition. Implemented in the current
+Stage3 profile; local qualification: art/source/hero_loadout_2026-10-22_verification.json.
+Windows/Steam and sustained balance remain unverified.
+
+Bow and long staff occupy two equipped positions, with one active weapon.
+Exactly11actives: universal BlinkQ and five skills per weapon on contextual1–5.
+Z/clickable thumbnails switch active weapon without resetting cadence/cooldowns,
+refunding MP or stacking both weapons' stats. Wrong-weapon abilities cannot cast.
+Armed targeting/unfinished aim cancels without spend on switching. Both equipped
+instances remain excluded from bag/trade and are retained through hero death.
+Staff preserves internal Wand/WandRecipe IDs, purchased paper→local one-level
+workshop study→separate forge craft. Equipping an acquired staff needs no recipe
+knowledge. No enemy loot drops are added by this slice.
+
+O is ONE progressive mixed graph: shared Blink root left between bow/staff
+routes,11large actives and20small passives, no left legend/sidebar. Four shared,
+eight bow and eight staff passives preserve the three original passive IDs/ranks.
+Learned moving attacks work for automatic bow/staff, while aimed shot needs
+stopping. Fireball/lightning start25/30s and fall to15s, bounded small radius and
+four targets; towers remain necessary for dense matched-tier hordes. Four active
+ranks/three passive ranks and actual level/prerequisite gates use the existing
+99hero points, no new level cap/point income. Three implemented adventurer
+bonuses affect actual contract XP/gold and world-only kill XP. Gathering keeps
+its independent existing mastery/points; larger earlier lists remain proposals.
+
+Twelve gear positions retain four armor/two tools and add distinct staff,
+amulet, two rings and «Магическая защита». «Защитная печать» replaces rejected
+«Оберег»: standalone arcane covering, constant incoming-damage reduction with
+NO MP cost, bounded before active barrier absorption. «Амулет натиска» increases
+hero damage; a sample ring raises maximum MP without refilling on equip.
+Accessories use ordinary F/E/D/C/B/A/S/SSS andLVL1–100, existing forge stage caps,
+no forged SSS. Around40future amulet effects remain future scope. Values live
+in Stage3Equipment/Stage3Merchant; existing armor scope is unchanged.
+
+Four fixed consumable positions use F1HP/F2MP/F3mixed/F4reserved, debug moves
+toF10. Owner explicitly sets HP100gold→100HP, MP100gold→100MP, mixed250gold→
+100ofEACH. Finite initial stock5each, no auto-restock, shared20s cooldown.
+Buy/sell ONE bottle with actual bag stacks; no spend at full relevant vitals,
+no free bottles on Reset. Potions remain bag items, including death/recovery;
+quickslots never create an equipped duplicate. Neutral cells/no equipment rank
+or level. Transactions/effects/points are guarded against partial/reentrant spend.
+
+All new visuals are Astra-owned native implementation from approved concepts
+and original ImageGen atlases; current painted quality frames are reused.
+Official GW2/ESO references inform structure only. Main owns ImageGen, rules,
+data/integration and qualification. Retry preserves current development/items/
+stock/vitals/cooldowns; Reset clears new ranks/buffs and restores starter state.
+No new scene/package/global manager/save format. Specs: HERO_PROGRESSION.md,
+EQUIPMENT_AND_RUNES.md, HERO_COMBAT.md and RESEARCH.md.
+
 ## Pending Product Decisions
 
 
@@ -2690,14 +2804,17 @@ owner visual approval.
   решаются, когда начнётся соответствующая работа. Старые P-005/P-006 не
   блокируют первый играбельный билд. D-087 заменил полный снимок сохранением
   текущего прогресса при повторе; сохранение между запусками этим не определено.
-- Позднее отдельно определить правила мирных зданий на зелёной зоне,
-  исследований и улучшений. По D-063 первый срез мастерской и пары кругов
-  внедрён вместе со строительством мастерской; дальнейшие исследования, город и торговля
-  ещё открыты. P-007 о tool progression реализован первым предметным срезом
-  D-089/D-090; профессии ещё не добавлены. Бюджет каталога/очков, пределы рун
-  и исход смерти героя ещё открыты. Щит удалён D-090; move/слияние/возврат
-  башен реализованы D-079. Пять боевых мест/восемь качеств, оба способа апа
-  башен и три апа трона приняты
-  по D-075/D-090. Место боя с боссами, цены/ступени мастерской/генераторов
-  и параметры нового дерева технологий требуют следующего среза.
-  Бриф второго врага S2-AI-01 не является активным заданием.
+- Текущий срез исследований, города и торговли уже реализован по D099–D102:
+  одна мастерская без улучшений, конечный запас документов, отдельные покупка,
+  изучение и постройка/крафт. Дальнейшие источники документов, новые городские
+  услуги и расширение дерева исследований остаются будущими решениями.
+- D092 реализует профессии добычи; D104 определяет смерть и возврат вещей;
+  D120 — текущие навыки, очки, два оружия, аксессуары и зелья. Старые пометки
+  об отсутствии этих систем больше не действуют. Более крупные деревья добычи,
+  руны/их лимиты, новые эффекты аксессуаров и дроп требуют отдельного среза.
+- D093 уже задаёт пять ступеней генераторов; D094 — три улучшения трона;
+  D079 — перемещение/слияние/продажу башен. Финальные цены и темп развития
+  остаются пробным балансом, а не нерешённым числом ступеней мастерской.
+  Место боя и реализация трёх боссов по D075 ещё открыты. Бриф второго врага
+  S2-AI-01 не является активным заданием. Windows/Steam и длительные забеги
+  D120 ещё требуют проверки; локальная Mac-квалификация их не заменяет.

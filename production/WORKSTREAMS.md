@@ -16,6 +16,108 @@ D-017: каждый новый Stage 2–7 ведёт новый агент в �
 в `reports/development-roadmap.html`; внутри stage мелкие задачи не дробятся
 по агентам. На переходе обновляются этот handoff и канонический план.
 
+### 2026-10-22 — D118–D120 repository save and push handoff
+
+- Owner requests saving all accumulated work, refreshing documentation,
+  committing and pushing the current main branch to origin/main. Main owns
+  this repository snapshot; gameplay and visual runtime stay as qualified.
+- Includes source/data, Unity .meta files, original concepts/runtime art,
+  provenance/reviews and qualification summaries. Four new Unity metadata files
+  have whitespace-only empty-YAML cleanup; GUIDs/import values stay unchanged.
+  Original/normalized hashes are retained in the qualification summary.
+  Plan, agent guidance and
+  pending-decision notes now distinguish implemented D120 from D119 history.
+- Verification: current runtime source hashes match the D120 evidence, all new
+  Unity assets have metadata, package/settings/scenes are unchanged, and no
+  file exceeds the remote size limit. Existing D118: 118 PASS + 2 documented
+  skips/45 native frames; D120: 131 PASS + 1 headless viewport skip/80 native
+  frames, Astra final PASS. No runtime changes require another test run here.
+- Build outputs, Unity caches and detailed Artifacts stay local through the
+  existing ignore rules. One earlier unpublished commit (1cc39d7) is included
+  in the requested push. Remaining product/Windows/balance work is unchanged.
+
+### 2026-10-22 — D120 hero loadout/progression integration
+
+- Ownership: main rules/data/bindings/qualification/docs; Astra native art/layout/
+  review. Dependencies: equipment ownership, finite merchant/blueprints/local
+  study/forge, shared combat cadence, XP/vitals/recovery, guild rewards and input.
+  Owner approved tree_v1/hud_v2/equipment_v2,5+5catalogue and controls.
+- Behavior: Q+5bow+5staff contextual1–5, Z active weapon with both retained;
+  mixed11large/20small prerequisite graph and3working adventurer reward talents.
+  Moving automatic attacks are learned; aimed shot still stops. Bounded4-target
+  fire/lightning25/30→15s.12gear slots, amulet/rings/no-MP «Защитная печать»;
+  staff preserves Wand/WandRecipe. F1/F2/F3 actual bag potions/F4reserved/F10debug,
+  owner100/100/250gold and100HP/100MP/100each,5stock/shared20sCD/no restock.
+- Contracts/files: new plain Stage2HeroSkills/Catalog + Resources/Stage3HeroSkills,
+  scene-owned Stage3HeroSkillsDriver, binding.HeroLoadout and Astra SkillDock/
+  SkillTree/HeroLoadout/VFX. Equipment/catalog/trading/merchant append IDs/slots,
+  default legacy behavior preserved; active vs fixed-slot lookup is explicit.
+  Guild turn-in bonuses apply once; world-only fractional XP excludes portal.
+  Original ImageGen PNGs/importers/measured bounds and painted quality skin;
+  no scene/package/global-manager/disk-save migration or current world drops.
+- Acceptance/verification: actual invalid-cast/points/mana/weapon/cadence/potion/
+  death/retry/reset/quest paths checked; native720/900/1080HUD/tree/equipment/
+  forge/merchant/heldstaff and both enemy-family hit feedback. Initial visual
+  RETURNs (caption overlap, link crossings, duplicated details, mixed-potion
+  clipping) are corrected.131distinctPlayModePASS+1headlessviewportSKIP
+  (640×480Editor refuses720p);80finalMacframes720/900/1080 AstraFINALPASS.
+  Physical CUA O/node/tab/I/F10 and F3-no-debug smoke PASS; no attributable
+  compile/player errors, diff check PASS. Final test/build/recapture evidence is in
+  art/source/hero_loadout_2026-10-22_verification.json. Build:
+  Builds/MacHeroLoadout/Not3AHeroLoadout.app. No ordinary QA grants; prior user
+  players/checkouts retained. Install/import: Stage3HeroLoadoutInstaller.Install.
+- Ordinary final build startsLVL1/XP0/gold5/HP100/MP100/no potions or staff,
+  no capture environment or grants; existing user players stay intact.
+- Remaining: Windows/Steam, sustained combat/economy balance, full manual
+  weapon/potion/research playthrough, future loot/additional accessory effects.
+  Earlier D119 larger gathering/adventurer lists are proposals; no fake buttons.
+
+### 2026-10-21 — D118 world UX/corrections; D119 progressive skill-tree review
+
+- Main owns camp grouping/aggro, harvestable natural props, confirmed damage/
+  grant facts, quest tracking, seal picking/range, placement/recovery rules,
+  qualification and canonical docs. Astra field owns HP/numbers/impact/yield/O
+  icon and unchanged-art depletion adapter; Astra quest owns map/minimap skin.
+  Dependencies:existing GuildWorld/stock/mastery, shared HeroObstacleMap,
+  existing travel network/native Lunar Porcelain shell and approved camp art.
+- D118 behavior:both portal/world enemies share actual HP/damage feedback; actual
+  material grants show+N.46 authored camp trees/rocks enter ordinary economy,
+  deplete/recover without duplicate art/permanent colliders. Compact camp pack
+  beside shelter/ruins alerts its generation together, preserving leash/rewards.
+  Accept tracks a quest, clear targets guild, turn-in chooses next/no arrow.
+  Seal rim opens existing explicit menu on actual painted ground plane. Empty
+  future sites/depleted nodes/disabled zero-radius circles do not block base
+  buildings; occupied solid ground holds regrowth. Clear existing-shell reasons.
+- Files/contracts:Stage2Enemy/Group damage facts, Economy.ResourceGranted and
+  optional scene-owned CanRecoverNode; GuildEnemy.Alert; GuildWorld(.Camps),
+  CampPresentation/ResourceSprite adapter; ManualResourceCollisions; travel
+  Network/Construction and dwelling/forge; Guild binding/Hud.GuildMap; new
+  FieldFeedbackPresentation. No scene/Inspector migration, package or save
+  format. Runtime reuses current data values; extra skills have not shipped.
+- Verification:120 distinct latest outcomes,118 PASS+2 explicit native-IMGUI
+  skips (PlayMode89 PASS+2 skips;EditMode29 PASS). Final field7/7 covers density
+  at3 resolutions, injured priority and lifecycle. Fresh separate Mac build succeeds. Quest23 corrected native
+  frames720/900/1080 Astra FINAL PASS; scripted production pointer handler PASS,
+  real OS mouse/full-pan DEGRADED(CUA noWindowsAvailable). Initial native check
+  pins/city overlap was RETURN, fixed and recaptured. Field 22 final native frames
+  Astra FINAL PASS after maximumzoom adjacentHP merging RETURN and density
+  correction (24..50px,4pxgaps, injuredpriority) plus actual 900p night close/wide/ogre.
+  Evidence:art/source/world_ux_2026-10-21_verification.json;
+  logs/captures:Artifacts/WORLD-UX-2026-10-21/. Original user game stays intact;
+  separate Builds/MacWorldUX/Not3AWorldUX.app is used for disposable captures.
+- D119:owner now wants 10 active/about 20 passive combat skills, fire+lightning
+  splash with 25–30s CD down to 15s, learned movingfire underMobility. V2 grid and
+  v3 left info/legend returned. Current v5 has ONE mixed prerequisite tree,
+  large actives/small passives, no sidebar, compact LVL/XP/points header and full
+  reclaimed working width. ImageGen concept awaits owner approval before full
+  Astra page/skill implementation. HERO_PROGRESSION.md owns named proposal.
+- Ordinary latest Mac process restarted without capture environment/fixture or debug
+  grants; automatic simulation at baseline. No attributable final runtime/compile
+  errors, git diff --check PASS; previous failed QA captures retained as RETURN.
+- Remaining:Windows/Steam and physical mouse qualification; ownerv5 appearance, new skill
+  rules/data/tree implementation and sustained balance. No invented current
+  mana/crit/newloot/service or progression grants. No commit/push requested.
+
 ### 2026-10-21 — Shared prototype save / commit handoff
 
 - Owner requests saving and committing all current work, including accumulated

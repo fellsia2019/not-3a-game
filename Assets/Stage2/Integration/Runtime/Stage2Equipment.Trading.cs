@@ -24,6 +24,7 @@ namespace Not3A.Stage2.Integration
         {
             var result=EvaluateTrade(stock,buy,id,gold);if(result!=Stage2TradeResult.Ready)return result;
             var source=buy?stock:items;var target=buy?items:stock;var index=source.FindIndex(i=>i.Id==id);var item=source[index];
+            if(Stage2EquipmentCatalog.IsConsumable(item.Type))return TransferPotion(source,target,item,index,buy,gold);
             mutating=true;
             try
             {
@@ -38,6 +39,38 @@ namespace Not3A.Stage2.Integration
             }
             finally{mutating=false;}
             Changed?.Invoke();return Stage2TradeResult.Ready;
+        }
+        private Stage2TradeResult TransferPotion(List<Stage2EquipmentItem> source,List<Stage2EquipmentItem> target,
+            Stage2EquipmentItem item,int index,bool buy,int gold)
+        {
+            if(item.Quantity<=0||nextId==int.MaxValue)return Stage2TradeResult.InvalidItem;
+            var stack=target.Find(i=>i.Type==item.Type);var created=stack==null;
+            if(stack!=null&&stack.Quantity==int.MaxValue)return Stage2TradeResult.InvalidItem;
+            mutating=true;
+            try
+            {
+                item.Quantity--;if(item.Quantity==0)source.RemoveAt(index);
+                if(created){stack=new Stage2EquipmentItem(nextId++,item.Type,Stage2ItemQuality.F,1);target.Add(stack);}else stack.Quantity++;
+                if(!(buy?wallet.TrySpend(0,0,0,gold):wallet.TryAddGold(gold)))
+                {
+                    if(created)target.Remove(stack);else stack.Quantity--;
+                    if(item.Quantity==0)source.Insert(index,item);item.Quantity++;
+                    return buy?Stage2TradeResult.InsufficientGold:Stage2TradeResult.GoldLimit;
+                }
+            }
+            finally{mutating=false;}
+            Changed?.Invoke();return Stage2TradeResult.Ready;
+        }
+        public int ConsumableCount(Stage2ItemType type)
+        {var total=0;foreach(var item in items)if(item.Type==type)total+=item.Quantity;return total;}
+        public bool TryConsume(Stage2ItemType type,Func<bool> effect)
+        {
+            if(mutating||!Stage2EquipmentCatalog.IsConsumable(type)||effect==null)return false;
+            var item=items.Find(i=>i.Type==type&&i.Quantity>0);if(item==null)return false;
+            mutating=true;
+            try {if(!effect())return false;item.Quantity--;if(item.Quantity==0)items.Remove(item);}
+            finally{mutating=false;}
+            Changed?.Invoke();return true;
         }
     }
 }

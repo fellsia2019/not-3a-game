@@ -50,7 +50,7 @@ namespace Not3A.Stage3.PlayerInterface
             ClampProfessionSelection();
         }
 
-        public void ShowProfessions(bool value) => showProfessions = value;
+        public void ShowProfessions(bool value) { showProfessions = value; showAdventurer = false; }
 
         public void SelectProfession(int index)
         {
@@ -89,6 +89,8 @@ namespace Not3A.Stage3.PlayerInterface
         private void ResetProfessionPresentation()
         {
             showProfessions = false;
+            showAdventurer = false;
+            selectedSkillId = 0;
             selectedProfessionIndex = selectedProfessionTalentIndex = 0;
         }
 
@@ -102,13 +104,7 @@ namespace Not3A.Stage3.PlayerInterface
         }
 
         /// <summary>False is the existing combat tab; true is professions.</summary>
-        public Rect ProfessionTabRect(bool professionTab)
-        {
-            if (ActiveWindow != Stage3PlayerWindow.Hero) return Rect.zero;
-            var r = WindowContentRect;
-            return new Rect(r.x + r.width * (professionTab ? .52f : .36f), r.y - 9f * UiScale,
-                r.width * .155f, 44f * UiScale);
-        }
+        public Rect ProfessionTabRect(bool professionTab) => HeroDevelopmentTabRect(professionTab ? 1 : 0);
 
         private Rect ProfessionColumn(int index)
         {
@@ -148,26 +144,20 @@ namespace Not3A.Stage3.PlayerInterface
 
         private void DrawHeroDevelopmentTabs()
         {
-            var r = WindowContentRect;
-            var s = UiScale;
-            Label(new Rect(r.x, r.y - 10f * s, r.width * .30f, 44f * s), "Развитие", 34);
+            var r = WindowContentRect; var s = UiScale;
             DrawRule(new Rect(r.x, r.y + 35f * s, r.width, s), false);
-            bool? requested = null;
-            for (var i = 0; i < 2; i++)
+            var requested = -1;
+            var selected = showProfessions ? 1 : showAdventurer ? 2 : 0;
+            var count = heroLoadout != null ? 3 : 2;
+            for (var i = 0; i < count; i++)
             {
-                var isProfession = i == 1;
-                var tab = ProfessionTabRect(isProfession);
-                var selected = showProfessions == isProfession;
-                if (blankButton == null) blankButton = new GUIStyle(GUIStyle.none);
-                if (GUI.Button(tab, GUIContent.none, blankButton)) requested = isProfession;
-                Label(Inset(tab, 4f * s), isProfession ? "Профессии" : "Боевые навыки",
-                    19, TextAnchor.MiddleCenter, !selected);
-                if (selected) Fill(new Rect(tab.x, tab.yMax - 3f * s, tab.width, 3f * s), Accent);
+                var available = i != 2 || heroLoadout?.AdventurerNodes?.Length > 0;
+                var title = i == 0 ? "Бой" : i == 1 ? "Добыча" : "Авантюрист";
+                if (Button(HeroDevelopmentTabRect(i), title, selected == i, available)) requested = i;
             }
-            // Do not mix two sets of IMGUI controls during the same input event.
-            if (requested.HasValue)
+            if (requested >= 0)
             {
-                ShowProfessions(requested.Value);
+                ShowHeroDevelopmentTab(requested);
                 GUIUtility.ExitGUI();
             }
         }

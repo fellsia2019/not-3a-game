@@ -31,7 +31,7 @@ namespace Not3A.Stage3.PlayerInterface
 
         private static string BlueprintStage(int stage) => stage == 2 ? "II" : stage == 3 ? "III" : "";
         private static string ItemCellCaption(Stage3EquipmentItemView item) => item.Blueprint != null
-            ? item.Blueprint.ShortLabel ?? "Чертёж" : $"{QualityName(item.QualityIndex)} · LVL {item.Level}";
+            ? item.Blueprint.ShortLabel ?? "Чертёж" : item.Consumable ? (item.TypeIndex==11?"HP":item.TypeIndex==12?"MP":"HP + MP") : $"{QualityName(item.QualityIndex)} · LVL {item.Level}";
         private static string BlueprintCategoryCaption(Stage3BlueprintItemView item) => item.TargetStage > 0
             ? "Улучшение · целевая ступень " + BlueprintStage(item.TargetStage)
             : item.CategoryLabel ?? "Открытие";

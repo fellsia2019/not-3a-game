@@ -23,6 +23,7 @@ namespace Not3A.Stage2.Integration
         private readonly Stage2HeroProgressionCatalog catalog;
         private readonly int[] ranks = new int[3];
         private bool blinking;
+        private float extraMana, manaRecoveryMultiplier=1;
         public Stage2HeroProgression(Stage2HeroProgressionCatalog settings)
         {
             if (settings == null || !settings.TryValidate(out _)) throw new ArgumentException("Invalid progression catalog.", nameof(settings));
@@ -40,7 +41,7 @@ namespace Not3A.Stage2.Integration
         public float Health {get;private set;}
         public int MaximumHealth=>catalog.MaximumHealth;
         public float Mana {get;private set;}
-        public int MaximumMana=>catalog.MaximumMana;
+        public int MaximumMana=>catalog.MaximumMana+Mathf.FloorToInt(extraMana);
         public int BlinkManaCost=>catalog.BlinkManaCost(BlinkRank);
         public float BlinkCooldownDuration=>catalog.BlinkRankCooldown(BlinkRank);
         public bool WtfForTesting {get;private set;}
@@ -87,6 +88,28 @@ namespace Not3A.Stage2.Integration
             if (!CanUpgradeBlink) return false;
             AvailablePoints -= catalog.RankPointCost; BlinkRank++; Changed?.Invoke(); return true;
         }
+        public bool TrySpendPoints(int count)
+        {if(count<=0||AvailablePoints<count||blinking)return false;AvailablePoints-=count;Changed?.Invoke();return true;}
+        public bool TryUseMana(float amount,Func<bool> effect)
+        {
+            if(blinking||!float.IsFinite(amount)||amount<0||Mana<amount||effect==null)return false;
+            blinking=true;
+            try {if(!effect())return false;Mana-=amount;}
+            finally {blinking=false;}
+            Changed?.Invoke();return true;
+        }
+        public bool RestoreVitals(float health,float mana)
+        {
+            if(!float.IsFinite(health)||!float.IsFinite(mana)||health<0||mana<0||
+                (health<=0||Health>=MaximumHealth)&&(mana<=0||Mana>=MaximumMana))return false;
+            Health=Mathf.Min(MaximumHealth,Health+health);Mana=Mathf.Min(MaximumMana,Mana+mana);Changed?.Invoke();return true;
+        }
+        public void SetAdditionalMana(float capacity,float regenerationMultiplier)
+        {
+            capacity=Mathf.Max(0,capacity);regenerationMultiplier=Mathf.Max(1,regenerationMultiplier);
+            if(extraMana==capacity&&manaRecoveryMultiplier==regenerationMultiplier)return;
+            extraMana=capacity;manaRecoveryMultiplier=regenerationMultiplier;Mana=Mathf.Min(Mana,MaximumMana);Changed?.Invoke();
+        }
         public bool TryUpgradePassive(Stage2HeroPassive passive)
         {
             if (!CanUpgradePassive(passive)) return false;
@@ -118,7 +141,7 @@ namespace Not3A.Stage2.Integration
             if (!float.IsFinite(elapsed) || elapsed < 0) throw new ArgumentOutOfRangeException(nameof(elapsed));
             if (!active) return;
             BlinkCooldownRemaining = Mathf.Max(0, BlinkCooldownRemaining - elapsed);
-            Mana=Mathf.Min(MaximumMana,Mana+catalog.ManaPerSecond*elapsed);
+            Mana=Mathf.Min(MaximumMana,Mana+catalog.ManaPerSecond*manaRecoveryMultiplier*elapsed);
             Health=Mathf.Min(MaximumHealth,Health+catalog.HealthPerSecond*elapsed);
         }
         internal void ApplyExplorationDamage(float amount)

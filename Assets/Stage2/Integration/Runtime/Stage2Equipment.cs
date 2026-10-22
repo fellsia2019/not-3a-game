@@ -12,6 +12,7 @@ namespace Not3A.Stage2.Integration
         public Stage2ItemType Type { get; }
         public Stage2ItemQuality Quality { get; internal set; }
         public int Level { get; internal set; }
+        public int Quantity {get;internal set;}=1;
         internal Stage2EquipmentItem(int id, Stage2ItemType type, Stage2ItemQuality quality, int level)
         { Id = id; Type = type; Quality = quality; Level = level; }
     }
@@ -23,7 +24,9 @@ namespace Not3A.Stage2.Integration
         private readonly Stage2Inventory wallet;
         private readonly List<Stage2EquipmentItem> items = new List<Stage2EquipmentItem>();
         private readonly IReadOnlyList<Stage2EquipmentItem> itemView;
-        private readonly Stage2EquipmentItem[] equipped = new Stage2EquipmentItem[7];
+        private readonly Stage2EquipmentItem[] equipped = new Stage2EquipmentItem[12];
+        public Stage2ItemType ActiveWeaponType {get;private set;}=Stage2ItemType.Bow;
+        public Stage2EquipmentItem ActiveWeapon=>EquippedAt(catalog.ExpandedLoadout&&ActiveWeaponType==Stage2ItemType.Wand?Stage2ItemSlot.Staff:Stage2ItemSlot.Weapon);
         private int nextId = 1;
         private bool mutating;
         public Stage2EquipmentCatalog Catalog => catalog;
@@ -39,23 +42,40 @@ namespace Not3A.Stage2.Integration
             itemView = items.AsReadOnly(); Reset();
         }
         public Stage2EquipmentItem Find(int id) { foreach (var item in items) if (item.Id == id) return item; return null; }
-        public Stage2EquipmentItem Equipped(Stage2ItemSlot slot) => (int)slot >= 0 && (int)slot < equipped.Length ? equipped[(int)slot] : null;
-        public bool IsEquipped(Stage2EquipmentItem item) => item != null && ReferenceEquals(Equipped(Stage2EquipmentCatalog.Slot(item.Type)), item);
-        public Stage2EquipmentResult EvaluateEquip(int id) => mutating ? Stage2EquipmentResult.Busy : Find(id) == null ? Stage2EquipmentResult.InvalidItem : Stage2EquipmentResult.Ready;
+        public Stage2EquipmentItem EquippedAt(Stage2ItemSlot slot)=>(int)slot>=0&&(int)slot<equipped.Length?equipped[(int)slot]:null;
+        // Historical Weapon query means the active weapon. Fixed UI positions use EquippedAt.
+        public Stage2EquipmentItem Equipped(Stage2ItemSlot slot)=>slot==Stage2ItemSlot.Weapon?ActiveWeapon:EquippedAt(slot);
+        public bool IsEquipped(Stage2EquipmentItem item) {if(item==null)return false;foreach(var entry in equipped)if(ReferenceEquals(entry,item))return true;return false;}
+        public bool TrySwitchWeapon()
+        {
+            if(mutating||!catalog.ExpandedLoadout)return false;
+            var type=ActiveWeaponType==Stage2ItemType.Bow?Stage2ItemType.Wand:Stage2ItemType.Bow;
+            if(EquippedAt(Stage2EquipmentCatalog.FixedSlot(type))==null)return false;
+            ActiveWeaponType=type;Changed?.Invoke();return true;
+        }
+        public Stage2EquipmentResult EvaluateEquip(int id) => mutating ? Stage2EquipmentResult.Busy : Find(id) == null||Stage2EquipmentCatalog.IsConsumable(Find(id).Type) ? Stage2EquipmentResult.InvalidItem : Stage2EquipmentResult.Ready;
         public Stage2EquipmentResult TryEquip(int id)
         {
             var result = EvaluateEquip(id); if (result != Stage2EquipmentResult.Ready) return result;
             var item = Find(id); if (IsEquipped(item)) return result;
-            equipped[(int)Stage2EquipmentCatalog.Slot(item.Type)] = item; Changed?.Invoke(); return result;
+            var slot=catalog.ExpandedLoadout?Stage2EquipmentCatalog.FixedSlot(item.Type):Stage2EquipmentCatalog.Slot(item.Type);
+            if(item.Type==Stage2ItemType.Ring&&equipped[(int)Stage2ItemSlot.RingLeft]!=null&&equipped[(int)Stage2ItemSlot.RingRight]==null)slot=Stage2ItemSlot.RingRight;
+            equipped[(int)slot] = item;
+            if(item.Type==Stage2ItemType.Bow||item.Type==Stage2ItemType.Wand)ActiveWeaponType=item.Type;
+            Changed?.Invoke(); return result;
         }
         public Stage2EquipmentResult TryUnequip(Stage2ItemSlot slot)
+            =>TryUnequipAt(slot==Stage2ItemSlot.Weapon&&catalog.ExpandedLoadout&&ActiveWeaponType==Stage2ItemType.Wand?Stage2ItemSlot.Staff:slot);
+        public Stage2EquipmentResult TryUnequipAt(Stage2ItemSlot slot)
         {
             if (mutating) return Stage2EquipmentResult.Busy;
-            if (Equipped(slot) == null) return Stage2EquipmentResult.InvalidSlot;
-            equipped[(int)slot] = null; Changed?.Invoke(); return Stage2EquipmentResult.Ready;
+            if (EquippedAt(slot) == null) return Stage2EquipmentResult.InvalidSlot;
+            equipped[(int)slot] = null;
+            if(ActiveWeapon==null&&catalog.ExpandedLoadout){if(EquippedAt(Stage2ItemSlot.Weapon)!=null)ActiveWeaponType=Stage2ItemType.Bow;else if(EquippedAt(Stage2ItemSlot.Staff)!=null)ActiveWeaponType=Stage2ItemType.Wand;}
+            Changed?.Invoke(); return Stage2EquipmentResult.Ready;
         }
         public Stage2EquipmentResult EvaluateCraft(Stage2ItemType type) => mutating ? Stage2EquipmentResult.Busy :
-            !Stage2EquipmentCatalog.ValidType(type) ? Stage2EquipmentResult.InvalidItem : ForgeLevel < 1 ? Stage2EquipmentResult.ForgeRequired :
+            !Stage2EquipmentCatalog.ValidType(type)||(int)type>=catalog.ForgeTypeCount ? Stage2EquipmentResult.InvalidItem : ForgeLevel < 1 ? Stage2EquipmentResult.ForgeRequired :
             type==Stage2ItemType.Wand&&Blueprints!=null&&!Blueprints.IsStudied(Stage2BlueprintKind.WandRecipe)?Stage2EquipmentResult.ResearchRequired:
             !wallet.CanAfford(catalog.CraftCost(type)) ? Stage2EquipmentResult.InsufficientResources : Stage2EquipmentResult.Ready;
         public Stage2EquipmentResult TryCraft(Stage2ItemType type, out Stage2EquipmentItem created)
@@ -74,7 +94,7 @@ namespace Not3A.Stage2.Integration
         {
             var item = Find(id);
             if (mutating) return Stage2EquipmentResult.Busy;
-            if (item == null) return Stage2EquipmentResult.InvalidItem;
+            if (item == null||Stage2EquipmentCatalog.IsConsumable(item.Type)) return Stage2EquipmentResult.InvalidItem;
             if (ForgeLevel == 0) return Stage2EquipmentResult.ForgeRequired;
             if (item.Level >= catalog.MaximumItemLevel) return Stage2EquipmentResult.MaximumLevel;
             if (item.Quality > MaximumQuality) return Stage2EquipmentResult.ForgeQualityLimit;
@@ -84,7 +104,7 @@ namespace Not3A.Stage2.Integration
         {
             var item = Find(id);
             if (mutating) return Stage2EquipmentResult.Busy;
-            if (item == null) return Stage2EquipmentResult.InvalidItem;
+            if (item == null||Stage2EquipmentCatalog.IsConsumable(item.Type)) return Stage2EquipmentResult.InvalidItem;
             if (ForgeLevel == 0) return Stage2EquipmentResult.ForgeRequired;
             if (item.Quality >= Stage2ItemQuality.S) return Stage2EquipmentResult.DropOnlyQuality;
             if (item.Quality + 1 > MaximumQuality) return Stage2EquipmentResult.ForgeQualityLimit;
@@ -110,7 +130,7 @@ namespace Not3A.Stage2.Integration
         {
             item = null;
             if (mutating || !Stage2EquipmentCatalog.ValidType(type) || !Stage2EquipmentCatalog.ValidQuality(quality) ||
-                level < 1 || level > catalog.MaximumItemLevel) return false;
+                level < 1 || level > catalog.MaximumItemLevel || Stage2EquipmentCatalog.IsConsumable(type)&&(quality!=Stage2ItemQuality.F||level!=1)) return false;
             item = Add(type, quality, level); Changed?.Invoke(); return true;
         }
         public bool TryReceiveForgeScrolls(int amount)
@@ -141,6 +161,7 @@ namespace Not3A.Stage2.Integration
         {
             if(mutating)return;
             items.Clear(); Array.Clear(equipped, 0, equipped.Length); ForgeLevel = 0; ForgeUpgradeScrolls = 0;
+            ActiveWeaponType=Stage2ItemType.Bow;
             foreach (var type in new[] { Stage2ItemType.Bow, Stage2ItemType.Pickaxe, Stage2ItemType.Axe })
             { var item = Add(type, Stage2ItemQuality.F, 1); equipped[(int)Stage2EquipmentCatalog.Slot(type)] = item; }
             Blueprints?.ResetFromOwner();Changed?.Invoke();

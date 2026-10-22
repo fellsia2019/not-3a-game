@@ -49,8 +49,15 @@ namespace Not3A.Stage3.VisualPilot
             (data.workshopFootprint.y * .5f + scene.PlayerMover.CollisionRadius + .25f);
         public Vector2[] SitePositions
         {
-            get {if(!ready)return Array.Empty<Vector2>();var sites=new Vector2[state.Points.Count+1];sites[0]=WorkshopPosition;
-                for(var i=0;i<state.Points.Count;i++)sites[i+1]=state.Points[i].Position;return sites;}
+            get {if(!ready)return Array.Empty<Vector2>();var sites=new List<Vector2>{WorkshopPosition};
+                foreach(var point in state.Points)sites.Add(point.Position);return sites.ToArray();}
+        }
+        public Vector2[] BuiltSitePositions
+        {
+            get {if(!ready)return Array.Empty<Vector2>();var sites=new List<Vector2>();
+                if(state.WorkshopBuilt)sites.Add(WorkshopPosition);
+                foreach(var point in state.Points)if(point.Id!=Stage3TravelState.BaseId||state.BaseBuilt)sites.Add(point.Position);
+                return sites.ToArray();}
         }
 
         public void Initialize(Stage3WorldTravelData settings, Stage2SceneBootstrap bootstrap,
@@ -255,11 +262,11 @@ namespace Not3A.Stage3.VisualPilot
             var hero = (Vector2)scene.PlayerMover.transform.position;
             if (state.WorkshopBuilt && Vector2.Distance(hero, WorkshopInteractionPosition) <= data.interactionRadius)
                 return WorkshopOpenRequested!=null?"E · открыть исследования":state.Researched ? "Телепортация изучена · постройте круг на базе" : "E · исследовать Телепортацию в мастерской";
-            if (state.BaseBuilt && Vector2.Distance(hero, BasePosition) <= data.interactionRadius)
+            if (state.BaseBuilt && Vector2.Distance(hero, BasePosition) <= CircleInteractionRadius)
                 return "Клик / E · открыть телепорты";
             if (Vector2.Distance(hero, RemotePosition) <= data.discoveryRadius)
                 return !state.Researched ? "Круг найден · изучите Телепортацию в мастерской" :
-                    Vector2.Distance(hero, RemotePosition) <= data.interactionRadius ? "Клик / E · открыть телепорты" :
+                    Vector2.Distance(hero, RemotePosition) <= CircleInteractionRadius ? "Клик / E · открыть телепорты" :
                     "Подойдите к кругу · клик / E";
             return null;
         }

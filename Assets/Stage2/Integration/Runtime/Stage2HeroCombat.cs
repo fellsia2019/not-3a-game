@@ -10,10 +10,11 @@ namespace Not3A.Stage2.Integration
         {
             internal readonly float Remaining;
             internal readonly int Shots;
-            internal Snapshot(float remaining, int shots) { Remaining = remaining; Shots = shots; }
+            internal readonly float Fraction;
+            internal Snapshot(float remaining, int shots,float fraction) { Remaining = remaining; Shots = shots;Fraction=fraction; }
         }
-        public Snapshot CaptureSnapshot() => new Snapshot(remaining, ShotsFired);
-        public void RestoreSnapshot(Snapshot snapshot) { remaining = snapshot.Remaining; ShotsFired = snapshot.Shots; }
+        public Snapshot CaptureSnapshot() => new Snapshot(remaining, ShotsFired,damageFraction);
+        public void RestoreSnapshot(Snapshot snapshot) { remaining = snapshot.Remaining; ShotsFired = snapshot.Shots;damageFraction=snapshot.Fraction; }
         private readonly Stage2HeroCombatCatalog catalog;
         private readonly Func<Vector2, float, int, float, float, bool> launch;
         private float remaining;
@@ -22,6 +23,7 @@ namespace Not3A.Stage2.Integration
         private bool equipmentProfile, equipped = true;
         private int weaponDamage;
         private float weaponRange, weaponInterval, weaponFlight;
+        private float equipmentDamageMultiplier=1,abilityDamageMultiplier=1,abilityTempo=1,damageFraction;
 
         public Stage2HeroCombat(Stage2HeroCombatCatalog settings,
             Func<Vector2, float, int, float, float, bool> launchNearest)
@@ -34,9 +36,13 @@ namespace Not3A.Stage2.Integration
 
         public int ShotsFired { get; private set; }
         public float CooldownRemaining => remaining;
-        public int EffectiveDamage => equipmentProfile && !equipped ? 0 : (equipmentProfile ? weaponDamage : catalog.AttackDamage) + damageBonus;
+        public float EffectiveDamageExact=>(equipmentProfile&&!equipped?0:(equipmentProfile?weaponDamage:catalog.AttackDamage)+damageBonus)*equipmentDamageMultiplier*abilityDamageMultiplier;
+        public int EffectiveDamage => Mathf.FloorToInt(EffectiveDamageExact);
         public float EffectiveRange => equipmentProfile ? equipped ? weaponRange : 0 : catalog.AttackRange;
-        public float EffectiveFireInterval => (equipmentProfile ? weaponInterval : catalog.FireInterval) / attackSpeedMultiplier;
+        public float EffectiveFireInterval => (equipmentProfile ? weaponInterval : catalog.FireInterval) / (attackSpeedMultiplier*abilityTempo);
+        public void SetEquipmentDamageMultiplier(float value)=>equipmentDamageMultiplier=float.IsFinite(value)?Mathf.Max(1,value):1;
+        public void SetAbilityBonuses(float damage,float tempo)
+        {abilityDamageMultiplier=float.IsFinite(damage)?Mathf.Max(.1f,damage):1;abilityTempo=float.IsFinite(tempo)?Mathf.Clamp(tempo,1,2):1;}
         public void SetEquippedWeapon(bool enabled, int damage, float range, float interval, float flight)
         {
             if (enabled && (damage <= 0 || !float.IsFinite(range) || range <= 0 ||
@@ -60,12 +66,14 @@ namespace Not3A.Stage2.Integration
             if (!active || elapsed == 0f) return;
             remaining = Mathf.Max(0f, remaining - elapsed);
             if (!canLaunch || equipmentProfile && !equipped) return;
-            if (remaining > 0f || !launch(origin, EffectiveRange, EffectiveDamage,
+            var exact=EffectiveDamageExact+damageFraction;var damage=Mathf.Max(1,Mathf.FloorToInt(exact+.00001f));
+            if (remaining > 0f || !launch(origin, EffectiveRange, damage,
                     0f, equipmentProfile ? weaponFlight : catalog.ProjectileFlightSeconds)) return;
+            damageFraction=Mathf.Max(0,exact-damage);
             remaining = EffectiveFireInterval;
             ShotsFired++;
         }
 
-        public void Reset() { remaining = 0f; ShotsFired = 0; }
+        public void Reset() { remaining = 0f; ShotsFired = 0; damageFraction=0; }
     }
 }

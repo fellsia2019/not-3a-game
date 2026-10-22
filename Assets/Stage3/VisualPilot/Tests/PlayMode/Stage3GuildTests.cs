@@ -128,6 +128,8 @@ namespace Not3A.Stage3.VisualPilot.Tests
             var unit=Units.First(u=>u.Profile.enemyKind==Stage2GuildEnemyKind.Orc&&u.Alive);
             var position=unit.Position+Vector2.down*2;
             Assert.That(scene.PlayerMover.TryTeleportTo(position),Is.True);
+            unit=Units.Where(u=>u.Profile.enemyKind==Stage2GuildEnemyKind.Orc&&u.Alive)
+                .OrderBy(u=>Vector2.Distance(u.Position,position)).First();
             var before=unit.Health;game.HeroCombat.Tick(.01f);
             Assert.That(game.HeroCombat.Rules.ShotsFired,Is.EqualTo(1));
             Assert.That(unit.Health,Is.EqualTo(before),"The first arrow is in flight.");

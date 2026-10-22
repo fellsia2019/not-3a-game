@@ -24,8 +24,14 @@ namespace Not3A.Stage3.PlayerInterface
         {
             if (item == null) return;
             if (item.Blueprint != null) { DrawBlueprintCell(rect, item.Blueprint, selected); return; }
-            DrawEquipmentQualityFrame(rect, item.QualityIndex);
+            if(item.Consumable)DrawBlueprintNeutralFrame(rect);
+            else DrawEquipmentQualityFrame(rect, item.QualityIndex);
             DrawEquipmentIcon(EquipmentIconSafeRect(rect), item);
+            if(item.Consumable)
+            {
+                var count=new Rect(rect.x+4f*UiScale,rect.yMax-23f*UiScale,rect.width-8f*UiScale,20f*UiScale);
+                Label(count,Mathf.Max(0,item.Quantity).ToString(),14,TextAnchor.MiddleRight);
+            }
             if (selected) DrawEquipmentSelection(rect);
         }
 

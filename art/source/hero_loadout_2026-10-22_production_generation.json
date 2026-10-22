@@ -1,0 +1,37 @@
+{
+  "date": "2026-10-22",
+  "decision": "D-120",
+  "source": "Original built-in ImageGen production icon art, derived from owner-approved concept/material brief. No external RPG artwork copied.",
+  "usage": "Runtime icons, atlas bounds measured by Astra; source PNG bytes unchanged, quality frames from existing approved atlas.",
+  "images": [
+    {
+      "file": "Assets/Stage3/PlayerInterface/Resources/Stage3ItemsStaffAccessories.png",
+      "sha256": "86ea4b8b82306751e85f1cb3fac08d70776aa779d316f44b8138560c3672c68c",
+      "width": 1774,
+      "height": 887,
+      "grid": "4rows×8qualities;staff,amulet,ring,protection",
+      "prompt": "Original production-ready fantasy RPG INVENTORY ITEM ICON ATLAS, transparent background, exact8columns×4rows of equal square cells, wide2:1canvas2048×1024preferred.32isolated standalone painted item icons, NO labels,NOletters,NOnumbers,NOborders,NOUI,NOshadowsoutsidecells. Same clean hand-painted high fantasy style as an isometric medieval fantasy game, warm wood/agedgold/bluecrystal, readable small inventory silhouettes. Everyitem fullyinsideitscell with15%padding, consistent scale; transparent gutters.\nCOLUMNS fromlefttoright are8QUALITY variantsF,E,D,C,B,A,S,SSS, neverprinted. Keep basic silhouette consistent acrossquality; increasing refinedmaterials and smallcontainedglow. Fsimplewood/brownmetal,Eiron,Dsubtlegreenaccents,Cblue,Bviolet,Acrimson,Sbrightpolishedgold,SSSrefinedwhitegoldwithsmallcontainedlight. Do not createframes; game suppliesqualityframes.\nROW1: LONG SLENDER STAFF, full-length wooden shaft, smallANGULARbluecrystalhead, headless than15%oflength, shaft85%+, no roundbulb/no spoon/no shortwand. Everycolumnshowssame longstaffdiagonalbottomleft→topright,10:1overalllengthtothickness, moreornamentattopqualitiesonly.\nROW2: a NECK AMULET forhero damage, ONE clearredfacetedgem heldinwarmmetalpendantwithashortvisibleleatherchainloop. Clearly necklace,notring.\nROW3: a FINGER RING forMana, thinclosedmetalband withsmallbluegem,3/4view, clearlyringnotamulet. Samebasicringin8qualities.\nROW4: a standalone MAGICAL PROTECTION SEAL, blueandgoldgeometriccircularsymbolfloatingflat, no chain/no physicalshield/nojewelry, simpleluminouslinesatF andricherluminousfiligreeatSSS. Containedglowandtransparentexterior. Originalglyphgeometry, no copiedreligiousorIPsymbols.\nThis is32smallgameitemimagesinuniformcells, NOTa mockup,NOTa character,noscene. Absolutelyno prose. Exact8×4grid and safe isolation essential for automaticimport.",
+      "generated_source": "/Users/artemmusket/.codex/generated_images/01a15f98-3bde-7101-a64d-6ea9ef46a90b/exec-9d60801e-6642-4bda-98eb-d874eef9959a.png"
+    },
+    {
+      "file": "Assets/Stage3/PlayerInterface/Resources/Stage3HeroSkillIcons.png",
+      "sha256": "dccfa41e1e1b8f416f93095c744ff42db27467ffc5d59e47756beb3e3703d603",
+      "width": 1774,
+      "height": 887,
+      "grid": "4rows×8columns;IDs0–30combat,31compass",
+      "prompt": "OriginalproductionfantasyRPG SKILL ICON ATLAS, transparentbackground, EXACT8columns×4rows=32equal squarecells on2:1widecanvas2048×1024preferred. Isolatedcircularpaintedspellillustrationswithcontainedlightring, visualstyleivory/plum/goldhighfantasy, colourfulclearhandpaintedicons, absolutelyNOtext/NOnumbers/NOlabels/NOUI/mockup. Eachcirculariconfitswithinitscellwith15%transparentpadding,nointercellbleed. Common goldfinecircles, brightcentericons, no largewhitepanels.\nExacticons left→right then top→bottom:\nRow1cells0..7:0blueBlinkswirl;1aimedgoldarrow;2flamingarrow;3icearrow;4archerfocuscrosshair;5emeraldwind;6purplemagicbolt;7bluepersonalshield.\nRow2cells8..15:8greenhealingleaf;9fireball;10forkedbluelightning;11precisesinglearrowtarget;12fasthands;13lightfootstep;14runningarchersilhouette;15steadycrosshair.\nRow3cells16..23:16hourglasswitharrow;17flamingarrowhead;18smolderingember;19frostedarrowhead;20icesnowflake;21deepbreathinglungs;22windfeather;23arcaneresonancespiral.\nRow4cells24..31:24manadroplet;25reinforcedshield;26healinghand;27firepowerflame;28lightningconductor;29manacapacityflask;30manaregenerationdropletspiral;31smalladventurercompass.\nActiveicons0..10lookboldenergized;passiveicons11..30havesimplerlegiblesymbolsbutSAMEuniformcellbounds.Gamehandlesactualsmall/large sizing, no extrabadges.32iconsexactly.Nocopiedfranchiseart.",
+      "generated_source": "/Users/artemmusket/.codex/generated_images/01a15f98-3bde-7101-a64d-6ea9ef46a90b/exec-40bc7181-6ba6-4598-a541-0b90c0224423.png"
+    },
+    {
+      "file": "Assets/Stage3/PlayerInterface/Resources/Stage3Potions.png",
+      "sha256": "61924c805e503556cf7fde9f180521921cf0011ab88cc112924e04f4e00c472c",
+      "width": 2172,
+      "height": 724,
+      "grid": "3columns×1row;HP,MP,mixed",
+      "prompt": "OriginalgameinventoryPOTIONICONATLAS,transparentbackground,exact3equalcellsinONEhorizontalrow,3:1widecanvas1536×512preferred. Threeisolatedhandpaintedfantasypotionbottles, NOtextNOlabelsNObordersNOUI, cleantransparentgaps20%cellpadding,fullbottleclearlyinsideeachcell. Left:smallroundglassbottlewithrubyREDliquidandbrowncork,HP. Middle:facetedtallglassbottlewithclearSAPPHIREBLUEliquidandbrowncork,MP. Right:roundangularbroadglassbottlewithVIOLET/PURPLEliquidandbrowncork,combinedHPMP. Threebottlesdifferentsilhouettesinstantlydistinguishable, allsamevisualweight. Handpaintedhighfantasyclearinventoryiconswithgoldcollars/subtlehighlights, originalartnotcopiedfranchise. Restrainedgloss, no hugeglow.No fourthbottle andnoextras.",
+      "generated_source": "/Users/artemmusket/.codex/generated_images/01a15f98-3bde-7101-a64d-6ea9ef46a90b/exec-4066b26f-5ff2-4b90-997e-b09aa0e9268f.png"
+    }
+  ],
+  "verification": "Imported actual native assets,131distinctPlayModePASS+1explicitheadlessviewportSKIP;80finalnativeMacframes720/900/1080;AstraHUD/equipmentFINALPASSafterrecordedRETURNcorrections. Source PNG bytes retained; Windows unverified.",
+  "native_evidence": "art/source/hero_loadout_2026-10-22_verification.json"
+}

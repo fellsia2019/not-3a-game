@@ -78,6 +78,12 @@ namespace Not3A.Stage3.PlayerInterface
 
         private IEnumerator Start()
         {
+            var loadoutDirectory=Environment.GetEnvironmentVariable("NOT3A_HERO_LOADOUT_REVIEW");
+            if(Debug.isDebugBuild&&!Application.isBatchMode&&!string.IsNullOrWhiteSpace(loadoutDirectory)&&Path.IsPathFullyQualified(loadoutDirectory))
+            {yield return Stage3HeroLoadoutQualification.Capture(gameObject,loadoutDirectory);yield break;}
+            var loadoutEquipmentDirectory=Environment.GetEnvironmentVariable("NOT3A_LOADOUT_EQUIPMENT_REVIEW");
+            if(Debug.isDebugBuild&&!Application.isBatchMode&&!string.IsNullOrWhiteSpace(loadoutEquipmentDirectory)&&Path.IsPathFullyQualified(loadoutEquipmentDirectory))
+            {yield return Stage3LoadoutEquipmentReview.Capture(gameObject,loadoutEquipmentDirectory);yield break;}
             if(startupDirectory!=null)
             {
                 var deadline=Time.realtimeSinceStartup+15f;
@@ -89,6 +95,9 @@ namespace Not3A.Stage3.PlayerInterface
                 yield break;
             }
             var walkDirectory = Environment.GetEnvironmentVariable("NOT3A_WALK_PROFILE_DIRECTORY");
+            var questGuidanceDirectory=Environment.GetEnvironmentVariable("NOT3A_QUEST_GUIDANCE_CAPTURE_DIRECTORY");
+            if(!Application.isBatchMode&&Debug.isDebugBuild&&!string.IsNullOrWhiteSpace(questGuidanceDirectory)&&Path.IsPathFullyQualified(questGuidanceDirectory))
+            {yield return Stage3QuestGuidanceReview.Capture(gameObject,questGuidanceDirectory);yield break;}
             var campDirectory=Environment.GetEnvironmentVariable("NOT3A_CAMP_CAPTURE_DIRECTORY");
             if(!Application.isBatchMode&&Debug.isDebugBuild&&!string.IsNullOrWhiteSpace(campDirectory)&&Path.IsPathFullyQualified(campDirectory))
             {yield return Stage3CampReview.Capture(gameObject,campDirectory);yield break;}

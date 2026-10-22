@@ -24,11 +24,11 @@ namespace Not3A.Stage3.VisualPilot.Tests
         }
         [TearDown] public void Cleanup() => Object.DestroyImmediate(catalog);
         private int[] Stock() => new[] {wallet.Get(MapResourceKind.Wood),wallet.Get(MapResourceKind.Stone),wallet.Get(MapResourceKind.Metal),wallet.Gold};
-        [Test] public void FreshEquipmentHasThreeActualStarterToolsAndNoArmorOrShieldType()
+        [Test] public void FreshEquipmentKeepsThreeStarterItemsAndExpandedTypesGrantNothing()
         {
             Assert.That(catalog.TryValidate(out var reason),Is.True,reason);
-            Assert.That(Enum.GetValues(typeof(Stage2ItemType)).Length,Is.EqualTo(8));
-            Assert.That(Enum.GetValues(typeof(Stage2ItemSlot)).Length,Is.EqualTo(7));
+            Assert.That(Enum.GetValues(typeof(Stage2ItemType)).Length,Is.EqualTo(14));
+            Assert.That(Enum.GetValues(typeof(Stage2ItemSlot)).Length,Is.EqualTo(12));
             Assert.That(rules.Items.Select(i=>i.Type),Is.EquivalentTo(new[]{Stage2ItemType.Bow,Stage2ItemType.Pickaxe,Stage2ItemType.Axe}));
             Assert.That(rules.Items.All(i=>i.Level==1&&i.Quality==Stage2ItemQuality.F&&rules.IsEquipped(i)),Is.True);
             Assert.That(rules.ForgeLevel,Is.Zero); Assert.That(rules.ForgeUpgradeScrolls,Is.Zero);
@@ -81,7 +81,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Assert.That(rules.TryReceiveLoot(Stage2ItemType.Bow,Stage2ItemQuality.SSS,100,out var item),Is.True);
             Assert.That(rules.TryEquip(item.Id),Is.EqualTo(Stage2EquipmentResult.Ready)); rules.ActivateForge();
             Assert.That(rules.TryReforge(item.Id),Is.EqualTo(Stage2EquipmentResult.DropOnlyQuality));
-            Assert.That(rules.TryReceiveLoot((Stage2ItemType)8,Stage2ItemQuality.F,1,out _),Is.False);
+            Assert.That(rules.TryReceiveLoot((Stage2ItemType)14,Stage2ItemQuality.F,1,out _),Is.False);
             Assert.That(rules.TryReceiveLoot(Stage2ItemType.Bow,(Stage2ItemQuality)8,1,out _),Is.False);
             Assert.That(rules.TryReceiveLoot(Stage2ItemType.Bow,Stage2ItemQuality.F,101,out _),Is.False);
             Assert.That(rules.Items.Count,Is.EqualTo(4));

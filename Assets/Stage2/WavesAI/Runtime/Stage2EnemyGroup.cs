@@ -50,6 +50,7 @@ namespace Not3A.Stage2.WavesAI
         public Stage2Enemy GetEnemy(int index) => enemies[index];
         public event Action<int> ReachedThrone;
         public event Action<Stage2Enemy> EnemyRemoved;
+        public event Action<Stage2Enemy,int> EnemyDamaged;
         public event Action<Stage2Shot> ShotLaunched;
         public event Action<Stage2Shot> ShotImpacted;
         public event Action ShotsCleared;
@@ -155,6 +156,7 @@ namespace Not3A.Stage2.WavesAI
                 enemy.SetPaused(paused);
                 enemy.ReachedThrone += OnReachedThrone;
                 enemy.Removed += OnRemoved;
+                enemy.Damaged += OnDamaged;
                 enemies.Add(enemy);
                 enemy.gameObject.SetActive(true);
                 return enemy;
@@ -184,17 +186,20 @@ namespace Not3A.Stage2.WavesAI
                 if (enemy == null) continue;
                 enemy.ReachedThrone -= OnReachedThrone;
                 enemy.Removed -= OnRemoved;
+                enemy.Damaged -= OnDamaged;
                 enemy.Despawn();
             }
             paused = false;
         }
 
         private void OnReachedThrone(Stage2Enemy _, int damage) => ReachedThrone?.Invoke(damage);
+        private void OnDamaged(Stage2Enemy enemy,int amount)=>EnemyDamaged?.Invoke(enemy,amount);
 
         private void OnRemoved(Stage2Enemy enemy)
         {
             enemy.ReachedThrone -= OnReachedThrone;
             enemy.Removed -= OnRemoved;
+            enemy.Damaged -= OnDamaged;
             if (enemies.Remove(enemy)) EnemyRemoved?.Invoke(enemy);
         }
     }

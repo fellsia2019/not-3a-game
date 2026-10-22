@@ -15,6 +15,32 @@ namespace Not3A.Stage3.PlayerInterface
         private int guildRank,selectedGuildQuest=-1;
         public Stage2Guild Guild=>guild;
         public Stage3GuildWorldDriver GuildWorld=>guildWorld;
+        public int TrackedGuildQuestId {get;private set;}=-1;
+        public bool TrackGuildQuest(int id)
+        {
+            if(guild?.FindActive(id)==null)return false;
+            TrackedGuildQuestId=id;return true;
+        }
+        public bool TryGetGuildQuestTarget(int id,out Vector2 position,out bool turnIn)
+        {
+            position=default;turnIn=false;
+            var contract=guild?.FindActive(id);
+            if(contract==null||guildWorld==null||!guildWorld.Ready||guildTravel==null||!guildTravel.CityReady)return false;
+            turnIn=contract.Cleared;
+            position=turnIn?guildTravel.CityPresentation.GuildInteractionPosition:guildWorld.SpotPosition((int)contract.Quest.enemyKind);
+            // Aim at the current camp pack, not the now intentionally empty arena centre.
+            if(!turnIn)
+            {
+                var total=Vector2.zero;var count=0;
+                foreach(var enemy in guildWorld.Enemies)
+                    if(enemy.Alive&&enemy.Generation==contract.Generation&&enemy.Profile.enemyKind==contract.Quest.enemyKind)
+                    {total+=enemy.Home;count++;}
+                if(count>0)position=total/count;
+            }
+            return true;
+        }
+        public bool TryGetTrackedGuildTarget(out Vector2 position,out bool turnIn)
+            =>TryGetGuildQuestTarget(TrackedGuildQuestId,out position,out turnIn);
         public bool NearGuild
         {
             get
@@ -46,7 +72,12 @@ namespace Not3A.Stage3.PlayerInterface
             presentation.GuildActionRequested+=ConfirmGuildAction;presentation.GuildClosed+=OnGuildClosed;
             Debug.Log("S3_GUILD_READY: repeat contracts, typed exploration spots, local board turn-in and F–S trials.");
         }
-        private void MarkGuildDirty()=>guildDirty=true;
+        private void MarkGuildDirty()
+        {
+            guildDirty=true;
+            if(guild!=null&&guild.FindActive(TrackedGuildQuestId)==null)
+                TrackedGuildQuestId=guild.Active.Count>0?guild.Active[0].Quest.id:-1;
+        }
         private void OnGuildClosed()=>guildPointerNeedsRelease=true;
         private void ResetGuildView(){guildRank=0;selectedGuildQuest=-1;guildPointerNeedsRelease=true;MarkGuildDirty();}
         public bool TryOpenGuild()
@@ -80,6 +111,7 @@ namespace Not3A.Stage3.PlayerInterface
             if(!offered)return false;
             var action=guild.Evaluate(id);var result=action==Stage2GuildAction.Accept?guild.TryAccept(id,guildWorld.ResetSpot):
                 action==Stage2GuildAction.TurnIn&&guild.TryTurnIn(id);
+            if(result&&action==Stage2GuildAction.Accept)TrackGuildQuest(id);
             if(guildRank>(int)guild.Rank)guildRank=(int)guild.Rank;
             RefreshGuild();return result;
         }
@@ -104,7 +136,7 @@ namespace Not3A.Stage3.PlayerInterface
                 if(!trial&&(q.trial||(int)q.rank!=guildRank))continue;
                 var contract=guild.FindActive(q.id);
                 var view=new Stage3GuildQuestView{Id=q.id,Rank=(int)q.rank,EnemyKind=(int)q.enemyKind,
-                    RewardGold=q.gold,RewardExperience=q.experience,Title=q.title,Location=q.location,
+                    RewardGold=guild.RewardGold(q),RewardExperience=guild.RewardExperience(q),Title=q.title,Location=q.location,
                     Objective=q.objective+(contract==null?"":$" · {q.population-contract.Remaining}/{q.population}"),IsTrial=q.trial};
                 if(q.trial)entries.Insert(0,view);else entries.Add(view);
             }

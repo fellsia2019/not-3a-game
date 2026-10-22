@@ -89,14 +89,14 @@ namespace Not3A.Stage3.VisualPilot
             { var cell = new Vector2Int(x, y); if (!map.Contains(cell) || !map.IsWalkable(cell) || map.GetSurface(cell) != MapSurfaceKind.Forest) return Stage3ForgePlacementResult.InvalidGround; }
             if (Distance(area, scene.PlayerMover.transform.position) <= scene.PlayerMover.CollisionRadius) return Stage3ForgePlacementResult.HeroOverlap;
             foreach (var rect in obstacles.Rectangles) if (area.Overlaps(rect)) return Stage3ForgePlacementResult.Occupied;
-            foreach (var circle in obstacles.Circles) if (Distance(area, circle.Center) <= circle.Radius) return Stage3ForgePlacementResult.Occupied;
+            foreach (var circle in obstacles.Circles) if (circle.Radius>0&&Distance(area, circle.Center) <= circle.Radius) return Stage3ForgePlacementResult.Occupied;
             foreach (var district in world.Districts)
             { var b = district.Bounds; if (area.Overlaps(new Rect(b.xMin,b.yMin,b.width,b.height))) return Stage3ForgePlacementResult.Occupied; }
             var travel = GetComponent<Stage3WorldTravel>();
-            if (travel != null) foreach (var site in travel.SitePositions) if (Distance(area, site) <= 3) return Stage3ForgePlacementResult.Occupied;
+            if (travel != null) foreach (var site in travel.BuiltSitePositions) if (Distance(area, site) <= 3) return Stage3ForgePlacementResult.Occupied;
             if (Distance(area, scene.ThroneMarker.position) <= 3 || Distance(area, scene.EntranceMarker.position) <= 3) return Stage3ForgePlacementResult.Occupied;
             foreach (var node in game.Gathering.Economy.Nodes)
-                if (Distance(area,node.WorldPosition) <= (node == game.Gathering.Economy.GetNode(node.Resource) ? 3 : node.HarvestRadius + .5f)) return Stage3ForgePlacementResult.Occupied;
+                if (!node.IsDepleted && Distance(area,node.WorldPosition) <= (node == game.Gathering.Economy.GetNode(node.Resource) ? 3 : node.InteractionRadius + .5f)) return Stage3ForgePlacementResult.Occupied;
             var entrance = point + Catalog.EntranceOffset; var entryCell = map.WorldToCell(entrance);
             if (!map.Contains(entryCell) || !map.IsWalkable(entryCell) || Distance(area,entrance) < scene.PlayerMover.CollisionRadius ||
                 obstacles.IsBlocked(entrance,scene.PlayerMover.CollisionRadius)) return Stage3ForgePlacementResult.Occupied;

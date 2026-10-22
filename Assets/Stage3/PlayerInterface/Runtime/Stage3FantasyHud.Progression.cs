@@ -38,7 +38,7 @@ namespace Not3A.Stage3.PlayerInterface
         public event Action BlinkCancelRequested;
         public event Action BlinkUpgradeRequested;
         public event Action<int> HeroPassiveUpgradeRequested;
-        public Rect BlinkSlotRect => AbilityReserveRect(0);
+        public Rect BlinkSlotRect => heroLoadout!=null?SkillSlotRect(0):AbilityReserveRect(0);
         private Texture2D progressionIcons, cooldownSectors;
         private bool progressionIconsLoaded;
         private readonly int[] progressionNumbers={-1,-1,-1,-1,-1,-1};
@@ -74,7 +74,7 @@ namespace Not3A.Stage3.PlayerInterface
         }
         public Rect BlinkUpgradeRect
         {
-            get { if(heroProgression==null||heroProgression.BlinkRank>=4||ActiveWindow!=Stage3PlayerWindow.Hero||showProfessions)return Rect.zero;
+            get { if(heroLoadout!=null)return selectedSkillId==0?SkillUpgradeRect:Rect.zero; if(heroProgression==null||heroProgression.BlinkRank>=4||ActiveWindow!=Stage3PlayerWindow.Hero||showProfessions)return Rect.zero;
                 var r=BlinkRankRow(Mathf.Clamp(heroProgression.BlinkRank,0,3));
                 return new Rect(r.x+r.width*.18f,r.yMax+27f*UiScale,r.width*.64f,43f*UiScale); }
         }
@@ -85,6 +85,7 @@ namespace Not3A.Stage3.PlayerInterface
         }
         public Rect HeroPassiveUpgradeRect(int index)
         {
+            if(heroLoadout!=null)return selectedSkillId==index+11?SkillUpgradeRect:Rect.zero;
             if(index<0||index>=3||ActiveWindow!=Stage3PlayerWindow.Hero||heroProgression==null||showProfessions)return Rect.zero;
             var r=HeroPassiveCard(index);return new Rect(r.xMax-r.width*.35f-12f*UiScale,r.yMax-67f*UiScale,r.width*.35f,44f*UiScale);
         }
@@ -201,7 +202,39 @@ namespace Not3A.Stage3.PlayerInterface
             RefreshHeroProgressionLabels();
             var r=HudMenuButtonRect(Stage3PlayerWindow.Hero);var s=UiScale;
             var badge=new Rect(r.xMax-9f*s,r.y-3f*s,22f*s,22f*s);
-            DrawDisc(badge,ExperienceOrange);PaleLabel(badge,heroPointBadge,13,TextAnchor.MiddleCenter);
+            DrawDisc(badge,Pearl);DrawDisc(Inset(badge,1.3f*s),new Color(.05f,.47f,.55f));
+            PaleLabel(badge,heroPointBadge,13,TextAnchor.MiddleCenter);
+        }
+
+        // Approved O symbol: one rising stem and three luminous endpoints, readable at dock scale.
+        // Existing I/B/P/M artwork and all navigation rectangles remain untouched.
+        private void DrawDevelopmentTreeIcon(Rect r)
+        {
+            DrawDisc(r,Silver);
+            DrawDisc(Inset(r,r.width*.055f),PlumInk);
+            var stem=new Color(.96f,.85f,.62f);
+            Vector2 P(float x,float y)=>new Vector2(r.x+r.width*x,r.y+r.height*y);
+            void Segment(Vector2 a,Vector2 b)
+            {
+                var matrix=GUI.matrix;
+                var delta=b-a;
+                GUIUtility.RotateAroundPivot(Mathf.Atan2(delta.y,delta.x)*Mathf.Rad2Deg,a);
+                Fill(new Rect(a.x,a.y-r.width*.027f,delta.magnitude,r.width*.054f),stem);
+                GUI.matrix=matrix;
+            }
+            Segment(P(.5f,.85f),P(.5f,.24f));
+            Segment(P(.5f,.78f),P(.27f,.59f));Segment(P(.27f,.59f),P(.24f,.40f));
+            Segment(P(.5f,.78f),P(.73f,.59f));Segment(P(.73f,.59f),P(.76f,.40f));
+            void Node(Vector2 center,Color color)
+            {
+                var diameter=r.width*.21f;
+                var node=new Rect(center.x-diameter*.5f,center.y-diameter*.5f,diameter,diameter);
+                DrawDisc(node,stem);DrawDisc(Inset(node,r.width*.027f),color);
+                DrawDisc(new Rect(center.x-r.width*.025f,center.y-r.width*.055f,r.width*.055f,r.width*.055f),Pearl);
+            }
+            Node(P(.24f,.39f),new Color(1f,.60f,.14f));
+            Node(P(.5f,.22f),Accent);
+            Node(P(.76f,.39f),new Color(.78f,.40f,.92f));
         }
 
         private string experienceToast;

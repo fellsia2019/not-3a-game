@@ -12,6 +12,7 @@ namespace Not3A.Stage3.VisualPilot
         private Camera viewCamera;
         private Stage2ResourceNode node;
         private Transform hero;
+        private bool preserveAuthoredPresentation;
         private bool aligned;
         private Sprite alignedSprite;
         private Vector3 alignedAnchor;
@@ -26,7 +27,20 @@ namespace Not3A.Stage3.VisualPilot
 
         public void Bind(Camera camera)
         {
+            preserveAuthoredPresentation = false;
             viewCamera = camera;
+            Align();
+        }
+
+        /// <summary>Bind stock and the existing harvest hint without moving or replacing approved artwork.</summary>
+        public void BindExisting(SpriteRenderer existingBody, Stage2ResourceNode resourceNode)
+        {
+            if (existingBody == null) throw new System.ArgumentNullException(nameof(existingBody));
+            if (resourceNode == null) throw new System.ArgumentNullException(nameof(resourceNode));
+            body = existingBody;
+            node = resourceNode;
+            art = null;
+            preserveAuthoredPresentation = true;
             Align();
         }
 
@@ -51,6 +65,7 @@ namespace Not3A.Stage3.VisualPilot
             {
                 var visible=!node.IsDepleted;
                 if(body.enabled!=visible)body.enabled=visible;
+                if (preserveAuthoredPresentation) return;
                 DepletionFrame = Stage3ManualResourceArt.State(node.FillFraction);
                 var frame = art != null ? art.Frame(node.Resource, node.Size, DepletionFrame) : null;
                 if (frame != null && body.sprite!=frame) body.sprite = frame;

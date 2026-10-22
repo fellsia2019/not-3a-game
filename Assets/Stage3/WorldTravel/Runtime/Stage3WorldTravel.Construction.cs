@@ -74,20 +74,21 @@ namespace Not3A.Stage3.VisualPilot
             if (DistanceTo(area, scene.PlayerMover.transform.position) <= scene.PlayerMover.CollisionRadius)
                 return WorkshopPlacementResult.HeroOverlap;
             foreach (var rect in obstacles.Rectangles) if (area.Overlaps(rect)) return WorkshopPlacementResult.Occupied;
-            foreach (var circle in obstacles.Circles) if (DistanceTo(area, circle.Center) <= circle.Radius) return WorkshopPlacementResult.Occupied;
+            foreach (var circle in obstacles.Circles) if (circle.Radius>0&&DistanceTo(area, circle.Center) <= circle.Radius) return WorkshopPlacementResult.Occupied;
             if (resourceWorld != null)
                 foreach (var district in resourceWorld.Districts)
                 {
                     var bounds = district.Bounds;
                     if (area.Overlaps(new Rect(bounds.xMin, bounds.yMin, bounds.width, bounds.height))) return WorkshopPlacementResult.Occupied;
                 }
-            if (DistanceTo(area, BasePosition) <= data.circleDiameter * .5f ||
+            if ((state.BaseBuilt && DistanceTo(area, BasePosition) <= data.circleDiameter * .5f) ||
                 DistanceTo(area, RemotePosition) <= data.circleDiameter * .5f ||
                 DistanceTo(area, scene.ThroneMarker.position) <= data.siteClearance ||
                 DistanceTo(area, scene.EntranceMarker.position) <= data.siteClearance) return WorkshopPlacementResult.Occupied;
             foreach (var node in game.Gathering.Economy.Nodes)
+                if(!node.IsDepleted)
                 if (DistanceTo(area, node.WorldPosition) <= (node == game.Gathering.Economy.GetNode(node.Resource) ?
-                        data.siteClearance : node.HarvestRadius + .5f))
+                        data.siteClearance : node.InteractionRadius + .5f))
                     return WorkshopPlacementResult.Occupied;
             // Keep the front interaction point reachable after construction.
             var approach = point + Vector2.down * (data.workshopFootprint.y * .5f + scene.PlayerMover.CollisionRadius + .25f);
@@ -154,7 +155,9 @@ namespace Not3A.Stage3.VisualPilot
                 Stage3TacticalPresentation.GrassSurfaceZ(WorkshopPreviewPosition) - .025f);
             if (hud != null) hud.WorldInteractionHint = WorkshopPreviewResult == WorkshopPlacementResult.Ready ?
                 "ЛКМ · построить мастерскую    Esc / ПКМ · отменить" : WorkshopPreviewResult == WorkshopPlacementResult.HeroOverlap ?
-                "Место занято героем · выберите соседнее" : "Нужно свободное место на зелёной земле · Esc / ПКМ отменяет";
+                "Место занято героем · отойдите или выберите соседнее" : WorkshopPreviewResult == WorkshopPlacementResult.Occupied ?
+                "Место или вход заняты ресурсом, зданием либо кругом · выберите соседнее" :
+                "Весь фундамент должен быть на зелёной земле · Esc / ПКМ отменяет";
             if (!confirmRequiresRelease && confirmWorkshop != null && confirmWorkshop.WasPressedThisFrame()) TryBuildWorkshopAt(WorkshopPreviewPosition);
         }
     }

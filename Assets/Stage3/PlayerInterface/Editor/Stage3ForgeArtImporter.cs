@@ -21,6 +21,8 @@ namespace Not3A.Stage3.PlayerInterface.Editor
             art.bowPickaxeHelmet=Import("Stage3ItemsBowPickaxeHelmet.png",false);
             art.chestArmsLegs=Import("Stage3ItemsChestArmsLegs.png",false);
             art.wandAxe=Import("Stage3ItemsWandAxe.png",false);
+            if(File.Exists(Folder+"Stage3ItemsStaffAccessories.png"))art.staffAccessories=Import("Stage3ItemsStaffAccessories.png",false);
+            if(File.Exists(Folder+"Stage3Potions.png"))art.potions=Import("Stage3Potions.png",false);
             var world=Import("Stage3ForgeWorld.png",true);
             var bounds=Visible(world);
             if(art.worldSprite==null)
@@ -40,7 +42,7 @@ namespace Not3A.Stage3.PlayerInterface.Editor
             art.material.SetVector("_VisibleRect",new Vector4((float)bounds.x/world.width,(float)bounds.y/world.height,(float)bounds.width/world.width,(float)bounds.height/world.height));
             PopulateUiIconBounds(art);
             EditorUtility.SetDirty(art.material);EditorUtility.SetDirty(art);AssetDatabase.SaveAssets();
-            Debug.Log("S3_FORGE_ART_READY: original PNGs, eight item types, eight qualities, native world material.");
+            Debug.Log("S3_FORGE_ART_READY: original PNGs, equipment/accessory quality atlas and neutral potions, native world material.");
         }
         [MenuItem("Tools/Stage 3/Equipment/Bake UI Visible Icon Bounds")]
         public static void BakeUiIconBounds()
@@ -112,12 +114,18 @@ namespace Not3A.Stage3.PlayerInterface.Editor
             // Decode original PNGs in Editor only. The old cell identifies an item,
             // but does NOT clip it: artwork crosses nominal column/row boundaries.
             var sources=new Dictionary<Texture2D,UiSourceComponents>();
-            var result=new Rect[64];
-            for(var type=0;type<8;type++)
+            var typeCount=art.staffAccessories!=null?11:8;
+            var result=new Rect[typeCount*8];
+            for(var type=0;type<typeCount;type++)
             for(var quality=0;quality<8;quality++)
             {
                 if(!art.TryGetIcon(type,quality,out var texture,out var region))
                     throw new InvalidOperationException($"Missing UI icon {type}/{quality}.");
+                if(texture==art.staffAccessories)
+                {
+                    result[type*8+quality]=IsolatedCellBounds(texture,region);
+                    continue;
+                }
                 if(!sources.TryGetValue(texture,out var source))
                 {
                     var path=AssetDatabase.GetAssetPath(texture);
@@ -176,10 +184,41 @@ namespace Not3A.Stage3.PlayerInterface.Editor
                 }
             }
             art.uiVisibleBounds=result;
-            Debug.Log("S3_UI_ICON_BOUNDS_READY: 64/64; alpha>=16/255; largest connected silhouette by cell overlap; "+
+            if(art.potions!=null)
+            {
+                art.potionVisibleBounds=new Rect[3];
+                for(var potion=0;potion<3;potion++)
+                {
+                    art.TryGetIcon(11+potion,0,out var texture,out var region);
+                    art.potionVisibleBounds[potion]=IsolatedCellBounds(texture,region);
+                }
+            }
+            Debug.Log($"S3_UI_ICON_BOUNDS_READY: {result.Length}/{result.Length}; isolated new atlas cells include every alpha island; alpha>=16/255; legacy largest connected silhouette by cell overlap; "+
                 "full-source component bounds (not clipped to nominal tile); up to2 source pixels fringe, reduced before neighbour; "+
-                "64/64 checked for foreign silhouettes including axe masked bands; "+
+                "legacy sheets checked for foreign silhouettes including axe masked bands; "+
                 "axes retain two masked bands; bows use held Bow(q,0); uniform centred UI fit; world pivots unchanged.");
+        }
+        private static Rect IsolatedCellBounds(Texture2D source,Rect region)
+        {
+            var decoded=new Texture2D(2,2,TextureFormat.RGBA32,false);
+            try
+            {
+                var path=AssetDatabase.GetAssetPath(source);
+                if(!ImageConversion.LoadImage(decoded,File.ReadAllBytes(path),false))throw new InvalidOperationException("Cannot decode item atlas "+path);
+                var pixels=decoded.GetPixels32();var width=decoded.width;var height=decoded.height;
+                var left=Mathf.RoundToInt(region.xMin*width);var right=Mathf.RoundToInt(region.xMax*width);
+                var bottom=Mathf.RoundToInt(region.yMin*height);var top=Mathf.RoundToInt(region.yMax*height);
+                var minX=right;var maxX=left-1;var minY=top;var maxY=bottom-1;
+                for(var y=bottom;y<top;y++)for(var x=left;x<right;x++)
+                {
+                    if(pixels[y*width+x].a<UiAlphaThreshold)continue;
+                    minX=Mathf.Min(minX,x);maxX=Mathf.Max(maxX,x);minY=Mathf.Min(minY,y);maxY=Mathf.Max(maxY,y);
+                }
+                if(maxX<minX)throw new InvalidOperationException("Empty isolated item cell in "+path+" "+region);
+                return Rect.MinMaxRect(Mathf.Max(left,minX-2)/(float)width,Mathf.Max(bottom,minY-2)/(float)height,
+                    Mathf.Min(right,maxX+3)/(float)width,Mathf.Min(top,maxY+3)/(float)height);
+            }
+            finally{UnityEngine.Object.DestroyImmediate(decoded);}
         }
         private static Texture2D Import(string file,bool readable)
         {

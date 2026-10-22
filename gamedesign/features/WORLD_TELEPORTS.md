@@ -1,5 +1,17 @@
 # Feature: Круги телепортации
 
+## D118 — readable local seal interaction
+
+The existing shared menu opens by click/E anywhere on/at the visible seal,
+including its rim. Local range includes circle radius plus hero footing;
+workshop interaction keeps its narrower range. Pointer ray uses actual seal
+height/court lift, not worldZ0. Remote clicks, unstudied/undiscovered points,
+construction drafts, pause/debug/modal conflicts remain blocked. Opening never
+teleports; explicit selected-target confirmation and clear arrival remain.
+Unbuilt placeholder sites do not block construction; generation may still keep
+candidate sites free of random resources so a starter location stays usable.
+
+
 ## D113 current override — manually build the learned base circle
 
 After local starter study, choose the circle in B / Base and place it on valid

@@ -16,6 +16,7 @@ namespace Not3A.Stage2.Integration
         public bool AutomaticTick { get; set; } = true;
         // Optional world integration shares this cadence; the default remains the portal enemy group.
         public Func<Vector2,float,int,float,float,bool> TargetingOverride { get; set; }
+        public Func<bool> MovingAttackAllowed {get;set;}
 
         public void Configure(Stage2HeroCombatCatalog catalog, Stage2GameComposition owner)
         {
@@ -38,7 +39,7 @@ namespace Not3A.Stage2.Integration
             var hud = game.GetComponent<Stage2GameHud>();
             var active = game.IsInitialized && !run.IsPaused && !run.IsTerminal &&
                 !game.Gathering.IsInteracting && (hud == null || !hud.DebugOpen);
-            Rules.Tick(elapsed, game.Gathering.Player.position, active, mover == null || !mover.IsMoving);
+            Rules.Tick(elapsed, game.Gathering.Player.position, active, mover == null || !mover.IsMoving || (MovingAttackAllowed?.Invoke()??false));
         }
 
         private void Update() { if (AutomaticTick) Tick(Time.deltaTime); }

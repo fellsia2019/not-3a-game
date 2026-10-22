@@ -44,9 +44,16 @@ namespace Not3A.Stage3.VisualPilot
             var index=(type==1?0:type==6?8:16)+quality;
             if(equipmentSprites[index]!=null)return equipmentSprites[index];
             if(!equipmentArt.TryGetIcon(type,quality,out var texture,out var uv))return null;
+            if(type==1&&equipmentArt.staffAccessories!=null)uv=equipmentArt.UiVisibleBounds(type,quality,uv);
             var rect=new Rect(uv.x*texture.width,uv.y*texture.height,uv.width*texture.width,uv.height*texture.height);
             var pivot=new Vector2(.35f,.35f);var ppu=rect.height/.68f;
-            if(type==6)
+            if(type==1&&equipmentArt.staffAccessories!=null)
+            {
+                var grip=equipmentArt.StaffGripPixels(quality);
+                pivot=new Vector2((grip.x-rect.x)/rect.width,(grip.y-rect.y)/rect.height);
+                ppu=equipmentArt.StaffPixelsPerUnit;
+            }
+            else if(type==6)
             {
                 pivot=new Vector2(.76f,.36f);ppu=100f;
             }
@@ -238,6 +245,8 @@ namespace Not3A.Stage3.VisualPilot
             var grip = art.WalkGrip(direction, Frame);
             if (idle) grip = art.idleGripOffsets[direction];
             var angle=shotPose>0f?Mathf.Sin(shotPose/.24f*Mathf.PI)*-5f:breath*.6f;
+            if(!working&&shownType==1&&equipmentArt?.staffAccessories!=null)
+                angle+=bow.flipX?-Stage3ForgeArt.StaffUprightAngle:Stage3ForgeArt.StaffUprightAngle;
             bow.transform.localScale=Vector3.one;
             if(detached)
             {

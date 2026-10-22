@@ -8,6 +8,9 @@ namespace Not3A.Stage2.Integration
     {
         private bool engaged,returning;
         private float cooldown,windup;
+        private float slowRemaining,slowMultiplier=1;
+        public void ApplySlow(float multiplier,float duration)
+        {if(!Alive||!float.IsFinite(multiplier)||!float.IsFinite(duration)||duration<=0)return;slowMultiplier=Mathf.Min(slowMultiplier,Mathf.Clamp(multiplier,.25f,1));slowRemaining=Mathf.Max(slowRemaining,duration);}
         public int Id { get; }
         public int Generation { get; }
         public Stage2GuildQuest Profile { get; }
@@ -19,6 +22,12 @@ namespace Not3A.Stage2.Integration
         public bool Alive => Health>0;
         public bool Attacking => windup>0;
         public bool Engaged => Alive&&engaged;
+        public bool Returning => Alive&&returning;
+        public bool Alert(Vector2 hero)
+        {
+            if(!Alive||returning||!Finite(hero)||Vector2.Distance(hero,Home)>Profile.leashRadius)return false;
+            engaged=true;return true;
+        }
         public Stage2GuildEnemy(int id,int generation,Stage2GuildQuest profile,Vector2 home)
         {
             if(id<1||generation<1||profile==null||!profile.IsValid||!Finite(home))throw new ArgumentException("Invalid camp actor.");
@@ -42,6 +51,7 @@ namespace Not3A.Stage2.Integration
         {
             if(!float.IsFinite(elapsed)||elapsed<0)throw new ArgumentOutOfRangeException(nameof(elapsed));
             if(!Alive||elapsed==0||!Finite(hero))return;
+            slowRemaining=Mathf.Max(0,slowRemaining-elapsed);if(slowRemaining==0)slowMultiplier=1;
             Velocity=Vector2.zero;cooldown=Mathf.Max(0,cooldown-elapsed);
             var distance=(hero-Position).magnitude;
             if(engaged&&Vector2.Distance(hero,Home)>Profile.leashRadius){engaged=false;returning=true;windup=0;}
@@ -62,7 +72,7 @@ namespace Not3A.Stage2.Integration
             if(!engaged&&!returning)return;
             var target=engaged?hero:Home;var delta=target-Position;
             if(!engaged&&delta.magnitude<.1f){returning=false;return;}
-            var step=delta.normalized*Mathf.Min(delta.magnitude,Profile.speed*elapsed);
+            var step=delta.normalized*Mathf.Min(delta.magnitude,Profile.speed*slowMultiplier*elapsed);
             var next=move==null?Position+step:move(Position,step,Profile.radius);
             if(!Finite(next))return;
             Velocity=(next-Position)/elapsed;Position=next;

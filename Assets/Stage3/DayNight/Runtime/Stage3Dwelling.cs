@@ -116,20 +116,21 @@ namespace Not3A.Stage3.VisualPilot
             if (DistanceTo(area, scene.PlayerMover.transform.position) <= scene.PlayerMover.CollisionRadius)
                 return DwellingPlacementResult.HeroOverlap;
             foreach (var rect in obstacles.Rectangles) if (area.Overlaps(rect)) return DwellingPlacementResult.Occupied;
-            foreach (var circle in obstacles.Circles) if (DistanceTo(area, circle.Center) <= circle.Radius) return DwellingPlacementResult.Occupied;
+            foreach (var circle in obstacles.Circles) if (circle.Radius>0&&DistanceTo(area, circle.Center) <= circle.Radius) return DwellingPlacementResult.Occupied;
             foreach (var district in world.Districts)
             {
                 var bounds = district.Bounds;
                 if (area.Overlaps(new Rect(bounds.xMin, bounds.yMin, bounds.width, bounds.height))) return DwellingPlacementResult.Occupied;
             }
             if (travel != null)
-                foreach (var site in travel.SitePositions)
+                foreach (var site in travel.BuiltSitePositions)
                     if (DistanceTo(area, site) <= 3f) return DwellingPlacementResult.Occupied;
             if (DistanceTo(area, scene.ThroneMarker.position) <= 3f || DistanceTo(area, scene.EntranceMarker.position) <= 3f)
                 return DwellingPlacementResult.Occupied;
             foreach (var node in game.Gathering.Economy.Nodes)
+                if(!node.IsDepleted)
                 if (DistanceTo(area, node.WorldPosition) <= (node == game.Gathering.Economy.GetNode(node.Resource) ?
-                        3f : node.HarvestRadius + .5f)) return DwellingPlacementResult.Occupied;
+                        3f : node.InteractionRadius + .5f)) return DwellingPlacementResult.Occupied;
             var entrance = point + catalog.entranceOffset;
             var cellAtEntrance = map.WorldToCell(entrance);
             if (!map.Contains(cellAtEntrance) || !map.IsWalkable(cellAtEntrance) ||

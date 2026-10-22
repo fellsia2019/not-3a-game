@@ -37,7 +37,7 @@ namespace Not3A.Stage3.PlayerInterface
         }
         public Rect ForgeTypeRect(int index)
         {
-            var r=ForgeTypesRect;var height=Mathf.Min(54f*UiScale,r.height/8f);
+            var r=ForgeTypesRect;var height=Mathf.Min(54f*UiScale,r.height/EquipmentTypeNames.Length);
             return new Rect(r.x,r.y+index*height,r.width,height-3f*UiScale);
         }
         public Rect ForgeExecuteRect=>new Rect(WindowContentRect.x+WindowContentRect.width*.77f,WindowContentRect.yMax-82f*UiScale,WindowContentRect.width*.23f,54f*UiScale);
@@ -45,16 +45,16 @@ namespace Not3A.Stage3.PlayerInterface
         {
             var s=UiScale;
             Label(new Rect(content.x,content.y,content.width*.28f,62f*s),"Кузница",42);
-            Label(new Rect(content.x,content.y+64f*s,content.width*.28f,50f*s),"Оружие, броня и инструменты",18,TextAnchor.UpperLeft,true);
+            Label(new Rect(content.x,content.y+64f*s,content.width*.28f,50f*s),"Оружие, доспехи и аксессуары",18,TextAnchor.UpperLeft,true);
             if(forgeView==null){Label(content,"Кузница недоступна",24,TextAnchor.MiddleCenter);return;}
             var mode=forgeView.Mode;var modeRequest=-1;var typeRequest=-1;var itemRequest=-1;
             var modes=new[]{"Создать","Повысить уровень","Перековать качество"};
             for(var i=0;i<3;i++)if(Button(ForgeModeRect(i),modes[i],(int)mode==i))modeRequest=i;
-            for(var i=0;i<8;i++)
+            for(var i=0;i<EquipmentTypeNames.Length;i++)
             {
                 var row=ForgeTypeRect(i);
                 if(Button(row,"",forgeView.SelectedTypeIndex==i))typeRequest=i;
-                DrawEquipmentIcon(new Rect(row.x+15f*s,row.y+3f*s,42f*s,row.height-6f*s),i,0);
+                DrawEquipmentIcon(new Rect(row.x+12f*s,row.y+3f*s,row.height-6f*s,row.height-6f*s),i,0);
                 FitPaleLabel(new Rect(row.x+65f*s,row.y,row.width-82f*s,row.height),EquipmentTypeNames[i],18);
             }
             var main=new Rect(content.x+content.width*.30f,content.y+82f*s,content.width*.44f,content.height-82f*s);

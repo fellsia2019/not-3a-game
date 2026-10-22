@@ -95,7 +95,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             input.Release(Keyboard.current.eKey);Window("None");yield return null;
             Assert.That(Read<object>(hud,"ActiveWindow").ToString(),Is.EqualTo("None"));
         }
-        [UnityTest] public IEnumerator CraftedWandUsesWeaponSlotAndLiveCombatProfileAndFiveCombatSlots()
+        [UnityTest] public IEnumerator CraftedStaffUsesSeparateSlotAndLiveCombatProfileWithTwelveSlots()
         {
             yield return BuildAndApproach();Assert.That(Call(forge,"TryOpen"),Is.True);
             Call(binding,"SelectForgeType",1);Assert.That(Call(binding,"TryForgeOperation"),Is.True);
@@ -105,11 +105,11 @@ namespace Not3A.Stage3.VisualPilot.Tests
             var stats=equipment.Catalog.Stats(wand.Type,wand.Quality,wand.Level);
             Assert.That(game.HeroCombat.Rules.EffectiveRange,Is.EqualTo(stats.Range));
             Assert.That(game.HeroCombat.Rules.EffectiveDamage,Is.EqualTo(stats.Damage));
-            var view=Read<object>(hud,"EquipmentView");Assert.That(((int[])view.GetType().GetField("EquippedItemIds").GetValue(view)).Length,Is.EqualTo(7));
-            Assert.That(Call(binding,"TryUnequipSlot",4),Is.True);Assert.That(game.HeroCombat.Rules.EffectiveDamage,Is.Zero);
+            var view=Read<object>(hud,"EquipmentView");Assert.That(((int[])view.GetType().GetField("EquippedItemIds").GetValue(view)).Length,Is.EqualTo(12));
+            Assert.That(Call(binding,"TryUnequipSlot",7),Is.True);Assert.That(game.HeroCombat.Rules.EffectiveDamage,Is.EqualTo(equipment.Catalog.Stats(Stage2ItemType.Bow,Stage2ItemQuality.F,1).Damage));
             Assert.That(equipment.Rules.Find(wand.Id),Is.SameAs(wand));
         }
-        [UnityTest] public IEnumerator BagShowsOnlyUnequippedItemsAndWeaponReplacementReturnsPreviousItem()
+        [UnityTest] public IEnumerator BagExcludesBothWeaponsAndUnequippingStaffKeepsBow()
         {
             Window("Inventory");yield return null;
             Stage2EquipmentItem[] Owned()=>equipment.Rules.Items.ToArray();
@@ -126,11 +126,11 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Window("Inventory");yield return null;
             Assert.That(BagIds(),Is.EqualTo(new[]{wand.Id}));
             Assert.That(Call(binding,"TryEquipItem",wand.Id),Is.True);
-            Assert.That(BagIds(),Is.EqualTo(new[]{bow.Id}),"The replaced bow returns to the bag, the wand appears only in its slot.");
+            Assert.That(BagIds(),Is.Empty,"Both weapons are equipped in distinct slots.");
             var viewAfterEquip=Read<object>(hud,"EquipmentView");
-            Assert.That(((int[])viewAfterEquip.GetType().GetField("EquippedItemIds").GetValue(viewAfterEquip))[4],Is.EqualTo(wand.Id));
-            Assert.That(Call(binding,"TryUnequipSlot",4),Is.True);
-            Assert.That(BagIds(),Is.EquivalentTo(new[]{bow.Id,wand.Id}));
+            Assert.That(((int[])viewAfterEquip.GetType().GetField("EquippedItemIds").GetValue(viewAfterEquip))[7],Is.EqualTo(wand.Id));
+            Assert.That(Call(binding,"TryUnequipSlot",7),Is.True);
+            Assert.That(BagIds(),Is.EqualTo(new[]{wand.Id}));
             Assert.That(Call(binding,"TryEquipItem",bow.Id),Is.True);
             Assert.That(BagIds(),Is.EqualTo(new[]{wand.Id}));
             Assert.That(Owned().Length,Is.EqualTo(4));Assert.That(Owned().Select(i=>i.Id).Distinct().Count(),Is.EqualTo(4));

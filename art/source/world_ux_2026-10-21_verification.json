@@ -1,0 +1,128 @@
+{
+  "date": "2026-10-21",
+  "decisions": [
+    "D-118",
+    "D-119"
+  ],
+  "status": "Historical D118 local qualification. D119 concepts were superseded by the owner-approved and implemented D120 loadout/tree.",
+  "platform": "Unity6000.6.2f1 localMac/Metal development player; Windows/Steam unverified.",
+  "implemented": {
+    "quest_guidance": "Accept tracks newest active order; selectable parchment pins M, one separate ivory bearing, local/minimap edge arrow. Clear targets local guild turn-in; completion chooses next/no arrow; retry/regeneration resolve current camp homes.",
+    "enemy_feedback": "Actual HP/damage for portal skeletons AND worldorc/ogre, hero/tower damage shares confirmed HPdelta. No enemyMP source, no fictitiousMPbar. Actual floating damage max24, fast per-target coalescing, local sparks without screenshake. Density-aware24..50px health with4pxgap and wounded priority. Spark follows actual screen body size, font stays readable.",
+    "gather_feedback": "Atomic ResourceGranted(node,actualAmount), existing materialicons with+N and local chips/dust/spark. Cancelled strikes no grants/effects, no invented resourceHP.",
+    "camp_resources": "46authored natural trees/rocks become ordinary nodes with existing source stock/timing, tool/profession mastery and updatable collision. Original sprites/transforms preserved, hidden when depleted; no duplicate manual prefab. City planting/auto districts exempt.",
+    "camp_ai": "Compact pack near authored shelter/ruins, shared same-type/generation alert including lethal first hit. Original profiles/populations/rewards/leash/openretreats unchanged.",
+    "teleport": "Visible seal edge uses circle radius+herofooting for local click/E, pointer plane includes actual terrain/court height. Existing opened-destination menu, explicit confirm/discovery/research/arrival checks retained.",
+    "placement": "No blocked invisible unbuilt workshop/base-circle sites, depleted nodes, or zero-radius disabled collider points. Other ground/city/live resources/footprints/hero/entrance constraints retained. Solid buildings hold covered depleted-node regrowth. Cause-specific hints.",
+    "hero_ui": "OnlyOicon replaced with rising3node sign; existingtabs renamedБой/Добыча. No fake new skillbuttons or grants."
+  },
+  "checks": {
+    "regression": {
+      "total": "89",
+      "passed": "87",
+      "failed": "0",
+      "skipped": "2",
+      "result": "Skipped:Ignored"
+    },
+    "field-focused": {
+      "total": "7",
+      "passed": "7",
+      "failed": "0",
+      "skipped": "0",
+      "result": "Passed"
+    },
+    "editmode": {
+      "total": "29",
+      "passed": "29",
+      "failed": "0",
+      "skipped": "0",
+      "result": "Passed"
+    }
+  },
+  "distinct_latest": {
+    "total": 120,
+    "Passed": 118,
+    "Skipped": 2,
+    "Failed": 0
+  },
+  "native": {
+    "field_directory": "Artifacts/WORLD-UX-2026-10-21/field-qualified",
+    "field_frames": 22,
+    "field_review": "GPT-6 Astra FINAL VISUAL PASS: repaired900wide andnight32px bars/36px pitch leave4px gaps, isolated geometry/materialicons/O/HUDsafe preserved.22finalnativeframes; reviewed newcritical and representative frames after priorfull19frame review.",
+    "quest_directory": "Artifacts/WORLD-UX-2026-10-21/quest-final",
+    "quest_frames": 23,
+    "quest_review": "GPT-6 Astra FINAL VISUAL PASS after city/check separation fix, all3resolutions. Scripted production pointer handler passes actual-drawn rects.",
+    "resolutions": [
+      "1280x720",
+      "1600x900",
+      "1920x1080"
+    ],
+    "night": "900p portalclose/portalwide/ogre; actual StartNextWaveForTesting and current night palette.",
+    "fixture": "Explicit opt-in separate development player, held AI/clock and arranged actors/hero only for capture; actual damage/manual grant APIs. Restart ordinary process removes fixture state.",
+    "physical_input": "DEGRADED: CUA exact-app screenshot/AX succeed, coordinate click fails noWindowsAvailable twice even after Raise. Internal Unity Event handler checks are not physical OS mouse/fullpan qualification."
+  },
+  "build": {
+    "player": "Builds/MacWorldUX/Not3AWorldUX.app",
+    "result": "Succeeded, exit0",
+    "log": "Artifacts/WORLD-UX-2026-10-21/build-qualified.log",
+    "original_player": "Original user process/build MacFullscreenInterface preserved untouched; separate review output selected by optional absolute NOT3A_REVIEW_BUILD_OUTPUT."
+  },
+  "console": "No new attributable compile/runtime errors in final tests/build/quest-final/field-qualified. Prior capture-only metal selection exception preserved in field-native.log as RETURN, corrected before final.",
+  "wiring": "No scene, Inspector, package, dataasset or savedformat migration. Existing CombatPresentation auto-adds field renderer; existing Guild binding/HUD hooks supply tracking/markers. Camp resource bindings occur before ordinary collision registration. Reviews require explicit development env opt-in; normal startup has none.",
+  "skill_tree": {
+    "current_concept": "art/concepts/world_ux_2026-10-21/hero_development_v5_compact_tree.png",
+    "state": "AWAITING OWNER; full new tree/skills not runtime. V2grid/leftcategories andV3leftlegend returned; V5reclaims sidebar for mixed prerequisitegraph with compactlevel/XP/points header.",
+    "accepted_gameplay_intent": "10active/about20passive combat, fire+lightning splash CD25–30s reducing tofloor15s, trained movingfire underMobility. HERO_PROGRESSION owns full namedproposal/remainingrules."
+  },
+  "remaining": [
+    "Owner appearance approval ofv5and implementation ofnewskills/prerequisite tree/data/input/tuning",
+    "Windows/Steam",
+    "Physical OS mouse/fullpan verification",
+    "Sustained balance"
+  ],
+  "source_sha256": {
+    "Assets/Stage2/Economy/Runtime/Stage2Economy.cs": "a17daddcc2391787dc6d3687a122d47284094364d82199c1d3dac64bf7930746",
+    "Assets/Stage2/Integration/Runtime/Stage2GuildEnemy.cs": "f6c6521ee4a6a9dee954c994bb1be8a4729cbdfc55109cdaa1e70b7c8490c71a",
+    "Assets/Stage2/WavesAI/Runtime/Stage2Enemy.cs": "818830892653f537aa7775aa40940917cc7d25d99607d799b28b6c2a080db613",
+    "Assets/Stage2/WavesAI/Runtime/Stage2EnemyGroup.cs": "1beb914295d8488cd02614e438d4fab335b9569b55236707c948b06478d07ebe",
+    "Assets/Stage3/DayNight/Runtime/Stage3Dwelling.cs": "5afd343d0010c81493dde8754d39e6bf9abceeacd5588d950b30ab1d4662c329",
+    "Assets/Stage3/DayNight/Runtime/Stage3DwellingPresentation.cs": "2f365fcfb08848ad03b702fbcce1a7b5de7643004ca0a94fa74c9cc6a60b7298",
+    "Assets/Stage3/Guild/Runtime/Stage3CampPresentation.cs": "56933d27e4295dab627ed9ebdef7dab0c80abf19ed38d466273faf6c1b866321",
+    "Assets/Stage3/Guild/Runtime/Stage3GuildWorldDriver.Camps.cs": "b9e05f83dac102a80e5e291eb888ad395595d8765ce4f3c30db83ed61a785704",
+    "Assets/Stage3/Guild/Runtime/Stage3GuildWorldDriver.cs": "ed1635bd9876eafea3495150fce58444f784f09c3ce7958a3c28d911bdc61891",
+    "Assets/Stage3/PlayerInterface/Editor/Stage3PlayerInterfaceBuilder.cs": "e07c38c990ed614d0d52b15793c902d3c0c525ebd1eefce15cc3914cc0e3452b",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.GuildMap.cs": "0add708ef0f3c8e887d9a2e06025aa8ee4c49e57ddca0ca7090e1e9e6d49af10",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Map.cs": "5e7767d0bcb4365b76eec55005dc53c8165aef6fb625992b6520fdeeb06d419c",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Professions.cs": "e5d7fbce99820fde5a3728d220ae71311bd6ca9982d088305bdccc4737354326",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Progression.cs": "ee893d32e089debb0bd74a58d269404c2c9d93e0eea382e0255978f852ac97e9",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.cs": "07339e1b3c0256d81699247ba252a17a45ec1ed46945e8dbbe665e586b2a08c6",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3InterfaceCapture.cs": "97cc563e9f8521f1f353f534c85fdaeffcba92184c9794c3545168f35cd1a770",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3PlayerInterfaceBinding.Guild.cs": "a20dbed9aaef50bf62990205b5c01a412f417a928359acc116d2e0d0dd3d7c54",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3QuestGuidanceReview.cs": "8cf42421163761c964677e702ca3c80ba448dff6c06b9aea239072e80bd2ef7d",
+    "Assets/Stage3/ResourceSpritePilot/Stage3ManualResourceCollisions.cs": "825e446d8bec2156a05d2646261f9217affe8f54b57f2a004af489538318ec4a",
+    "Assets/Stage3/ResourceSpritePilot/Stage3ResourceSprite.cs": "ac4360e57e9e8680c1fb434740c5c06ccc39b38cd5d50bf671d3ecae4b098577",
+    "Assets/Stage3/VisualPilot/Runtime/Stage3CombatPresentation.cs": "3a9388d321d90bb6ecb8ff7bea5b2605dcf5c66b5e49bb92190642cc7516984c",
+    "Assets/Stage3/VisualPilot/Runtime/Stage3FieldFeedbackPresentation.cs": "786a89831a2895f23b4269e2e1c1a6673ed9f5998f26db680ff9d1889e2396f9",
+    "Assets/Stage3/VisualPilot/Runtime/Stage3FieldFeedbackReview.cs": "5535a0624e3bcce36c700bb601acbadda910f8471ea77cc3ebd95c8808097f2a",
+    "Assets/Stage3/VisualPilot/Runtime/Stage3Forge.cs": "f77ac706c228c215d8e79295c99657a93dbcb5416d0addf6857080876867b39e",
+    "Assets/Stage3/VisualPilot/Runtime/Stage3ForgePresentation.cs": "e873a64dd12b2fcd8e8c6f462ce628406e5d3529b135bebf402efcd3ddd2144c",
+    "Assets/Stage3/VisualPilot/Runtime/Stage3TacticalPresentation.cs": "895bdfa337d7f694ef793b4bea47be09206476c8c4f06e6d4d32bd2e8991dcff",
+    "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3FieldFeedbackTests.cs": "fd37f79f90b284544904fd2d5dfac94a5dfc9977dfa76dcf03a46c0efc0bd276",
+    "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3GuildTests.cs": "d4130658797b1f488798632be17cb344423a13f633ceea02cb9e69fad05de1f0",
+    "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3OpenCampTests.cs": "997ffa4a6cca7d9baa93eaaf7e03959c0e68b0a6f5350f0b5ecf1636d31aba1d",
+    "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3QuestGuidanceTests.cs": "14681cececca009e44c11e5ff7003c7b0b4fec7f1b0bf9a307cfb571b2ac5d92",
+    "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3WorldCorrectionsTests.cs": "3fba0361b40f766b0c744cc44437b63f478f54ed8810a13a01a44f3dd4625f82",
+    "Assets/Stage3/WorldTravel/Runtime/Stage3WorldTravel.BaseConstruction.cs": "59466bfe9ff8c4fd857b0858d4ca98cf40a2f9acf06ed7b58e5943586ebd3403",
+    "Assets/Stage3/WorldTravel/Runtime/Stage3WorldTravel.Construction.cs": "14c667defe18f7d31a8f6d327d9ececed9ef1117a6baff57a5da86e1955d76bc",
+    "Assets/Stage3/WorldTravel/Runtime/Stage3WorldTravel.Network.cs": "6b09f7fa15ebdbe3eb40977b731ee77791eb7959ed258f5d663db3e967f20c2a",
+    "Assets/Stage3/WorldTravel/Runtime/Stage3WorldTravel.cs": "9cc0de08f9b8190fb0167f78e28c51821fd386d2810149e66bc0c24690804bfd"
+  },
+  "ordinary": {
+    "player": "Builds/MacWorldUX/Not3AWorldUX.app",
+    "log": "Artifacts/WORLD-UX-2026-10-21/ordinary-qualified.log",
+    "state": "Fresh ordinary process launched WITHOUT captureenv/fixture; automatic simulation, no debug grants or authored capture actors; original older user process retained.",
+    "observed": "CUA exact-app screenshot confirms live normal view atLVL1/XP0/gold5/HP100/MP100, no modal, capture actors or debuggrant state."
+  },
+  "status_at_qualification": "D118 locally qualified; D119 current compact mixed-tree concept awaits owner appearance approval, new skill catalogue/tree not implemented.",
+  "current_followup": "art/source/hero_loadout_2026-10-22_verification.json"
+}

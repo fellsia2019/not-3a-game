@@ -41,6 +41,17 @@ namespace Not3A.Stage3.VisualPilot
                 Sync(entry);
             }
             economy.NodeGathered += OnGathered;
+            economy.CanRecoverNode=CanRecover;
+        }
+        private bool CanRecover(Stage2ResourceNode node)
+        {
+            var radius=node.Resource==MapResourceKind.Wood?Mathf.Max(trunkRadius,node.HarvestRadius):node.InteractionRadius;
+            foreach(var rect in obstacles.Rectangles)
+            {
+                var closest=new Vector2(Mathf.Clamp(node.WorldPosition.x,rect.xMin,rect.xMax),Mathf.Clamp(node.WorldPosition.y,rect.yMin,rect.yMax));
+                if(Vector2.Distance(closest,node.WorldPosition)<=radius)return false;
+            }
+            return true;
         }
 
         public void RefreshNow()
@@ -58,7 +69,7 @@ namespace Not3A.Stage3.VisualPilot
         private void Sync(Footprint entry)
         {
             var desired = entry.Node.IsDepleted ? 0f : entry.Node.Resource == MapResourceKind.Wood
-                ? trunkRadius : entry.Node.InteractionRadius;
+                ? Mathf.Max(trunkRadius,entry.Node.HarvestRadius) : entry.Node.InteractionRadius;
             if (Mathf.Approximately(desired, entry.Radius)) return;
             // Recovery/reset may restore a source around a hero standing in its empty site.
             // Retain the smaller/disabled footing until the hero walks clear; never trap or teleport them.
@@ -70,7 +81,7 @@ namespace Not3A.Stage3.VisualPilot
 
         public void ClearBindings()
         {
-            if (economy != null) economy.NodeGathered -= OnGathered;
+            if (economy != null){economy.NodeGathered -= OnGathered;economy.CanRecoverNode=null;}
             if (obstacles != null)
                 foreach (var entry in footprints) obstacles.UpdateCircle(entry.Slot, entry.Node.WorldPosition, 0f);
             footprints.Clear(); byNode.Clear(); economy = null; obstacles = null;

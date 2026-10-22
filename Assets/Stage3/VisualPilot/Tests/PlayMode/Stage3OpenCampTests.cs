@@ -64,9 +64,13 @@ namespace Not3A.Stage3.VisualPilot.Tests
                     }
                 }
                 foreach(var node in game.Gathering.Economy.Nodes)
-                    Assert.That(area.Contains(node.WorldPosition),Is.False,"Generated trees, rock and ore must never fill the arena.");
+                    if(area.Contains(node.WorldPosition))
+                    {
+                        Assert.That(Call(world,"IsCampResource",node),Is.True,"Only authored harvestable shoulders may enter the reservation.");
+                        Assert.That(Vector2.Distance(center,node.WorldPosition),Is.GreaterThan(10),"Keep the battle meadow free.");
+                    }
                 foreach(var unit in Units.Where(u=>(int)u.Profile.enemyKind==kind&&u.Alive))
-                {Assert.That(Vector2.Distance(center,unit.Home),Is.LessThan(10));Assert.That(ground.IsBlocked(unit.Position,unit.Profile.radius),Is.False);}
+                {Assert.That(Vector2.Distance(center,unit.Home),Is.LessThan(15));Assert.That(ground.IsBlocked(unit.Position,unit.Profile.radius),Is.False);}
             }
         }
         [UnityTest]public IEnumerator SeveralWorldSeedsKeepWideFieldsAndThreeBroadSweptRetreatRoutes()

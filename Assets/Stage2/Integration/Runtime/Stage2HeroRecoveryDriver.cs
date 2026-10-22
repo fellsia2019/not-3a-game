@@ -17,6 +17,8 @@ namespace Not3A.Stage2.Integration
         private int claimedFrame=-1;
         public Stage2HeroRecovery Rules {get;private set;}
         public Func<bool> ControlBlocked {get;set;}
+        public Func<float,float> IncomingDamagePreview {get;set;}
+        public Action<float> IncomingDamageConfirmed {get;set;}
         public float InteractionRadius=>2f;
         public bool InteractionClaimedThisFrame=>claimedFrame==Time.frameCount;
         public bool Active=>isActiveAndEnabled&&Rules!=null&&game!=null&&!game.RunDriver.Run.IsPaused&&
@@ -45,8 +47,12 @@ namespace Not3A.Stage2.Integration
         public bool TryApplyExplorationDamage(float amount)
         {
             if(!Active||!float.IsFinite(amount)||amount<=0)return false;
+            var raw=amount;amount=IncomingDamagePreview?.Invoke(amount)??amount;
+            if(!float.IsFinite(amount)||amount<0)return false;
             var lethal=amount>=progression.Rules.Health;
             var spawn=Vector2.zero;if(lethal&&!TryFindRespawn(out spawn))return false;
+            IncomingDamageConfirmed?.Invoke(raw);
+            if(amount==0)return true;
             var death=(Vector2)mover.transform.position;
             if(!Rules.TryApplyExplorationDamage(amount,death))return false;
             if(lethal)

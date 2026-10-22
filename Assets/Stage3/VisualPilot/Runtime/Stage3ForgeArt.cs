@@ -8,12 +8,27 @@ namespace Not3A.Stage3.VisualPilot
         public Sprite worldSprite;
         public Material material;
         public Texture2D bowPickaxeHelmet, wandAxe, chestArmsLegs;
+        public Texture2D staffAccessories,potions;
+        public Rect[] potionVisibleBounds;
+        private static readonly float[] AccessoryRowTops={0f,225f,450f,653f};
+        private static readonly float[] AccessoryRowBottoms={225f,450f,653f,887f};
+        // Grip and axis are measured on the original 1774x887 source. Sprite projection
+        // rotates the long diagonal shaft upright; no bitmap or source pixel is changed.
+        public Vector2 StaffGripPixels(int quality)=>new Vector2((Mathf.Clamp(quality,0,7)*221.75f+88f)*staffAccessories.width/1774f,
+            (887f-140f)*staffAccessories.height/887f);
+        public float StaffPixelsPerUnit=>283f/1.15f*staffAccessories.height/887f;
+        public const float StaffUprightAngle=44f;
         public Stage3HeroEquipmentArt heldEquipment;
         // UI-only alpha bounds, indexed type * 8 + quality. Baked in Editor;
         // held sprite pivots/rects and world registration remain independent.
         public Rect[] uiVisibleBounds;
         public Rect UiVisibleBounds(int type,int quality,Rect fallback)
         {
+            if(type>=11&&type<=13&&potionVisibleBounds!=null&&type-11<potionVisibleBounds.Length)
+            {
+                var potion=potionVisibleBounds[type-11];
+                return potion.width>0&&potion.height>0?potion:fallback;
+            }
             var index=type*8+quality;
             if(uiVisibleBounds==null||index<0||index>=uiVisibleBounds.Length)return fallback;
             var bounds=uiVisibleBounds[index];
@@ -37,7 +52,19 @@ namespace Not3A.Stage3.VisualPilot
         public bool TryGetIcon(int type,int quality,out Texture2D texture,out Rect uv)
         {
             texture=null;uv=default;
-            if(type<0||type>7||quality<0||quality>7) return false;
+            if(type<0||type>13||quality<0||quality>7) return false;
+            if(type>=11)
+            {
+                texture=potions;uv=new Rect((type-11)/3f,0f,1f/3f,1f);
+                return texture!=null;
+            }
+            if((type==1||type>=8)&&staffAccessories!=null)
+            {
+                var row=type==1?0:type-7;
+                texture=staffAccessories;uv=new Rect(quality/8f,1f-AccessoryRowBottoms[row]/887f,1f/8f,(AccessoryRowBottoms[row]-AccessoryRowTops[row])/887f);
+                return true;
+            }
+            if(type>=8)return false;
             if(type==0&&heldEquipment!=null&&heldEquipment.HasBows)
             {
                 var sprite=heldEquipment.Bow(quality,0);texture=sprite.texture;

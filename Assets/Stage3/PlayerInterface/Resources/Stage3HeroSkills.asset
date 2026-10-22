@@ -1,0 +1,912 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3998fc9c094f94d7ea587787f8fc2832, type: 3}
+  m_Name: Stage3HeroSkills
+  m_EditorClassIdentifier: Not3A.Stage2.Integration::Not3A.Stage2.Integration.Stage2HeroSkillCatalog
+  nodes:
+  - id: 0
+    weapon: -1
+    requiredLevel: 1
+    prerequisite: -1
+    title: "\u0411\u043B\u0438\u043D\u043A"
+    description: "\u0421\u043A\u0430\u0447\u043E\u043A \u043A \u043A\u0443\u0440\u0441\u043E\u0440\u0443. \u041E\u0431\u0449\u0438\u0439 \u043D\u0430\u0432\u044B\u043A \u043E\u0431\u043E\u0438\u0445 \u0432\u0438\u0434\u043E\u0432 \u043E\u0440\u0443\u0436\u0438\u044F."
+    active: 1
+    power:
+    - 1
+    - 1
+    - 1
+    - 1
+    mana:
+    - 100
+    - 75
+    - 50
+    - 25
+    cooldown:
+    - 5
+    - 4
+    - 3
+    - 2
+    duration: 3
+    radius: 1.6
+    range: 6
+    aimTime: 0.5
+    maxTargets: 4
+  - id: 1
+    weapon: 0
+    requiredLevel: 2
+    prerequisite: 0
+    title: "\u041F\u0440\u0438\u0446\u0435\u043B\u044C\u043D\u044B\u0439 \u0432\u044B\u0441\u0442\u0440\u0435\u043B"
+    description: "\u0421\u0438\u043B\u044C\u043D\u044B\u0439 \u0432\u044B\u0441\u0442\u0440\u0435\u043B \u043F\u043E \u043E\u0434\u043D\u043E\u0439 \u0446\u0435\u043B\u0438. \u0414\u0432\u0438\u0436\u0435\u043D\u0438\u0435 \u043E\u0442\u043C\u0435\u043D\u044F\u0435\u0442 \u043F\u0440\u0438\u0446\u0435\u043B\u0438\u0432\u0430\u043D\u0438\u0435."
+    active: 1
+    power:
+    - 2.5
+    - 3
+    - 3.5
+    - 4
+    mana:
+    - 12
+    - 12
+    - 11
+    - 10
+    cooldown:
+    - 7
+    - 6
+    - 5
+    - 4
+    duration: 3
+    radius: 1.6
+    range: 6
+    aimTime: 0.5
+    maxTargets: 4
+  - id: 2
+    weapon: 0
+    requiredLevel: 10
+    prerequisite: 1
+    title: "\u041F\u044B\u043B\u0430\u044E\u0449\u0430\u044F \u0441\u0442\u0440\u0435\u043B\u0430"
+    description: "\u0421\u0442\u0440\u0435\u043B\u0430 \u043F\u043E\u0434\u0436\u0438\u0433\u0430\u0435\u0442 \u043E\u0434\u043D\u0443 \u0446\u0435\u043B\u044C. \u0413\u043E\u0440\u0435\u043D\u0438\u0435 \u043D\u0435 \u0440\u0430\u0441\u043F\u0440\u043E\u0441\u0442\u0440\u0430\u043D\u044F\u0435\u0442\u0441\u044F."
+    active: 1
+    power:
+    - 1.2
+    - 1.4
+    - 1.6
+    - 1.8
+    mana:
+    - 18
+    - 18
+    - 17
+    - 16
+    cooldown:
+    - 10
+    - 9
+    - 8
+    - 7
+    duration: 3
+    radius: 1.6
+    range: 6
+    aimTime: 0.5
+    maxTargets: 4
+  - id: 3
+    weapon: 0
+    requiredLevel: 20
+    prerequisite: 1
+    title: "\u041B\u0435\u0434\u044F\u043D\u0430\u044F \u0441\u0442\u0440\u0435\u043B\u0430"
+    description: "\u0421\u0442\u0440\u0435\u043B\u0430 \u0437\u0430\u043C\u0435\u0434\u043B\u044F\u0435\u0442 \u043E\u0434\u043D\u0443 \u0446\u0435\u043B\u044C, \u0431\u0435\u0437 \u0437\u0430\u043C\u043E\u0440\u043E\u0437\u043A\u0438 \u043B\u0430\u0433\u0435\u0440\u044F."
+    active: 1
+    power:
+    - 1.3
+    - 1.5
+    - 1.7
+    - 2
+    mana:
+    - 16
+    - 16
+    - 15
+    - 14
+    cooldown:
+    - 10
+    - 9
+    - 8
+    - 7
+    duration: 3
+    radius: 1.6
+    range: 6
+    aimTime: 0.5
+    maxTargets: 4
+  - id: 4
+    weapon: 0
+    requiredLevel: 35
+    prerequisite: 2
+    title: "\u0421\u043E\u0441\u0440\u0435\u0434\u043E\u0442\u043E\u0447\u0435\u043D\u043D\u043E\u0441\u0442\u044C"
+    description: "\u041D\u0430 \u0432\u0440\u0435\u043C\u044F \u043F\u043E\u0432\u044B\u0448\u0430\u0435\u0442 \u0442\u0435\u043C\u043F \u043E\u0431\u044B\u0447\u043D\u044B\u0445 \u0430\u0442\u0430\u043A."
+    active: 1
+    power:
+    - 0.25
+    - 0.35
+    - 0.45
+    - 0.55
+    mana:
+    - 20
+    - 20
+    - 18
+    - 16
+    cooldown:
+    - 20
+    - 18
+    - 16
+    - 14
+    duration: 6
+    radius: 1.6
+    range: 6
+    aimTime: 0.5
+    maxTargets: 4
+  - id: 5
+    weapon: 0
+    requiredLevel: 50
+    prerequisite: 3
+    title: "\u041F\u043E\u043F\u0443\u0442\u043D\u044B\u0439 \u0432\u0435\u0442\u0435\u0440"
+    description: "\u0412\u0440\u0435\u043C\u0435\u043D\u043D\u043E \u0443\u0441\u043A\u043E\u0440\u044F\u0435\u0442 \u043F\u0435\u0440\u0435\u0434\u0432\u0438\u0436\u0435\u043D\u0438\u0435."
+    active: 1
+    power:
+    - 0.25
+    - 0.35
+    - 0.45
+    - 0.55
+    mana:
+    - 15
+    - 15
+    - 14
+    - 12
+    cooldown:
+    - 18
+    - 16
+    - 14
+    - 12
+    duration: 5
+    radius: 1.6
+    range: 6
+    aimTime: 0.5
+    maxTargets: 4
+  - id: 6
+    weapon: 1
+    requiredLevel: 2
+    prerequisite: 0
+    title: "\u0427\u0430\u0440\u043E\u0434\u0435\u0439\u0441\u043A\u0438\u0439 \u0441\u043D\u0430\u0440\u044F\u0434"
+    description: "\u041C\u0430\u0433\u0438\u0447\u0435\u0441\u043A\u0438\u0439 \u0443\u0434\u0430\u0440 \u043F\u043E \u043E\u0434\u043D\u043E\u0439 \u0446\u0435\u043B\u0438."
+    active: 1
+    power:
+    - 2
+    - 2.4
+    - 2.8
+    - 3.2
+    mana:
+    - 12
+    - 12
+    - 11
+    - 10
+    cooldown:
+    - 5
+    - 4.5
+    - 4
+    - 3.5
+    duration: 3
+    radius: 1.6
+    range: 6
+    aimTime: 0.5
+    maxTargets: 4
+  - id: 7
+    weapon: 1
+    requiredLevel: 10
+    prerequisite: 6
+    title: "\u041B\u0438\u0447\u043D\u044B\u0439 \u0431\u0430\u0440\u044C\u0435\u0440"
+    description: "\u0412\u0440\u0435\u043C\u0435\u043D\u043D\u044B\u0439 \u043B\u0438\u0447\u043D\u044B\u0439 \u0431\u0430\u0440\u044C\u0435\u0440 \u043F\u043E\u0433\u043B\u043E\u0449\u0430\u0435\u0442 \u0443\u0440\u043E\u043D, \u043D\u0435 \u0437\u0430\u0449\u0438\u0449\u0430\u0435\u0442 \u0442\u0440\u043E\u043D."
+    active: 1
+    power:
+    - 15
+    - 25
+    - 35
+    - 45
+    mana:
+    - 25
+    - 25
+    - 23
+    - 20
+    cooldown:
+    - 20
+    - 18
+    - 16
+    - 14
+    duration: 8
+    radius: 1.6
+    range: 6
+    aimTime: 0.5
+    maxTargets: 4
+  - id: 8
+    weapon: 1
+    requiredLevel: 20
+    prerequisite: 6
+    title: "\u0412\u043E\u0441\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u0435"
+    description: "\u0412\u043E\u0441\u0441\u0442\u0430\u043D\u0430\u0432\u043B\u0438\u0432\u0430\u0435\u0442 HP \u0433\u0435\u0440\u043E\u044F \u0437\u0430 MP."
+    active: 1
+    power:
+    - 20
+    - 30
+    - 40
+    - 50
+    mana:
+    - 25
+    - 25
+    - 23
+    - 20
+    cooldown:
+    - 20
+    - 18
+    - 16
+    - 14
+    duration: 3
+    radius: 1.6
+    range: 6
+    aimTime: 0.5
+    maxTargets: 4
+  - id: 9
+    weapon: 1
+    requiredLevel: 35
+    prerequisite: 7
+    title: "\u041E\u0433\u043D\u0435\u043D\u043D\u044B\u0439 \u0448\u0430\u0440"
+    description: "\u041E\u0433\u043D\u0435\u043D\u043D\u044B\u0439 \u0443\u0434\u0430\u0440 \u043F\u043E \u043D\u0435\u0431\u043E\u043B\u044C\u0448\u043E\u0439 \u043E\u0431\u043B\u0430\u0441\u0442\u0438, \u0434\u043E \u0447\u0435\u0442\u044B\u0440\u0451\u0445 \u0446\u0435\u043B\u0435\u0439."
+    active: 1
+    power:
+    - 2.5
+    - 3
+    - 3.5
+    - 4
+    mana:
+    - 35
+    - 35
+    - 32
+    - 30
+    cooldown:
+    - 25
+    - 22
+    - 18
+    - 15
+    duration: 3
+    radius: 1.6
+    range: 6
+    aimTime: 0.5
+    maxTargets: 4
+  - id: 10
+    weapon: 1
+    requiredLevel: 50
+    prerequisite: 8
+    title: "\u0413\u0440\u043E\u0437\u043E\u0432\u043E\u0439 \u0440\u0430\u0437\u0440\u044F\u0434"
+    description: "\u041C\u043E\u043B\u043D\u0438\u044F \u043F\u043E \u043D\u0435\u0431\u043E\u043B\u044C\u0448\u043E\u0439 \u043E\u0431\u043B\u0430\u0441\u0442\u0438, \u0434\u043E \u0447\u0435\u0442\u044B\u0440\u0451\u0445 \u0446\u0435\u043B\u0435\u0439."
+    active: 1
+    power:
+    - 3
+    - 3.5
+    - 4
+    - 4.5
+    mana:
+    - 40
+    - 40
+    - 36
+    - 32
+    cooldown:
+    - 30
+    - 25
+    - 20
+    - 15
+    duration: 3
+    radius: 1.6
+    range: 6
+    aimTime: 0.5
+    maxTargets: 4
+  - id: 11
+    weapon: -1
+    requiredLevel: 1
+    prerequisite: 0
+    title: "\u0422\u043E\u0447\u043D\u044B\u0439 \u0443\u0434\u0430\u0440"
+    description: "\u0414\u043E\u043F\u043E\u043B\u043D\u0438\u0442\u0435\u043B\u044C\u043D\u044B\u0439 \u0443\u0440\u043E\u043D \u043E\u0431\u044B\u0447\u043D\u044B\u0445 \u0430\u0442\u0430\u043A \u043E\u0431\u043E\u0438\u0445 \u0432\u0438\u0434\u043E\u0432 \u043E\u0440\u0443\u0436\u0438\u044F."
+    active: 0
+    power:
+    - 1
+    - 2
+    - 3
+    mana:
+    - 0
+    - 0
+    - 0
+    - 0
+    cooldown:
+    - 0
+    - 0
+    - 0
+    - 0
+    duration: 3
+    radius: 1.6
+    range: 6
+    aimTime: 0.5
+    maxTargets: 4
+  - id: 12
+    weapon: -1
+    requiredLevel: 1
+    prerequisite: 0
+    title: "\u0411\u044B\u0441\u0442\u0440\u044B\u0435 \u0440\u0443\u043A\u0438"
+    description: "\u0422\u0435\u043C\u043F \u043E\u0431\u044B\u0447\u043D\u044B\u0445 \u0430\u0442\u0430\u043A \u043E\u0431\u043E\u0438\u0445 \u0432\u0438\u0434\u043E\u0432 \u043E\u0440\u0443\u0436\u0438\u044F."
+    active: 0
+    power:
+    - 0.1
+    - 0.2
+    - 0.3
+    mana:
+    - 0
+    - 0
+    - 0
+    - 0
+    cooldown:
+    - 0
+    - 0
+    - 0
+    - 0
+    duration: 3
+    radius: 1.6
+    range: 6
+    aimTime: 0.5
+    maxTargets: 4
+  - id: 13
+    weapon: -1
+    requiredLevel: 1
+    prerequisite: 0
+    title: "\u041B\u0451\u0433\u043A\u0438\u0439 \u0448\u0430\u0433"
+    description: "\u041F\u043E\u0441\u0442\u043E\u044F\u043D\u043D\u0430\u044F \u0441\u043A\u043E\u0440\u043E\u0441\u0442\u044C \u0434\u0432\u0438\u0436\u0435\u043D\u0438\u044F."
+    active: 0
+    power:
+    - 0.05
+    - 0.1
+    - 0.15
+    mana:
+    - 0
+    - 0
+    - 0
+    - 0
+    cooldown:
+    - 0
+    - 0
+    - 0
+    - 0
+    duration: 3
+    radius: 1.6
+    range: 6
+    aimTime: 0.5
+    maxTargets: 4
+  - id: 14
+    weapon: -1
+    requiredLevel: 12
+    prerequisite: 13
+    title: "\u0421\u0442\u0440\u0435\u043B\u044C\u0431\u0430 \u043D\u0430 \u0445\u043E\u0434\u0443"
+    description: "\u0420\u0430\u0437\u0440\u0435\u0448\u0430\u0435\u0442 \u043E\u0431\u044B\u0447\u043D\u044B\u0435 \u0430\u0442\u0430\u043A\u0438 \u0432 \u0434\u0432\u0438\u0436\u0435\u043D\u0438\u0438: 60%, 80%, 100% \u0443\u0440\u043E\u043D\u0430. \u041F\u0440\u0438\u0446\u0435\u043B\u0438\u0432\u0430\u043D\u0438\u0435 \u0442\u0440\u0435\u0431\u0443\u0435\u0442 \u043E\u0441\u0442\u0430\u043D\u043E\u0432\u043A\u0438."
+    active: 0
+    power:
+    - 1
+    - 2
+    - 3
+    mana:
+    - 0
+    - 0
+    - 0
+    - 0
+    cooldown:
+    - 0
+    - 0
+    - 0
+    - 0
+    duration: 3
+    radius: 1.6
+    range: 6
+    aimTime: 0.5
+    maxTargets: 4
+  - id: 15
+    weapon: 0
+    requiredLevel: 5
+    prerequisite: 1
+    title: "\u0412\u0435\u0440\u043D\u044B\u0439 \u043F\u0440\u0438\u0446\u0435\u043B"
+    description: "\u0423\u0441\u0438\u043B\u0438\u0432\u0430\u0435\u0442 \u043F\u0440\u0438\u0446\u0435\u043B\u044C\u043D\u044B\u0439 \u0432\u044B\u0441\u0442\u0440\u0435\u043B."
+    active: 0
+    power:
+    - 0.1
+    - 0.2
+    - 0.3
+    mana:
+    - 0
+    - 0
+    - 0
+    - 0
+    cooldown:
+    - 0
+    - 0
+    - 0
+    - 0
+    duration: 3
+    radius: 1.6
+    range: 6
+    aimTime: 0.5
+    maxTargets: 4
+  - id: 16
+    weapon: 0
+    requiredLevel: 5
+    prerequisite: 1
+    title: "\u0421\u043E\u0431\u0440\u0430\u043D\u043D\u043E\u0441\u0442\u044C"
+    description: "\u0421\u043E\u043A\u0440\u0430\u0449\u0430\u0435\u0442 \u0432\u0440\u0435\u043C\u044F \u043F\u0440\u0438\u0446\u0435\u043B\u0438\u0432\u0430\u043D\u0438\u044F."
+    active: 0
+    power:
+    - 0.1
+    - 0.2
+    - 0.3
+    mana:
+    - 0
+    - 0
+    - 0
+    - 0
+    cooldown:
+    - 0
+    - 0
+    - 0
+    - 0
+    duration: 3
+    radius: 1.6
+    range: 6
+    aimTime: 0.5
+    maxTargets: 4
+  - id: 17
+    weapon: 0
+    requiredLevel: 14
+    prerequisite: 2
+    title: "\u0416\u0430\u0440 \u043D\u0430\u043A\u043E\u043D\u0435\u0447\u043D\u0438\u043A\u0430"
+    description: "\u0423\u0441\u0438\u043B\u0438\u0432\u0430\u0435\u0442 \u043F\u044B\u043B\u0430\u044E\u0449\u0443\u044E \u0441\u0442\u0440\u0435\u043B\u0443 \u0438 \u0435\u0451 \u0433\u043E\u0440\u0435\u043D\u0438\u0435."
+    active: 0
+    power:
+    - 0.1
+    - 0.2
+    - 0.3
+    mana:
+    - 0
+    - 0
+    - 0
+    - 0
+    cooldown:
+    - 0
+    - 0
+    - 0
+    - 0
+    duration: 3
+    radius: 1.6
+    range: 6
+    aimTime: 0.5
+    maxTargets: 4
+  - id: 18
+    weapon: 0
+    requiredLevel: 14
+    prerequisite: 2
+    title: "\u0422\u043B\u0435\u044E\u0449\u0430\u044F \u0440\u0430\u043D\u0430"
+    description: "\u041F\u0440\u043E\u0434\u043B\u0435\u0432\u0430\u0435\u0442 \u0433\u043E\u0440\u0435\u043D\u0438\u0435 \u043D\u0430 \u043E\u0434\u043D\u0443, \u0434\u0432\u0435 \u0438\u043B\u0438 \u0442\u0440\u0438 \u0441\u0435\u043A\u0443\u043D\u0434\u044B."
+    active: 0
+    power:
+    - 1
+    - 2
+    - 3
+    mana:
+    - 0
+    - 0
+    - 0
+    - 0
+    cooldown:
+    - 0
+    - 0
+    - 0
+    - 0
+    duration: 3
+    radius: 1.6
+    range: 6
+    aimTime: 0.5
+    maxTargets: 4
+  - id: 19
+    weapon: 0
+    requiredLevel: 24
+    prerequisite: 3
+    title: "\u0425\u043E\u043B\u043E\u0434\u043D\u044B\u0439 \u043D\u0430\u043A\u043E\u043D\u0435\u0447\u043D\u0438\u043A"
+    description: "\u0423\u0441\u0438\u043B\u0438\u0432\u0430\u0435\u0442 \u0437\u0430\u043C\u0435\u0434\u043B\u0435\u043D\u0438\u0435 \u043B\u0435\u0434\u044F\u043D\u043E\u0439 \u0441\u0442\u0440\u0435\u043B\u044B."
+    active: 0
+    power:
+    - 0.05
+    - 0.1
+    - 0.15
+    mana:
+    - 0
+    - 0
+    - 0
+    - 0
+    cooldown:
+    - 0
+    - 0
+    - 0
+    - 0
+    duration: 3
+    radius: 1.6
+    range: 6
+    aimTime: 0.5
+    maxTargets: 4
+  - id: 20
+    weapon: 0
+    requiredLevel: 24
+    prerequisite: 3
+    title: "\u0426\u0435\u043F\u043A\u0438\u0439 \u0445\u043E\u043B\u043E\u0434"
+    description: "\u041F\u0440\u043E\u0434\u043B\u0435\u0432\u0430\u0435\u0442 \u0437\u0430\u043C\u0435\u0434\u043B\u0435\u043D\u0438\u0435."
+    active: 0
+    power:
+    - 1
+    - 2
+    - 3
+    mana:
+    - 0
+    - 0
+    - 0
+    - 0
+    cooldown:
+    - 0
+    - 0
+    - 0
+    - 0
+    duration: 3
+    radius: 1.6
+    range: 6
+    aimTime: 0.5
+    maxTargets: 4
+  - id: 21
+    weapon: 0
+    requiredLevel: 39
+    prerequisite: 4
+    title: "\u0413\u043B\u0443\u0431\u043E\u043A\u043E\u0435 \u0434\u044B\u0445\u0430\u043D\u0438\u0435"
+    description: "\u041F\u0440\u043E\u0434\u043B\u0435\u0432\u0430\u0435\u0442 \u0441\u043E\u0441\u0440\u0435\u0434\u043E\u0442\u043E\u0447\u0435\u043D\u043D\u043E\u0441\u0442\u044C."
+    active: 0
+    power:
+    - 1
+    - 2
+    - 3
+    mana:
+    - 0
+    - 0
+    - 0
+    - 0
+    cooldown:
+    - 0
+    - 0
+    - 0
+    - 0
+    duration: 3
+    radius: 1.6
+    range: 6
+    aimTime: 0.5
+    maxTargets: 4
+  - id: 22
+    weapon: 0
+    requiredLevel: 54
+    prerequisite: 5
+    title: "\u041F\u043E\u043F\u0443\u0442\u043D\u044B\u0439 \u043F\u043E\u0440\u044B\u0432"
+    description: "\u041F\u0440\u043E\u0434\u043B\u0435\u0432\u0430\u0435\u0442 \u043F\u043E\u043F\u0443\u0442\u043D\u044B\u0439 \u0432\u0435\u0442\u0435\u0440."
+    active: 0
+    power:
+    - 1
+    - 2
+    - 3
+    mana:
+    - 0
+    - 0
+    - 0
+    - 0
+    cooldown:
+    - 0
+    - 0
+    - 0
+    - 0
+    duration: 3
+    radius: 1.6
+    range: 6
+    aimTime: 0.5
+    maxTargets: 4
+  - id: 23
+    weapon: 1
+    requiredLevel: 5
+    prerequisite: 6
+    title: "\u041C\u0430\u0433\u0438\u0447\u0435\u0441\u043A\u0438\u0439 \u0440\u0435\u0437\u043E\u043D\u0430\u043D\u0441"
+    description: "\u0423\u0441\u0438\u043B\u0438\u0432\u0430\u0435\u0442 \u043C\u0430\u0433\u0438\u0447\u0435\u0441\u043A\u0438\u0435 \u0430\u0442\u0430\u043A\u0438 \u043F\u043E\u0441\u043E\u0445\u0430."
+    active: 0
+    power:
+    - 0.05
+    - 0.1
+    - 0.15
+    mana:
+    - 0
+    - 0
+    - 0
+    - 0
+    cooldown:
+    - 0
+    - 0
+    - 0
+    - 0
+    duration: 3
+    radius: 1.6
+    range: 6
+    aimTime: 0.5
+    maxTargets: 4
+  - id: 24
+    weapon: 1
+    requiredLevel: 5
+    prerequisite: 6
+    title: "\u0411\u0435\u0440\u0435\u0436\u043D\u0430\u044F \u043C\u0430\u0433\u0438\u044F"
+    description: "\u0421\u043D\u0438\u0436\u0430\u0435\u0442 MP-\u0441\u0442\u043E\u0438\u043C\u043E\u0441\u0442\u044C \u043D\u0430\u0432\u044B\u043A\u043E\u0432 \u043F\u043E\u0441\u043E\u0445\u0430."
+    active: 0
+    power:
+    - 0.05
+    - 0.1
+    - 0.15
+    mana:
+    - 0
+    - 0
+    - 0
+    - 0
+    cooldown:
+    - 0
+    - 0
+    - 0
+    - 0
+    duration: 3
+    radius: 1.6
+    range: 6
+    aimTime: 0.5
+    maxTargets: 4
+  - id: 25
+    weapon: 1
+    requiredLevel: 14
+    prerequisite: 7
+    title: "\u041F\u0440\u043E\u0447\u043D\u044B\u0439 \u0431\u0430\u0440\u044C\u0435\u0440"
+    description: "\u0423\u0432\u0435\u043B\u0438\u0447\u0438\u0432\u0430\u0435\u0442 \u0451\u043C\u043A\u043E\u0441\u0442\u044C \u043B\u0438\u0447\u043D\u043E\u0433\u043E \u0431\u0430\u0440\u044C\u0435\u0440\u0430."
+    active: 0
+    power:
+    - 0.1
+    - 0.2
+    - 0.3
+    mana:
+    - 0
+    - 0
+    - 0
+    - 0
+    cooldown:
+    - 0
+    - 0
+    - 0
+    - 0
+    duration: 3
+    radius: 1.6
+    range: 6
+    aimTime: 0.5
+    maxTargets: 4
+  - id: 26
+    weapon: 1
+    requiredLevel: 24
+    prerequisite: 8
+    title: "\u0426\u0435\u043B\u0438\u0442\u0435\u043B\u044C\u043D\u0430\u044F \u0441\u0438\u043B\u0430"
+    description: "\u0423\u0441\u0438\u043B\u0438\u0432\u0430\u0435\u0442 \u0432\u043E\u0441\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u0435 HP."
+    active: 0
+    power:
+    - 0.1
+    - 0.2
+    - 0.3
+    mana:
+    - 0
+    - 0
+    - 0
+    - 0
+    cooldown:
+    - 0
+    - 0
+    - 0
+    - 0
+    duration: 3
+    radius: 1.6
+    range: 6
+    aimTime: 0.5
+    maxTargets: 4
+  - id: 27
+    weapon: 1
+    requiredLevel: 39
+    prerequisite: 9
+    title: "\u0416\u0430\u0440 \u0441\u0442\u0438\u0445\u0438\u0438"
+    description: "\u0423\u0441\u0438\u043B\u0438\u0432\u0430\u0435\u0442 \u043E\u0433\u043D\u0435\u043D\u043D\u044B\u0439 \u0448\u0430\u0440, \u0441\u043E\u0445\u0440\u0430\u043D\u044F\u044F \u0435\u0433\u043E \u041A\u0414."
+    active: 0
+    power:
+    - 0.1
+    - 0.2
+    - 0.3
+    mana:
+    - 0
+    - 0
+    - 0
+    - 0
+    cooldown:
+    - 0
+    - 0
+    - 0
+    - 0
+    duration: 3
+    radius: 1.6
+    range: 6
+    aimTime: 0.5
+    maxTargets: 4
+  - id: 28
+    weapon: 1
+    requiredLevel: 54
+    prerequisite: 10
+    title: "\u041F\u0440\u043E\u0432\u043E\u0434\u043D\u0438\u043A"
+    description: "\u0423\u0441\u0438\u043B\u0438\u0432\u0430\u0435\u0442 \u0433\u0440\u043E\u0437\u043E\u0432\u043E\u0439 \u0440\u0430\u0437\u0440\u044F\u0434, \u0441\u043E\u0445\u0440\u0430\u043D\u044F\u044F \u0435\u0433\u043E \u041A\u0414."
+    active: 0
+    power:
+    - 0.1
+    - 0.2
+    - 0.3
+    mana:
+    - 0
+    - 0
+    - 0
+    - 0
+    cooldown:
+    - 0
+    - 0
+    - 0
+    - 0
+    duration: 3
+    radius: 1.6
+    range: 6
+    aimTime: 0.5
+    maxTargets: 4
+  - id: 29
+    weapon: 1
+    requiredLevel: 5
+    prerequisite: 6
+    title: "\u0417\u0430\u043F\u0430\u0441 \u043C\u0430\u043D\u044B"
+    description: "\u0423\u0432\u0435\u043B\u0438\u0447\u0438\u0432\u0430\u0435\u0442 \u043C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u0443\u044E MP, \u0431\u0435\u0437 \u043C\u0433\u043D\u043E\u0432\u0435\u043D\u043D\u043E\u0433\u043E \u0432\u043E\u0441\u043F\u043E\u043B\u043D\u0435\u043D\u0438\u044F."
+    active: 0
+    power:
+    - 10
+    - 20
+    - 30
+    mana:
+    - 0
+    - 0
+    - 0
+    - 0
+    cooldown:
+    - 0
+    - 0
+    - 0
+    - 0
+    duration: 3
+    radius: 1.6
+    range: 6
+    aimTime: 0.5
+    maxTargets: 4
+  - id: 30
+    weapon: 1
+    requiredLevel: 5
+    prerequisite: 6
+    title: "\u041F\u043E\u0442\u043E\u043A \u043C\u0430\u043D\u044B"
+    description: "\u0423\u0441\u043A\u043E\u0440\u044F\u0435\u0442 \u0432\u043E\u0441\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u0435 MP."
+    active: 0
+    power:
+    - 0.1
+    - 0.2
+    - 0.3
+    mana:
+    - 0
+    - 0
+    - 0
+    - 0
+    cooldown:
+    - 0
+    - 0
+    - 0
+    - 0
+    duration: 3
+    radius: 1.6
+    range: 6
+    aimTime: 0.5
+    maxTargets: 4
+  - id: 31
+    weapon: -1
+    requiredLevel: 5
+    prerequisite: 0
+    title: "\u041E\u043F\u044B\u0442 \u0430\u0432\u0430\u043D\u0442\u044E\u0440\u0438\u0441\u0442\u0430"
+    description: "\u0411\u043E\u043B\u044C\u0448\u0435 XP \u0437\u0430 \u0444\u0430\u043A\u0442\u0438\u0447\u0435\u0441\u043A\u0443\u044E \u0441\u0434\u0430\u0447\u0443 \u043A\u043E\u043D\u0442\u0440\u0430\u043A\u0442\u0430."
+    active: 0
+    power:
+    - 0.05
+    - 0.1
+    - 0.15
+    mana:
+    - 0
+    - 0
+    - 0
+    - 0
+    cooldown:
+    - 0
+    - 0
+    - 0
+    - 0
+    duration: 3
+    radius: 1.6
+    range: 6
+    aimTime: 0.5
+    maxTargets: 4
+  - id: 32
+    weapon: -1
+    requiredLevel: 15
+    prerequisite: 31
+    title: "\u0429\u0435\u0434\u0440\u044B\u0439 \u043A\u043E\u043D\u0442\u0440\u0430\u043A\u0442"
+    description: "\u0411\u043E\u043B\u044C\u0448\u0435 \u0437\u043E\u043B\u043E\u0442\u0430 \u0437\u0430 \u0444\u0430\u043A\u0442\u0438\u0447\u0435\u0441\u043A\u0443\u044E \u0441\u0434\u0430\u0447\u0443 \u043A\u043E\u043D\u0442\u0440\u0430\u043A\u0442\u0430."
+    active: 0
+    power:
+    - 0.05
+    - 0.1
+    - 0.15
+    mana:
+    - 0
+    - 0
+    - 0
+    - 0
+    cooldown:
+    - 0
+    - 0
+    - 0
+    - 0
+    duration: 3
+    radius: 1.6
+    range: 6
+    aimTime: 0.5
+    maxTargets: 4
+  - id: 33
+    weapon: -1
+    requiredLevel: 15
+    prerequisite: 31
+    title: "\u041E\u043F\u044B\u0442 \u0441\u043B\u0435\u0434\u043E\u043F\u044B\u0442\u0430"
+    description: "\u0411\u043E\u043B\u044C\u0448\u0435 XP \u0437\u0430 \u043C\u0438\u0440\u043E\u0432\u044B\u0445 \u043E\u0440\u043A\u043E\u0432 \u0438 \u043E\u0433\u0440\u043E\u0432; \u043D\u0435 \u0432\u043B\u0438\u044F\u0435\u0442 \u043D\u0430 \u043F\u043E\u0440\u0442\u0430\u043B\u044C\u043D\u044B\u0445 \u0432\u0440\u0430\u0433\u043E\u0432."
+    active: 0
+    power:
+    - 0.05
+    - 0.1
+    - 0.15
+    mana:
+    - 0
+    - 0
+    - 0
+    - 0
+    cooldown:
+    - 0
+    - 0
+    - 0
+    - 0
+    duration: 3
+    radius: 1.6
+    range: 6
+    aimTime: 0.5
+    maxTargets: 4
+  potionCooldown: 20
+  potionRestoration: 100

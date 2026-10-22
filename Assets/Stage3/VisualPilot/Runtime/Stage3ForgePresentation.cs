@@ -77,9 +77,19 @@ namespace Not3A.Stage3.VisualPilot
                 var p=owner.PreviewPosition;footprint.transform.position=new Vector3(p.x,p.y,Stage3TacticalPresentation.GrassSurfaceZ(p)-.03f);
             }
             if(hud!=null)hud.ForgeInteractionHint=owner.IsPlacing?
-                visible&&owner.PreviewResult==Stage3ForgePlacementResult.Ready?"ЛКМ · построить кузницу · Esc / ПКМ · отменить":"Выберите свободную зелёную землю · Esc / ПКМ · отменить":
+                visible?PlacementHint(owner.PreviewResult):"Выберите место в мире · Esc / ПКМ · отменить":
                 owner.IsBuilt&&owner.NearEntrance?owner.CanUse?"E · кузница":"Кузница сейчас недоступна":null;
         }
+        private static string PlacementHint(Stage3ForgePlacementResult result) => result switch
+        {
+            Stage3ForgePlacementResult.Ready => "ЛКМ · построить кузницу · Esc / ПКМ · отменить",
+            Stage3ForgePlacementResult.HeroOverlap => "Герой стоит на месте постройки · отойдите · Esc / ПКМ · отменить",
+            Stage3ForgePlacementResult.Occupied => "Место занято · выберите свободный участок · Esc / ПКМ · отменить",
+            Stage3ForgePlacementResult.InvalidGround => "Нужен ровный свободный участок зелёной земли · Esc / ПКМ · отменить",
+            Stage3ForgePlacementResult.InsufficientResources => "Недостаточно ресурсов для кузницы · Esc / ПКМ · отменить",
+            Stage3ForgePlacementResult.CreationFailed => "Не удалось построить кузницу · выберите другое место · Esc / ПКМ · отменить",
+            _ => "Выберите свободную зелёную землю · Esc / ПКМ · отменить"
+        };
         private void Align(SpriteRenderer renderer,Vector2 position)
         {
             var scale=worldScale;

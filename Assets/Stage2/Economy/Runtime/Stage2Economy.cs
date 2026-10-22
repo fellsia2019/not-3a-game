@@ -274,6 +274,8 @@ namespace Not3A.Stage2.Economy
         public int GoldPerKill { get; }
         public event Action<MapResourceKind, int> Gathered;
         public event Action<Stage2ResourceNode> NodeGathered;
+        public event Action<Stage2ResourceNode,int> ResourceGranted;
+        public Func<Stage2ResourceNode,bool> CanRecoverNode { get; set; }
         public event Action NodesChanged;
         public float GatherProgress => gatherProgress;
         public Stage2ResourceNode CurrentNode { get; private set; }
@@ -345,7 +347,8 @@ namespace Not3A.Stage2.Economy
             if (elapsedSeconds < 0f || float.IsNaN(elapsedSeconds) || float.IsInfinity(elapsedSeconds))
                 throw new ArgumentOutOfRangeException(nameof(elapsedSeconds));
             if (!activeTime) return;
-            foreach (var node in nodes) node.Tick(elapsedSeconds);
+            foreach (var node in nodes)
+                if(!node.IsDepleted||(CanRecoverNode?.Invoke(node)??true))node.Tick(elapsedSeconds);
         }
 
         // The caller supplies the held state and unpaused Preparation/Wave state.
@@ -375,6 +378,7 @@ namespace Not3A.Stage2.Economy
             grant = node.TryTakeUnits(grant);
             if (grant == 0) return false;
             Inventory.TryAdd(node.Resource, grant);
+            ResourceGranted?.Invoke(node,grant);
             NodeGathered?.Invoke(node);
             Gathered?.Invoke(node.Resource, grant);
             return true;

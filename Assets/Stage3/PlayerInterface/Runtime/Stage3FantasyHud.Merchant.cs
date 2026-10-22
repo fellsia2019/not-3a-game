@@ -83,9 +83,9 @@ namespace Not3A.Stage3.PlayerInterface
         private void CacheMerchantSelection()
         {
             var selected = merchant == null ? null : FindMerchantItem(merchant.BuyMode, merchant.SelectedItemId);
-            merchantPriceLabel = selected == null ? "" : selected.Price + " золота";
+            merchantPriceLabel = selected == null ? "" : selected.Price + (selected.Item.Consumable ? " золота за 1 шт." : " золота");
             merchantLevelLabel = selected == null ? "" : selected.Item.Blueprint != null
-                ? BlueprintCategoryCaption(selected.Item.Blueprint) : ItemCellCaption(selected.Item);
+                ? BlueprintCategoryCaption(selected.Item.Blueprint) : selected.Item.Consumable ? "Количество: "+selected.Item.Quantity : ItemCellCaption(selected.Item);
         }
 
         private Rect MerchantBodyRect => new Rect(32f * UiScale, 148f * UiScale,
@@ -271,6 +271,13 @@ namespace Not3A.Stage3.PlayerInterface
                 }
                 Label(new Rect(r.x+7f*s,statsTop,r.width-14f*s,Mathf.Max(0,statsBottom-statsTop)),
                     selected.Item.Blueprint.Description??"",17,TextAnchor.UpperLeft,true);
+            }
+            else if(selected.Item.Consumable)
+            {
+                var consumableRowHeight=Mathf.Min(54f*s,(statsBottom-statsTop)/Mathf.Max(1,properties.Length));
+                for(var i=0;i<properties.Length;i++)
+                    DrawConsumableProperty(new Rect(r.x+7f*s,statsTop+consumableRowHeight*i,
+                        r.width-14f*s,consumableRowHeight),properties[i]);
             }
             else for (var i = 0; i < properties.Length; i++)
             {

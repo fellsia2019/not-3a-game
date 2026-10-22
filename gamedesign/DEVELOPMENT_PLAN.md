@@ -1,9 +1,64 @@
 # Development Plan
 
-Status: current prototype state updated 2026-10-21 through D-117; earlier
+## Current D120 hero loadout —2026-10-22
+
+- Owner approved tree_v1/hud_v2/equipment_v2 and actual5+5/Q/Z/1–5/F1–F4/F10.
+  Implemented:11actives,20combat passives,3actual adventurer bonuses, mixed
+  prerequisite tree, two retained weapons/one active,12gear positions and
+ 4fixed consumable positions (F4reserved). Gathering retains separate mastery.
+- Staff uses the existing purchased WandRecipe→local one-level workshop→forge
+  route; no drops. Amulet/rings/constant no-MP «Защитная печать» use equipment
+  quality/levels. Potions cost100/100/250gold, restore100HP/100MP/100each,
+  stock5each/no restock/shared20sCD, actual one-bottle bag transactions.
+- Main owns rules/data/bindings and qualification; Astra owns native visual
+  implementation/review, original ImageGen item/skill/potion atlases and approved
+  painted quality frames. Dependencies: existing equipment ownership, research,
+  finite trade, targeting/cadence, vitals/recovery/input and quest rewards.
+- Acceptance: invalid actions spend nothing; only active weapon can cast;
+  switch preserves timers/stats/instances; at most4AoE targets and15sCDfloor;
+  actual potion stock/effects/death/retry/reset; readable720/900/1080tree/HUD/
+ 12slots/forge/merchant and both enemy-family hit feedback. Native review found
+  text/connection/consumable clipping defects; corrections pass80final native
+  frames and Astra review.131distinctPlayModePASS,1explicitheadlessviewport
+  SKIP (640×480Editor cannot apply720p); physical O/node/tab/I/F10 and
+  F3-no-debug smoke PASS, no new attributable compile/player errors. Evidence:
+  art/source/hero_loadout_2026-10-22_verification.json.
+- Fresh Mac build: Builds/MacHeroLoadout/Not3AHeroLoadout.app. No scene/package/
+  disk-save migration or free ordinary test grants. Remaining: Windows/Steam,
+  sustained night/economy/build balance and future loot/additional accessory
+  effects. The earlier D119 proposed larger gathering/adventurer lists did not
+  become phantom locked buttons.
+
+## Historical D118/D119 qualification —2026-10-21
+
+- D118 world fixes/approved feedback are implemented and locally Mac-qualified: quest
+  target guidance, HP and actual damage for BOTH enemy families, actual manual
+  yield effects, harvestable camp nature, grouped camp aggro, seal click/menu,
+  truthful green-ground placement. Main rules/tests; Astra visual implementation.
+- D119 proposed ten combat actives/about twenty passives at this gate. D120
+  above supersedes that composition and implements the mixed tree, controls
+  and actual skill catalogue. D118 evidence below describes the earlier world
+  correction pass and does not qualify the later skills by itself.
+- Verification:118 distinct PASS (89PlayMode/29EditMode),2 batch IMGUI checks
+  skipped with actual native draw/production-event coverage.45 final native frames,
+  Astra quest/field FINAL VISUAL PASS after recorded corrections, final Mac build
+  success and ordinary restart. Physical OS mouse/full pan DEGRADED
+  (CUA noWindowsAvailable), Windows/Steam unverified. Evidence:
+  art/source/world_ux_2026-10-21_verification.json. Existing user game retained;
+  separate Builds/MacWorldUX/Not3AWorldUX.app contains updated runtime.
+
+
+Status: current prototype state updated 2026-10-22 through D-120 implementation; earlier
 playable-first stages retain their historical acceptance.
 `GAME_VISION.md` owns product intent; `production/DECISIONS.md` owns durable
 decisions; `production/WORKSTREAMS.md` retains historical task evidence.
+
+Repository snapshot, 2026-10-22: source, Unity metadata, original art/concepts,
+accepted D118–D120 contracts and qualification summaries are saved together.
+Builds and detailed Artifacts remain local under the existing ignore rules;
+JSON evidence in art/source records results, source hashes and remaining limits.
+This save/push step changes documentation and empty-YAML whitespace in four
+new metadata files; qualified gameplay/art/import values and GUIDs stay intact.
 
 ## Working Rule
 

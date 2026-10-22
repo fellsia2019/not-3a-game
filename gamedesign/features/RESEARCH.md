@@ -1,5 +1,17 @@
 # Feature: Исследовательская мастерская
 
+## D120 implemented override — staff terminology
+
+The player-facing staff reuses D102 WandRecipe and serialized Wand item identity.
+The existing opening paper already depicts the long weapon; its original art
+and neutral D101 treatment are retained. Buy the finite merchant document,
+explicitly study at the one-level local workshop, then separately pay to craft
+at the forge. Study consumes one paper and never grants equipment. Acquired-item
+equipping stays distinct from learning its recipe. No second currency, timer,
+workshop level, third weapon or world-drop source. Staff can remain equipped
+beside bow, with active weapon switched by Z; only its own1–5 skills can cast.
+Evidence: art/source/hero_loadout_2026-10-22_verification.json.
+
 ## D113 current override — starter teleport blueprint
 
 Pinned «Телепортационный круг» is always available in the workshop from start,

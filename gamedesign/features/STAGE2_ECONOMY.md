@@ -1,5 +1,20 @@
 # Feature: Stage 2 Resource Lifecycle
 
+## D118 — authored wild resources and confirmed grant facts
+
+Natural trees/rocks in the two camp shoulders now use ordinary additional
+Stage2ResourceNodes, with existing source stock/timing/tool/profession rules.
+Exact approved artwork stays at its authored position; no duplicate prefab.
+City planting/structural masonry and automatic-resource districts are exempt.
+Camp structures remain permanent shared rectangles; resource footing uses
+updatable circles, zero radius really means disabled for placement as well.
+Depleted plots may be built on; scene-owned CanRecoverNode holds regrowth while
+solid construction occupies their footing. No new material type or
+yield multiplier is invented. Full Reset restores sources, current retry retains
+remaining stock. ResourceGranted(node,actualAmount) is an atomic post-grant fact
+for UI; legacy NodeGathered/Gathered events and profession grants remain.
+
+
 ## D-093 generator investment in current Stage3
 
 Owned generators now have5paid levels, output1..5 per original cycle. New

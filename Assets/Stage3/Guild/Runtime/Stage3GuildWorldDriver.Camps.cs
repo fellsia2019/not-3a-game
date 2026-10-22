@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Not3A.Stage2.Economy;
 using Not3A.Stage2.Integration;
 using Not3A.Stage2.Map;
 using UnityEngine;
@@ -12,6 +13,34 @@ namespace Not3A.Stage3.VisualPilot
         private readonly List<Rect> campSolids=new List<Rect>();
         private readonly Stage3CampPresentation[] campPresentations=new Stage3CampPresentation[2];
         private HeroObstacleMap campGround;
+        private readonly Dictionary<Stage2ResourceNode,(int kind,int layout)> campResources=new();
+        public IEnumerable<Stage2ResourceNode> HarvestableCampResources=>campResources.Keys;
+        public bool IsCampResource(Stage2ResourceNode node)=>campResources.ContainsKey(node);
+        public IReadOnlyList<Stage2ResourceNode> CreateCampResources(Stage2EconomyCatalog catalog)
+        {
+            campResources.Clear();var result=new List<Stage2ResourceNode>();
+            if(!Ready||catalog==null)return result;
+            for(var kind=0;kind<2;kind++)
+            {
+                var layout=Stage3CampPresentation.GetLayout(kind);
+                for(var index=0;index<layout.Count;index++)
+                {
+                    var prop=layout[index];if(prop.SpriteIndex<100||prop.SpriteIndex>=300)continue;
+                    var resource=prop.SpriteIndex<200?MapResourceKind.Wood:MapResourceKind.Stone;
+                    var point=spots[kind]+prop.Offset;
+                    var radius=Mathf.Max(prop.Footprint.x,prop.Footprint.y)*.5f;
+                    var node=new Stage2ResourceNode(catalog.Get(resource),scene.MapDefinition.WorldToCell(point),point,
+                        Stage2ResourceSize.Small,radius,10000+kind*100+index,prop.SpriteIndex);
+                    result.Add(node);campResources.Add(node,(kind,index));
+                }
+            }
+            return result;
+        }
+        public void BindCampResources(Stage3ResourceInteractionMarker marker)
+        {
+            foreach(var pair in campResources)
+                campPresentations[pair.Value.kind].BindResource(pair.Value.layout,pair.Key,marker);
+        }
         public IReadOnlyList<Rect> ReservedCampBounds=>campBounds;
         public Stage3CampPresentation CampPresentation(int kind)=>campPresentations[Mathf.Clamp(kind,0,1)];
         public bool OverlapsCamp(Rect area)
@@ -52,8 +81,12 @@ namespace Not3A.Stage3.VisualPilot
                 var root=new GameObject(kind==0?"Orc open camp":"Ogre open ruins");root.transform.SetParent(transform,false);
                 var presentation=root.AddComponent<Stage3CampPresentation>();
                 presentation.Build(spots[kind],scene.CameraFollow.BoundCamera,art,kind);campPresentations[kind]=presentation;
-                foreach(var local in Stage3CampPresentation.GetLocalFootprints(kind))
+                foreach(var prop in Stage3CampPresentation.GetLayout(kind))
                 {
+                    // Wild trees/rocks belong to the ordinary depletion-aware resource
+                    // collision map; only built camp structures are permanent obstacles.
+                    if(prop.SpriteIndex>=100&&prop.SpriteIndex<300)continue;
+                    var local=prop.GroundRect;if(local.width<=0||local.height<=0)continue;
                     var solid=new Rect(spots[kind]+local.position,local.size);campSolids.Add(solid);campGround.AddRectangle(solid);
                 }
             }
@@ -105,6 +138,7 @@ namespace Not3A.Stage3.VisualPilot
         {
             if(campGround!=null)foreach(var solid in campSolids)campGround.RemoveRectangle(solid);
             campSolids.Clear();campGround=null;Ready=false;
+            campResources.Clear();
             for(var kind=0;kind<campPresentations.Length;kind++)
             {
                 var presentation=campPresentations[kind];

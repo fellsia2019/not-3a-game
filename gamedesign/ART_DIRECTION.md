@@ -1,5 +1,62 @@
 # Art Direction
 
+## D120 — implemented mixed weapon tree and loadout,2026-10-22
+
+Owner approved hero_tree_v1/hud_v2/equipment_v2 and the5+5composition. Preserve
+Lunar Porcelain and the actual painted multitone quality atlas. Native HUD has
+two weapon rows, common Q left between them, contextual1–5 on the active row,
+four square consumable cells, and compact12position equipment. O mixes11large
+actives/20small passives in actual prerequisite routes: Blink left, bow above,
+staff below/shared fork, no left legend/info/menu. Compact level/XP/points and
+Бой/Добыча/Авантюрист remain. Three adventurer nodes have working reward sources.
+
+Staff replaces short wand visually while retaining serialized identity; use
+its long shaft/compact angular head in hand and inventory. Amulet is a pendant,
+rings finger bands, «Защитная печать» a separate floating arcane sign, without
+necklace/physical shield/new rune imagery. Neutral ungraded potions are distinct
+red/blue/purple bottles, with actual count/value/price and no equipment LVL.
+Measured icon/held safe bounds retain source PNG bytes; actual quality frames
+are reused. Empty pendant/ring silhouettes remain distinct.
+
+Main ImageGen/original provenance; Astra visual implementation and native review.
+Official RPG references guide structure only, no traced/imported franchise art.
+Concept source: art/source/hero_loadout_2026-10-22_generation.json; runtime art:
+art/source/hero_loadout_2026-10-22_production_generation.json. Native720/900/1080
+Astra qualification passes80final frames after initial RETURN corrections
+(long titles, label-crossing connections, duplicate details and mixed-potion
+clipping). Original/updated evidence and hashes are retained in
+art/source/hero_loadout_2026-10-22_verification.json. Concept numbers/level labels
+never override runtime catalog values or establish bag capacity. Windows remains
+unverified.
+
+## Historical D118/D119 feedback and concept gate,2026-10-21
+
+Owner approved field_feedback_v1 and the initial hero-development material
+language. D118Astra native feedback covers BOTH red-portal skeletons and world
+orc/ogre enemies: compact ruby HP, actual ivory damage figures, contained local
+spark; no MP without a real source. Manual grants show +amount and the existing
+wood/stone/metal icon with restrained chips/dust/spark. Preserve world pixels,
+HUD geometry, input and all other dock icons. New O is a small rising3-node
+skill-tree sign. Camp natural resources reuse their approved artwork exactly,
+now hidden by ordinary depletion; no new tree/rock art or texture processing.
+
+D119owner sets10active/about20passive combat skills, including fire/lightning
+splash25–30s cooldown falling no lower than15s and a trained moving-fire talent.
+Owner returned v2grid/active-passive tabs and left specialization navigation;
+v3left legends also rejected as wasted space. Current v5compact-tree concept
+has ONE mixed gradual prerequisite graph, large actives/small passives, no left
+sidebar at all. Hero level/XP/points fit one compact header; graph expands into
+all reclaimed space. Only topБой/Добыча/Авантюрист and rightselectedtalent detail.
+D118final45nativeframes have AstraFINALVISUALPASS. One earlier fieldwide
+HPmerging RETURN was corrected with24..50pxdensity-aware bars and4pxgaps;
+nightportalclose/wide/ogre at900p also pass. Questcheck/cityicon overlap corrected
+and recaptured at720/900/1080. Windows and physicalOSmouse unverified.
+At the D118 gate, v5 awaited appearance approval and new skills were absent.
+D120 above supersedes that sketch with owner-approved, implemented visuals.
+Generated labels/tiers/links do not create mechanics. Source/prompts/provenance:
+art/source/world_ux_2026-10-21*.json; concepts:art/concepts/world_ux_2026-10-21/.
+
+
 ## D116/D117 current implementation,2026-10-21
 
 Implement approved open orc/ogre camp_v2 using standalone original modular kits,

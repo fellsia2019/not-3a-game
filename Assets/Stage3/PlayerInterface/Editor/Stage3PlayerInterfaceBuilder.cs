@@ -58,7 +58,10 @@ namespace Not3A.Stage3.PlayerInterface.Editor
         [MenuItem("Tools/Stage 3/Player Interface/Build Local Mac Review Player")]
         public static void BuildMacReviewPlayer()
         {
-            const string output = "Builds/MacFullscreenInterface/Not3AFullscreenInterface.app";
+            var requested=Environment.GetEnvironmentVariable("NOT3A_REVIEW_BUILD_OUTPUT");
+            var output=string.IsNullOrWhiteSpace(requested)?"Builds/MacFullscreenInterface/Not3AFullscreenInterface.app":requested;
+            if(!string.IsNullOrWhiteSpace(requested)&&!Path.IsPathFullyQualified(requested))
+                throw new ArgumentException("Review build override must be an absolute path.");
             Directory.CreateDirectory(Path.GetDirectoryName(output));
             var report = BuildPipeline.BuildPlayer(new BuildPlayerOptions {
                 scenes = new[] { ScenePath }, locationPathName = output,

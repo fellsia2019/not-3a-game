@@ -1,0 +1,600 @@
+{
+  "date": "2026-10-22",
+  "reviewer": "GPT-6 Astra",
+  "workstream": "D120 equipment, forge, consumables and held staff final visual review",
+  "verdict": "PASS",
+  "status": "final native visual PASS after corrected build recapture",
+  "reviewed_frame_count": 57,
+  "reviewedfiles": [
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1280, 720)-empty-pendant-rings-bow.png",
+      "sha256": "ebfde668d244182106799df1177dbf787cc2ec6c025b64e3abb038a99649c03e"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1280, 720)-empty-pendant-rings-staff.png",
+      "sha256": "c5464da22fe97fb040373463cd523e065e26d98263de66cc479dcbd96a81687e"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1280, 720)-forge-SSS-existing-level.png",
+      "sha256": "a23a40da7ae4929b64333f265b58520e533294df38283f48f4f274a3fa65351d"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1280, 720)-forge-create-Amulet.png",
+      "sha256": "bb5791a880935f90b2aabfd22b372264791545424c0f7b394df3eb6385ad0600"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1280, 720)-forge-create-Protection.png",
+      "sha256": "dcbc6e095d9f7a6f3d5c972169c8b76a8af5865e77e2ae80ad1b54760bef1903"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1280, 720)-forge-create-Ring.png",
+      "sha256": "cd0226ebef0fbe9de8b42c9a69107c86eba54106a7770d96d44519ed619076eb"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1280, 720)-merchant-neutral-HealthPotion.png",
+      "sha256": "a99c84291e9347a997a5114cdd274119c45d666619e81cd2e73be48d453a8b9c"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1280, 720)-merchant-neutral-ManaPotion.png",
+      "sha256": "bd68c066601ae11f18f254d167d156a536b0ecc1b58fa14ae5e74d53a06e4ba1"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1280, 720)-merchant-neutral-MixedPotion.png",
+      "sha256": "f87eafb822f693931181ebfb459453627a42065bd9dd55774aaaa06da9347eea"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1280, 720)-neutral-potion-inventory.png",
+      "sha256": "a1abba7875f910d4a13e0a1ea4d10d60bea0f474b4de1f1059802fdf7804a7f9"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1280, 720)-staff-F-direction-0.png",
+      "sha256": "ac534780f1aef5cc8c2fb5a32c479cafa95e1060a1eacea3c74e77af470c74ee"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1280, 720)-staff-F-direction-1.png",
+      "sha256": "64584681e27727f1cedcb90e76dd2cc449bc4e1999933091112b198b1ee7ca5e"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1280, 720)-staff-F-direction-2.png",
+      "sha256": "df48efb54971a2862751e15ebb8caa630fa766b186974c6568bd65f35472d361"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1280, 720)-staff-F-direction-3.png",
+      "sha256": "45e5c443e50b7125ba1f12fd07f635f979e4f4703b785ce19de51e2fb65d4e05"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1280, 720)-staff-SSS-direction-0.png",
+      "sha256": "3aa598cc4ece016beb457e9c5727506b1d9033540bd225878299a96102fcce5c"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1280, 720)-staff-SSS-direction-1.png",
+      "sha256": "6e3dc8a8caaf942e5c18254d50f828e3d6a27a053717e857d949abe15a50e20c"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1280, 720)-staff-SSS-direction-2.png",
+      "sha256": "15cc3f36c13ba848ad34e34c3d61145e26bfbb06b93a15e8f154791a377288ca"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1280, 720)-staff-SSS-direction-3.png",
+      "sha256": "3372e7f2fce1e90396f0ae72e5e197ec0f83720cc865a0b90a0b3776c57d4ec2"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1280, 720)-twelve-equipped-SSS-amulet.png",
+      "sha256": "38e9bc60cddcc08424ffdac461174dbfff2b20a227749f4415bef6ebdeb95e0f"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1600, 900)-empty-pendant-rings-bow.png",
+      "sha256": "4a023b6239e86de4ce2cd4f05c984bb5dfe3ed4c75385ef46d1ea6d1240b5442"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1600, 900)-empty-pendant-rings-staff.png",
+      "sha256": "dd22ea37b3605b286206d0375c351781d2013b843e257e701095a781f56a7f0e"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1600, 900)-forge-SSS-existing-level.png",
+      "sha256": "1888eb0541c2567d01fbc67da071d51bb5c7ea5a288a77253c7e4df96349b0b6"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1600, 900)-forge-create-Amulet.png",
+      "sha256": "45c94a9ba6c2fce07cca805348229d8e608115eda10147e020887e262c7538e0"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1600, 900)-forge-create-Protection.png",
+      "sha256": "9558e1a9033d4bb3b18a1645262bf691e7131ee0c5efa4153a0dffff71d15ec8"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1600, 900)-forge-create-Ring.png",
+      "sha256": "c928cc0b9e6d21ce6dee68f4fb817f03c1339584d1775ed2f4b72306cefbcc43"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1600, 900)-merchant-neutral-HealthPotion.png",
+      "sha256": "8eb4afe97ad29b334c2541ce4be0175393a0cce7c0001c590458f07257f2eb99"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1600, 900)-merchant-neutral-ManaPotion.png",
+      "sha256": "5c6338faf40b64b972a5a09e7d82a99ff8050cb596f59a41c5f126ef0e424883"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1600, 900)-merchant-neutral-MixedPotion.png",
+      "sha256": "3be72357ec0e630bb338ffb338e7b5761260fec481823b1f3c79e988045c59a8"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1600, 900)-neutral-potion-inventory.png",
+      "sha256": "6daf9e465dd071bb37da75d2f10bb24d4a0ed66f98ae06b36489aa0686e0fa41"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1600, 900)-staff-F-direction-0.png",
+      "sha256": "ca135f022ba8a61f5ae456f426526b8013179e86dfac49a71c013a31800383ce"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1600, 900)-staff-F-direction-1.png",
+      "sha256": "c7554ba50a0445a3f4e0dfe62d41417776c3dd534b9548bc610358f89952e882"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1600, 900)-staff-F-direction-2.png",
+      "sha256": "703729965066ea1b9ee32df9e3ce341107f754fea4be63ae8923d46aa850b850"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1600, 900)-staff-F-direction-3.png",
+      "sha256": "b177cc15b3d701675574c12a9b784c87fa6c70ac716349f48dbc3bbdad005221"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1600, 900)-staff-SSS-direction-0.png",
+      "sha256": "d1911a16f7d691a283fb7fee78b9012752466f50c623a634bf29fa6d319a6222"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1600, 900)-staff-SSS-direction-1.png",
+      "sha256": "68d937c23925c2a7437e0184526f27b0eb68ce9816b0689e1813a93907922652"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1600, 900)-staff-SSS-direction-2.png",
+      "sha256": "412e2e6f1dcadac3eeefab4992b37bf54e2c700ddd44132403447cd1696089df"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1600, 900)-staff-SSS-direction-3.png",
+      "sha256": "cb61b479e6712cea1c3d444747cf5ca35d785498051b784fb4faebf42801ba18"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1600, 900)-twelve-equipped-SSS-amulet.png",
+      "sha256": "870348f412cec74d45e23bde92fb9d03a81590fb71130e45731c75c09b0ab397"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1920, 1080)-empty-pendant-rings-bow.png",
+      "sha256": "e837e797116b63f1c17632e70815798ad0d17820ceaad72d72cbc2e85a5b3ccb"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1920, 1080)-empty-pendant-rings-staff.png",
+      "sha256": "7b58069e1b144634af3b33f6cf37b59ff295b30a9329ad3d09a310b8367fbad7"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1920, 1080)-forge-SSS-existing-level.png",
+      "sha256": "c296173794411118f6d0126caa2250fb12e8808e843611532ef9b3e71bc73c4d"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1920, 1080)-forge-create-Amulet.png",
+      "sha256": "674f001be2ff1f3711a2a842d5109658a56a22f586b5e6798802c95fb091a89f"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1920, 1080)-forge-create-Protection.png",
+      "sha256": "27156689eb5542ed6d40dccd1cb015a96c46f3d40481e516ecd53a69d586f803"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1920, 1080)-forge-create-Ring.png",
+      "sha256": "232c3495cadc7dedee7bea53ad1102030cbd83c78b8a7d552676f47f2868e142"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1920, 1080)-merchant-neutral-HealthPotion.png",
+      "sha256": "57cabc8642c8e9d81296c9b22b6ca42d9213946b051b031b1cffdc5fdc27965a"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1920, 1080)-merchant-neutral-ManaPotion.png",
+      "sha256": "552193b03e1e051faebf7442e45f5835323f40de85395c0dfe6b31e5d15fde0f"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1920, 1080)-merchant-neutral-MixedPotion.png",
+      "sha256": "b25fb99347b1a7b1873c5fb4197f8d201105a0b892cd6c87b15b923e9a064a83"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1920, 1080)-neutral-potion-inventory.png",
+      "sha256": "f3be347f7d366dbd679bb0d78b6875b9937a426d44698065563ff826ce8908fc"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1920, 1080)-staff-F-direction-0.png",
+      "sha256": "d4a3fc62fff44f2905c49f06a63ad8cb1ba5661ee0e0cdfc3c58975e5cd38276"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1920, 1080)-staff-F-direction-1.png",
+      "sha256": "d3d9ef30ec498bdf7ecead5e2d58bc72e3a789e104108a3a99c70e2b83f0193f"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1920, 1080)-staff-F-direction-2.png",
+      "sha256": "fadfe4c7e1aa4000fc558b46d0f6ad7f5f4ef536011b035c44ec1044f756a0f2"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1920, 1080)-staff-F-direction-3.png",
+      "sha256": "3e75d420c08da891d95c04e8b1b2957ac629fad26c9ff86ae98ff6584673187c"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1920, 1080)-staff-SSS-direction-0.png",
+      "sha256": "339fb88306299466d83fc15930793d5f541c51aff961ae417518bc9799a4f454"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1920, 1080)-staff-SSS-direction-1.png",
+      "sha256": "e49b330026c5e9342ea0cbbf1536f6a4cc69af6322cbb5b0f07e65499bcb44a4"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1920, 1080)-staff-SSS-direction-2.png",
+      "sha256": "5c9a2baa6d5a49fa792f1e7732c5853a1c95a69ca10aa1d2a60cb461305e95b1"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1920, 1080)-staff-SSS-direction-3.png",
+      "sha256": "a3559c1d118e1cdb9eac54e2ada848d6b97589abb990950fcafdec020de4994d"
+    },
+    {
+      "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1920, 1080)-twelve-equipped-SSS-amulet.png",
+      "sha256": "bc614110f4c34d7fbc4d493852e9a844fb504feb6a630c7d4e9730681788ddfe"
+    }
+  ],
+  "referencefiles": [
+    {
+      "path": "art/concepts/hero_loadout_2026-10-22/equipment_v2.png",
+      "sha256": "b645a65a4c74451a445a4308e20514fa1270a24b0bf06f16db65570732575f9e"
+    },
+    {
+      "path": "art/concepts/hero_loadout_2026-10-22/hud_v2.png",
+      "sha256": "c634357bd17e34e82025bfb7d8dbec61043631faeb7820f1cc2806b7a21f8b6c"
+    }
+  ],
+  "method": "Final 57 native Mac frames reviewed in all-resolution contact sheets against the initial review. All 12 potion detail states (mixed inventory/merchant and HP/MP merchant at 720/900/1080) inspected in native-size crops; full 720p merchant frame also inspected. Original reference and detailed staff/quality review remain preserved in history.",
+  "notes": [
+    "PASS: 12 fixed equipment positions retain the approved arrangement, simultaneous bow/staff slots, four armor slots, two rings, amulet, protection, pickaxe and axe. Paperdoll and bag/details remain distinct and unclipped at 720/900/1080.",
+    "PASS: empty amulet has a chain and suspended diamond pendant, visibly distinct from the two circular ring placeholders.",
+    "PASS: held F and SSS staff have long upright silhouettes, visible head and grounded lower end in all four captured facings. Grip registration stays next to the carrying hand; no detached shaft or source-atlas neighbour appears. Paperdoll switches between bow and staff.",
+    "PASS: accessory and staff art preserves the existing painted multitone quality skins and contained thin luminous edges. F/D/C/S/SSS differences and separate cyan selection remain visible. No visible quality-boundary bleed or art truncation in the supplied frames.",
+    "PASS: forge shows eleven readable choices at 720/900/1080. Amulet damage, ring maximum MP and protection reduction/no-MP properties are distinct. SSS existing-item upgrade preview is visually separate from quality creation restrictions.",
+    "PASS: red/blue/purple potions remain neutral and have no equipment quality or LVL captions. Owned count 3 and captured merchant remainder 2 are visible; 100/100/250 gold per-bottle prices are explicit. Native fixtures intentionally bought three of each initial five.",
+    "PASS: D120-EQUIPMENT-VISUAL-01 is resolved in final native captures at 1280x720, 1600x900 and 1920x1080. Inventory and merchant show the complete 100 HP + 100 MP value on one line, with separate readable property labels and 20 s shared cooldown. No glyph clipping or overlap.",
+    "PASS: HP and MP merchant properties use the same corrected row rendering and retain complete 100 HP / 100 MP, counts, 20 s cooldown and 100 gold per-bottle pricing. Mixed potion retains 250 gold per bottle.",
+    "PASS: quick visual comparison of all 57 final frames found no regression in 12-slot arrangement, pendant/ring distinction, forge choices, quality frames, neutral consumables or four-direction F/SSS staff.",
+    "Initial RETURN, source fix details and all 57 original frame hashes are retained in history. reviewedfiles now contains final-build evidence and hashes.",
+    "No additional source modifications were made during final review. git diff --check passes. Final verdict is visual; integration tests and build qualification remain owned by the main agent."
+  ],
+  "defects": [
+    {
+      "id": "D120-EQUIPMENT-VISUAL-01",
+      "priority": "P2",
+      "state": "closed; verified in final native captures",
+      "summary": "Combined potion restoration value clips after wrapping in narrow detail column.",
+      "affected_frames": [
+        "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1280, 720)-merchant-neutral-MixedPotion.png",
+        "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1280, 720)-neutral-potion-inventory.png",
+        "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1600, 900)-merchant-neutral-MixedPotion.png",
+        "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1600, 900)-neutral-potion-inventory.png",
+        "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1920, 1080)-merchant-neutral-MixedPotion.png",
+        "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1920, 1080)-neutral-potion-inventory.png"
+      ],
+      "source_files": [
+        "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Equipment.cs",
+        "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Merchant.cs"
+      ],
+      "acceptance": "At 1280x720, 1600x900 and 1920x1080, full 100 HP + 100 MP and 20 s cooldown are readable without clipping or overlap in inventory and merchant; neutral frames/count/per-bottle prices remain intact.",
+      "verified_frames": [
+        "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1280, 720)-merchant-neutral-MixedPotion.png",
+        "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1280, 720)-neutral-potion-inventory.png",
+        "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1600, 900)-merchant-neutral-MixedPotion.png",
+        "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1600, 900)-neutral-potion-inventory.png",
+        "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1920, 1080)-merchant-neutral-MixedPotion.png",
+        "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment-final/(1920, 1080)-neutral-potion-inventory.png"
+      ]
+    }
+  ],
+  "required_verification": [],
+  "limits": [
+    "Visual review of supplied native Mac development-player PNGs, not a live gameplay run or OS-input qualification.",
+    "No scenes, processes, assets or gameplay simulations started or changed by this review. Only the two authorized presentation files and this report were modified.",
+    "Gameplay tests were not rerun by this reviewer; aggregate automated results and final build qualification are maintained by the integration owner.",
+    "Windows/Steam and other aspect ratios remain unverified.",
+    "HUD/skill-tree final appearance is owned by the separate Astra review; this verdict covers equipment/forge/potions/held staff only.",
+    "Visual PASS does not replace owner acceptance or prove gameplay stock/reset behavior."
+  ],
+  "history": [
+    {
+      "phase": "initial native review and source correction",
+      "record": {
+        "date": "2026-10-22",
+        "reviewer": "GPT-6 Astra",
+        "workstream": "D120 equipment, forge, consumables and held staff final visual review",
+        "verdict": "RETURN",
+        "status": "visual correction implemented; awaiting fresh native recapture",
+        "reviewed_frame_count": 57,
+        "reviewedfiles": [
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1280, 720)-empty-pendant-rings-bow.png",
+            "sha256": "ebfde668d244182106799df1177dbf787cc2ec6c025b64e3abb038a99649c03e"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1280, 720)-empty-pendant-rings-staff.png",
+            "sha256": "c5464da22fe97fb040373463cd523e065e26d98263de66cc479dcbd96a81687e"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1280, 720)-forge-SSS-existing-level.png",
+            "sha256": "a23a40da7ae4929b64333f265b58520e533294df38283f48f4f274a3fa65351d"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1280, 720)-forge-create-Amulet.png",
+            "sha256": "bb5791a880935f90b2aabfd22b372264791545424c0f7b394df3eb6385ad0600"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1280, 720)-forge-create-Protection.png",
+            "sha256": "dcbc6e095d9f7a6f3d5c972169c8b76a8af5865e77e2ae80ad1b54760bef1903"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1280, 720)-forge-create-Ring.png",
+            "sha256": "cd0226ebef0fbe9de8b42c9a69107c86eba54106a7770d96d44519ed619076eb"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1280, 720)-merchant-neutral-HealthPotion.png",
+            "sha256": "7cad0132a009c668d976717b2f6d4fc219c16583f8db6a4d8197a0d7b3bc7302"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1280, 720)-merchant-neutral-ManaPotion.png",
+            "sha256": "c58c304e91999691b96b4f1eb52ccf61011f3b62cac32d2e387b391f5ccdd962"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1280, 720)-merchant-neutral-MixedPotion.png",
+            "sha256": "602f2213533c763e424d7a58f88ce4fefd1e93bc3613611b63f4e1ae6546f9d3"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1280, 720)-neutral-potion-inventory.png",
+            "sha256": "01b2a48c321583814e04eae38497a08cefdaf105cb34a2bf7ac362b1b59b6a66"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1280, 720)-staff-F-direction-0.png",
+            "sha256": "0bd3b3909e930371c915a46cb98fe51389487dacfe16865d95ebcc088c33b545"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1280, 720)-staff-F-direction-1.png",
+            "sha256": "1c3c82c944524cbb75447d80c0771beef6c6903bf2f0e74d3d2c65e66720e870"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1280, 720)-staff-F-direction-2.png",
+            "sha256": "b7bcc9baa1b51c9dbef625fb7ddbf287a60a4337f97e5fb158350b8b0cc22835"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1280, 720)-staff-F-direction-3.png",
+            "sha256": "63bf9cb8020792aec91497f28e8f851d44ebde39ed9a19b0b33627cbdea9d03d"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1280, 720)-staff-SSS-direction-0.png",
+            "sha256": "76e9bf2c7ba51078feab549aed1ef906a4c1f65e0da56f854f2f9b28c9f59bbe"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1280, 720)-staff-SSS-direction-1.png",
+            "sha256": "6ed9957ceb2cc5237b2a4945994f4274885e4ca9ef97a7b2f5940fbc987f8931"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1280, 720)-staff-SSS-direction-2.png",
+            "sha256": "e90689d3201e2efface3d982be64b7df3649a3e1a3848c6db4653c177f940345"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1280, 720)-staff-SSS-direction-3.png",
+            "sha256": "d73bf53fa5ad2c54976dcd03552850b18e90eff87fa3be31128c0a88d511b907"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1280, 720)-twelve-equipped-SSS-amulet.png",
+            "sha256": "38e9bc60cddcc08424ffdac461174dbfff2b20a227749f4415bef6ebdeb95e0f"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1600, 900)-empty-pendant-rings-bow.png",
+            "sha256": "4a023b6239e86de4ce2cd4f05c984bb5dfe3ed4c75385ef46d1ea6d1240b5442"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1600, 900)-empty-pendant-rings-staff.png",
+            "sha256": "dd22ea37b3605b286206d0375c351781d2013b843e257e701095a781f56a7f0e"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1600, 900)-forge-SSS-existing-level.png",
+            "sha256": "1888eb0541c2567d01fbc67da071d51bb5c7ea5a288a77253c7e4df96349b0b6"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1600, 900)-forge-create-Amulet.png",
+            "sha256": "45c94a9ba6c2fce07cca805348229d8e608115eda10147e020887e262c7538e0"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1600, 900)-forge-create-Protection.png",
+            "sha256": "9558e1a9033d4bb3b18a1645262bf691e7131ee0c5efa4153a0dffff71d15ec8"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1600, 900)-forge-create-Ring.png",
+            "sha256": "c928cc0b9e6d21ce6dee68f4fb817f03c1339584d1775ed2f4b72306cefbcc43"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1600, 900)-merchant-neutral-HealthPotion.png",
+            "sha256": "af42c1014f50c7bc060cea5fe6266c612a1ecace58a832929051847329d60616"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1600, 900)-merchant-neutral-ManaPotion.png",
+            "sha256": "dbb202a3c6060971cb78c31a841138f6c9e9f5e1d7c8203877afa9af107e58ff"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1600, 900)-merchant-neutral-MixedPotion.png",
+            "sha256": "7c10bf0226df3413218afb0d1639c497da13417c4a8f13f7f4d22a4690ebfe8e"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1600, 900)-neutral-potion-inventory.png",
+            "sha256": "33f624f8d2d8d9776d80d6c5dee7f35cfd4eada4e967b7c7d16e76b4dcb6498b"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1600, 900)-staff-F-direction-0.png",
+            "sha256": "39f447361798eed9ff74319288a34a30993a5280af0596a91e32865d1297339d"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1600, 900)-staff-F-direction-1.png",
+            "sha256": "a265da68f002e2fad64fd455564aa40b839d757c3565d86ae7154a35ea5764cf"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1600, 900)-staff-F-direction-2.png",
+            "sha256": "6c83d8561e866a3742ecc3a6121dd7ad0c40b410b5686220400fc27972793319"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1600, 900)-staff-F-direction-3.png",
+            "sha256": "bd851cd4b109017a12661aa0e10cebf5655d6d5b54fc4719c02fc9e48c3874a1"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1600, 900)-staff-SSS-direction-0.png",
+            "sha256": "95cc44e7c27e6c1e2d1478d13e35ccb23a8816baf4471c1998c2890819f30e58"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1600, 900)-staff-SSS-direction-1.png",
+            "sha256": "7de8ca7d61de7bbfd1ed98f7982f0c95100371742091a50b157c5c47ae69d2b9"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1600, 900)-staff-SSS-direction-2.png",
+            "sha256": "0fc6128876e16fc952cbbdd286f8bdb69249d700826c4b93b34ad191f48edfea"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1600, 900)-staff-SSS-direction-3.png",
+            "sha256": "4b2e3013541bb885c1b8e9f3ce52f7b04d96540bb3a3c931e4b5fa15a0cfc61d"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1600, 900)-twelve-equipped-SSS-amulet.png",
+            "sha256": "870348f412cec74d45e23bde92fb9d03a81590fb71130e45731c75c09b0ab397"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1920, 1080)-empty-pendant-rings-bow.png",
+            "sha256": "e837e797116b63f1c17632e70815798ad0d17820ceaad72d72cbc2e85a5b3ccb"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1920, 1080)-empty-pendant-rings-staff.png",
+            "sha256": "7b58069e1b144634af3b33f6cf37b59ff295b30a9329ad3d09a310b8367fbad7"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1920, 1080)-forge-SSS-existing-level.png",
+            "sha256": "c296173794411118f6d0126caa2250fb12e8808e843611532ef9b3e71bc73c4d"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1920, 1080)-forge-create-Amulet.png",
+            "sha256": "674f001be2ff1f3711a2a842d5109658a56a22f586b5e6798802c95fb091a89f"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1920, 1080)-forge-create-Protection.png",
+            "sha256": "27156689eb5542ed6d40dccd1cb015a96c46f3d40481e516ecd53a69d586f803"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1920, 1080)-forge-create-Ring.png",
+            "sha256": "232c3495cadc7dedee7bea53ad1102030cbd83c78b8a7d552676f47f2868e142"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1920, 1080)-merchant-neutral-HealthPotion.png",
+            "sha256": "8ad624baff90995bb561073f6120003a08d89eb5da22c8fc06106f57dd2ea6c2"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1920, 1080)-merchant-neutral-ManaPotion.png",
+            "sha256": "af6cc0928ac502915078230bbf9accb957b6913418fbfe55488c9ecfc7fa4f6c"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1920, 1080)-merchant-neutral-MixedPotion.png",
+            "sha256": "d79ddab1210ca86323cc68a7ac34e1cf171271f35f3d9d4982b002954a7c87f4"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1920, 1080)-neutral-potion-inventory.png",
+            "sha256": "f3e53dd1ba2f7af56f47769430aa71156e915d0f273f706931e57a7ffb61c8f3"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1920, 1080)-staff-F-direction-0.png",
+            "sha256": "e32c8cdb2729db2ebea7ab945f92f7845d72fddacc1e772325e880243f485c5a"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1920, 1080)-staff-F-direction-1.png",
+            "sha256": "e39891b7cf520e55382f55432498a85ed680ab711a9269e38d3d78e7c4b25337"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1920, 1080)-staff-F-direction-2.png",
+            "sha256": "87de46e9470eeb121ec5c00795e1aa98856a8fab6a6be1d6e87a9e4d9b319deb"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1920, 1080)-staff-F-direction-3.png",
+            "sha256": "8baf8b9cbe4f7011914ba2c766115fc21c6d2b406c37f33b12d4b72d7a0a0960"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1920, 1080)-staff-SSS-direction-0.png",
+            "sha256": "0aaa1cdee532d6bf30264f9bf09adf9518e884b1b24d7aba3a44504337ec0a1b"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1920, 1080)-staff-SSS-direction-1.png",
+            "sha256": "323b44fd750afab7a2af8615c4ee99862cd0ca22ebc6c9eb684976f4729002f5"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1920, 1080)-staff-SSS-direction-2.png",
+            "sha256": "ea24630b7daab10b51b4a96338fdae8874020fe815310d2c7d357513e9855936"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1920, 1080)-staff-SSS-direction-3.png",
+            "sha256": "85b34965418506bfecff578a92aacb88fe420cd2e93d109cefa7f86ac27b3f0b"
+          },
+          {
+            "path": "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1920, 1080)-twelve-equipped-SSS-amulet.png",
+            "sha256": "bc614110f4c34d7fbc4d493852e9a844fb504feb6a630c7d4e9730681788ddfe"
+          }
+        ],
+        "referencefiles": [
+          {
+            "path": "art/concepts/hero_loadout_2026-10-22/equipment_v2.png",
+            "sha256": "b645a65a4c74451a445a4308e20514fa1270a24b0bf06f16db65570732575f9e"
+          },
+          {
+            "path": "art/concepts/hero_loadout_2026-10-22/hud_v2.png",
+            "sha256": "c634357bd17e34e82025bfb7d8dbec61043631faeb7820f1cc2806b7a21f8b6c"
+          }
+        ],
+        "method": "All 57 native Mac frames inspected in per-resolution contact sheets. Original 1280x720 inventory, SSS accessory details, protection forge and mixed-potion merchant frames inspected at full size. Staff F/SSS all four directions inspected in crops at 720/900/1080; mixed restoration value inspected in crops from all three resolutions.",
+        "notes": [
+          "PASS: 12 fixed equipment positions retain the approved arrangement, simultaneous bow/staff slots, four armor slots, two rings, amulet, protection, pickaxe and axe. Paperdoll and bag/details remain distinct and unclipped at 720/900/1080.",
+          "PASS: empty amulet has a chain and suspended diamond pendant, visibly distinct from the two circular ring placeholders.",
+          "PASS: held F and SSS staff have long upright silhouettes, visible head and grounded lower end in all four captured facings. Grip registration stays next to the carrying hand; no detached shaft or source-atlas neighbour appears. Paperdoll switches between bow and staff.",
+          "PASS: accessory and staff art preserves the existing painted multitone quality skins and contained thin luminous edges. F/D/C/S/SSS differences and separate cyan selection remain visible. No visible quality-boundary bleed or art truncation in the supplied frames.",
+          "PASS: forge shows eleven readable choices at 720/900/1080. Amulet damage, ring maximum MP and protection reduction/no-MP properties are distinct. SSS existing-item upgrade preview is visually separate from quality creation restrictions.",
+          "PASS: red/blue/purple potions remain neutral and have no equipment quality or LVL captions. Owned count 3 and captured merchant remainder 2 are visible; 100/100/250 gold per-bottle prices are explicit. Native fixtures intentionally bought three of each initial five.",
+          "RETURN: mixed-potion restoration value wraps inside the original narrow single-line property field and clips glyph tops/bottoms in both inventory and merchant details at all three resolutions.",
+          "Correction applied only to consumable detail rendering: fixed 54*UiScale property rows place the label above a full-width value. Actual values, quantities, prices, inventory geometry and gameplay data are unchanged.",
+          "Static git diff --check passed after the correction. Final PASS requires fresh native frames; the existing reviewed hashes represent the pre-correction evidence."
+        ],
+        "defects": [
+          {
+            "id": "D120-EQUIPMENT-VISUAL-01",
+            "priority": "P2",
+            "state": "fixed in source, awaiting native verification",
+            "summary": "Combined potion restoration value clips after wrapping in narrow detail column.",
+            "affected_frames": [
+              "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1280, 720)-merchant-neutral-MixedPotion.png",
+              "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1280, 720)-neutral-potion-inventory.png",
+              "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1600, 900)-merchant-neutral-MixedPotion.png",
+              "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1600, 900)-neutral-potion-inventory.png",
+              "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1920, 1080)-merchant-neutral-MixedPotion.png",
+              "Artifacts/HERO-LOADOUT-2026-10-22/native-equipment/(1920, 1080)-neutral-potion-inventory.png"
+            ],
+            "source_files": [
+              "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Equipment.cs",
+              "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Merchant.cs"
+            ],
+            "acceptance": "At 1280x720, 1600x900 and 1920x1080, full 100 HP + 100 MP and 20 s cooldown are readable without clipping or overlap in inventory and merchant; neutral frames/count/per-bottle prices remain intact."
+          }
+        ],
+        "required_verification": [
+          "Compile corrected presentation code.",
+          "Relevant existing Stage3LoadoutEquipmentPresentationTests; especially ElevenForgeChoicesFitContentAndPotionCaptionStaysUngraded.",
+          "Recapture neutral-potion-inventory and merchant-neutral-MixedPotion at 720/900/1080; also merchant HealthPotion/ManaPotion for shared helper regression."
+        ],
+        "limits": [
+          "Visual review of supplied native Mac development-player PNGs, not a live gameplay run or OS-input qualification.",
+          "No scenes, processes, assets or gameplay simulations started or changed by this review. Only the two authorized presentation files and this report were modified.",
+          "131 distinct PlayMode PASS and fresh build were supplied by the integration owner; this reviewer did not rerun them.",
+          "Windows/Steam and other aspect ratios remain unverified.",
+          "HUD/skill-tree final appearance is owned by the separate Astra review; this verdict covers equipment/forge/potions/held staff only.",
+          "Visual PASS does not replace owner acceptance or prove gameplay stock/reset behavior."
+        ]
+      }
+    }
+  ],
+  "open_visual_defects": []
+}

@@ -185,8 +185,9 @@ namespace Not3A.Stage3.VisualPilot
                         }
                     return districtWorld?.Obstacles?.IsBlocked(point, radius + .4f) ?? false;
                 }
-                var additional = Stage2ManualResourceGenerator.Generate(bootstrap.MapDefinition,
-                    composition.Gathering.Catalog, districtWorld != null ? districtWorld.Seed : 164032, Excluded);
+                var additional = new List<Not3A.Stage2.Economy.Stage2ResourceNode>(Stage2ManualResourceGenerator.Generate(bootstrap.MapDefinition,
+                    composition.Gathering.Catalog, districtWorld != null ? districtWorld.Seed : 164032, Excluded));
+                if(camps!=null)additional.AddRange(camps.CreateCampResources(composition.Gathering.Catalog));
                 economy.ReplaceAdditionalNodes(additional);
             }
             foreach (var visual in manualVisuals)
@@ -194,6 +195,7 @@ namespace Not3A.Stage3.VisualPilot
             manualVisuals.Clear();
             foreach (var node in economy.Nodes)
             {
+                if(camps!=null&&camps.IsCampResource(node))continue;
                 var i = (int)node.Resource;
                 var primary = node == economy.GetNode(node.Resource);
                 var marker = primary ? transform.Find($"{node.Resource} Resource Marker") : null;
@@ -219,6 +221,7 @@ namespace Not3A.Stage3.VisualPilot
                         new Vector3(.65f,i == 1 ? .64f : .45f,.65f),
                         i == 0 ? woodSource : i == 1 ? stoneSource : metalSource);
             }
+            camps?.BindCampResources(interactionMarker);
             var manualSettings = composition.Gathering.Catalog.ManualResources;
             if (manualSettings != null)
             {

@@ -1,0 +1,183 @@
+{
+  "workstream": "D120 hero loadout HUD and mixed tree",
+  "reviewer": "Astra",
+  "date": "2026-10-22",
+  "status": "VISUAL_PASS",
+  "scope": "Final Mac native appearance at1280x720/1600x900/1920x1080; not owner acceptance or Windows qualification.",
+  "reviewed_frame_count": 23,
+  "evidence_directory": "Artifacts/HERO-LOADOUT-2026-10-22/native-hud-final",
+  "resolutions": [
+    "1280x720",
+    "1600x900",
+    "1920x1080"
+  ],
+  "approved_references": [
+    "art/concepts/hero_loadout_2026-10-22/hero_tree_v1.png",
+    "art/concepts/hero_loadout_2026-10-22/hud_v2.png"
+  ],
+  "resolved_findings": {
+    "T1": "Focus caption intact at all three sizes; other two-word captions break at spaces only.",
+    "T2": "Bolt satellites clear of caption; lower links route outside captions; skip-active curves run above rows;31actual combat nodes distinct.",
+    "T3": "Description shown once; current/next effect has appropriate range,damage multiplier,percent,MP and seconds labels; requirements/ranks/button remain distinct.",
+    "C1": "Neutral target moved right of clock; confirmed8damage and local spark visible; neighbouring HP bars visible without clock occlusion."
+  },
+  "passed_surfaces": [
+    "12combat-tree/adventurer frames: compact header, actual prerequisites, shared Blink+4passives,5bow+5staff,20combat passives,3actual adventurer nodes, readable detail selection",
+    "6HUD frames: two weapon rows with1–5onlyactive, Qshared, Zswitch,4fixed consumablecells,F1–F4/F10, retainedHP/MP/XP,minimap,portrait,nav,painteditemquality",
+    "3gathering frames: existing actual profession values and tool quality remain readable",
+    "2confirmedhit frames: bounded portal Fireball/actual33damage; neutral single8damage andlocalhit, visibleHUD safe area"
+  ],
+  "remaining_visual_blockers": [],
+  "evidence_sha256": {
+    "1280x720-adventurer.png": "fce7f99ae383c49719d5fd48fd6cac947da3376261dc45bccf61864a76bdfdfe",
+    "1280x720-gathering.png": "1e5ba0fb07a375a90afed7f5f9338658ae4d6730ed7e2c26cbb1759d7d69bcb2",
+    "1280x720-hud-bow.png": "a854ef8370e402a33668be9631d5780705be12dea65bd6c3317cbc61173dbfb7",
+    "1280x720-hud-staff.png": "4f2cce4908bf2383b21c497bb3b67d77752d2e4ef4570802d63a0db4d20ed195",
+    "1280x720-tree-0.png": "acbb5bd58fba6fbc62957781cc8a3732ca5a4701cd3ae5d7e1607118b316e616",
+    "1280x720-tree-14.png": "57290021df6ec4de11a548871fb6fc8ef5d8129b272f134e9856337af712d283",
+    "1280x720-tree-9.png": "6776cb2ddc8786b6f895d2d444c6b6f3be354e0a2c7901456029cdd37021628d",
+    "1600x900-adventurer.png": "2a9ecb0acf21136115abf43b28dfe2ec830964ced1322df69497b6d15186989f",
+    "1600x900-gathering.png": "37ee0d19ef4935a20fe9c3eef5d60f9e908d58582a373951f1225ad0c80ff8c7",
+    "1600x900-hud-bow.png": "68089dd60529504bc16d04075e9dce147d82b61e40e23d7cb9acb4934e51331a",
+    "1600x900-hud-staff.png": "79a67e92c7117365e0e5bc39a7406842c414050a92cf597f5c1a764adffaf3cc",
+    "1600x900-tree-0.png": "ee8ac3b73d5b5e4f5a758b1b98f7a5eea8a1ee4b2073714c2797bcc9d93c228b",
+    "1600x900-tree-14.png": "772d1cc03c23dd225c7755481941617765089b88d9fefde43892592c44e3f3f1",
+    "1600x900-tree-9.png": "f82adde156519da0203d01c16d6d9d85667edeeca049d181228abbfa1a12bd6e",
+    "1920x1080-adventurer.png": "35784bdf21d42866f9708f7081bbbbe111e716dff63d367390470e638486512e",
+    "1920x1080-gathering.png": "2de4eec27acec12e10dd741865c6bf76870584abc17fd1649b69fd677804fb15",
+    "1920x1080-hud-bow.png": "d3720bd75561199d755d047fe2e1ea1398d5c5ad649ffda444de8ca97eba516a",
+    "1920x1080-hud-staff.png": "deed9d371aebcfd4b08f3aaaf28ce2a3c859945b0583aa7acbbcd23de7348482",
+    "1920x1080-tree-0.png": "c0adcc976d0b59269eb00b77c7e8ce5abc64f73dfbcb3ab3424dd7878af38e87",
+    "1920x1080-tree-14.png": "18ee7d35d6806a709555be398b40aa2660f62949cb8bc514945796ed4b25fce0",
+    "1920x1080-tree-9.png": "6bcc70dd299d202aefa1bb3627c46f99d1bbc08deb099df9aa8950e22835d9c1",
+    "facts.txt": "928d3ff6154e35a23ce0b891190dbff47160e8de551235f64ccdc5e78ddb78e8",
+    "fixture.txt": "a877984fdf768e6e4a4b17a5d8f2cc9bd8e11b8d8eb6940c445885a9ff5e84c0",
+    "frames.txt": "a64a8e7f0ee245bd48e851466d5ce44f47d56559916bb80c8ce4b84fe05702d1",
+    "functional.txt": "e06895958652dbbd8c77134ebe4e62dd9a8a74cfb75aa6f6efbe4ff0d1f1f510",
+    "neutral-bolt.png": "6275edec2e6bd9f415626420f51b97829e87c7294140bcfdb1fcaff8e77c097a",
+    "portal-fireball.png": "52642bbef3d7286912fb87f45593d908b26242d64703d02150e7ead0a598c299",
+    "qualification.txt": "da2ca9464ae4064a13cb9ce1bcb1c2e18c439d87584ea40073e5b941ed77ec37"
+  },
+  "verification": {
+    "prior_suite": "Parent reported131 distinct tests PASS before caption-layout repair.",
+    "latest_focused": "Parent reported20/21 focused PASS then6/7 repeat PASS; sole new caption test first had private reflection bug, then ran in unspecified Editor GameView. Both failed runs preserved.",
+    "caption_test_repair": "Test-only coroutine now requests each of the three supported resolutions and retains strict node/caption assertions. If batch GameView refuses request, explicitly skips with actual/requested sizes; native frames remain the visual evidence. Await parent rerun.",
+    "local_static": "git diff --check clean",
+    "runtime_changes_after_final_build": "None",
+    "windows": "Unverified",
+    "owner_final_native_acceptance": "Not inferred from concept approval"
+  },
+  "initial_review": {
+    "status": "RETURN",
+    "review_json_sha256": "376d6ac5830a53334cd96d9ef813418a47c049cab7b0227b84f62f2b38be946a",
+    "frame_sha256": {
+      "1280x720-adventurer.png": "6eb2c8e9419a9867d7f34d17566846fc044642a22ca7753397425b954a50d826",
+      "1280x720-gathering.png": "1e5ba0fb07a375a90afed7f5f9338658ae4d6730ed7e2c26cbb1759d7d69bcb2",
+      "1280x720-hud-bow.png": "093b82f088909c11f6197bb5cd49f8c304fbb5250f55aa375498d485355b8679",
+      "1280x720-hud-staff.png": "c8d95e45275d3081d7612650c23c1eb88ddeb3c9923c17c56d7e95ec39fdd5c4",
+      "1280x720-tree-0.png": "6d792b5386b44e3ca96f9c7be7c81da66a474f233c9f96f31f37df0ab9339d90",
+      "1280x720-tree-14.png": "1b522554f714c6158c09e1865c627192b2b22bed14f5f03553d652fc936fec26",
+      "1280x720-tree-9.png": "aead5e65735bf2304c3645c8ec40ec1c35d3572484d91af1dd9e6fa7e7775465",
+      "1600x900-adventurer.png": "3ebb1873b83ace15c01fb15746a4036b7dbf76b94d471fcc31d0390218228bd1",
+      "1600x900-gathering.png": "8f7a37834011686f5300f415ea5256d63128573405036c770144aef9b07357b8",
+      "1600x900-hud-bow.png": "ecf69dbe2e072b2bb89ab37081600c7013d7042bdc430d51dda3f7d513bcf87b",
+      "1600x900-hud-staff.png": "67fab2d8429085db54dc0a01c0612e4a9834cec3f1463749be6e589fe2005f6f",
+      "1600x900-tree-0.png": "b71b5935480d7df869e84860a8a9b2d97870a2f05c0efaf53f1d70e8cf0782d6",
+      "1600x900-tree-14.png": "19095608b69e345f111cde4fdd790a74fd7b644945602623d1bb02ab0d7a5a03",
+      "1600x900-tree-9.png": "4a5732ba50d436c1939f6d434067dfa6705fc3a23ecbdd8ab1bb32249ca132e4",
+      "1920x1080-adventurer.png": "ce74ead0fb1f0be043e1d67ffbad57fcba76ed9d42d0154a5c79566ed95ac65a",
+      "1920x1080-gathering.png": "4f60c59d665c06bf8de2af726326a8a8e188e673cf6b7e075ae51e59e9907f4a",
+      "1920x1080-hud-bow.png": "7e48d059a7cbc5e31720f9e7b8616b194924c05186c22f4b0422e5770d1eb00e",
+      "1920x1080-hud-staff.png": "9664f8845097555aaaf9ddb0de63c3dd0155b6134b3be0724ac8275cdd6d0c2e",
+      "1920x1080-tree-0.png": "f6f6a31a19ae49dc0e32122fd2f6bad72bf8d9e57475d4d0a606079bd20c6b05",
+      "1920x1080-tree-14.png": "3ac3d24cbe314fb5686411517df7ae16fdf3780dc5adde6c4f8e70d3b18d44d1",
+      "1920x1080-tree-9.png": "0b01c99311c2d228c7e425293813482f70f918b2188d50a958e4876822ff2bfc",
+      "neutral-bolt.png": "dcb24d60d28e4d5e4e09f31f08ba5160d4747ebdd8b5d9ebd5f62e59bfe29d39",
+      "portal-fireball.png": "1bda5c83209f2ce26915722353138596837c340505c6e47a5c54a30b5247adcb"
+    },
+    "record": {
+      "workstream": "D120 hero loadout HUD and mixed tree",
+      "reviewer": "Astra",
+      "date": "2026-10-22",
+      "status": "RETURN_PENDING_RECAPTURE",
+      "reviewed_frame_count": 23,
+      "evidence_directory": "Artifacts/HERO-LOADOUT-2026-10-22/native-hud",
+      "frames": [
+        "1280x720-adventurer.png",
+        "1280x720-gathering.png",
+        "1280x720-hud-bow.png",
+        "1280x720-hud-staff.png",
+        "1280x720-tree-0.png",
+        "1280x720-tree-14.png",
+        "1280x720-tree-9.png",
+        "1600x900-adventurer.png",
+        "1600x900-gathering.png",
+        "1600x900-hud-bow.png",
+        "1600x900-hud-staff.png",
+        "1600x900-tree-0.png",
+        "1600x900-tree-14.png",
+        "1600x900-tree-9.png",
+        "1920x1080-adventurer.png",
+        "1920x1080-gathering.png",
+        "1920x1080-hud-bow.png",
+        "1920x1080-hud-staff.png",
+        "1920x1080-tree-0.png",
+        "1920x1080-tree-14.png",
+        "1920x1080-tree-9.png",
+        "neutral-bolt.png",
+        "portal-fireball.png"
+      ],
+      "resolutions": [
+        "1280x720",
+        "1600x900",
+        "1920x1080"
+      ],
+      "approved_references": [
+        "art/concepts/hero_loadout_2026-10-22/hero_tree_v1.png",
+        "art/concepts/hero_loadout_2026-10-22/hud_v2.png"
+      ],
+      "passed_surfaces": [
+        "HUD: universal Blink, two five-skill rows, contextual 1–5, muted inactive weapon, four quick slots, Z/F10, preserved minimap/vitals/navigation and quality frames",
+        "Gathering layout at all three resolutions",
+        "Exactly three actual adventurer nodes; no invented placeholders",
+        "Portal Fireball visible bounded local impact and actual damage numerals; native functional log confirms four of twelve targets damaged without clearing horde"
+      ],
+      "returned_findings": [
+        {
+          "id": "T1",
+          "evidence": "1280x720-tree-9.png",
+          "issue": "Focus title wraps within its single Russian word; reproduced at all three resolutions."
+        },
+        {
+          "id": "T2",
+          "evidence": "1280x720-tree-0.png",
+          "issue": "Bolt title overlaps lower passive satellites; staff skip-prerequisite curves intersect active captions."
+        },
+        {
+          "id": "T3",
+          "evidence": "1280x720-tree-14.png",
+          "issue": "Right details repeat Description in EffectText, truncating the second copy into requirements; adventurer repeats text too. Main owns DTO fix."
+        },
+        {
+          "id": "C1",
+          "evidence": "neutral-bolt.png",
+          "issue": "Central target partly covered by clock, so this frame cannot qualify its HP/damage readability. Main moves capture position only."
+        }
+      ],
+      "repairs_ready_for_retest": [
+        "Separate active-caption and passive-satellite vertical bands; widen active captions to180 design pixels; word-boundary-only two-line titles, minimum16 design-pixel font",
+        "Four shared nodes remain left of weapon branches and disjoint; four Bolt passives in two separate pairs",
+        "Skip-active prerequisite arcs above both rows; lower-passive links route around reserved caption band",
+        "Public SkillNodeLabelRect and focused actual-catalog geometry test: every caption distinct and clear of every node",
+        "Main removed duplicate catalog description from EffectText; QA-only neutral framing adjusted by main"
+      ],
+      "verification": {
+        "previous_tests": "Parent reported131 distinct tests PASS before these repairs",
+        "local_static": "git diff --check clean; independent normalized geometry overlap check clean at720/900/1080",
+        "pending": "Parent Unity focused tests/build, then native recapture of tree/details and neutral hit",
+        "windows": "Unverified",
+        "owner_final_native_acceptance": "Not inferred from concept approval"
+      }
+    }
+  }
+}

@@ -178,6 +178,7 @@ namespace Not3A.Stage3.PlayerInterface
             if(!IsReady) return;
             ResetRecoveryPointerMetadata();
             ResetCityMapMetadata();
+            ResetGuildMapMetadata();
             using var sample=HudFrameMarker.Auto();
             var savedMatrix=GUI.matrix; var savedColor=GUI.color; var savedEnabled=GUI.enabled; var savedDepth=GUI.depth;
             var savedBackground=GUI.backgroundColor;var savedContent=GUI.contentColor;
@@ -232,14 +233,16 @@ namespace Not3A.Stage3.PlayerInterface
         {
             if(legacyHud==null || !legacyHud.DebugAvailable || legacyHud.DebugOpen) return;
             var r=DevelopmentAccessRect;
-            if(Button(r,"F3 · Отладка")) legacyHud.SetDebugOpen(true);
+            if(Button(r,heroLoadout!=null?"F10 · Отладка":"F3 · Отладка")) legacyHud.SetDebugOpen(true);
         }
 
         private void DrawMenuButton(int i)
         {
             var r=HudMenuButtonRect(MenuWindows[i]); var s=UiScale;
             var clicked=SurfaceButton(r,ActiveWindow==MenuWindows[i],true);
-            if(art.menuIcons!=null && i<art.menuIcons.Length)
+            if(MenuWindows[i]==Stage3PlayerWindow.Hero)
+                DrawDevelopmentTreeIcon(new Rect(r.x+10f*s,r.y+4f*s,28f*s,28f*s));
+            else if(art.menuIcons!=null && i<art.menuIcons.Length)
                 DrawIcon(new Rect(r.x+10f*s,r.y+4f*s,28f*s,28f*s),art.menuIcons[i]);
             var key=new Rect(r.xMax-21f*s,r.yMax-21f*s,21f*s,21f*s);
             DrawDisc(key,Silver);DrawDisc(Inset(key,1.5f*s),PlumInk); PaleLabel(key,MenuKeys[i],14,TextAnchor.MiddleCenter);
@@ -387,6 +390,7 @@ namespace Not3A.Stage3.PlayerInterface
             DrawIcon(outer,art.minimapFrame);
             Label(new Rect(outer.center.x-16f*UiScale,outer.y+6f*UiScale,32f*UiScale,25f*UiScale),"N",15,TextAnchor.MiddleCenter);
             DrawCityMinimapMarker(source,inner,uv);
+            DrawGuildQuestMinimap(inner,uv);
         }
 
         private Material CircularMaterial

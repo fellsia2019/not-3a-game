@@ -8,6 +8,7 @@ namespace Not3A.Stage3.PlayerInterface
         {
             DrawHeroDevelopmentTabs();
             if(showProfessions) DrawProfessions();
+            else if(heroLoadout!=null) DrawHeroSkillTree();
             else DrawHeroCombatDevelopment(HeroDevelopmentContentRect);
         }
 

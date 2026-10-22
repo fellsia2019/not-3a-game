@@ -1,0 +1,110 @@
+{
+  "schema": 1,
+  "date": "2026-10-22",
+  "decision": "D-120",
+  "purpose": "Original ImageGen concept-phase evidence; owner-approved source for D120. Native implementation is qualified separately.",
+  "tool": "image_gen.imagegen",
+  "external_art_used": false,
+  "provenance": "Original AI-generated concepts derived from existing project-owned concepts/native screenshot. Official RPG sources inform UX structure only; no source art traced or imported.",
+  "approval": "Owner APPROVED tree_v1/hud_v2/equipment_v2,5+5composition andcontrols on2026-10-22.",
+  "visual_owner": "GPT-6 Astra",
+  "main_owner": "ImageGen and nonvisual briefs/integration",
+  "images": [
+    {
+      "file": "art/concepts/hero_loadout_2026-10-22/hero_tree_v1.png",
+      "sha256": "fa47e70813a5fbf76c386b18e5afb9ad02bcbdffab9c3d7cd98af3608b3a667e",
+      "width": 1672,
+      "height": 941,
+      "status": "Astra composition PASS; owner APPROVED2026-10-22",
+      "reference_files": [
+        "art/concepts/world_ux_2026-10-21/hero_development_v5_compact_tree.png"
+      ],
+      "prompt": "Create an ORIGINAL high fidelity 16:9 PC fantasy RPG interface CONCEPT IMAGE, Russian text. Edit the referenced skill-tree concept, retaining its Lunar Porcelain visual language (warm ivory textured paper, deep plum, fine rose gold filigree, turquoise selection light, original painted circular spell icons) but COMPLETELY restructure the central tree. This is a reviewable new composition, not a shipped game screenshot.\nKeep fullscreen top nav Инвентарь I / Исследования P / Развитие героя O / Карта M / Esc. Under resources keep the THREE tabs Бой / Добыча / Авантюрист, with Бой selected. A single COMPACT header says Развитие героя, Уровень 35, XP 380/900, Очки: 4. No large counters, NO LEFT SIDEBAR, NO LEGEND, NO explanations of circle sizes. Main graph fills about 77% width and remaining 23% is the selected skill detail panel.\nGraph progresses LEFT TO RIGHT, with exactly ELEVEN large active circular nodes and exactly TWENTY small passive circular nodes:\nONE shared large Blink node at far left vertically centred BETWEEN the upper bow branch and lower staff branch. Label Блинк, key Q. From Blink split two clear curved prerequisite routes.\nUPPER branch label ЛУК, exactly FIVE large active circles at successive columns from left to right, labels (short two-line labels allowed): Прицельный выстрел, Пылающая стрела, Ледяная стрела, Сосредоточенность, Попутный ветер. Each node has a small numbered hotkey badge 1,2,3,4,5 respectively. Aiming arrow, flame arrow, frost arrow, bow focus, wind icons.\nLOWER branch label ПОСОХ, exactly FIVE large active circles at those same five columns: Чародейский снаряд, Личный барьер, Восстановление, Огненный шар, Грозовой разряд. Numbered badges 1,2,3,4,5. Magic bolt, blue shield, green healing leaf, fireball, lightning icons.\nEach of these TEN weapon active nodes has exactly TWO smaller satellite passive circles connected into the progressive graph (20 small total); branch paths must visibly REQUIRE an earlier learned node to reach a later node, with small intermediate connectors and branches, not free disconnected catalogue rows. Alternating satellite placement above/below prevents icon collisions. Small circles show painted symbols and rank pips only; show the selected passive Стрельба на ходу with a short caption in the bow branch. All other small node names only on hover, do not overcrowd text. Main circles 74-90px diameter, satellites 28-36px, visual hierarchy very clear.\nFirst two columns learned have brass/turquoise paths, next available points thin cyan contour, further prerequisites dim plum paths, later circles muted translucent locks but recognizable icons. No giant level 80/60 lines; tiny unobtrusive progression milestones above the columns are acceptable, illustrative only.\nRight detail shows selected Огненный шар, subtitle Посох · Активное, fireball original icon, short text Урон по небольшой области. MP 35 · КД 25 с, three concise rank indicators and a button Изучить · 1 очко. Tiny footer Эскиз · значения условные.\nEverything must feel useful, compact, balanced and readable at 1280x720. No copied IP assets, no extra weapon types, no redundant lists, no empty deleted sidebar area. Prioritize the exact 1 + 5 + 5 large-node count and clean visible prerequisite graph.",
+      "generated_source": "/Users/artemmusket/.codex/generated_images/01a15f98-3bde-7101-a64d-6ea9ef46a90b/exec-9d91a449-69ab-4084-a65b-8d07aef7089e.png"
+    },
+    {
+      "file": "art/concepts/hero_loadout_2026-10-22/hud_v1.png",
+      "sha256": "a3ade6c15f8cd79ed08db7a0995a721c3c1af3521264ea1540821feaac62de87",
+      "width": 1672,
+      "height": 941,
+      "status": "RETURN: short wand silhouette; inactive row too bright",
+      "reference_files": [
+        "Artifacts/WORLD-UX-2026-10-21/field-final/1600x900-portal.png"
+      ],
+      "prompt": "Create an original high fidelity 16:9 Russian PC fantasy RPG HUD CONCEPT by revising ONLY the bottom interface of the referenced NATIVE game screenshot. Preserve the native isometric green field, enemies, hero, upper resources, centered analog day/night dial and thin top edge. Keep original Lunar Porcelain bottom HUD: ivory painted texture, plum, thin rose gold, turquoise gems. Do not copy any other game's artwork. A concept composition for approval, not evidence of implemented mechanics.\nUse the bottom continuous dock efficiently, occupying about the existing bottom25% with a narrow unchanged navigation ribbon immediately above it. Navigation retains bag I, build B, research P, the CURRENT THREE-NODE TREE icon O, map M, no extra buttons.\nBottom dock zones left to right: small circular minimap; compact hero portrait with LVL35 and TWO small equipped weapon thumbnails labelled Лук and Посох, bow highlighted, staff dim; spell group; consumable group; HP/MP/XP.\nSpell group EXACTLY ELEVEN circular original painted icons: one universal blue Blink Q positioned to the LEFT of the others and vertically BETWEEN their two rows, then upper row EXACTLY FIVE bow icons, lower row EXACTLY FIVE staff icons. Upper active bow row bright: aimed arrow, flaming arrow, frost arrow, archer focus, wind. Clear keycaps 1,2,3,4,5 ONCE ONLY on this row. Lower inactive staff row subdued but recognizable: purple magic bolt, blue barrier, green selfheal, fireball, lightning. No number keycaps on inactive row. Tiny bow/staff pictograms at row start and one Z key between them to show switching. Show a readable subtle cooldown wedge and 12s on one inactive fireball so users can monitor it; other icons unobscured. No ability names in dock, no textual lesson or sidebar.\nConsumables in compact2x2 next to skills: F1 redHP potion with count3; F2 blueMP potion count2; F3 purplecombined potion count1; F4 empty neutral square with a faint plus, no fourth item invented. Each key label readable and counters unobtrusive. Potions use small SQUARE fixed inventory cells, different from CIRCULAR spells. Four cells exactly, no extra potion row. Potions retain their red/blue/purple liquid colors and all have distinct bottle silhouettes.\nFar right retain three full readable horizontal HP/MP/XP numeric tracks with thin original shaped frames: HP100/100, MP65/100, XP380/900. No abbreviated tiny fractions. Eliminate redundant bow damage/range/interval paragraphs to create space; those go in hover.\nTop-right existing debug label becomes F10 · Отладка, because F3 is now a potion. No extra clock or digital time. Tiny concept-only caption at outer edge Эскиз · значения условные.\nAt1280x720 target icon diameter48px and potion cells44px, readable12-14px key labels. Respect screen edges and avoid collisions. Keep generous playfield; do not enlarge dock beyond necessary. EXACT11skillcircles,2weapon thumbnails and4potion cells must read instantly.",
+      "generated_source": "/Users/artemmusket/.codex/generated_images/01a15f98-3bde-7101-a64d-6ea9ef46a90b/exec-8e185b3d-7346-4d93-9ab5-63b80212888c.png"
+    },
+    {
+      "file": "art/concepts/hero_loadout_2026-10-22/equipment_v1_return.png",
+      "sha256": "b0ce98da21dc3e29bff6b081563138d33c0f874611c1498b9e7f8178012a92bd",
+      "width": 1672,
+      "height": 941,
+      "status": "RETURN: invented bag contents, ranked blueprint, duplicate amulet presentation",
+      "reference_files": [
+        "art/concepts/equipment_forge_2026-10-19/inventory_items_v2.png"
+      ],
+      "prompt": "Create an ORIGINAL polished16:9 Russian PC fantasy RPG equipment/inventory CONCEPT IMAGE, editing the attached prior equipment mockup to the NEW equipment contract. Keep its Lunar Porcelain visual style: warm textured ivory panels, deep plum headings, fine shaped rose gold borders, cyan selection and restrained turquoise gems. This is a concept for approval, not an implemented screen. No copied game assets.\nFullscreen top nav same labels Инвентарь I / Исследования P / Развитие героя O / Карта M / Esc. Resources in a thin row. NO digital clock or extra help sidebar.\nThree useful columns with NO wasted space: LEFT character+equipped slots roughly38%; MIDDLE bag grid roughly36%; RIGHT selected item detail roughly26%. A compact painted original male adventurer stands in left centre; do not let portrait consume room needed for slots. EXACTLY TWELVE EQUIPPED CELLS arranged around him, uniform fixed squares:\nFour on his left, vertically: Шлем, Грудь, Руки, Ноги, showing existing simple armor.\nFour on his right, vertically: Лук, Посох, Амулет, Магическая защита. Bow and a LONG full-length wooden staff with small blue crystal head are simultaneously equipped, separate distinct slots. Bow has a tiny active cyan dot, staff muted. No third wand/weapon. Amulet is a small gold neck pendant with a red gem. Protection is a self-contained hovering arcane circular seal/sign with blue gold geometry, visually NOT jewelry, NOT a physical shield and NOT a rune socket.\nFour beneath him in a straight row: Кольцо, Кольцо, Кирка, Топор. Two ring slots EMPTY with a subtle ring-shaped silhouette; actual pick and axe icons. No additional armor/chest/shield slots. No decorative empty cells around character. Above weapons a discreet Z · Сменить. Exactly12cells.\nMIDDLE labelled Сумка: fixed6columns×5rows of consistent item cells. Bag items are only SPARES: a spare helmet, a research blueprint on aged ivory paper showing the staff, ONE example unequipped damage amulet selected, red/blue/purple potions with real-looking illustrative counts; many neutral empty cells, no duplicates of equipped items. Small quality backgrounds use painted multitone gradients and THIN shaped luminous frames, never flat solid fills or thick rails. F/E/D/C/B/A/S/SSS only. Current selected amulet is D green quality with separate cyan selection outline.\nRIGHT detail title Амулет натиска, a large original red gemstone neck pendant illustration, quality D in small green badge, LVL1/100, one concise property Урон героя +5% (illustrative value only), and a tasteful active button Надеть. Amulet affects hero, no tower bonus. In a compact separate note near protection slot or right bottom show Защитная печать · Постоянная защита · Без расхода MP. Avoid duplicating gear stat paragraphs and long tutorials.\nAll text readable, minimum14px at720p; cells roughly60px at720p and fixed, neither expanding nor shrinking with content. Slot names modest and legible; wrap Магическая защита into two short lines. Footer discreet Эскиз · значения условные.\nPrioritize exact12slots and clean use of reclaimed space, preserve original fantasy material/character style. NO shield, NO sword, NO second robe, NO left legend, NO extra item families.",
+      "generated_source": "/Users/artemmusket/.codex/generated_images/01a15f98-3bde-7101-a64d-6ea9ef46a90b/exec-b80a7fe9-feb0-474d-b75b-f16365439d8d.png"
+    },
+    {
+      "file": "art/concepts/hero_loadout_2026-10-22/hud_v2.png",
+      "sha256": "c634357bd17e34e82025bfb7d8dbec61043631faeb7820f1cc2806b7a21f8b6c",
+      "width": 1672,
+      "height": 941,
+      "status": "Astra composition PASS; owner APPROVED2026-10-22",
+      "reference_files": [
+        "art/concepts/hero_loadout_2026-10-22/hud_v1.png"
+      ],
+      "prompt": "Make ONLY TWO precise corrections to the attached ORIGINAL fantasy RPG HUD concept, preserving the rest of its composition, text, geometry, all11skillicons and4potioncells:\n1. Replace BOTH tiny short round-tipped wand pictures (the equipped Посох thumbnail beside the portrait and the small lower weapon pictogram next to Z) with a clearly LONG SLENDER STAFF: long crooked wooden shaft with a SMALL angular blue crystal head, head no more than15%of whole length, shaft at least85%of length. Show the full staff diagonally to fit the existing slot, approximately10:1overall aspect ratio. It must read as a walking-height staff, NOT a spoon, scepter, bulbous round wand or club. Preserve the bow thumbnail.\n2. Make the entire LOWER STAFF SKILL ROW visibly INACTIVE: reduce saturation and lightness about40%and dim its gold rims to grey-plum, while preserving recognizable purple bolt/bluebarrier/greenheal/fireball/lightning illustrations and legible white12s cooldown on fireball. The upper bow row stays vivid with1–5keycaps, commonQstays vivid. Inactive row has no key numbers.\nEverything else exactly as source: existing playfield, top analogclock, resources, F10debug, navribbon, minimap, portrait, Z,4F1–F4squarepotioncells, HP/MP/XPvalues, LunarPorcelainmaterial. Original painted interface, crisp Russian text. This remains a concept with illustrative numbers.",
+      "generated_source": "/Users/artemmusket/.codex/generated_images/01a15f98-3bde-7101-a64d-6ea9ef46a90b/exec-781ba587-0400-42dc-92bf-1c3c96381564.png"
+    },
+    {
+      "file": "art/concepts/hero_loadout_2026-10-22/equipment_v2.png",
+      "sha256": "b645a65a4c74451a445a4308e20514fa1270a24b0bf06f16db65570732575f9e",
+      "width": 1672,
+      "height": 941,
+      "status": "Astra composition PASS; owner APPROVED2026-10-22",
+      "reference_files": [
+        "art/concepts/hero_loadout_2026-10-22/equipment_v1_return.png"
+      ],
+      "prompt": "Correct this attached ORIGINAL Russian fantasy RPG inventory concept. Preserve the three-column composition,12equipment slots around character, LunarPorcelain ivory/plum material, top nav and resource row. Make these PRECISE REQUIRED corrections:\nBAG: exactly6columns×5rows,30fixed identical cells. Only FIRST ROW has SIXitems: sparehelmet, neutral research blueprint, selected damage amulet, redHPpotion, blueMPpotion, purplecombinedpotion. All24remainingcells completely EMPTY neutral ivory. REMOVE greenpotion,flowers,crystals,ore,cloth,leather,rope,wood,herbs and other invented contents. No bag capacity upgrade implied by concept.\nBlueprint in first-row second cell has aged ivory paper, plum technical drawing of a LONGSTAFF and small cyan opening spark. NO quality letter at all on this unequippable research document; remove the erroneous B. Keep selected amulet Dgreenquality with separate thin cyan outline. Qualityletters only realequipment.\nEQUIPPED AMULET SLOT: empty neutral pendant silhouette, not a second red amulet. The SINGLE physical damage amulet is selected in bag, shown enlarged in rightdetail, readytoequip. No duplicate equipped instance.\nSTAFF: replace the round-tipped short wand in equippedПосохcell AND its blueprint drawing with a clearly LONG SLENDER WOODEN STAFF, fullshaftdiagonal,10:1overallaspect, smallangularbluecrystalhead occupying less than15%oflength; shaftmostoflength. Not a short scepter/spoon. Keep bowactive.\nKeep exactly12equippedcells:4armorleft;bow/staff/emptyamulet/magicalprotectionright;2emptyrings+pickaxe+axebottom. Remove no cells, add none. Slotnameslegible. Magicalprotection is the standalone bluegoldarcane sign, not jewelry/shield. Keep rightselectedАмулетнатиска illustration, Dquality,LVL1/100,Уронгероя+5%(illustrative) andНадетьbutton.\nRemove the unrelated extra protective-seal information card at bottomright (it is not the selected item). Instead a small unobtrusive inline text near the actual protection slot may name it Защитнаяпечать; do not create a new panel or overlap anylabel. KeepfooterЭскиз·значенияусловные. Typographyreadableat720p.\nDo not invent loot,potionfamilies,materials,rankedblueprints ornewrules. OriginalAIconcept,notruntimeevidence.",
+      "generated_source": "/Users/artemmusket/.codex/generated_images/01a15f98-3bde-7101-a64d-6ea9ef46a90b/exec-e4b1ad7b-8602-4211-a4cb-ba3b37e0def0.png"
+    }
+  ],
+  "reference_sources": [
+    {
+      "url": "https://www.guildwars2.com/en-gb/news/combat-in-guild-wars-2-secrets-of-the-obscure/",
+      "use": "Weapon choice changes first five skills; official developer article"
+    },
+    {
+      "url": "https://help.bethesda.net/app/answers/detail/a_id/8345/~/why-cant-i-swap-weapons-in-the-elder-scrolls-online%3F",
+      "use": "Primary/secondary equipped sets and second skill bar; official support"
+    },
+    {
+      "url": "https://www.guildwars2.com/en/news/specializations-part-one-a-primer/",
+      "use": "Progressive trait choices and tiers; official developer article"
+    }
+  ],
+  "review": {
+    "tree": "11 large/20 small; left Blink with two five-active branches; no left information sidebar. Generated3rank symbols/level10–50labels are illustrative. Move4shared nodes to fork when actual prerequisites are set.",
+    "hud": "11 circles, active1–5 only,4square quickslots,Z,F10; inactive row corrected. Screen content is generated concept, not runtime evidence.",
+    "equipment": "12equipped positions; longstaff and distinct seal; one bag amulet. Final visible bag grid6x6 is composition, not a capacity upgrade.",
+    "native_requirements": [
+      "Use existing painted quality atlas, not generated flat fills.",
+      "Empty amulet silhouette must show a pendant, not a ring.",
+      "Blueprints/empty cells stay neutral; amulets inherit F–SSS and LVL1–100.",
+      "Generated stock,values,counts,XP,levelgates and ranks create no live grants or tuning."
+    ]
+  },
+  "verification": {
+    "runtime_changed": false,
+    "new_tests_run": false,
+    "reason": "Concept/documentation only; previous D118qualifications do not qualify new systems.",
+    "astra_composition": "PASS final tree_v1/hud_v2/equipment_v2; owner APPROVED2026-10-22",
+    "native_720p_test": false,
+    "git_diff_check": "PASS",
+    "remaining": "Owner appearance/catalogue/control response, missing source/tuning contracts, Astra visual implementation and nonvisual integration/qualification.",
+    "scope": "Historical concept phase only; runtime_changed=false describes creation of these sketches."
+  },
+  "native_evidence": "art/source/hero_loadout_2026-10-22_verification.json"
+}

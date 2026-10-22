@@ -34,7 +34,7 @@ namespace Not3A.Stage3.PlayerInterface
             mapDragging = false;
             ResetMapTouchInput();
         }
-        private void ReleaseMapView() { ReleaseMapDrag(); mapSource = null; guildMapSource=null; mapInitialized = false; mapMarkerStyle = null; }
+        private void ReleaseMapView() { ReleaseMapDrag(); ReleaseGuildMapView(); mapSource = null; guildMapSource=null; mapInitialized = false; mapMarkerStyle = null; }
 
         public void RecenterMap()
         {
@@ -119,13 +119,14 @@ namespace Not3A.Stage3.PlayerInterface
                         if (p.x < 0 || p.y < 0 || p.x > MapViewportRect.width || p.y > MapViewportRect.height) continue;
                         DrawWorldMapMarker(p, marker.Kind, s);
                     }
-                    DrawGuildMapMarkers();
                     DrawRecoveryMapMarkers();
                     DrawCityLargeMapMarker();
+                    DrawGuildMapMarkers();
                 }
                 finally { GUI.EndGroup(); }
             }
             var e = Event.current;
+            HandleGuildMapPointer();
             var dragControl = GUIUtility.GetControlID(FocusType.Passive);
             if (e.type == EventType.ScrollWheel && MapViewportRect.Contains(e.mousePosition))
             {

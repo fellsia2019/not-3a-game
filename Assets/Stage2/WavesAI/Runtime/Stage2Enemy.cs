@@ -26,6 +26,9 @@ namespace Not3A.Stage2.WavesAI
         private Color restingColor;
         private float hitFlashRemaining;
         private int siegeDamage;
+        private float slowRemaining,slowMultiplier=1;
+        public void ApplySlow(float multiplier,float duration)
+        {if(!IsAlive||!float.IsFinite(multiplier)||!float.IsFinite(duration)||duration<=0)return;slowMultiplier=Mathf.Min(slowMultiplier,Mathf.Clamp(multiplier,.25f,1));slowRemaining=Mathf.Max(slowRemaining,duration);}
 
         public Vector2Int CurrentCell { get; private set; }
         public Vector2Int? StepDestination => stepDestination;
@@ -39,6 +42,7 @@ namespace Not3A.Stage2.WavesAI
         public bool IsAtCellCenter => !stepDestination.HasValue;
         public event Action<Stage2Enemy, int> ReachedThrone;
         public event Action<Stage2Enemy> Removed;
+        public event Action<Stage2Enemy,int> Damaged;
 
         public void Configure(Stage2MapDefinition definition, Stage2Navigation sharedNavigation,
             Stage2EnemyCatalog settings, Vector2Int startCell)
@@ -76,6 +80,7 @@ namespace Not3A.Stage2.WavesAI
                 spriteRenderer.color = restingColor;
             }
             hitFlashRemaining = 0f;
+            slowRemaining=0;slowMultiplier=1;
             siegeRemaining = settings.SiegeInterval;
             plan = null;
             pathIndex = 0;
@@ -104,7 +109,8 @@ namespace Not3A.Stage2.WavesAI
         public bool TakeDamage(int amount)
         {
             if (amount <= 0 || !IsAlive) return false;
-            health = Mathf.Max(0, health - amount);
+            var before=health;health = Mathf.Max(0, health - amount);
+            Damaged?.Invoke(this,before-health);
             if (health > 0 && spriteRenderer != null)
             {
                 spriteRenderer.color = Color.white;
@@ -125,6 +131,7 @@ namespace Not3A.Stage2.WavesAI
             if (elapsedSeconds < 0f || float.IsNaN(elapsedSeconds) || float.IsInfinity(elapsedSeconds))
                 throw new ArgumentOutOfRangeException(nameof(elapsedSeconds));
             if (!IsAlive || paused || elapsedSeconds == 0f) return;
+            slowRemaining=Mathf.Max(0,slowRemaining-elapsedSeconds);if(slowRemaining==0)slowMultiplier=1;
             if (hitFlashRemaining > 0f)
             {
                 hitFlashRemaining = Mathf.Max(0f, hitFlashRemaining - elapsedSeconds);
@@ -187,7 +194,7 @@ namespace Not3A.Stage2.WavesAI
         {
             var destination = stepDestination.Value;
             var target = map.CellToWorld(destination);
-            var moved = Vector2.MoveTowards(transform.position, target, catalog.MoveSpeed * elapsedSeconds);
+            var moved = Vector2.MoveTowards(transform.position, target, catalog.MoveSpeed * slowMultiplier * elapsedSeconds);
             transform.position = new Vector3(moved.x, moved.y, transform.position.z);
             if (moved != target) return;
             CurrentCell = destination;

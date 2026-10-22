@@ -57,7 +57,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             input.Set(Mouse.current.position,(Vector2)camera.WorldToScreenPoint(shop.bounds.center));yield return null;
             input.Press(Mouse.current.leftButton);yield return null;yield return null;
             Assert.That(Get<bool>(hud,"MerchantOpen"),Is.True);Assert.That(game.RunDriver.Run.IsPaused,Is.False);Assert.That(game.PlayerInputBlocked,Is.True);
-            Assert.That(Field<Array>(View,"PlayerItems").Length,Is.Zero);Assert.That(Field<Array>(View,"MerchantItems").Length,Is.EqualTo(12));
+            Assert.That(Field<Array>(View,"PlayerItems").Length,Is.Zero);Assert.That(Field<Array>(View,"MerchantItems").Length,Is.EqualTo(15));
             input.Press(Keyboard.current.escapeKey);yield return null;input.Release(Keyboard.current.escapeKey);yield return null;yield return null;
             Assert.That(Get<bool>(hud,"MerchantOpen"),Is.False);Assert.That(game.PlayerInputBlocked,Is.False);
             input.Release(Mouse.current.leftButton);yield return null;
@@ -67,10 +67,10 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Wallet.TryAddGold(100);var before=Wallet.Gold;var materials=new[]{Wallet.Get(MapResourceKind.Wood),Wallet.Get(MapResourceKind.Stone),Wallet.Get(MapResourceKind.Metal)};
             Assert.That(Open(),Is.True);var item=merchant.Items[0];var buy=merchant.Catalog.BuyPrice(item);var sell=merchant.Catalog.SellPrice(item);
             Select(true,item.Id);Assert.That(Trade(true,item.Id),Is.True);Assert.That(equipment.Rules.Find(item.Id),Is.SameAs(item));
-            Assert.That(Field<Array>(View,"PlayerItems").Length,Is.EqualTo(1));Assert.That(Field<Array>(View,"MerchantItems").Length,Is.EqualTo(11));
+            Assert.That(Field<Array>(View,"PlayerItems").Length,Is.EqualTo(1));Assert.That(Field<Array>(View,"MerchantItems").Length,Is.EqualTo(14));
             Assert.That(Field<int>(View,"Gold"),Is.EqualTo(before-buy));Assert.That(Trade(true,item.Id),Is.False);Assert.That(Wallet.Gold,Is.EqualTo(before-buy));
             Select(false,item.Id);Assert.That(Trade(false,item.Id),Is.True);Assert.That(merchant.Find(item.Id),Is.SameAs(item));
-            Assert.That(Field<Array>(View,"PlayerItems").Length,Is.Zero);Assert.That(Field<Array>(View,"MerchantItems").Length,Is.EqualTo(12));
+            Assert.That(Field<Array>(View,"PlayerItems").Length,Is.Zero);Assert.That(Field<Array>(View,"MerchantItems").Length,Is.EqualTo(15));
             Assert.That(Wallet.Gold,Is.EqualTo(before-buy+sell));
             Assert.That(new[]{Wallet.Get(MapResourceKind.Wood),Wallet.Get(MapResourceKind.Stone),Wallet.Get(MapResourceKind.Metal)},Is.EqualTo(materials));
             Call(hud,"CloseWindow");Assert.That(Trade(true,merchant.Items[0].Id),Is.False);yield return null;
@@ -94,10 +94,10 @@ namespace Not3A.Stage3.VisualPilot.Tests
             for(var i=0;i<10&&!run.IsTerminal;i++){var enemy=game.Enemies.SpawnAt(scene.MapDefinition.Throne);enemy.SetAutomaticTick(false);enemy.Tick(.01f);}
             Assert.That(run.Phase,Is.EqualTo(Stage2RunPhase.Lost));yield return null;Assert.That(Get<bool>(hud,"MerchantOpen"),Is.False);
             Assert.That(run.RetryFailedWave(),Is.True);yield return null;
-            Assert.That(equipment.Rules.Find(item.Id),Is.SameAs(item));Assert.That(merchant.Find(item.Id),Is.Null);Assert.That(merchant.Items.Count,Is.EqualTo(7));Assert.That(Wallet.Gold,Is.EqualTo(gold));
+            Assert.That(equipment.Rules.Find(item.Id),Is.SameAs(item));Assert.That(merchant.Find(item.Id),Is.Null);Assert.That(merchant.Items.Count,Is.EqualTo(10));Assert.That(Wallet.Gold,Is.EqualTo(gold));
             scene.PlayerMover.transform.position=ShopPosition;yield return null;Assert.That(Open(),Is.True);
             game.RunDriver.ResetRun();yield return null;
-            Assert.That(Get<bool>(hud,"MerchantOpen"),Is.False);Assert.That(merchant.Items.Count,Is.EqualTo(8));Assert.That(equipment.Rules.Find(item.Id),Is.Null);
+            Assert.That(Get<bool>(hud,"MerchantOpen"),Is.False);Assert.That(merchant.Items.Count,Is.EqualTo(11));Assert.That(equipment.Rules.Find(item.Id),Is.Null);
             Assert.That(merchant.Items.All(i=>i.Level==1&&i.Quality==Stage2ItemQuality.F),Is.True);Assert.That(Wallet.Gold,Is.EqualTo(5));
         }
     }

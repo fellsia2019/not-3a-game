@@ -1,5 +1,19 @@
 # Feature: Objectives And NPC Quests
 
+## D118 — accepted quest guidance
+
+Each accepted order has a parchment destination pin on M. Latest acceptance is
+tracked; map click switches among active orders. One ivory arrow is separate
+from cyan hero heading. Minimap shows local pin or a small rim arrow toward
+that quest only. Clearing targets the guild for local turn-in; turning in
+selects the remaining order or clears guidance. Retry preserves tracking;
+Reset clears it, regeneration uses current camp homes. No auto path, map travel,
+remote claim, unconditional city pointer or extra quest. Camp population now
+clusters near authored structures and shares aggro within its generation;
+leash/retreat/kills/rewards remain normal. Natural shoulders are ordinary
+harvestable resources outside the protected open combat meadow/retreat lanes.
+
+
 ## D116 open encounter environments — locally implemented
 
 The owner approves both camp_v2 appearances and now authorizes world scenery.

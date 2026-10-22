@@ -17,12 +17,13 @@ namespace Not3A.Stage3.PlayerInterface
         }
         private Rect HeroStatusRect
         {
-            get { var r=HeroDockContentRect; return new Rect(r.x+r.width*.66f+16f*UiScale,r.y,r.width*.34f-16f*UiScale,r.height); }
+            get { if(heroLoadout!=null)return LoadoutStatusArea; var r=HeroDockContentRect; return new Rect(r.x+r.width*.66f+16f*UiScale,r.y,r.width*.34f-16f*UiScale,r.height); }
         }
 
         public Rect AbilityReserveRect(int index)
         {
             if(index<0||index>=AbilityReserveCount) return Rect.zero;
+            if(heroLoadout!=null)return SkillSlotRect(index+1);
             var r=AbilityReservesRect;var s=UiScale;var gap=6f*s;
             var side=Mathf.Min(76f*s,Mathf.Min((r.width-20f*s-gap*4)/5f,(r.height-gap)/2f));
             var start=r.center.x-(side*5+gap*4)*.5f;
@@ -50,6 +51,7 @@ namespace Not3A.Stage3.PlayerInterface
 
         private void DrawHeroDock()
         {
+            if(heroLoadout!=null){DrawHeroLoadoutDock();return;}
             var s=UiScale;var r=HeroWeaponRect;
             RefreshHeroProgressionLabels();
             var portraitSide=Mathf.Min(124f*s,r.width*.34f);

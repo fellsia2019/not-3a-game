@@ -1,5 +1,63 @@
 # Equipment, forge, tools and runes
 
+## D120 — implemented dual loadout and consumables,2026-10-22
+
+Current Stage3 has12fixed positions: head/chest/arms/legs, bow, staff,
+pickaxe/axe, amulet, two rings and magical protection. Bow AND staff remain
+equipped; only one is active. Z or the clickable weapon thumbnails switches
+active stats/1–5 skills. Neither switch nor replacement resets attack/skill
+cadence, refunds MP, duplicates items or combines both weapon stats. Both count
+as equipped for bag exclusion, trade rejection and death retention. Fixed-slot
+UI uses EquippedAt; historical Equipped(Weapon) means the active weapon.
+
+The long staff replaces the short wand's name/art, preserving Wand enum and
+WandRecipe identity. Existing instances survive; current Stage3Equipment opts
+into expandedLoadout, while legacy profiles default to their previous single
+weapon behavior. Existing enum IDs0–7/slot IDs0–6 are preserved; new types and
+slots are appended. No scene/GUID or disk-save migration. Staff acquisition:
+buy the finite recipe paper, study locally at the one-level workshop, separately
+craft at the forge. Knowledge gates crafting, not equipping an acquired item.
+No new world drop source, loot table or random merchant restock.
+
+Three accessory types are forgeable with the existing materials/gold/quality/
+level rules: «Амулет натиска» increases hero damage; one ring increases maximum
+MP without filling it on equip; «Защитная печать» supplies constant incoming
+exploration-damage reduction without consuming MP. The latter is a standalone
+arcane sign/personal covering, distinct from necklace/rings, physical armor or
+rune sockets. Existing damage has no invented physical/magical resistances.
+Reduction is bounded, then the active personal barrier absorbs remaining damage;
+UI shows the actual scaled values. Two rings stack their own bonuses. Existing
+four clothing slots retain their previous stat scope.
+
+Accessories use F/E/D/C/B/A/S/SSS and item levels1–100; current forge has11types,
+existing stages cap at D/B/S and never creates SSS. Around40future amulet effects
+remain future scope. Runtime values live in Stage3Equipment/Stage3Merchant,
+including accessory valuation; generated concept numbers are not balance.
+Actual painted quality frames and measured safe-area bounds are shared across
+bag/loadout/forge/merchant. Empty amulet is a pendant silhouette, rings circular.
+
+F1/F2/F3 use HP/MP/mixed purple bottles; F4 stays reserved. These fixed type
+positions reflect actual bag stacks, with no free grant or extra equipped copy.
+Bag selection routes to the matching quick-use position. Prices/restoration
+explicitly set by owner:100gold restores100HP,100gold restores100MP,250gold
+restores100ofEACH. Merchant starts with5ofeach, no automatic restock; shared
+20s cooldown, purchase/sale ONE bottle per transaction. Potions are neutral
+ungraded consumables without equipment rank/level/forge/reforge. No consumption
+when the relevant vitals are full; mixed works if either resource needs filling,
+clamped to each maximum. Stock/count/gold/effect changes are atomic, with no
+spend on invalid/paused/blocked actions. Potions remain BAG ownership and drop/
+recover on death. Retry preserves current bottles/trades/cooldown; full Reset
+restores finite merchant stock and gives the hero no free potion.
+
+Scene wiring/imports: Stage3HeroLoadoutInstaller.Install creates/migrates the
+skill catalog, imports original staff/accessory/potion and skill atlases into
+existing ForgeArt, and saves current equipment/merchant data. Original PNGs,
+asset GUIDs/scenes/packages and prior equipped instances are preserved.
+Main owns rules/integration; Astra owns native art/layout/review. Evidence:
+art/source/hero_loadout_2026-10-22_verification.json.
+
+Historical D089–D102 baseline (D120 above owns current expanded loadout):
+
 Status: D-089 concepts approved; D-090 runtime implemented and locally qualified. Five combat slots plus two tools, numerical1–100 and8qualities.
 Bow and wand only; no sword/shield. Three forge stages D/B/S, special-scroll
 building upgrades in legacy profiles; D102 opt-in replaces scroll payment with

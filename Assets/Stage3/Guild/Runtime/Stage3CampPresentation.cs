@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Not3A.Stage2.Economy;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -123,6 +124,22 @@ namespace Not3A.Stage3.VisualPilot
             }
         }
 
+        /// <summary>Attach an ordinary resource node to an already placed natural prop.</summary>
+        public void BindResource(int layoutIndex,Stage2ResourceNode node,Stage3ResourceInteractionMarker marker)
+        {
+            if(campRoot==null)throw new InvalidOperationException("Build camp presentation before binding resources.");
+            if(layoutIndex<0||layoutIndex>=renderers.Count)throw new ArgumentOutOfRangeException(nameof(layoutIndex));
+            if(node==null)throw new ArgumentNullException(nameof(node));
+            var placement=GetLayout(Kind)[layoutIndex];
+            if(placement.SpriteIndex<100||placement.SpriteIndex>=300)
+                throw new ArgumentException("Only natural camp props can bind resource stock.",nameof(layoutIndex));
+            var renderer=renderers[layoutIndex];
+            var binding=renderer.GetComponent<Stage3ResourceSprite>();
+            if(binding==null)binding=renderer.gameObject.AddComponent<Stage3ResourceSprite>();
+            binding.BindExisting(renderer,node);
+            if(marker!=null)marker.Register(binding);
+        }
+
         private void LateUpdate()
         {
             if(view==null||campRoot==null)return;
@@ -130,6 +147,8 @@ namespace Not3A.Stage3.VisualPilot
             var focus=new Vector3(hero.x,hero.y,hero.z);
             foreach(var renderer in renderers)
             {
+                // Resource bindings own visibility; camp fading never revives depleted props.
+                if(!renderer.enabled)continue;
                 // Existing district shader fades only a small screen-space hero aperture.
                 // Enable it solely on a sprite plane actually in front of the hero.
                 var inFront=hero.w>.5f&&Vector3.Dot(renderer.bounds.center-focus,view.transform.forward)<-.05f;

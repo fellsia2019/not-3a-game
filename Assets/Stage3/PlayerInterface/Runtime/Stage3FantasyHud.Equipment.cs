@@ -9,7 +9,8 @@ namespace Not3A.Stage3.PlayerInterface
         public int Id=-1,TypeIndex,QualityIndex,Level=1;
         public string Name;
         public Stage3SelectedBuildingStat[] Properties;
-        public bool CanEquip,IsEquipped;
+        public bool CanEquip,IsEquipped,Consumable,CanUse;
+        public int Quantity=1;
         public string EquipUnavailableReason,EquippedLabel;
         public Stage3BlueprintItemView Blueprint;
     }
@@ -18,7 +19,7 @@ namespace Not3A.Stage3.PlayerInterface
         public Stage3EquipmentItemView[] Items;
         public Stage3EquipmentItemView[] BagItems;
         public int[] EquippedItemIds;
-        public int SelectedItemId=-1;
+        public int SelectedItemId=-1,ActiveWeapon;
         public bool CanUnequip;
         public string UnequipUnavailableReason;
     }
@@ -28,8 +29,8 @@ namespace Not3A.Stage3.PlayerInterface
         private Stage3EquipmentView equipment;
         private Stage3ForgeArt equipmentArt;
         private Vector2 equipmentScroll;
-        private static readonly string[] EquipmentTypeNames={"Лук","Жезл","Шлем","Нагрудник","Руки","Ноги","Кирка","Топор"};
-        private static readonly string[] EquipmentSlotNames={"Шлем","Нагрудник","Руки","Ноги","Оружие","Кирка","Топор"};
+        private static readonly string[] EquipmentTypeNames={"Лук","Посох","Шлем","Нагрудник","Руки","Ноги","Кирка","Топор","Амулет натиска","Кольцо","Защитная печать"};
+        private static readonly string[] EquipmentSlotNames={"Шлем","Грудь","Руки","Ноги","Лук","Кирка","Топор","Посох","Амулет","Кольцо","Кольцо","Защитная печать"};
         private static readonly string[] EquipmentQualities={"F","E","D","C","B","A","S","SSS"};
         private static readonly Color[] EquipmentQualityColors={new Color32(101,65,43,255),new Color32(133,133,133,255),new Color32(21,156,59,255),new Color32(36,86,220,255),new Color32(145,70,186,255),new Color32(203,66,75,255),new Color32(244,185,0,255),new Color32(255,253,235,255)};
         public Stage3EquipmentView EquipmentView=>equipment;
@@ -90,66 +91,128 @@ namespace Not3A.Stage3.PlayerInterface
             DrawEquipmentQualityFrame(rect,quality);
             PaleLabel(Inset(rect,4f*UiScale),QualityName(quality),18,TextAnchor.MiddleCenter);
         }
-        private Rect EquipmentBagRect=>new Rect(WindowContentRect.x,WindowContentRect.y+92f*UiScale,WindowContentRect.width*.34f,WindowContentRect.height-92f*UiScale);
+        private const int EquipmentBagColumns=6;
+        private Rect EquipmentLoadoutRect=>new Rect(WindowContentRect.x,WindowContentRect.y,WindowContentRect.width*.335f,WindowContentRect.height);
+        private Rect EquipmentBagRect=>new Rect(WindowContentRect.x+WindowContentRect.width*.36f,WindowContentRect.y+62f*UiScale,WindowContentRect.width*.365f,WindowContentRect.height-62f*UiScale);
+        private float EquipmentSlotSide=>Mathf.Min(90f*UiScale,EquipmentLoadoutRect.width*.215f);
+        public Rect EquipmentWeaponSwitchRect=>new Rect(EquipmentLoadoutRect.center.x-92f*UiScale,
+            EquipmentLoadoutRect.yMax-EquipmentSlotSide-58f*UiScale,184f*UiScale,28f*UiScale);
         public Rect EquipmentItemRect(int index)
         {
-            var r=EquipmentBagRect;var s=UiScale;var side=(r.width-4*7f*s-16f*s)/5f;
-            return new Rect(r.x+(index%5)*(side+7f*s),r.y+(index/5)*(side+27f*s)-equipmentScroll.y,side,side);
+            if(index<0)return Rect.zero;
+            var r=EquipmentBagRect;var s=UiScale;var side=(r.width-(EquipmentBagColumns-1)*7f*s-16f*s)/EquipmentBagColumns;
+            return new Rect(r.x+(index%EquipmentBagColumns)*(side+7f*s),r.y+(index/EquipmentBagColumns)*(side+25f*s)-equipmentScroll.y,side,side);
         }
         public Rect EquipmentSlotRect(int slot)
         {
-            if(slot<0||slot>6)return Rect.zero;
-            var r=WindowContentRect;var s=UiScale;var center=new Rect(r.x+r.width*.37f,r.y,r.width*.34f,r.height);
-            var side=Mathf.Min(102f*s,center.width*.23f);var top=center.y+66f*s;
-            if(slot<3) return new Rect(center.x,top+slot*(side+35f*s),side,side);
-            if(slot==4)return new Rect(center.xMax-side,top,side,side);
-            if(slot==3)return new Rect(center.xMax-side,top+2*(side+35f*s),side,side);
-            return new Rect(center.center.x+(slot==5?-side-12f*s:12f*s),center.yMax-side-23f*s,side,side);
+            if(slot<0||slot>11)return Rect.zero;
+            var r=EquipmentLoadoutRect;var s=UiScale;var side=EquipmentSlotSide;
+            var top=r.y+62f*s;var stride=(EquipmentWeaponSwitchRect.y-10f*s-top-side)/3f;
+            if(slot<4)return new Rect(r.x,top+slot*stride,side,side);
+            var rightRow=slot==4?0:slot==7?1:slot==8?2:slot==11?3:-1;
+            if(rightRow>=0)return new Rect(r.xMax-side,top+rightRow*stride,side,side);
+            var bottomColumn=slot==9?0:slot==10?1:slot==5?2:3;
+            var gap=(r.width-4f*side)/3f;
+            return new Rect(r.x+bottomColumn*(side+gap),r.yMax-side-24f*s,side,side);
         }
         public Rect EquipmentActionRect=>new Rect(WindowContentRect.x+WindowContentRect.width*.75f,WindowContentRect.yMax-90f*UiScale,WindowContentRect.width*.25f,58f*UiScale);
         private void DrawEquipmentInventory(Rect content)
         {
-            var s=UiScale;var bag=EquipmentBagRect;
-            Label(new Rect(content.x,content.y,bag.width,58f*s),"Предметы",42);
-            DrawRule(new Rect(content.x,content.y+76f*s,bag.width,1f*s));
+            var s=UiScale;var bag=EquipmentBagRect;var loadout=EquipmentLoadoutRect;
+            Label(new Rect(loadout.x,content.y,loadout.width,48f*s),"Снаряжение",34);
+            Label(new Rect(bag.x,content.y,bag.width,48f*s),"Сумка",34);
+            DrawRule(new Rect(bag.x,content.y+49f*s,bag.width,s));
             var items=equipment.BagItems??equipment.Items??Array.Empty<Stage3EquipmentItemView>();
-            var cell=(bag.width-4*7f*s-16f*s)/5f;var rows=(items.Length+4)/5;
-            equipmentScroll=GUI.BeginScrollView(bag,equipmentScroll,new Rect(0,0,bag.width-16f*s,Mathf.Max(bag.height,rows*(cell+27f*s))));
+            var cell=(bag.width-(EquipmentBagColumns-1)*7f*s-16f*s)/EquipmentBagColumns;
+            var visibleRows=Mathf.Max(1,Mathf.FloorToInt(bag.height/(cell+25f*s)));
+            var rows=Mathf.Max(visibleRows,(items.Length+EquipmentBagColumns-1)/EquipmentBagColumns);
+            equipmentScroll=GUI.BeginScrollView(bag,equipmentScroll,new Rect(0,0,bag.width-16f*s,Mathf.Max(bag.height,rows*(cell+25f*s))));
             var selectedId=-1;
             equipmentTextureClip=new Rect(equipmentScroll.x,equipmentScroll.y,bag.width-16f*s,bag.height);
-            for(var i=0;i<items.Length;i++)
+            for(var i=0;i<rows*EquipmentBagColumns;i++)
             {
-                var item=items[i];if(item==null)continue;
-                var box=new Rect((i%5)*(cell+7f*s),(i/5)*(cell+27f*s),cell,cell);
+                var box=new Rect((i%EquipmentBagColumns)*(cell+7f*s),(i/EquipmentBagColumns)*(cell+25f*s),cell,cell);
+                if(box.yMax+20f*s<equipmentScroll.y||box.y>equipmentScroll.y+bag.height)continue;
+                var item=i<items.Length?items[i]:null;
+                if(item==null){DrawBlueprintNeutralFrame(box);continue;}
                 if(SurfaceButton(box,false,false))selectedId=item.Id;
                 DrawEquipmentCell(box,item,item.Id==equipment.SelectedItemId);
-                var label=ItemCellCaption(item);
-                Label(new Rect(box.x,box.yMax+1f*s,box.width,22f*s),label,12,TextAnchor.MiddleCenter);
+                Label(new Rect(box.x,box.yMax+s,box.width,22f*s),ItemCellCaption(item),12,TextAnchor.MiddleCenter);
             }
             equipmentTextureClip=null;
             GUI.EndScrollView();
-            if(items.Length==0)Label(bag,"Сумка пуста",18,TextAnchor.MiddleCenter,true);
-            var center=new Rect(content.x+content.width*.37f,content.y,content.width*.34f,content.height);
-            Label(new Rect(center.x,center.y,center.width,42f*s),"Снаряжение",28,TextAnchor.MiddleCenter);
-            DrawEquipmentPaperdoll(new Rect(center.x+center.width*.18f,center.y+52f*s,center.width*.64f,center.height-170f*s));
-            for(var slot=0;slot<7;slot++)
+            var dollTop=loadout.y+60f*s;
+            DrawEquipmentPaperdoll(new Rect(loadout.x+EquipmentSlotSide*.92f,dollTop,
+                loadout.width-EquipmentSlotSide*1.84f,EquipmentWeaponSwitchRect.y-dollTop-5f*s));
+            for(var slot=0;slot<12;slot++)
             {
                 var box=EquipmentSlotRect(slot);var item=EquippedItem(slot);
-                if(SurfaceButton(box,false,true)&&item!=null)selectedId=item.Id;
+                if(SurfaceButton(box,false,false)&&item!=null)selectedId=item.Id;
                 if(item!=null)DrawEquipmentCell(box,item,item.Id==equipment.SelectedItemId);
-                else Label(box,"—",24,TextAnchor.MiddleCenter,true);
-                Label(new Rect(box.x-10f*s,box.yMax+2f*s,box.width+20f*s,23f*s),EquipmentSlotNames[slot],14,TextAnchor.MiddleCenter);
+                else DrawEmptyEquipmentSlot(box,slot);
+                if(slot==(equipment.ActiveWeapon==1?7:4))
+                {
+                    // Active weapon gets a compact cyan jewel, separate from the inspected item's frame.
+                    DrawLunarJewel(new Vector2(box.xMax-3f*s,box.y+4f*s),9f*s);
+                    DrawGlyphLine(new Vector2(box.x+9f*s,box.yMax-3f*s),new Vector2(box.xMax-9f*s,box.yMax-3f*s),2f*s,Accent);
+                }
+                Label(new Rect(box.x-6f*s,box.yMax+2f*s,box.width+12f*s,21f*s),EquipmentSlotNames[slot],slot==11?12:14,TextAnchor.MiddleCenter);
             }
-            Label(new Rect(center.x,EquipmentSlotRect(5).y-31f*s,center.width,27f*s),"Инструменты",22,TextAnchor.MiddleCenter);
-            var chosen=FindEquipmentItem(equipment.SelectedItemId);
-            DrawEquipmentDetails(new Rect(content.x+content.width*.75f,content.y,content.width*.25f,content.height),chosen);
+            if(Button(EquipmentWeaponSwitchRect,"Z · Сменить"))RequestWeaponSwitch();
+            DrawEquipmentDetails(new Rect(content.x+content.width*.75f,content.y,content.width*.25f,content.height),FindEquipmentItem(equipment.SelectedItemId));
             if(selectedId>=0)EquipmentItemSelected?.Invoke(selectedId);
+        }
+        private void DrawEmptyEquipmentSlot(Rect box,int slot)
+        {
+            DrawBlueprintNeutralFrame(box);
+            var c=box.center;var u=Mathf.Min(box.width,box.height)/90f;
+            var ink=new Color(.51f,.38f,.35f,.28f);
+            if(slot==9||slot==10)
+            {
+                var old=GUI.color;GUI.color=ink;
+                var style=GetLabelStyle(40,false);style.alignment=TextAnchor.MiddleCenter;
+                GUI.Label(box,LabelContent("○"),style);GUI.color=old;
+                var gem=c+Vector2.up*18f*u;
+                DrawGlyphLine(gem+Vector2.up*5f*u,gem+Vector2.left*5f*u,3f*u,ink);
+                DrawGlyphLine(gem+Vector2.left*5f*u,gem+Vector2.down*5f*u,3f*u,ink);
+                DrawGlyphLine(gem+Vector2.down*5f*u,gem+Vector2.right*5f*u,3f*u,ink);
+                DrawGlyphLine(gem+Vector2.right*5f*u,gem+Vector2.up*5f*u,3f*u,ink);
+            }
+            else if(slot==8)
+            {
+                // Neck chain and suspended pendant: deliberately distinct from both ring slots.
+                DrawGlyphLine(c+new Vector2(-17,-24)*u,c+new Vector2(-10,-4)*u,3f*u,ink);
+                DrawGlyphLine(c+new Vector2(-10,-4)*u,c+new Vector2(0,2)*u,3f*u,ink);
+                DrawGlyphLine(c+new Vector2(17,-24)*u,c+new Vector2(10,-4)*u,3f*u,ink);
+                DrawGlyphLine(c+new Vector2(10,-4)*u,c+new Vector2(0,2)*u,3f*u,ink);
+                var top=c+new Vector2(0,2)*u;var left=c+new Vector2(-10,14)*u;var bottom=c+new Vector2(0,27)*u;var right=c+new Vector2(10,14)*u;
+                DrawGlyphLine(top,left,4f*u,ink);DrawGlyphLine(left,bottom,4f*u,ink);
+                DrawGlyphLine(bottom,right,4f*u,ink);DrawGlyphLine(right,top,4f*u,ink);
+            }
+            else if(slot==11)
+            {
+                for(var i=0;i<8;i++)
+                {
+                    var a=i*Mathf.PI/4f;var b=(i+1)*Mathf.PI/4f;
+                    DrawGlyphLine(c+new Vector2(Mathf.Cos(a),Mathf.Sin(a))*24f*u,c+new Vector2(Mathf.Cos(b),Mathf.Sin(b))*24f*u,2f*u,ink);
+                    DrawGlyphLine(c+new Vector2(Mathf.Cos(a),Mathf.Sin(a))*15f*u,c-new Vector2(Mathf.Cos(a),Mathf.Sin(a))*15f*u,u,ink);
+                }
+            }
+            else
+            {
+                var type=slot==0?2:slot==1?3:slot==2?4:slot==3?5:slot==4?0:slot==7?1:slot==5?6:7;
+                var old=GUI.color;GUI.color=new Color(.64f,.54f,.49f,.20f);
+                DrawEquipmentIcon(EquipmentIconSafeRect(box),type,0);GUI.color=old;
+            }
         }
         private void DrawEquipmentPaperdoll(Rect rect)
         {
             var hero=art.inventoryHero??art.heroPortrait;DrawIcon(rect,hero);
-            var equipped=EquippedItem(4);
-            if(hero==null||hero!=art.inventoryHero||equipped==null||equipped.TypeIndex!=0||equipmentArt?.heldEquipment==null)return;
+            var equipped=EquippedItem(equipment?.ActiveWeapon==1?7:4);
+            if(hero==null||hero!=art.inventoryHero||equipped==null||equipmentArt==null)return;
+            if(equipped.TypeIndex==1&&equipmentArt.staffAccessories!=null)
+            {DrawPaperdollStaff(rect,hero,equipped.QualityIndex);return;}
+            if(equipped.TypeIndex!=0||equipmentArt.heldEquipment==null)return;
             var held=equipmentArt.heldEquipment.Bow(equipped.QualityIndex,0);if(held==null)return;
             // Same approved front-idle actor and carrying-hand registration as the world avatar.
             // Texture coordinates remain relative to the original 1254px idle sheet.
@@ -165,12 +228,54 @@ namespace Not3A.Stage3.PlayerInterface
             DrawUiTexture(heldRect,held.texture,new Rect(held.rect.xMax/held.texture.width,held.rect.y/held.texture.height,
                 -held.rect.width/held.texture.width,held.rect.height/held.texture.height));
         }
+        private void DrawPaperdollStaff(Rect rect,Sprite hero,int quality)
+        {
+            if(!equipmentArt.TryGetIcon(1,quality,out var texture,out var uv))return;
+            uv=equipmentArt.UiVisibleBounds(1,quality,uv);
+            var scale=Mathf.Min(rect.width/hero.rect.width,rect.height/hero.rect.height);
+            var target=new Rect(rect.center-hero.rect.size*scale*.5f,hero.rect.size*scale);
+            var hand=new Vector2(1054f*hero.texture.width/1254f-hero.rect.x,
+                hero.rect.yMax-(hero.texture.height-955f*hero.texture.height/1254f));
+            var grip=target.position+hand*scale;
+            var heldScale=hero.pixelsPerUnit/equipmentArt.StaffPixelsPerUnit*scale;
+            var source=equipmentArt.StaffGripPixels(quality);
+            var heldRect=new Rect(grip.x-(source.x-uv.x*texture.width)*heldScale,
+                grip.y-(uv.yMax*texture.height-source.y)*heldScale,uv.width*texture.width*heldScale,uv.height*texture.height*heldScale);
+            var matrix=GUI.matrix;
+            GUIUtility.RotateAroundPivot(-Stage3ForgeArt.StaffUprightAngle,grip);
+            DrawUiTexture(heldRect,texture,uv);GUI.matrix=matrix;
+        }
+        private void DrawConsumableInventoryDetails(Rect r,Stage3EquipmentItemView item)
+        {
+            var s=UiScale;
+            FitText(new Rect(r.x,r.y,r.width,52f*s),item.Name,30,false);
+            DrawRule(new Rect(r.x,r.y+72f*s,r.width,s));
+            var side=Mathf.Min(r.width*.75f,r.height*.38f);
+            DrawEquipmentIcon(new Rect(r.center.x-side*.5f,r.y+90f*s,side,side),item);
+            Label(new Rect(r.x,r.y+r.height*.52f,r.width,31f*s),"В сумке: "+item.Quantity,23,TextAnchor.MiddleCenter);
+            var props=item.Properties??Array.Empty<Stage3SelectedBuildingStat>();var y=r.y+r.height*.60f;
+            for(var i=0;i<props.Length;i++)
+            {
+                DrawConsumableProperty(new Rect(r.x,y+i*54f*s,r.width,54f*s),props[i]);
+            }
+            if(Button(EquipmentActionRect,"В быстрый слот",false,item.CanEquip))EquipItemRequested?.Invoke(item.Id);
+            Label(new Rect(r.x,EquipmentActionRect.yMax+3f*s,r.width,28f*s),item.CanEquip?"":item.EquipUnavailableReason??"",12,TextAnchor.MiddleCenter,true);
+        }
+        private void DrawConsumableProperty(Rect row,Stage3SelectedBuildingStat property)
+        {
+            // A combined restoration value needs the full detail width at 720p.
+            // Reserve two lines inside this detail row; inventory cells stay fixed.
+            var titleHeight=24f*UiScale;
+            Label(new Rect(row.x,row.y,row.width,titleHeight),property.Label,16,TextAnchor.MiddleLeft,true);
+            Label(new Rect(row.x,row.y+titleHeight,row.width,row.height-titleHeight),property.Value,18,TextAnchor.MiddleRight);
+        }
         private void DrawEquipmentDetails(Rect r,Stage3EquipmentItemView item)
         {
             var s=UiScale;
             if(item==null){Label(r,"Выберите предмет",22,TextAnchor.MiddleCenter,true);return;}
             if(item.Blueprint!=null){DrawBlueprintInventoryDetails(r,item);return;}
-            Label(new Rect(r.x,r.y,r.width,52f*s),item.Name,36);
+            if(item.Consumable){DrawConsumableInventoryDetails(r,item);return;}
+            FitText(new Rect(r.x,r.y,r.width,52f*s),item.Name,32,false);
             DrawRule(new Rect(r.x,r.y+72f*s,r.width,s));
             DrawEquipmentCell(new Rect(r.x,r.y+88f*s,r.width*.66f,r.height*.40f),item);
             Label(new Rect(r.x+r.width*.66f,r.y+106f*s,r.width*.34f,26f*s),"Качество",15,TextAnchor.MiddleCenter,true);
