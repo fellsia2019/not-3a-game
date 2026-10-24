@@ -37,7 +37,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             shop=shop??merchant;var item=shop.BlueprintItems.Single(p=>p.Kind==kind);
             Assert.That(shop.TryTradeBlueprint(true,item.Id),Is.EqualTo(Stage2TradeResult.Ready));return item;
         }
-        [Test] public void FourDocumentsAreSeparateFromEquipmentAndUseOneUniqueIdentitySpace()
+        [Test] public void DocumentsAreSeparateFromEquipmentAndUseOneUniqueIdentitySpace()
         {
             Assert.That(catalog.TryValidate(out var reason),Is.True,reason);
             Assert.That(merchant.BlueprintItems.Select(i=>i.Kind),Is.EquivalentTo(Enum.GetValues(typeof(Stage2BlueprintKind))));
@@ -119,15 +119,18 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Assert.That(equipment.TryUpgradeForge(),Is.EqualTo(Stage2EquipmentResult.ResearchRequired));
             Assert.That(equipment.ForgeUpgradeScrolls,Is.EqualTo(20));
         }
-        [Test] public void WandRecipeGatesCraftingButNotUsingAnExistingWand()
+        [Test] public void MasteryGatesEquipmentAndForgeTwoGatesStaffCrafting()
         {
             equipment.ActivateForge();var before=Stock();
             Assert.That(equipment.TryCraft(Stage2ItemType.Wand,out var created),Is.EqualTo(Stage2EquipmentResult.ResearchRequired));
             Assert.That(created,Is.Null);Assert.That(Stock(),Is.EqualTo(before));
             var bought=merchant.Items.Single(i=>i.Type==Stage2ItemType.Wand);
             Assert.That(merchant.TryTrade(true,bought.Id),Is.EqualTo(Stage2TradeResult.Ready));
+            Assert.That(equipment.TryEquip(bought.Id),Is.EqualTo(Stage2EquipmentResult.ResearchRequired));
+            Rules.TryStudy(Buy(Stage2BlueprintKind.WandRecipe).Id);
             Assert.That(equipment.TryEquip(bought.Id),Is.EqualTo(Stage2EquipmentResult.Ready));
-            Rules.TryStudy(Buy(Stage2BlueprintKind.WandRecipe).Id);before=Stock();
+            Assert.That(equipment.EvaluateCraft(Stage2ItemType.Wand),Is.EqualTo(Stage2EquipmentResult.ForgeStageRequired));
+            Rules.TryStudy(Buy(Stage2BlueprintKind.ForgeII).Id);equipment.TryUpgradeForge();before=Stock();
             Assert.That(equipment.TryCraft(Stage2ItemType.Wand,out created),Is.EqualTo(Stage2EquipmentResult.Ready));
             var cost=equipmentCatalog.CraftCost(Stage2ItemType.Wand);
             Assert.That(Stock(),Is.EqualTo(new[]{before[0]-cost.Wood,before[1]-cost.Stone,before[2]-cost.Metal,before[3]-cost.Gold}));
@@ -137,7 +140,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
         {
             var old=merchant.BlueprintItems.Select(i=>i.Id).ToArray();var paper=Buy(Stage2BlueprintKind.Longshot);Rules.TryStudy(paper.Id);
             Buy(Stage2BlueprintKind.ForgeII);equipment.Reset();merchant.Reset();
-            Assert.That(Rules.StudiedCount,Is.Zero);Assert.That(Rules.Items,Is.Empty);Assert.That(merchant.BlueprintItems.Count,Is.EqualTo(4));
+            Assert.That(Rules.StudiedCount,Is.Zero);Assert.That(Rules.Items,Is.Empty);Assert.That(merchant.BlueprintItems.Count,Is.EqualTo(catalog.Count));
             Assert.That(merchant.BlueprintItems.Select(i=>i.Id).Intersect(old),Is.Empty);
             Assert.That(merchant.TryTradeBlueprint(true,paper.Id),Is.EqualTo(Stage2TradeResult.InvalidItem));
         }

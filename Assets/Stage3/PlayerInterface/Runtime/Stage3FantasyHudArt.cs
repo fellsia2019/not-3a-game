@@ -8,6 +8,10 @@ namespace Not3A.Stage3.PlayerInterface
         public Sprite windowFrame, panelFrame, buttonNormal, buttonSelected, minimapFrame, medallionFrame;
         public Sprite[] resourceIcons = new Sprite[4];
         public Sprite[] menuIcons = new Sprite[5];
+        public Sprite playerNavigationIcon, towerLevelPlate, upgradeReadyIcon, upgradeBlockedIcon;
+        public Sprite[] professionCapstoneIcons;
+        public Sprite controlPanel, controlAction, controlSlot, controlMedallion, upgradeLightCurtain;
+        public Sprite[] adventurerIcons;
         public Sprite heroPortrait, inventoryHero, bowIcon, teleportIcon, sunIcon, closeIcon;
         public Sprite[] defenseIcons = new Sprite[3];
         public Sprite workshopIcon, dwellingIcon;

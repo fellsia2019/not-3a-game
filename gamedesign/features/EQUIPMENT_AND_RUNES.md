@@ -1,5 +1,28 @@
 # Equipment, forge, tools and runes
 
+## D129 — active quick bindings and staff mastery,2026-10-23
+
+Inventory assigns/clears each F1–F4 by actual owned ActiveAction capability,
+without moving/duplicating the item. Current actions are the three finite potions;
+non-active equipment/tools reject. Type bindings survive depletion, death and
+retry; actual bag count controls use. Clear is silent; Reset restores defaults
+without bottles. Shared cooldown/atomic restoration/merchant rules remain.
+
+WandRecipe retains its serialized identity/art/price but is named «Владение
+посохом». Buying and local consuming study remain separate. Knowledge now gates
+staff equip, skills and recipe; crafting ALSO requires ForgeII, «Небесная кузница».
+Buying an existing staff is allowed before knowledge; using it is blocked.
+Existing instances/ranks stay intact; legacy research-free profiles stay legacy.
+HERO_PROGRESSION.md owns combat gates/effects; RESEARCH.md owns study.
+
+Local qualification completed2026-10-24:88unique relevant PlayModePASS,1existing
+headless viewportSKIP documented and corroborated by native layouts. Final45
+native assertions at720/900/1080; Astra reviewed15changed clean v3 plus30reused
+unchanged v1UI after retained RETURNs. Current Mac849979653-byte player starts
+ordinary LVL1/XP0/gold5 with no grants; first8renders ready. Evidence:
+art/source/active_actions_2026-10-23_verification.json and native_review.json.
+Windows, sustained balance and final owner appearance acceptance remain open.
+
 ## D120 — implemented dual loadout and consumables,2026-10-22
 
 Current Stage3 has12fixed positions: head/chest/arms/legs, bow, staff,
@@ -16,7 +39,7 @@ into expandedLoadout, while legacy profiles default to their previous single
 weapon behavior. Existing enum IDs0–7/slot IDs0–6 are preserved; new types and
 slots are appended. No scene/GUID or disk-save migration. Staff acquisition:
 buy the finite recipe paper, study locally at the one-level workshop, separately
-craft at the forge. Knowledge gates crafting, not equipping an acquired item.
+craft at the forge. D129 above supersedes this old crafting-only gate with mastery for equipment/skills and ForgeII for crafting.
 No new world drop source, loot table or random merchant restock.
 
 Three accessory types are forgeable with the existing materials/gold/quality/
@@ -36,8 +59,8 @@ including accessory valuation; generated concept numbers are not balance.
 Actual painted quality frames and measured safe-area bounds are shared across
 bag/loadout/forge/merchant. Empty amulet is a pendant silhouette, rings circular.
 
-F1/F2/F3 use HP/MP/mixed purple bottles; F4 stays reserved. These fixed type
-positions reflect actual bag stacks, with no free grant or extra equipped copy.
+Original D120 defaults are HP/MP/mixed bottles and an emptyF4; D129 makes all
+four positions configurable. These type bindings reflect actual owned stacks, with no free grant or extra equipped copy.
 Bag selection routes to the matching quick-use position. Prices/restoration
 explicitly set by owner:100gold restores100HP,100gold restores100MP,250gold
 restores100ofEACH. Merchant starts with5ofeach, no automatic restock; shared

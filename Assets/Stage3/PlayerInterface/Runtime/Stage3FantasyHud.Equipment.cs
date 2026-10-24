@@ -9,7 +9,7 @@ namespace Not3A.Stage3.PlayerInterface
         public int Id=-1,TypeIndex,QualityIndex,Level=1;
         public string Name;
         public Stage3SelectedBuildingStat[] Properties;
-        public bool CanEquip,IsEquipped,Consumable,CanUse;
+        public bool CanEquip,IsEquipped,Consumable,CanUse,CanAssignQuickAccess;
         public int Quantity=1;
         public string EquipUnavailableReason,EquippedLabel;
         public Stage3BlueprintItemView Blueprint;
@@ -92,16 +92,30 @@ namespace Not3A.Stage3.PlayerInterface
             PaleLabel(Inset(rect,4f*UiScale),QualityName(quality),18,TextAnchor.MiddleCenter);
         }
         private const int EquipmentBagColumns=6;
+        private float equipmentNativeScrollbarSpace=20f;
+        private float EquipmentScrollbarSpace=>Mathf.Max(16f*UiScale,equipmentNativeScrollbarSpace);
+        private float EquipmentCellSide(Rect bag)=>(bag.width-Mathf.Max(0f,EquipmentScrollbarSpace-16f*UiScale)-(EquipmentBagColumns-1)*9f*UiScale-24f*UiScale)/EquipmentBagColumns;
         private Rect EquipmentLoadoutRect=>new Rect(WindowContentRect.x,WindowContentRect.y,WindowContentRect.width*.335f,WindowContentRect.height);
-        private Rect EquipmentBagRect=>new Rect(WindowContentRect.x+WindowContentRect.width*.36f,WindowContentRect.y+62f*UiScale,WindowContentRect.width*.365f,WindowContentRect.height-62f*UiScale);
+        private Rect EquipmentBagRect
+        {
+            get
+            {
+                var r=new Rect(WindowContentRect.x+WindowContentRect.width*.36f,WindowContentRect.y+62f*UiScale,WindowContentRect.width*.365f,WindowContentRect.height-178f*UiScale);
+                var side=(r.width-(EquipmentBagColumns-1)*9f*UiScale-24f*UiScale)/EquipmentBagColumns;
+                var pitch=side+25f*UiScale;
+                r.height=Mathf.Max(1,Mathf.FloorToInt((r.height-8f*UiScale)/pitch))*pitch+8f*UiScale;
+                r.width+=Mathf.Max(0f,EquipmentScrollbarSpace-16f*UiScale);
+                return r;
+            }
+        }
         private float EquipmentSlotSide=>Mathf.Min(90f*UiScale,EquipmentLoadoutRect.width*.215f);
         public Rect EquipmentWeaponSwitchRect=>new Rect(EquipmentLoadoutRect.center.x-92f*UiScale,
             EquipmentLoadoutRect.yMax-EquipmentSlotSide-58f*UiScale,184f*UiScale,28f*UiScale);
         public Rect EquipmentItemRect(int index)
         {
             if(index<0)return Rect.zero;
-            var r=EquipmentBagRect;var s=UiScale;var side=(r.width-(EquipmentBagColumns-1)*7f*s-16f*s)/EquipmentBagColumns;
-            return new Rect(r.x+(index%EquipmentBagColumns)*(side+7f*s),r.y+(index/EquipmentBagColumns)*(side+25f*s)-equipmentScroll.y,side,side);
+            var r=EquipmentBagRect;var s=UiScale;var side=EquipmentCellSide(r);
+            return new Rect(r.x+4f*s+(index%EquipmentBagColumns)*(side+9f*s),r.y+4f*s+(index/EquipmentBagColumns)*(side+25f*s)-equipmentScroll.y,side,side);
         }
         public Rect EquipmentSlotRect(int slot)
         {
@@ -118,36 +132,42 @@ namespace Not3A.Stage3.PlayerInterface
         public Rect EquipmentActionRect=>new Rect(WindowContentRect.x+WindowContentRect.width*.75f,WindowContentRect.yMax-90f*UiScale,WindowContentRect.width*.25f,58f*UiScale);
         private void DrawEquipmentInventory(Rect content)
         {
+            equipmentNativeScrollbarSpace=GUI.skin.verticalScrollbar.fixedWidth+GUI.skin.verticalScrollbar.margin.left+2f;
             var s=UiScale;var bag=EquipmentBagRect;var loadout=EquipmentLoadoutRect;
             Label(new Rect(loadout.x,content.y,loadout.width,48f*s),"Снаряжение",34);
             Label(new Rect(bag.x,content.y,bag.width,48f*s),"Сумка",34);
             DrawRule(new Rect(bag.x,content.y+49f*s,bag.width,s));
             var items=equipment.BagItems??equipment.Items??Array.Empty<Stage3EquipmentItemView>();
-            var cell=(bag.width-(EquipmentBagColumns-1)*7f*s-16f*s)/EquipmentBagColumns;
+            var cell=EquipmentCellSide(bag);
             var visibleRows=Mathf.Max(1,Mathf.FloorToInt(bag.height/(cell+25f*s)));
             var rows=Mathf.Max(visibleRows,(items.Length+EquipmentBagColumns-1)/EquipmentBagColumns);
-            equipmentScroll=GUI.BeginScrollView(bag,equipmentScroll,new Rect(0,0,bag.width-16f*s,Mathf.Max(bag.height,rows*(cell+25f*s))));
+            equipmentScroll=GUI.BeginScrollView(bag,equipmentScroll,new Rect(0,0,bag.width-EquipmentScrollbarSpace,Mathf.Max(bag.height,rows*(cell+25f*s)+8f*s)),false,true,GUIStyle.none,GUI.skin.verticalScrollbar);
+            equipmentGuiOrigin=bag.position-equipmentScroll;
             var selectedId=-1;
-            equipmentTextureClip=new Rect(equipmentScroll.x,equipmentScroll.y,bag.width-16f*s,bag.height);
+            equipmentTextureClip=new Rect(equipmentScroll.x,equipmentScroll.y,bag.width-EquipmentScrollbarSpace,bag.height);
             for(var i=0;i<rows*EquipmentBagColumns;i++)
             {
-                var box=new Rect((i%EquipmentBagColumns)*(cell+7f*s),(i/EquipmentBagColumns)*(cell+25f*s),cell,cell);
-                if(box.yMax+20f*s<equipmentScroll.y||box.y>equipmentScroll.y+bag.height)continue;
+                var box=new Rect(4f*s+(i%EquipmentBagColumns)*(cell+9f*s),4f*s+(i/EquipmentBagColumns)*(cell+25f*s),cell,cell);
+                if(box.y<equipmentScroll.y||box.yMax+23f*s>equipmentScroll.y+bag.height)continue;
                 var item=i<items.Length?items[i]:null;
                 if(item==null){DrawBlueprintNeutralFrame(box);continue;}
-                if(SurfaceButton(box,false,false))selectedId=item.Id;
+                if(blankButton==null)blankButton=new GUIStyle(GUIStyle.none);
+                if(GUI.Button(box,GUIContent.none,blankButton))selectedId=item.Id;
                 DrawEquipmentCell(box,item,item.Id==equipment.SelectedItemId);
                 Label(new Rect(box.x,box.yMax+s,box.width,22f*s),ItemCellCaption(item),12,TextAnchor.MiddleCenter);
             }
             equipmentTextureClip=null;
             GUI.EndScrollView();
+            equipmentGuiOrigin=Vector2.zero;
+            equipmentScroll.y=Mathf.Round(equipmentScroll.y/(cell+25f*s))*(cell+25f*s);
             var dollTop=loadout.y+60f*s;
             DrawEquipmentPaperdoll(new Rect(loadout.x+EquipmentSlotSide*.92f,dollTop,
                 loadout.width-EquipmentSlotSide*1.84f,EquipmentWeaponSwitchRect.y-dollTop-5f*s));
             for(var slot=0;slot<12;slot++)
             {
                 var box=EquipmentSlotRect(slot);var item=EquippedItem(slot);
-                if(SurfaceButton(box,false,false)&&item!=null)selectedId=item.Id;
+                if(blankButton==null)blankButton=new GUIStyle(GUIStyle.none);
+                if(GUI.Button(box,GUIContent.none,blankButton)&&item!=null)selectedId=item.Id;
                 if(item!=null)DrawEquipmentCell(box,item,item.Id==equipment.SelectedItemId);
                 else DrawEmptyEquipmentSlot(box,slot);
                 if(slot==(equipment.ActiveWeapon==1?7:4))
@@ -160,8 +180,41 @@ namespace Not3A.Stage3.PlayerInterface
             }
             if(Button(EquipmentWeaponSwitchRect,"Z · Сменить"))RequestWeaponSwitch();
             DrawEquipmentDetails(new Rect(content.x+content.width*.75f,content.y,content.width*.25f,content.height),FindEquipmentItem(equipment.SelectedItemId));
+            DrawInventoryQuickAccess(FindEquipmentItem(equipment.SelectedItemId));
             if(selectedId>=0)EquipmentItemSelected?.Invoke(selectedId);
         }
+        public Rect InventoryQuickSlotRect(int index)
+        {
+            if(index<0||index>3)return Rect.zero;
+            var s=UiScale;var bag=EquipmentBagRect;
+            return new Rect(bag.x+4f*s+index*72f*s,WindowContentRect.yMax-68f*s,64f*s,64f*s);
+        }
+
+        private void DrawInventoryQuickAccess(Stage3EquipmentItemView selected)
+        {
+            var s=UiScale;var bag=EquipmentBagRect;
+            HudReferenceLabel(new Rect(bag.x,WindowContentRect.yMax-112f*s,bag.width,23f*s),"Быстрый доступ",18,TextAnchor.MiddleLeft,true);
+            Label(new Rect(bag.x,WindowContentRect.yMax-88f*s,bag.width,18f*s),
+                selected?.CanAssignQuickAccess==true?"ЛКМ · Назначить выбранный предмет    ПКМ · Очистить":"Выберите применяемый предмет    ПКМ · Очистить",13,TextAnchor.MiddleLeft,true);
+            for(var i=0;i<4;i++)
+            {
+                var r=InventoryQuickSlotRect(i);var slot=FindQuickSlot(i);var assigned=slot!=null&&slot.ItemTypeIndex>=0;
+                DrawHudPlainTile(r,Color.clear);
+                if(assigned)DrawQuickAccessArtwork(new Rect(r.center.x-17f*s,r.y+12f*s,40f*s,50f*s),slot);
+                DrawHudKeycap(new Rect(r.x+3f*s,r.y+3f*s,25f*s,21f*s),"F"+(i+1),true,15);
+                if(assigned)DrawHudKeycap(new Rect(r.xMax-27f*s,r.yMax-24f*s,24f*s,21f*s),slot.Count.ToString(),true,16);
+                var hover=GUI.enabled&&r.Contains(CurrentGuiPointer);
+                if(hover&&(assigned||selected?.CanAssignQuickAccess==true))DrawReferenceState(Inset(r,s),0,1f);
+                if(hover&&Event.current.type==EventType.MouseDown&&Event.current.button==1)
+                {if(assigned)QuickAccessClearRequested?.Invoke(i);Event.current.Use();}
+                if(hover&&assigned)DrawLoadoutTooltip(r,slot.Title+"\nПКМ · Очистить ячейку");
+                var enabled=GUI.enabled;GUI.enabled=enabled&&selected?.CanAssignQuickAccess==true;
+                if(blankButton==null)blankButton=new GUIStyle(GUIStyle.none);
+                if(GUI.Button(r,GUIContent.none,blankButton))QuickAccessAssignmentRequested?.Invoke(i,selected.Id);
+                GUI.enabled=enabled;
+            }
+        }
+
         private void DrawEmptyEquipmentSlot(Rect box,int slot)
         {
             DrawBlueprintNeutralFrame(box);
@@ -258,8 +311,8 @@ namespace Not3A.Stage3.PlayerInterface
             {
                 DrawConsumableProperty(new Rect(r.x,y+i*54f*s,r.width,54f*s),props[i]);
             }
-            if(Button(EquipmentActionRect,"В быстрый слот",false,item.CanEquip))EquipItemRequested?.Invoke(item.Id);
-            Label(new Rect(r.x,EquipmentActionRect.yMax+3f*s,r.width,28f*s),item.CanEquip?"":item.EquipUnavailableReason??"",12,TextAnchor.MiddleCenter,true);
+            Label(new Rect(r.x,EquipmentActionRect.y,r.width,EquipmentActionRect.height+28f*s),
+                "Выберите ячейку F1–F4 под сумкой,\nчтобы назначить этот предмет.",16,TextAnchor.MiddleCenter,true);
         }
         private void DrawConsumableProperty(Rect row,Stage3SelectedBuildingStat property)
         {

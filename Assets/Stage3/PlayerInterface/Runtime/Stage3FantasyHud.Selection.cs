@@ -33,6 +33,79 @@ namespace Not3A.Stage3.PlayerInterface
 
     public sealed partial class Stage3FantasyHud
     {
+        private struct UpgradePulse
+        {
+            public Vector3 Center;
+            public Vector2 Size;
+            public float Elapsed;
+        }
+        private readonly List<UpgradePulse> upgradePulses=new List<UpgradePulse>();
+        public void PlayBuildingUpgradeEffect(Vector3 worldCenter,Vector2 footprintWorldSize)
+        {
+            upgradePulses.Add(new UpgradePulse { Center=worldCenter,Size=new Vector2(Mathf.Max(.1f,footprintWorldSize.x),Mathf.Max(.1f,footprintWorldSize.y)),Elapsed=0f });
+        }
+        public int BuildingUpgradeEffectCount=>upgradePulses.Count;
+        public float BuildingUpgradeEffectElapsed=>upgradePulses.Count==0?0f:upgradePulses[upgradePulses.Count-1].Elapsed;
+        public void ClearBuildingUpgradeEffects()=>upgradePulses.Clear();
+        private void UpdateBuildingUpgradeEffects()
+        {
+            var run=game?.RunDriver?.Run;
+            if(run==null)return;
+            if(run.IsTerminal){ClearBuildingUpgradeEffects();return;}
+            if(run.IsPaused||IsModalOpen||legacyHud!=null&&legacyHud.DebugOpen)return;
+            for(var i=upgradePulses.Count-1;i>=0;i--)
+            {
+                var pulse=upgradePulses[i];pulse.Elapsed+=Time.deltaTime;
+                if(pulse.Elapsed>=1.15f)upgradePulses.RemoveAt(i);else upgradePulses[i]=pulse;
+            }
+        }
+        private void DrawBuildingUpgradeEffects()
+        {
+            var camera=scene?.CameraFollow?.BoundCamera;
+            if(camera==null||Event.current.type!=EventType.Repaint)return;
+            for(var i=upgradePulses.Count-1;i>=0;i--)
+            {
+                var pulse=upgradePulses[i];var age=pulse.Elapsed;
+                var alpha=Mathf.Clamp01(age/.12f)*Mathf.Clamp01((1.15f-age)/.55f);
+                var sprite=art?.upgradeLightCurtain;
+                if(sprite==null)continue;
+                var points=new Vector2[4];
+                for(var edge=0;edge<4;edge++)
+                {
+                    var offset=new Vector3((edge==0||edge==3?-.5f:.5f)*pulse.Size.x,(edge<2?-.5f:.5f)*pulse.Size.y,0);
+                    var projected=camera.WorldToScreenPoint(pulse.Center+offset);
+                    points[edge]=new Vector2(projected.x,Screen.height-projected.y);
+                }
+                // Each textured curtain starts on an actual projected footprint edge. Its
+                // open centre preserves the building silhouette while the light rises.
+                var source=sprite.rect;
+                var uv=new Rect(source.x/sprite.texture.width,source.y/sprite.texture.height,source.width/sprite.texture.width,source.height/sprite.texture.height);
+                var originalMatrix=GUI.matrix;var originalColor=GUI.color;
+                var rise=(35f+Mathf.SmoothStep(0f,1f,age/.85f)*90f)*UiScale;
+                var frontEdge=0;var frontY=float.NegativeInfinity;
+                for(var candidate=0;candidate<4;candidate++)
+                {
+                    var y=(points[candidate].y+points[(candidate+1)%4].y)*.5f;
+                    if(y>frontY){frontY=y;frontEdge=candidate;}
+                }
+                // GUI cannot occlude against the building sprite: show its actual near
+                // footprint edge only, avoiding a second rear baseline across the facade.
+                {
+                    var edge=frontEdge;
+                    var start=points[edge];var end=points[(edge+1)%4];
+                    if(start.x>end.x){var swap=start;start=end;end=swap;}
+                    var width=Mathf.Max(1f,end.x-start.x);
+                    var matrix=Matrix4x4.identity;
+                    matrix.m10=(end.y-start.y)/width;
+                    matrix.m03=start.x;matrix.m13=start.y;
+                    GUI.matrix=originalMatrix*matrix;
+                    GUI.color=originalColor*new Color(1f,1f,1f,alpha*.95f);
+                    DrawUiTexture(new Rect(0,-rise*.91f,width,rise),sprite.texture,uv);
+                }
+                GUI.matrix=originalMatrix;GUI.color=originalColor;
+            }
+        }
+
         private readonly Dictionary<Stage2Tower,SpriteRenderer[]> towerBadgeRenderers=new Dictionary<Stage2Tower,SpriteRenderer[]>();
         private readonly Dictionary<int,string> towerLevelBadgeLabels=new Dictionary<int,string>();
         private readonly List<Stage2Tower> expiredTowerBadges=new List<Stage2Tower>();
@@ -46,10 +119,15 @@ namespace Not3A.Stage3.PlayerInterface
                 if(pair.Key==null || !pair.Key.IsAlive) expiredTowerBadges.Add(pair.Key);
             foreach(var tower in expiredTowerBadges) towerBadgeRenderers.Remove(tower);
             var camera=scene.CameraFollow.BoundCamera;var s=UiScale;
+            var binding=GetComponent<Stage3PlayerInterfaceBinding>();
+            var quick=binding!=null&&binding.IsQuickUpgradeMode;
             for(var i=0;i<defense.TowerCount;i++)
             {
                 var tower=defense.GetTower(i);
                 if(tower==null || !tower.IsAlive || !tower.gameObject.activeInHierarchy) continue;
+                // Capability, not affordability or the currently attained level.
+                var catalog=defense.GetTowerCatalog(tower);
+                if(catalog==null || catalog.MaximumLevel<=1) continue;
                 if(!towerBadgeRenderers.TryGetValue(tower,out var renderers))
                 {
                     var native=tower.GetComponentInChildren<Stage3TowerSprite>(true);
@@ -71,22 +149,22 @@ namespace Not3A.Stage3.PlayerInterface
                     }
                 }
                 if(!float.IsFinite(top)) continue;
-                var badge=new Rect((left+right)*.5f-24f*s,top-21f*s,48f*s,17f*s);
+                var badge=new Rect((left+right)*.5f-32f*s,top-26f*s,64f*s,22f*s);
                 if(badge.xMin<0 || badge.xMax>Screen.width || badge.yMin<0 || badge.yMax>WorldHudRect.y ||
                     badge.Overlaps(ResourcesRect) || badge.Overlaps(StatusRect)) continue;
-                // Constant-cost metal bands replace the former per-pixel gradient scanlines.
-                var edge=new Color(.18f,.22f,.27f);
-                Fill(new Rect(badge.x+2f*s,badge.y,badge.width-4f*s,badge.height),edge);
-                Fill(new Rect(badge.x,badge.y+2f*s,badge.width,badge.height-4f*s),edge);
-                Fill(Inset(badge,s),new Color(.57f,.64f,.71f));
-                Fill(new Rect(badge.x+2f*s,badge.y+2f*s,badge.width-4f*s,6f*s),new Color(.88f,.92f,.96f));
-                Fill(new Rect(badge.x+2f*s,badge.y+8f*s,badge.width-4f*s,6f*s),new Color(.73f,.80f,.86f));
-                Fill(new Rect(badge.x+3f*s,badge.y+s,badge.width-6f*s,s),Color.white);
-                Fill(new Rect(badge.x+3f*s,badge.yMax-2f*s,badge.width-6f*s,s),new Color(.34f,.42f,.50f));
-                Fill(new Rect(badge.x+s,badge.y+3f*s,s,badge.height-6f*s),new Color(.95f,.98f,1f));
+                if(art.towerLevelPlate!=null)DrawSliced(badge,art.towerLevelPlate,true,.12f*s);
+                else DrawSliced(badge,art.panelFrame,true,.10f*s);
+                if(quick&&tower.CanAttack)
+                {
+                    var ready=binding.EvaluateQuickUpgrade(tower)==Stage2TowerActionResult.Ready;
+                    var tint=ready?new Color(.15f,.64f,.33f):new Color(.80f,.18f,.22f);
+                    Stroke(Inset(badge,2f*s),tint,s);
+                    var cue=new Rect(badge.xMax-18f*s,badge.y+2f*s,16f*s,badge.height-4f*s);
+                    DrawIcon(cue,ready?art.upgradeReadyIcon:art.upgradeBlockedIcon);
+                }
                 if(!towerLevelBadgeLabels.TryGetValue(tower.Level,out var levelLabel))
                 { levelLabel="LVL "+tower.Level;towerLevelBadgeLabels.Add(tower.Level,levelLabel); }
-                Label(badge,levelLabel,11,TextAnchor.MiddleCenter);
+                Label(quick&&tower.CanAttack?new Rect(badge.x+2f*s,badge.y,badge.width-20f*s,badge.height):badge,levelLabel,11,TextAnchor.MiddleCenter);
             }
         }
 

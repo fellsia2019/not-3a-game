@@ -1,0 +1,72 @@
+{
+  "date": "2026-10-23",
+  "tool": "built-in image_gen.imagegen",
+  "provenance": "Original AI-generated production art from project-owned AI references. No third-party source material. Source images copied byte-for-byte; runtime crops use measured UVs and border-only UI patches.",
+  "reference": "art/concepts/hud_polish_2026-10-23/hud_polish_v1.png",
+  "appearance_authorization": "Faithful repair of the existing owner-selected appearance; owner returned the previous native implementation.",
+  "assets": [
+    {
+      "path": "art/source/hud_reference_repair_2026-10-23_potions.png",
+      "sha256": "c04b5b461dd169592ab5b4e407296d7db7cace9509abc69fef32d5281f82c894",
+      "dimensions": [
+        2172,
+        724
+      ],
+      "prompt": "art/source/hud_reference_repair_2026-10-23_potions_prompt.txt",
+      "original_generated_file": "exec-aa8ece65-b8b9-479d-ab59-05174049ac21.png",
+      "usage": "Three broad round HUD-only flasks. Inventory and trade art unchanged.",
+      "runtime": "Assets/Stage3/PlayerInterface/Resources/Stage3HudReferencePotions.png",
+      "runtime_meta": "Assets/Stage3/PlayerInterface/Resources/Stage3HudReferencePotions.png.meta",
+      "runtime_byte_identical": true,
+      "import_max_texture_size": 4096
+    },
+    {
+      "path": "art/source/hud_reference_repair_2026-10-23_atlas_v1.png",
+      "sha256": "9be9fbb770a52ab0e5373b87a522e6fd0e3a40788ef31da930d5643d76b085e7",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "prompt": "art/source/hud_reference_repair_2026-10-23_atlas_prompt.txt",
+      "original_generated_file": "exec-d1586326-7a2c-4eda-8e55-9e1bbd486b52.png",
+      "usage": "PARTIAL RETURN. Only lower neutral tile, square keycaps and crown sampled; rejected ribbon and contaminated state interiors are excluded.",
+      "runtime": "Assets/Stage3/PlayerInterface/Resources/Stage3HudReferenceSkins.png",
+      "runtime_meta": "Assets/Stage3/PlayerInterface/Resources/Stage3HudReferenceSkins.png.meta",
+      "runtime_byte_identical": true,
+      "import_max_texture_size": 4096
+    },
+    {
+      "path": "art/source/hud_reference_repair_2026-10-23_ribbon.png",
+      "sha256": "0ef9f7996acf0eb7ec4e8639d1e595cc33bcef9981ca4f260b09e82532ff1450",
+      "dimensions": [
+        2079,
+        756
+      ],
+      "prompt": "art/source/hud_reference_repair_2026-10-23_ribbon_prompt.txt",
+      "original_generated_file": "exec-e338672d-a793-403f-b867-2a362cce260e.png",
+      "usage": "One measured source rectangle for complete connected 32/23/45 service ribbon.",
+      "runtime": "Assets/Stage3/PlayerInterface/Resources/Stage3HudReferenceRibbon.png",
+      "runtime_meta": "Assets/Stage3/PlayerInterface/Resources/Stage3HudReferenceRibbon.png.meta",
+      "runtime_byte_identical": true,
+      "import_max_texture_size": 4096
+    },
+    {
+      "path": "art/source/hud_reference_repair_2026-10-23_states.png",
+      "sha256": "f472fdb7ffb7e9ddd975050f6cd3a716d5ae5427271887358e09d2ed8da0a7d9",
+      "dimensions": [
+        2172,
+        724
+      ],
+      "prompt": "art/source/hud_reference_repair_2026-10-23_states_prompt.txt",
+      "original_generated_file": "exec-1035c843-b15f-4ba0-beca-7ea64f7405eb.png",
+      "usage": "PARTIAL USE. Only measured frame edge patches and crown; all contaminated interiors excluded from rendering.",
+      "runtime": "Assets/Stage3/PlayerInterface/Resources/Stage3HudReferenceStates.png",
+      "runtime_meta": "Assets/Stage3/PlayerInterface/Resources/Stage3HudReferenceStates.png.meta",
+      "runtime_byte_identical": true,
+      "import_max_texture_size": 4096
+    }
+  ],
+  "status": "ASTRA_NATIVE_V2_LOCAL_REFERENCE_PASS",
+  "native_review": "art/source/hud_reference_repair_2026-10-23_native_review.json",
+  "verification": "art/source/hud_reference_repair_2026-10-23_verification.json"
+}

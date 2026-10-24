@@ -17,6 +17,7 @@ namespace Not3A.Stage2.WavesAI
         public float Progress => Duration <= 0f ? 1f : Mathf.Clamp01(Elapsed / Duration);
         internal Stage2Enemy Target;
         internal int Damage;
+        internal Stage2DamageSchool School;
     }
 
     /// <summary>Explicit run-owned population; pass IsCellProtected to Defense.</summary>
@@ -66,7 +67,9 @@ namespace Not3A.Stage2.WavesAI
         public bool TryHitNearest(Vector2 world, float range, int damage, float splashRadiusCells)
             => TryHitNearest(world, range, damage, splashRadiusCells, 0f);
 
-        public bool TryHitNearest(Vector2 world, float range, int damage, float splashRadiusCells, float flightSeconds)
+        public bool TryHitNearest(Vector2 world,float range,int damage,float splashRadiusCells,float flightSeconds)
+            =>TryHitNearest(world,range,damage,splashRadiusCells,flightSeconds,Stage2DamageSchool.Physical);
+        public bool TryHitNearest(Vector2 world, float range, int damage, float splashRadiusCells, float flightSeconds,Stage2DamageSchool school)
         {
             if (paused || range <= 0f || damage <= 0 || splashRadiusCells < 0f ||
                 float.IsNaN(splashRadiusCells) || float.IsInfinity(splashRadiusCells) ||
@@ -74,7 +77,7 @@ namespace Not3A.Stage2.WavesAI
             var nearest=FindNearest(world,range);
             if (nearest == null) return false;
             var shot = new Stage2Shot { Origin = world, Position = nearest.transform.position,
-                Target = nearest, Damage = damage, SplashRadiusCells = splashRadiusCells, Duration = flightSeconds };
+                Target = nearest, Damage = damage, School = school, SplashRadiusCells = splashRadiusCells, Duration = flightSeconds };
             if (flightSeconds > 0f) shots.Add(shot);
             ShotLaunched?.Invoke(shot);
             if (flightSeconds == 0f) ResolveShot(shot);
@@ -123,7 +126,7 @@ namespace Not3A.Stage2.WavesAI
             ShotImpacted?.Invoke(shot);
             if (shot.SplashRadiusCells == 0f)
             {
-                if (shot.Target != null && shot.Target.IsAlive) shot.Target.TakeDamage(shot.Damage);
+                if (shot.Target != null && shot.Target.IsAlive) shot.Target.TakeDamage(shot.Damage,shot.School);
                 return;
             }
 
@@ -137,7 +140,7 @@ namespace Not3A.Stage2.WavesAI
                 if (candidate == null || !candidate.IsAlive) continue;
                 var position = map.WorldToCellCoordinates(candidate.transform.position);
                 if ((position - center).sqrMagnitude <= radiusSquared)
-                    candidate.TakeDamage(shot.Damage);
+                    candidate.TakeDamage(shot.Damage,shot.School);
             }
         }
 

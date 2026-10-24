@@ -42,7 +42,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Assert.That(travel, Is.Not.Null); type = travel.GetType();
             Assert.That(Flag("IsReady"), Is.True);
             camera = scene.CameraFollow.BoundCamera; game.RunDriver.ResetRun();
-            Directory.CreateDirectory(Evidence); yield return null;
+            Stage3TestCycle.FundBaseConstruction(game);Directory.CreateDirectory(Evidence); yield return null;
         }
         [UnityTearDown] public IEnumerator Cleanup()
         {
@@ -73,7 +73,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
         private void BuildWorkshop()
         {
             scene.PlayerMover.transform.position = Point("BasePosition");
-            var hud = game.GetComponent<Stage2GameHud>(); hud.SelectWorkshop();
+            Stage3TestCycle.FundBaseConstruction(game);var hud = game.GetComponent<Stage2GameHud>(); hud.SelectWorkshop();
             Assert.That(hud.BuildCategory, Is.EqualTo(Stage2BuildCategory.Research));
             Assert.That(type.GetMethod("TryBuildWorkshopAt").Invoke(travel, new object[] { Point("WorkshopPosition") }).ToString(), Is.EqualTo("Built"));
             Assert.That(Flag("WorkshopBuilt"), Is.True);
@@ -90,10 +90,10 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Assert.That(Flag("IsPlacingBaseCircle"), Is.False);
         }
 
-        [UnityTest] public IEnumerator BuildMenuMousePlacementIsFreeSingleAndMatchesPreviewBeforeResearch()
+        [UnityTest] public IEnumerator BuildMenuMousePlacementPaysOnceAndMatchesPreviewBeforeResearch()
         {
             var hud = game.GetComponent<Stage2GameHud>(); var stock = Stock(); var site = Point("WorkshopPosition");
-            Assert.That(hud.CanSelectWorkshop, Is.True, "The approved prototype costs no resources.");
+            Assert.That(hud.CanSelectWorkshop, Is.True, "The fixture funds the actual paid construction.");
             Assert.That(hud.ResearchTabRect.xMax, Is.LessThanOrEqualTo(hud.BuildRect.xMax));
             Assert.That(hud.GeneratorsTabRect.xMax, Is.LessThan(hud.ResearchTabRect.xMin));
             scene.CameraFollow.enabled = false; camera.orthographicSize = 5f;
@@ -108,7 +108,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Assert.That(Flag("WorkshopBuilt"), Is.True); Assert.That(Flag("IsPlacingWorkshop"), Is.False);
             Assert.That(Flag("IsResearched"), Is.False); Assert.That(Flag("BaseVisible"), Is.False);
             Assert.That(Vector3.Distance(GameObject.Find("Research workshop").transform.position, registration), Is.LessThan(.001f));
-            Assert.That(Stock(), Is.EqualTo(stock)); Assert.That(hud.CanSelectWorkshop, Is.False);
+            Assert.That(Stock(), Is.EqualTo(new[]{stock[0],stock[1]-30,stock[2]-40,stock[3]})); Assert.That(hud.CanSelectWorkshop, Is.False);
             yield return null; hud.SelectWorkshop(); yield return null;
             Assert.That(Flag("IsPlacingWorkshop"), Is.False);
             Assert.That(Obstacles.Rectangles.Count(r => r.Contains(site)), Is.EqualTo(1));
@@ -116,6 +116,24 @@ namespace Not3A.Stage3.VisualPilot.Tests
             input.Release(Mouse.current.leftButton); yield return Study();
             Assert.That(Flag("BaseVisible"), Is.False, "Studying unlocks construction without creating a circle.");
             BuildBaseCircle(); Assert.That(Flag("BaseVisible"), Is.True);
+        }
+
+        [UnityTest] public IEnumerator ResearchCentreRequiresBothMaterialsAndRevalidatesBeforePaying()
+        {
+            var inventory=game.Gathering.Economy.Inventory;var hud=game.GetComponent<Stage2GameHud>();
+            inventory.Reset();inventory.TryAdd(MapResourceKind.Wood,30);
+            Assert.That(hud.CanSelectWorkshop,Is.False);hud.SelectWorkshop();Assert.That(Flag("IsPlacingWorkshop"),Is.False);
+            inventory.TryAdd(MapResourceKind.Stone,40);Assert.That(hud.CanSelectWorkshop,Is.True);
+            scene.PlayerMover.transform.position=Point("BasePosition");hud.SelectWorkshop();var site=Point("WorkshopPosition");
+            Assert.That(EvaluateWorkshop(site),Is.EqualTo("Ready"));
+            inventory.TrySpend(0,1,0,0);var before=Stock();var occupancy=Obstacles.Rectangles.Count;
+            Assert.That(type.GetMethod("TryBuildWorkshopAt").Invoke(travel,new object[]{site}).ToString(),Is.EqualTo("InsufficientResources"));
+            Assert.That(Stock(),Is.EqualTo(before));Assert.That(Flag("WorkshopBuilt"),Is.False);Assert.That(Obstacles.Rectangles.Count,Is.EqualTo(occupancy));
+            inventory.TryAdd(MapResourceKind.Stone,1);
+            Assert.That(type.GetMethod("TryBuildWorkshopAt").Invoke(travel,new object[]{site}).ToString(),Is.EqualTo("Built"));
+            Assert.That(inventory.Get(MapResourceKind.Wood),Is.Zero);Assert.That(inventory.Get(MapResourceKind.Stone),Is.Zero);
+            Assert.That(type.GetMethod("TryBuildWorkshopAt").Invoke(travel,new object[]{site}).ToString(),Is.EqualTo("NotPlacing"));
+            Assert.That(inventory.Get(MapResourceKind.Wood),Is.Zero);yield return null;
         }
 
         [UnityTest] public IEnumerator PlacementRejectsRoadHeroResourcesCirclesObstaclesAndMenuClicksAndCancellationWins()
@@ -153,11 +171,15 @@ namespace Not3A.Stage3.VisualPilot.Tests
 
         [UnityTest] public IEnumerator WorkshopPlacementYieldsToOtherModesAndCannotSurvivePauseDebugTerminalOrReset()
         {
+            Stage3TestCycle.StudyBlueprint(game,Stage2BlueprintKind.Sawmill);
             var hud = game.GetComponent<Stage2GameHud>(); hud.AddAllResources(100); hud.AddGold(100);
             hud.SelectWorkshop(); hud.SelectGenerator(ResourceProductionBuilding.Sawmill);
             Assert.That(Flag("IsPlacingWorkshop"), Is.False); Assert.That(game.Production.IsPlacing, Is.True);
+            var playerUi=game.GetComponent("Stage3FantasyHud");
+            playerUi.GetType().GetMethod("SetBuildGroup").Invoke(playerUi,new object[]{2});
             hud.SelectWorkshop(); input.Press(Keyboard.current.digit1Key); yield return null;
-            Assert.That(Flag("IsPlacingWorkshop"), Is.False); Assert.That(game.Building.Defense.SelectedRoleIndex, Is.Zero);
+            Assert.That(Flag("IsPlacingWorkshop"), Is.True,"Hero skill keys must not cancel a workshop draft or open defense.");
+            Assert.That(game.Building.Defense.IsPlacing, Is.False);
             input.Release(Keyboard.current.digit1Key); hud.SelectWorkshop(); hud.SelectTower(0);
             Assert.That(Flag("IsPlacingWorkshop"), Is.False); Assert.That(game.Building.Defense.IsPlacing, Is.True);
             hud.SelectWorkshop(); hud.SetDebugOpen(true); yield return null;
@@ -182,7 +204,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Assert.That(TryInteract(), Is.False, "Research requires an actually constructed workshop.");
             Assert.That(GameObject.Find("Base teleport circle"), Is.Null);
             Assert.That(GameObject.Find("World teleport circle"), Is.Not.Null);
-            var stock = Stock(); yield return Study();
+            yield return Study(); var stock = Stock();
             Assert.That(Flag("BaseVisible"), Is.False); Assert.That(Flag("BaseBuilt"), Is.False);
             Assert.That(Flag("CanBeginBaseCirclePlacement"), Is.True);
             Assert.That(Minimap.Markers.Any(m => m.Kind == Stage2MinimapMarkerKind.Teleport), Is.False);
@@ -306,7 +328,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
         private bool Go(string from,string to)=>(bool)type.GetMethod("TryTravelTo").Invoke(travel,new object[]{from,to,true});
         [UnityTest] public IEnumerator DiscoveryAndMenuTravelWorkBothWaysWithoutBounceOrBlockedArrival()
         {
-            var stock=Stock();yield return Study();BuildBaseCircle();scene.PlayerMover.transform.position=Point("BasePosition");yield return Press();
+            yield return Study();var stock=Stock();BuildBaseCircle();scene.PlayerMover.transform.position=Point("BasePosition");yield return Press();
             Assert.That(MenuOpen,Is.True);Assert.That(Go("base","city"),Is.False,"Unknown destinations cannot be requested by ID.");CloseMenu();
             scene.PlayerMover.transform.position=Point("RemotePosition");input.Release(Keyboard.current.eKey);yield return null;yield return null;
             Assert.That(Flag("RemoteDiscovered"),Is.True);yield return Press();Assert.That(MenuOpen,Is.True);
@@ -358,6 +380,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
 
         [UnityTest] public IEnumerator PauseBuildAndDebugBlockResearchAndHeldInputDoesNotReplay()
         {
+            Stage3TestCycle.StudyBlueprint(game,Stage2BlueprintKind.Sawmill);
             BuildWorkshop();
             scene.PlayerMover.transform.position = Point("WorkshopInteractionPosition");
             game.RunDriver.SetPaused(true); yield return Press(); Assert.That(Flag("IsResearched"), Is.False);

@@ -992,7 +992,7 @@ MonoBehaviour:
   longshotCatalog: {fileID: 11400000, guid: 42ce5fc86401cce478acb5d920ad0802, type: 2}
   barricadeCatalog: {fileID: 11400000, guid: b164ed9435e975240a833910eca900f2, type: 2}
   heroCombatCatalog: {fileID: 11400000, guid: 5d9a4396a92739d4eb36d11eff686383, type: 2}
-  enemyCatalog: {fileID: 11400000, guid: bf4bec7be7071644b9d2e344a1da20ce, type: 2}
+  enemyCatalog: {fileID: 11400000, guid: 0919c3135aa6e436696d455d9acd24ab, type: 2}
   runCatalog: {fileID: 11400000, guid: 71813e70656f4794193057b9e12c8aa2, type: 2}
   gathering: {fileID: 1713031730}
   building: {fileID: 1713031729}

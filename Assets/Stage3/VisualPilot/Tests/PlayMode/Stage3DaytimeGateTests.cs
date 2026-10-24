@@ -123,7 +123,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Assert.That(game.Gathering.Economy.Inventory.Gold,Is.EqualTo(gold)); Assert.That(xp,Is.EqualTo(progression.Catalog.XpPerKill));
             Run.OpenDaytimeGate(); Run.Tick(.01f); game.Enemies.GetEnemy(0).TakeDamage(int.MaxValue);
             Assert.That(xp,Is.EqualTo(2*progression.Catalog.XpPerKill));
-            Assert.That(game.Gathering.Economy.Inventory.Gold,Is.EqualTo(gold+game.Gathering.Economy.GoldPerKill));
+            Assert.That(game.Gathering.Economy.Inventory.Gold-gold,Is.EqualTo(0).Or.EqualTo(game.Gathering.Economy.GoldPerKill), "A confirmed kill rolls gold once; payout is not guaranteed.");
             yield return null;
         }
         [UnityTest] public IEnumerator SelectedDwellingSleepReflectsLiveFightAndUsesTheSameLocalRules()

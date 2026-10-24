@@ -1,0 +1,17 @@
+Use case: stylized-concept. Asset type: production UI sprite atlas for an original fantasy game.
+Generate a transparent-background 4-column by 3-row regular atlas, ideally 2048x1536px. Exactly 12 equal cells, every symbol centred with generous transparent gutters. No text, no labels, no keys, no selection outline, no mockup background. Transparent alpha outside each isolated asset.
+Reference1 supplies the OWNER-APPROVED Player variant1 (far LEFT in the top study) and the six BOTTOM-row navigation pictograms. Recreate those same six original symbols as clean individual runtime assets, not the rejected Player variants2/3. Reference2 supplies the engraved SILVER patterned level plaque and green/red upgrade marks.
+Hand-painted plum enamel, thin polished silver edging, restrained cyan gems, readable at48–64pixels, parchment book/map natural texture. Do not substitute modern line icons or website/account/person silhouettes.
+Cell row1 col1: Player = the reference1 far-left original crossed curved bow and long angular crystal staff with a thin crescent, no shield backing, no face/profile.
+R1C2: plum travel bag satchel, simple small cyan clasp.
+R1C3: medieval builder hammer over a subtle plum diamond backing.
+R1C4: open aged ivory research book, delicate geometric magical engineering diagram, no text.
+R2C1: three cyan round nodes linked as a small branching skill-tree on plum diamond.
+R2C2: folded parchment map, route and small forest marks, no text.
+R2C3: EMPTY horizontal level plaque, flat frontal symmetric sharp ends, real SILVER multitone metal engraving with fine knotwork at BOTH ends, quiet darker grey centre for live dark text. Not white porcelain, not gold. About430pxwide by140pxhigh centred in its cell, full transparent outside silhouette, no letters/numbers.
+R2C4: isolated GREEN double upgrade chevrons with a small circled check, thin silver outlines, no plaque behind.
+R3C1: isolated RED double upgrade chevrons with a small circled blocked/slash mark, thin silver outlines, no plaque behind.
+R3C2: passive mining capstone icon, silver pickaxe cleaving a small grey boulder with restrained amber impact spark, circular/plum inset matching existing fantasy passive medallions, not a new inventory item.
+R3C3: passive logging capstone icon, silver axe cleanly felling an ordinary tree with restrained amber spark, circular/plum inset matching R3C2.
+R3C4: leave entirely empty transparent.
+No glow spilling into adjacent cells, no drawn cell borders, no visible grid/checkerboard, no bottom captions, no digits. All images front-facing UI ornaments with painted volume, not a whole screenshot. Reuse the approved original reference shapes closely.

@@ -121,7 +121,7 @@ namespace Not3A.Stage3.PlayerInterface
             if(progressionNumbers[2]!=v.XpWithin||progressionNumbers[3]!=v.RequiredXp)
             {progressionNumbers[2]=v.XpWithin;progressionNumbers[3]=v.RequiredXp;heroXpLabel=v.RequiredXp>0?v.XpWithin+" / "+v.RequiredXp:"МАКС.";}
             if(progressionNumbers[4]!=v.AvailablePoints)
-            {progressionNumbers[4]=v.AvailablePoints;heroPointsLabel="Очки: "+v.AvailablePoints;heroPointBadge=v.AvailablePoints.ToString();}
+            {progressionNumbers[4]=v.AvailablePoints;heroPointsLabel="Очки героя: "+v.AvailablePoints;heroPointBadge=v.AvailablePoints.ToString();}
             var tenth=Mathf.CeilToInt(v.BlinkCooldownRemaining*10f);
             if(tenth!=displayedCooldown){displayedCooldown=tenth;blinkCooldownLabel=(tenth*.1f).ToString("0.0",System.Globalization.CultureInfo.GetCultureInfo("ru-RU"));}
             for(var i=0;i<4;i++)

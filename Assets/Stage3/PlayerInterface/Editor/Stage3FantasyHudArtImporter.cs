@@ -60,6 +60,56 @@ namespace Not3A.Stage3.PlayerInterface.Editor
             Debug.Log("S3_LUNAR_ART_READY: original PNG bytes preserved; inspected source rectangles and native sliced sprites imported.");
         }
 
+        [MenuItem("Tools/Stage 3/Player Interface/Import D124 Art")]
+        public static void ImportD124()
+        {
+            const string source="art/source/hud_refactor_2026-10-22_runtime_atlas.png";
+            const string destination=Root+"/Art/D124RuntimeAtlas.png";
+            var bytes=File.ReadAllBytes(source);
+            if(!File.Exists(destination)||!bytes.SequenceEqual(File.ReadAllBytes(destination)))File.WriteAllBytes(destination,bytes);
+            AssetDatabase.ImportAsset(destination,ImportAssetOptions.ForceSynchronousImport);
+            var importer=(TextureImporter)AssetImporter.GetAtPath(destination);
+            importer.textureType=TextureImporterType.Default;importer.alphaSource=TextureImporterAlphaSource.FromInput;
+            importer.alphaIsTransparency=true;importer.mipmapEnabled=true;importer.sRGBTexture=true;
+            importer.textureCompression=TextureImporterCompression.Uncompressed;importer.maxTextureSize=2048;
+            importer.filterMode=FilterMode.Trilinear;importer.wrapMode=TextureWrapMode.Clamp;
+            importer.npotScale=TextureImporterNPOTScale.None;importer.isReadable=false;importer.SaveAndReimport();
+            var texture=AssetDatabase.LoadAssetAtPath<Texture2D>(destination);
+            if(texture.width!=1448||texture.height!=1086)throw new InvalidOperationException("D124 atlas dimensions changed; remeasure bounds.");
+            var art=AssetDatabase.LoadAssetAtPath<Stage3FantasyHudArt>(ArtPath);
+            if(art==null)throw new InvalidOperationException("Import existing Lunar Art before D124.");
+            art.playerNavigationIcon=Slice(art,texture,"D124 Player",46,20,387,408,Vector4.zero);
+            art.menuIcons=new[]{
+                Slice(art,texture,"D124 Inventory",386,96,700,391,Vector4.zero),
+                Slice(art,texture,"D124 Construction",721,69,1046,395,Vector4.zero),
+                Slice(art,texture,"D124 Research",1078,79,1432,392,Vector4.zero),
+                Slice(art,texture,"D124 Development",22,450,311,738,Vector4.zero),
+                Slice(art,texture,"D124 Map",326,438,687,737,Vector4.zero)};
+            art.towerLevelPlate=Slice(art,texture,"D124 Silver level plate",697,530,1139,659,new Vector4(100,28,100,28));
+            art.upgradeReadyIcon=Slice(art,texture,"D124 Upgrade ready",1153,494,1420,701,Vector4.zero);
+            art.upgradeBlockedIcon=Slice(art,texture,"D124 Upgrade blocked",45,796,322,1002,Vector4.zero);
+            art.professionCapstoneIcons=new[]{
+                Slice(art,texture,"D124 Miner capstone",386,746,697,1052,Vector4.zero),
+                Slice(art,texture,"D124 Logger capstone",755,743,1069,1052,Vector4.zero)};
+            var skin=CopyTexture("../../source/hud_refactor_2026-10-22_runtime_skin_v2.png","D124RuntimeSkinV2.png");
+            var light=CopyTexture("../../source/hud_refactor_2026-10-22_upgrade_light.png","D124UpgradeLight.png");
+            if(skin.width!=1254||skin.height!=1254||light.width!=1254||light.height!=1254)
+                throw new InvalidOperationException("D124 skin dimensions changed; remeasure bounds.");
+            art.controlPanel=Slice(art,skin,"D124 Ivory control",24,100,485,352,new Vector4(38,38,38,38));
+            art.controlAction=Slice(art,skin,"D124 Plum action",506,176,986,294,new Vector4(32,32,32,32));
+            art.controlSlot=Slice(art,skin,"D124 Quick slot",1011,129,1222,333,new Vector4(30,30,30,30));
+            art.controlMedallion=Slice(art,skin,"D124 Thin medallion",31,406,413,788,Vector4.zero);
+            art.adventurerIcons=new[]{
+                Slice(art,skin,"D124 Contract experience",469,433,811,768,Vector4.zero),
+                Slice(art,skin,"D124 Contract gold",884,438,1219,768,Vector4.zero),
+                Slice(art,skin,"D124 World experience",45,836,393,1176,Vector4.zero),
+                Slice(art,skin,"D124 World damage",458,837,805,1181,Vector4.zero),
+                Slice(art,skin,"D124 World resistance",873,837,1218,1179,Vector4.zero)};
+            art.upgradeLightCurtain=Slice(art,light,"D124 Upgrade light curtain",0,0,1254,1254,Vector4.zero);
+            EditorUtility.SetDirty(art);AssetDatabase.SaveAssets();
+            Debug.Log("S3_D124_ART_READY: original alpha atlas, measured isolated bounds, existing quality skins preserved.");
+        }
+
         private static Sprite TowerIcon(string path)
         {var set=AssetDatabase.LoadAssetAtPath<Stage3TowerSpriteSet>(path);return set!=null?set.Frame(0,0):null;}
 

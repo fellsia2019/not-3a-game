@@ -65,7 +65,7 @@ namespace Not3A.Stage3.PlayerInterface
             {
                 if (researchTravel == null && game != null) researchTravel=game.GetComponent<Stage3WorldTravel>();
                 return researchTravel == null || !researchTravel.IsReady ? "Недоступно" : researchTravel.IsResearched ? "Изучено" :
-                    researchTravel.WorkshopBuilt ? "Доступно у мастерской" : "Нужна мастерская";
+                    researchTravel.WorkshopBuilt ? "Доступно у исследовательского центра" : "Нужен исследовательский центр";
             }
         }
 
@@ -129,7 +129,7 @@ namespace Not3A.Stage3.PlayerInterface
         private void DrawResearch(Rect content)
         {
             var s=UiScale;
-            Label(new Rect(content.x,content.y,content.width,46f*s),"Исследовательская мастерская",34);
+            Label(new Rect(content.x,content.y,content.width,46f*s),"Исследовательский центр",34);
             for(var i=0;i<3;i++)DrawSliced(ResearchPanelRect(i),art.windowFrame,false,.13f*s);
             DrawResearchCatalogue();
             DrawResearchPreview();
@@ -191,7 +191,7 @@ namespace Not3A.Stage3.PlayerInterface
             DrawRule(new Rect(r.x,r.yMax-65f*s,r.width,s));
             if(studied)DrawBlueprintKnownPill(new Rect(r.x,r.yMax-55f*s,r.width,28f*s));
             Label(new Rect(r.x,r.yMax-(studied?24f:46f)*s,r.width,(studied?24f:42f)*s),
-                teleport?(studied?"Знание сохранено":"Всегда доступен в мастерской"):studied?"Чертёж израсходован":"Чертёж расходуется при изучении",15,TextAnchor.MiddleCenter,true);
+                teleport?(studied?"Знание сохранено":"Всегда доступен в исследовательском центре"):studied?"Чертёж израсходован":"Чертёж расходуется при изучении",15,TextAnchor.MiddleCenter,true);
         }
 
         private void DrawResearchConditions()
@@ -215,9 +215,9 @@ namespace Not3A.Stage3.PlayerInterface
             else
             {
                 DrawResearchCondition(new Rect(r.x,conditionsY+45f*s,r.width,45f*s),teleport||entry?.Owned==true,
-                    teleport?"Всегда доступен в мастерской":"Чертёж в инвентаре");
+                    teleport?"Всегда доступен в исследовательском центре":"Чертёж в инвентаре");
                 DrawResearchCondition(new Rect(r.x,conditionsY+99f*s,r.width,45f*s),research?.NearWorkshop==true,
-                    research?.WorkshopBuilt==true?"Вы у мастерской":"Нужна мастерская");
+                    research?.WorkshopBuilt==true?"Вы у исследовательского центра":"Нужен исследовательский центр");
             }
             var button=ResearchStudyRect;
             if(Button(button,studied?"Изучено":"Изучить",false,!studied&&research?.CanStudy==true))ResearchStudyRequested?.Invoke(research.SelectedKind);

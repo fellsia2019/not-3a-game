@@ -8,6 +8,7 @@ namespace Not3A.Stage3.PlayerInterface
     public sealed class Stage3ForgeCostView { public int Wood,Stone,Metal,Gold,Scrolls; }
     public sealed class Stage3ForgeView
     {
+        public string BuildingName;
         public Stage3ForgeMode Mode;
         public int SelectedTypeIndex,SelectedItemId=-1,BuildingLevel,MaximumQualityIndex;
         public Stage3EquipmentItemView[] Items;
@@ -44,7 +45,7 @@ namespace Not3A.Stage3.PlayerInterface
         private void DrawForge(Rect content)
         {
             var s=UiScale;
-            Label(new Rect(content.x,content.y,content.width*.28f,62f*s),"Кузница",42);
+            FitText(new Rect(content.x,content.y,content.width*.28f,62f*s),forgeView?.BuildingName??"Кузница",36,false);
             Label(new Rect(content.x,content.y+64f*s,content.width*.28f,50f*s),"Оружие, доспехи и аксессуары",18,TextAnchor.UpperLeft,true);
             if(forgeView==null){Label(content,"Кузница недоступна",24,TextAnchor.MiddleCenter);return;}
             var mode=forgeView.Mode;var modeRequest=-1;var typeRequest=-1;var itemRequest=-1;
@@ -123,7 +124,7 @@ namespace Not3A.Stage3.PlayerInterface
                 Label(new Rect(row.x+row.width*.47f,row.y,row.width*.53f,row.height),$"{props[i].Before} → {props[i].After}",17,TextAnchor.MiddleRight);
             }
             var capY=r.y+Mathf.Max(174f,60f+props.Length*34f)*s;
-            Label(new Rect(r.x,capY,r.width,44f*s),$"Кузница {forgeView.BuildingLevel} · предел {QualityName(forgeView.MaximumQualityIndex)}",17,TextAnchor.MiddleCenter);
+            Label(new Rect(r.x,capY,r.width,44f*s),$"{forgeView.BuildingName??"Кузница"} {forgeView.BuildingLevel} · предел {QualityName(forgeView.MaximumQualityIndex)}",17,TextAnchor.MiddleCenter);
             DrawRule(new Rect(r.x,capY+49f*s,r.width,s));
             Label(new Rect(r.x,capY+57f*s,r.width,34f*s),"Стоимость",24);
             var cost=forgeView.Cost;var line=0;

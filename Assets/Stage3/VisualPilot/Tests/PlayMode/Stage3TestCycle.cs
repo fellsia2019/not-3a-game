@@ -6,6 +6,15 @@ namespace Not3A.Stage3.VisualPilot.Tests
 {
     internal static class Stage3TestCycle
     {
+        // Explicit construction setup only; ordinary startup remains unfunded.
+        internal static void FundBaseConstruction(Stage2GameComposition game,int wood=30,int stone=40)
+        {
+            var inventory=game.Gathering.Economy.Inventory;
+            var currentWood=inventory.Get(Not3A.Stage2.Map.MapResourceKind.Wood);
+            var currentStone=inventory.Get(Not3A.Stage2.Map.MapResourceKind.Stone);
+            if(currentWood<wood)inventory.TryAdd(Not3A.Stage2.Map.MapResourceKind.Wood,wood-currentWood);
+            if(currentStone<stone)inventory.TryAdd(Not3A.Stage2.Map.MapResourceKind.Stone,stone-currentStone);
+        }
         // Explicit prerequisite fixture for old tower/visual tests; no runtime unlock cheat.
         internal static void StudyBlueprint(Stage2GameComposition game,Stage2BlueprintKind kind)
         {

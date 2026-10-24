@@ -63,11 +63,13 @@ namespace Not3A.Stage3.VisualPilot
         public void Initialize(Stage3WorldTravelData settings, Stage2SceneBootstrap bootstrap,
             Stage2GameComposition composition, Stage2Minimap mapView)
         {
-            if (settings == null || settings.sealMaterial == null || settings.workshopSprite == null || settings.workshopMaterial == null)
+            if (settings == null || settings.sealMaterial == null || settings.workshopSprite == null || settings.workshopMaterial == null ||
+                settings.workshopWoodCost < 0 || settings.workshopStoneCost < 0)
                 throw new ArgumentException("World travel artwork is incomplete.");
             data = settings; scene = bootstrap; game = composition; minimap = mapView;
             hud = game.GetComponent<Stage2GameHud>();
-            hud?.BindWorkshopConstruction(data.workshopSprite, () => WorkshopBuildStatus, BeginWorkshopPlacement, CancelWorkshopPlacement);
+            hud?.BindWorkshopConstruction(data.workshopSprite, () => WorkshopBuildStatus, BeginWorkshopPlacement, CancelWorkshopPlacement,
+                data.workshopWoodCost, data.workshopStoneCost);
             game.Building.PlacementStarting += CancelConstructionPlacement;
             if (game.Production != null) game.Production.PlacementStarting += CancelConstructionPlacement;
             game.RunDriver.Run.Reset += ResetProgress;
@@ -261,11 +263,11 @@ namespace Not3A.Stage3.VisualPilot
         {
             var hero = (Vector2)scene.PlayerMover.transform.position;
             if (state.WorkshopBuilt && Vector2.Distance(hero, WorkshopInteractionPosition) <= data.interactionRadius)
-                return WorkshopOpenRequested!=null?"E · открыть исследования":state.Researched ? "Телепортация изучена · постройте круг на базе" : "E · исследовать Телепортацию в мастерской";
+                return WorkshopOpenRequested!=null?"E · открыть исследования":state.Researched ? "Телепортация изучена · постройте круг на базе" : "E · исследовать Телепортацию в исследовательском центре";
             if (state.BaseBuilt && Vector2.Distance(hero, BasePosition) <= CircleInteractionRadius)
                 return "Клик / E · открыть телепорты";
             if (Vector2.Distance(hero, RemotePosition) <= data.discoveryRadius)
-                return !state.Researched ? "Круг найден · изучите Телепортацию в мастерской" :
+                return !state.Researched ? "Круг найден · изучите Телепортацию в исследовательском центре" :
                     Vector2.Distance(hero, RemotePosition) <= CircleInteractionRadius ? "Клик / E · открыть телепорты" :
                     "Подойдите к кругу · клик / E";
             return null;

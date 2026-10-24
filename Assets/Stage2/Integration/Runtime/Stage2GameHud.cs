@@ -40,21 +40,24 @@ namespace Not3A.Stage2.Integration
         private Func<Stage2WorkshopBuildStatus> dwellingStatus;
         private Func<bool> canSelectDwelling;
         private Action beginDwelling, cancelDwelling;
-        private int dwellingWoodCost;
+        private int dwellingWoodCost, dwellingStoneCost;
         public Stage2WorkshopBuildStatus DwellingStatus => dwellingStatus?.Invoke() ?? Stage2WorkshopBuildStatus.Unavailable;
         public bool CanSelectDwelling => canSelectDwelling?.Invoke() ?? false;
         public void BindDwellingConstruction(Sprite icon, Func<Stage2WorkshopBuildStatus> status,
-            Func<bool> canSelect, Action begin, Action cancel, int woodCost)
+            Func<bool> canSelect, Action begin, Action cancel, int woodCost, int stoneCost = 0)
         { dwellingIcon = icon; dwellingStatus = status; canSelectDwelling = canSelect;
-            beginDwelling = begin; cancelDwelling = cancel; dwellingWoodCost = woodCost; }
+            beginDwelling = begin; cancelDwelling = cancel; dwellingWoodCost = woodCost; dwellingStoneCost = stoneCost; }
         private Sprite workshopIcon;
         private Func<Stage2WorkshopBuildStatus> workshopStatus;
         private Action beginWorkshop, cancelWorkshop;
+        private int workshopWoodCost, workshopStoneCost;
         public Stage2WorkshopBuildStatus WorkshopStatus => workshopStatus?.Invoke() ?? Stage2WorkshopBuildStatus.Unavailable;
         public bool CanSelectWorkshop => WorkshopStatus == Stage2WorkshopBuildStatus.Ready || WorkshopStatus == Stage2WorkshopBuildStatus.Placing;
         // The Stage 3 scene supplies its construction actions without coupling this assembly to its artwork/runtime.
-        public void BindWorkshopConstruction(Sprite icon, Func<Stage2WorkshopBuildStatus> status, Action begin, Action cancel)
-        { workshopIcon = icon; workshopStatus = status; beginWorkshop = begin; cancelWorkshop = cancel; }
+        public void BindWorkshopConstruction(Sprite icon, Func<Stage2WorkshopBuildStatus> status, Action begin, Action cancel,
+            int woodCost = 0, int stoneCost = 0)
+        { workshopIcon = icon; workshopStatus = status; beginWorkshop = begin; cancelWorkshop = cancel;
+            workshopWoodCost = woodCost; workshopStoneCost = stoneCost; }
         private GUIStyle title, text, muted, number, button, smallButton, centered, smallButtonText;
         private Texture2D buttonNormal, buttonHover, buttonActive;
         private Func<bool> lossPresentation;
@@ -190,12 +193,51 @@ namespace Not3A.Stage2.Integration
         }
 
         private Stage2HeroProgressionDriver heroDebugTools;
+        private bool grantingHeroProgression;
         public bool WtfMode=>heroDebugTools?.Rules?.WtfForTesting??false;
         public bool CanUseWtf=>isActiveAndEnabled&&DebugAvailable&&heroDebugTools?.Rules!=null&&game!=null&&!game.RunDriver.Run.IsTerminal;
+        public bool CanGrantHeroProgression => isActiveAndEnabled && DebugAvailable && DebugOpen &&
+            !grantingHeroProgression && heroDebugTools?.Rules != null && heroDebugTools.Catalog != null &&
+            game != null && !game.RunDriver.Run.IsTerminal && heroDebugTools.Rules.Level < heroDebugTools.Catalog.MaxLevel;
+        public string HeroProgressionDebugStatus => heroDebugTools?.Rules == null ? "Развитие героя недоступно" :
+            $"Уровень {heroDebugTools.Rules.Level}/{heroDebugTools.Catalog.MaxLevel} · " +
+            (heroDebugTools.Rules.Level >= heroDebugTools.Catalog.MaxLevel ? "Максимум" :
+                $"XP {heroDebugTools.Rules.XpWithin}/{heroDebugTools.Rules.RequiredXp}");
         public void BindHeroProgressionTools(Stage2HeroProgressionDriver driver)
         {heroDebugTools?.Rules?.SetWtfForTesting(false);heroDebugTools=driver;}
         public void SetWtfMode(bool enabled)
         {if(!enabled||CanUseWtf)heroDebugTools?.Rules?.SetWtfForTesting(enabled);}
+        public bool GrantHeroExperience(int amount)
+        {
+            if (amount <= 0 || !CanGrantHeroProgression) return false;
+            return AwardHeroDebugExperience(amount);
+        }
+        public bool GrantHeroLevels(int count)
+        {
+            if (count <= 0 || !CanGrantHeroProgression) return false;
+            var rules = heroDebugTools.Rules;
+            var target = (int)Math.Min((long)rules.Level + count, heroDebugTools.Catalog.MaxLevel);
+            long amount = -rules.XpWithin;
+            for (var level = rules.Level; level < target; level++)
+                amount += heroDebugTools.Catalog.RequiredXp(level);
+            return AwardHeroDebugExperience(amount);
+        }
+        private bool AwardHeroDebugExperience(long amount)
+        {
+            grantingHeroProgression = true;
+            try
+            {
+                while (amount > 0 && heroDebugTools.Rules.Level < heroDebugTools.Catalog.MaxLevel)
+                {
+                    var grant = (int)Math.Min(amount, int.MaxValue);
+                    heroDebugTools.Rules.AwardExperience(grant);
+                    amount -= grant;
+                }
+                feedback = HeroProgressionDebugStatus;
+                return true;
+            }
+            finally { grantingHeroProgression = false; }
+        }
         public bool CanTestHeroDeath=>isActiveAndEnabled&&DebugAvailable&&game?.HeroRecovery?.Active==true;
         public bool TestHeroDeath()=>CanTestHeroDeath&&game.HeroRecovery.TryApplyExplorationDamage(float.MaxValue);
         public bool CanStartNextWave=>game!=null&&(game.RunDriver.Run.UsesDaytimeGates?
@@ -415,13 +457,13 @@ namespace Not3A.Stage2.Integration
                 Label(new Rect(choice.x + 94f, choice.y + 8f, choice.width - 102f, 24f), "Жилище героя", smallButtonText);
                 Label(new Rect(choice.x + 94f, choice.y + 37f, choice.width - 102f, 20f), "Позволяет дождаться ночи у входа", muted);
                 Label(new Rect(choice.x + 94f, choice.y + 63f, choice.width - 102f, 18f),
-                    DwellingStatus == Stage2WorkshopBuildStatus.Built ? "Построено" : Price(dwellingWoodCost,0,0,0), muted);
+                    DwellingStatus == Stage2WorkshopBuildStatus.Built ? "Построено" : Price(dwellingWoodCost,dwellingStoneCost,0,0), muted);
                 GUI.enabled = buttonsEnabled;
                 if (DwellingStatus == Stage2WorkshopBuildStatus.Placing)
                     Fill(new Rect(choice.x + 2f, choice.yMax - 4f, choice.width - 4f, 2f), Gold);
                 description = DwellingStatus == Stage2WorkshopBuildStatus.Built ?
                     "Днём: E у входа · ночью ожидание недоступно" :
-                    $"Одно жилище · {dwellingWoodCost} дерева · свободная зелёная земля";
+                    $"Одно жилище · {dwellingWoodCost} дерева и {dwellingStoneCost} камня · свободная зелёная земля";
             }
             else if (BuildCategory == Stage2BuildCategory.Research && workshopIcon != null)
             {
@@ -430,14 +472,14 @@ namespace Not3A.Stage2.Integration
                 if (GUI.Button(choice, GUIContent.none, smallButton)) SelectWorkshop();
                 GUI.enabled = buttonsEnabled;
                 DrawSprite(new Rect(choice.x + 8f, choice.y + 4f, 78f, 78f), workshopIcon);
-                Label(new Rect(choice.x + 94f, choice.y + 8f, choice.width - 102f, 24f), "Исследовательская мастерская", smallButtonText);
+                Label(new Rect(choice.x + 94f, choice.y + 8f, choice.width - 102f, 24f), "Исследовательский центр", smallButtonText);
                 Label(new Rect(choice.x + 94f, choice.y + 37f, choice.width - 102f, 20f), "Открывает исследование Телепортации", muted);
                 Label(new Rect(choice.x + 94f, choice.y + 63f, choice.width - 102f, 18f),
-                    WorkshopStatus == Stage2WorkshopBuildStatus.Built ? "Построена" : "Бесплатно", muted);
+                    WorkshopStatus == Stage2WorkshopBuildStatus.Built ? "Построен" : Price(workshopWoodCost,workshopStoneCost,0,0), muted);
                 if (WorkshopStatus == Stage2WorkshopBuildStatus.Placing)
                     Fill(new Rect(choice.x + 2f, choice.yMax - 4f, choice.width - 4f, 2f), Gold);
                 description = WorkshopStatus == Stage2WorkshopBuildStatus.Built ?
-                    "Подойдите к мастерской и нажмите E для исследования" : "Место постройки — свободная зелёная земля";
+                    "Подойдите к исследовательскому центру и нажмите E для исследования" : "Место постройки — свободная зелёная земля";
             }
             else if (BuildCategory == Stage2BuildCategory.Generators && game.Production != null)
             {
@@ -606,12 +648,13 @@ namespace Not3A.Stage2.Integration
 
         private void DrawDebug()
         {
+            var savedEnabled = GUI.enabled;
             var r = DebugRect;
             Card(r);
             Label(new Rect(r.x + 18f, r.y + 13f, 270f, 28f), "ИНСТРУМЕНТЫ РАЗРАБОТКИ", title);
             if (GUI.Button(new Rect(r.xMax - 47f, r.y + 10f, 32f, 30f), "×", button)) SetDebugOpen(false);
             var view = new Rect(r.x + 14f, r.y + 52f, r.width - 28f, r.height - 64f);
-            scroll = GUI.BeginScrollView(view, scroll, new Rect(0, 0, view.width - 20f, 590f));
+            scroll = GUI.BeginScrollView(view, scroll, new Rect(0, 0, view.width - 20f, 770f));
             var w = view.width - 20f;
             Label(new Rect(4, 0, w, 20), "ЗАБЕГ", muted);
             GUI.enabled = !game.RunDriver.Run.IsTerminal;
@@ -638,8 +681,17 @@ namespace Not3A.Stage2.Integration
             GUI.enabled=CanTestHeroDeath;
             if(GUI.Button(new Rect(0,506,w,32),"Проверить смерть героя",button))TestHeroDeath();
             GUI.enabled=true;
-            Label(new Rect(0, 550, w, 40), feedback, muted);
+            Label(new Rect(0, 550, w, 20), "РАЗВИТИЕ ГЕРОЯ", muted);
+            Label(new Rect(0, 576, w, 40), HeroProgressionDebugStatus, text);
+            GUI.enabled = savedEnabled && CanGrantHeroProgression;
+            if (GUI.Button(new Rect(0, 624, w * .5f - 5f, 32), "+100 XP", button)) GrantHeroExperience(100);
+            if (GUI.Button(new Rect(w * .5f + 5f, 624, w * .5f - 5f, 32), "+1 000 XP", button)) GrantHeroExperience(1000);
+            if (GUI.Button(new Rect(0, 664, w * .5f - 5f, 32), "+1 уровень", button)) GrantHeroLevels(1);
+            if (GUI.Button(new Rect(w * .5f + 5f, 664, w * .5f - 5f, 32), "+10 уровней", button)) GrantHeroLevels(10);
+            GUI.enabled = savedEnabled;
+            Label(new Rect(0, 712, w, 50), feedback, muted);
             GUI.EndScrollView();
+            GUI.enabled = savedEnabled;
         }
 
         private void DrawSpeed(Rect r, string caption, int value, Action<int> set)

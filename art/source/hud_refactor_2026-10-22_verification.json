@@ -1,0 +1,1008 @@
+{
+  "date": "2026-10-22",
+  "decision": [
+    "D-124",
+    "D-125"
+  ],
+  "status": "LOCAL_MAC_COMPLETE; WINDOWS_AND_SUSTAINED_MANUAL_BALANCE_UNVERIFIED",
+  "ownership": {
+    "main": "Audit, ImageGen, gameplay rules/input/data/binding/tests/docs",
+    "astra": "Catalogue visibility/page model; concept review; native visual implementation only after owner approval"
+  },
+  "dependencies": [
+    "D120 skill/loadout/equipment",
+    "D121 shared hero points",
+    "D102/D122 purchased and locally studied documents",
+    "D079 paid upgrades/selection",
+    "D104 exploration recovery and D111 world combat"
+  ],
+  "implemented": [
+    "Current Stage3 disables legacy construction1/2; Player1–5 casts only weapon skills, Construction1–3 chooses dense visible known cards without skill fallthrough. Tab returns to Player.",
+    "First approved HUD composition: F1–F4 left, six icon/key navigation actions right; construction categories below above max3cards. Prices flow-centre actual resource components and wrap by measured width. Known but unfunded cards warn clearly; completed singleton cards stay neutral.",
+    "Only initial/studied choices are visible; buying a construction paper does not substitute local workshop study. Actual pager arrows/wheel/swipe/keyboard model cancels drafts correctly. Separately paid Shift tower placement preserves draft only while another payment is possible.",
+    "Alt direct tower upgrade cancels draft and pays once without selection/opening a card; ownership/UI/pause/funds checks and left/right modifiers qualified. Engraved silver level plate shows actual green/red readiness under fixed clocks.",
+    "Paid successful tower/production/throne/forge upgrades emit bounded rising gold light on the actual visible near footprint edge. No reward, tier or immediate production grant; pause/modal/debug freeze active time; Reset/retry/loss/disable clear effects.",
+    "World-only adventure IDs34/35 append to original31–33, preserving combat0–30 and learned identities. Outgoing percentage carries fractional damage at actual world hits; resistance composes with gear before barrier. Portal rewards/damage remain isolated.",
+    "D125 moves moving-fire14 to prerequisite5 at levels50/54/58, retaining existing learned ranks and both-weapon effect. Current profession ranks5/5/3; each of five adventurer talents5. Two paid one-rank capstones after StrengthV implement owner-selected10% mediumSTONEfinisher/one extra in-range ordinary tree without recursive procs or duplicated stock.",
+    "99earned hero points fund all branches; full training costs156paid ranks, requiring specialization. Legacy profession data remains3/3/3 and no capstone; current assets explicitly opt in. Skill migration appends missing identities and extends only old adventurer power arrays without changing their original entries.",
+    "Shared development shell, distinct branch/category states, five illustrated adventure nodes with orthogonal links, fixed inventory/merchant grids and scroll-local hover/press. Existing D097 painted quality skins remain separate from cyan selection."
+  ],
+  "concepts": [
+    {
+      "path": "art/concepts/hud_refactor_2026-10-22/construction_v8.png",
+      "sha256": "a3777993a61c28eb96f84664eb51b253b1b6fbb5f36985f36ddcc17e2d60750a",
+      "original_path": "/Users/artemmusket/.codex/generated_images/01a16343-dbe2-7540-a7a4-7e050c8347fb/exec-f35b0707-c2a1-49fe-b591-a43f8193880c.png",
+      "prompt": "art/source/hud_refactor_2026-10-22_construction_v8_prompt.txt",
+      "status": "SUPERSEDED_BY_OWNER_FIRST_HUD_AND_LOWER_CATEGORIES"
+    },
+    {
+      "path": "art/concepts/hud_refactor_2026-10-22/hud_a_v1_return.png",
+      "sha256": "bef254b1cdb9fc17486104b6d309edc93e07265c883dd361c0fd2f0b9e0b5c62",
+      "original_path": "/Users/artemmusket/.codex/generated_images/01a16343-dbe2-7540-a7a4-7e050c8347fb/exec-ee21faac-9bde-46b3-9571-3b4e63b71304.png",
+      "prompt": null,
+      "status": "RETURN_OR_SUPERSEDED; DO_NOT_IMPLEMENT"
+    },
+    {
+      "path": "art/concepts/hud_refactor_2026-10-22/hud_a_v2_superseded.png",
+      "sha256": "6e0ba67064bc9d8d05bdee11e8ffa4688eeba793a17d80465e7f36aa348311a5",
+      "original_path": "/Users/artemmusket/.codex/generated_images/01a16343-dbe2-7540-a7a4-7e050c8347fb/exec-15272ce9-1f21-44d1-a07b-0b3dec4a9b68.png",
+      "prompt": null,
+      "status": "RETURN_OR_SUPERSEDED; DO_NOT_IMPLEMENT"
+    },
+    {
+      "path": "art/concepts/hud_refactor_2026-10-22/hud_a_v3_superseded.png",
+      "sha256": "c36d74a686f555dfc6b3ae2bf5930553a9fa2ed1bd47671dab93c1b933589562",
+      "original_path": "/Users/artemmusket/.codex/generated_images/01a16343-dbe2-7540-a7a4-7e050c8347fb/exec-05dc142e-76ba-421e-986e-69bb5e7fee72.png",
+      "prompt": null,
+      "status": "RETURN_OR_SUPERSEDED; DO_NOT_IMPLEMENT"
+    },
+    {
+      "path": "art/concepts/hud_refactor_2026-10-22/hud_a_v4.png",
+      "sha256": "a5a98ef5258ab38693848d58c9d3dbfcf0b1fd47bb00f6b69536e13012b49b3c",
+      "original_path": "/Users/artemmusket/.codex/generated_images/01a16343-dbe2-7540-a7a4-7e050c8347fb/exec-a1d8b416-da79-4ad3-bcd8-774398271046.png",
+      "prompt": null,
+      "status": "RETURN_OR_SUPERSEDED; DO_NOT_IMPLEMENT"
+    },
+    {
+      "path": "art/concepts/hud_refactor_2026-10-22/hud_a_v5_superseded.png",
+      "sha256": "1faa41e179136b24cc50f69ff97dedebd10ad9d595d14dbaf3f422c303738b34",
+      "original_path": "/Users/artemmusket/.codex/generated_images/01a16343-dbe2-7540-a7a4-7e050c8347fb/exec-cb08f908-85b7-4385-9974-2b9fe4bdce82.png",
+      "prompt": null,
+      "status": "RETURN_OR_SUPERSEDED; DO_NOT_IMPLEMENT"
+    },
+    {
+      "path": "art/concepts/hud_refactor_2026-10-22/hud_a_v6_return.png",
+      "sha256": "984edd22c9623b8bb6327a3a7632f6177ed770a75f14fe00bdaa03d8177b4383",
+      "original_path": "/Users/artemmusket/.codex/generated_images/01a16343-dbe2-7540-a7a4-7e050c8347fb/exec-9b319a58-0df5-4205-9830-d5ff9ba07811.png",
+      "prompt": null,
+      "status": "RETURN_OR_SUPERSEDED; DO_NOT_IMPLEMENT"
+    },
+    {
+      "path": "art/concepts/hud_refactor_2026-10-22/hud_a_v7_return.png",
+      "sha256": "d0a35bf24c088c97293203494d4e411d394fe630ceeda6794bc0a9d73cd9f9c6",
+      "original_path": "/Users/artemmusket/.codex/generated_images/01a16343-dbe2-7540-a7a4-7e050c8347fb/exec-704f88b2-d684-46d4-917d-ab3ea08d074f.png",
+      "prompt": null,
+      "status": "RETURN_OR_SUPERSEDED; DO_NOT_IMPLEMENT"
+    },
+    {
+      "path": "art/concepts/hud_refactor_2026-10-22/hud_b_v1_return.png",
+      "sha256": "d0b43a6bdb153e8d3a21cc035a9fd9e87354816483f78e9bec9730d0808e6c10",
+      "original_path": "/Users/artemmusket/.codex/generated_images/01a16343-dbe2-7540-a7a4-7e050c8347fb/exec-226b6581-e3b4-45a1-ae9a-522ac606dc9e.png",
+      "prompt": null,
+      "status": "RETURN_OR_SUPERSEDED; DO_NOT_IMPLEMENT"
+    },
+    {
+      "path": "art/concepts/hud_refactor_2026-10-22/inventory_merchant_v1_return.png",
+      "sha256": "3da2f65c2f3275a396a7452e508d6e95d65000ed0cf2186e7bac13bbea23cc5f",
+      "original_path": "/Users/artemmusket/.codex/generated_images/01a16343-dbe2-7540-a7a4-7e050c8347fb/exec-afe1655e-9fd7-454a-8436-2675c37b1e9f.png",
+      "prompt": null,
+      "status": "RETURN_OR_SUPERSEDED; DO_NOT_IMPLEMENT"
+    },
+    {
+      "path": "art/concepts/hud_refactor_2026-10-22/inventory_merchant_v2_return.png",
+      "sha256": "a6192d800678c5d5837b835786727a91afa4b8c0f2be5c53e407f2b1daedc8f0",
+      "original_path": "/Users/artemmusket/.codex/generated_images/01a16343-dbe2-7540-a7a4-7e050c8347fb/exec-e2636278-708c-4472-bbeb-7ab499e1a31e.png",
+      "prompt": null,
+      "status": "RETURN_OR_SUPERSEDED; DO_NOT_IMPLEMENT"
+    },
+    {
+      "path": "art/concepts/hud_refactor_2026-10-22/inventory_merchant_v3.png",
+      "sha256": "0f65e961ad4e005e7c0b8298c30b2ea6e9fd3fb5025ca942f8da3993ee2e04c8",
+      "original_path": "/Users/artemmusket/.codex/generated_images/01a16343-dbe2-7540-a7a4-7e050c8347fb/exec-5096549c-ef27-423d-9b19-ce411867cd1d.png",
+      "prompt": "art/source/hud_refactor_2026-10-22_inventory_merchant_v3_prompt.txt",
+      "status": "OWNER_APPROVED_APPEARANCE_REFERENCE; ACTUAL_CATALOG_AND_LATEST_OVERRIDES_WIN"
+    },
+    {
+      "path": "art/concepts/hud_refactor_2026-10-22/navigation_icons_v1.png",
+      "sha256": "72aeae1f4259de74ac9a50903dad5e3fd3c2927f7faaf83b4d0af6247915fa45",
+      "original_path": "/Users/artemmusket/.codex/generated_images/01a16343-dbe2-7540-a7a4-7e050c8347fb/exec-379829c6-0c66-4b38-b549-ad0b4e621e08.png",
+      "prompt": "art/source/hud_refactor_2026-10-22_navigation_icons_prompt.txt",
+      "status": "OWNER_SELECTED_VARIANT_1_ONLY"
+    },
+    {
+      "path": "art/concepts/hud_refactor_2026-10-22/progression_v1.png",
+      "sha256": "fc56cccb25c203e77f92d0361d134ddc8eefe968184bd10beae9e8b5c8280787",
+      "original_path": "/Users/artemmusket/.codex/generated_images/01a16343-dbe2-7540-a7a4-7e050c8347fb/exec-c695f5f7-29ab-46c0-8132-50b8063c7b6e.png",
+      "prompt": null,
+      "status": "RETURN_OR_SUPERSEDED; DO_NOT_IMPLEMENT"
+    },
+    {
+      "path": "art/concepts/hud_refactor_2026-10-22/progression_v2.png",
+      "sha256": "3a35b04187b54ebebfca87186714bd5b6107d8c6b8c266d236f62415f5b38d8d",
+      "original_path": "/Users/artemmusket/.codex/generated_images/01a16343-dbe2-7540-a7a4-7e050c8347fb/exec-a1df5e17-ac40-4332-9a4e-2930794bcf2d.png",
+      "prompt": "art/source/hud_refactor_2026-10-22_progression_v2_prompt.txt",
+      "status": "OWNER_APPROVED_APPEARANCE_REFERENCE; ACTUAL_CATALOG_AND_LATEST_OVERRIDES_WIN"
+    },
+    {
+      "path": "art/concepts/hud_refactor_2026-10-22/upgrade_feedback_v1_superseded.png",
+      "sha256": "9a65cad3482fc7d9ee2258eb2ca29fd1caccfd344e16a7b6a49e10c4443e2f80",
+      "original_path": "/Users/artemmusket/.codex/generated_images/01a16343-dbe2-7540-a7a4-7e050c8347fb/exec-93895079-c735-4dfc-a3c6-8825a596e453.png",
+      "prompt": null,
+      "status": "RETURN_OR_SUPERSEDED; DO_NOT_IMPLEMENT"
+    },
+    {
+      "path": "art/concepts/hud_refactor_2026-10-22/upgrade_feedback_v2.png",
+      "sha256": "0b96339f69406f1603d4e2f2d186ebd4aebb9979726c7fa19d186b883c3bf305",
+      "original_path": "/Users/artemmusket/.codex/generated_images/01a16343-dbe2-7540-a7a4-7e050c8347fb/exec-67751fc7-ae51-4eca-adc7-c80fe2d03d0e.png",
+      "prompt": "art/source/hud_refactor_2026-10-22_upgrade_feedback_v2_prompt.txt",
+      "status": "OWNER_APPROVED_APPEARANCE_REFERENCE; ACTUAL_CATALOG_AND_LATEST_OVERRIDES_WIN"
+    }
+  ],
+  "generation": {
+    "tool": "Built-in image_gen.imagegen",
+    "intended_use": "Retained concept provenance. Runtime assets are original separately generated alpha atlas/skin/light, byte-preserved and documented in hud_refactor_2026-10-22_generation.json; concepts are not shipped as UI screenshots.",
+    "prompts": [
+      {
+        "path": "art/source/hud_refactor_2026-10-22_construction_v8_prompt.txt",
+        "sha256": "d03d1714f72f95e2678eb865da7365757cb4ab549deb1d832f6c8e45ec1723f5"
+      },
+      {
+        "path": "art/source/hud_refactor_2026-10-22_hud_a_prompt.txt",
+        "sha256": "b2ac37a3bce303d0c836c21db006599e49fcb4ceb3e8f3adbd8421190eaafdd5"
+      },
+      {
+        "path": "art/source/hud_refactor_2026-10-22_hud_a_v2_prompt.txt",
+        "sha256": "5381c3823a2df7be42457ca14d95eac5d68bf65d236f22fe1166a233313b4382"
+      },
+      {
+        "path": "art/source/hud_refactor_2026-10-22_hud_a_v3_prompt.txt",
+        "sha256": "058feb7d5b9766b26071c9562e95e8cd099803d5ca0ecd277a9ee31ac220d0be"
+      },
+      {
+        "path": "art/source/hud_refactor_2026-10-22_hud_a_v4_prompt.txt",
+        "sha256": "e8681c318d5d961c7c353fd95d91afdb83e275ac08e11872313aeb17a48b99e2"
+      },
+      {
+        "path": "art/source/hud_refactor_2026-10-22_hud_a_v5_prompt.txt",
+        "sha256": "1638540a734797372b2fcb44c13926488b22099bf6eb4c2959518b934a6015cb"
+      },
+      {
+        "path": "art/source/hud_refactor_2026-10-22_hud_a_v6_prompt.txt",
+        "sha256": "22e004d59515cc8b094c4a80f6c8a9a2b1860f93d10d9ea9744f52283e88df17"
+      },
+      {
+        "path": "art/source/hud_refactor_2026-10-22_hud_a_v7_prompt.txt",
+        "sha256": "d1d2a98a0822c22eb52eaa7356aabc7a88d3aab915649db07db4a63783f6969f"
+      },
+      {
+        "path": "art/source/hud_refactor_2026-10-22_hud_b_prompt.txt",
+        "sha256": "a31a076cb97ca1b13e31d2c26ce20e3c42924569a824118ea02972ef930d7135"
+      },
+      {
+        "path": "art/source/hud_refactor_2026-10-22_inventory_merchant_prompt.txt",
+        "sha256": "a37646bc90f76bbe0565ac1b07fe24da5b9010724e41b8923655c681fdb6951f"
+      },
+      {
+        "path": "art/source/hud_refactor_2026-10-22_inventory_merchant_v2_prompt.txt",
+        "sha256": "8f7ee024c1a978106c166fbb2763967f3273eefecb447e72ebef7f610e85fdf1"
+      },
+      {
+        "path": "art/source/hud_refactor_2026-10-22_inventory_merchant_v3_prompt.txt",
+        "sha256": "0aae9d12bb428909a151853732645eaa62f9c2d92cffbf55640b5aedd991c635"
+      },
+      {
+        "path": "art/source/hud_refactor_2026-10-22_navigation_icons_prompt.txt",
+        "sha256": "7d3256da9bedd3c1592c69b9c2928f7bb064dcf4febc302722d29133f4911fe1"
+      },
+      {
+        "path": "art/source/hud_refactor_2026-10-22_progression_prompt.txt",
+        "sha256": "a160afcb7de909a00dcd076999774784b02a8125156fbe4d5e3053e921e0b632"
+      },
+      {
+        "path": "art/source/hud_refactor_2026-10-22_progression_v2_prompt.txt",
+        "sha256": "2ca35dcee3ed84a9a05fe343c08718afc2f29b81bbccf9acb6493783553db2cf"
+      },
+      {
+        "path": "art/source/hud_refactor_2026-10-22_upgrade_feedback_prompt.txt",
+        "sha256": "224e9e5a99fe2debf726df93d5fe2879fcc5bce1b3e76118890908fdb06e17a3"
+      },
+      {
+        "path": "art/source/hud_refactor_2026-10-22_upgrade_feedback_v2_prompt.txt",
+        "sha256": "ba61df32f88b352b332a4d0d2ed54e3014bf12d871baae4c3db31cdd18fa99a4"
+      }
+    ],
+    "source_rights": "Project-owned original references plus original AI-generated artwork; no external franchise art copied. Runtime originals, prompts, hashes, byte matching, measured UVs and rights recorded in generation.json."
+  },
+  "astra_review": {
+    "construction_v8": "Historical concept PASS superseded by owner choosing first HUD composition: categories below, no fixed price cells, Player Tab. Do not implement v8.",
+    "progression_v2": "Concept PASS for common template, spacing and five-node orthogonal tree. Native one selected cyan marker, learned state separate; exact names/required levels/effects from actual catalog. Generated resistance-level10 is a concept typo: actual level20.",
+    "inventory_merchant_v3": "Concept PASS for rectangular action plates, consistent spacing, fixed grids and complete merchant rows. Actual D097 painted quality atlas remains; native720fitting unqualified.",
+    "upgrade_feedback_v2": "Concept PASS for distinct silver engraving versus gold footprint/rising/fade VFX and green/red+marks. Actual availability and successful paid upgrades only; no extra upgrades or reward.",
+    "returned_iterations": "Early boards retained for provenance. A1/A2/B had rejected layout/control/icon states; A3/A4/A5 are superseded by icon-only navigation and3cardcap; A6/A7 omitted global build navigation and misplaced weapon previews. Inventory1/2 had pill/clipped-row issues. Upgrade1 white badge and progression1 three-node branch superseded.",
+    "native_final": {
+      "path": "art/source/hud_refactor_2026-10-22_native_review.json",
+      "sha256": "a17f4df6beeedf2df6e73a53fbbf304c6ee546c34335e449443ea016ed6b421d",
+      "status": "PASS",
+      "new_v5_reviewed": 9,
+      "reused_v4_reviewed": 29,
+      "scope": "Final targeted unavailable-state review: nine native-v5 frames at 720/900/1080, reusing the unchanged six corrections and representative states from 29 individually inspected native-v4 frames. No claim of individually reviewing all 69 frames of either capture.",
+      "limitations": [
+        "Windows runtime and manual balance/full gameplay run not verified.",
+        "Exact visual coverage: 29 reused native-v4 frames plus nine targeted native-v5 frames; all 69 native-v5 frames exist and capture is ready with empty error.",
+        "Still-frame VFX sampling does not establish continuous temporal smoothness; the 720p 0.05-second effect is obscured by the selected-building strip.",
+        "Built workshop neutrality is visually verified; built circle/dwelling/forge and every possible item/price combination are not separately pictured.",
+        "Unfunded hover reason and every scroll/input transition remain outside this targeted still-image qualification."
+      ]
+    }
+  },
+  "owner_approval": {
+    "accepted": [
+      "First attached HUD: F1–F4 left/navigation right; categories below in main dock, max3studiedcards with1–3.",
+      "Player is first crossedbow/staff/thincrescentvariant1, separate from O; no generic account/person/profile icon or repeated HUD portrait. Tab key badge and hover name.",
+      "Actual material icon/number groups centre and wrap as needed; fixed2x2/empty reserved slots rejected.",
+      "Common development/inventory/merchant appearance, five-node adventure graph, engraved silverLVL/Altreadiness and gold upgrade confirmation.",
+      "Two actual world-combat adventure passives added to the three original reward talents.",
+      "Moving-fire far later; Strength/TempoV, ReachIII; all adventurer talentsV.",
+      "Paid capstones after StrengthV, trial10%: complete mediumSTONE or one extra ordinary tree in normal range, no chain."
+    ],
+    "pending": [],
+    "gate": "AGENTS.md UI And Visuals: First create sketches through ImageGen, obtain the owner's appearance approval, then delegate their visual Unity implementation to Astra."
+  },
+  "ux_references": [
+    {
+      "url": "https://news.blizzard.com/en-gb/article/23308274/diablo-iv-quarterly-updatefebruary-2020",
+      "purpose": "Official RPG UI iteration/control/state practice, inspiration only"
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/xbox/accessibility/xbox-accessibility-guidelines/101",
+      "purpose": "Text readability"
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/xbox/accessibility/xbox-accessibility-guidelines/102",
+      "purpose": "Contrast and multiple state cues"
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/xbox/accessibility/xbox-accessibility-guidelines/112",
+      "purpose": "Consistent navigation"
+    }
+  ],
+  "verification": {
+    "unity": "6000.6.2f1",
+    "host": "macOS",
+    "test_kind": "Unity EditMode rules and PlayMode/Input System scene integration, native development-player captures and actual CUA keyboard/mouse smoke",
+    "latest_per_case": {
+      "editmode_passed": 37,
+      "playmode_unique": 83,
+      "playmode_passed": 82,
+      "playmode_failed": 0,
+      "playmode_skipped": 1,
+      "total_passing": 119,
+      "index": "Artifacts/HUD-REFRESH-2026-10-22/latest-results.json",
+      "index_sha256": "434feeb0848c3dfb3b64d70a15fd3c5486556bff35344c88aba62fd4597f697a",
+      "reports_in_order": [
+        "Artifacts/HUD-REFRESH-2026-10-22/playmode-qualified.xml",
+        "Artifacts/HUD-REFRESH-2026-10-22/playmode-adventurer-points.xml",
+        "Artifacts/HUD-REFRESH-2026-10-22/playmode-expanded.xml",
+        "Artifacts/HUD-REFRESH-2026-10-22/playmode-visual-contracts.xml",
+        "Artifacts/HUD-REFRESH-2026-10-22/playmode-final-focused.xml",
+        "Artifacts/HUD-REFRESH-2026-10-22/playmode-skin-v2.xml",
+        "Artifacts/HUD-REFRESH-2026-10-22/playmode-layout-v3.xml",
+        "Artifacts/HUD-REFRESH-2026-10-22/playmode-layout-v4.xml"
+      ]
+    },
+    "reports": [
+      {
+        "path": "Artifacts/HUD-REFRESH-2026-10-22/editmode-expanded.xml",
+        "sha256": "14cb01a6ae5df95d26bd39f917611b5c79b6e5a746479dc4f8c56254f9321239",
+        "result": "Passed",
+        "total": 37,
+        "passed": 37,
+        "failed": 0,
+        "skipped": 0
+      },
+      {
+        "path": "Artifacts/HUD-REFRESH-2026-10-22/playmode-adventurer-final.xml",
+        "sha256": "4c039fa321307e1945210525d0cf6e580396ca1d906479bfc7eedc4720a45b1e",
+        "result": "Failed(Child)",
+        "total": 56,
+        "passed": 3,
+        "failed": 53,
+        "skipped": 0
+      },
+      {
+        "path": "Artifacts/HUD-REFRESH-2026-10-22/playmode-adventurer-points.xml",
+        "sha256": "a90f373fea38c9e84cd7d0e8f8dd75ed053ec078dc71c2bfe47a09c553b6da00",
+        "result": "Passed",
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "skipped": 0
+      },
+      {
+        "path": "Artifacts/HUD-REFRESH-2026-10-22/playmode-context-final.xml",
+        "sha256": "9c45ee08bd238103a610cfccc9141a86bfbdce2d16d5be27762d7fd60d89ee47",
+        "result": "Passed",
+        "total": 4,
+        "passed": 4,
+        "failed": 0,
+        "skipped": 0
+      },
+      {
+        "path": "Artifacts/HUD-REFRESH-2026-10-22/playmode-context-focused.xml",
+        "sha256": "ac1c1efb25392e83b60072ef7a967a6c60b280bf69bbc50282568d9b19bd917b",
+        "result": "Failed(Child)",
+        "total": 3,
+        "passed": 1,
+        "failed": 2,
+        "skipped": 0
+      },
+      {
+        "path": "Artifacts/HUD-REFRESH-2026-10-22/playmode-context.xml",
+        "sha256": "f3a5fd807805c8c5e28a41d327a3d07a0bf1fd4f7101de38741ce4f9e524b9e7",
+        "result": "Failed(Child)",
+        "total": 32,
+        "passed": 29,
+        "failed": 3,
+        "skipped": 0
+      },
+      {
+        "path": "Artifacts/HUD-REFRESH-2026-10-22/playmode-expanded.xml",
+        "sha256": "5f4de4310b8379277245216a33e9c85dcf22a3fdb1db5aa4fafe671959bfdf09",
+        "result": "Failed(Child)",
+        "total": 71,
+        "passed": 70,
+        "failed": 1,
+        "skipped": 0
+      },
+      {
+        "path": "Artifacts/HUD-REFRESH-2026-10-22/playmode-final-focused.xml",
+        "sha256": "f415232ca8613be27219cf415d90c2d062c7e5964cd63ccbd6dee408044e28fd",
+        "result": "Passed",
+        "total": 3,
+        "passed": 3,
+        "failed": 0,
+        "skipped": 0
+      },
+      {
+        "path": "Artifacts/HUD-REFRESH-2026-10-22/playmode-final.xml",
+        "sha256": "169affd2fb9911c839f8564bd4fd1a7837e602f8c9e9ea2bbec5a836fb15b5bf",
+        "result": "Passed",
+        "total": 37,
+        "passed": 37,
+        "failed": 0,
+        "skipped": 0
+      },
+      {
+        "path": "Artifacts/HUD-REFRESH-2026-10-22/playmode-input-final.xml",
+        "sha256": "cc9733fcdaed8f8c0565a756ddeb3578f6e14726937ad44e277cd2f48a8c1134",
+        "result": "Passed",
+        "total": 26,
+        "passed": 26,
+        "failed": 0,
+        "skipped": 0
+      },
+      {
+        "path": "Artifacts/HUD-REFRESH-2026-10-22/playmode-input.xml",
+        "sha256": "11523512e05827c274031a16209570a18c7ffff76115a77ec32ac54eb320372c",
+        "result": "Failed(Child)",
+        "total": 26,
+        "passed": 23,
+        "failed": 3,
+        "skipped": 0
+      },
+      {
+        "path": "Artifacts/HUD-REFRESH-2026-10-22/playmode-layout-v3.xml",
+        "sha256": "e02cd7c91b3f323787b3b5c818b9f251508590ab2dc146c7a939539848f42032",
+        "result": "Passed",
+        "total": 5,
+        "passed": 5,
+        "failed": 0,
+        "skipped": 0
+      },
+      {
+        "path": "Artifacts/HUD-REFRESH-2026-10-22/playmode-layout-v4.xml",
+        "sha256": "ed7a0ecbf154f9a5b12ce451864c2ddafe94691962a6e473adae5b08d3a50268",
+        "result": "Passed",
+        "total": 5,
+        "passed": 5,
+        "failed": 0,
+        "skipped": 0
+      },
+      {
+        "path": "Artifacts/HUD-REFRESH-2026-10-22/playmode-qualified.xml",
+        "sha256": "3c1c2c37c024594cf6972d30e5193a3f2786c856e1f2514ad3413f8014fb0e40",
+        "result": "Failed(Child)",
+        "total": 56,
+        "passed": 55,
+        "failed": 1,
+        "skipped": 0
+      },
+      {
+        "path": "Artifacts/HUD-REFRESH-2026-10-22/playmode-skin-v2.xml",
+        "sha256": "a7884d329a2bdf4be4cbd5a91c25642f6ba9d8c49ab9d97323fb1b31b547a7ab",
+        "result": "Passed",
+        "total": 5,
+        "passed": 5,
+        "failed": 0,
+        "skipped": 0
+      },
+      {
+        "path": "Artifacts/HUD-REFRESH-2026-10-22/playmode-visual-contracts.xml",
+        "sha256": "da22062bd98d795c9995e3529db6989f6f6ab2276dd0201c08d68c71e246970a",
+        "result": "Failed(Child)",
+        "total": 12,
+        "passed": 10,
+        "failed": 1,
+        "skipped": 1
+      }
+    ],
+    "notes": [
+      "Historical failures/fixture repairs are retained in the reports, not presented as final failures. Latest-per-case index selects the corrected reruns.",
+      "Final5focused PlayMode checks pass in playmode-layout-v4.xml. Final construction unavailable-state change is presentation-only; build5 compilation and targeted native review replace a redundant gameplay rerun.",
+      "One batch Editor GameView viewport test skips because640x480 cannot apply720/900/1080; actual native output dimensions verified for all69v5PNG frames.",
+      "No attributable final compile/player exceptions. Unity licensing token and Cloud Diagnostics symbol-upload credential errors are environmental; builds/tests succeed. Shader names and package inventory containing Error/Exception are not runtime errors.",
+      "git diff --check PASS. Empty-YAML whitespace normalized only, preserving GUIDs/import values; final record retained.",
+      "Original8-render startup observer runs without QA funding/levels/items. CUA physical I/Tab/B/1 and final Player-icon click verify actual ordinary navigation without spend."
+    ],
+    "historical_note_context": [
+      "Initial fixtures were repaired for research gates/current build groups and real held-input release; tests also exposed and fixed placement-release cancellation of Shift repeat.",
+      "Initial new passive implementation had a variable collision, fixed before subsequent successful compilation. An extra serialized cooldown entry made the catalog invalid; corrected and all36serialized arrays validated.",
+      "playmode-qualified.xml has55pass/1test-expectationfailure: starterBlink is already known/free, so buying all five adventurer first ranks costs5, not6. Only the test expectation changed; its targeted rerun playmode-adventurer-points.xml passes. All56latestunique cases pass; reports retain failed iterations."
+    ],
+    "metadata_normalization": [
+      {
+        "path": "Assets/Stage3/PlayerInterface/LunarInterfaceArt.asset",
+        "before": "f3bc681babfda7f26582ffcebd6492b79ebe55eed93bb1be2a1b4c7c2de84641",
+        "after": "3f2c1e2bdfaa0d045cd4f1298f1e5dcf830528dd1c83bce347a7d32bc403b7be",
+        "change": "Only spaces after empty YAML keys removed; GUIDs, values, import settings and source pixels unchanged."
+      },
+      {
+        "path": "Assets/Stage3/PlayerInterface/Resources/Stage3HeroSkillIcons.png.meta",
+        "before": "d44b506430e4896d01fd19a75b87508ace6ed55bd5080fcd7a8ef42d1d31b4bc",
+        "after": "f71b7dd42a529f11c193a015ae0c665b3dd2e795217e893eddd2b6b440ed63de",
+        "change": "Only spaces after empty YAML keys removed; GUIDs, values, import settings and source pixels unchanged."
+      },
+      {
+        "path": "Assets/Stage3/PlayerInterface/Art/D124RuntimeAtlas.png.meta",
+        "before": "c9935e055398219c8fb6a6fc5892c7fddcc8ded8613d11166283365c0f6afda2",
+        "after": "b076cae5074ab13633a1c35f7c4ffe58aea6c242fa9d114308d1988955611b99",
+        "change": "Only spaces after empty YAML keys removed; GUIDs, values, import settings and source pixels unchanged."
+      },
+      {
+        "path": "Assets/Stage3/PlayerInterface/Art/D124RuntimeSkinV2.png.meta",
+        "before": "9e4808062adf528a3ff6a9c8c6b59f097a2587e932e0bae3b29e37e067274bd9",
+        "after": "fa31b71bde2dc73905f2c7023fcf7e1ed12fc26a5fd2d0d517fd4e29d4e77749",
+        "change": "Only spaces after empty YAML keys removed; GUIDs, values, import settings and source pixels unchanged."
+      },
+      {
+        "path": "Assets/Stage3/PlayerInterface/Art/D124UpgradeLight.png.meta",
+        "before": "9be8a86d784e0bc064f3798fccefc9b6824b661ef8be19b9d250fcc3b1c4a0b2",
+        "after": "bccae5676ccddba752f87911b9a2d324d07d9435efeffc1db07709cd5f30c024",
+        "change": "Only spaces after empty YAML keys removed; GUIDs, values, import settings and source pixels unchanged."
+      }
+    ]
+  },
+  "current_composed_source_hashes": [
+    {
+      "path": "Assets/Scenes/Stage3Rapid3DGamePilot.unity",
+      "sha256": "458928e593831fbe394e9fb862bdbb6440bcca7c1797f9a3b4cd86e844badf33"
+    },
+    {
+      "path": "Assets/Stage2/Defense/Runtime/Stage2BuildDriver.cs",
+      "sha256": "6910c6e2c0c58cccf19f9462231d8ea26c2d071968884cd3e89828cf580f215f"
+    },
+    {
+      "path": "Assets/Stage2/Defense/Runtime/Stage2Defense.cs",
+      "sha256": "8193bb3850c4bd41ec6741598379fafdcc8312f0c796e7d4479f279168a5f5ff"
+    },
+    {
+      "path": "Assets/Stage2/Defense/Runtime/Stage2DefenseCatalog.cs",
+      "sha256": "b3d3bcf7d27192fb7dde761b93f8b2a7ac0a75d6f4624c6334281fd368b383fc"
+    },
+    {
+      "path": "Assets/Stage2/Defense/Tests/EditMode/Stage2TowerUpgradeTests.cs",
+      "sha256": "c3740bcfec39935bd76eb34108442aadf32d9aa03162e167779bd9f2701323c4"
+    },
+    {
+      "path": "Assets/Stage2/Economy/Runtime/Stage2Economy.cs",
+      "sha256": "ae116f800ea3137267e2b4d04a3ab1e713ede4e37b2b2c2cbff78c3f8d3598cf"
+    },
+    {
+      "path": "Assets/Stage2/Economy/Runtime/Stage2EconomyCatalog.cs",
+      "sha256": "1d28bf04f35df11c0d5b315dd34e1b54ca386fc4884181417b48163e279a51db"
+    },
+    {
+      "path": "Assets/Stage2/Economy/Runtime/Stage2Production.cs",
+      "sha256": "21b453453588711f34657a6a8138fd4656f454d9bbb8305827459c56d075b384"
+    },
+    {
+      "path": "Assets/Stage2/Economy/Tests/EditMode/Stage2ManualResourceTests.cs",
+      "sha256": "6b576c60653a2352bcf70f5a07778f1d8f1f14f76210451c9ae0909e8f57428e"
+    },
+    {
+      "path": "Assets/Stage2/Integration/Runtime/Stage2BlueprintCatalog.cs",
+      "sha256": "e7914517514a30c226ea128a2f35055b777f0f1baa3e4bc12d6db6bfb513a2f1"
+    },
+    {
+      "path": "Assets/Stage2/Integration/Runtime/Stage2HeroSkillCatalog.cs",
+      "sha256": "f8306f0927e5c2e35456d3def4109ff390983f5ce0fea020cbf47f325019b2e2"
+    },
+    {
+      "path": "Assets/Stage2/Integration/Runtime/Stage2HeroSkills.cs",
+      "sha256": "0430c9fa2b5101ba934934034cdd2aa4dd58be6e7f1d4d9f3d582a2e44d06f4f"
+    },
+    {
+      "path": "Assets/Stage2/Integration/Runtime/Stage2ProductionDriver.cs",
+      "sha256": "c0ad8e852c77b77859809de179af2a956f00f8e55dd193b7438ca521d4a712b7"
+    },
+    {
+      "path": "Assets/Stage2/Integration/Runtime/Stage2ProfessionCatalog.cs",
+      "sha256": "aaf88cab93589f86bd2462eacaf475ba781440217aa2f565c3599be917063079"
+    },
+    {
+      "path": "Assets/Stage2/Integration/Runtime/Stage2ProfessionDriver.cs",
+      "sha256": "c422b0efc5e4056f92a7b5bfe4b83fbfffacec4d9940426f43fb17678a1591cd"
+    },
+    {
+      "path": "Assets/Stage2/Integration/Runtime/Stage2Professions.cs",
+      "sha256": "7af08ab5d94c11efea4e3c0d4c6202b6729dfcc12e188de2517cc414021a120d"
+    },
+    {
+      "path": "Assets/Stage2/RunState/Runtime/Stage2Run.cs",
+      "sha256": "7217895dc1645805275adfde3097076ce7112925c8fe057f45cb859aec0acc7f"
+    },
+    {
+      "path": "Assets/Stage3/Barricades/WoodenBarricadeCatalog.asset",
+      "sha256": "43895351106846adcd682d381dc4ca3445cee09fd3c60c86d714a6c35fc71558"
+    },
+    {
+      "path": "Assets/Stage3/CartoonWorldPilot/LongshotCartoonCatalog.asset",
+      "sha256": "7165de93f535b4c28a8785bfb23ddb6d4a11ff0d3f004cd53f5f9d1c6edd2419"
+    },
+    {
+      "path": "Assets/Stage3/CartoonWorldPilot/RapidCartoonCatalog.asset",
+      "sha256": "edcca4825d9f00138f5bda377220e6a011bacead97e122654cd8a1cd35694dc3"
+    },
+    {
+      "path": "Assets/Stage3/CombatSlice/Editor/Stage3HeroCombatSliceBuilder.cs",
+      "sha256": "5b469774bf6422a4e4309d9049fb64948ad7d2ed93aa55f6758e4c9138c81dbd"
+    },
+    {
+      "path": "Assets/Stage3/CombatSlice/HordeRun.asset",
+      "sha256": "7a717623cd6b0321339f4b0019343d07ce0dbd9e16b1de0df8b63217065bde65"
+    },
+    {
+      "path": "Assets/Stage3/CombatSlice/PortalEnemy.asset",
+      "sha256": "0a519f38d0be08652dbd8be4fd2acbaaa89d5ede132efd3e96356ddd0743104c"
+    },
+    {
+      "path": "Assets/Stage3/CombatSlice/PortalEnemy.asset.meta",
+      "sha256": "28d1cccab1e47b756b134f64ab11b6fa6be605eae27314bca693b32ec8e720c4"
+    },
+    {
+      "path": "Assets/Stage3/Guild/Runtime/Stage3GuildWorldDriver.cs",
+      "sha256": "51814752d4b90d47d381e3e2667374f2cfa42fb2e7477dc2779f3ff212b8c21a"
+    },
+    {
+      "path": "Assets/Stage3/HeroProgression/Resources/Stage3HeroProgression.asset",
+      "sha256": "6307bbf6965ec6ccb7b21b7afd5171ec6a6ab2c3566ba46b080cfdee7a822c5d"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Art/D124RuntimeAtlas.png",
+      "sha256": "8dbad32415392f3f518907eb04f72a5efba58dede0b43d173b8957d7cd35bc47"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Art/D124RuntimeAtlas.png.meta",
+      "sha256": "b076cae5074ab13633a1c35f7c4ffe58aea6c242fa9d114308d1988955611b99"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Art/D124RuntimeSkinV2.png",
+      "sha256": "9c82a85271a61ba147d78695f7cd4ea63e45d7bd462f7f59f43c77dd87355fcf"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Art/D124RuntimeSkinV2.png.meta",
+      "sha256": "fa31b71bde2dc73905f2c7023fcf7e1ed12fc26a5fd2d0d517fd4e29d4e77749"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Art/D124UpgradeLight.png",
+      "sha256": "6d1a09fc600376bb813c09d1ef729d99e76dfe88aa526bfd1d643d7f8831699e"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Art/D124UpgradeLight.png.meta",
+      "sha256": "bccae5676ccddba752f87911b9a2d324d07d9435efeffc1db07709cd5f30c024"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Editor/Stage3BlueprintInstaller.cs",
+      "sha256": "15893658850f9e33538fdb23759b429914e2de1fa7f470d47a23330b35ffd12b"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Editor/Stage3FantasyHudArtImporter.cs",
+      "sha256": "f4e40572af81687829cd8f28479753e9eaf009b84e7ac5789894eddf8beb4254"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Editor/Stage3HeroLoadoutInstaller.cs",
+      "sha256": "282f2691142375c6dc549a9578725a141cc329adf8e3f4ae1401d168e525e08e"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/LunarInterfaceArt.asset",
+      "sha256": "3f2c1e2bdfaa0d045cd4f1298f1e5dcf830528dd1c83bce347a7d32bc403b7be"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Resources/Stage3Blueprints.asset",
+      "sha256": "cb3461c4ea22e4c04d7b5127edc6f6f24da5bb61fa82da9e54c4c9237f3076e6"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Resources/Stage3HeroSkills.asset",
+      "sha256": "cfaefdf0d7062a07bf8d4fbc26ae5447462d3d9c8bfa6970a233ba2e33c2798d"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Resources/Stage3Professions.asset",
+      "sha256": "50e40184c86ac68feaf490970056208db22d448dc1d55511c23c0bbaa7561853"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Runtime/Stage3BuildingActionReview.cs",
+      "sha256": "81daf012d6eeb8b7fc9ce98a12ba8328fbbb9ab216e288b7dc64e15d147459c3"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Blueprints.cs",
+      "sha256": "d8472a77de056ecf1a7270cdc9089919538384a7f01f33f82e1fd766b38de1eb"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Construction.cs",
+      "sha256": "d11ab57303c902eb78bddcea0c113fc2630f5bfc397d37c93b311ea699df30d0"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Cycle.cs",
+      "sha256": "39d963c99074d835c66c4ca1073ef91322ac21f8a02494b180645f3eb7a92872"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Equipment.cs",
+      "sha256": "3d400669c0439936aa4566178d1e7770ad5bab92e6afae632773fc332eb31868"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.HeroLoadout.cs",
+      "sha256": "61e4f45d6debcd087b1916d9eaba20124f45fef2d5d5f275da384dc497362f20"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Merchant.cs",
+      "sha256": "97f581f13516fafc727c6497b50630323857add870ad37c6452058a1e68805c2"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Professions.cs",
+      "sha256": "152a69d4d4b295b0c10511ef354fefd57daeb7d03deb667bf62e47873a5936f7"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Progression.cs",
+      "sha256": "fc882a87f9af8709c8dcf977a11517d29a61920b9288bbe37240b57c126a983f"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Quality.cs",
+      "sha256": "34d027b3c566d40cb0f150078150a80d32ea6ff4769f78d4aae9b54e19ae57cc"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Selection.cs",
+      "sha256": "2f51540702a9fc9b29fb6b77b94c0d5905f260fad8308ea1c1e5fc8233a702f3"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.SkillDock.cs",
+      "sha256": "6b7dd6add0ddc7c6ab5f9fffd42db0b18896060e93b01ac5b9fd4a69dea8219b"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.SkillTree.cs",
+      "sha256": "5bce5673f3bb503944689a4aad468e8653a685e6d036e50e6953e2792f11ee65"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.cs",
+      "sha256": "dbddafdacddb58431fb75e32c130b332db351cd46be05b8ecb8be57d66ff9b2a"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHudArt.cs",
+      "sha256": "a55a3957cc8d38ae6480b37713797e371da80ce41ccf9d511d3aac3665e605cf"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Runtime/Stage3HeroSkillsDriver.cs",
+      "sha256": "5ec28060c6f8a05447e584cb180e761456c34a3be79850b23346f2c2ac8cea64"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Runtime/Stage3HudRefactorReview.cs",
+      "sha256": "1dcef884ec140091c08bf719e53241bbf070e7425367b8a706bd60e2487ac402"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Runtime/Stage3HudRefactorReview.cs.meta",
+      "sha256": "ec5d33d11fbc1f9724be144461ffba6899dccd52fe6ebc479e95e7ce26782a05"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Runtime/Stage3InterfaceCapture.cs",
+      "sha256": "faa44f082eb9d5c8ce826ffe2b0509c9047a68fc2090f76826cda2f12f7756b0"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Runtime/Stage3PlayerInterfaceBinding.HeroLoadout.cs",
+      "sha256": "8d904dd6b8f082ecb95fea3d4df6fb9386938932be0ffbfa680446b73260c2fd"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Runtime/Stage3PlayerInterfaceBinding.Professions.cs",
+      "sha256": "2c0d28d647f370b16afd354af4994af0c835f69b2a709269eb33d36e34dafb36"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Runtime/Stage3PlayerInterfaceBinding.Research.cs",
+      "sha256": "1159ce98c5dde515df19543420711520a29cfc248dd16d0b9b2997f7a415487b"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Runtime/Stage3PlayerInterfaceBinding.Selection.cs",
+      "sha256": "40e29a584dd5a04f8a7d062534096dfb99e9d26173c17e3e06f23790fe6d3cc8"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Runtime/Stage3PlayerInterfaceBinding.cs",
+      "sha256": "9ddc3441b3436383e3cd4f2dd9768a140f2a63cabfc7ade5f238691c12ae3715"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Runtime/Stage3ProfessionReview.cs",
+      "sha256": "5208cc4c8c8dc66e09ed650ec90413b02bad225a4e9350502c3ce033f8d6119e"
+    },
+    {
+      "path": "Assets/Stage3/ResourceSpritePilot/ManualEconomy.asset",
+      "sha256": "c9e27dffc7d74d52debc3d3683f5436702ac8e61e651559a1cfe69a9f2cb3705"
+    },
+    {
+      "path": "Assets/Stage3/VisualPilot/Runtime/Stage3Forge.cs",
+      "sha256": "92e04398e23211b6d59c1e3c589f5070beb9d01697c5d91fc5a01a06655844b5"
+    },
+    {
+      "path": "Assets/Stage3/VisualPilot/Runtime/Stage3ForgePresentation.cs",
+      "sha256": "671f37b4cf74837575f0ecc31c0b897cf8b0b2768fd5c4ee96e76bf5ed47de75"
+    },
+    {
+      "path": "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3BlueprintResearchTests.cs",
+      "sha256": "018bafb1e08609afecb042ff4efb49827d3bf3fee32561f6ac434fc3729f6502"
+    },
+    {
+      "path": "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3BlueprintRulesTests.cs",
+      "sha256": "5d0b21e5cc0d05b92934bdf37204eb7fd6ff33d3ac6d213c1331469d564e2252"
+    },
+    {
+      "path": "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3DaytimeGateTests.cs",
+      "sha256": "106db96ff2c84ae80abfae06f1932848dc8d508fc9fee29297dd506519674e20"
+    },
+    {
+      "path": "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3DefeatRewindTests.cs",
+      "sha256": "17c9e2f01b98809aeae35e2763e1712ed4835e1d224647d5891fc4b6a3d2424d"
+    },
+    {
+      "path": "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3EquipmentForgeTests.cs",
+      "sha256": "6cd758842f646d2e71bc3b2cb196e134c163f8299d1afe0c64526a1358f29055"
+    },
+    {
+      "path": "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3HeroCombatSliceTests.cs",
+      "sha256": "b5b56b3e665e2b8166f9d3393c225f1539af16c3ee9d50bd210cda2504a46794"
+    },
+    {
+      "path": "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3HeroLoadoutCombatTests.cs",
+      "sha256": "1852ab533cbf4347b39b525c7715910f882e67d47bc6cdf912a7c990abf12ce9"
+    },
+    {
+      "path": "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3HeroLoadoutPresentationTests.cs",
+      "sha256": "f0bc2496b91962103f4d9ec0e90f6275331c56bdc45b0a1564ff2ecefd92ebb6"
+    },
+    {
+      "path": "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3HeroLoadoutRulesTests.cs",
+      "sha256": "592e183991f7b6c6d8f81645afd16f52d7d330bce6d77fb2ed969899dd6730b6"
+    },
+    {
+      "path": "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3HeroProgressionTests.cs",
+      "sha256": "361440575301bcaa277f23cb2d47d2f4772bd6b52506bd5ea4d22d637664b53f"
+    },
+    {
+      "path": "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3PlayerInterfaceTests.cs",
+      "sha256": "93e1248e8d63e2c76a6915869794b8cd773a023fc9ec57525786b37e4bd308df"
+    },
+    {
+      "path": "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3ProductionTests.cs",
+      "sha256": "c7b5e7ce06e606cb8b4a6286e31d91b7b25d332934dd86b85b797a5ed1be8627"
+    },
+    {
+      "path": "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3ProductionUpgradeTests.cs",
+      "sha256": "9772b9dcd40488b16b2f682953bb72b7f8df0bca5497118115acbf7b6d55d0d4"
+    },
+    {
+      "path": "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3ProfessionTests.cs",
+      "sha256": "58233490842de0481dc6f1dbb4ca777b6614982efd15f4852525e88b1ff07d50"
+    },
+    {
+      "path": "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3WorldCorrectionsTests.cs",
+      "sha256": "8f411578072d96f224cba65067f4dc6c5da77ad60eec1ef33e7bc5f7e3c295cf"
+    },
+    {
+      "path": "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3WorldTravelTests.cs",
+      "sha256": "dee0e377955f0ec5810abba5b40ee735536f50462b95eb5ae4920cbe7aa31b14"
+    }
+  ],
+  "preservation": {
+    "prior_uncommitted_work": "D121–D123 preserved; manifest is the composed checkout, not an isolated D124 commit.",
+    "scene": "Only prior D123 PortalEnemy catalog-reference change; no extra D124/D125 scene changes.",
+    "packages_prefabs_source_pixels": "No package/prefab or existing raster edits. Three new original alpha runtime PNG copies byte-match their source. UI-only alpha UV crops do not alter original source/import pivots. D097 quality skins retained.",
+    "serialization": "Existing GUIDs/IDs retained; append-only old31/34to36skillcatalog support plus original3adventure values retained when addingIV/V; current professions explicitly5/5/3. No disk-save format.",
+    "release": "Final app in a distinct MacHudRefactorFinal output to preserve earlier running4243/11668 instances. Final12461 running. No commit/push requested."
+  },
+  "remaining": [
+    "Windows/Steam runtime verification (this host is Mac).",
+    "Sustained manual/full-run balance, deliberately deferred by owner.",
+    "Continuous animation smoothness and unpictured item/build combinations are outside scoped native still-image qualification."
+  ],
+  "native_iteration_1": {
+    "build": "Builds/MacHudRefactor/Not3AHudRefactor.app",
+    "log": "Artifacts/HUD-REFRESH-2026-10-22/build-native.log",
+    "bytes": 782767783,
+    "frames": 54,
+    "captures": "Artifacts/HUD-REFRESH-2026-10-22/native",
+    "status": "CAPTURE_READY_TRUE; STRICT_REFERENCE_RETURN",
+    "returned_issues": [
+      "Five adventure nodes share old compass placeholder instead of distinct approved illustrations.",
+      "Quickslots/navigation too small; bottle art occluded by key/count.",
+      "Build thumbnails undersized; controls retain old ornate frame ends.",
+      "Inventory final row clipped.",
+      "Maxed skill shows a future nonexistent-rank level requirement.",
+      "Upgrade effect reads as a yellow wire box rather than gold rising light.",
+      "Gathering XP text lacks contrast; combat links need deliberate orthogonal routing."
+    ],
+    "next": "Astra correcting native layout and controls; main generates original skin/adventure/VFX assets from approved references. No owner reapproval required for restoring the already approved appearance."
+  },
+  "functional_expansion": {
+    "skill_nodes": 36,
+    "adventurer_nodes": 5,
+    "adventurer_ranks_each": 5,
+    "profession_ranks": [
+      5,
+      5,
+      3
+    ],
+    "profession_capstones": 2,
+    "capstone_ranks": 1,
+    "capstone_chance": 0.1,
+    "moving_fire_prerequisite": 5,
+    "moving_fire_levels": [
+      50,
+      54,
+      58
+    ],
+    "points_earned": 99,
+    "full_paid_ranks": 156,
+    "ordinary_resource_stock_unchanged": true
+  },
+  "verification_current": {
+    "editmode": {
+      "passed": 37,
+      "failed": 0,
+      "report": "Artifacts/HUD-REFRESH-2026-10-22/editmode-expanded.xml",
+      "sha256": "14cb01a6ae5df95d26bd39f917611b5c79b6e5a746479dc4f8c56254f9321239"
+    },
+    "playmode_latest": {
+      "passed": 82,
+      "failed": 0,
+      "skipped": 1,
+      "unique": 83,
+      "index": "Artifacts/HUD-REFRESH-2026-10-22/latest-results.json",
+      "sha256": "434feeb0848c3dfb3b64d70a15fd3c5486556bff35344c88aba62fd4597f697a"
+    },
+    "skip": "Headless GameView sizing skipped; native69PNG dimensions and scoped Astra review cover720/900/1080."
+  },
+  "native_iteration_2": {
+    "log": "Artifacts/HUD-REFRESH-2026-10-22/build-native-v2.log",
+    "bytes": 799545619,
+    "frames": 69,
+    "captures": "Artifacts/HUD-REFRESH-2026-10-22/native-v2",
+    "status": "CAPTURE_READY_TRUE; STRICT_REFERENCE_RETURN",
+    "returned_issues": [
+      "720p inventory has a horizontal scrollbar clipping lower-row captions; account for physical native scrollbar thickness.",
+      "Actual build-price numbers need stronger size relative to their resource icons.",
+      "Gathering core cards need the approved dominant icon/title/rank hierarchy."
+    ],
+    "corrections_in_progress": true
+  },
+  "native_iteration_3": {
+    "build_bytes": 799547675,
+    "log": "Artifacts/HUD-REFRESH-2026-10-22/build-native-v3.log",
+    "captures": "Artifacts/HUD-REFRESH-2026-10-22/native-v3",
+    "ready": true,
+    "frames": 69,
+    "errors": 0,
+    "focused_playmode_report": "Artifacts/HUD-REFRESH-2026-10-22/playmode-layout-v3.xml",
+    "focused_playmode_passed": 5,
+    "review_status": "RETURN",
+    "returned_issues": [
+      "Gather rank labels need more lower inset.",
+      "Branch/category tabs need approved inactive ivory versus active plum distinction.",
+      "Gathering selection needs a visible contained cyan marker.",
+      "Construction artwork should use wide available area and measured UI-only alpha bounds.",
+      "Occluded rear footprint curtain draws a second bright baseline across the building; draw front-facing actual edge.",
+      "Unify inventory/merchant hover without a filled square behind quality art."
+    ],
+    "preserved_passes": [
+      "720p bag row clipping fixed.",
+      "Actual scroll-local hover coordinates work.",
+      "Actual material prices are centered, readable and flowing.",
+      "Six-digit QA wallet text fits existing upper fields.",
+      "Five distinct adventurer icons and max-rank detail are correct.",
+      "Clock above intentional world LVL overlap and real Alt green/red readiness."
+    ]
+  },
+  "qualified_at": "2026-10-23T09:49:40.624056+03:00",
+  "native_iteration_4": {
+    "build_bytes": 799549183,
+    "captures": "Artifacts/HUD-REFRESH-2026-10-22/native-v4",
+    "ready": true,
+    "frames": 69,
+    "review": "Artifacts/HUD-REFRESH-2026-10-22/native-v4-review.json",
+    "status": "RETURN_UNAVAILABLE_STATE_ONLY; SIX_PREVIOUS_CORRECTIONS_PASS"
+  },
+  "native_final": {
+    "build": "Builds/MacHudRefactorFinal/Not3AHudRefactorFinal.app",
+    "build_bytes": 799549978,
+    "build_log": "Artifacts/HUD-REFRESH-2026-10-22/build-native-v5.log",
+    "build_log_sha256": "a15d7d6e6545dd4a97f720f42c3683c3ded50e350290b22d66e695cea0939bf5",
+    "captures": "Artifacts/HUD-REFRESH-2026-10-22/native-v5",
+    "capture_status": "Artifacts/HUD-REFRESH-2026-10-22/native-v5/capture-status.json",
+    "capture_status_sha256": "4d423b80eddd6927d43db65f61ffeb7c4bdc096b7fc2c87a48821bfd76cba779",
+    "ready": true,
+    "frames": 69,
+    "png_dimensions_verified": 69,
+    "resolution_counts": {
+      "1280x720": 23,
+      "1600x900": 23,
+      "1920x1080": 23
+    },
+    "error": "",
+    "player_log": "Artifacts/HUD-REFRESH-2026-10-22/native-v5-player.log",
+    "player_log_sha256": "9d6c6fb6eae0d193426fbcfca921bce4e0ccfbc44ffff2a96da8e1d50b06e373",
+    "visual_review": "art/source/hud_refactor_2026-10-22_native_review.json",
+    "visual_review_status": "PASS",
+    "new_frames_reviewed": 9,
+    "reused_frames_reviewed": 29,
+    "all69_individually_reviewed": false
+  },
+  "ordinary_launch": {
+    "build": "Builds/MacHudRefactorFinal/Not3AHudRefactorFinal.app",
+    "pid": 12461,
+    "running": true,
+    "startup_report": "Artifacts/HUD-REFRESH-2026-10-22/ordinary-startup-v5/verification.txt",
+    "startup_sha256": "888b08e3b0d2905f84b5a317605b9df7e7e115ff4928f0b3757afd1f04dbd0d2",
+    "ready_first_renders": 8,
+    "no_warmup_skipped": true,
+    "no_qa_grants": true,
+    "observed_start": {
+      "hero_level": 1,
+      "gold": 5,
+      "wood": 0,
+      "stone": 0,
+      "metal": 0,
+      "xp": 0
+    },
+    "log": "Artifacts/HUD-REFRESH-2026-10-22/ordinary-startup-v5.log",
+    "physical_smoke": {
+      "tool": "mcp__cua_repl",
+      "v4": [
+        "I opens inventory",
+        "Tab returns to Player",
+        "B opens2knowninitialbuildcards",
+        "Tab then1 remains Player without opening construction"
+      ],
+      "v5": [
+        "B opens warning cards with zero materials",
+        "Player icon clicked with actual mouse returns to skill dock and displays Игрок · Tab hover"
+      ]
+    },
+    "previous_instances_preserved": [
+      4243,
+      11668
+    ]
+  }
+}

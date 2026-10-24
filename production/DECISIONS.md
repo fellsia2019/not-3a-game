@@ -2782,7 +2782,135 @@ stock/vitals/cooldowns; Reset clears new ranks/buffs and restores starter state.
 No new scene/package/global manager/save format. Specs: HERO_PROGRESSION.md,
 EQUIPMENT_AND_RUNES.md, HERO_COMBAT.md and RESEARCH.md.
 
+## D-121 — Shared talent points, tower upgrades and reduced horde income
+
+Accepted2026-10-22. All three hero branches spend the existing hero-level point
+balance. Manual miner/logger mastery keeps XP/levels but awards no independent
+points. Current attacking towers continue beyond five authored levels through
+paid selected-card upgrades; last authored stat/cost deltas continue additively.
+Barricade upgrades and current drag/direct merging are removed; preparation
+movement and half-investment sale remain. Portal kills give1XP; XP thresholds and
+chance-based gold must be measured against five timed nights, targeting early
+levels5–10 and roughly no more than300horde gold without additional day farming.
+Runtime trial tuning stays in assets. This supersedes D092/D120 separate points
+and D079 current merge/barricade/five-row cap behavior. Main owns rules/integration;
+Astra owns existing UI adjustments. Retry retains current progress, Reset clears.
+
+## D-122 — Clock stacking and researched production/forge construction
+
+Accepted2026-10-22. Upper HUD clock must draw above world level labels. Sawmill,
+quarry, iron mine and forge construction each require their own studied paper.
+Use existing merchant purchase→local workshop study→separate resource-paid build.
+Append four opening-document IDs to D102; no free buildings, workshop upgrades,
+new currency or extra per-stage generator research. Existing production stages
+and forge stage/recipe permissions stay separate. Trial opening prices live in
+Stage3Blueprints. The approved common D101 opening-sheet base is reused; no new
+art/design choice is required for these functional gates. Astra owns stacking/
+labels/visibility; main owns gate rules, data and qualification.
+
+## D-123 — Portal first-night tuning and constant current HP
+
+Accepted2026-10-22. First night:5HP per portal creep,4-second spawn interval.
+Owner then explicitly defers deeper balance and chooses shortening intervals
+with unchanged HP for later nights. Keep existing later intervals, remove current
+HP tier growth; keep the existing movement/siege/timed-night/daytime contracts.
+Use a separate Stage3 enemy catalog so the legacy Stage2 baseline is preserved.
+Recheck D121 income/XP against the resulting first-five-night stream.
+
+## D-124 — Unified interface refactor, contextual construction and adventures
+
+Accepted request2026-10-22; owner subsequently approves implementation of the
+appearance proposals with the first-HUD/flow-price/Tab corrections below.
+Owner reopens world HUD, construction cards/categories, inventory/merchant
+padding and interaction states, and the three development screens. Preserve
+Lunar Porcelain identity and actual D097 quality skins; remove repeated bulky
+pill controls. Lower dock combines horizontalF1–F4 left and icon/key navigation
+right. First Player action returns to the skill dock, distinct from O. Names
+appear on hover. Generic website/profile person glyph and a repeated HUD portrait
+are explicitly rejected. Owner chose original crossed bow/staff with a thin
+crescent (icon study1). Owner chooses the FIRST attached HUD composition:
+quick items left/nav right in the servicebar, categories BELOW in the main dock
+above cards. construction_v8's category placement is rejected. Tab returns to
+Player and has a visible badge. Real price components centre together and wrap
+only when needed; fixed2×2/empty reserved price cells are rejected.
+
+Construction shows only initial/studied objects; purchasing a document is not
+study. Owner revised proposed5visiblecards to3, with contextual1–3 and paging
+by wheel/swipe/arrows. Use a fixed two-row price area for multiple materials;
+hide weapon previews/Z in construction and reclaim their width. Player1–5 still
+casts active-weapon skills. Shift+LMB repeats individually paid tower placement.
+Alt+LMB pays one real tower upgrade without selecting/opening its card; upgrade
+mode cancels a building draft. Engraved silver-pattern LVL badges gain constant-
+geometry green/red plus allowed/blocked upgrade marks whileAlt. Existing
+barricade restriction and all action validation remain. A common gold footprint
+perimeter/rising-light/fade confirms successful building upgrades, without
+income, extra upgrade permissions or architecture changes. The development_v2,
+inventory_merchant_v3 and upgrade_feedback_v2 proposals are approved for native
+implementation with current data and later native qualification.
+
+Owner also authorizes more actual adventurer passives and a coherent compact
+tree, superseding the old three-node/freehand-link appearance. Add world-enemy
+damage and world incoming-damage resistance as IDs34/35, keeping the original
+three reward talents and all combat IDs. Five adventurer nodes share ordinary
+hero points. World bonuses exclude portal hordes; trial values/prerequisites
+live in Stage3HeroSkills.asset. Precise orthogonal links use actual prerequisites.
+Main owns rules/data/input/integration; Astra owns visual implementation/review
+after ImageGen approval. PLAYER_INTERFACE/HERO_PROGRESSION/TOWER_UPGRADES own
+the detailed current contracts. No new UI stack, global service or save format.
+
+## D-125 — Late moving fire and expanded profession/adventurer training
+
+Accepted2026-10-22. Owner moves moving-fire training far later. Current talent14
+requires advanced bow skill5 and hero50; its shared both-weapon effect and
+existing learned ranks remain. Strength/tempo expand to5ranks, reach stays3;
+all five adventurer talents expand to5. New ranks append without replacing IDs.
+The current100level cap still earns99points, while full training now costs156,
+including the two capstones below. No extra point source is introduced.
+
+Owner accepts two separate one-rank shared-point capstones after StrengthV:
+10%chance to fully harvest a medium STONE node, or after felling an ordinary
+tree, harvest one additional ordinary tree within the hero's normal gathering
+range. No metal/large-node finisher, recursive tree chain or duplicate reserve
+payout. This replaces the redundant suggested one-hit chance on trees/small
+stones: their current5stock already fits StrengthV+startertool6power. Actual
+stock grants own mastery XP. Current tuning lives in Stage3Professions and
+Stage3HeroSkills. HERO_PROGRESSION/STAGE2_ECONOMY own detailed contracts.
+
+## D-126 — HUD corrections and explicit hero-progression debug grants
+
+Accepted2026-10-23. Owner requests closing all old players and leaving exactly
+one current Mac build. Buildings with no upgrade capability show no artificial
+level badge or selected-card level; insufficient resources do not hide an
+upgradable building's level. Gathering capstone tooltips must size to their
+actual wrapped text and render above subsequent cards within the viewport.
+
+F10 gains explicit +100/+1000XP and +1/+10hero-level actions, using normal
+AwardExperience and normal shared talent points, capped by the actual hero
+catalog (currently100). Level actions fill remaining XP to the requested level
+boundary. Available only in enabled development tools/open debug/live run;
+pause permits explicit grants. Invalid/closed/terminal/max actions change
+nothing; Reset clears granted progression. No free learned skills, mastery,
+items, income or production time. Runtime controls reuse current debug styles.
+
+Owner accepts the round weapon pair/shared Z footer with explicit corrections:
+thin rims,50%horizontal overlap,active medallion in front and a short turning/
+depth exchange when switching. Updated weapon_switch_v2 records that direction;
+exact owner geometry/actual equipment quality override illustrative pixels.
+Astra implements the accepted correction; no further appearance gate is pending.
+PLAYER_INTERFACE/HERO_PROGRESSION own behavior; ART_DIRECTION owns appearance.
+
+D126 owner reference-fidelity correction,2026-10-23: the qualified native weapon
+block is returned for appearance. Empty slot must use the reference's muted
+patterned/gradient surface, the switch must retain its shaped painted button and
+separate ivory Z keycap, and exactly four emerald diamonds mark ONLY the actual
+active weapon. Inactive/empty weapon rims have no gems. Existing thin rims,
+50%overlap,turn,input/equipment/quality remain. ImageGen weapon_switch_v3 records
+these explicit corrections; production atlas derives the existing material.
+Astra implements and checks the exact reference match. Earlier native PASS did
+not mean owner appearance acceptance. PLAYER_INTERFACE/ART_DIRECTION own scope.
+
 ## Pending Product Decisions
+
 
 
 - Текущая карта Stage 3 — 250×250 по D-049, боевая часть в нижнем левом углу
@@ -2804,7 +2932,7 @@ EQUIPMENT_AND_RUNES.md, HERO_COMBAT.md and RESEARCH.md.
   решаются, когда начнётся соответствующая работа. Старые P-005/P-006 не
   блокируют первый играбельный билд. D-087 заменил полный снимок сохранением
   текущего прогресса при повторе; сохранение между запусками этим не определено.
-- Текущий срез исследований, города и торговли уже реализован по D099–D102:
+- Текущий срез исследований, города и торговли реализован по D099–D102/D122:
   одна мастерская без улучшений, конечный запас документов, отдельные покупка,
   изучение и постройка/крафт. Дальнейшие источники документов, новые городские
   услуги и расширение дерева исследований остаются будущими решениями.
@@ -2813,8 +2941,87 @@ EQUIPMENT_AND_RUNES.md, HERO_COMBAT.md and RESEARCH.md.
   об отсутствии этих систем больше не действуют. Более крупные деревья добычи,
   руны/их лимиты, новые эффекты аксессуаров и дроп требуют отдельного среза.
 - D093 уже задаёт пять ступеней генераторов; D094 — три улучшения трона;
-  D079 — перемещение/слияние/продажу башен. Финальные цены и темп развития
+  D121 — платные апы башен дальше5, продажу и дневное перемещение без слияния. Финальные цены и темп развития
   остаются пробным балансом, а не нерешённым числом ступеней мастерской.
   Место боя и реализация трёх боссов по D075 ещё открыты. Бриф второго врага
   S2-AI-01 не является активным заданием. Windows/Steam и длительные забеги
   D120 ещё требуют проверки; локальная Mac-квалификация их не заменяет.
+
+## D-127 — HUD reference fidelity, consumable feedback and paid base construction
+
+Accepted2026-10-23. Owner requires reference-style unavailablecards, safe servicebar
+padding/badges and visible actual mouse/key results. Latest clarification selects
+the hud_polish_v1 global left buildingpreview replacing hero part inConstruction
+only, preservingminimap and3cards; this supersedes earlier percard preference.
+Use actual catalog stats/traits and real shortage, no invented combatproperties.
+F1–F3 assigned attempts pulsecyan on actualsuccess/red on refusal; emptyF4silent.
+Servicebar quickleft/navright, standalone icons/ivory containedkeycaps matchref.
+Rename researchworkshop to Исследовательский центр, price30wood40stone; dwelling
+20wood20stone. Existingserializedidentities, onelevel/localstudy/retryreset remain.
+Maindata/input/builds, Astraappearance/nativequalification. Conceptapprovaldoesnot
+establishnativeacceptance. Source:art/source/hud_polish_2026-10-23_generation.json.
+
+D127localMacimplementation qualified2026-10-23:65uniquePlayModePASS and30native
+720/900/1080AstraPASS after retainedv1RETURN; onecurrentordinarybuild launched.
+Evidence:art/source/hud_polish_2026-10-23_verification.json. Windows/continuous
+manualbalance unverified; finalnativeowneracceptance isnotinferred.
+
+D127 owner follow-up,2026-10-23: native-v2 appearance is RETURNED. Match the
+selected hud_polish_v1 proportions, sculpted ribbon, round flask family and
+shaped state/typography. No construction hover popup; all actual inspected
+building information stays in the left panel. Earlier native PASS is not owner
+appearance acceptance. Main supplies original assets/evidence; Astra implements
+and compares with the selected source. Gameplay/payment contracts remain.
+
+D127 reference repair local qualification,2026-10-23: original connected ribbon,
+round quick flasks, shaped coloured edges/keys and stronger type are implemented
+by Astra. Construction hover descriptions/traits/placement/shortages stay left,
+without popups. All39 final native assertions pass; Astra reviewed21 changed v2
+frames plus18 reused v1 layouts after all39 v1 inspections. V1 colour/bevel RETURN
+is retained, six defects closed. One ordinary final Mac849904711-byte player;
+first8 renders ready/no QA grants. Prior65 gameplay PASS are reused for art-only
+repair. Evidence:art/source/hud_reference_repair_2026-10-23_verification.json.
+Owner acceptance and Windows qualification are not inferred from local PASS.
+
+## D-128 — compact HUD and clean modal/map boundaries
+
+Accepted2026-10-23. Owner directly requests quick/navigation buttons roughly
+half the preceding size, near skills; fit all multiline modal header labels.
+Use existing ivory header surface with restrained edge states rather than added
+purple active/hover panels. Inset map terrain within a less intrusive emerald
+hoop, ornament backdrop behind terrain; repair abrupt upper resource/day joins.
+Existing painted art, controls, gameplay and clock speed remain. Main owns
+QA/build/docs; Astra owns native visual implementation and review.
+
+
+## D-129 — configurable quick actions and staff mastery
+
+Accepted2026-10-23. All F1–F4 can be assigned through inventory to actually owned
+items with active actions, not generic equipment. Preserve ownership/counts and
+shared consumption/CD; empty slots silent. Existing WandRecipe paper becomes
+Владение посохом: one consuming local study opens staff equip/skills and recipe
+at ForgeII, Небесная кузница. Staff remains buyable before knowledge. Unknown
+staff skills must be obscured and unavailable for inspection/upgrades/casts.
+Preserve serialized identities, learned ranks, finite stock and local study.
+
+## D-130 — elemental effects, selective autocast and distinct weapon roles
+
+Accepted2026-10-23. RMB autocast only AimedShot/Arcane, same nearest ordinary
+target/range/mana/CD and retained manual use/stationary aiming. Fire/Ice arrows
+gain small bounded AoE; Arcane smaller splash. Replace Focus4 with a red roaming
+arrow living at impact for3seconds, attacking there; replace rejected Wind5
+with poison DoT/slow/physical weakening. Ice actually freezes. Fireball has
+larger burst and same-radius lingering ground fire; Lightning short stun plus
+magic weakening. Keep IDs/ranks, corresponding passive effects, four-target
+budget and existing trial horde balance. No baseline enemy armor exists; school-
+specific incoming-damage vulnerability implements weakening. Full active audit
+in HERO_PROGRESSION.md distinguishes roles, attached burn/ground fire, physical/
+magic schools and remaining long-run balance limits; no cloned new spells.
+
+Local qualification completed2026-10-24:88unique relevant PlayModePASS,1existing
+headless viewportSKIP documented and corroborated by native layouts. Final45
+native assertions at720/900/1080; Astra reviewed15changed clean v3 plus30reused
+unchanged v1UI after retained RETURNs. Current Mac849979653-byte player starts
+ordinary LVL1/XP0/gold5 with no grants; first8renders ready. Evidence:
+art/source/active_actions_2026-10-23_verification.json and native_review.json.
+Windows, sustained balance and final owner appearance acceptance remain open.

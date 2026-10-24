@@ -1,0 +1,111 @@
+{
+  "date": "2026-10-23",
+  "reviewer": "Astra",
+  "status": "PASS",
+  "scope": "Targeted native Mac visual review of HUD corrections, not a full game qualification.",
+  "reference": "art/concepts/hud_corrections_2026-10-23/weapon_switch_v2.png",
+  "reference_overrides": [
+    "Owner requires resting weapon centres separated by half a disc diameter, active weapon in foreground, brief turn/depth exchange and attached shared Z footer.",
+    "Actual D097 equipment quality and missing equipment state override illustrative concept colours."
+  ],
+  "capture_status": {
+    "path": "Artifacts/HUD-CORRECTIONS-2026-10-23/native-v6/capture-status.json",
+    "ready": true,
+    "frames": 102,
+    "error": ""
+  },
+  "reviewed_frame_count": 36,
+  "reviewed_v4_paths": [
+    "Artifacts/HUD-CORRECTIONS-2026-10-23/native-v4/1280x720-00-ordinary-hud.png",
+    "Artifacts/HUD-CORRECTIONS-2026-10-23/native-v4/1280x720-23-bow-front.png",
+    "Artifacts/HUD-CORRECTIONS-2026-10-23/native-v4/1280x720-24-staff-turn.png",
+    "Artifacts/HUD-CORRECTIONS-2026-10-23/native-v4/1280x720-25-staff-front.png",
+    "Artifacts/HUD-CORRECTIONS-2026-10-23/native-v4/1280x720-26-bow-turn.png",
+    "Artifacts/HUD-CORRECTIONS-2026-10-23/native-v4/1280x720-19-miner-capstone-hover.png",
+    "Artifacts/HUD-CORRECTIONS-2026-10-23/native-v4/1280x720-20-logger-capstone-hover.png",
+    "Artifacts/HUD-CORRECTIONS-2026-10-23/native-v4/1280x720-21-barricade-no-level.png",
+    "Artifacts/HUD-CORRECTIONS-2026-10-23/native-v4/1280x720-16-debug-xp.png",
+    "Artifacts/HUD-CORRECTIONS-2026-10-23/native-v4/1280x720-17-debug-level.png",
+    "Artifacts/HUD-CORRECTIONS-2026-10-23/native-v4/1280x720-18-debug-ten-levels.png",
+    "Artifacts/HUD-CORRECTIONS-2026-10-23/native-v4/1600x900-16-debug-xp.png",
+    "Artifacts/HUD-CORRECTIONS-2026-10-23/native-v4/1600x900-17-debug-level.png",
+    "Artifacts/HUD-CORRECTIONS-2026-10-23/native-v4/1600x900-18-debug-ten-levels.png",
+    "Artifacts/HUD-CORRECTIONS-2026-10-23/native-v4/1920x1080-16-debug-xp.png",
+    "Artifacts/HUD-CORRECTIONS-2026-10-23/native-v4/1920x1080-17-debug-level.png",
+    "Artifacts/HUD-CORRECTIONS-2026-10-23/native-v4/1920x1080-18-debug-ten-levels.png"
+  ],
+  "reviewed_v6_paths": [
+    "Artifacts/HUD-CORRECTIONS-2026-10-23/native-v6/1600x900-00-ordinary-hud.png",
+    "Artifacts/HUD-CORRECTIONS-2026-10-23/native-v6/1600x900-23-bow-front.png",
+    "Artifacts/HUD-CORRECTIONS-2026-10-23/native-v6/1600x900-24-staff-turn.png",
+    "Artifacts/HUD-CORRECTIONS-2026-10-23/native-v6/1600x900-25-staff-front.png",
+    "Artifacts/HUD-CORRECTIONS-2026-10-23/native-v6/1600x900-26-bow-turn.png",
+    "Artifacts/HUD-CORRECTIONS-2026-10-23/native-v6/1600x900-19-miner-capstone-hover.png",
+    "Artifacts/HUD-CORRECTIONS-2026-10-23/native-v6/1600x900-20-logger-capstone-hover.png",
+    "Artifacts/HUD-CORRECTIONS-2026-10-23/native-v6/1600x900-21-barricade-no-level.png",
+    "Artifacts/HUD-CORRECTIONS-2026-10-23/native-v6/1920x1080-00-ordinary-hud.png",
+    "Artifacts/HUD-CORRECTIONS-2026-10-23/native-v6/1920x1080-23-bow-front.png",
+    "Artifacts/HUD-CORRECTIONS-2026-10-23/native-v6/1920x1080-24-staff-turn.png",
+    "Artifacts/HUD-CORRECTIONS-2026-10-23/native-v6/1920x1080-25-staff-front.png",
+    "Artifacts/HUD-CORRECTIONS-2026-10-23/native-v6/1920x1080-26-bow-turn.png",
+    "Artifacts/HUD-CORRECTIONS-2026-10-23/native-v6/1920x1080-19-miner-capstone-hover.png",
+    "Artifacts/HUD-CORRECTIONS-2026-10-23/native-v6/1920x1080-20-logger-capstone-hover.png",
+    "Artifacts/HUD-CORRECTIONS-2026-10-23/native-v6/1920x1080-21-barricade-no-level.png",
+    "Artifacts/HUD-CORRECTIONS-2026-10-23/native-v6/1280x720-22-workshop-no-level.png",
+    "Artifacts/HUD-CORRECTIONS-2026-10-23/native-v6/1600x900-22-workshop-no-level.png",
+    "Artifacts/HUD-CORRECTIONS-2026-10-23/native-v6/1920x1080-22-workshop-no-level.png"
+  ],
+  "reuse_basis": "HUD source is unchanged between v4 and v6; subsequent changes repair capture selection fixtures only.",
+  "checks": [
+    {
+      "status": "PASS",
+      "check": "Weapon pair",
+      "evidence": "Thin circular borders, overlapping discs, active foreground and visible intermediate turn positions at all three sizes. Empty staff remains muted and switching footer disabled. No rectangular cyan selection frame."
+    },
+    {
+      "status": "PASS",
+      "check": "Shared weapon footer",
+      "evidence": "Z · Сменить text is readable with clear interior space; former nine-slice rails no longer strike through the label."
+    },
+    {
+      "status": "PASS",
+      "check": "Miner and logger capstone hover",
+      "evidence": "Both complete descriptions render over subsequent card content, inside viewport, without clipped lines at 720/900/1080. Underlying content is intentionally covered by the tooltip overlay."
+    },
+    {
+      "status": "PASS",
+      "check": "Non-upgradable building level visibility",
+      "evidence": "Actual selected barricade and workshop show no world or selected-card LVL. Upgradeable Rapid remains labelled in barricade frames."
+    },
+    {
+      "status": "PASS",
+      "check": "Debug progression controls",
+      "evidence": "Actual XP/level status, four preset buttons and feedback are readable in reviewed v4 debug frames at all three sizes."
+    }
+  ],
+  "open_issues": [],
+  "return_history": [
+    {
+      "capture": "Artifacts/HUD-CORRECTIONS-2026-10-23/native-v2",
+      "issue": "Capstone hover did not reach native tooltip repaint. Production hover hit test was changed to the existing CurrentGuiPointer route; final real hover frames pass.",
+      "resolved": true
+    },
+    {
+      "capture": "Artifacts/HUD-CORRECTIONS-2026-10-23/native-v3",
+      "issue": "Weapon footer used oversized generic nine-slice rails that crossed the Z label. Dedicated thin-slice footer fixes this in reviewed v4/v6.",
+      "resolved": true
+    }
+  ],
+  "capture_fixture_history": [
+    "Earlier barricade capture assumed role 1; harness now discovers the nonattacking catalogue. This was a QA fixture issue, not a runtime visual defect.",
+    "Workshop capture initially hit the selected-barricade HUD strip. Clearing selection and framing the actual opaque workshop point resolved the QA fixture; final workshop frames pass."
+  ],
+  "limitations": [
+    "Only the explicit 36 paths were visually reviewed; 102 is the complete capture count, not the review count.",
+    "Windows/Steam rendering is unverified.",
+    "Still frames establish endpoints and sampled turn geometry, not continuous temporal smoothness or a full manual gameplay/balance run.",
+    "All possible tooltip strings, input combinations and viewport aspect ratios are outside this targeted review.",
+    "Physical F10 preset clicks and focused test results are reported separately by the main agent; this report is visual evidence."
+  ],
+  "runtime_changes_during_final_review": false
+}

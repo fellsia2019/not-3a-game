@@ -19,6 +19,9 @@ MonoBehaviour:
   pointEveryLevels: 5
   rankPointCost: 1
   maxTalentRank: 3
+  maxStrengthRank: 5
+  maxTempoRank: 5
+  capstoneChance: 0.1
   powerPerRank: 1
   tempoPerRank: 0.05
   reachPerRank: 0.1

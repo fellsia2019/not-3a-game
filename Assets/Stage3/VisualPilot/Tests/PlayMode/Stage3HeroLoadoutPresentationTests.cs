@@ -74,11 +74,14 @@ namespace Not3A.Stage3.VisualPilot.Tests
             SetFixture(); var dock = Read<Rect>(hud, "BottomDockRect");
             var skills = Enumerable.Range(0, 11).Select(i => (Rect)Call(hud, "SkillSlotRect", i)).ToArray();
             var quick = Enumerable.Range(0, 4).Select(i => (Rect)Call(hud, "QuickSlotRect", i)).ToArray();
-            foreach (var r in skills.Concat(quick))
+            foreach (var r in skills)
             {
                 Assert.That(r.width, Is.GreaterThan(25));
                 Assert.That(dock.Contains(r.min) && dock.Contains(r.max), Is.True, r.ToString());
             }
+            var ribbon=Read<Rect>(hud,"NavigationRibbonRect");
+            foreach(var r in quick)
+                Assert.That(ribbon.Contains(r.min)&&ribbon.Contains(r.max),Is.True,"Quick items belong in the servicebar.");
             var all = skills.Concat(quick).ToArray();
             for (var i = 0; i < all.Length; i++) for (var j = i + 1; j < all.Length; j++)
                 Assert.That(all[i].Overlaps(all[j]), Is.False, $"overlap {i}/{j}");
@@ -102,8 +105,8 @@ namespace Not3A.Stage3.VisualPilot.Tests
             var scale = Read<float>(hud, "UiScale");
             // Common nodes must have a real horizontal gutter even when vertical bounds almost meet.
             Assert.That(nodes[1].xMin - nodes[12].xMax, Is.GreaterThanOrEqualTo(8f * scale));
-            Assert.That(nodes[6].xMin - nodes[14].xMax, Is.GreaterThanOrEqualTo(8f * scale));
-            for (var id = 11; id <= 14; id++) Assert.That(nodes[id].center.x, Is.LessThan(nodes[1].center.x));
+            for (var id = 11; id <= 13; id++) Assert.That(nodes[id].center.x, Is.LessThan(nodes[1].center.x));
+            Assert.That(nodes[14].center.x,Is.GreaterThan(nodes[4].center.x),"Moving fire belongs in the late bow region.");
             Call(hud, "SelectSkill", 9);
             Assert.That(Read<int>(hud, "SelectedSkillId"), Is.EqualTo(9));
             Assert.That(Read<Rect>(hud, "SkillUpgradeRect").width, Is.GreaterThan(0));
@@ -175,6 +178,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
         {
             var combat = game.GetComponent("Stage3CombatPresentation");
             var equipment = game.GetComponent<Stage2EquipmentDriver>().Rules;
+            Stage3TestCycle.StudyBlueprint(game,Stage2BlueprintKind.WandRecipe);
             Assert.That(equipment.TryReceiveLoot(Stage2ItemType.Wand, Stage2ItemQuality.F, 1, out var staff), Is.True);
             Assert.That(equipment.TryEquip(staff.Id), Is.EqualTo(Stage2EquipmentResult.Ready));
             var origin = (Vector2)game.GetComponent<Stage2SceneBootstrap>().PlayerMover.transform.position;
@@ -210,6 +214,30 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Assert.That(Read<int>(presentation, "ActiveImpactCount"), Is.Zero);
             Assert.That(Read<bool>(presentation, "HasTargetPreview"), Is.False);
             yield return null;
+        }
+        [Test] public void TooltipLongContentAndEdgeAnchorsStayInsideAllNativeViewports()
+        {
+            var layout=hud.GetType().GetMethod("CalculateLoadoutTooltipRect",BindingFlags.Public|BindingFlags.Static);
+            Assert.That(layout,Is.Not.Null);
+            foreach(var viewport in new[]{new Vector2(1280,720),new Vector2(1600,900),new Vector2(1920,1080)})
+            {
+                var scale=viewport.y/900f;
+                // Measured four-line skill text and a much longer wrapped capstone description.
+                foreach(var contentHeight in new[]{96f*scale,240f*scale})
+                foreach(var anchor in new[]{new Rect(0,0,40*scale,40*scale),
+                    new Rect(viewport.x-40*scale,viewport.y-40*scale,40*scale,40*scale),
+                    new Rect(viewport.x*.5f,viewport.y*.5f,40*scale,40*scale)})
+                {
+                    var content=new Vector2(326*scale,contentHeight);
+                    var rect=(Rect)layout.Invoke(null,new object[]{anchor,viewport,content,scale});
+                    Assert.That(rect.xMin,Is.GreaterThanOrEqualTo(12*scale-.01f));
+                    Assert.That(rect.yMin,Is.GreaterThanOrEqualTo(12*scale-.01f));
+                    Assert.That(rect.xMax,Is.LessThanOrEqualTo(viewport.x-12*scale+.01f));
+                    Assert.That(rect.yMax,Is.LessThanOrEqualTo(viewport.y-12*scale+.01f));
+                    Assert.That(rect.height,Is.EqualTo(contentHeight+24*scale).Within(.01f),"Do not clip measured content to the old fixed height.");
+                    Assert.That(rect.Overlaps(anchor),Is.False,"Use the available space above or below the hovered control.");
+                }
+            }
         }
         [UnityTest] public IEnumerator ModalRejectsNewImpactsPauseFreezesAndDisableClears()
         {

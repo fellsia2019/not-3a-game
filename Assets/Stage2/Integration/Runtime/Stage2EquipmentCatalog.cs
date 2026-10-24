@@ -6,6 +6,7 @@ namespace Not3A.Stage2.Integration
 {
     public enum Stage2ItemType { Bow, Wand, Helmet, Chest, Arms, Legs, Pickaxe, Axe, Amulet, Ring, Protection, HealthPotion, ManaPotion, MixedPotion }
     public enum Stage2ItemQuality { F, E, D, C, B, A, S, SSS }
+    public enum Stage2ItemActiveAction { None, RestoreHealth, RestoreMana, RestoreVitals }
     public enum Stage2ItemSlot { Head, Chest, Arms, Legs, Weapon, Pickaxe, Axe, Staff, Amulet, RingLeft, RingRight, Protection }
 
     [Serializable]
@@ -16,6 +17,7 @@ namespace Not3A.Stage2.Integration
         public int damage, armor;
         public float range = 5.5f, interval = 1.1f, flight = .18f;
         public Stage2ResourceCost craftCost, levelCost;
+        public Stage2ItemActiveAction activeAction;
         public float damagePercent, protectionPercent, manaBonus;
         public Stage2ItemDefinition(Stage2ItemType kind, string name, int attack, int protection,
             Stage2ResourceCost craft, Stage2ResourceCost level)
@@ -55,6 +57,15 @@ namespace Not3A.Stage2.Integration
         public int ForgeStageCount => forgeCaps.Length;
         public Stage2ItemQuality ForgeCap(int stage) => stage <= 0 ? Stage2ItemQuality.F : forgeCaps[Mathf.Clamp(stage - 1, 0, forgeCaps.Length - 1)];
         public Stage2ItemDefinition Get(Stage2ItemType type) => ValidType(type) ? definitions[(int)type] : null;
+        public Stage2ItemActiveAction ActiveAction(Stage2ItemType type)
+        {
+            var action=Get(type)?.activeAction??Stage2ItemActiveAction.None;
+            if(action!=Stage2ItemActiveAction.None)return action;
+            // Compatibility for existing serialized potion catalogs predating action metadata.
+            return type==Stage2ItemType.HealthPotion?Stage2ItemActiveAction.RestoreHealth:
+                type==Stage2ItemType.ManaPotion?Stage2ItemActiveAction.RestoreMana:
+                type==Stage2ItemType.MixedPotion?Stage2ItemActiveAction.RestoreVitals:Stage2ItemActiveAction.None;
+        }
         public static bool ValidType(Stage2ItemType type) => (int)type >= 0 && (int)type < 14;
         public static bool IsConsumable(Stage2ItemType type)=>(int)type>=11&&(int)type<=13;
         public static Stage2ItemSlot FixedSlot(Stage2ItemType type)=>type==Stage2ItemType.Wand?Stage2ItemSlot.Staff:Slot(type);
@@ -112,6 +123,7 @@ namespace Not3A.Stage2.Integration
             {
                 var d = definitions[i];
                 if (d == null || (int)d.type != i || string.IsNullOrWhiteSpace(d.displayName) ||
+                    !Enum.IsDefined(typeof(Stage2ItemActiveAction),d.activeAction) ||
                     !d.craftCost.IsValid || !d.levelCost.IsValid || (!IsConsumable(d.type)&&(d.craftCost.IsZero||d.levelCost.IsZero)) || d.armor < 0 ||
                     !float.IsFinite(d.damagePercent)||d.damagePercent<0||!float.IsFinite(d.protectionPercent)||d.protectionPercent<0||
                     !float.IsFinite(d.manaBonus)||d.manaBonus<0||

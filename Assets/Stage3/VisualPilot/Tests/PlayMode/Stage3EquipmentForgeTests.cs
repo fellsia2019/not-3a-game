@@ -47,7 +47,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             yield return null;yield return null;input.TearDown();Time.captureFramerate=previousRate;Time.timeScale=1;
         }
         private void Stock()
-        {foreach(MapResourceKind kind in Enum.GetValues(typeof(MapResourceKind)))game.Gathering.Economy.Inventory.TryAdd(kind,300);game.Gathering.Economy.Inventory.TryAddGold(300);}
+        {Stage3TestCycle.StudyBlueprint(game, Stage2BlueprintKind.ForgeConstruction);foreach(MapResourceKind kind in Enum.GetValues(typeof(MapResourceKind)))game.Gathering.Economy.Inventory.TryAdd(kind,300);game.Gathering.Economy.Inventory.TryAddGold(300);}
         private Vector2 LegalSite()
         {
             var origin=(Vector2)scene.PlayerMover.transform.position;
@@ -97,7 +97,10 @@ namespace Not3A.Stage3.VisualPilot.Tests
         }
         [UnityTest] public IEnumerator CraftedStaffUsesSeparateSlotAndLiveCombatProfileWithTwelveSlots()
         {
-            yield return BuildAndApproach();Assert.That(Call(forge,"TryOpen"),Is.True);
+            yield return BuildAndApproach();
+            Stage3TestCycle.StudyBlueprint(game,Stage2BlueprintKind.ForgeII);
+            Assert.That(Call(forge,"TryUpgradeBuilding"),Is.True);
+            Assert.That(Call(forge,"TryOpen"),Is.True);
             Call(binding,"SelectForgeType",1);Assert.That(Call(binding,"TryForgeOperation"),Is.True);
             var wand=equipment.Rules.Items.Last();Assert.That(wand.Type,Is.EqualTo(Stage2ItemType.Wand));
             Window("Inventory");yield return null;Assert.That(Call(binding,"TryEquipItem",wand.Id),Is.True);
@@ -121,7 +124,9 @@ namespace Not3A.Stage3.VisualPilot.Tests
             }
             Assert.That(BagIds(),Is.Empty,"All three starting items are already equipped.");
             var bow=equipment.Rules.Equipped(Stage2ItemSlot.Weapon);
-            Window("None");yield return BuildAndApproach();Call(forge,"TryOpen");Call(binding,"SelectForgeType",1);
+            Window("None");yield return BuildAndApproach();
+            Stage3TestCycle.StudyBlueprint(game,Stage2BlueprintKind.ForgeII);Assert.That(Call(forge,"TryUpgradeBuilding"),Is.True);
+            Call(forge,"TryOpen");Call(binding,"SelectForgeType",1);
             Assert.That(Call(binding,"TryForgeOperation"),Is.True);var wand=equipment.Rules.Items.Last();
             Window("Inventory");yield return null;
             Assert.That(BagIds(),Is.EqualTo(new[]{wand.Id}));

@@ -27,6 +27,7 @@ namespace Not3A.Stage3.PlayerInterface
         private Vector2Int? dragTargetCell;
         private bool dragDropValid;
         private bool bufferedBuildingPress;
+        private bool quickUpgradePress;
         private Vector2 bufferedBuildingPressPosition;
         private InputSettings buildingPointerSettings;
         private bool previousPointerMergingDisabled;
@@ -46,6 +47,24 @@ namespace Not3A.Stage3.PlayerInterface
         private static readonly CultureInfo DisplayCulture = CultureInfo.GetCultureInfo("ru-RU");
 
         public Stage3BuildingSelectionKind SelectedBuildingKind => selectionKind;
+        public bool IsQuickUpgradeMode => WorldBuildingSelectionAvailable && !IsDraggingBuilding && AltHeld;
+        private static bool AltHeld => Keyboard.current != null &&
+            (Keyboard.current.leftAltKey.isPressed || Keyboard.current.rightAltKey.isPressed);
+
+        public Stage2TowerActionResult EvaluateQuickUpgrade(Stage2Tower tower) =>
+            IsQuickUpgradeMode && !HasBuildingDraft ? game.Building.Defense.EvaluateUpgrade(tower) : Stage2TowerActionResult.Inactive;
+
+        public Stage2TowerActionResult TryQuickUpgradeAtScreen(Vector2 point)
+        {
+            if (!IsQuickUpgradeMode || game.ContainsScreenPoint(point)) return Stage2TowerActionResult.Inactive;
+            var tower = FindTowerAtScreen(point);
+            if (tower == null) return Stage2TowerActionResult.InvalidTarget;
+            CancelPlacement();
+            var result = game.Building.Defense.TryUpgrade(tower);
+            if (result == Stage2TowerActionResult.Ready) PlayTowerUpgradeEffect(tower);
+            InvalidateBuildingSelection();
+            return result;
+        }
 
         private void BindBuildingSelection()
         {
@@ -125,7 +144,9 @@ namespace Not3A.Stage3.PlayerInterface
             { TryUpgradeSelectedProduction(); return; }
             if(selectionKind==Stage3BuildingSelectionKind.Forge)
             {
-                if(SelectionAvailable&&!IsDraggingBuilding)GetComponent<Stage3Forge>()?.TryUpgradeBuilding();
+                var forge=GetComponent<Stage3Forge>();
+                if(SelectionAvailable&&!IsDraggingBuilding&&forge!=null&&forge.TryUpgradeBuilding())
+                    presentation.PlayBuildingUpgradeEffect(forge.Position,forge.Catalog.Footprint);
                 InvalidateBuildingSelection();RefreshBuildingSelection();
             }
             else TryUpgradeSelectedBuilding();
@@ -150,6 +171,7 @@ namespace Not3A.Stage3.PlayerInterface
             if (!SelectionAvailable || IsDraggingBuilding || selectionKind != Stage3BuildingSelectionKind.Tower)
                 return Stage2TowerActionResult.InvalidTarget;
             var result = game.Building.Defense.TryUpgrade(selectedTower);
+            if (result == Stage2TowerActionResult.Ready) PlayTowerUpgradeEffect(selectedTower);
             InvalidateBuildingSelection(); RefreshBuildingSelection();
             return result;
         }
@@ -158,6 +180,8 @@ namespace Not3A.Stage3.PlayerInterface
             if (!SelectionAvailable || IsDraggingBuilding || selectionKind != Stage3BuildingSelectionKind.Production)
                 return ProductionUpgradeResult.InvalidBuilding;
             var result = game.Production.TryUpgrade(selectedProduction);
+            if (result == ProductionUpgradeResult.Upgraded)
+                presentation.PlayBuildingUpgradeEffect(selectedProduction.Footprint.center,selectedProduction.Footprint.size);
             InvalidateBuildingSelection(); RefreshBuildingSelection(); return result;
         }
         public Stage2ThroneUpgradeResult TryUpgradeSelectedThrone()
@@ -165,8 +189,18 @@ namespace Not3A.Stage3.PlayerInterface
             if (!SelectionAvailable || IsDraggingBuilding || selectionKind != Stage3BuildingSelectionKind.Throne)
                 return Stage2ThroneUpgradeResult.Inactive;
             var result = game.RunDriver.Run.TryUpgradeThrone();
+            if (result == Stage2ThroneUpgradeResult.Upgraded)
+                presentation.PlayBuildingUpgradeEffect(scene.ThroneMarker.position,CellFootprintSize());
             InvalidateBuildingSelection(); RefreshBuildingSelection(); return result;
         }
+        private Vector2 CellFootprintSize()
+        {
+            var map=scene.MapDefinition;var origin=map.CellCoordinatesToWorld(Vector2.zero);
+            var x=map.CellCoordinatesToWorld(Vector2.right)-origin;var y=map.CellCoordinatesToWorld(Vector2.up)-origin;
+            return new Vector2(Mathf.Abs(x.x)+Mathf.Abs(y.x),Mathf.Abs(x.y)+Mathf.Abs(y.y));
+        }
+        private void PlayTowerUpgradeEffect(Stage2Tower tower) =>
+            presentation.PlayBuildingUpgradeEffect(scene.MapDefinition.CellToWorld(tower.Cell),CellFootprintSize());
         public Stage2TowerActionResult TrySellSelectedBuilding()
         {
             if (!SelectionAvailable || IsDraggingBuilding || selectionKind != Stage3BuildingSelectionKind.Tower)
@@ -204,6 +238,23 @@ namespace Not3A.Stage3.PlayerInterface
             if (selectionKind != Stage3BuildingSelectionKind.None) RefreshBuildingSelection();
             if (mouse == null) { selectionPressArmed = false; return; }
             var pointer = mouse.position.ReadValue();
+            if (IsQuickUpgradeMode)
+            {
+                if (HasBuildingDraft) CancelPlacement();
+                selectionPressArmed = false; pressedTower = null;
+                if (pointerPressed || mouse.leftButton.wasPressedThisFrame)
+                {
+                    quickUpgradePress = true;
+                    TryQuickUpgradeAtScreen(pointerPressed ? pointerPressPosition : pointer);
+                }
+                return;
+            }
+            // Releasing Alt before the mouse cannot turn an upgrade click into selection.
+            if (quickUpgradePress)
+            {
+                if (!mouse.leftButton.isPressed) quickUpgradePress = false;
+                return;
+            }
             if (Debug.isDebugBuild && (mouse.leftButton.wasPressedThisFrame || mouse.leftButton.wasReleasedThisFrame) &&
                 Environment.GetEnvironmentVariable("NOT3A_BUILDING_ACTIONS_CONSTRUCTION_REVIEW") == "1")
                 Debug.Log($"S3_CONSTRUCTION_POINTER frame={Time.frameCount} position={pointer} down={mouse.leftButton.wasPressedThisFrame} up={mouse.leftButton.wasReleasedThisFrame} origin={(pointerPressed ? pointerPressPosition : pointer)} armed={selectionPressArmed} drag={IsDraggingBuilding}");
@@ -215,7 +266,9 @@ namespace Not3A.Stage3.PlayerInterface
                 // appearing actions cannot capture the same mouse-down underneath the pointer.
                 var picked = worldPress ? PickBuildingAtScreen(origin) : default;
                 if (picked.Kind != Stage3BuildingSelectionKind.None) CancelPlacement();
-                selectionPressArmed = worldPress;
+                // A placement press on empty ground must not select the newly built
+                // object on release and cancel a Shift-repeat blueprint.
+                selectionPressArmed = worldPress && (picked.Kind != Stage3BuildingSelectionKind.None || !HasBuildingDraft);
                 selectionPressPosition = origin;
                 pressedTower = picked.Tower;
             }
@@ -287,10 +340,7 @@ namespace Not3A.Stage3.PlayerInterface
             var hitTower = FindTowerAtScreen(pointer, draggedTower);
             if (hitTower != null) cell = hitTower.Cell;
             dragTargetCell = cell;
-            var recipient = TowerAt(cell);
-            dragDropValid = (recipient != null && recipient != draggedTower
-                ? game.Building.Defense.EvaluateMerge(draggedTower, recipient)
-                : game.Building.Defense.EvaluateMove(draggedTower, cell)) == Stage2TowerActionResult.Ready;
+            dragDropValid = game.Building.Defense.EvaluateMove(draggedTower, cell) == Stage2TowerActionResult.Ready;
         }
 
         private Stage2Tower TowerAt(Vector2Int cell)
@@ -306,17 +356,13 @@ namespace Not3A.Stage3.PlayerInterface
             if (!IsDraggingBuilding) return Stage2TowerActionResult.InvalidTarget;
             UpdateBuildingDragTarget(pointer);
             var source = draggedTower;
-            var recipient = dragTargetCell.HasValue ? TowerAt(dragTargetCell.Value) : null;
             var result = Stage2TowerActionResult.InvalidCell;
             if (SelectionAvailable && dragTargetCell.HasValue)
-                result = recipient != null && recipient != source
-                    ? game.Building.Defense.TryMerge(source, recipient)
-                    : game.Building.Defense.TryMove(source, dragTargetCell.Value);
+                result = game.Building.Defense.TryMove(source, dragTargetCell.Value);
             draggedTower = null; dragTargetCell = null; dragDropValid = false;
             selectionPressArmed = false; pressedTower = null;
             ReleaseBuildingDragPresentation();
-            if (result == Stage2TowerActionResult.Ready && recipient != null && recipient != source) SelectTower(recipient);
-            else if (source != null && source.IsAlive) { InvalidateBuildingSelection(); RefreshBuildingSelection(); }
+            if (source != null && source.IsAlive) { InvalidateBuildingSelection(); RefreshBuildingSelection(); }
             else ClearBuildingSelection();
             return result;
         }
@@ -328,6 +374,7 @@ namespace Not3A.Stage3.PlayerInterface
             selectedView = null; selectionStamp = int.MinValue; selectionPressArmed = false;
             pressedTower = null; draggedTower = null; dragTargetCell = null; dragDropValid = false;
             bufferedBuildingPress = false;
+            quickUpgradePress = false;
             ReleaseBuildingDragPresentation();
             presentation?.ClearSelectedBuilding();
         }
@@ -500,7 +547,9 @@ namespace Not3A.Stage3.PlayerInterface
                 case Stage3BuildingSelectionKind.Tower:
                     var catalog = game.Building.Defense.GetTowerCatalog(selectedTower);
                     result.Title = catalog.RoleName; result.ShowSell = true;
-                    result.Subtitle = "Уровень " + selectedTower.Level + " / " + catalog.MaximumLevel;
+                    result.Subtitle = catalog.MaximumLevel > 1 ? "Уровень " + selectedTower.Level +
+                        (!catalog.UnlimitedUpgrades ? " / " + catalog.MaximumLevel : "") : "Преграда";
+                    result.ShowUpgrade = selectedTower.CanAttack;
                     result.UpgradeAvailable = game.Building.Defense.EvaluateUpgrade(selectedTower) == Stage2TowerActionResult.Ready;
                     result.SellAvailable = game.Building.Defense.EvaluateSell(selectedTower) == Stage2TowerActionResult.Ready;
                     result.SellRefund = FormatCost(game.Building.Defense.GetSaleRefund(selectedTower));
@@ -514,9 +563,11 @@ namespace Not3A.Stage3.PlayerInterface
                             : $"След. уровень: HP {selectedTower.MaximumHealth} → {upgrade.Health}";
                     }
                     else result.UpgradeUnavailableReason = "Максимальный уровень";
-                    result.Hint = selectedTower.Level >= catalog.MaximumLevel
-                        ? "Максимальный уровень. Перемещение — днём."
-                        : "Перетащить на такую же башню того же уровня · слияние. Перемещение — днём.";
+                    result.Hint = !selectedTower.CanAttack
+                        ? "Частокол не улучшается. Перемещение — днём."
+                        : selectedTower.Level >= catalog.MaximumLevel
+                            ? "Максимальный уровень. Перемещение — днём."
+                            : "Платное улучшение — кнопкой в карточке. Перемещение — днём.";
                     result.WorldPosition = selectedTower.transform.position;
                     var towerArt = selectedTower.GetComponentInChildren<Stage3TowerSprite>();
                     var icon = towerArt != null ? towerArt.Body : selectedTower.GetComponentInChildren<SpriteRenderer>();
@@ -553,12 +604,12 @@ namespace Not3A.Stage3.PlayerInterface
                         Stat("Состояние", "Добывает") };
                     break;
                 case Stage3BuildingSelectionKind.Workshop:
-                    result.Title = "Исследовательская мастерская"; result.Icon = presentation.Art.workshopIcon;
-                    result.Subtitle="Уровень 1";result.ShowUpgrade=false;
+                    result.Title = "Исследовательский центр"; result.Icon = presentation.Art.workshopIcon;
+                    result.Subtitle="Изучение чертежей";result.ShowUpgrade=false;
                     result.WorldPosition = travel.WorkshopPosition; result.ShowResearch = true;
                     result.Stats = new[] { Stat("Изучено чертежей",equipmentDriver?.Rules.Blueprints?.StudiedCount??0),
                         Stat("Телепортация", travel.IsResearched ? "Изучена" : "Не изучена") };
-                    result.Hint = "Изучение чертежей у мастерской · E или «Исследования»";
+                    result.Hint = "Изучение чертежей у исследовательского центра · E или «Исследования»";
                     break;
                 case Stage3BuildingSelectionKind.Dwelling:
                     result.Title = "Жилище"; result.Icon = dwelling.Catalog.sprite; result.ShowUpgrade = false;
@@ -578,7 +629,7 @@ namespace Not3A.Stage3.PlayerInterface
                     break;
                 case Stage3BuildingSelectionKind.Forge:
                     var forge=GetComponent<Stage3Forge>();var rules=forge.EquipmentDriver.Rules;
-                    result.Title="Кузница";result.Icon=forge.Art?.worldSprite;result.WorldPosition=forge.Position;
+                    result.Title=forge.DisplayName;result.Icon=forge.Art?.worldSprite;result.WorldPosition=forge.Position;
                     result.Subtitle="Ступень "+rules.ForgeLevel+" / "+rules.Catalog.ForgeStageCount;
                     result.ShowForge=true;result.ForgeAvailable=forge.CanUse;
                     result.ForgeUnavailableReason=forge.NearEntrance?"Кузница сейчас недоступна":"Подойдите ко входу в кузницу";

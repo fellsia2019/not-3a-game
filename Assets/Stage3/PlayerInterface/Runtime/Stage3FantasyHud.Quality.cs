@@ -8,6 +8,15 @@ namespace Not3A.Stage3.PlayerInterface
         private Texture2D equipmentQualityAtlas;
         private bool equipmentQualityAtlasLoaded;
         private Rect? equipmentTextureClip;
+        private Vector2 equipmentGuiOrigin;
+        private Vector2 CurrentGuiPointer
+        {
+            get
+            {
+                var mouse=UnityEngine.InputSystem.Mouse.current;
+                return mouse==null?Event.current.mousePosition:new Vector2(mouse.position.ReadValue().x,Screen.height-mouse.position.ReadValue().y)-equipmentGuiOrigin;
+            }
+        }
 
         // Measured top-left pixel bounds in the original 1774 x 887 ImageGen source.
         // The artwork is deliberately NOT sampled as an equal 4 x 2 grid.
@@ -33,6 +42,7 @@ namespace Not3A.Stage3.PlayerInterface
                 Label(count,Mathf.Max(0,item.Quantity).ToString(),14,TextAnchor.MiddleRight);
             }
             if (selected) DrawEquipmentSelection(rect);
+            else DrawEquipmentHover(rect);
         }
 
         private Rect EquipmentIconSafeRect(Rect rect)
@@ -97,9 +107,9 @@ namespace Not3A.Stage3.PlayerInterface
         {
             // The cyan selection lives outside the quality bevel and never replaces it.
             var line = Mathf.Max(1f, 1.4f * UiScale);
-            var r = Inset(rect, 1f * UiScale);
+            var r = Inset(rect, -3f * UiScale);
             var cyan = new Color32(86,235,255,255);
-            Stroke(r, new Color(86f/255f,235f/255f,1f,.65f), line);
+
             var length = Mathf.Min(12f * UiScale, Mathf.Min(r.width,r.height) * .22f);
             for (var i=0;i<4;i++)
             {
@@ -109,6 +119,12 @@ namespace Not3A.Stage3.PlayerInterface
                 Fill(new Rect(x,y,length,line * 2f),cyan);
                 Fill(new Rect(right ? r.xMax-line*2f : r.x,bottom ? r.yMax-length : r.y,line*2f,length),cyan);
             }
+        }
+
+        private void DrawEquipmentHover(Rect rect)
+        {
+            if(!rect.Contains(CurrentGuiPointer))return;
+            Stroke(Inset(rect,-2f*UiScale),new Color(.96f,.96f,.92f,.85f),Mathf.Max(1f,UiScale));
         }
 
         private void DrawEquipmentTexture(Rect target, Texture texture, Rect uv)

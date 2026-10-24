@@ -1,5 +1,20 @@
 # Feature: Resource Production Buildings And Build Menu
 
+## D122 — construction requires a studied document, 2026-10-22
+
+Sawmill, quarry and iron mine each require their own merchant construction paper,
+consumed by local study in the existing research workshop. Both draft entry and
+Stage2Production.Evaluate/TryBuild enforce knowledge. Buying alone is insufficient;
+failed attempts do not create visuals, occupy a pad or charge resources. Studying
+never grants a free generator. Existing five paid output stages, partial-cycle
+preservation, material construction costs and retry/reset behavior are unchanged.
+This supersedes the old ungated initial construction; it does not add research
+requirements for each generator upgrade. RESEARCH.md owns document trade/study.
+
+Local D121–D123 verification:105EditMode/99PlayMode PASS; Mac native/Astra
+qualification and remaining Windows/manual-balance scope are recorded in
+`art/source/progression_refactor_2026-10-22_verification.json`.
+
 ## D-093 production advancement —approved and locally qualified2026-10-20
 
 Owner approved5stages with1/2/3/4/5units per cycle and individual material+gold

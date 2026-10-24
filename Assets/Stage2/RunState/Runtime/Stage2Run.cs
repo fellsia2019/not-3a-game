@@ -18,6 +18,7 @@ namespace Not3A.Stage2.RunState
         private readonly Stage2Economy economy;
         private readonly Stage2Defense defense;
         private readonly Stage2EnemyGroup enemies;
+        private readonly System.Random rewardRandom = new System.Random();
         private int remainingToSpawn;
         private float spawnRemaining;
         private bool spawningFinished;
@@ -391,7 +392,10 @@ namespace Not3A.Stage2.RunState
         {
             if (disposed) return;
             if ((Phase == Stage2RunPhase.Wave || (UsesDaytimeGates && !IsTerminal)) && enemy.WasKilled && economy.GoldPerKill > 0)
-                economy.Inventory.TryAddGold(economy.GoldPerKill);
+            {
+                var reward = economy.GoldRewardForRoll(rewardRandom.NextDouble());
+                if (reward > 0) economy.Inventory.TryAddGold(reward);
+            }
             TryCompleteWave();
         }
 

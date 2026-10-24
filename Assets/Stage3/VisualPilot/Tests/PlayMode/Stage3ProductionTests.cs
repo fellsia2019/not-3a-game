@@ -56,7 +56,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
                     scene.PlayerMover.Obstacles.TryFindFreePosition(heroPoint, scene.PlayerMover.CollisionRadius,
                         new Rect(point.Position - Vector2.one * 4, Vector2.one * 8), out heroPoint);
                 scene.PlayerMover.transform.position = heroPoint;
-                production.SelectAndBeginPlacement(kind);
+                Stage3TestCycle.StudyBlueprint(game, Stage2BlueprintCatalog.ForProduction(kind)); production.SelectAndBeginPlacement(kind);
                 Assert.That(production.TryBuildAt(index), Is.EqualTo(ProductionPlacementResult.Built));
                 Assert.That(scene.PlayerMover.Obstacles.IsBlocked(point.Position, scene.PlayerMover.CollisionRadius), Is.True);
                 Assert.That(scene.PlayerMover.Obstacles.IsBlocked(heroPoint, scene.PlayerMover.CollisionRadius), Is.False);
@@ -75,15 +75,15 @@ namespace Not3A.Stage3.VisualPilot.Tests
         {
             var index = Enumerable.Range(0, production.Rules.Points.Count).First(i => production.Rules.Points[i].Building == ResourceProductionBuilding.Sawmill);
             var point = production.Rules.Points[index]; var inventory = game.Gathering.Economy.Inventory;
-            production.SelectAndBeginPlacement(ResourceProductionBuilding.Quarry);
+            Stage3TestCycle.StudyBlueprint(game, Stage2BlueprintCatalog.ForProduction(ResourceProductionBuilding.Quarry)); production.SelectAndBeginPlacement(ResourceProductionBuilding.Quarry);
             Assert.That(production.TryBuildAt(index), Is.EqualTo(ProductionPlacementResult.WrongType));
-            production.SelectAndBeginPlacement(ResourceProductionBuilding.Sawmill); scene.PlayerMover.transform.position = point.Position;
+            Stage3TestCycle.StudyBlueprint(game, Stage2BlueprintCatalog.ForProduction(ResourceProductionBuilding.Sawmill)); production.SelectAndBeginPlacement(ResourceProductionBuilding.Sawmill); scene.PlayerMover.transform.position = point.Position;
             Assert.That(production.TryBuildAt(index), Is.EqualTo(ProductionPlacementResult.HeroBlocked));
             Assert.That(inventory.Get(MapResourceKind.Wood), Is.EqualTo(100));
             scene.PlayerMover.transform.position = new Vector3(10, 10, 0);
             Assert.That(production.TryBuildAt(index), Is.EqualTo(ProductionPlacementResult.Built));
             var spent = inventory.Get(MapResourceKind.Wood);
-            production.SelectAndBeginPlacement(ResourceProductionBuilding.Sawmill);
+            Stage3TestCycle.StudyBlueprint(game, Stage2BlueprintCatalog.ForProduction(ResourceProductionBuilding.Sawmill)); production.SelectAndBeginPlacement(ResourceProductionBuilding.Sawmill);
             Assert.That(production.TryBuildAt(index), Is.EqualTo(ProductionPlacementResult.Occupied));
             Assert.That(inventory.Get(MapResourceKind.Wood), Is.EqualTo(spent));
             yield return null;
@@ -91,38 +91,38 @@ namespace Not3A.Stage3.VisualPilot.Tests
         [UnityTest] public IEnumerator RunPauseTerminalResetAndRegenerationOwnProductionLifecycle()
         {
             var index = 0; var point = production.Rules.Points[index];
-            production.SelectAndBeginPlacement(point.Building);
+            Stage3TestCycle.StudyBlueprint(game, Stage2BlueprintCatalog.ForProduction(point.Building)); production.SelectAndBeginPlacement(point.Building);
             Assert.That(production.TryBuildAt(index), Is.EqualTo(ProductionPlacementResult.Built));
             var inventory = game.Gathering.Economy.Inventory; var before = inventory.Get(point.Resource);
             production.Rules.Tick(25); Assert.That(inventory.Get(point.Resource), Is.GreaterThan(before));
             game.SetPaused(true); before = inventory.Get(point.Resource); production.Rules.Tick(100);
             Assert.That(inventory.Get(point.Resource), Is.EqualTo(before));
-            production.SelectAndBeginPlacement(point.Building); Assert.That(production.IsPlacing, Is.False);
+            Stage3TestCycle.StudyBlueprint(game, Stage2BlueprintCatalog.ForProduction(point.Building)); production.SelectAndBeginPlacement(point.Building); Assert.That(production.IsPlacing, Is.False);
             game.SetPaused(false);
             game.RunDriver.Run.ResetRun();
             Assert.That(production.Rules.Buildings.Count, Is.Zero);
             Assert.That(scene.PlayerMover.Obstacles.IsBlocked(point.Position, scene.PlayerMover.CollisionRadius), Is.False);
             foreach (MapResourceKind kind in Enum.GetValues(typeof(MapResourceKind))) inventory.TryAdd(kind, 100);
-            production.SelectAndBeginPlacement(point.Building); Assert.That(production.TryBuildAt(index), Is.EqualTo(ProductionPlacementResult.Built));
+            Stage3TestCycle.StudyBlueprint(game, Stage2BlueprintCatalog.ForProduction(point.Building)); production.SelectAndBeginPlacement(point.Building); Assert.That(production.TryBuildAt(index), Is.EqualTo(ProductionPlacementResult.Built));
             var old = scene.PlayerMover.Obstacles;
             world.GetType().GetMethod("Regenerate").Invoke(world, new object[] { 164033 });
             Assert.That(production.Rules.Buildings.Count, Is.Zero); Assert.That(production.IsPlacing, Is.False);
             Assert.That(scene.PlayerMover.Obstacles, Is.Not.SameAs(old));
             Assert.That(old.IsBlocked(point.Position, scene.PlayerMover.CollisionRadius), Is.False);
             var replacement = production.Rules.Points[0];
-            production.SelectAndBeginPlacement(replacement.Building);
+            Stage3TestCycle.StudyBlueprint(game, Stage2BlueprintCatalog.ForProduction(replacement.Building)); production.SelectAndBeginPlacement(replacement.Building);
             Assert.That(production.TryBuildAt(0), Is.EqualTo(ProductionPlacementResult.Built));
             var run = game.RunDriver.Run; Stage3TestCycle.StartNight(run);
             var method = run.GetType().GetMethod("OnReachedThrone", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
             method.Invoke(run, new object[] { run.ThroneMaximum });
             Assert.That(run.IsTerminal, Is.True); before = inventory.Get(point.Resource); production.Rules.Tick(100);
             Assert.That(inventory.Get(point.Resource), Is.EqualTo(before));
-            production.SelectAndBeginPlacement(point.Building); Assert.That(production.IsPlacing, Is.False);
+            Stage3TestCycle.StudyBlueprint(game, Stage2BlueprintCatalog.ForProduction(point.Building)); production.SelectAndBeginPlacement(point.Building); Assert.That(production.IsPlacing, Is.False);
             yield return null;
         }
         [UnityTest] public IEnumerator KeyboardTowerSelectionCancelsGeneratorAndNeitherModeLeaksGathering()
         {
-            production.SelectAndBeginPlacement(ResourceProductionBuilding.Sawmill); Assert.That(production.IsPlacing, Is.True);
+            Stage3TestCycle.StudyBlueprint(game, Stage2BlueprintCatalog.ForProduction(ResourceProductionBuilding.Sawmill)); production.SelectAndBeginPlacement(ResourceProductionBuilding.Sawmill); Assert.That(production.IsPlacing, Is.True);
             var playerUi = game.GetComponent("Stage3FantasyHud"); Assert.That(playerUi, Is.Not.Null);
             Assert.That(playerUi.GetType().GetProperty("ActiveWindow").GetValue(playerUi).ToString(), Is.EqualTo("Construction"));
             input.Press(Keyboard.current.bKey); yield return null;
@@ -136,10 +136,10 @@ namespace Not3A.Stage3.VisualPilot.Tests
             playerUi.GetType().GetMethod("SetBuildGroup").Invoke(playerUi, new object[] { 0 });
             Assert.That((bool)playerUi.GetType().GetMethod("ActivateBuildChoice").Invoke(playerUi, new object[] { 0 }), Is.True);
             Assert.That(game.Building.Defense.IsPlacing, Is.True, "Selecting the actual tower card begins placement.");
-            input.Release(Keyboard.current.bKey); production.SelectAndBeginPlacement(ResourceProductionBuilding.Quarry);
+            input.Release(Keyboard.current.bKey); Stage3TestCycle.StudyBlueprint(game, Stage2BlueprintCatalog.ForProduction(ResourceProductionBuilding.Quarry)); production.SelectAndBeginPlacement(ResourceProductionBuilding.Quarry);
             Assert.That(game.Building.Defense.IsPlacing, Is.False);
             input.Press(Keyboard.current.digit1Key); yield return null; Assert.That(production.IsPlacing, Is.False);
-            input.Release(Keyboard.current.digit1Key); production.SelectAndBeginPlacement(ResourceProductionBuilding.Sawmill);
+            input.Release(Keyboard.current.digit1Key); Stage3TestCycle.StudyBlueprint(game, Stage2BlueprintCatalog.ForProduction(ResourceProductionBuilding.Sawmill)); production.SelectAndBeginPlacement(ResourceProductionBuilding.Sawmill);
             var kind = MapResourceKind.Wood; scene.PlayerMover.transform.position = game.Gathering.Economy.WorldPosition(kind);
             var before = game.Gathering.Economy.Inventory.Get(kind); input.Press(Keyboard.current.eKey);
             yield return new WaitForSeconds(game.Gathering.Catalog.Get(kind).GatherSeconds + .1f);
@@ -154,7 +154,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             var point = production.Rules.Points[0]; var camera = scene.CameraFollow.BoundCamera;
             scene.CameraFollow.enabled = false; camera.orthographicSize = 5;
             camera.transform.position = (Vector3)point.Position - camera.transform.forward * 30;
-            production.SelectAndBeginPlacement(point.Building);
+            Stage3TestCycle.StudyBlueprint(game, Stage2BlueprintCatalog.ForProduction(point.Building)); production.SelectAndBeginPlacement(point.Building);
             input.Set(Mouse.current.position, (Vector2)camera.WorldToScreenPoint(point.Position + Vector2.right * 4));
             input.Press(Mouse.current.leftButton); yield return null; input.Release(Mouse.current.leftButton);
             Assert.That(production.Rules.Buildings.Count, Is.Zero);
@@ -166,7 +166,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Assert.That(production.Rules.Buildings.Count, Is.Zero); Assert.That(inventory.Get(MapResourceKind.Wood), Is.EqualTo(before));
             Assert.That(production.IsPlacing, Is.False, "Right-click cancellation must win over a simultaneous purchase click.");
             yield return null;
-            production.SelectAndBeginPlacement(point.Building); yield return null;
+            Stage3TestCycle.StudyBlueprint(game, Stage2BlueprintCatalog.ForProduction(point.Building)); production.SelectAndBeginPlacement(point.Building); yield return null;
             input.Press(Mouse.current.leftButton); yield return null;
             input.Release(Mouse.current.leftButton); Assert.That(production.Rules.Buildings.Count, Is.EqualTo(1),
                 $"result={production.PreviewResult} placing={production.IsPlacing} index={production.PreviewPointIndex} ui={production.PointerOverUi} mouse={Mouse.current.position.ReadValue()} point={camera.WorldToScreenPoint(point.Position)} screen={Screen.width}x{Screen.height}");

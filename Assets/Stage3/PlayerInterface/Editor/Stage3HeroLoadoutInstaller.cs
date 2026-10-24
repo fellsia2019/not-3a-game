@@ -35,12 +35,12 @@ namespace Not3A.Stage3.PlayerInterface.Editor
         {
             // TestRunner's synchronous batch exit can leave its own generated init scene.
             // Only remove scenes proven by this qualification's logs, through AssetDatabase.
-            const string directory="Artifacts/HERO-LOADOUT-2026-10-22";
-            if(!Directory.Exists(directory))return;
             var paths=new HashSet<string>();
-            foreach(var log in Directory.GetFiles(directory,"*.log"))
-                foreach(Match match in Regex.Matches(File.ReadAllText(log),@"Assets/InitTestScene[0-9a-f-]+\.unity"))
-                    paths.Add(match.Value);
+            foreach(var directory in new[]{"Artifacts/HERO-LOADOUT-2026-10-22","Artifacts/PROGRESSION-REFACTOR-2026-10-22"})
+                if(Directory.Exists(directory))
+                    foreach(var log in Directory.GetFiles(directory,"*.log"))
+                        foreach(Match match in Regex.Matches(File.ReadAllText(log),@"Assets/InitTestScene[0-9a-f-]+\.unity"))
+                            paths.Add(match.Value);
             foreach(var path in paths)
             {
                 if(Array.Exists(EditorBuildSettings.scenes,scene=>scene.path==path))continue;

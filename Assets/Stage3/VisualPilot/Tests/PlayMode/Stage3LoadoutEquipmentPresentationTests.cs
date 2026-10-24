@@ -50,6 +50,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
         [UnityTest] public IEnumerator TwelveProductionSlotsKeepBothWeaponsAndIndependentRingTargets()
         {
             var rules=game.GetComponent<Stage2EquipmentDriver>().Rules;
+            Stage3TestCycle.StudyBlueprint(game,Stage2BlueprintKind.WandRecipe);
             Assert.That(rules.TryReceiveLoot(Stage2ItemType.Wand,Stage2ItemQuality.C,1,out var staff),Is.True);
             Assert.That(rules.TryEquip(staff.Id),Is.EqualTo(Stage2EquipmentResult.Ready));
             Window("Inventory");yield return null;yield return null;

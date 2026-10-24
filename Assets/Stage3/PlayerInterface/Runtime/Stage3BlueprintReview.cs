@@ -29,7 +29,7 @@ namespace Not3A.Stage3.PlayerInterface
             }
             foreach(var paper in merchant.BlueprintItems.ToArray())
             {hud.SelectMerchantItem(true,paper.Id);Require(binding.TryMerchantTrade(true,paper.Id),"buy paper");}
-            hud.CloseWindow();travel.BeginWorkshopPlacement();var origin=(Vector2)scene.PlayerMover.transform.position;Vector2? site=null;
+            hud.CloseWindow();game.Gathering.Economy.Inventory.TryAdd(Not3A.Stage2.Map.MapResourceKind.Wood,travel.WorkshopWoodCost);game.Gathering.Economy.Inventory.TryAdd(Not3A.Stage2.Map.MapResourceKind.Stone,travel.WorkshopStoneCost);travel.BeginWorkshopPlacement();var origin=(Vector2)scene.PlayerMover.transform.position;Vector2? site=null;
             // Use the same legal construction evaluator; never bypass occupancy or scene wiring.
             for(var ring=5;ring<150&&!site.HasValue;ring+=2)for(var x=-ring;x<=ring&&!site.HasValue;x+=2)for(var y=-ring;y<=ring;y+=2)
             {var p=origin+new Vector2(x,y);if(travel.EvaluateWorkshopAt(p)==WorkshopPlacementResult.Ready){site=p;break;}}

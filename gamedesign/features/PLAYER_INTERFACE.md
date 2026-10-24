@@ -1,4 +1,88 @@
-# D-107 current upperHUD override — approved2026-10-20
+# Player interface
+
+## D129/D130 — inventory quick assignment and skill state presentation,2026-10-23
+
+Inventory presents four fixed assignment cells below the bag with a reserved
+row; select an actual active item then F1–F4 cell, RMB clears. The world ribbon
+uses assigned type artwork/count and actual action result; F4 is no longer
+permanently reserved. Empty cells remain silent; non-active items cannot bind.
+Unknown staff nodes are softened/desaturated and do not expose title, details,
+upgrade or stale selection. Studying Владение посохом restores their real
+learned/unlearned state. Learned AimedShot/Arcane accept RMB autocast with a
+contained cyan A mark; manual cast stays available. Details measure description
+and multi-line actual effect summaries, including area/status/cadence. Ground
+arrow/fire and both portal/world enemy statuses must be visible from native
+pixels. HERO_PROGRESSION.md owns mechanics and exact non-invented damage schools.
+
+Local qualification completed2026-10-24:88unique relevant PlayModePASS,1existing
+headless viewportSKIP documented and corroborated by native layouts. Final45
+native assertions at720/900/1080; Astra reviewed15changed clean v3 plus30reused
+unchanged v1UI after retained RETURNs. Current Mac849979653-byte player starts
+ordinary LVL1/XP0/gold5 with no grants; first8renders ready. Evidence:
+art/source/active_actions_2026-10-23_verification.json and native_review.json.
+Windows, sustained balance and final owner appearance acceptance remain open.
+
+## D128 current owner correction — compact controls, 2026-10-23
+
+Reduce quick-left/navigation-right controls to roughly half the previous size,
+near the actual skill icons; shrink the service ribbon with them. Existing item,
+count, key, cooldown and feedback semantics remain. Modal header labels wrap and
+fit their padded text area, including Вернуться к игроку. Header active/hover
+uses the established ivory material with edge-only emphasis, without an added
+opaque purple panel. Minimap terrain is inset inside the ornamental aperture;
+background ornament stays behind terrain and its thin foreground does not bury
+map content. Top resource/day joins meet the cornice continuously. All existing
+clock/map/input/gameplay state remains. Astra owns these direct corrections to
+the current approved material; no new art concept or package is needed.
+
+## D127 current owner correction — 2026-10-23
+
+The previous native appearance is returned despite its local PASS. Match the
+selected hud_polish_v1 servicebar and flask/state/type treatment. Construction
+cards NEVER invoke a hover popup. Hovering, pressing or selecting a known card
+updates the left inspected panel with all actual parameters, purpose/placement,
+resource shortage and contextual hints. The existing three-card catalogue,
+shared points, costs, study gates, Shift/Alt semantics and transactions remain.
+The quick slots still route both input methods to the actual validated result;
+F4 remains empty/silent. Rendering changes must preserve real quantities/CD.
+Current acceptance requires direct source/native visual comparison at720/900/1080
+and explicit no-popup checks; prior gameplay tests remain a scoped baseline.
+
+Implemented by Astra with four original measured-UV Resources textures: connected
+32/23/45 ribbon, round flasks, contained keycaps/counts and shaped edge-only states.
+Full left detail retains true traits, placement, shortage and control hints.
+Final39 native assertions pass; Astra reviewed21 changed v2 frames plus18 reused
+v1 layouts. All39 v1 frames were inspected; weak pulse/bevel RETURN is retained.
+Ordinary first8 renders and native mouse/key smoke pass. Local Mac evidence:
+art/source/hud_reference_repair_2026-10-23_verification.json. Windows and sustained
+manual feel remain unverified; owner acceptance is separate.
+
+
+## D127 — current reference-fidelity and action feedback correction,2026-10-23
+
+Owner selects shared left building preview replacing portrait/vitals only in
+Construction, with minimap preserved and vertical separator before the3cards.
+Hover, keyboardchoice and card press inspect real base-catalog data without
+paying; unfunded choices cannot arm. Show actual HP/damage/range/attacks persecond
+and true area radius when applicable; noncombat objects have only actual purpose/
+output/sleep information, no fabricated HP. Card art and actual centred prices
+remain, coral art-well/ruby alert/actual deficit explain unaffordable states.
+Servicebar matches selected hud_polish_v1: padded quicktiles left, icons and
+ivory keycaps right. F1–F3 mouse and keys share actual validated transaction and
+transient result; cyan success/red refusal for zero/CD/fullvitalls/unavailable.
+UnassignedF4 shows no count/item/+ orCD and produces no action/hover/pulse.
+Keys and counts remain contained at720/900/1080; the selected reference permits
+a small lower-right count overlap on a large flask. The earlier strict zero-
+intersection check is superseded by the current appearance correction.
+Researchbuilding is now Исследовательский центр,30wood40stone; dwelling20wood20stone.
+Construction prices come from catalogs and are revalidated atcommit. Existing
+Workshop serialized identifiers, assets/scene wiring, singlelevel/no upgrade,
+local study and retry/reset contracts remain. Localqualification completed:
+65uniquePlayModePASS,30native-v2AstraPASS afterretainedv1RETURN. Zeroactualalpha/
+badgeintersections atall3sizes; ordinaryfirst8rendersready/noQA grants and actual
+mouse/key/F4/nav/costsmokePASS. Evidence:art/source/hud_polish_2026-10-23_verification.json.
+Windows/continuousmanualbalance remain separately unverified.
+
 
 D113 current override: no offscreen city pointer on minimap. Only a local city
 icon, while M remains a known city/hero icon without captions. Analog clock is
@@ -35,6 +119,126 @@ Sourceart/source/cycle_top_hud_2026-10-20_generation.json; evidence
 art/source/cycle_top_hud_2026-10-21_verification.json.
 
 # Feature: Player Interface
+
+## D126 weapon-material follow-up —2026-10-23
+
+Owner requires the referenced patterned/gradient empty surface and shaped
+painted switch with a separate ivory Z keycap. Exactly four cardinal emerald
+ornaments mark actual active weapon only;inactive/empty weapon rims have none.
+Keep pair geometry/switch event/equipment/quality/empty-slot validity unchanged.
+Astra implements original atlas parts by measured UV;native lettering/gems stay
+separate. Vertical turn keeps active gems above the caption at peak;resting
+geometry is preserved. No new gameplay state,grant,save field,scene wiring or package.
+Local Mac qualification:18targeted native frames/Astra PASS,including peak
+turn after retained WF-01 RETURN;one final ordinary player,noQA grants,first8
+renders ready. Evidence:art/source/weapon_fidelity_2026-10-23_verification.json.
+Gameplay tests remain the prior functional baseline;this change is visual-only.
+
+## D126 — current HUD corrections,2026-10-23
+
+World level plates and selected-card level subtitles exist only for upgrade-
+capable buildings. A barricade and the one-level research workshop have no
+artificial LVL1; an unfunded/maxed upgrade-capable building retains its level.
+Gathering-capstone hover is deferred until all normal panels are painted,
+measured from actual wrapped content and clamped inside the viewport with padding.
+
+F10 includes a scrollable hero progression group: actual current level/XP,
++100XP,+1000XP,+1level,+10levels. Actions route through normal progression and
+shared points, respect actual cap100 and developer/live-run/open-menu checks;
+explicit grants work while paused. Reset removes grants. No extra skills or
+ordinary-startup grants. All old builds are closed; qualification must leave
+one current player. Owner accepts the round weapon pair with thin rims,
+50%horizontal overlap and active-foreground turning/depth exchange, plus one
+joined Z footer. Updated concept:art/concepts/hud_corrections_2026-10-23/weapon_switch_v2.png.
+Actual equipped instances/qualities remain authoritative; missing staff cannot
+be switched to or granted by this presentation.
+Local qualification:20unique latestPlayModePASS,1explicit headless viewportSKIP,
+102ready native frames at720/900/1080,all first8ordinary renders ready and CUA
+F10/scroll/preset/return smoke. Astra native PASS on36explicit frames (17v4+19v6),
+after the retained compact-footer RETURN. Evidence:
+art/source/hud_corrections_2026-10-23_verification.json. Windows remains unverified.
+
+## D124 — current whole-interface refactor, 2026-10-22
+
+Owner requests a coherent redesign of world HUD, construction, inventory/trade
+states and the three development branches. This reopens the old D078/D120
+appearance; their gameplay/content contracts remain unless explicitly replaced
+below. Main owns input/rules/integration; Astra owns layout, artwork and native
+review. Owner now approves implementation with the HUD corrections below.
+
+- One connected lower dock: F1–F4 in a horizontal group at the left, navigation
+  at the right. First navigation action is Player/skill dock; it is different
+  from the existing O development window. Tab returns to Player and is shown
+  on its navigation badge.
+- World navigation uses ONLY pictograms plus Tab/I/B/P/O/M key badges. Names are
+  hover labels. Generic account/person silhouettes and a repeated main portrait
+  are rejected. Owner selected crossed bow/staff with a thin crescent, icon
+  study variant1. Owner approves the first HUD composition plus the common
+  development/inventory/trade/silver-LVL/gold-upgrade appearance proposals.
+- Construction keys1–3 select the corresponding visible card ONLY while the
+  construction view is active; ordinary Player1–5 retains weapon skills.
+  Owner revised the initial5-card idea to at most3 cards per page, leaving room
+  for multi-material prices. Actual price components form one centred group;
+  wrap by measured available width only, with no fixed2×2/empty reserved cells.
+  Category tabs stay INSIDE the main dock above cards; the upper servicebar
+  contains quick items left/navigation right and a quiet centre.
+  Hide bow/staff previews and Z
+  in construction and use their width for the catalogue; keep vitals/map stable.
+  Wheel, swipe, visible arrows and keyboard
+  arrows are the requested navigation. Pager changes cancel an armed draft.
+  Do not shrink cards or fill unknown-content placeholder slots.
+- Show only initial/studied construction choices. A bought paper does not
+  expose a building. Known but unfunded choices remain visible with a reason.
+  Early defense therefore shows Rapid and barricade with dense indices1/2.
+  Actual insufficient funds use a soft warning tint, red alert and red price
+  digits. Already-built singleton cards remain neutral; hover explains the cause.
+- Shift+LMB places a paid tower and keeps its blueprint for another click when
+  another full payment is possible. Plain LMB places one; each placement
+  revalidates ground/occupancy/hero/enemies/funds. Cancel/modal/pause still win.
+- Alt is a quick tower-upgrade mode. It cancels an armed building draft;
+  Alt+LMB pays one real upgrade without selecting/opening that tower's card.
+  Upgrade readiness on the constant-size LVL badge is green/red with an
+  additional allowed/blocked mark and upgrade chevron; barricades have no
+  upgrade affordance. The badge remains below clocks/fixed HUD.
+- The approved common successful-building-upgrade effect uses: gold footprint
+  perimeter, slender rising ribbons, then upward fade. Keep the structure and
+  neighbours readable. It is confirmation only, never XP/gold income. Appearance
+  follows the approved storyboard; only a confirmed successful upgrade triggers it.
+  The UI draws the actual visible near footprint edge, suppressing the occluded
+  rear curtain so a second bright base cannot cross the building facade.
+- Replace repeated ornate pill buttons with an agreed common control family.
+  Hover, selection, press and unavailable states must differ. Item quality
+  retains the actual D097 textured skin; selection lives in a separate gutter.
+  Consistent padding protects text/icons from frames and scroll clips. Native
+  physical scrollbar width is reserved separately from scaled cells; pointer
+  hover and press use the same local scroll coordinates. Branch/category tabs
+  use light inactive plates and a plum active plate.
+- Development shares header/LVL/XP/shared points once, branch navigation and
+  detail/action layout. Preserve the actual11actives/20combatpassives,
+  two gathering professions with3talents each. Owner then authorized two new
+  actual world-combat adventurer passives, making5: world damage and world
+  damage resistance, added to the existing three reward talents. Use a compact
+  deliberate tree with aligned orthogonal links from real prerequisite IDs;
+  no hand-drawn/Paint-like curves. HERO_PROGRESSION owns the new effects.
+
+Observable acceptance: no skill/build key conflict; only studied options;
+3-card pagination with real input; separately paid Shift placements; one paid
+Alt upgrade and no card/failure spend; visible Player return; distinct item
+states and readable real-content720/900/1080screens. Local qualification completed2026-10-23:37EditMode and82unique latest
+PlayMode PASS,1batchviewportSKIP replaced by actual native720/900/1080captures.
+Final capture has69ready/error-free frames; Astra PASS explicitly covers9v5
+warning/funded/singleton frames plus29unchanged v4frames. Ordinary first8renders
+are ready without QA grants. Physical I/Tab/B/1 and Player-icon click pass.
+Windows/Steam and a sustained manual run remain unverified. Evidence is
+art/source/hud_refactor_2026-10-22_verification.json.
+Source concepts/prompts are under
+`art/concepts/hud_refactor_2026-10-22/` and `art/source/hud_refactor_2026-10-22_*`.
+Current approved direction: owner's FIRST attached HUD (three-card revision),
+progression_v2, inventory_merchant_v3 and upgrade_feedback_v2. construction_v8
+is rejected for relocating categories into the servicebar; v9 fixed prices are
+superseded by the flow-price correction. Native
+implementation retains the actual I/B/P/O/M badges, HP/MP text, resource icons
+and catalog requirements/values; generated illustrative text is not runtime data.
 
 ## D-110: physical guild board — active appearance concepts
 

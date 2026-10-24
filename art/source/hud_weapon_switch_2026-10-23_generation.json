@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-23",
+  "tool": "Built-in image_gen.imagegen",
+  "use": "Owner-review concept only; not a runtime screenshot/background",
+  "original": "/Users/artemmusket/.codex/generated_images/01a16343-dbe2-7540-a7a4-7e050c8347fb/exec-7348472e-094f-486a-b050-f55c3bcacfa9.png",
+  "concept": "art/concepts/hud_corrections_2026-10-23/weapon_switch_v1.png",
+  "sha256": "bbd8f7b19956604f6f1567e7b0c0f7256f52109817a0a52c73cf07f583629a71",
+  "prompt": "art/source/hud_weapon_switch_2026-10-23_prompt.txt",
+  "prompt_sha256": "f2b3680337166490ae28e3cb1da9311965fc04d45e58a145ddc2c99091ac9ea0",
+  "reference": "Owner attached HUD crop23Oct10:25, project-owned game UI",
+  "rights": "Original AI-generated design using project-owned references; no external franchise artwork",
+  "status": "OWNER_ACCEPTED_WITH_EXPLICIT_THIN_RIM_50_PERCENT_OVERLAP_AND_DEPTH_TURN_CORRECTIONS",
+  "native_constraints": [
+    "Existing actual equipment/quality data remains authoritative",
+    "Compact two-medallion unit within existing weapon area",
+    "Integrated Z switch; empty staff stays empty and cannot grant a weapon",
+    "No cyan rectangle around a gold equipment rail"
+  ],
+  "owner_direction": "Thin rims;50%horizontal overlap;active medallion moves to foreground with a short turning/depth exchange.",
+  "revised_concept": "art/concepts/hud_corrections_2026-10-23/weapon_switch_v2.png",
+  "revised_sha256": "444415b38402af0eac6174fe74b82ac85596aeebb315a5c05f6ff94819ba7e7d",
+  "revised_prompt": "art/source/hud_weapon_switch_2026-10-23_v2_prompt.txt",
+  "revised_original": "/Users/artemmusket/.codex/generated_images/01a16343-dbe2-7540-a7a4-7e050c8347fb/exec-e9a71911-e030-4d75-948c-fb86f5cd9485.png",
+  "constraint": "Exact owner geometry/actual quality data override illustrative concept spacing/colors."
+}

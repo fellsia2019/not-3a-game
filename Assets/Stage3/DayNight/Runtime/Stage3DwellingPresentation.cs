@@ -26,7 +26,7 @@ namespace Not3A.Stage3.VisualPilot
             game = owner.GetComponent<Stage2GameComposition>();
             if (hud != null)
                 hud.BindDwellingConstruction(data.sprite, () => dwelling.BuildStatus,
-                    () => dwelling.CanBeginPlacement, dwelling.BeginPlacement, dwelling.CancelPlacement, data.woodCost);
+                    () => dwelling.CanBeginPlacement, dwelling.BeginPlacement, dwelling.CancelPlacement, data.woodCost, data.stoneCost);
         }
 
         public bool PrepareBuild(Vector2 position)

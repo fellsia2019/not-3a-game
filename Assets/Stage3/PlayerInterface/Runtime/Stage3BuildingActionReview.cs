@@ -41,10 +41,36 @@ namespace Not3A.Stage3.PlayerInterface
             SpriteRenderer Body(Stage2Tower tower) => tower.GetComponentInChildren<Stage3TowerSprite>()?.Body ??
                 tower.GetComponentsInChildren<SpriteRenderer>().First(r=>r.enabled&&r.gameObject.activeInHierarchy);
             Vector2 Point(Stage2Tower tower) => camera.WorldToScreenPoint(Body(tower).bounds.center);
+            Rect BadgeRect(Stage2Tower tower)
+            {
+                var left=float.PositiveInfinity;var right=float.NegativeInfinity;var top=float.PositiveInfinity;
+                var native=tower.GetComponentInChildren<Stage3TowerSprite>(true);
+                var renderers=native!=null?native.GetComponentsInChildren<SpriteRenderer>(true):tower.GetComponentsInChildren<SpriteRenderer>(true);
+                foreach(var renderer in renderers)
+                {
+                    if(!renderer.enabled||!renderer.gameObject.activeInHierarchy||renderer.sprite==null||renderer.color.a<=.01f)continue;
+                    var bounds=renderer.sprite.bounds;
+                    for(var corner=0;corner<4;corner++)
+                    {
+                        var local=new Vector3((corner&1)==0?bounds.min.x:bounds.max.x,(corner&2)==0?bounds.min.y:bounds.max.y,0);
+                        if(renderer.flipX)local.x=-local.x;if(renderer.flipY)local.y=-local.y;
+                        var point=camera.WorldToScreenPoint(renderer.transform.TransformPoint(local));
+                        if(point.z<=0)continue;
+                        left=Mathf.Min(left,point.x);right=Mathf.Max(right,point.x);top=Mathf.Min(top,Screen.height-point.y);
+                    }
+                }
+                return new Rect((left+right)*.5f-24f*hud.UiScale,top-21f*hud.UiScale,48f*hud.UiScale,17f*hud.UiScale);
+            }
             void Select(Stage2Tower tower)
             { Frame(Body(tower).bounds.center);Require(binding.TrySelectBuildingAtScreen(Point(tower)),"real visual selection"); }
             Stage2Tower Build(int role,Vector2Int near)
             {
+                if(role==1&&!defense.IsRoleAvailable(role))
+                {
+                    var paper=binding.Merchant.BlueprintItems.First(p=>p.Kind==Stage2BlueprintKind.Longshot);
+                    Require(binding.Merchant.TryTradeBlueprint(true,paper.Id)==Stage2TradeResult.Ready,"QA buys actual Longshot prerequisite");
+                    Require(binding.Blueprints.TryStudy(paper.Id)==Stage2BlueprintResult.Ready,"QA studies actual Longshot prerequisite");
+                }
                 binding.ClearBuildingSelection();defense.SelectRole(role);Require(defense.BeginPlacement(),"placement begins");
                 for(var radius=1;radius<25;radius++)
                 for(var y=-radius;y<=radius;y++) for(var x=-radius;x<=radius;x++)
@@ -93,19 +119,44 @@ namespace Not3A.Stage3.PlayerInterface
                 yield return Shot(directory,"02-upgraded-damaged");
                 stock.Reset();yield return null;Require(!hud.SelectedBuildingView.UpgradeAvailable,"unaffordable action disabled with price visible");
                 yield return Shot(directory,"03-unaffordable");Fund();yield return null;
-                while(tower.Level<defense.GetTowerCatalog(tower).MaximumLevel) Require(binding.TryUpgradeSelectedBuilding()==Stage2TowerActionResult.Ready,"paid next level");
-                yield return Shot(directory,"04-maximum");
+                var towerCatalog=defense.GetTowerCatalog(tower);
+                Require(towerCatalog.UnlimitedUpgrades,"tower progression has no authored level cap");
+                while(tower.Level<6)
+                {
+                    Require(towerCatalog.TryGetUpgrade(tower.Level,out var nextLevel),"next paid level exists");
+                    Require(stock.TryCredit(nextLevel.Cost),"fund exact next upgrade");
+                    Require(binding.TryUpgradeSelectedBuilding()==Stage2TowerActionResult.Ready,"paid next level");
+                }
+                Require(towerCatalog.TryGetUpgrade(tower.Level,out var seventh),"level seven remains available");
+                Require(stock.TryCredit(seventh.Cost),"fund seventh level preview");yield return null;
+                Require(hud.SelectedBuildingView.UpgradeAvailable&&hud.SelectedBuildingView.Subtitle=="Уровень 6","uncapped card remains available without huge denominator");
+                yield return Shot(directory,"04-level-six");
+                var badgeBefore=BadgeRect(tower);var dialCenter=hud.CycleDialRect.center;
+                var depth=camera.WorldToScreenPoint(Body(tower).bounds.center).z;
+                camera.transform.position+=camera.ScreenToWorldPoint(new Vector3(badgeBefore.center.x,Screen.height-badgeBefore.center.y,depth))-
+                    camera.ScreenToWorldPoint(new Vector3(dialCenter.x,Screen.height-dialCenter.y,depth));
+                var clockBadge=BadgeRect(tower);
+                Require(hud.CycleDialRect.Contains(clockBadge.center),"LVL badge deliberately overlaps clock for native stacking review");
+                Require(!clockBadge.Overlaps(hud.ResourcesRect)&&!clockBadge.Overlaps(hud.StatusRect),"clock overlap is not hidden by other badge exclusions");
+                yield return Shot(directory,"04-clock-over-level-"+Screen.width+"x"+Screen.height);
+                Select(tower);
                 var refund=defense.GetSaleRefund(tower);var before=stock.Get(Stage2.Map.MapResourceKind.Wood);
                 Require(binding.TrySellSelectedBuilding()==Stage2TowerActionResult.Ready,"card sale succeeds");
                 Require(stock.Get(Stage2.Map.MapResourceKind.Wood)==before+refund.Wood&&!hud.HasSelectedBuilding,"exact refund and card cleared");
                 Require(binding.TrySellSelectedBuilding()==Stage2TowerActionResult.InvalidTarget,"stale sale cannot pay twice");
                 var donor=Build(0,scene.MapDefinition.Throne);var receiver=Build(0,donor.Cell);yield return null;
-                Select(donor);Require(binding.TryBeginBuildingDrag(donor),"merge drag begins");
-                binding.UpdateBuildingDragTarget(Point(receiver));Require(binding.DragDropValid,"same role and level merge preview valid");
-                Require(binding.DragWillMerge,"compatible occupied cell is a merge preview");
-                yield return Shot(directory,"05-valid-merge",()=>binding.PreviewBuildingDragAtScreen(Point(receiver)));
-                Require(binding.TryDropBuildingAtScreen(Point(receiver))==Stage2TowerActionResult.Ready&&receiver.Level==2,"drag merge commits recipient level");
-                yield return Shot(directory,"06-merged");
+                var donorCell=donor.Cell;var receiverCell=receiver.Cell;
+                var donorHealth=donor.Health;var receiverHealth=receiver.Health;
+                var beforeDrop=stock.CaptureState();var beforeCount=defense.TowerCount;
+                Select(donor);Require(binding.TryBeginBuildingDrag(donor),"occupied-cell drag begins");
+                binding.UpdateBuildingDragTarget(Point(receiver));Require(!binding.DragDropValid,"same role and level occupied preview is invalid");
+                Require(!binding.DragWillMerge,"occupied cell never shows merge feedback");
+                yield return Shot(directory,"05-invalid-occupied",()=>binding.PreviewBuildingDragAtScreen(Point(receiver)));
+                Require(binding.TryDropBuildingAtScreen(Point(receiver))==Stage2TowerActionResult.Occupied,"occupied drop rejected");
+                Require(donor.Level==1&&receiver.Level==1&&defense.TowerCount==beforeCount&&
+                    donor.Cell==donorCell&&receiver.Cell==receiverCell&&donor.Health==donorHealth&&receiver.Health==receiverHealth&&
+                    beforeDrop.Equals(stock.CaptureState()),"rejected drop preserves both towers and stock");
+                yield return Shot(directory,"06-rejected-drop");
                 // Observe screen-sized level tags at both extremes of the existing world zoom.
                 foreach(var zoom in new[]{2.5f,10f})
                 {
@@ -123,13 +174,16 @@ namespace Not3A.Stage3.PlayerInterface
                 binding.UpdateBuildingDragTarget(Point(artillery));Require(!binding.DragDropValid,"different role preview invalid");
                 Require(!binding.DragWillMerge,"incompatible occupied cell never shows merge feedback");
                 yield return Shot(directory,"08-invalid-merge",()=>binding.PreviewBuildingDragAtScreen(Point(artillery)));
-                Require(binding.TryDropBuildingAtScreen(Point(artillery))==Stage2TowerActionResult.Incompatible,"invalid drop preserves both towers");
+                Require(binding.TryDropBuildingAtScreen(Point(artillery))==Stage2TowerActionResult.Occupied,"invalid drop preserves both towers");
                 Select(artillery);empty=EmptyCell(artillery);Require(binding.TryBeginBuildingDrag(artillery),"layered Longshot drag begins");
                 binding.UpdateBuildingDragTarget(camera.WorldToScreenPoint(scene.MapDefinition.CellToWorld(empty)));
                 Require(binding.DragDropValid,"Longshot empty-cell preview valid");yield return Shot(directory,"09-longshot-ghost",()=>binding.PreviewBuildingDragAtScreen(camera.WorldToScreenPoint(scene.MapDefinition.CellToWorld(empty))));
                 binding.ClearBuildingSelection();
                 var barrier=Build(2,receiver.Cell);yield return null;Select(barrier);
-                Require(binding.TryUpgradeSelectedBuilding()==Stage2TowerActionResult.Ready&&barrier.Level==2&&!barrier.CanAttack,"barricade upgrades HP without invented attack");
+                var barrierHealth=barrier.Health;var barrierStock=stock.CaptureState();
+                Require(!hud.SelectedBuildingView.ShowUpgrade,"barricade has no upgrade button");
+                Require(binding.TryUpgradeSelectedBuilding()==Stage2TowerActionResult.MaximumLevel&&barrier.Level==1&&!barrier.CanAttack&&
+                    barrier.Health==barrierHealth&&barrierStock.Equals(stock.CaptureState()),"barricade upgrade rejected without mutation");
                 yield return Shot(directory,"10-barricade");
                 if(Environment.GetEnvironmentVariable("NOT3A_BUILDING_ACTIONS_NATIVE_CLICK")=="1")
                 {
@@ -163,12 +217,17 @@ namespace Not3A.Stage3.PlayerInterface
                         Require(native.Cell==moveCell&&!binding.IsDraggingBuilding&&hud.ActiveWindow==Stage3PlayerWindow.Construction,
                             "native world drag moves tower while B remains open");
                         yield return Shot(directory,"11c-native-moved");
-                        WritePoints("merge");Debug.Log("S3_BUILDING_ACTIONS_NATIVE_MERGE_READY");deadline=Time.realtimeSinceStartup+120;
-                        while(buddy.Level==1&&Time.realtimeSinceStartup<deadline)yield return null;
-                        Require(buddy.Level==2&&defense.GetTowerCatalog(native)==null&&defense.TowerCount==nativeCount-1,
-                            "native world drag merges equal towers while B remains open");
-                        native=buddy;Require(hud.HasSelectedBuilding,"native merge selects surviving recipient");
-                        yield return Shot(directory,"11d-native-merged");
+                        var rejectedCell=native.Cell;var buddyCell=buddy.Cell;
+                        var nativeHealth=native.Health;var buddyHealth=buddy.Health;var rejectedStock=stock.CaptureState();
+                        WritePoints("occupied-drop");Debug.Log("S3_BUILDING_ACTIONS_NATIVE_OCCUPIED_DROP_READY");deadline=Time.realtimeSinceStartup+120;
+                        while(!binding.IsDraggingBuilding&&Time.realtimeSinceStartup<deadline)yield return null;
+                        Require(binding.IsDraggingBuilding,"native occupied drag begins");
+                        while(binding.IsDraggingBuilding&&Time.realtimeSinceStartup<deadline)yield return null;
+                        Require(!binding.IsDraggingBuilding&&native.Level==1&&buddy.Level==1&&defense.TowerCount==nativeCount&&
+                            native.Cell==rejectedCell&&buddy.Cell==buddyCell&&native.Health==nativeHealth&&buddy.Health==buddyHealth&&
+                            rejectedStock.Equals(stock.CaptureState()),"native occupied drop leaves both towers and stock unchanged");
+                        Require(hud.HasSelectedBuilding,"rejected native drop retains source selection");
+                        yield return Shot(directory,"11d-native-rejected");
                     }
                     else Select(native);
                     var initialLevel=native.Level;

@@ -1,0 +1,281 @@
+{
+  "workstream": "D127 HUD reference repair",
+  "reviewer": "Astra",
+  "date": "2026-10-23",
+  "status": "PASS_LOCAL_NATIVE_V2",
+  "owner_status": "Prior native appearance remains returned historically. This is Astra local reference qualification; owner acceptance of the corrected native result is pending and is not inferred.",
+  "primary_reference": "art/concepts/hud_polish_2026-10-23/hud_polish_v1.png",
+  "corroborating_reference": "art/concepts/hud_refactor_2026-10-22/owner_selected_hud_reference.png",
+  "preserved_prior_review": "art/source/hud_polish_2026-10-23_native_review.json",
+  "prior_native_evidence": [
+    "Artifacts/HUD-POLISH-2026-10-23/native-v2/1600x900-00-ordinary.png",
+    "Artifacts/HUD-POLISH-2026-10-23/native-v2/1600x900-03-funded-longshot-stats.png",
+    "Artifacts/HUD-POLISH-2026-10-23/native-v2/1600x900-07-quick-success.png"
+  ],
+  "reference_measurements": {
+    "method": "Source image and native screenshot visual measurement, rounded; normalized widths are approximate",
+    "source_width": 1536,
+    "source_service_height": 140,
+    "source_quick_centre_nav_percent": [
+      32,
+      23,
+      45
+    ],
+    "prior_native_logical_service_height": 90,
+    "prior_native_quick_centre_nav_percent": [
+      24,
+      38,
+      38
+    ],
+    "target_service_height_at_1600x900": 140,
+    "target_quick_cell_side_at_1600x900": 112,
+    "target_quick_centre_nav_percent": [
+      32,
+      23,
+      45
+    ]
+  },
+  "returned_defects": [
+    {
+      "id": "RR-01",
+      "finding": "Three hard unrelated panel frames and oversized empty centre replace the source's shaped connected ribbon",
+      "status": "CLOSED_NATIVE_V1",
+      "native_v1_evidence": "CLOSED_NATIVE_V1: one connected painted ribbon, 140 logical px high at 1600x900; 32/23/45 quick/centre/nav control geometry replaces the three hard boxes and excess central gap."
+    },
+    {
+      "id": "RR-02",
+      "finding": "Old ornate narrow/polygonal potion silhouettes and lower-left tiny placement do not match the selected round flask family",
+      "status": "CLOSED_NATIVE_V1",
+      "native_v1_evidence": "CLOSED_NATIVE_V1: broad round copper/glass flask family is centred and recognizable at all three resolutions; F keys clear the neck; deliberate lower-right count overlay follows source."
+    },
+    {
+      "id": "RR-03",
+      "finding": "Flat rectangular cyan/silver strokes omit the source-shaped bevel, soft edge and crown jewel; opaque cooldown pie buries the bottle",
+      "status": "CLOSED_NATIVE_V2",
+      "native_v1_evidence": "RETURN_NATIVE_V1: shaped source borders and crowns, clear interiors and compact cooldown text are correct; cyan/red attempt edges remain too pale and fleeting versus the saturated source. Particularly visible in 01-zero-refused, 07-quick-success and 08-quick-cooldown-refused at all resolutions.",
+      "native_v2_evidence": "Actual cyan success and red refusal borders are now clearly coloured at 720p/900p/1080p, with a local outer halo, shaped corners and a single top jewel. The middle remains clear; no rectangle wash, cooldown pie, doubled jewel or thick opaque rail. Construction and navigation cyan selection remain readable without covering art."
+    },
+    {
+      "id": "RR-04",
+      "finding": "Navigation pictograms/keycaps and thin regular type are too small and weak compared with the selected source",
+      "status": "CLOSED_NATIVE_V1",
+      "native_v1_evidence": "CLOSED_NATIVE_V1: large painted navigation pictograms and separate ivory bold hotkeys match the selected hierarchy; plum text is legible at 720p."
+    },
+    {
+      "id": "RR-05",
+      "finding": "Fixed-width ivory hover boxes are visually wrong; construction popovers duplicate left details and obscure navigation",
+      "status": "CLOSED_NATIVE_V2",
+      "native_v1_evidence": "PARTIAL_NATIVE_V1: all construction information appears in left panel and no card hover popup is visible. Compact dark tooltip width/type are corrected, but the surface lacks the source thin pearl/smoke bevel.",
+      "native_v2_evidence": "Compact dark tooltip has a restrained light upper edge and dark lower bevel at all three resolutions; bold ivory text remains contained and legible. Construction has no popup, with unchanged left-panel information inherited from inspected v1 layout frames."
+    },
+    {
+      "id": "RR-06",
+      "finding": "Construction uses a tiny left header thumbnail and excessively wide empty cards instead of a prominent preview with readable information",
+      "status": "CLOSED_NATIVE_V1",
+      "native_v1_evidence": "CLOSED_NATIVE_V1: prominent cropped left preview, padded title/stats/placement/deficit and footer are readable at 720p, including research centre and three-resource production. Three cards and centred actual costs remain."
+    }
+  ],
+  "acceptance": [
+    "Compare native 720p, 900p and 1080p to the actual selected source for silhouette, material, ratios, icon shape, type and state",
+    "Contain quick keys/counts; top key never obscures bottle neck; selected-reference lower-right count corner overlay is intentional and allowed",
+    "Large recognizable round red/blue/violet bottle family; no legacy narrow vial substitutes",
+    "Silver hover and cyan/red actual-result frame are shaped, with clear interior; no opaque rectangle or cooldown pie",
+    "F4 stays an empty reserved cell with key only, without hover, count, cooldown or result pulse",
+    "Navigation has large painted pictograms, independent ivory keycaps and source-shaped active crown",
+    "Construction-card hover never submits a popup; actual placement, traits, shortage and contextual control hint are readable in left panel",
+    "Only actual existing catalogue data is shown; at most three cards, centred flowing costs, full-colour art, coral warning and ruby alert remain",
+    "No gameplay, inventory/trade item identity, cost or transaction changes",
+    "Absence of overlap alone is not visual acceptance; no native PASS before inspecting actual screenshots"
+  ],
+  "production_art_review": [
+    {
+      "source": "art/source/hud_reference_repair_2026-10-23_potions.png",
+      "disposition": "USE",
+      "reason": "Consistent broad round flask, copper stopper and base, glossy red/blue/violet liquid; HUD rendition only"
+    },
+    {
+      "source": "art/source/hud_reference_repair_2026-10-23_atlas_v1.png",
+      "disposition": "PARTIAL_USE",
+      "reason": "Only lower plain tile, plum/ivory keycap and isolated crown are usable. Ribbon has wrong proportions/heavy contour; state interiors have coloured contamination and neighbouring glow. Rejected upper parts must never be sampled."
+    },
+    {
+      "source": "art/source/hud_reference_repair_2026-10-23_ribbon.png",
+      "disposition": "USE",
+      "reason": "Connected full ribbon with shaped shoulders and approximately selected proportions. Sample one measured window (31,237,2017,181), preserving joints in source."
+    },
+    {
+      "source": "art/source/hud_reference_repair_2026-10-23_states.png",
+      "disposition": "BORDER_ONLY",
+      "reason": "Interior remains contaminated. Only measured border/crown strips are sampled; all middle interior patches are skipped. Narrow border plus local halo, no full-image overlay."
+    }
+  ],
+  "native_frames_reviewed": [
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1280x720-00-ordinary.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1280x720-00b-navigation-hover.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1280x720-01-zero-refused.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1280x720-02-base-prices.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1280x720-02b-dwelling-hover-no-popup.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1280x720-03-funded-longshot-stats.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1280x720-03b-construction-active.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1280x720-04-unfunded-defense.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1280x720-05-three-resource-production.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1280x720-06-quick-hover.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1280x720-07-quick-success.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1280x720-08-quick-cooldown-refused.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1280x720-09-empty-reserve.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1600x900-00-ordinary.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1600x900-00b-navigation-hover.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1600x900-01-zero-refused.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1600x900-02-base-prices.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1600x900-02b-dwelling-hover-no-popup.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1600x900-03-funded-longshot-stats.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1600x900-03b-construction-active.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1600x900-04-unfunded-defense.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1600x900-05-three-resource-production.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1600x900-06-quick-hover.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1600x900-07-quick-success.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1600x900-08-quick-cooldown-refused.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1600x900-09-empty-reserve.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1920x1080-00-ordinary.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1920x1080-00b-navigation-hover.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1920x1080-01-zero-refused.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1920x1080-02-base-prices.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1920x1080-02b-dwelling-hover-no-popup.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1920x1080-03-funded-longshot-stats.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1920x1080-03b-construction-active.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1920x1080-04-unfunded-defense.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1920x1080-05-three-resource-production.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1920x1080-06-quick-hover.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1920x1080-07-quick-success.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1920x1080-08-quick-cooldown-refused.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1920x1080-09-empty-reserve.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v2/1280x720-00b-navigation-hover.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v2/1280x720-01-zero-refused.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v2/1280x720-03b-construction-active.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v2/1280x720-06-quick-hover.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v2/1280x720-07-quick-success.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v2/1280x720-08-quick-cooldown-refused.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v2/1280x720-09-empty-reserve.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v2/1600x900-00b-navigation-hover.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v2/1600x900-01-zero-refused.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v2/1600x900-03b-construction-active.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v2/1600x900-06-quick-hover.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v2/1600x900-07-quick-success.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v2/1600x900-08-quick-cooldown-refused.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v2/1600x900-09-empty-reserve.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v2/1920x1080-00b-navigation-hover.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v2/1920x1080-01-zero-refused.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v2/1920x1080-03b-construction-active.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v2/1920x1080-06-quick-hover.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v2/1920x1080-07-quick-success.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v2/1920x1080-08-quick-cooldown-refused.png",
+    "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v2/1920x1080-09-empty-reserve.png"
+  ],
+  "remaining": [
+    "Owner review of corrected native appearance; local Astra PASS is not owner acceptance",
+    "Main owns compile/tests/build/ordinary player qualification",
+    "Windows unverified"
+  ],
+  "native_review_history": [
+    {
+      "capture_set": "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1",
+      "verdict": "RETURN",
+      "reviewed_count": 39,
+      "resolutions": [
+        "1280x720",
+        "1600x900",
+        "1920x1080"
+      ],
+      "method": "Actual screenshot inspection of all thirteen states at each resolution against primary selected source, with earlier selected source as material corroboration. No PASS inferred from geometry assertions.",
+      "remaining_defects": [
+        "RR-03 weak cyan/red result edge",
+        "RR-05 tooltip missing thin pearl/smoke bevel"
+      ],
+      "source_correction_for_v2": [
+        "Additional source-border-only colour echo 1.5 logical px outward, no interior patches or duplicate crown; mild cyan/red core tint and fuller pulse envelope over unchanged 0.48 seconds.",
+        "Thin 1.2 logical px pearl/smoke tooltip bevel around existing compact dark surface."
+      ],
+      "observations": [
+        "No new 1080p defects.",
+        "F4 stays empty with key only; no count, cooldown or feedback.",
+        "No construction popup is visible in the reviewed set.",
+        "Active and hover frames have clear interiors and no contaminated atlas centre.",
+        "Count badge lower-right corner overlay is intentional source fidelity, not a zero-overlap failure."
+      ]
+    },
+    {
+      "capture_set": "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v2",
+      "verdict": "PASS",
+      "reviewed_count": 21,
+      "reused_layout_count": 18,
+      "resolutions": [
+        "1280x720",
+        "1600x900",
+        "1920x1080"
+      ],
+      "method": "Actual view_image inspection of seven affected states at every resolution, with the selected primary reference reopened. Direct assessment of material, border colour, crown, clear interior and text, not assertion-only review.",
+      "closed_defects": [
+        "RR-03",
+        "RR-05"
+      ],
+      "observations": [
+        "Red empty-count and cooldown refusal are clearly visible over ivory at 720p, 900p and 1080p.",
+        "Cyan success uses a coloured local edge/halo and clear interior, following the source state language.",
+        "Active construction/nav borders retain thin shaped edges and one crown; no heavy opaque rails.",
+        "Tooltip bevel adds restrained depth while keeping compact dark/plum surface and contained bold ivory text.",
+        "F4 remains neutral with key only in all three empty-reserve frames. The existing F1 red pulse in those frames belongs to the preceding refusal, not F4.",
+        "Plum F keys, bottle necks, intentional count overlays and compact cooldown numerals remain readable.",
+        "No new visual defect found in the affected states."
+      ]
+    }
+  ],
+  "final_review_scope": {
+    "fresh_v2_frames": [
+      "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v2/1280x720-00b-navigation-hover.png",
+      "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v2/1280x720-01-zero-refused.png",
+      "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v2/1280x720-03b-construction-active.png",
+      "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v2/1280x720-06-quick-hover.png",
+      "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v2/1280x720-07-quick-success.png",
+      "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v2/1280x720-08-quick-cooldown-refused.png",
+      "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v2/1280x720-09-empty-reserve.png",
+      "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v2/1600x900-00b-navigation-hover.png",
+      "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v2/1600x900-01-zero-refused.png",
+      "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v2/1600x900-03b-construction-active.png",
+      "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v2/1600x900-06-quick-hover.png",
+      "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v2/1600x900-07-quick-success.png",
+      "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v2/1600x900-08-quick-cooldown-refused.png",
+      "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v2/1600x900-09-empty-reserve.png",
+      "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v2/1920x1080-00b-navigation-hover.png",
+      "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v2/1920x1080-01-zero-refused.png",
+      "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v2/1920x1080-03b-construction-active.png",
+      "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v2/1920x1080-06-quick-hover.png",
+      "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v2/1920x1080-07-quick-success.png",
+      "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v2/1920x1080-08-quick-cooldown-refused.png",
+      "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v2/1920x1080-09-empty-reserve.png"
+    ],
+    "unchanged_v1_layout_frames_reused": [
+      "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1280x720-00-ordinary.png",
+      "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1280x720-02-base-prices.png",
+      "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1280x720-02b-dwelling-hover-no-popup.png",
+      "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1280x720-03-funded-longshot-stats.png",
+      "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1280x720-04-unfunded-defense.png",
+      "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1280x720-05-three-resource-production.png",
+      "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1600x900-00-ordinary.png",
+      "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1600x900-02-base-prices.png",
+      "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1600x900-02b-dwelling-hover-no-popup.png",
+      "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1600x900-03-funded-longshot-stats.png",
+      "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1600x900-04-unfunded-defense.png",
+      "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1600x900-05-three-resource-production.png",
+      "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1920x1080-00-ordinary.png",
+      "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1920x1080-02-base-prices.png",
+      "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1920x1080-02b-dwelling-hover-no-popup.png",
+      "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1920x1080-03-funded-longshot-stats.png",
+      "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1920x1080-04-unfunded-defense.png",
+      "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1/1920x1080-05-three-resource-production.png"
+    ],
+    "fresh_v2_count": 21,
+    "reused_v1_count": 18,
+    "total_unique_frames_inspected_across_iterations": 60,
+    "reason_for_reuse": "Only border colour/pulse envelope and tooltip bevel changed after v1. All affected states were reinspected at each resolution; unchanged base prices, dwelling hover/no-popup, longshot details, unfunded cards, production and ordinary composition retain their actual v1 review."
+  }
+}

@@ -26,9 +26,9 @@ namespace Not3A.Stage2.WavesAI
         private Color restingColor;
         private float hitFlashRemaining;
         private int siegeDamage;
-        private float slowRemaining,slowMultiplier=1;
+        public Stage2CombatStatuses Statuses {get;}=new Stage2CombatStatuses();
         public void ApplySlow(float multiplier,float duration)
-        {if(!IsAlive||!float.IsFinite(multiplier)||!float.IsFinite(duration)||duration<=0)return;slowMultiplier=Mathf.Min(slowMultiplier,Mathf.Clamp(multiplier,.25f,1));slowRemaining=Mathf.Max(slowRemaining,duration);}
+        {if(IsAlive)Statuses.ApplySlow(multiplier,duration);}
 
         public Vector2Int CurrentCell { get; private set; }
         public Vector2Int? StepDestination => stepDestination;
@@ -80,7 +80,7 @@ namespace Not3A.Stage2.WavesAI
                 spriteRenderer.color = restingColor;
             }
             hitFlashRemaining = 0f;
-            slowRemaining=0;slowMultiplier=1;
+            Statuses.Reset();
             siegeRemaining = settings.SiegeInterval;
             plan = null;
             pathIndex = 0;
@@ -106,9 +106,11 @@ namespace Not3A.Stage2.WavesAI
             siegeDamage = (int)Math.Min(int.MaxValue, Math.Ceiling(catalog.SiegeDamage * (double)siegeMultiplier));
         }
 
-        public bool TakeDamage(int amount)
+        public bool TakeDamage(int amount)=>TakeDamage(amount,Stage2DamageSchool.Physical);
+        public bool TakeDamage(int amount,Stage2DamageSchool school)
         {
             if (amount <= 0 || !IsAlive) return false;
+            amount=Statuses.AdjustDamage(amount,school);
             var before=health;health = Mathf.Max(0, health - amount);
             Damaged?.Invoke(this,before-health);
             if (health > 0 && spriteRenderer != null)
@@ -131,13 +133,14 @@ namespace Not3A.Stage2.WavesAI
             if (elapsedSeconds < 0f || float.IsNaN(elapsedSeconds) || float.IsInfinity(elapsedSeconds))
                 throw new ArgumentOutOfRangeException(nameof(elapsedSeconds));
             if (!IsAlive || paused || elapsedSeconds == 0f) return;
-            slowRemaining=Mathf.Max(0,slowRemaining-elapsedSeconds);if(slowRemaining==0)slowMultiplier=1;
+            var immobilized=Statuses.Immobilized;Statuses.Tick(elapsedSeconds);
             if (hitFlashRemaining > 0f)
             {
                 hitFlashRemaining = Mathf.Max(0f, hitFlashRemaining - elapsedSeconds);
                 if (hitFlashRemaining == 0f && spriteRenderer != null) spriteRenderer.color = restingColor;
             }
             siegeRemaining = Mathf.Max(0f, siegeRemaining - elapsedSeconds);
+            if(immobilized)return;
 
             // An already-started step owns both endpoints until arrival. A mid-step
             // occupancy revision affects only the decision made at the next center.
@@ -194,7 +197,7 @@ namespace Not3A.Stage2.WavesAI
         {
             var destination = stepDestination.Value;
             var target = map.CellToWorld(destination);
-            var moved = Vector2.MoveTowards(transform.position, target, catalog.MoveSpeed * slowMultiplier * elapsedSeconds);
+            var moved = Vector2.MoveTowards(transform.position, target, catalog.MoveSpeed * Statuses.SlowMultiplier * elapsedSeconds);
             transform.position = new Vector3(moved.x, moved.y, transform.position.z);
             if (moved != target) return;
             CurrentCell = destination;

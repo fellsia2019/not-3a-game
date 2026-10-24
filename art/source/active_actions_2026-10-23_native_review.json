@@ -1,0 +1,276 @@
+{
+  "date": "2026-10-23",
+  "reviewer": "GPT-6 Astra",
+  "scope": "D129 active actions, existing approved compact Lunar Porcelain surfaces; runtime and manual input qualification owned by main.",
+  "status": "PASS_LOCAL",
+  "owner_acceptance": false,
+  "platform": "macOS native Development player; Windows unverified",
+  "history": [
+    {
+      "capture": "Artifacts/ACTIVE-ACTIONS-2026-10-23/native-v1",
+      "result": "RETURN",
+      "actually_viewed_count": 45,
+      "actually_viewed_frames": [
+        "1280x720-00-ordinary-no-grants.png",
+        "1280x720-01-inventory-assigned-f4.png",
+        "1280x720-02-world-f4-consumed.png",
+        "1280x720-03-staff-locked-hover.png",
+        "1280x720-04-studied-mastery.png",
+        "1280x720-05-celestial-forge-crafted.png",
+        "1280x720-06-bow-autocast.png",
+        "1280x720-07-staff-autocast.png",
+        "1280x720-08-detail-10.png",
+        "1280x720-08-detail-4.png",
+        "1280x720-08-detail-5.png",
+        "1280x720-09-red-arrow-area.png",
+        "1280x720-10-ground-fire.png",
+        "1280x720-11-portal-statuses.png",
+        "1280x720-12-world-poison.png",
+        "1600x900-00-ordinary-no-grants.png",
+        "1600x900-01-inventory-assigned-f4.png",
+        "1600x900-02-world-f4-consumed.png",
+        "1600x900-03-staff-locked-hover.png",
+        "1600x900-04-studied-mastery.png",
+        "1600x900-05-celestial-forge-crafted.png",
+        "1600x900-06-bow-autocast.png",
+        "1600x900-07-staff-autocast.png",
+        "1600x900-08-detail-10.png",
+        "1600x900-08-detail-4.png",
+        "1600x900-08-detail-5.png",
+        "1600x900-09-red-arrow-area.png",
+        "1600x900-10-ground-fire.png",
+        "1600x900-11-portal-statuses.png",
+        "1600x900-12-world-poison.png",
+        "1920x1080-00-ordinary-no-grants.png",
+        "1920x1080-01-inventory-assigned-f4.png",
+        "1920x1080-02-world-f4-consumed.png",
+        "1920x1080-03-staff-locked-hover.png",
+        "1920x1080-04-studied-mastery.png",
+        "1920x1080-05-celestial-forge-crafted.png",
+        "1920x1080-06-bow-autocast.png",
+        "1920x1080-07-staff-autocast.png",
+        "1920x1080-08-detail-10.png",
+        "1920x1080-08-detail-4.png",
+        "1920x1080-08-detail-5.png",
+        "1920x1080-09-red-arrow-area.png",
+        "1920x1080-10-ground-fire.png",
+        "1920x1080-11-portal-statuses.png",
+        "1920x1080-12-world-poison.png"
+      ],
+      "confirmed": [
+        "Inventory preserves fixed bag cells and uses four matching compact assignment cells with legible keys/counts; no obsolete disabled equip action.",
+        "F4 assigned HP art/count/cooldown follows actual item identity; ordinary startup remains empty F4.",
+        "Unknown staff active/passive nodes are desaturated/obscured with locks; no title, hover popup or selected detail disclosure.",
+        "Mastery full title/result and celestial forge full header fit at all three sizes.",
+        "Autocast A marks remain separate from hotkeys and tooltip explicitly states RMB/on.",
+        "Descriptions for skills4/5/10, effect data, prerequisites, rank row, MP/CD and action remain contained at all sizes.",
+        "Compact header Return text, ivory surfaces, minimap clipping and top joins retain prior qualified geometry."
+      ],
+      "defects": [
+        {
+          "id": "AA01",
+          "severity": "RETURN",
+          "finding": "Poison drips are tiny green strokes at ogre feet over green grass; cannot reliably identify poisoned upper actor.",
+          "evidence": "12-world-poison at all three sizes",
+          "repair": "Dark outlined bright green droplets positioned beside upper body using actual sprite bounds."
+        },
+        {
+          "id": "AA02",
+          "severity": "RETURN",
+          "finding": "Ground fire consists of sparse thin yellow/orange outline wisps, weak against patterned terrain.",
+          "evidence": "10-ground-fire at all three sizes",
+          "repair": "13 broader layered ember/red-orange flame bodies and pale hot cores, within unchanged actual area."
+        },
+        {
+          "id": "AA03",
+          "severity": "RETURN",
+          "finding": "Freeze/stun/poison/vulnerability cues pile at ground anchor, obscuring differentiation, especially on small portal actor.",
+          "evidence": "11-portal-statuses at all three sizes",
+          "repair": "Actual projected silhouette: freeze lower body, stun above head, poison beside upper body, two guards beside opposite hips; dark under-strokes."
+        },
+        {
+          "id": "AA04",
+          "severity": "RETURN",
+          "finding": "New long forge short-label clips in research grid; full forge/research titles remain legible.",
+          "evidence": "04-studied-mastery 900p/1080p",
+          "repair": "Main changed source shortLabel to compact Кузница II; full name unchanged."
+        }
+      ]
+    },
+    {
+      "capture": "Artifacts/ACTIVE-ACTIONS-2026-10-23/native-v2",
+      "result": "VISUAL_REPAIR_CONFIRMED_CAPTURE_ISOLATION_RETURN",
+      "actually_viewed_count": 10,
+      "actually_viewed_frames": [
+        "1280x720-04-studied-mastery.png",
+        "1280x720-09-red-arrow-area.png",
+        "1280x720-10-ground-fire.png",
+        "1280x720-11-portal-statuses.png",
+        "1280x720-12-world-poison.png",
+        "1600x900-04-studied-mastery.png",
+        "1600x900-09-red-arrow-area.png",
+        "1600x900-10-ground-fire.png",
+        "1600x900-11-portal-statuses.png",
+        "1600x900-12-world-poison.png"
+      ],
+      "finding": "Contrast/placement and caption repairs confirmed at720/900; fixture retained earlier portal statuses between resolutions and enabled Arcane autocast during manual fire tick. These images are not used as clean spell-semantic evidence. Main repaired QA isolation only; no later VFX source changes."
+    },
+    {
+      "capture": "Artifacts/ACTIVE-ACTIONS-2026-10-23/native-v3",
+      "result": "PASS_LOCAL",
+      "actually_viewed_count": 15,
+      "actually_viewed_frames": [
+        "1280x720-04-studied-mastery.png",
+        "1280x720-09-red-arrow-area.png",
+        "1280x720-10-ground-fire.png",
+        "1280x720-11-portal-statuses.png",
+        "1280x720-12-world-poison.png",
+        "1600x900-04-studied-mastery.png",
+        "1600x900-09-red-arrow-area.png",
+        "1600x900-10-ground-fire.png",
+        "1600x900-11-portal-statuses.png",
+        "1600x900-12-world-poison.png",
+        "1920x1080-04-studied-mastery.png",
+        "1920x1080-09-red-arrow-area.png",
+        "1920x1080-10-ground-fire.png",
+        "1920x1080-11-portal-statuses.png",
+        "1920x1080-12-world-poison.png"
+      ],
+      "reused_from": "Artifacts/ACTIVE-ACTIONS-2026-10-23/native-v1",
+      "reused_count": 30,
+      "reused_frames": [
+        "1280x720-00-ordinary-no-grants.png",
+        "1280x720-01-inventory-assigned-f4.png",
+        "1280x720-02-world-f4-consumed.png",
+        "1280x720-03-staff-locked-hover.png",
+        "1280x720-05-celestial-forge-crafted.png",
+        "1280x720-06-bow-autocast.png",
+        "1280x720-07-staff-autocast.png",
+        "1280x720-08-detail-10.png",
+        "1280x720-08-detail-4.png",
+        "1280x720-08-detail-5.png",
+        "1600x900-00-ordinary-no-grants.png",
+        "1600x900-01-inventory-assigned-f4.png",
+        "1600x900-02-world-f4-consumed.png",
+        "1600x900-03-staff-locked-hover.png",
+        "1600x900-05-celestial-forge-crafted.png",
+        "1600x900-06-bow-autocast.png",
+        "1600x900-07-staff-autocast.png",
+        "1600x900-08-detail-10.png",
+        "1600x900-08-detail-4.png",
+        "1600x900-08-detail-5.png",
+        "1920x1080-00-ordinary-no-grants.png",
+        "1920x1080-01-inventory-assigned-f4.png",
+        "1920x1080-02-world-f4-consumed.png",
+        "1920x1080-03-staff-locked-hover.png",
+        "1920x1080-05-celestial-forge-crafted.png",
+        "1920x1080-06-bow-autocast.png",
+        "1920x1080-07-staff-autocast.png",
+        "1920x1080-08-detail-10.png",
+        "1920x1080-08-detail-4.png",
+        "1920x1080-08-detail-5.png"
+      ],
+      "rationale": "Only VFX presentation and compact research caption changed after initial full45-image review; main reran all45 capture assertions. Final15 directly inspect every changed state at each native size.",
+      "closed_defects": [
+        {
+          "id": "AA01",
+          "evidence": "12-world-poison all3sizes",
+          "assessment": "Three bright green droplets with dark contrast sit beside upper arm/torso, visibly distinct from grass; physical guard and slow marks remain separated below."
+        },
+        {
+          "id": "AA02",
+          "evidence": "10-ground-fire all3sizes",
+          "assessment": "13 distributed red-orange flame bodies with pale hot cores read as active fire across the area, while actor silhouette, HP bar and HUD remain readable. Clean fixture contains no unrelated freeze/poison/stun."
+        },
+        {
+          "id": "AA03",
+          "evidence": "11-portal-statuses all3sizes",
+          "assessment": "Cyan stun bolts sit above HP/head, freeze bracket surrounds lower body, green poison is to upper left, brass physical and purple magic broken guards sit at opposite sides; no ground-pile ambiguity."
+        },
+        {
+          "id": "AA04",
+          "evidence": "04-studied-mastery all3sizes",
+          "assessment": "Кузница II is fully visible beneath fixed research cell; full Владение посохом title and mastery/forge result text remain readable."
+        }
+      ],
+      "additional_observations": [
+        "09 red area arrow remains clearly red/pink with discernible shaft/head beside living target; no unrelated status persists into isolated state.",
+        "VFX use existing line/material presentation language; no new raster assets or enlarged opaque world wash."
+      ]
+    }
+  ],
+  "verification_limits": [
+    "Static native images qualify appearance, not sustained motion/balance.",
+    "No new raster art or gameplay rules in readability repair.",
+    "This local visual PASS does not establish owner appearance acceptance.",
+    "The QA actor uses explicit durable HP and manual ticks for static visibility; ordinary content values are unchanged.",
+    "Final clean effect isolation is asserted by capture-status; sustained cadence/lifetime/120Hz/pause tests and native mouse checks are recorded by main.",
+    "OS CUA manual checks by main: LMB assignment, RMB clearing without item loss, bow RMB autocast off/on, Z switch plus actual staff autocast, staff RMB off. Assigned F4 consumption was verified by native QA InputSystem events and PlayMode, not by OS CUA while injured. Final ordinary F4-empty/I/O/Tab checks are recorded by main."
+  ],
+  "completed_local_date": "2026-10-24",
+  "final_capture": "Artifacts/ACTIVE-ACTIONS-2026-10-23/native-v3",
+  "capture_assertions": {
+    "ready": true,
+    "frames": 45,
+    "assertion_count": 142,
+    "source": "Artifacts/ACTIVE-ACTIONS-2026-10-23/native-v3/capture-status.json"
+  },
+  "detail_measurements": [
+    {
+      "file": "1280x720-08-detail-4.png",
+      "text_bottom": 526.3999633789062,
+      "available_bottom": 529.5999755859375,
+      "margin_pixels": 3.2
+    },
+    {
+      "file": "1280x720-08-detail-5.png",
+      "text_bottom": 526.3999633789062,
+      "available_bottom": 529.5999755859375,
+      "margin_pixels": 3.2
+    },
+    {
+      "file": "1280x720-08-detail-10.png",
+      "text_bottom": 526.3999633789062,
+      "available_bottom": 529.5999755859375,
+      "margin_pixels": 3.2
+    },
+    {
+      "file": "1600x900-08-detail-4.png",
+      "text_bottom": 658.0000610351562,
+      "available_bottom": 662.0,
+      "margin_pixels": 4.0
+    },
+    {
+      "file": "1600x900-08-detail-5.png",
+      "text_bottom": 658.0000610351562,
+      "available_bottom": 662.0,
+      "margin_pixels": 4.0
+    },
+    {
+      "file": "1600x900-08-detail-10.png",
+      "text_bottom": 658.0000610351562,
+      "available_bottom": 662.0,
+      "margin_pixels": 4.0
+    },
+    {
+      "file": "1920x1080-08-detail-4.png",
+      "text_bottom": 789.6000366210938,
+      "available_bottom": 794.4000244140625,
+      "margin_pixels": 4.8
+    },
+    {
+      "file": "1920x1080-08-detail-5.png",
+      "text_bottom": 789.6000366210938,
+      "available_bottom": 794.4000244140625,
+      "margin_pixels": 4.8
+    },
+    {
+      "file": "1920x1080-08-detail-10.png",
+      "text_bottom": 789.6000366210938,
+      "available_bottom": 794.4000244140625,
+      "margin_pixels": 4.8
+    }
+  ],
+  "presentation_source_sha256": "74db2633d186c4dc5cd658bfa6e48543d8ec6583d477d2e37b2e6320d6d6c922",
+  "unresolved_visual_defects": []
+}

@@ -35,6 +35,8 @@ namespace Not3A.Stage2.Defense
         public void SetRoleAvailability(Func<int,bool> available)
         {roleAvailable=available;defense?.SetRoleAvailability(available);}
         public bool UseBuildShortcut { get; set; } = true;
+        public bool UseRoleShortcuts { get; set; } = true;
+        public bool RepeatPlacementWithShift { get; set; }
         public void SetInputBlocker(Func<bool> blocker) => inputBlocker = blocker;
 
         public Stage2Defense Defense => defense;
@@ -188,11 +190,11 @@ namespace Not3A.Stage2.Defense
             }
             var buildPressed = UseBuildShortcut && buildAction != null && buildAction.WasPressedThisFrame();
             var cancelPressed = cancelAction != null && cancelAction.WasPressedThisFrame();
-            // Role shortcuts retain their existing select-only behavior. Neither shortcuts
-            // nor the public HUD action may bypass the full-price gate.
-            if (firstRoleAction != null && firstRoleAction.WasPressedThisFrame() && CanBeginPlacement(0))
+            // Legacy role keys are opt-out when the current HUD owns 1–5 for hero skills.
+            // Neither shortcuts nor the public HUD action may bypass the full-price gate.
+            if (UseRoleShortcuts && firstRoleAction != null && firstRoleAction.WasPressedThisFrame() && CanBeginPlacement(0))
             { PlacementStarting?.Invoke(); defense.SelectRole(0); CreateGhost(); }
-            if (secondRoleAction != null && secondRoleAction.WasPressedThisFrame() && CanBeginPlacement(1))
+            if (UseRoleShortcuts && secondRoleAction != null && secondRoleAction.WasPressedThisFrame() && CanBeginPlacement(1))
             { PlacementStarting?.Invoke(); defense.SelectRole(1); CreateGhost(); }
             // Cancellation wins over confirmation in the same input update.
             if (cancelPressed || (buildPressed && defense.IsPlacing)) defense.CancelPlacement();
@@ -218,7 +220,14 @@ namespace Not3A.Stage2.Defense
                         : Stage2PlacementVisuals.Invalid;
                 }
                 if (!cancelPressed && confirmAction != null && confirmAction.WasPressedThisFrame())
+                {
                     PreviewResult = defense.TryConfirm(out _);
+                    var keyboard = Keyboard.current;
+                    if (PreviewResult == PlacementResult.Ready && RepeatPlacementWithShift && keyboard != null &&
+                        (keyboard.leftShiftKey.isPressed || keyboard.rightShiftKey.isPressed) &&
+                        CanBeginPlacement(defense.SelectedRoleIndex))
+                        defense.BeginPlacement();
+                }
             }
             else PreviewResult = PlacementResult.NotPlacing;
             SyncBuildMode();

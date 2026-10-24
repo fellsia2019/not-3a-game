@@ -303,7 +303,7 @@ namespace Not3A.Stage2.Defense
             var result = CheckOwned(tower);
             if (result != Stage2TowerActionResult.Ready) return result;
             if (!catalogs[tower.RoleIndex].TryGetUpgrade(tower.Level, out var upgrade))
-                return Stage2TowerActionResult.MaximumLevel;
+                return catalogs[tower.RoleIndex].UnlimitedUpgrades ? Stage2TowerActionResult.CapacityExceeded : Stage2TowerActionResult.MaximumLevel;
             if (!tower.Invested.TryAdd(upgrade.Cost, out _)) return Stage2TowerActionResult.CapacityExceeded;
             return inventory.CanAfford(upgrade.Cost) ? Stage2TowerActionResult.Ready : Stage2TowerActionResult.CannotAfford;
         }
@@ -332,6 +332,8 @@ namespace Not3A.Stage2.Defense
             if (result != Stage2TowerActionResult.Ready) return result;
             result = CheckOwned(recipient);
             if (result != Stage2TowerActionResult.Ready) return result;
+            if (!catalogs[donor.RoleIndex].AllowMerging || !catalogs[recipient.RoleIndex].AllowMerging)
+                return Stage2TowerActionResult.Incompatible;
             if (donor == recipient || donor.RoleIndex != recipient.RoleIndex || donor.Level != recipient.Level)
                 return Stage2TowerActionResult.Incompatible;
             if (!catalogs[recipient.RoleIndex].TryGetUpgrade(recipient.Level, out _))

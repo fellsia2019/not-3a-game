@@ -1,0 +1,107 @@
+{
+  "workstream": "Owner HUD compactness and surface correction",
+  "reviewer": "Astra",
+  "date": "2026-10-23",
+  "status": "PASS_LOCAL_NATIVE_V2",
+  "authority": "Explicit owner request supersedes earlier servicebar sizing and local native PASS; current approved art retained.",
+  "prior_review": "art/source/hud_reference_repair_2026-10-23_native_review.json",
+  "source_changes": {
+    "servicebar": "80 logical px; quick cells64; nav pictograms50; measured single-line key/count badges (Tab14); controls packed left/right; categories remain below.",
+    "fullscreen_header": "Ivory surfaces with source-shaped silver hover/cyan active border; no opaque plum selection block; Return uses explicit two lines measured against actual padded label rect.",
+    "minimap": "172px circular terrain over170px decorative backing fully within terrain silhouette; two masked background discs make thin ring, four10px jewels foreground; marker containment inset.",
+    "top_cornice": "70px cubic shoulders drawn beneath endpoint panels with18px overlap, based on actual464px resource endpoint; continuous5.5px cornice landing."
+  },
+  "acceptance": [
+    "At720/900/1080 quick/nav controls are approximately skill-icon scale and remain legible.",
+    "F4 stays silent and empty; real result contours remain readable.",
+    "Modal Return two-line text measured height fits actual padded rect at all resolutions.",
+    "Modal hover and active preserve ivory surfaces with shaped edge-only states, including Player.",
+    "Minimap circular terrain does not spill outside thin hoop and is unobscured by foreground ornamental backing.",
+    "Top resource/day boundaries join smoothly without hard vertical cuts.",
+    "Construction retains shared left details, at most3cards and no hover popups."
+  ],
+  "native_frames_reviewed": [
+    "Artifacts/HUD-COMPACT-2026-10-23/native-v1/1280x720-00-ordinary.png",
+    "Artifacts/HUD-COMPACT-2026-10-23/native-v1/1280x720-04-construction-left.png",
+    "Artifacts/HUD-COMPACT-2026-10-23/native-v1/1280x720-06-modal-research-hover.png",
+    "Artifacts/HUD-COMPACT-2026-10-23/native-v1/1280x720-07-return-player-hover.png",
+    "Artifacts/HUD-COMPACT-2026-10-23/native-v1/1600x900-00-ordinary.png",
+    "Artifacts/HUD-COMPACT-2026-10-23/native-v1/1600x900-04-construction-left.png",
+    "Artifacts/HUD-COMPACT-2026-10-23/native-v1/1600x900-06-modal-research-hover.png",
+    "Artifacts/HUD-COMPACT-2026-10-23/native-v1/1600x900-07-return-player-hover.png",
+    "Artifacts/HUD-COMPACT-2026-10-23/native-v1/1920x1080-00-ordinary.png",
+    "Artifacts/HUD-COMPACT-2026-10-23/native-v1/1920x1080-04-construction-left.png",
+    "Artifacts/HUD-COMPACT-2026-10-23/native-v1/1920x1080-06-modal-research-hover.png",
+    "Artifacts/HUD-COMPACT-2026-10-23/native-v1/1920x1080-07-return-player-hover.png",
+    "Artifacts/HUD-COMPACT-2026-10-23/native-v1/1600x900-08-research-active.png",
+    "Artifacts/HUD-COMPACT-2026-10-23/native-v1/1600x900-09-hero-active.png",
+    "Artifacts/HUD-COMPACT-2026-10-23/native-v1/1600x900-10-map-active.png",
+    "Artifacts/HUD-COMPACT-2026-10-23/native-v2/1280x720-00-ordinary.png",
+    "Artifacts/HUD-COMPACT-2026-10-23/native-v2/1280x720-04-construction-left.png",
+    "Artifacts/HUD-COMPACT-2026-10-23/native-v2/1280x720-06-modal-research-hover.png",
+    "Artifacts/HUD-COMPACT-2026-10-23/native-v2/1280x720-07-return-player-hover.png",
+    "Artifacts/HUD-COMPACT-2026-10-23/native-v2/1600x900-00-ordinary.png",
+    "Artifacts/HUD-COMPACT-2026-10-23/native-v2/1600x900-04-construction-left.png",
+    "Artifacts/HUD-COMPACT-2026-10-23/native-v2/1600x900-06-modal-research-hover.png",
+    "Artifacts/HUD-COMPACT-2026-10-23/native-v2/1600x900-07-return-player-hover.png",
+    "Artifacts/HUD-COMPACT-2026-10-23/native-v2/1920x1080-00-ordinary.png",
+    "Artifacts/HUD-COMPACT-2026-10-23/native-v2/1920x1080-04-construction-left.png",
+    "Artifacts/HUD-COMPACT-2026-10-23/native-v2/1920x1080-06-modal-research-hover.png",
+    "Artifacts/HUD-COMPACT-2026-10-23/native-v2/1920x1080-07-return-player-hover.png"
+  ],
+  "remaining": [
+    "Owner acceptance separate from local visual review",
+    "Main owns build/assertions/ordinary launch",
+    "Windows unverified"
+  ],
+  "history": [
+    {
+      "capture_set": "Artifacts/HUD-COMPACT-2026-10-23/native-v1",
+      "verdict": "RETURN",
+      "reviewed_count": 15,
+      "findings": [
+        {
+          "id": "C01",
+          "finding": "Tab wraps/clips at compact width and bow/staff crowds key.",
+          "correction": "Measure every keycap as single-line text against actual inner bounds; fit down if needed, Tab14 nominal; nav glyph50 with clear key separation."
+        },
+        {
+          "id": "C02",
+          "finding": "Modal selected-state crown touches/clips screen top.",
+          "correction": "Keep state upper bound at least14logical px, preserving text geometry."
+        },
+        {
+          "id": "C03",
+          "finding": "Minimap terrain contained, but large backing leaves isolated diagonal triangular scraps.",
+          "correction": "Reduce background ornament to170px under172px map, retaining only deliberate thin rim and four small foreground jewels."
+        }
+      ],
+      "passing_observations": [
+        "Top joins are smooth at720/900/1080 with no vertical gap/cut.",
+        "Return two-line label fits at all3res; actual measured900height36.28 within38px.",
+        "Header states preserve ivory interiors without extra plum rectangle.",
+        "Construction left details/deficit/footer readable and no popup in inspected frames."
+      ]
+    },
+    {
+      "capture_set": "Artifacts/HUD-COMPACT-2026-10-23/native-v2",
+      "verdict": "PASS",
+      "reviewed_count": 12,
+      "reused_unchanged_v1_modal_layout_count": 3,
+      "closed": [
+        "C01",
+        "C02",
+        "C03"
+      ],
+      "observations": [
+        "Tab is contained on one line at720/900/1080, separate from bow/staff glyph.",
+        "Modal state crown is fully visible within screen at all3res.",
+        "Minimap has a clean circular edge with deliberate four jewels and no diagonal scraps or terrain outside hoop.",
+        "Two-line Return remains fully readable inside actual padded bounds.",
+        "Header surfaces stay ivory on hover/active.",
+        "Top shoulders remain continuous without abrupt cuts.",
+        "No construction popup or left-detail regression."
+      ]
+    }
+  ]
+}

@@ -88,11 +88,12 @@ namespace Not3A.Stage3.VisualPilot.Tests
             game.Gathering.Economy.Inventory.TryAdd(MapResourceKind.Wood,100);
             game.Gathering.Economy.Inventory.TryAdd(MapResourceKind.Stone,100);
             game.Gathering.Economy.Inventory.TryAdd(MapResourceKind.Metal,100);
-            Call(travel,"BeginWorkshopPlacement");Assert.That(Call(travel,"EvaluateWorkshopAt",futureCircle).ToString(),Is.EqualTo("Ready"));
+            Stage3TestCycle.FundBaseConstruction(game);Call(travel,"BeginWorkshopPlacement");Assert.That(Call(travel,"EvaluateWorkshopAt",futureCircle).ToString(),Is.EqualTo("Ready"));
             Call(travel,"CancelConstructionPlacement");
             var dwelling=game.GetComponent("Stage3Dwelling");Call(dwelling,"BeginPlacement");
             Assert.That(Call(dwelling,"EvaluateAt",workshop).ToString(),Is.EqualTo("Ready"));
             Assert.That(Call(dwelling,"EvaluateAt",futureCircle).ToString(),Is.EqualTo("Ready"));Call(dwelling,"CancelPlacement");
+            Stage3TestCycle.StudyBlueprint(game, Stage2BlueprintKind.ForgeConstruction);
             var forge=game.GetComponent("Stage3Forge");Call(forge,"BeginPlacement");
             Assert.That(Call(forge,"EvaluateAt",workshop).ToString(),Is.EqualTo("Ready"));Call(forge,"CancelPlacement");
             var economy=game.Gathering.Economy;
@@ -101,7 +102,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             economy.ReplaceAdditionalNodes(economy.Nodes.Skip(3).Concat(new[]{node}).ToArray());
             var collisions=game.GetComponent("Stage3ManualResourceCollisions");
             Call(collisions,"Bind",economy,scene.PlayerMover.Obstacles,scene.PlayerMover,.18f);
-            Call(travel,"BeginWorkshopPlacement");Assert.That(Call(travel,"EvaluateWorkshopAt",workshop).ToString(),Is.EqualTo("Occupied"));
+            Stage3TestCycle.FundBaseConstruction(game);Call(travel,"BeginWorkshopPlacement");Assert.That(Call(travel,"EvaluateWorkshopAt",workshop).ToString(),Is.EqualTo("Occupied"));
             economy.SetManualToolStats(999,999,1,1);Assert.That(economy.AdvanceGather(node,workshop,true,100,true),Is.True);
             Call(collisions,"RefreshNow");Assert.That(Call(travel,"EvaluateWorkshopAt",workshop).ToString(),Is.EqualTo("Ready"));
             Assert.That(Call(travel,"TryBuildWorkshopAt",workshop).ToString(),Is.EqualTo("Built"));
@@ -111,7 +112,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
         [UnityTest]public IEnumerator ClickingActualSealEdgeOpensChoiceWithoutTravelAndGuardsRemoteClick()
         {
             var site=Read<Vector2>(travel,"WorkshopPosition");scene.PlayerMover.transform.position=site+Vector2.down*10;
-            Call(travel,"BeginWorkshopPlacement");Assert.That(Call(travel,"TryBuildWorkshopAt",site).ToString(),Is.EqualTo("Built"));
+            Stage3TestCycle.FundBaseConstruction(game);Call(travel,"BeginWorkshopPlacement");Assert.That(Call(travel,"TryBuildWorkshopAt",site).ToString(),Is.EqualTo("Built"));
             scene.PlayerMover.transform.position=Read<Vector2>(travel,"WorkshopInteractionPosition");
             Assert.That(Call(travel,"TryStudyTeleport"),Is.True);
             var home=Read<Vector2>(travel,"BasePosition");Call(travel,"BeginBaseCirclePlacement");

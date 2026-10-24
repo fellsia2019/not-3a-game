@@ -1,5 +1,206 @@
 # Development Plan
 
+## D129/D130 — active items, staff mastery and elemental actions,2026-10-23
+
+Main owns actual item/skill capability, local research/equip/forge gates,
+autocast/typed damage/statuses and tests. Astra owns assignment/locked/autocast
+presentation, measured details and readable world effects. Preserve IDs/ranks,
+finite merchant stock, actual transactions, shared points, current horde tuning.
+Observable acceptance is real F4 reassignment/use, no unstudied staff inspection/
+spend, actual local study + ForgeII crafting, supported RMB toggles with manual
+casts retained, actual freeze/stun/DoT/new entrants/expiry and visible native cues.
+
+- [x] Configure/clear all four quick slots through inventory by actual capability.
+- [x] Gate staff equipment/skills and ForgeII recipe with one local mastery study.
+- [x] Implement supported nearest-target autocast and retain manual use.
+- [x] Replace4/5; add real elemental areas, statuses and school vulnerability.
+- [x] Audit every active role and record actual limits in HERO_PROGRESSION.
+- [x] Relevant88uniquePlayMode checks PASS; one old headless viewport SKIP is documented and corroborated by native graph layouts.
+- [x] Complete native effect readability review, final ordinary player and qualification.
+
+Local qualification completed2026-10-24:88unique relevant PlayModePASS,1existing
+headless viewportSKIP documented and corroborated by native layouts. Final45
+native assertions at720/900/1080; Astra reviewed15changed clean v3 plus30reused
+unchanged v1UI after retained RETURNs. Current Mac849979653-byte player starts
+ordinary LVL1/XP0/gold5 with no grants; first8renders ready. Evidence:
+art/source/active_actions_2026-10-23_verification.json and native_review.json.
+Windows, sustained balance and final owner appearance acceptance remain open.
+
+## D128 — compact HUD, modal controls and map/top-edge repair, 2026-10-23
+
+Main owns native capture/build/evidence; Astra owns existing UI rendering.
+Dependencies are D127 current artwork/result binding and existing map/clock data.
+Owner directly requests smaller quick/navigation controls (roughly half, near
+skill-icon size), multiline modal labels, ivory edge-only modal states, a clean
+smaller minimap aperture/thinner ornament and continuous top corner joins.
+This explicitly revises the prior large140px service ribbon; no new UI stack,
+assets, game speed, gameplay rules or input bindings are requested.
+
+- [x] Compact existing service controls with contained readable key/count badges.
+- [x] Fit modal labels and replace opaque plum hover/active overlays with edge states.
+- [x] Keep minimap terrain inside the hoop and reduce ornament obstruction.
+- [x] Repair resource/day-to-cornice joins and inspect all native sizes.
+- [x] Leave one current ordinary build and record scoped visual qualification.
+
+## D127 appearance returned by owner — reference repair, 2026-10-23
+
+The owner returned native-v2 after the prior local visual PASS: its servicebar
+proportions, hard joints, small legacy potion art, thin text and rectangular
+states do not match the selected hud_polish_v1. The previous 65 functional
+checks remain a gameplay baseline; they do not establish appearance acceptance.
+Main owns original production art, capture/build and evidence. Astra owns the
+reference audit and native rendering. Dependencies: existing D127 payments and
+consumable-result binding; D124 three cards, shared left preview and input.
+
+- [x] Fresh reference audit identifies silhouette, material, scale, type and state mismatches.
+- [x] Replace the ribbon with reference-derived shaped art and proportionate groups.
+- [x] Use matching round HUD flask art, shaped states and readable bold keycaps/text.
+- [x] Remove construction hover popups; show all actual descriptions/conditions left.
+- [x] Compare new native states directly with the selected source at three resolutions.
+- [x] Build and leave exactly one ordinary current player with no test grants.
+
+
+Local Mac qualification: final39-frame capture/assertions PASS; Astra inspected
+21 changed v2 states and reused18 unchanged v1 layout frames after inspecting
+all39 v1 frames. Weak-colour/bevel RETURN is retained; all six reference defects
+are closed. Build849904711 bytes, ordinary PID30606, first8 renders ready, no
+QA grants. Previous65 gameplay PASS are reused for this appearance-only repair.
+Evidence:art/source/hud_reference_repair_2026-10-23_verification.json.
+Windows and sustained manual feel remain unverified; local PASS is not owner acceptance.
+
+
+## Previous D127 HUD reference fidelity and paid base construction —2026-10-23
+
+Active workstream: main owns actual prices/payment/input-result data and tests;
+Astra owns selected appearance, native implementation and review. Dependencies:
+D124 first HUD/3card navigation, D120 actual bag potion/cooldown, D126 controls,
+D102 local study. Scope: light segmented quick-left/nav-right servicebar with
+safe icon/key/count insets; hover and actual cyan-success/red-refusal pulses for
+assigned consumables from mouse/keys; genuinely empty F4. Reference-like coral
+unfunded cards show actual shortage. Latest owner selects global building preview
+replacing hero part ONLY during Construction, minimap retained; this supersedes
+an earlier per-card answer. Real HP/damage/range/rate and traits only.
+Исследовательский центр costs30wood40stone; dwelling20wood20stone. No new level,
+research prerequisite, currency, package or save format. New fields are additive
+in existing catalogs; Workshop identifiers and art/scene references remain.
+
+- [x] Original ImageGen selected board and production skins saved with provenance.
+- [x] Data/payment and mouse/key attempt-result binding implemented.
+- [x]65unique latestPlayModePASS; earlier headlessCamera.Render crash and stale
+  fixture failures retained, then corrected/qualified with Metal.
+- [x]30native-v2frames/AstraPASS and zeroactualalpha/badgeoverlaps; first30v1
+  RETURN retained. Actualmouse/keyredrefusal/F4silent/Baseprices/Playerreturn pass.
+- [x]Final Mac816359833bytes, oneordinaryplayerPID27278, allfirst8rendersready,
+  noQA grants. Evidence:art/source/hud_polish_2026-10-23_verification.json.
+- [ ] Windows/Steam qualification (Mac host).
+
+
+## D126 weapon reference-fidelity follow-up —2026-10-23
+
+Main owns ImageGen/provenance/build/native evidence; Astra owns local weapon
+appearance/import. Dependencies:actual equipped weapons/ranks and prior pair
+geometry/input. Acceptance:neutral patterned empty disc,reference-shaped switch
+with ivory Z,exactly4gems only on active weapon,clear720/900/1080 and one latest
+ordinary player. Prior native appearance qualification was returned by owner.
+
+- [x] Consolidated ImageGen v3 and original production atlas/provenance.
+- [x] Astra native material/gem correction and byte-identical atlas import.
+- [x]18targeted native weapon-state frames including staff-turn peak at.536,
+  all3resolutions ready/error-free. First15frame RETURN WF-01 retained;
+  incoming-up/outgoing-down3logicalpx correction keeps active stones above text.
+- [x] Astra final18frame reference PASS;WF-01 closed,including peak.536.
+- [x] Build807952391bytes;exactly one latest ordinary player PID20305,
+  all first8renders ready,noQA grants. Evidence:
+  art/source/weapon_fidelity_2026-10-23_verification.json.
+
+## Current D126 HUD corrections/debug grants —2026-10-23
+
+Main owns debug rules, selection binding, tests/build/docs and ImageGen; Astra
+owns existing-style native fixes and approved weapon appearance. Dependencies:
+D120 active equipment, D121 shared points, D124/D125 HUD/profession capstones.
+Acceptance: no level on nonupgradable buildings, full unoccluded tooltip text,
+actual capped XP/level/point grants, one latest player and no new console errors.
+
+- [x] Close all three older running players at the owner's explicit request.
+- [x] Implement capability-based level visibility and deferred measured tooltips.
+- [x] Add F10 XP/level presets via normal hero progression and shared points.
+- [x] Create weapon-switch concept and submit concrete appearance for approval.
+- [x] Owner accepts weapon direction with thin-rim/50%overlap/turn corrections.
+- [x] Astra native corrected weapon block;50%overlap/active-front short turn,
+  actual quality and no empty-staff switch. Compact footer collision corrected.
+- [x]20unique latestPlayModePASS,0fail;1explicit batch viewportSKIP replaced
+  by102ready native720/900/1080frames, with actual hover and Z transitions.
+- [x] One latest ordinary player PID17480;all first8renders ready/no QA grants,
+  physical F10/scroll/fourbuttons-visible/return/empty-staff-Z smoke PASS.
+- [x] Astra final native appearance PASS:36explicit frames (17v4 +19v6).
+  Current Mac build:Builds/MacHudCorrections/Not3AHudCorrections.app,
+ 799565960bytes. Evidence:art/source/hud_corrections_2026-10-23_verification.json.
+- [ ] Windows/Steam verification (Mac host).
+
+## Current D124 HUD/menu refactor — 2026-10-22
+
+Main owns audit, input/data/rules/qualification; Astra owns functional catalogue
+visibility and visual direction, then native implementation after appearance
+approval. Dependencies: D120 skills/equipment, D121 shared points, D102/D122
+study gates, paid defense upgrades and existing world combat/recovery.
+
+- [x] Audit current native HUD/progression/inventory/trade, repository and input.
+- [x] Separate legacy1/2 from current hero inputs; contextual construction1–3,
+  studied-only dense catalogue and3-card page model (including8-role fixture).
+- [x] Separately paid Shift placement; Alt quick upgrade without tower selection.
+- [x] Two working world-only adventurer passives, appended IDs34/35; no changes
+  to portal horde rewards/damage sources. Shared point budget and retry preserved.
+- [x] ImageGen iterations and canonical brief reflect owner corrections: icon-
+  only world navigation, crossedweaponPlayerstudy1,3widebuildcards/prices,
+  five-node adventurer tree, silver LVL pattern and gold upgrade storyboard.
+- [x] Owner approval: first HUD, categories below, three cards; later centred
+  flow prices and Tab Player return. Common windows/badge/effect accepted.
+- [x] Astra native visual implementation, pager gestures and feedback integration.
+- [x] D125 late moving fire, Strength/TempoV/ReachIII, adventureV and two actual
+  gathering capstones after StrengthV; all branches use the existing99points.
+- [x] Local qualification of the composed D124/D125 runtime and native appearance.
+- [x] Native720/900/1080review, final ordinary startup and physical navigation smoke.
+- [ ] Windows/Steam verification (Mac host; sustained manual balance remains deferred).
+
+Functional tests and concept provenance are recorded in
+`art/source/hud_refactor_2026-10-22_verification.json`:37EditMode and82unique
+latest PlayMode PASS, including physical Input System routing, real gathering
+capstones and world damage/recovery. One headless viewport check is replaced
+by native720/900/1080captures. Final native-v5 captures69frames, ready/error-free;
+Astra PASS covers9new warning-state frames plus29reused v4frames after recorded
+RETURN corrections. The final color-only fix was compiled/captured without a
+redundant gameplay test rerun. Ordinary first8renders are ready with no QA grants;
+actual I/Tab/B/1 and Player-icon click pass. Final Mac build is
+`Builds/MacHudRefactorFinal/Not3AHudRefactorFinal.app` (799549978bytes), launched.
+Local qualification completed2026-10-23. The owner selects the first attached HUD with
+three-card/flow-price/Tab corrections and progression_v2,
+inventory_merchant_v3, upgrade_feedback_v2. construction_v8 is superseded.
+Concept approval does not
+qualify native layout or establish data values. Old five-card/three-node boards
+are superseded; original sources and failed iterations are retained.
+
+## Current D121–D123 corrections — 2026-10-22
+
+Active owner request: shared hero talent points across Бой/Добыча/Авантюрист;
+card-only tower upgrades beyond five, no barricade upgrades/drag merging;
+reduced horde XP/gold; clock above world badges; studied construction papers for
+three generators and forge; portal baseline5HP/first interval4s, later existing
+interval shortening with unchanged HP. Main owns rules/data/binding/tests/docs;
+Astra owns existing-UI text/visibility/stacking and native review. Dependencies:
+current D120 points/skills, D079 defense ledger, D102 documents, D093 production,
+D106 timed nights and D087 retry. Existing designs/layout/art stay intact.
+
+- [x] Shared point spending, continuing tower rules and chance-gold path.
+- [x] Four added construction-document identities and rules-level gates.
+- [x] Existing UI reflects gates/points/upgrade restrictions; clock stacking repaired.
+- [x] Portal-specific data/wiring and final first-five-night balance verification.
+- [x]105EditMode +99uniquePlayMode PASS; final Mac build and78latest native
+  frames captured. Astra FINAL VISUAL PASS on33representative frames +6caption
+  rechecks. All first8ordinary renders ready, no QA grants. Evidence:
+  `art/source/progression_refactor_2026-10-22_verification.json`.
+  Five-night full-reward observation:LVL8/224gold; mean~249, without day farm.
+  Windows and natural manual/full-run balance remain separately unverified.
+
 ## Current D120 hero loadout —2026-10-22
 
 - Owner approved tree_v1/hud_v2/equipment_v2 and actual5+5/Q/Z/1–5/F1–F4/F10.
@@ -48,8 +249,10 @@
   separate Builds/MacWorldUX/Not3AWorldUX.app contains updated runtime.
 
 
-Status: current prototype state updated 2026-10-22 through D-120 implementation; earlier
-playable-first stages retain their historical acceptance.
+Status: current prototype state updated 2026-10-23 through locally qualified
+D124 appearance and D125 specialization work. Windows/Steam and sustained manual
+balance remain unverified.
+Earlier playable-first stages retain their historical acceptance.
 `GAME_VISION.md` owns product intent; `production/DECISIONS.md` owns durable
 decisions; `production/WORKSTREAMS.md` retains historical task evidence.
 

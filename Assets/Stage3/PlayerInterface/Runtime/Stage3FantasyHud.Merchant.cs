@@ -125,7 +125,7 @@ namespace Not3A.Stage3.PlayerInterface
         private float MerchantCellSide(Rect grid)
         {
             var s = UiScale;
-            return Mathf.Min((grid.width - MerchantScrollbarSpace - (MerchantColumns - 1) * 5f * s) / MerchantColumns,
+            return Mathf.Min((grid.width - MerchantScrollbarSpace - (MerchantColumns - 1) * 9f * s - 8f * s) / MerchantColumns,
                 grid.height / MerchantVisibleRows - 22f * s);
         }
 
@@ -136,7 +136,7 @@ namespace Not3A.Stage3.PlayerInterface
             if (items == null || index >= items.Length) return Rect.zero;
             var grid = MerchantGridRect(buy); var side = MerchantCellSide(grid); var s = UiScale;
             var scroll = buy ? merchantStockScroll : merchantPlayerScroll;
-            var rect = new Rect(grid.x + (index % MerchantColumns) * (side + 5f * s),
+            var rect = new Rect(grid.x + 4f*s + (index % MerchantColumns) * (side + 9f * s),
                 grid.y + (index / MerchantColumns) * (side + 22f * s) - scroll.y, side, side);
             return rect.yMin >= grid.yMin && rect.yMax <= grid.yMax ? rect : Rect.zero;
         }
@@ -208,11 +208,12 @@ namespace Not3A.Stage3.PlayerInterface
             scroll.x = 0f;
             scroll.y = Mathf.Clamp(scroll.y, 0f, Mathf.Max(0f, height - grid.height));
             scroll = GUI.BeginScrollView(grid, scroll, new Rect(0, 0, grid.width - MerchantScrollbarSpace, height));
+            equipmentGuiOrigin=grid.position-scroll;
             var selected = -1;
             equipmentTextureClip = new Rect(scroll.x, scroll.y, grid.width - MerchantScrollbarSpace, grid.height);
             for (var i = 0; i < count; i++)
             {
-                var box = new Rect((i % MerchantColumns) * (side + 5f * s),
+                var box = new Rect(4f*s + (i % MerchantColumns) * (side + 9f * s),
                     (i / MerchantColumns) * (side + 22f * s), side, side);
                 if (box.yMax + 20f * s < scroll.y || box.y > scroll.y + grid.height) continue;
                 var item = i < items.Length ? items[i]?.Item : null;
@@ -221,7 +222,7 @@ namespace Not3A.Stage3.PlayerInterface
                     // Generic sliced art has no explicit Metal clip. Empty cells
                     // have no interaction and draw only inside the viewport.
                     if (box.yMin >= scroll.y && box.yMax <= scroll.y + grid.height)
-                        DrawSliced(box, art.panelFrame, true, .09f * s);
+                        DrawSliced(box, (art.controlPanel??art.panelFrame), true, .09f * s);
                 }
                 else
                 {
@@ -234,6 +235,7 @@ namespace Not3A.Stage3.PlayerInterface
             }
             equipmentTextureClip = null;
             GUI.EndScrollView();
+            equipmentGuiOrigin=Vector2.zero;
             if (buy) merchantStockScroll = scroll; else merchantPlayerScroll = scroll;
             return selected;
         }

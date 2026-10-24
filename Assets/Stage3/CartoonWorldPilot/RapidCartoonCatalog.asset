@@ -24,6 +24,8 @@ MonoBehaviour:
   attackDamage: 1
   splashRadiusCells: 0
   projectileFlightSeconds: 0.18
+  unlimitedUpgrades: 1
+  allowMerging: 0
   upgrades:
   - cost:
       wood: 2

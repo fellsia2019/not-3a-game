@@ -28,16 +28,66 @@ namespace Not3A.Stage3.VisualPilot.Tests
         [Test] public void CatalogHasExactElevenActiveTwentyPassiveAndBoundedSplash()
         {
             Assert.That(skills.Catalog.TryValidate(out var reason),Is.True,reason);
+            Assert.That(skills.Catalog.Count,Is.EqualTo(36));
             Assert.That(Enumerable.Range(0,31).Count(i=>skills.Catalog.Get(i).active),Is.EqualTo(11));
+            foreach(var id in Enumerable.Range(31,5))Assert.That(skills.Catalog.Get(id).MaxRank,Is.EqualTo(5));
             foreach(var id in new[]{9,10})
             {var n=skills.Catalog.Get(id);Assert.That(n.maxTargets,Is.LessThanOrEqualTo(4));Assert.That(n.radius,Is.LessThanOrEqualTo(2));Assert.That(n.cooldown.Min(),Is.GreaterThanOrEqualTo(15));}
+        }
+        [Test] public void AdventurerCombatTalentsSpendSharedPointsAndReduceOnlyWorldDamage()
+        {
+            MaxLevel();var points=hero.AvailablePoints;Learn(35);Learn(32);Learn(33);
+            Assert.That(hero.AvailablePoints,Is.EqualTo(points-5),"Five adventurer talents share points; starter Blink is already known.");
+            Assert.That(skills.WorldDamageBonus,Is.EqualTo(.05f));
+            Assert.That(skills.PreviewWorldDamage(100,.2f),Is.EqualTo(76).Within(.001f));
+            var mana=hero.Mana;
+            Assert.That(skills.AbsorbWorldDamage(100,.2f),Is.EqualTo(76).Within(.001f));
+            Assert.That(hero.Mana,Is.EqualTo(mana));
+            Assert.That(skills.PreviewDamage(100,.2f),Is.EqualTo(80).Within(.001f),"Generic/portal paths gain no world resistance.");
+            Assert.That(skills.CanExecute(34,0,true,out _),Is.False,"The new talents are passive.");
+            skills.Reset();Assert.That(skills.WorldDamageBonus,Is.Zero);
+            Assert.That(skills.PreviewWorldDamage(100,.2f),Is.EqualTo(80).Within(.001f));
+        }
+        [Test] public void ExpandedAdventurerRanksSpendFivePointsAndNeverAllowASixthRank()
+        {
+            MaxLevel();var points=hero.AvailablePoints;
+            for(var id=31;id<36;id++)
+            {
+                for(var rank=0;rank<5;rank++)Assert.That(skills.TryUpgrade(id),Is.True,"adventurer"+id+" rank"+rank);
+                Assert.That(skills.TryUpgrade(id),Is.False);Assert.That(skills.Value(id),Is.EqualTo(.25f));
+            }
+            Assert.That(hero.AvailablePoints,Is.EqualTo(points-25));
+            Assert.That(skills.PreviewWorldDamage(100,0),Is.EqualTo(75));
+            Assert.That(skills.RequiredLevel(35),Is.EqualTo(36),"A maxed talent must not advertise a nonexistent sixth rank.");
+        }
+        [Test] public void FullCatalogueRequiresSpecializationWithinTheExistingHundredLevelBudget()
+        {
+            MaxLevel();Assert.That(hero.AvailablePoints,Is.EqualTo(99));
+            var professions=Resources.Load<Stage2ProfessionCatalog>("Stage3Professions");
+            var core=Enum.GetValues(typeof(Stage2ProfessionTalent)).Cast<Stage2ProfessionTalent>().Sum(professions.TalentMaxRank);
+            var total=Enumerable.Range(0,skills.Catalog.Count).Sum(id=>skills.Catalog.Get(id).MaxRank)-1+2*(core+1);
+            Assert.That(total,Is.EqualTo(156));Assert.That(total,Is.GreaterThan(hero.AvailablePoints));
         }
         [Test] public void ProgressionGatesSpendActualHeroPointsAndBranchesDoNotRequireEveryActive()
         {
             Assert.That(skills.TryUpgrade(1),Is.False);MaxLevel();var points=hero.AvailablePoints;
-            Learn(1);Learn(3);Learn(5);
+            Learn(1);Learn(3);Assert.That(skills.TryUpgrade(14),Is.False);Learn(5);
             Assert.That(skills.Rank(2),Is.Zero);Assert.That(hero.AvailablePoints,Is.EqualTo(points-3));
-            Assert.That(skills.TryUpgrade(14),Is.False);Learn(13);Learn(14);
+            Learn(14);Assert.That(skills.Rank(13),Is.Zero,"Late moving attacks branch from advanced bow training, not the starter movement passive.");
+        }
+        [Test] public void MovingFireRequiresLateHeroLevelAndAdvancedBowTrainingWithoutFailureSpend()
+        {
+            while(hero.Level<49)hero.AwardExperience(hero.RequiredXp);
+            Learn(13);var points=hero.AvailablePoints;
+            Assert.That(skills.TryUpgrade(14),Is.False);
+            Assert.That(hero.AvailablePoints,Is.EqualTo(points));Assert.That(skills.Rank(14),Is.Zero);
+            hero.AwardExperience(hero.RequiredXp);Assert.That(hero.Level,Is.EqualTo(50));
+            points=hero.AvailablePoints;
+            Assert.That(skills.CanUpgrade(14,out var reason),Is.False);Assert.That(reason,Does.Contain("Ядовитая стрела"));
+            Assert.That(skills.TryUpgrade(14),Is.False);Assert.That(hero.AvailablePoints,Is.EqualTo(points));
+            Learn(5);Assert.That(skills.TryUpgrade(14),Is.True);Assert.That(skills.Rank(14),Is.EqualTo(1));
+            Assert.That(skills.RequiredLevel(14),Is.EqualTo(54));
+            points=hero.AvailablePoints;Assert.That(skills.TryUpgrade(14),Is.False);Assert.That(hero.AvailablePoints,Is.EqualTo(points));
         }
         [Test] public void ExistingThreeRanksRemainSharedAndUseOriginalPointPool()
         {

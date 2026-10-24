@@ -1,5 +1,36 @@
 # Feature: Hero Bow And Horde Prototype
 
+## D125 — late moving automatic attacks, 2026-10-22
+
+«Стрельба на ходу» now follows advanced bow skill5 instead of the starter
+movement passive. The current catalog requires hero50/54/58 for its three ranks.
+Learned ranks still affect automatic attacks of both active weapon types with
+the existing60/80/100%moving damage; stationary aiming remains mandatory for
+aimed shot. No learned rank is revoked. HERO_PROGRESSION owns the point budget.
+
+## D124 — world-only adventurer combat passives, 2026-10-22
+
+Two appended adventurer talents affect confirmed world hits and exploration
+damage only: Hunter increases hero automatic/active/DoT damage at the existing
+world-hit endpoint; Wanderer reduces incoming exploration damage before gear
+and barrier composition. Portal attacks/rewards/HP and the throne receive no
+bonus. Fractional outgoing damage accumulates so a small percentage remains
+effective with starter damage. Invalid hits do not accumulate; Reset clears it.
+HERO_PROGRESSION.md and Stage3HeroSkills.asset own ranks/points/prerequisites.
+
+## D123 — portal enemy baseline, 2026-10-22
+
+Owner sets the current portal baseline to 5 HP and first-night spawn interval
+4 seconds. Later nights shorten their existing interval with the SAME HP; no
+new HP progression or broader difficulty redesign is requested now. Movement,
+siege rules, timed-night duration and last-won daytime replay remain unchanged.
+A separate Stage3 portal enemy data asset preserves the legacy Stage2 enemy.
+Portal XP/gold and early level pacing follow D121; no new enemy type or loot art.
+
+Local D121–D123 verification:105EditMode/99PlayMode PASS; Mac native/Astra
+qualification and remaining Windows/manual-balance scope are recorded in
+`art/source/progression_refactor_2026-10-22_verification.json`.
+
 ## D120 — implemented active weapons and bounded spells,2026-10-22
 
 Automatic attacks use the active bow/staff only, sharing the existing nearest

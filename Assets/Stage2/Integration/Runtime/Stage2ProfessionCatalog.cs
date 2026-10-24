@@ -14,17 +14,26 @@ namespace Not3A.Stage2.Integration
         [SerializeField, Min(1)] private int firstLevelXp = 20;
         [SerializeField, Min(0)] private int xpIncreasePerLevel = 5;
         [SerializeField, Min(1)] private int xpPerMaterial = 1;
-        [SerializeField, Min(1)] private int pointEveryLevels = 5;
+        // Serialized legacy tuning only. Mastery no longer creates talent points.
+        [SerializeField, HideInInspector] private int pointEveryLevels = 5;
         [SerializeField, Min(1)] private int rankPointCost = 1;
         [SerializeField] private int maxTalentRank = 3;
+        [SerializeField] private int maxStrengthRank = 3, maxTempoRank = 3;
+        [SerializeField, Range(0, 1)] private float capstoneChance;
         [SerializeField, Min(1)] private int powerPerRank = 1;
         [SerializeField, Min(0)] private float tempoPerRank = .05f;
         [SerializeField, Min(0)] private float reachPerRank = .10f;
         public int MaxMastery => maxMastery;
         public int XpPerMaterial => xpPerMaterial;
-        public int PointEveryLevels => pointEveryLevels;
         public int RankPointCost => rankPointCost;
-        public int MaxTalentRank => maxTalentRank;
+        public int MaxTalentRank => Math.Max(maxTalentRank, Math.Max(maxStrengthRank, maxTempoRank));
+        public int TalentMaxRank(Stage2ProfessionTalent talent) => talent switch {
+            Stage2ProfessionTalent.Strength => maxStrengthRank,
+            Stage2ProfessionTalent.Tempo => maxTempoRank,
+            Stage2ProfessionTalent.Reach => maxTalentRank,
+            _ => throw new ArgumentOutOfRangeException(nameof(talent))
+        };
+        public float CapstoneChance => capstoneChance;
         public int PowerPerRank => powerPerRank;
         public float TempoPerRank => tempoPerRank;
         public float ReachPerRank => reachPerRank;
@@ -32,10 +41,12 @@ namespace Not3A.Stage2.Integration
             (int)Math.Min(int.MaxValue, (long)firstLevelXp + (long)(Mathf.Max(1, mastery) - 1) * xpIncreasePerLevel);
         public bool TryValidate(out string reason)
         {
-            reason = "Profession data requires mastery cap100,3 ranks, positive XP/points and finite nonnegative bonuses.";
-            if (maxMastery != 100 || maxTalentRank != 3 || firstLevelXp < 1 || xpIncreasePerLevel < 0 ||
-                xpPerMaterial < 1 || pointEveryLevels < 2 || pointEveryLevels > maxMastery ||
-                rankPointCost < 1 || powerPerRank < 1 || powerPerRank > int.MaxValue / maxTalentRank ||
+            reason = "Profession data requires mastery cap100, strength/tempo3or5 and reach3 ranks, positive XP/points and finite bonuses.";
+            if (maxMastery != 100 || maxTalentRank != 3 || maxStrengthRank is not (3 or 5) || maxTempoRank is not (3 or 5) ||
+                !float.IsFinite(capstoneChance) || capstoneChance < 0 || capstoneChance > 1 ||
+                capstoneChance > 0 && maxStrengthRank != 5 || firstLevelXp < 1 || xpIncreasePerLevel < 0 ||
+                xpPerMaterial < 1 ||
+                rankPointCost < 1 || powerPerRank < 1 || powerPerRank > int.MaxValue / MaxTalentRank ||
                 !float.IsFinite(tempoPerRank) || tempoPerRank < 0 || tempoPerRank > 10 ||
                 !float.IsFinite(reachPerRank) || reachPerRank < 0 || reachPerRank > 10) return false;
             reason = string.Empty; return true;

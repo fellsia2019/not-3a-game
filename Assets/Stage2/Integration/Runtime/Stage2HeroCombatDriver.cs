@@ -1,5 +1,6 @@
 using System;
 using Not3A.Stage2.RunState;
+using Not3A.Stage2.WavesAI;
 using UnityEngine;
 
 namespace Not3A.Stage2.Integration
@@ -14,6 +15,7 @@ namespace Not3A.Stage2.Integration
         public Stage2HeroCombat Rules { get; private set; }
         public Stage2HeroCombatCatalog Catalog { get; private set; }
         public bool AutomaticTick { get; set; } = true;
+        public Stage2DamageSchool DamageSchool {get;set;}
         // Optional world integration shares this cadence; the default remains the portal enemy group.
         public Func<Vector2,float,int,float,float,bool> TargetingOverride { get; set; }
         public Func<bool> MovingAttackAllowed {get;set;}
@@ -26,7 +28,7 @@ namespace Not3A.Stage2.Integration
             Catalog = catalog;
             Rules = new Stage2HeroCombat(catalog, (origin,range,damage,splash,flight) =>
                 TargetingOverride != null ? TargetingOverride(origin,range,damage,splash,flight) :
-                owner.Enemies.TryHitNearest(origin,range,damage,splash,flight));
+                owner.Enemies.TryHitNearest(origin,range,damage,splash,flight,DamageSchool));
             run = owner.RunDriver.Run;
             run.Reset += ResetCombat;
             run.BeforeWaveStarted += CaptureCheckpoint;

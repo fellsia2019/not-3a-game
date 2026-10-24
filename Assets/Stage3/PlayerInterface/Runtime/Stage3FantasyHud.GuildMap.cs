@@ -152,7 +152,7 @@ namespace Not3A.Stage3.PlayerInterface
                 var enemy = enemies[i];
                 if (enemy == null || !enemy.Alive) continue;
                 var p = GuildMinimapPoint(enemy.Position, inner, uv);
-                if ((p - inner.center).sqrMagnitude > inner.width * inner.width * .235f) continue;
+                if ((p - inner.center).sqrMagnitude > inner.width * inner.width * .21f) continue;
                 DrawWorldMapMarker(p, Stage2MinimapMarkerKind.Enemy, UiScale * .65f);
             }
         }

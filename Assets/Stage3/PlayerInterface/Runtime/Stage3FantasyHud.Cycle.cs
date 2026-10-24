@@ -30,6 +30,10 @@ namespace Not3A.Stage3.PlayerInterface
             Fill(new Rect(0,0,Screen.width,3f*s),Pearl);
             Fill(new Rect(0,3f*s,Screen.width,1.5f*s),Silver);
             Fill(new Rect(0,4.5f*s,Screen.width,s),PlumInk);
+            // End shoulders continue underneath the painted panels, removing exposed vertical seams.
+            var resourcesRight=(8f+4f*114f)*s;
+            DrawTopTaper(new Rect(resourcesRight-18f*s,0,70f*s,46f*s),false);
+            DrawTopTaper(new Rect(StatusRect.x-52f*s,0,70f*s,46f*s),true);
             var inventory=game.Gathering.Economy.Inventory;
             for(var i=0;i<4;i++)
             {
@@ -37,11 +41,9 @@ namespace Not3A.Stage3.PlayerInterface
                 DrawSliced(r,art.panelFrame,true);
                 var icon=new Rect(r.x+14f*s,10f*s,24f*s,24f*s);
                 if(art.resourceIcons!=null&&i<art.resourceIcons.Length)DrawIcon(icon,art.resourceIcons[i]);
-                FitText(new Rect(icon.xMax+6f*s,7f*s,r.xMax-icon.xMax-20f*s,30f*s),
+                FitText(new Rect(icon.xMax+6f*s,7f*s,r.xMax-icon.xMax-28f*s,30f*s),
                     ResourceNumber(i,i==0?inventory.Gold:inventory.Get((MapResourceKind)(i-1))),18,false);
             }
-            DrawTopTaper(new Rect(ResourcesRect.xMax-5f*s,0,48f*s,46f*s),false);
-            DrawTopTaper(new Rect(StatusRect.x-43f*s,0,48f*s,46f*s),true);
             var day=new Rect(StatusRect.x,0,132f*s,46f*s);DrawSliced(day,art.panelFrame,true);
             var run=game.RunDriver.Run;
             if(displayedDay!=run.CalendarDay){displayedDay=run.CalendarDay;dayLabel="День "+displayedDay;}
@@ -75,7 +77,7 @@ namespace Not3A.Stage3.PlayerInterface
                 const int width=96,height=64;var pixels=new Color32[width*height];
                 for(var x=0;x<width;x++)
                 {
-                    var t=(x+.5f)/width;var edge=6f+53f*Mathf.Pow(1f-t,3f);
+                    var t=x/(float)(width-1);var edge=5.5f/46f*height+(height-5.5f/46f*height)*Mathf.Pow(1f-t,3f);
                     for(var y=0;y<height;y++)
                     {
                         var inside=edge-y;Color color;
@@ -85,6 +87,7 @@ namespace Not3A.Stage3.PlayerInterface
                         else if(inside<5.5f)color=new Color(.99f,.96f,.87f);
                         else if(inside<7f)color=new Color(.64f,.48f,.48f);
                         else color=Color.Lerp(Pearl,new Color(.99f,.97f,.91f),y/(float)height);
+                        color.a*=Mathf.Clamp01(inside+.5f);
                         pixels[(height-1-y)*width+x]=color;
                     }
                 }

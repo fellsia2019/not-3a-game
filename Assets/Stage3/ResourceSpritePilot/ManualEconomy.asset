@@ -28,6 +28,7 @@ MonoBehaviour:
     recoverySeconds: 30
   startingGold: 5
   goldPerKill: 1
+  goldDropChance: 0.03
   enableManualResources: 1
   manualResources:
     treeGroups: 72

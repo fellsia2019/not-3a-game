@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5e5a2df60eff7040ae41e0b65195924, type: 3}
   m_Name: DwellingCatalog
   m_EditorClassIdentifier: Assembly-CSharp::Not3A.Stage3.VisualPilot.Stage3DwellingCatalog
-  woodCost: 10
+  woodCost: 20
+  stoneCost: 20
   footprint: {x: 3.2, y: 2}
   entranceOffset: {x: 0.3, y: -1.4}
   interactionRadius: 1.4

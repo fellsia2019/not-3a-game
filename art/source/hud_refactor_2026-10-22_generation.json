@@ -1,0 +1,152 @@
+{
+  "tool": "Built-in image_gen.imagegen",
+  "date": "2026-10-22",
+  "source": "art/source/hud_refactor_2026-10-22_runtime_atlas.png",
+  "source_sha256": "8dbad32415392f3f518907eb04f72a5efba58dede0b43d173b8957d7cd35bc47",
+  "original": "/Users/artemmusket/.codex/generated_images/01a16343-dbe2-7540-a7a4-7e050c8347fb/exec-55f8879c-d631-4213-91ec-83b7bdec4ccc.png",
+  "prompt": "art/source/hud_refactor_2026-10-22_runtime_atlas_prompt.txt",
+  "rights": "Original AI-generated assets using project-owned original concept references; no third-party franchise art incorporated.",
+  "references": [
+    "art/concepts/hud_refactor_2026-10-22/navigation_icons_v1.png",
+    "art/concepts/hud_refactor_2026-10-22/upgrade_feedback_v2.png"
+  ],
+  "runtime": "Assets/Stage3/PlayerInterface/Art/D124RuntimeAtlas.png",
+  "importer": "Stage3FantasyHudArtImporter.ImportD124",
+  "import": "Original PNG copied byte-for-byte; measured isolated alpha bounds become Unity sprite subassets in existing LunarInterfaceArt.asset. GUIDs/previous references retained; source pixels not repainted/cropped.",
+  "approval": "Owner approved the first HUD and common window/badge/effect direction, with latest three-card/flow-price/Tab corrections. Two capstone effects subsequently selected explicitly; icon family follows the approved style.",
+  "status": "Runtime original assets integrated; local Mac native PASS2026-10-23, scope in native_review.json; Windows unverified",
+  "second_production_assets": [
+    {
+      "source": "art/source/hud_refactor_2026-10-22_runtime_skin_v2.png",
+      "original": "/Users/artemmusket/.codex/generated_images/01a16343-dbe2-7540-a7a4-7e050c8347fb/exec-ac569a1e-578e-466e-8a94-d87c408386e9.png",
+      "runtime": "Assets/Stage3/PlayerInterface/Art/D124RuntimeSkinV2.png",
+      "prompt": "art/source/hud_refactor_2026-10-22_runtime_skin_v2_prompt.txt",
+      "sha256": "9c82a85271a61ba147d78695f7cd4ea63e45d7bd462f7f59f43c77dd87355fcf",
+      "alpha": "yes",
+      "pixel_dimensions": [
+        1254,
+        1254
+      ]
+    },
+    {
+      "source": "art/source/hud_refactor_2026-10-22_upgrade_light.png",
+      "original": "/Users/artemmusket/.codex/generated_images/01a16343-dbe2-7540-a7a4-7e050c8347fb/exec-eea93e53-25c7-4c5a-8f29-21943a976e67.png",
+      "runtime": "Assets/Stage3/PlayerInterface/Art/D124UpgradeLight.png",
+      "prompt": "art/source/hud_refactor_2026-10-22_upgrade_light_prompt.txt",
+      "sha256": "6d1a09fc600376bb813c09d1ef729d99e76dfe88aa526bfd1d643d7f8831699e",
+      "alpha": "yes",
+      "pixel_dimensions": [
+        1254,
+        1254
+      ]
+    }
+  ],
+  "ui_only_build_alpha_measurements": {
+    "method": "Read-only Pillow alpha bounds. No raster edits, source/import pivot changes or scene changes. Native crops remain code-owned.",
+    "sources": [
+      {
+        "source": "Assets/Stage3/ResourceDistricts/Production/iron_mine.png",
+        "sha256": "6e44ce532c5835a6aa18f83300bfa694a5502c28971d17be197efcb8696ecf5b",
+        "size": [
+          1254,
+          1254
+        ],
+        "alpha_threshold_exclusive": 12,
+        "bbox_top_left": [
+          99,
+          62,
+          1236,
+          1185
+        ]
+      },
+      {
+        "source": "Assets/Stage3/ResourceDistricts/Production/quarry.png",
+        "sha256": "e2058a07c08543c220306fa79e1e2baede0da5c34c88a087fa760e172ead7c3a",
+        "size": [
+          1254,
+          1254
+        ],
+        "alpha_threshold_exclusive": 12,
+        "bbox_top_left": [
+          61,
+          212,
+          1201,
+          1076
+        ]
+      },
+      {
+        "source": "Assets/Stage3/ResourceDistricts/Production/sawmill.png",
+        "sha256": "a01f715668ea5f5f1bfaaf5b6d4fa714d7da739109693eda0c787968e7aafa29",
+        "size": [
+          1254,
+          1254
+        ],
+        "alpha_threshold_exclusive": 12,
+        "bbox_top_left": [
+          28,
+          165,
+          1242,
+          1129
+        ]
+      }
+    ],
+    "runtime_binding": "Stage3FantasyHud.Construction.DrawBuildArtwork, original source texture UV only",
+    "runtime_crops": [
+      {
+        "source": "Assets/Stage3/ResourceDistricts/Production/sawmill.png",
+        "alpha_threshold_exclusive": 8,
+        "bbox_top_left": [
+          28,
+          164,
+          1243,
+          1130
+        ],
+        "runtime_crop_xywh_top_left": [
+          24,
+          160,
+          1223,
+          974
+        ],
+        "contains_visible_source": true,
+        "safe_padding_px": 4
+      },
+      {
+        "source": "Assets/Stage3/ResourceDistricts/Production/quarry.png",
+        "alpha_threshold_exclusive": 8,
+        "bbox_top_left": [
+          61,
+          212,
+          1202,
+          1076
+        ],
+        "runtime_crop_xywh_top_left": [
+          57,
+          208,
+          1149,
+          872
+        ],
+        "contains_visible_source": true,
+        "safe_padding_px": 4
+      },
+      {
+        "source": "Assets/Stage3/ResourceDistricts/Production/iron_mine.png",
+        "alpha_threshold_exclusive": 8,
+        "bbox_top_left": [
+          99,
+          62,
+          1236,
+          1187
+        ],
+        "runtime_crop_xywh_top_left": [
+          95,
+          58,
+          1145,
+          1133
+        ],
+        "contains_visible_source": true,
+        "safe_padding_px": 4
+      }
+    ]
+  },
+  "verification": "art/source/hud_refactor_2026-10-22_verification.json"
+}

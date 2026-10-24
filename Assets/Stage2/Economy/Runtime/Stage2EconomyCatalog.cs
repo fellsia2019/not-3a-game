@@ -38,22 +38,25 @@ namespace Not3A.Stage2.Economy
         [SerializeField] private Stage2ResourceSettings[] resources = Array.Empty<Stage2ResourceSettings>();
         [SerializeField, Min(0)] private int startingGold = 5;
         [SerializeField, Min(0)] private int goldPerKill = 1;
+        [SerializeField, Range(0, 1)] private float goldDropChance = 1;
         [SerializeField] private bool enableManualResources;
         [SerializeField] private Stage2ManualResourceSettings manualResources;
 
         public float InteractionRange => interactionRange;
         public int StartingGold => startingGold;
         public int GoldPerKill => goldPerKill;
+        public float GoldDropChance => goldDropChance;
         public Stage2ManualResourceSettings ManualResources => enableManualResources ? manualResources : null;
         public void ConfigureManualResources(Stage2ManualResourceSettings values)
         { manualResources = values; enableManualResources = values != null; }
 
-        public void Configure(float range, Stage2ResourceSettings[] settings, int initialGold = 5, int killGold = 1)
+        public void Configure(float range, Stage2ResourceSettings[] settings, int initialGold = 5, int killGold = 1, float killGoldChance = 1)
         {
             interactionRange = range;
             resources = settings == null ? Array.Empty<Stage2ResourceSettings>() : (Stage2ResourceSettings[])settings.Clone();
             startingGold = initialGold;
             goldPerKill = killGold;
+            goldDropChance = killGoldChance;
         }
 
         public bool TryValidate(out string reason)
@@ -63,9 +66,9 @@ namespace Not3A.Stage2.Economy
                 reason = "Interaction range must be positive and finite.";
                 return false;
             }
-            if (startingGold < 0 || goldPerKill < 0)
+            if (startingGold < 0 || goldPerKill < 0 || !float.IsFinite(goldDropChance) || goldDropChance < 0 || goldDropChance > 1)
             {
-                reason = "Gold values must be nonnegative.";
+                reason = "Gold values must be nonnegative and drop chance finite within 0..1.";
                 return false;
             }
             if (enableManualResources && (manualResources == null || !manualResources.IsValid))

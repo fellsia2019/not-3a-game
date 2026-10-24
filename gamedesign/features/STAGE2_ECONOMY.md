@@ -1,5 +1,33 @@
 # Feature: Stage 2 Resource Lifecycle
 
+## D125 current manual-gathering expansion — 2026-10-22
+
+Current Stage3 profession data selects StrengthV/TempoV/ReachIII, shared hero
+points and one paid capstone per profession after StrengthV. Owner accepts10%
+chance: miner finishes one medium STONE node; logger, after felling an ordinary
+tree, harvests one additional ordinary tree within the hero's normal range.
+No large/metal finisher and no recursive tree chain. Trees and small nodes
+already contain5units while StrengthV plus starter tool yields6, so another
+same-tree/small-rock one-hit chance would be redundant. This is why the accepted
+capstones differ. Current node stocks are unchanged.
+
+The actual completed manual strike owns the proc and stock grant. Each affected
+node credits only what fits the wallet and actually leaves its reserve, with
+one normal resource/mastery fact per node. Incomplete/blocked/unowned/depleted/
+missing-tool/full-wallet strikes neither roll nor grant. Automatic production
+does not proc or award mastery. Retry preserves current ranks; full Reset clears
+them. Stage3Professions owns current chance/rank tuning; legacy defaults stay off.
+
+## D121/D122 — current Stage3 income and knowledge gates, 2026-10-22
+
+Portal gold uses a validated per-kill chance in ManualEconomy; a successful roll
+credits the configured amount through the existing confirmed-kill path. Despawn,
+arrival, cleanup and retry do not mint rewards. Legacy economy catalogs default
+to guaranteed payout. Gathering mastery no longer creates talent points: all
+three O branches spend hero-level points. Construction of all three generators
+and the forge now needs its own studied paper; existing construction/upgrade
+costs remain in data. RESEARCH.md and HERO_PROGRESSION.md own these contracts.
+
 ## D118 — authored wild resources and confirmed grant facts
 
 Natural trees/rocks in the two camp shoulders now use ordinary additional

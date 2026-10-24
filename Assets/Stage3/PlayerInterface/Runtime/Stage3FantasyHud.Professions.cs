@@ -15,6 +15,7 @@ namespace Not3A.Stage3.PlayerInterface
         public string Title, Description;
         public int Mastery, MaxMastery, XpWithin, RequiredXp, AvailablePoints;
         public Stage3ProfessionTalentView[] Talents;
+        public Stage3ProfessionTalentView Capstone;
         public Stage3EquipmentItemView Tool;
     }
 
@@ -43,6 +44,8 @@ namespace Not3A.Stage3.PlayerInterface
         public int SelectedProfessionIndex => selectedProfessionIndex;
         public int SelectedProfessionTalentIndex => selectedProfessionTalentIndex;
         public event Action<int, int> ProfessionTalentUpgradeRequested;
+        public event Action<int> ProfessionCapstoneUpgradeRequested;
+        private bool selectedProfessionCapstone;
 
         public void SetProfessions(Stage3ProfessionsView value)
         {
@@ -58,7 +61,14 @@ namespace Not3A.Stage3.PlayerInterface
                 index >= professions.Professions.Length || professions.Professions[index] == null) return;
             if (selectedProfessionIndex != index) selectedProfessionTalentIndex = 0;
             selectedProfessionIndex = index;
+            selectedProfessionCapstone=false;
             ClampProfessionSelection();
+        }
+
+        public void SelectProfessionCapstone(int professionIndex)
+        {
+            SelectProfession(professionIndex);
+            selectedProfessionCapstone=SelectedProfession?.Capstone!=null;
         }
 
         public void SelectProfessionTalent(int index)
@@ -66,6 +76,7 @@ namespace Not3A.Stage3.PlayerInterface
             var talents = SelectedProfession?.Talents;
             if (talents == null || index < 0 || index >= talents.Length || talents[index] == null) return;
             selectedProfessionTalentIndex = index;
+            selectedProfessionCapstone=false;
         }
 
         private Stage3ProfessionView SelectedProfession =>
@@ -73,7 +84,7 @@ namespace Not3A.Stage3.PlayerInterface
             selectedProfessionIndex < professions.Professions.Length
                 ? professions.Professions[selectedProfessionIndex] : null;
 
-        private Stage3ProfessionTalentView SelectedProfessionTalent =>
+        private Stage3ProfessionTalentView SelectedProfessionTalent => selectedProfessionCapstone ? SelectedProfession?.Capstone :
             SelectedProfession?.Talents != null && selectedProfessionTalentIndex >= 0 &&
             selectedProfessionTalentIndex < SelectedProfession.Talents.Length
                 ? SelectedProfession.Talents[selectedProfessionTalentIndex] : null;
@@ -92,6 +103,7 @@ namespace Not3A.Stage3.PlayerInterface
             showAdventurer = false;
             selectedSkillId = 0;
             selectedProfessionIndex = selectedProfessionTalentIndex = 0;
+            selectedProfessionCapstone=false;
         }
 
         private Rect HeroDevelopmentContentRect
@@ -106,46 +118,33 @@ namespace Not3A.Stage3.PlayerInterface
         /// <summary>False is the existing combat tab; true is professions.</summary>
         public Rect ProfessionTabRect(bool professionTab) => HeroDevelopmentTabRect(professionTab ? 1 : 0);
 
-        private Rect ProfessionColumn(int index)
-        {
-            var r = HeroDevelopmentContentRect;
-            return index == 0 ? new Rect(r.x - 16f * UiScale, r.y, r.width * .333f, r.height) :
-                index == 1 ? new Rect(r.x + r.width * .35f, r.y, r.width * .333f, r.height) :
-                new Rect(r.x + r.width * .72f, r.y, r.width * .28f, r.height);
-        }
-
+        private Rect ProfessionColumn(int index) => index==2 ? Inset(SkillDetailsRect,24f*UiScale) : SkillTreeRect;
         public Rect ProfessionCardRect(int index)
         {
-            if (!IsProfessionsOpen || index < 0 || index >= 2) return Rect.zero;
-            var r = ProfessionColumn(0);
-            var gap = 18f * UiScale;
-            var height = (r.height - 54f * UiScale - gap) / 2f;
-            return new Rect(r.x, r.y + 54f * UiScale + index * (height + gap), r.width, height);
+            if(!IsProfessionsOpen||index<0||index>1)return Rect.zero;
+            var r=SkillTreeRect;var s=UiScale;var height=(r.height-24f*s)*.5f;
+            return new Rect(r.x+16f*s,r.y+12f*s+index*(height+8f*s),r.width-32f*s,38f*s);
         }
-
-        public Rect ProfessionTalentRect(int index)
+        public Rect ProfessionTalentRect(int index) => ProfessionTalentRect(selectedProfessionIndex,index);
+        private Rect ProfessionTalentRect(int profession,int index)
         {
-            if (!IsProfessionsOpen || index < 0 || index >= 3) return Rect.zero;
-            var r = ProfessionColumn(1);
-            var gap = 12f * UiScale;
-            var height = (r.height - 54f * UiScale - 2f * gap) / 3f;
-            return new Rect(r.x, r.y + 54f * UiScale + index * (height + gap), r.width, height);
+            if(!IsProfessionsOpen||index<0||index>=3)return Rect.zero;
+            var header=ProfessionCardRect(profession);var s=UiScale;
+            var width=(header.width-28f*s)/3f;
+            return new Rect(header.x+index*(width+14f*s),header.yMax+6f*s,width,154f*s);
         }
-
-        public Rect ProfessionUpgradeRect
+        public Rect ProfessionCapstoneRect(int profession)
         {
-            get
-            {
-                if (!IsProfessionsOpen || SelectedProfessionTalent == null) return Rect.zero;
-                var r = ProfessionColumn(2);
-                return new Rect(r.x, r.y + r.height * .55f, r.width, 57f * UiScale);
-            }
+            var strength=ProfessionTalentRect(profession,0);
+            return new Rect(strength.xMax-44f*UiScale,strength.yMax+4f*UiScale,40f*UiScale,40f*UiScale);
         }
+        public Rect ProfessionUpgradeRect => !IsProfessionsOpen||SelectedProfessionTalent==null?Rect.zero:
+            new Rect(ProfessionColumn(2).x,ProfessionColumn(2).yMax-180f*UiScale,ProfessionColumn(2).width,49f*UiScale);
 
         private void DrawHeroDevelopmentTabs()
         {
             var r = WindowContentRect; var s = UiScale;
-            DrawRule(new Rect(r.x, r.y + 35f * s, r.width, s), false);
+            DrawRule(new Rect(r.x, r.y + 103f * s, r.width, s), false);
             var requested = -1;
             var selected = showProfessions ? 1 : showAdventurer ? 2 : 0;
             var count = heroLoadout != null ? 3 : 2;
@@ -153,7 +152,7 @@ namespace Not3A.Stage3.PlayerInterface
             {
                 var available = i != 2 || heroLoadout?.AdventurerNodes?.Length > 0;
                 var title = i == 0 ? "Бой" : i == 1 ? "Добыча" : "Авантюрист";
-                if (Button(HeroDevelopmentTabRect(i), title, selected == i, available)) requested = i;
+                if (BranchTab(HeroDevelopmentTabRect(i), title, selected == i, available)) requested = i;
             }
             if (requested >= 0)
             {
@@ -164,87 +163,60 @@ namespace Not3A.Stage3.PlayerInterface
 
         private void DrawProfessions()
         {
-            var s = UiScale;
-            var left = ProfessionColumn(0);
-            var middle = ProfessionColumn(1);
-            Label(new Rect(left.x + 15f * s, left.y, left.width, 42f * s), "Профессии", 30);
-            if (professions?.Professions == null || professions.Professions.Length == 0)
+            var s=UiScale;
+            DrawDevelopmentSummary();
+            DrawSliced(SkillTreeRect,(art.controlPanel??art.panelFrame),true,.20f*s);
+            DrawSliced(SkillDetailsRect,(art.controlPanel??art.panelFrame),true,.22f*s);
+            if(professions?.Professions==null)return;
+            for(var p=0;p<Mathf.Min(2,professions.Professions.Length);p++)
             {
-                Label(HeroDevelopmentContentRect, "Профессии пока недоступны", 23, TextAnchor.MiddleCenter, true);
-                return;
-            }
-            var selected = SelectedProfession;
-            Label(new Rect(middle.x + 12f * s, middle.y, middle.width, 42f * s),
-                selectedProfessionIndex == 0 ? "Таланты рудокопа" : "Таланты лесоруба", 30);
-            var requestedProfession = -1;
-            var requestedTalent = -1;
-            for (var i = 0; i < Mathf.Min(2, professions.Professions.Length); i++)
-            {
-                var profession = professions.Professions[i];
-                if (profession == null) continue;
-                var card = ProfessionCardRect(i);
-                if (ProfessionCardButton(card, i == selectedProfessionIndex)) requestedProfession = i;
-                DrawProfessionCard(card, profession, i);
-            }
-            if (selected?.Talents != null)
-                for (var i = 0; i < Mathf.Min(3, selected.Talents.Length); i++)
+                var profession=professions.Professions[p];if(profession==null)continue;
+                var header=ProfessionCardRect(p);
+                DrawProfessionIcon(new Rect(header.x,header.y,42f*s,42f*s),p,-1);
+                Label(new Rect(header.x+50f*s,header.y,220f*s,24f*s),profession.Title,21);
+                Label(new Rect(header.x+50f*s,header.y+25f*s,240f*s,21f*s),$"Мастерство {profession.Mastery} / {profession.MaxMastery}",15);
+                var xp=new Rect(header.xMax-240f*s,header.y+10f*s,230f*s,24f*s);
+                DrawProfessionExperienceBar(xp,profession);
+                PaleLabel(xp,$"{profession.XpWithin} / {profession.RequiredXp}",14,TextAnchor.MiddleCenter);
+                if(profession.Talents!=null)for(var i=0;i<Mathf.Min(3,profession.Talents.Length);i++)
                 {
-                    var talent = selected.Talents[i];
-                    if (talent == null) continue;
-                    var card = ProfessionTalentRect(i);
-                    if (ProfessionCardButton(card, i == selectedProfessionTalentIndex)) requestedTalent = i;
-                    DrawProfessionTalentCard(card, talent, i);
+                    var talent=profession.Talents[i];if(talent==null)continue;
+                    var card=ProfessionTalentRect(p,i);
+                    if(ProfessionCardButton(card,p==selectedProfessionIndex&&i==selectedProfessionTalentIndex&&!selectedProfessionCapstone)){SelectProfession(p);SelectProfessionTalent(i);}
+                    DrawProfessionIcon(new Rect(card.center.x-35f*s,card.y+6f*s,70f*s,70f*s),p,i);
+                    Label(new Rect(card.x+10f*s,card.y+77f*s,card.width-20f*s,24f*s),talent.Title,18,TextAnchor.MiddleCenter);
+                    var count=talent.MaxRank;var pitch=Mathf.Min(31f*s,(card.width-32f*s)/Mathf.Max(1,count));
+                    var start=card.center.x-count*pitch*.5f;
+                    for(var rank=0;rank<count;rank++)
+                    {
+                        var dot=new Rect(start+rank*pitch,card.yMax-48f*s,20f*s,20f*s);
+                        DrawDisc(dot,Silver);DrawDisc(Inset(dot,2f*s),rank<talent.Rank?Accent:PlumInk);
+                    }
+                    Label(new Rect(card.x,card.yMax-28f*s,card.width,20f*s),$"{talent.Rank} / {talent.MaxRank}",15,TextAnchor.MiddleCenter);
                 }
-            var upgrade = DrawProfessionTalentDetails(ProfessionColumn(2), selected, SelectedProfessionTalent);
-            if (requestedProfession >= 0) SelectProfession(requestedProfession);
-            else if (requestedTalent >= 0) SelectProfessionTalent(requestedTalent);
-            else if (upgrade) ProfessionTalentUpgradeRequested?.Invoke(selectedProfessionIndex, selectedProfessionTalentIndex);
+                if(profession.Capstone!=null)
+                {
+                    var cap=ProfessionCapstoneRect(p);var from=ProfessionTalentRect(p,0);
+                    DrawSkillLinkSegment(new Vector2(from.center.x,from.yMax),new Vector2(from.center.x,cap.center.y),MutedInk);
+                    DrawSkillLinkSegment(new Vector2(from.center.x,cap.center.y),new Vector2(cap.x,cap.center.y),MutedInk);
+                    if(ProfessionCardButton(cap,p==selectedProfessionIndex&&selectedProfessionCapstone)){SelectProfession(p);selectedProfessionCapstone=true;}
+                    if(art.professionCapstoneIcons!=null&&p<art.professionCapstoneIcons.Length)DrawIcon(Inset(cap,3f*s),art.professionCapstoneIcons[p]);
+                    if(cap.Contains(CurrentGuiPointer))DrawLoadoutTooltip(cap,profession.Capstone.Title+"\n"+profession.Capstone.Description);
+                }
+            }
+            if(DrawProfessionTalentDetails(ProfessionColumn(2),SelectedProfession,SelectedProfessionTalent))
+            {
+                if(selectedProfessionCapstone)ProfessionCapstoneUpgradeRequested?.Invoke(selectedProfessionIndex);
+                else ProfessionTalentUpgradeRequested?.Invoke(selectedProfessionIndex,selectedProfessionTalentIndex);
+            }
         }
 
         private bool ProfessionCardButton(Rect r, bool selected)
         {
-            var s = UiScale;
-            var color = GUI.color;
-            if (selected)
-            {
-                // Follow the authored corner silhouette instead of a square selection box.
-                GUI.color = color * new Color(.15f, 1f, 1f, .50f);
-                var glow = new Rect(r.x - 2f * s, r.y - 2f * s, r.width + 4f * s, r.height + 4f * s);
-                DrawSliced(glow, art.panelFrame, false, .26f * s);
-            }
-            GUI.color = color;
-            DrawSliced(r, art.panelFrame, true, .24f * s);
-            if (selected)
-            {
-                GUI.color = color * new Color(.15f, 1f, 1f, .70f);
-                DrawSliced(r, art.panelFrame, false, .24f * s);
-                GUI.color = color;
-            }
+            DrawSliced(r,art.controlPanel??art.panelFrame,true,.35f*UiScale);
+            if(selected)Stroke(Inset(r,4f*UiScale),Accent,1.5f*UiScale);
             if (blankButton == null) blankButton = new GUIStyle(GUIStyle.none);
             return GUI.Button(r, GUIContent.none, blankButton);
-        }
-
-        private void DrawProfessionCard(Rect r, Stage3ProfessionView value, int index)
-        {
-            var s = UiScale;
-            var iconSide = Mathf.Min(r.width * .34f, r.height * .70f);
-            var icon = new Rect(r.x + 23f * s, r.y + 25f * s, iconSide, iconSide);
-            DrawProfessionIcon(icon, index, -1);
-            var x = r.x + r.width * .405f;
-            var width = r.xMax - x - 19f * s;
-            Label(new Rect(x, r.y + 23f * s, width, 34f * s), value.Title, 28);
-            Label(new Rect(x, r.y + 59f * s, width, 38f * s), value.Description, 18, TextAnchor.UpperLeft, true);
-            var masteryY = r.y + r.height * .43f;
-            Label(new Rect(x, masteryY, width, 27f * s),
-                $"Мастерство {value.Mastery} / {value.MaxMastery}", 18, TextAnchor.MiddleLeft);
-            var track = new Rect(x, masteryY + 29f * s, width, 25f * s);
-            DrawProfessionExperienceBar(track, value);
-            var atCap = value.MaxMastery > 0 && value.Mastery >= value.MaxMastery;
-            Label(new Rect(x, track.yMax + 3f * s, width, 26f * s),
-                atCap ? "XP · МАКС." : $"XP  {value.XpWithin} / {value.RequiredXp}", 18, TextAnchor.MiddleCenter);
-            var points = new Rect(x - 4f * s, r.yMax - 62f * s, width + 8f * s, 44f * s);
-            DrawSliced(points, art.buttonNormal, true);
-            FitPaleLabel(ButtonContentRect(points), $"Очки профессии: {value.AvailablePoints}", 17);
         }
 
         private void DrawProfessionExperienceBar(Rect r, Stage3ProfessionView value)
@@ -260,94 +232,35 @@ namespace Not3A.Stage3.PlayerInterface
             GUI.EndGroup();
         }
 
-        private void DrawProfessionTalentCard(Rect r, Stage3ProfessionTalentView talent, int index)
+        private bool DrawProfessionTalentDetails(Rect r,Stage3ProfessionView profession,Stage3ProfessionTalentView talent)
         {
-            var s = UiScale;
-            var side = Mathf.Min(r.width * .34f, r.height - 32f * s);
-            var icon = new Rect(r.x + 22f * s, r.center.y - side * .5f, side, side);
-            DrawProfessionIcon(icon, selectedProfessionIndex, index);
-            var x = r.x + r.width * .405f;
-            var width = r.xMax - x - 15f * s;
-            Label(new Rect(x, r.y + 21f * s, width, 34f * s), talent.Title, 27);
-            var description = index == 0 ? (selectedProfessionIndex == 0 ? "Больше ресурса за удар" : "Больше дерева за удар") :
-                index == 1 ? "Быстрее завершает удар" :
-                selectedProfessionIndex == 0 ? "Удобнее доставать до залежи" : "Удобнее доставать до дерева";
-            Label(new Rect(x, r.y + 57f * s, width, 35f * s), description, 17, TextAnchor.UpperLeft, true);
-            var dotSide = 27f * s;
-            var gap = 22f * s;
-            var dotY = r.yMax - 70f * s;
-            var count = Mathf.Clamp(talent.MaxRank, 0, 3);
-            for (var i = 0; i < count; i++)
+            if(profession==null||talent==null)return false;
+            var s=UiScale;var cap=talent.Rank>=talent.MaxRank;
+            Label(new Rect(r.x,r.y,r.width,52f*s),talent.Title,26);
+            Label(new Rect(r.x,r.y+54f*s,r.width,26f*s),$"Ранг {talent.Rank} / {talent.MaxRank}",19);
+            Label(new Rect(r.x,r.y+88f*s,r.width,70f*s),talent.Description,17);
+            if(!selectedProfessionCapstone)
             {
-                var dot = new Rect(x + i * (dotSide + gap), dotY, dotSide, dotSide);
-                DrawDisc(dot, Silver);
-                DrawDisc(Inset(dot, 2.5f * s), PlumInk);
-                DrawDisc(Inset(dot, 5f * s), i < talent.Rank ? Accent : Pearl);
+                var row=new Rect(r.x,r.y+166f*s,r.width,32f*s);
+                var hasTool=profession.Tool!=null;
+                DrawProfessionStat(row,"Добыча за удар",hasTool?talent.CurrentPower.ToString():"—",hasTool?talent.NextPower.ToString():"—",talent.CurrentPower!=talent.NextPower);
+                row.y+=36f*s;
+                DrawProfessionStat(row,"Время удара",hasTool?ProfessionNumber(talent.CurrentDuration):"—",hasTool?ProfessionNumber(talent.NextDuration)+" с":"—",!Mathf.Approximately(talent.CurrentDuration,talent.NextDuration));
+                row.y+=36f*s;
+                DrawProfessionStat(row,"Досягаемость",ProfessionPercent(talent.CurrentReachBonus),ProfessionPercent(talent.NextReachBonus),!Mathf.Approximately(talent.CurrentReachBonus,talent.NextReachBonus));
             }
-            Label(new Rect(x, dotY + 30f * s, count * (dotSide + gap) - gap, 24f * s),
-                $"{talent.Rank} / {talent.MaxRank}", 18, TextAnchor.MiddleCenter);
-        }
-
-        private bool DrawProfessionTalentDetails(Rect r, Stage3ProfessionView profession, Stage3ProfessionTalentView talent)
-        {
-            if (profession == null || talent == null) return false;
-            var s = UiScale;
-            var cap = talent.Rank >= talent.MaxRank;
-            Label(new Rect(r.x, r.y, r.width, 42f * s), talent.Title, 32);
-            DrawRule(new Rect(r.x, r.y + 45f * s, r.width, s));
-            Label(new Rect(r.x, r.y + 57f * s, r.width, 31f * s),
-                cap ? $"Ранг {talent.Rank} · максимум" : $"Ранг {talent.Rank}  →  {talent.Rank + 1}", 23);
-            Label(new Rect(r.x, r.y + 95f * s, r.width, 45f * s), talent.Description, 18);
-            var stats = new Rect(r.x, r.y + 140f * s, r.width, 130f * s);
-            DrawSliced(stats, art.panelFrame, true, .18f * s);
-            var row = new Rect(stats.x + 24f * s, stats.y + 12f * s, stats.width - 48f * s, 34f * s);
-            var hasTool = profession.Tool != null;
-            DrawProfessionStat(row, "Добыча за удар", hasTool ? talent.CurrentPower.ToString() : "—",
-                hasTool ? talent.NextPower + " ед." : "—", talent.CurrentPower != talent.NextPower);
-            row.y += 36f * s;
-            DrawProfessionStat(row, "Время удара", hasTool ? ProfessionNumber(talent.CurrentDuration) : "—",
-                hasTool ? ProfessionNumber(talent.NextDuration) + " с" : "—",
-                !Mathf.Approximately(talent.CurrentDuration, talent.NextDuration));
-            row.y += 36f * s;
-            DrawProfessionStat(row, "Бонус досягаемости", ProfessionPercent(talent.CurrentReachBonus),
-                ProfessionPercent(talent.NextReachBonus), !Mathf.Approximately(talent.CurrentReachBonus, talent.NextReachBonus));
-            var summary = new Rect(r.x, stats.yMax + 7f * s, r.width, 41f * s);
-            string source;
-            if (selectedProfessionTalentIndex == 0)
-                source = hasTool ? $"Сила {(selectedProfessionIndex == 0 ? "кирки" : "топора")}: {talent.CurrentPower - Mathf.RoundToInt(talent.CurrentBonus)}" : "Инструмент не надет";
-            else if (selectedProfessionTalentIndex == 1)
-                source = "Бонус к темпу надетого инструмента";
-            else source = "Бонус к зазору от края ресурса";
-            var bonus = selectedProfessionTalentIndex == 0
-                ? $"+{ProfessionNumber(talent.CurrentBonus)} → +{ProfessionNumber(talent.NextBonus)}"
-                : $"+{ProfessionPercent(talent.CurrentBonus)} → +{ProfessionPercent(talent.NextBonus)}";
-            Label(summary, source + "\nБонус таланта: " + bonus, 16, TextAnchor.MiddleCenter);
-            var button = ProfessionUpgradeRect;
-            var cost = talent.PointCost;
-            var tail = cost % 100;
-            var noun = tail >= 11 && tail <= 14 ? "очков" : cost % 10 == 1 ? "очко" : cost % 10 >= 2 && cost % 10 <= 4 ? "очка" : "очков";
-            var action = cap ? "Максимальный ранг" : (talent.Rank == 0 ? "Изучить" : "Улучшить") + $" · {cost} {noun}";
-            var requested = Button(button, action, false, talent.CanUpgrade && !cap);
-            Label(new Rect(r.x, button.yMax + 1f * s, r.width, 27f * s),
-                !talent.CanUpgrade && !cap ? talent.UnavailableReason : "", 14, TextAnchor.MiddleCenter, true);
-            var toolY = button.yMax + 30f * s;
-            DrawRule(new Rect(r.x, toolY, r.width, s));
-            Label(new Rect(r.x, toolY + 8f * s, r.width, 29f * s), "Надето", 23);
-            var tool = new Rect(r.x, toolY + 42f * s, r.width, Mathf.Max(96f * s, r.yMax - toolY - 68f * s));
-            DrawSliced(tool, art.panelFrame, true, .18f * s);
-            if (hasTool)
+            else Label(new Rect(r.x,r.y+166f*s,r.width,64f*s),"Требуется: Сила удара V",17,TextAnchor.UpperLeft,true);
+            var button=ProfessionUpgradeRect;
+            var action=cap?"Максимальный ранг":(talent.Rank==0?"Изучить":"Улучшить")+" · "+talent.PointCost+" очк.";
+            var requested=Button(button,action,false,talent.CanUpgrade&&!cap);
+            Label(new Rect(r.x,button.yMax+4f*s,r.width,40f*s),!talent.CanUpgrade&&!cap?talent.UnavailableReason:"",14,TextAnchor.UpperCenter,true);
+            var tool=new Rect(r.x,r.yMax-85f*s,70f*s,70f*s);
+            if(profession.Tool!=null)
             {
-                DrawEquipmentCell(new Rect(tool.x + 14f * s, tool.y + 10f * s, tool.height - 20f * s, tool.height - 20f * s), profession.Tool);
-                var x = tool.x + tool.height + 12f * s;
-                Label(new Rect(x, tool.y + 17f * s, tool.xMax - x - 20f * s, 28f * s), profession.Tool.Name, 20);
-                DrawQualityBadge(new Rect(x, tool.yMax - 52f * s, 66f * s, 39f * s), profession.Tool.QualityIndex);
-                Label(new Rect(x + 78f * s, tool.yMax - 52f * s, tool.xMax - x - 98f * s, 39f * s),
-                    $"LVL {profession.Tool.Level} / 100", 19, TextAnchor.MiddleCenter);
+                DrawEquipmentCell(tool,profession.Tool);
+                Label(new Rect(tool.xMax+12f*s,tool.y,r.width-tool.width-12f*s,68f*s),"Надето\n"+profession.Tool.Name+"\nLVL "+profession.Tool.Level,16,TextAnchor.MiddleLeft);
             }
-            else Label(Inset(tool, 12f * s), selectedProfessionIndex == 0 ? "Кирка не надета" : "Топор не надет",
-                20, TextAnchor.MiddleCenter, true);
-            Label(new Rect(r.x, r.yMax - 20f * s, r.width, 22f * s),
-                "Мастерство растёт за добытый материал", 14, TextAnchor.MiddleCenter, true);
+            else Label(new Rect(r.x,tool.y,r.width,60f*s),selectedProfessionIndex==0?"Кирка не надета":"Топор не надет",18,TextAnchor.MiddleCenter,true);
             return requested;
         }
 

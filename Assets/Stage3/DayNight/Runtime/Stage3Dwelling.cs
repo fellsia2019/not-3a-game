@@ -43,7 +43,7 @@ namespace Not3A.Stage3.VisualPilot
         private bool Active => isActiveAndEnabled && IsReady && game != null && !game.RunDriver.Run.IsTerminal &&
             !game.PlayerInputBlocked && !game.RunDriver.Run.IsPaused && Time.timeScale > 0f && (hud == null || !hud.DebugOpen);
         public bool CanBeginPlacement => Active && !IsBuilt &&
-            game.Gathering.Economy.Inventory.CanAfford(catalog.woodCost, 0, 0, 0);
+            game.Gathering.Economy.Inventory.CanAfford(catalog.woodCost, catalog.stoneCost, 0, 0);
         public Stage2WorkshopBuildStatus BuildStatus => IsBuilt ? Stage2WorkshopBuildStatus.Built :
             !Active ? Stage2WorkshopBuildStatus.Unavailable : IsPlacing ? Stage2WorkshopBuildStatus.Placing : Stage2WorkshopBuildStatus.Ready;
         public bool NearEntrance => IsBuilt && scene != null &&
@@ -136,7 +136,7 @@ namespace Not3A.Stage3.VisualPilot
             if (!map.Contains(cellAtEntrance) || !map.IsWalkable(cellAtEntrance) ||
                 DistanceTo(area, entrance) < scene.PlayerMover.CollisionRadius ||
                 obstacles.IsBlocked(entrance, scene.PlayerMover.CollisionRadius)) return DwellingPlacementResult.Occupied;
-            return game.Gathering.Economy.Inventory.CanAfford(catalog.woodCost, 0, 0, 0) ?
+            return game.Gathering.Economy.Inventory.CanAfford(catalog.woodCost, catalog.stoneCost, 0, 0) ?
                 DwellingPlacementResult.Ready : DwellingPlacementResult.InsufficientResources;
         }
 
@@ -146,7 +146,7 @@ namespace Not3A.Stage3.VisualPilot
             if (result != DwellingPlacementResult.Ready) return PreviewResult = result;
             point = Snap(point);
             if (!presentation.PrepareBuild(point)) return PreviewResult = DwellingPlacementResult.CreationFailed;
-            if (!game.Gathering.Economy.Inventory.TrySpend(catalog.woodCost, 0, 0, 0))
+            if (!game.Gathering.Economy.Inventory.TrySpend(catalog.woodCost, catalog.stoneCost, 0, 0))
             { presentation.CancelPreparedBuild(); return PreviewResult = DwellingPlacementResult.InsufficientResources; }
             Position = point; builtObstacle = FootprintAt(point); obstacles.AddRectangle(builtObstacle); IsBuilt = true;
             presentation.CompleteBuild(); CancelPlacement(); requiresRelease = true;

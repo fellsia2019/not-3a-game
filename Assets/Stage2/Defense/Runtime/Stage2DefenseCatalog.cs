@@ -40,6 +40,8 @@ namespace Not3A.Stage2.Defense
         [SerializeField, Min(0)] private float splashRadiusCells;
         [SerializeField, Min(0)] private float projectileFlightSeconds;
         [SerializeField] private Stage2TowerUpgrade[] upgrades = Array.Empty<Stage2TowerUpgrade>();
+        [SerializeField] private bool unlimitedUpgrades;
+        [SerializeField] private bool allowMerging = true;
 
         public Stage2Tower TowerPrefab => towerPrefab;
         public string RoleName => roleName;
@@ -55,12 +57,37 @@ namespace Not3A.Stage2.Defense
         public float SplashRadiusCells => splashRadiusCells;
         public float ProjectileFlightSeconds => projectileFlightSeconds;
         public Stage2ResourceCost BuildCost => new Stage2ResourceCost(woodCost, stoneCost, metalCost, goldCost);
-        public int MaximumLevel => 1 + (upgrades?.Length ?? 0);
+        public bool UnlimitedUpgrades => canAttack && unlimitedUpgrades;
+        public bool AllowMerging => canAttack && allowMerging;
+        public int MaximumLevel => !canAttack ? 1 : UnlimitedUpgrades ? int.MaxValue : 1 + (upgrades?.Length ?? 0);
         public bool TryGetUpgrade(int currentLevel, out Stage2TowerUpgrade upgrade)
         {
             upgrade = default;
             if (currentLevel < 1 || currentLevel >= MaximumLevel) return false;
-            upgrade = upgrades[currentLevel - 1];
+            var count = upgrades?.Length ?? 0;
+            if (currentLevel <= count) { upgrade = upgrades[currentLevel - 1]; return true; }
+            if (!UnlimitedUpgrades || count == 0) return false;
+            // Continue the last authored increase, keeping range/cadence unchanged.
+            // Long arithmetic rejects unrepresentable transactions before any payment.
+            var last = upgrades[count - 1];
+            var previous = count > 1 ? upgrades[count - 2] :
+                new Stage2TowerUpgrade(BuildCost, towerHealth, attackRange, fireInterval, attackDamage);
+            var steps = currentLevel - count;
+            bool Extend(int value, int before, out int result)
+            {
+                var next = value + ((long)value - before) * steps;
+                result = 0;
+                if (next < 0 || next > int.MaxValue) return false;
+                result = (int)next; return true;
+            }
+            if (!Extend(last.Cost.Wood, previous.Cost.Wood, out var wood) ||
+                !Extend(last.Cost.Stone, previous.Cost.Stone, out var stone) ||
+                !Extend(last.Cost.Metal, previous.Cost.Metal, out var metal) ||
+                !Extend(last.Cost.Gold, previous.Cost.Gold, out var gold) ||
+                !Extend(last.Health, previous.Health, out var health) ||
+                !Extend(last.Damage, previous.Damage, out var damage)) return false;
+            upgrade = new Stage2TowerUpgrade(new Stage2ResourceCost(wood, stone, metal, gold),
+                health, last.Range, last.Interval, damage);
             return true;
         }
         public void ConfigureUpgrades(params Stage2TowerUpgrade[] tiers)
@@ -103,6 +130,17 @@ namespace Not3A.Stage2.Defense
             foreach (var upgrade in upgrades ?? Array.Empty<Stage2TowerUpgrade>())
                 if (!upgrade.IsValid(canAttack))
                 { reason = "Upgrade rows require positive prices/health, finite attack values and role-compatible damage."; return false; }
+            if (UnlimitedUpgrades)
+            {
+                reason = "Unlimited upgrades require an authored final nondecreasing cost/stat increase.";
+                if (upgrades == null || upgrades.Length == 0) return false;
+                var last = upgrades[upgrades.Length - 1];
+                var previous = upgrades.Length > 1 ? upgrades[upgrades.Length - 2] :
+                    new Stage2TowerUpgrade(BuildCost, towerHealth, attackRange, fireInterval, attackDamage);
+                if (last.Health <= previous.Health || last.Damage <= previous.Damage ||
+                    last.Cost.Wood < previous.Cost.Wood || last.Cost.Stone < previous.Cost.Stone ||
+                    last.Cost.Metal < previous.Cost.Metal || last.Cost.Gold < previous.Cost.Gold) return false;
+            }
             reason = string.Empty;
             return true;
         }

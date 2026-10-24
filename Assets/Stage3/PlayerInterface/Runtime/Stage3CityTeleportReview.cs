@@ -28,7 +28,7 @@ namespace Not3A.Stage3.PlayerInterface
             camera.transform.position=(Vector3)(travel.CityPresentation.MerchantPosition+Vector2.up*2f)-camera.transform.forward*30f;
             yield return Shot(directory,"merchant-shop");
             scene.PlayerMover.transform.position=travel.BasePosition;yield return null;
-            owner.GetComponent<Stage2GameHud>().SelectWorkshop();
+            game.Gathering.Economy.Inventory.TryAdd(Not3A.Stage2.Map.MapResourceKind.Wood,travel.WorkshopWoodCost);game.Gathering.Economy.Inventory.TryAdd(Not3A.Stage2.Map.MapResourceKind.Stone,travel.WorkshopStoneCost);owner.GetComponent<Stage2GameHud>().SelectWorkshop();
             var build=travel.TryBuildWorkshopAt(travel.WorkshopPosition);
             if(build!=WorkshopPlacementResult.Built)throw new InvalidOperationException("QA workshop build failed: "+build+" at "+travel.WorkshopPosition+" placing="+travel.IsPlacingWorkshop+" blocked="+game.PlayerInputBlocked);
             scene.PlayerMover.transform.position=travel.WorkshopInteractionPosition;

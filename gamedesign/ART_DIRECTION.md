@@ -1,5 +1,156 @@
 # Art Direction
 
+## D129/D130 established-art action readability — locally qualified2026-10-24
+
+Use compact assignment cells matching the existing ribbon, contained autocast A
+marks and measured details. Unknown staff is obscured/desaturated without title/
+inspection. Native RETURNs corrected weak grass-on-green poison, sparse outline
+fire and ground-piled statuses: bright dark-outlined upper-body poison; broader
+orange ember/core patches; actual projected actor bounds separate lower ice,
+above-head stun and opposite vulnerability guards. No copied movie art or new
+raster source. Final15changed v3 plus30reused v1UI receive Astra localPASS;
+clean isolated effect snapshots do not imply fire applies ice/poison. Prior
+RETURNs remain in art/source/active_actions_2026-10-23_native_review.json. Owner
+appearance acceptance and Windows remain separate. D128 compact v2PASS retained.
+
+## D128 current owner sizing and surface correction — 2026-10-23
+
+The owner supersedes the large D127 servicebar size: quick and navigation
+controls should be roughly half, approximately skill-medallion scale. Preserve
+painted materials and shaped edges with smaller contained readable badges.
+Modal navigation must keep one ivory surface, with a restrained silver hover
+and cyan active edge; no additional opaque purple rectangle. Multiline labels
+must fit. Minimap terrain must not leak outside its hoop, nor be obscured by a
+bulky foreground ornament. Resource/day terminal joins blend into the cornice
+without vertical cutoffs. This is a direct requested correction of existing art,
+not a new appearance proposal; Astra implements and native-verifies it.
+
+## D127 owner RETURN supersedes native-v2 appearance claim — 2026-10-23
+
+Primary reference is art/concepts/hud_polish_2026-10-23/hud_polish_v1.png;
+owner_selected_hud_reference is corroborating history. Match the sculpted
+connected ribbon, approximately 32/23/45 quick/quiet/navigation width, its
+relative height, large round flask family, shaped luminous silver/cyan/red
+states and stronger plum typography. No hard generic panel substitute, small
+lower-left legacy flask or one-pixel rectangular active box is equivalent.
+A small deliberate count overlap at the flask's lower-right corner is part of
+the selected reference; shrinking the flask to satisfy a zero-rectangle-overlap
+heuristic was wrong. Keys remain clear, contained and readable. New HUD flask
+renditions retain item identities; inventory/trade artwork is outside this repair.
+All construction hover popups are forbidden: actual stats, description, placement,
+shortage and contextual hints belong in the inspected left panel. Non-building
+labels use a compact measured smoke-plum treatment. Compare actual native pixels
+with the source, including proportions/material/state; geometry checks alone
+cannot qualify visual fidelity. Astra owns implementation and review.
+
+Correction locally qualified: four original source PNGs are imported unchanged;
+rejected atlas interiors are excluded by edge-only source windows. Astra closed
+six defects after39 v1 inspections and21 changed v2 frames at720/900/1080, reusing
+18 unchanged layouts. V1 weak-colour/bevel RETURN is preserved. Native PASS is
+scoped reference qualification, not owner acceptance. Source/prompts/provenance:
+art/source/hud_reference_repair_2026-10-23_generation.json. Native review:
+art/source/hud_reference_repair_2026-10-23_native_review.json.
+
+
+## D127 — servicebar/reference and construction feedback,2026-10-23
+
+Latest owner explicitly selects hud_polish_v1 shared left building-information
+panel in Construction; normal hero dock stays. The per-card alternative is
+historical. Exact quickleft/navright reference material and spacing matter:
+light segmented service ribbon, standalone painted navigation pictograms with
+inset ivory keycaps, padded bottles and independent contained plum F/count badges.
+EmptyF4 has only its key, no plus/count/CD/hover or actionpulse. Actual successful
+assigned use gets a brief cyan edgepulse; refusal gets red; hover light silver.
+Unfunded build art stays full-colour in pale coral well with ruby roundalert and
+actual shortage sentence. Shared cost/deficit footer heights prevent reflow.
+Three knowncards and categoriesbelow remain. All new original bitmap source,
+prompts and rights provenance:art/source/hud_polish_2026-10-23_generation.json.
+Astra implements and compares native720/900/1080; concept approval does not prove
+native fidelity or owner acceptance of final pixels. All30v2nativeframes at
+720/900/1080 nowreceiveAstraPASS. V1RETURNoverlap/tinyicons/grammar retained;
+final76pxquicktiles/90pxribbon andlargernav provezerobottle/badgealphaintersections.
+Report:art/source/hud_polish_2026-10-23_native_review.json; nativequalification
+is not a finalowneracceptance statement.
+
+
+## D126 weapon reference-fidelity correction —2026-10-23
+
+Owner returns native flat-grey empty slot/flat switch and missing ornaments.
+Use the selected reference material:muted smoke-plum/pearl gradient with fine
+engraving in empty slot;painted shaped plum switch/thin silver-brass bevel and
+separate ivory Z keycap. Four emerald/cyan cardinal diamonds belong ONLY to
+actual active weapon;inactive/empty rims stay plain. Thin rims,50%overlap and
+brief turn stay;equipped backgrounds still show actual D097quality. New v3 board
+consolidates explicit owner corrections. Original production atlas is recorded
+in art/source/weapon_fidelity_2026-10-23_generation.json. Astra owns native match;
+prior local36framePASS was not owner appearance acceptance.
+Astra's final material/reference qualification passes18native weapon-state
+frames at720/900/1080,including peak turn. First15frame RETURN WF-01 (lower
+staff gem/caption overlap) is retained;the active disc now rises through its
+short arc,leaving caption clearance. Actual image sprites are byte-identical
+source atlas parts with measured UV and native lettering. Evidence:
+art/source/weapon_fidelity_2026-10-23_verification.json. Windows/continuous
+motion remain unqualified by static frames;owner native acceptance is not inferred.
+
+## D126 — owner correction,2026-10-23
+
+Owner reopens the local bow/staff/Z appearance. Proposed original ImageGen
+weapon_switch_v1 uses two round medallions and one physically joined plum
+Z · Сменить footer, with fixed empty-staff geometry. Actual equipment ownership,
+quality colors and active state remain authoritative. No new weapon grants.
+Owner then accepts this direction with explicit corrections: thin rims,
+50%horizontal overlap,active disc in front with brief turning/depth exchange.
+weapon_switch_v2 records the correction; exact owner geometry wins over the
+illustrative spacing. Astra owns native implementation and review.
+Provenance:art/source/hud_weapon_switch_2026-10-23_generation.json.
+
+Existing-style bug fixes proceed: omit level plates for buildings without
+upgrade capability, measure full hover text with padding and draw it after
+all normal panels. F10 functional rows reuse the current developer-menu style.
+Astra native implementation is locally Mac-qualified:36explicit reviewed frames
+(17v4+19v6) at720/900/1080, with the compact-footer RETURN corrected. Report:
+art/source/hud_corrections_2026-10-23_native_review.json. No new runtime bitmap,
+scene/Inspector wiring or art GUID migration. Windows remains unverified.
+
+## D124 — whole HUD and window refactor, active 2026-10-22
+
+Owner reopens the old HUD/control appearance. Preserve the Lunar Porcelain
+material identity while redesigning layout, iconography, construction tiles,
+padding, inventory/trade feedback and the shared development template.
+Lower world navigation has icons/key badges only; hover carries names.
+NEVER use a generic account/person silhouette in game UI. A repeated HUD
+portrait for Player was also rejected. Owner selected the original crossed
+bow/staff with a thin crescent, navigation study variant1. Earlier A1/A2/A3
+boards are returned/superseded proposals, not native-implementation references.
+
+Latest brief: horizontal F1–F4 left and six navigation icons right, explicit
+Player return distinct from O; construction max3 visible known cards with
+contextual1–3/paging/Shift-repeat, centred flowing material prices and hidden weapon
+previews only in that mode; Alt chevron/green-red actual upgrade badges;
+shared light control family with separate hover/selection/quality; consistent
+development/header/detail spacing. Original ImageGen upgrade storyboard explores
+gold footprint-perimeter/rising ribbons/fade, centre and neighbours readable.
+Do not replace building tiers, invent reward numbers or add impact audio.
+LVL plaques need actual silver engraving/pattern and a quiet dark readable
+number field, never a flat white rectangle. Adventurer is now an owner-requested
+five-node tree with two working world-combat passives, clean orthogonal links
+and unchanged three original reward talents; the earlier three-node board is
+superseded. Owner subsequently approves implementation, choosing the FIRST HUD
+composition over construction_v8: servicebar quick items left/nav right only,
+categories below above the3cards. Prices centre actual resource components and
+wrap by measured width; fixed2×2empty slots are rejected. Player has Tab badge.
+The common development/inventory/trade/silver-LVL/gold-upgrade boards guide the
+approved native implementation. Astra owns native work/review; main integrates
+rules and supplies original ImageGen sources, including the new runtime atlas.
+Native720/900/1080qualification completed2026-10-23: Astra PASS on38explicit
+frames (9v5+29v4 reused), with RETURN history and scope in
+art/source/hud_refactor_2026-10-22_native_review.json. Windows remains unverified. D125 adds5-rank indicators
+for strength/tempo/adventure and two real capstone nodes after StrengthV.
+Branch/category state is light inactive versus plum active. Unfunded cards
+retain visible art with soft red warning/alert/price; completed singleton cards
+are neutral. UI-only measured production alpha crops preserve source pixels
+and world pivots. Near-footprint upgrade light avoids a rear base over the facade.
+
 ## D120 — implemented mixed weapon tree and loadout,2026-10-22
 
 Owner approved hero_tree_v1/hud_v2/equipment_v2 and the5+5composition. Preserve

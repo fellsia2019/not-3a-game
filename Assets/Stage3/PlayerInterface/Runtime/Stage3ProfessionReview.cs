@@ -25,6 +25,10 @@ namespace Not3A.Stage3.PlayerInterface
             var xp = 40;
             for (var level = 1; level < 20; level++) xp += driver.Catalog.RequiredXp(level);
             // Declared QA awards for approved-layout review, never a normal-player balance change.
+            var hero = owner.GetComponent<Stage2HeroProgressionDriver>();
+            var heroXp = 0;
+            for (var level = 1; level < 8; level++) heroXp += hero.Catalog.RequiredXp(level);
+            hero.Rules.AwardExperience(heroXp);
             driver.Rules.AwardMaterial(MapResourceKind.Stone, xp);
             driver.Rules.AwardMaterial(MapResourceKind.Wood, 125);
             driver.Rules.TryUpgrade(Stage2Profession.Miner, Stage2ProfessionTalent.Strength);

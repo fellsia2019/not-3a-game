@@ -51,7 +51,8 @@ namespace Not3A.Stage3.VisualPilot.Tests
         {
             var index = Enumerable.Range(0, production.Rules.Points.Count).First(i => production.Rules.Points[i].Building == kind);
             scene.PlayerMover.transform.position = production.Rules.Points[index].Position + Vector2.one * 5;
-            production.SelectAndBeginPlacement(kind);
+            Stage3TestCycle.StudyBlueprint(game, Stage2BlueprintCatalog.ForProduction(kind));
+                production.SelectAndBeginPlacement(kind);
             Assert.That(production.TryBuildAt(index), Is.EqualTo(ProductionPlacementResult.Built));
             return production.Rules.Buildings.Last();
         }

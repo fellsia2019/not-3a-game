@@ -5,7 +5,8 @@ namespace Not3A.Stage3.VisualPilot
     [CreateAssetMenu(menuName = "Not 3A/Stage 3/Dwelling")]
     public sealed class Stage3DwellingCatalog : ScriptableObject
     {
-        public int woodCost = 10;
+        public int woodCost = 20;
+        public int stoneCost = 20;
         public Vector2 footprint = new Vector2(3.2f, 2f);
         public Vector2 entranceOffset = new Vector2(.65f, -1.4f);
         public float interactionRadius = 1.4f;
@@ -15,7 +16,7 @@ namespace Not3A.Stage3.VisualPilot
 
         public bool TryValidate(out string reason)
         {
-            if (woodCost <= 0 || !Positive(footprint.x) || !Positive(footprint.y) ||
+            if (woodCost <= 0 || stoneCost < 0 || !Positive(footprint.x) || !Positive(footprint.y) ||
                 !Positive(interactionRadius) || !Positive(worldWidth) ||
                 !Finite(entranceOffset.x) || !Finite(entranceOffset.y) || sprite == null || material == null)
             {

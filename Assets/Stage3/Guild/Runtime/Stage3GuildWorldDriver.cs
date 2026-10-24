@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Not3A.Stage2.Integration;
 using Not3A.Stage2.Map;
 using UnityEngine;
+using Not3A.Stage2.WavesAI;
 
 namespace Not3A.Stage3.VisualPilot
 {
@@ -12,10 +13,13 @@ namespace Not3A.Stage3.VisualPilot
     {
         public float KillExperienceBonus {get;set;}
         private float killExperienceFraction;
+        public float WorldDamageBonus {get;set;}
+        private float worldDamageFraction;
         private sealed class Actor
         { public Stage2GuildEnemy Rules;public Stage3GuildEnemyVisual Visual;public float Corpse; }
         private sealed class Shot
-        { public Stage2GuildEnemy Target;public int Damage;public float Remaining;public Vector2 Origin; }
+        {
+            public Stage2DamageSchool School; public Stage2GuildEnemy Target;public int Damage;public float Remaining;public Vector2 Origin; }
         private readonly List<Actor> actors=new List<Actor>();
         private readonly List<Shot> shots=new List<Shot>();
         private readonly Vector2[] spots=new Vector2[2];
@@ -54,7 +58,7 @@ namespace Not3A.Stage3.VisualPilot
             if(combat!=null)combat.TargetingOverride=LaunchNearest;
             game.RunDriver.Run.Reset+=RequestReset;resetPending=true;
         }
-        private void RequestReset(){guild.Reset();killExperienceFraction=0;resetPending=true;}
+        private void RequestReset(){guild.Reset();killExperienceFraction=worldDamageFraction=0;resetPending=true;}
         private bool Valid(Vector2 p,float radius)
         {
             var map=scene.MapDefinition;var cell=map.WorldToCell(p);
@@ -146,7 +150,7 @@ namespace Not3A.Stage3.VisualPilot
             for(var i=shots.Count-1;i>=0;i--)
             {
                 var shot=shots[i];shot.Remaining-=elapsed;if(shot.Remaining>0)continue;
-                shots.RemoveAt(i);Damage(shot.Target,shot.Damage);
+                shots.RemoveAt(i);DamageWithSchool(shot.Target,shot.Damage,shot.School);
             }
             // Detect the whole pack before ticking movement; list order never delays allies.
             var heroPosition=(Vector2)scene.PlayerMover.transform.position;
@@ -176,15 +180,23 @@ namespace Not3A.Stage3.VisualPilot
                 var unit=a.Rules;if(!unit.Alive)continue;var d=(unit.Position-origin).sqrMagnitude;
                 if(d>best||d==best&&(portal!=null||selected!=null))continue;selected=unit;best=d;
             }
-            if(selected==null)return game.Enemies.TryHitNearest(origin,range,damage,splash,flight);
+            if(selected==null)return game.Enemies.TryHitNearest(origin,range,damage,splash,flight,combat.DamageSchool);
             avatar?.NotifyExplorationShot(origin,selected.Position);ShotLaunched?.Invoke(origin,selected.Position,flight);
-            if(flight<=0)Damage(selected,damage);else shots.Add(new Shot{Target=selected,Damage=damage,Remaining=flight,Origin=origin});
+            if(flight<=0)DamageWithSchool(selected,damage,combat.DamageSchool);else shots.Add(new Shot{Target=selected,Damage=damage,School=combat.DamageSchool,Remaining=flight,Origin=origin});
             return true;
         }
-        public bool Damage(Stage2GuildEnemy target,int amount)
+        public bool Damage(Stage2GuildEnemy target,int amount)=>DamageWithSchool(target,amount,Stage2DamageSchool.Physical);
+        public bool DamageWithSchool(Stage2GuildEnemy target,int amount,Stage2DamageSchool school)
         {
-            if(target==null||!enemyView.Contains(target))return false;
-            var before=target.Health;if(!target.TakeDamage(amount))return false;
+            if(target==null||!target.Alive||amount<=0||!enemyView.Contains(target))return false;
+            // This endpoint receives world hits only; portal damage never passes here.
+            // Carry fractions so a low-damage starter still earns its percentage bonus.
+            var bonus=float.IsFinite(WorldDamageBonus)?Mathf.Clamp(WorldDamageBonus,0,.5f):0;
+            if(bonus==0)worldDamageFraction=0;
+            var exactDamage=(double)amount*(1+bonus)+worldDamageFraction;
+            var damage=(int)Math.Min(int.MaxValue,Math.Floor(exactDamage+.00001));
+            var before=target.Health;if(!target.TakeDamage(damage,school))return false;
+            worldDamageFraction=exactDamage>=int.MaxValue?0:(float)Math.Max(0,exactDamage-damage);
             Damaged?.Invoke(target,before-target.Health);
             AlertCamp(target); // Even a lethal first shot alerts its surviving camp mates.
             if(!target.Alive)

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Not3A.Stage2.Economy
 {
-    public enum ProductionPlacementResult { NotPlacing, Ready, Built, Inactive, InvalidPoint, WrongType, Occupied, HeroBlocked, InsufficientResources, MissingVisual, InvalidFootprint }
+    public enum ProductionPlacementResult { NotPlacing, Ready, Built, Inactive, InvalidPoint, WrongType, Occupied, HeroBlocked, InsufficientResources, MissingVisual, InvalidFootprint, ResearchRequired }
     public enum ProductionUpgradeResult { Ready, Upgraded, Inactive, InvalidBuilding, MaximumLevel, InsufficientResources }
     public sealed class Stage2ProductionBuilding
     {
@@ -47,6 +47,7 @@ namespace Not3A.Stage2.Economy
         private readonly IReadOnlyList<Stage2ProductionBuilding> buildingView;
         private bool active;
         private bool purchasing;
+        private Func<ResourceProductionBuilding, bool> buildingAvailable;
         public Stage2Production(Stage2ProductionCatalog catalog, Stage2Inventory inventory)
         {
             if (catalog == null || !catalog.TryValidate(out _)) throw new ArgumentException("Invalid production catalog.");
@@ -56,6 +57,9 @@ namespace Not3A.Stage2.Economy
         }
         public IReadOnlyList<ResourceProductionPoint> Points => pointView;
         public IReadOnlyList<Stage2ProductionBuilding> Buildings => buildingView;
+        public bool IsBuildingAvailable(ResourceProductionBuilding kind) => kind >= ResourceProductionBuilding.Sawmill &&
+            kind <= ResourceProductionBuilding.IronMine && (buildingAvailable?.Invoke(kind) ?? true);
+        public void SetBuildingAvailability(Func<ResourceProductionBuilding, bool> available) => buildingAvailable = available;
         public Snapshot CaptureSnapshot()
         {
             var saved = new BuildingState[buildings.Count];
@@ -112,6 +116,7 @@ namespace Not3A.Stage2.Economy
             if (index < 0 || index >= points.Length) return ProductionPlacementResult.InvalidPoint;
             var point = points[index];
             if (!point.Accepts(kind)) return ProductionPlacementResult.WrongType;
+            if (!IsBuildingAvailable(kind)) return ProductionPlacementResult.ResearchRequired;
             if (IsOccupied(index)) return ProductionPlacementResult.Occupied;
             var entry = catalog.Get(kind);
             if (!entry.IsValid) return ProductionPlacementResult.MissingVisual;

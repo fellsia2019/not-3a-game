@@ -33,6 +33,58 @@ namespace Not3A.Stage2.Economy.Tests
                 map.WorldToCell(position), position, size, 1f);
         }
 
+        [TestCase(MapResourceKind.Stone,Stage2ResourceSize.Medium,35,35,1)]
+        [TestCase(MapResourceKind.Stone,Stage2ResourceSize.Large,120,6,0)]
+        [TestCase(MapResourceKind.Stone,Stage2ResourceSize.Small,5,5,0)]
+        [TestCase(MapResourceKind.Metal,Stage2ResourceSize.Medium,35,6,0)]
+        public void MiningCapstoneFinishesOnlyMediumStoneAndCreditsActualStock(MapResourceKind kind,Stage2ResourceSize size,
+            int capacity,int expected,int expectedRolls)
+        {
+            var rolls=0;var model=new Stage2Economy(map,catalog,()=>{rolls++;return .05;});
+            model.SetManualProfessionStats(5,5,1,1,1,1);model.SetManualCapstoneChances(.1f,.1f);
+            var node=Node(kind,size,capacity,Vector2.right*3);model.ReplaceAdditionalNodes(new[]{node});
+            var facts=0;var strikes=0;model.Gathered+=(_,amount)=>facts+=amount;model.NodeGathered+=_=>strikes++;
+            Assert.That(model.AdvanceGather(node,node.WorldPosition,true,.4f,true),Is.False);Assert.That(rolls,Is.Zero);
+            Assert.That(model.AdvanceGather(node,node.WorldPosition,true,.4f,true),Is.True);
+            Assert.That(model.Inventory.Get(kind),Is.EqualTo(expected));Assert.That(facts,Is.EqualTo(expected));
+            Assert.That(node.Remaining,Is.EqualTo(capacity-expected));Assert.That(strikes,Is.EqualTo(1));Assert.That(rolls,Is.EqualTo(expectedRolls));
+            if(node.IsDepleted)
+            {
+                Assert.That(node.RecoveryRemaining,Is.EqualTo(node.RecoverySeconds));
+                Assert.That(model.AdvanceGather(node,node.WorldPosition,true,10,true),Is.False);Assert.That(facts,Is.EqualTo(expected));
+            }
+        }
+        [Test] public void LoggingCapstoneTakesExactlyOneExtraInRangeTreeWithoutChainOrReentrantHarvest()
+        {
+            var rolls=0;var model=new Stage2Economy(map,catalog,()=>{rolls++;return 0;});
+            model.SetManualProfessionStats(5,5,1,1,1,1);model.SetManualCapstoneChances(.1f,.1f);
+            var first=Node(MapResourceKind.Wood,Stage2ResourceSize.Small,5,Vector2.right*3);
+            var second=Node(MapResourceKind.Wood,Stage2ResourceSize.Small,5,Vector2.right*3.3f);
+            var third=Node(MapResourceKind.Wood,Stage2ResourceSize.Small,5,Vector2.right*3.6f);
+            var distant=Node(MapResourceKind.Wood,Stage2ResourceSize.Small,5,Vector2.up*20);
+            model.ReplaceAdditionalNodes(new[]{first,second,third,distant});
+            var grants=0;var actual=0;var nested=false;
+            model.ResourceGranted+=(_,amount)=>{grants++;actual+=amount;};
+            model.Inventory.Changed+=()=>nested|=model.AdvanceGather(third,third.WorldPosition,true,1,true);
+            Assert.That(model.AdvanceGather(first,first.WorldPosition,true,.8f,true),Is.True);
+            Assert.That(first.IsDepleted&&second.IsDepleted,Is.True);Assert.That(third.Remaining,Is.EqualTo(5));
+            Assert.That(distant.Remaining,Is.EqualTo(5));Assert.That(rolls,Is.EqualTo(1));Assert.That(nested,Is.False);
+            Assert.That(grants,Is.EqualTo(2));Assert.That(actual,Is.EqualTo(10));Assert.That(model.Inventory.Get(MapResourceKind.Wood),Is.EqualTo(10));
+        }
+        [Test] public void CapstoneRollFailureAndFullWalletCannotConsumeHiddenStock()
+        {
+            var rolls=0;var model=new Stage2Economy(map,catalog,()=>{rolls++;return .9;});
+            var node=Node(MapResourceKind.Stone,Stage2ResourceSize.Medium,35,Vector2.right*3);model.ReplaceAdditionalNodes(new[]{node});
+            model.SetManualProfessionStats(5,5,1,1,1,1);model.SetManualCapstoneChances(.1f,.1f);
+            Assert.That(model.AdvanceGather(node,node.WorldPosition,true,.8f,false),Is.False);
+            Assert.That(model.AdvanceGather(node,node.WorldPosition+Vector2.up*50,true,.8f,true),Is.False);
+            Assert.That(rolls,Is.Zero);
+            Assert.That(model.AdvanceGather(node,node.WorldPosition,true,.8f,true),Is.True);Assert.That(node.Remaining,Is.EqualTo(29));
+            Assert.That(model.Inventory.TryAdd(MapResourceKind.Stone,int.MaxValue-6),Is.True);
+            Assert.That(model.AdvanceGather(node,node.WorldPosition,true,.8f,true),Is.False);
+            Assert.That(node.Remaining,Is.EqualTo(29));Assert.That(rolls,Is.EqualTo(1));
+        }
+
         [TestCase(Stage2ResourceSize.Small, 5)]
         [TestCase(Stage2ResourceSize.Medium, 35)]
         [TestCase(Stage2ResourceSize.Large, 120)]

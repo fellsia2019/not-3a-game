@@ -1,0 +1,240 @@
+{
+  "decision": "D126",
+  "date": "2026-10-23",
+  "status": "LOCAL_MAC_QUALIFIED",
+  "baseline": "art/source/hud_refactor_2026-10-22_verification.json",
+  "scope": [
+    "F10 XP and hero-level grants using actual AwardExperience and shared points",
+    "Capability-based building level visibility and selected subtitles",
+    "Measured foreground capstone tooltip"
+  ],
+  "playmode": {
+    "result": "20 unique latest PASS,0 FAIL,1 explicit headless viewport SKIP",
+    "xml": "Artifacts/HUD-CORRECTIONS-2026-10-23/playmode-functional.xml",
+    "log": "Artifacts/HUD-CORRECTIONS-2026-10-23/playmode-functional.log",
+    "cases": [
+      {
+        "name": "Not3A.Stage3.VisualPilot.Tests.Stage3HeroLoadoutPresentationTests.ActualTreeCaptionBandsDoNotIntersectNodesOrOtherCaptions",
+        "result": "Skipped",
+        "evidence": "playmode-final.xml"
+      },
+      {
+        "name": "Not3A.Stage3.VisualPilot.Tests.Stage3HeroLoadoutPresentationTests.ElevenSkillSlotsAndFourConsumablesRemainSeparateInsideDock",
+        "result": "Passed",
+        "evidence": "playmode-final.xml"
+      },
+      {
+        "name": "Not3A.Stage3.VisualPilot.Tests.Stage3HeroLoadoutPresentationTests.MixedTreeHasDistinctCommonNodesAndSelectionOwnsUpgradeButton",
+        "result": "Passed",
+        "evidence": "playmode-final.xml"
+      },
+      {
+        "name": "Not3A.Stage3.VisualPilot.Tests.Stage3HeroLoadoutPresentationTests.ModalRejectsNewImpactsPauseFreezesAndDisableClears",
+        "result": "Passed",
+        "evidence": "playmode-final.xml"
+      },
+      {
+        "name": "Not3A.Stage3.VisualPilot.Tests.Stage3HeroLoadoutPresentationTests.SkillAtlasUsesDistinctMeasuredBoundsRatherThanClippedUniformRows",
+        "result": "Passed",
+        "evidence": "playmode-final.xml"
+      },
+      {
+        "name": "Not3A.Stage3.VisualPilot.Tests.Stage3HeroLoadoutPresentationTests.SkillImpactsAreBoundedIgnoreMalformedInputAndClearWithRunReset",
+        "result": "Passed",
+        "evidence": "playmode-final.xml"
+      },
+      {
+        "name": "Not3A.Stage3.VisualPilot.Tests.Stage3HeroLoadoutPresentationTests.StaffProjectileAppearanceIsCapturedAtReleaseForPortalAndGuildShots",
+        "result": "Passed",
+        "evidence": "playmode-final.xml"
+      },
+      {
+        "name": "Not3A.Stage3.VisualPilot.Tests.Stage3HeroLoadoutPresentationTests.TooltipLongContentAndEdgeAnchorsStayInsideAllNativeViewports",
+        "result": "Passed",
+        "evidence": "playmode-final.xml"
+      },
+      {
+        "name": "Not3A.Stage3.VisualPilot.Tests.Stage3HeroProgressionTests.ApprovedLevelUpCombinesAwardsFreezesWithoutRestartAndNeverBlocksBlink",
+        "result": "Passed",
+        "evidence": "playmode-functional.xml"
+      },
+      {
+        "name": "Not3A.Stage3.VisualPilot.Tests.Stage3HeroProgressionTests.BlinkChecksFootprintBuildingsPauseAndUiAndKeepsDebugMovementSeparate",
+        "result": "Passed",
+        "evidence": "playmode-functional.xml"
+      },
+      {
+        "name": "Not3A.Stage3.VisualPilot.Tests.Stage3HeroProgressionTests.DebugExperienceAndLevelsUseActualProgressionAndAwardNormalSharedPoints",
+        "result": "Passed",
+        "evidence": "playmode-final.xml"
+      },
+      {
+        "name": "Not3A.Stage3.VisualPilot.Tests.Stage3HeroProgressionTests.DebugProgressionRejectsInvalidOrDisabledGrantsAndStopsAtTheRealLevelCap",
+        "result": "Passed",
+        "evidence": "playmode-final.xml"
+      },
+      {
+        "name": "Not3A.Stage3.VisualPilot.Tests.Stage3HeroProgressionTests.DebugWtfUsesActualDriverAndHudAndCannotBypassPauseOrBlockedLanding",
+        "result": "Passed",
+        "evidence": "playmode-functional.xml"
+      },
+      {
+        "name": "Not3A.Stage3.VisualPilot.Tests.Stage3HeroProgressionTests.FailedWaveKeepsCurrentXpPointsRanksCooldownAndPersonalStatsWithoutAwardEvents",
+        "result": "Passed",
+        "evidence": "playmode-functional.xml"
+      },
+      {
+        "name": "Not3A.Stage3.VisualPilot.Tests.Stage3HeroProgressionTests.FiveActualTimedHordesAwardOneXpPerConfirmedKillAndStayBelowLevelEleven",
+        "result": "Passed",
+        "evidence": "playmode-functional.xml"
+      },
+      {
+        "name": "Not3A.Stage3.VisualPilot.Tests.Stage3HeroProgressionTests.HeroAndTowerKillsAwardOnceGloballyButDespawnAndArrivalDoNot",
+        "result": "Passed",
+        "evidence": "playmode-functional.xml"
+      },
+      {
+        "name": "Not3A.Stage3.VisualPilot.Tests.Stage3HeroProgressionTests.HudReflectsProgressAndKeyboardBlinkCastsToWorldCursor",
+        "result": "Passed",
+        "evidence": "playmode-functional.xml"
+      },
+      {
+        "name": "Not3A.Stage3.VisualPilot.Tests.Stage3HeroProgressionTests.LiveManaMatchesHudFreezesOnPauseAndCurrentRetryDoesNotRefundBlink",
+        "result": "Passed",
+        "evidence": "playmode-functional.xml"
+      },
+      {
+        "name": "Not3A.Stage3.VisualPilot.Tests.Stage3PlayerInterfaceTests.WorkshopSelectionClearsForResearchWithoutBuyingAndLifecycleRequiresFreshClicks",
+        "result": "Passed",
+        "evidence": "playmode-functional.xml"
+      },
+      {
+        "name": "Not3A.Stage3.VisualPilot.Tests.Stage3HeroLoadoutCombatTests.DigitKeysBelongToHeroSkillsAndNeverOpenConstruction",
+        "result": "Passed",
+        "evidence": "playmode-final.xml"
+      },
+      {
+        "name": "Not3A.Stage3.VisualPilot.Tests.Stage3HeroLoadoutCombatTests.F3ConsumesMixedPotionAndF10AloneOpensDebug",
+        "result": "Passed",
+        "evidence": "playmode-final.xml"
+      }
+    ],
+    "latest_xml": "Artifacts/HUD-CORRECTIONS-2026-10-23/playmode-final.xml",
+    "after_footer_fix": "Footer-only slice/inset correction and QA fixture changes are compiled/native verified; gameplay suite not repeated without gameplay changes."
+  },
+  "build": {
+    "path": "Builds/MacHudCorrections/Not3AHudCorrections.app",
+    "result": "Succeeded",
+    "reported_bytes": 799565960,
+    "log": "Artifacts/HUD-CORRECTIONS-2026-10-23/build-final-v4.log",
+    "managed_sha256": {
+      "Builds/MacHudCorrections/Not3AHudCorrections.app/Contents/Resources/Data/Managed/Assembly-CSharp.dll": "6c1a647ee1d8745a99f9842f2a9b2448e50619f079da9b1fae2770bf2a337b90",
+      "Builds/MacHudCorrections/Not3AHudCorrections.app/Contents/Resources/Data/Managed/Not3A.Stage2.Integration.dll": "4935dc33f68737ed04bc1b935addcb923652c0edbfcc7088b4a8f7e748b5a200"
+    }
+  },
+  "native": {
+    "result": "READY102_NO_PLAYER_ERRORS",
+    "intended_viewports": [
+      "1280x720",
+      "1600x900",
+      "1920x1080"
+    ],
+    "capture_status": "Artifacts/HUD-CORRECTIONS-2026-10-23/native-v6/capture-status.json",
+    "player_log": "Artifacts/HUD-CORRECTIONS-2026-10-23/native-v6.log",
+    "blocked_history": "native-v1:locked Mac,zero frames;owner then manually unlocked.",
+    "first_unlocked_attempt": {
+      "directory": "Artifacts/HUD-CORRECTIONS-2026-10-23/native-v2",
+      "frames": 23,
+      "result": "Real F10 native output at all3viewports; stopped on missing native capstone hover, correction in progress. No visual PASS."
+    },
+    "second_attempt": {
+      "directory": "Artifacts/HUD-CORRECTIONS-2026-10-23/native-v3",
+      "frames": 35,
+      "result": "Real capstone hover and Z transitions captured; stopped on QA role-index assumption (role1=Longshot). Harness now discovers nonattacking catalog. Footer9slice text collision found and returned to Astra."
+    },
+    "third_attempt": {
+      "directory": "Artifacts/HUD-CORRECTIONS-2026-10-23/native-v4",
+      "frames": 36,
+      "result": "Nonupgradable barricade actual selection/no-LVL and corrected footer captured. QA workshop click fell on transparent sprite centre; uses actual opaque pixels in final scenario.",
+      "diagnosis": "Workshop click was rejected by already-open selected-barricade strip, not a runtime selection defect. Final scenario clears selection and uses the existing scene-test framing/opaque point."
+    },
+    "checked_tooltip_frames": [
+      "1280x720-19-miner-capstone-hover.png",
+      "1280x720-20-logger-capstone-hover.png",
+      "1600x900-19-miner-capstone-hover.png",
+      "1600x900-20-logger-capstone-hover.png",
+      "1920x1080-19-miner-capstone-hover.png",
+      "1920x1080-20-logger-capstone-hover.png"
+    ],
+    "facts": "All3viewports:full padded tooltip geometry,exact50%resting weapon overlap,actual active-front,nonlevel barricade/workshop subtitles. Native pixels reviewed separately by Astra.",
+    "fourth_attempt": {
+      "directory": "Artifacts/HUD-CORRECTIONS-2026-10-23/native-v5",
+      "frames": 36,
+      "result": "Retained failed QA: selected-barricade strip still intercepted workshop click; fixed by clearing selection and framing above HUD."
+    },
+    "visual_review": "art/source/hud_corrections_2026-10-23_native_review.json",
+    "visual_result": "ASTRA_PASS36_EXPLICIT_FRAMES_17V4_PLUS19V6_NOT_ALL102",
+    "visual_review_sha256": "b100d920374536be70756b08e58206f9af83ece3355a776708347a73e75ac8a6"
+  },
+  "weapon_appearance": {
+    "result": "IMPLEMENTED_LOCALLY_QUALIFIED_ASTRA_PASS",
+    "concept": "art/concepts/hud_corrections_2026-10-23/weapon_switch_v2.png",
+    "provenance": "art/source/hud_weapon_switch_2026-10-23_generation.json",
+    "no_native_implementation": false,
+    "contract": "Thin rims,50%horizontal overlap,active foreground medallion with short depth/orbit turn,shared Z switch."
+  },
+  "processes": {
+    "closed_old_player_pids": [
+      4243,
+      11668,
+      12461
+    ],
+    "latest_ordinary_player": {
+      "pid": 17480,
+      "arguments": "/Users/artemmusket/game-dev/not-3a-game/Builds/MacHudCorrections/Not3AHudCorrections.app/Contents/MacOS/Not_3A_game -logFile /Users/artemmusket/game-dev/not-3a-game/Artifacts/HUD-CORRECTIONS-2026-10-23/ordinary-startup-final.log -screen-width 1600 -screen-height 900 -screen-fullscreen 0"
+    },
+    "running_player_count": 1,
+    "all_disposable_review_players": "Closed,latest QA autoquit successfully."
+  },
+  "remaining": [
+    "Windows/Steam verification",
+    "Continuous animation smoothness is not qualified by static frames",
+    "Sustained manual/full-run balance remains outside this correction"
+  ],
+  "source_sha256": {
+    "Assets/Stage2/Integration/Runtime/Stage2GameHud.cs": "c2e999eb1cc269a5e9806cbe91086b3b0cafdbd99a9c2792acbe5a9846f94033",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.cs": "5de7f46877ea3d6064bf66aef557d9e6160518d669ecf37955e80efc7c25a760",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Selection.cs": "51107d4241d70932e9ae76442db1f88a1a710e1160cb5942b9b98b76359a35fc",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.SkillDock.cs": "89d6676040ad36f338644da098e843823a19bd085e3f43b8f6fd1dd9f502685f",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3PlayerInterfaceBinding.Selection.cs": "87b199afb50f11022c4bd26b8daca17cf7153c86123b63d3aa57ef0b28572773",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3HudRefactorReview.cs": "6e247eea919c8f31a724a6b620e21ecbedddff43c1354e0a1ce9bdccc3d4d52b",
+    "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3HeroProgressionTests.cs": "7c99b4a5dea8dac7a146ba654eba6a7c3ad5c08f9fb546163b325731024f2072",
+    "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3HeroLoadoutPresentationTests.cs": "1ddc1abe6e140b7d051f9829182ea57f4331ba556a8fd681a24f96805e46ff28",
+    "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3PlayerInterfaceTests.cs": "9cca11402852f26bf36ac3bb7e6c02d10eb9ad0fa5873b5bdb0b2063f3843100",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.HeroLoadout.cs": "4afb2b4b04fcf322ea736972e460fb8e996b9acff89718673463bede080d6a14",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Professions.cs": "7ff44e8223b01bcb0f0245038fae0510d68780832970b7385b28c043b5f9bb46"
+  },
+  "console": "Final build/native-v6/ordinary-startup-final: no attributable compiler/player exceptions. Failed QA attempts retained separately; Unity licensing/Cloud/symbol/environment warnings not suppressed.",
+  "physical_debug_smoke": {
+    "tool": "CUA native app actual clicks after F10",
+    "result": "PASS",
+    "buttons": {
+      "100XP": "LVL1 XP100/200",
+      "1000XP": "LVL3 XP450/700",
+      "1level": "LVL4 XP0/950,one awarded point",
+      "10levels": "LVL14 XP0/3450,ten awarded points"
+    },
+    "scope": "Disposable QA player after reset; final ordinary player will start clean."
+  },
+  "ordinary_startup": {
+    "directory": "Artifacts/HUD-CORRECTIONS-2026-10-23/ordinary-startup-final",
+    "verification": "Artifacts/HUD-CORRECTIONS-2026-10-23/ordinary-startup-final/verification.txt",
+    "result": "All first8actual renders ready;no QA grants",
+    "observed_native_state": "LVL1 XP0/200;5gold;empty staff."
+  },
+  "physical_final_smoke": {
+    "tool": "CUA native app",
+    "result": "PASS",
+    "scope": "Final ordinary F10opens;actual scroll exposes all4XP/level buttons,status,andfeedback. F10returns to PlayerHUD; Z with empty staff keeps bow. No grants made in final run."
+  }
+}

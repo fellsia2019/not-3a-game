@@ -211,6 +211,9 @@ namespace Not3A.Stage2.Economy
         private int axeProfessionPower, pickaxeProfessionPower;
         private float axeProfessionSpeed = 1f, pickaxeProfessionSpeed = 1f;
         private float woodReachMultiplier = 1f, mineralReachMultiplier = 1f;
+        private float woodCapstoneChance, stoneCapstoneChance;
+        private readonly Func<double> harvestRoll;
+        private bool completingStrike;
 
         public int HarvestPower(MapResourceKind kind)
         {
@@ -240,8 +243,16 @@ namespace Not3A.Stage2.Economy
             if (axePower == axe && pickaxePower == pickaxe && axeSpeed == woodSpeed && pickaxeSpeed == mineralSpeed) return;
             CancelGather(); axePower = axe; pickaxePower = pickaxe; axeSpeed = woodSpeed; pickaxeSpeed = mineralSpeed;
         }
+        public void SetManualCapstoneChances(float woodChance, float stoneChance)
+        {
+            if (!float.IsFinite(woodChance) || woodChance < 0 || woodChance > 1 ||
+                !float.IsFinite(stoneChance) || stoneChance < 0 || stoneChance > 1)
+                throw new ArgumentException("Invalid gathering capstone chances.");
+            if (woodCapstoneChance == woodChance && stoneCapstoneChance == stoneChance) return;
+            CancelGather(); woodCapstoneChance = woodChance; stoneCapstoneChance = stoneChance;
+        }
 
-        public Stage2Economy(Stage2MapDefinition map, Stage2EconomyCatalog catalog)
+        public Stage2Economy(Stage2MapDefinition map, Stage2EconomyCatalog catalog, Func<double> harvestRoll = null)
         {
             if (map == null) throw new ArgumentNullException(nameof(map));
             if (catalog == null) throw new ArgumentNullException(nameof(catalog));
@@ -249,8 +260,10 @@ namespace Not3A.Stage2.Economy
             if (!validation.IsValid) throw new ArgumentException(validation.FirstError, nameof(map));
             if (!catalog.TryValidate(out var reason)) throw new ArgumentException(reason, nameof(catalog));
             this.map = map;
+            this.harvestRoll = harvestRoll ?? (() => UnityEngine.Random.value);
             startingGold = catalog.StartingGold;
             GoldPerKill = catalog.GoldPerKill;
+            GoldDropChance = catalog.GoldDropChance;
             interactionRange = catalog.InteractionRange;
             manualResources = catalog.ManualResources;
             for (var index = 0; index < anchors.Length; index++)
@@ -272,6 +285,8 @@ namespace Not3A.Stage2.Economy
 
         public Stage2Inventory Inventory { get; }
         public int GoldPerKill { get; }
+        public float GoldDropChance { get; }
+        public int GoldRewardForRoll(double roll) => roll >= 0 && roll < 1 && roll < GoldDropChance ? GoldPerKill : 0;
         public event Action<MapResourceKind, int> Gathered;
         public event Action<Stage2ResourceNode> NodeGathered;
         public event Action<Stage2ResourceNode,int> ResourceGranted;
@@ -352,12 +367,14 @@ namespace Not3A.Stage2.Economy
         }
 
         // The caller supplies the held state and unpaused Preparation/Wave state.
-        // A completed strike consumes at most the tool power and remaining stock, emitting one strike fact.
+        // A normal strike consumes tool power. Learned capstones can finish one medium
+        // stone node or one additional nearby tree, always paying only actual stock.
         public bool AdvanceGather(MapResourceKind kind, Vector2 playerWorld, bool held, float elapsedSeconds, bool allowed)
             => AdvanceGather(GetNode(kind), playerWorld, held, elapsedSeconds, allowed);
 
         public bool AdvanceGather(Stage2ResourceNode node, Vector2 playerWorld, bool held, float elapsedSeconds, bool allowed)
         {
+            if (completingStrike) return false;
             if (elapsedSeconds < 0f || float.IsNaN(elapsedSeconds) || float.IsInfinity(elapsedSeconds))
                 throw new ArgumentOutOfRangeException(nameof(elapsedSeconds));
             if (node == null || !ownedNodes.Contains(node) || !allowed || !held ||
@@ -374,7 +391,41 @@ namespace Not3A.Stage2.Economy
             gatherProgress += elapsedSeconds;
             if (gatherProgress < GatherDuration(node)) return false;
             gatherProgress = 0f;
-            var grant = Math.Min(HarvestPower(node.Resource), int.MaxValue - Inventory.Get(node.Resource));
+            if (Inventory.Get(node.Resource) == int.MaxValue) return false;
+            completingStrike = true;
+            try
+            {
+                var power = HarvestPower(node.Resource);
+                if (node.Resource == MapResourceKind.Stone && node.Size == Stage2ResourceSize.Medium &&
+                    node.Remaining > power && CapstoneProc(stoneCapstoneChance)) power = node.Remaining;
+                if (!GrantStrike(node, power)) return false;
+                if (node.Resource == MapResourceKind.Wood && node.Size == Stage2ResourceSize.Small &&
+                    node.IsDepleted && ownedNodes.Contains(node) && woodCapstoneChance > 0 &&
+                    Inventory.Get(MapResourceKind.Wood) < int.MaxValue)
+                {
+                    Stage2ResourceNode extra = null; var nearest = float.PositiveInfinity;
+                    foreach (var candidate in nodes)
+                    {
+                        if (candidate == node || candidate.Resource != MapResourceKind.Wood || candidate.IsDepleted ||
+                            candidate.Size != Stage2ResourceSize.Small || !IsInRange(candidate, playerWorld)) continue;
+                        var distance = (candidate.WorldPosition - node.WorldPosition).sqrMagnitude;
+                        if (distance < nearest) { extra = candidate; nearest = distance; }
+                    }
+                    if (extra != null && CapstoneProc(woodCapstoneChance)) GrantStrike(extra, extra.Remaining);
+                }
+                return true;
+            }
+            finally { completingStrike = false; }
+        }
+        private bool CapstoneProc(float chance)
+        {
+            if (chance <= 0) return false;
+            var roll = harvestRoll();
+            return double.IsFinite(roll) && roll >= 0 && roll < chance;
+        }
+        private bool GrantStrike(Stage2ResourceNode node, int power)
+        {
+            var grant = Math.Min(power, int.MaxValue - Inventory.Get(node.Resource));
             grant = node.TryTakeUnits(grant);
             if (grant == 0) return false;
             Inventory.TryAdd(node.Resource, grant);

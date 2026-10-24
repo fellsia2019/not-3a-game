@@ -1,0 +1,95 @@
+{
+  "date": "2026-10-23",
+  "decision": "D126 reference-fidelity follow-up",
+  "status": "LOCAL_MAC_NATIVE_QUALIFIED",
+  "owner_return": "Prior native weapon appearance differed from selected reference:flat grey empty,flat Z footer,missing4active-only gems. Prior PASS did not imply owner acceptance.",
+  "behavior": [
+    "Painted neutral empty gradient/engraving",
+    "Reference-shaped active/disabled button plus separate ivory Z keycap",
+    "Four cardinal gems only on actual active equipped weapon",
+    "Existing pair geometry/input/actual equipped quality and empty-switch rules retained"
+  ],
+  "provenance": "art/source/weapon_fidelity_2026-10-23_generation.json",
+  "changed_surfaces": [
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.SkillDock.cs",
+    "Assets/Stage3/PlayerInterface/Resources/Stage3WeaponControlSkins.png",
+    "Assets/Stage3/PlayerInterface/Resources/Stage3WeaponControlSkins.png.meta",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3HudRefactorReview.cs",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.HeroLoadout.cs"
+  ],
+  "source_sha256": {
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.SkillDock.cs": "1eadb70c4782c3bbb227a229014feb7dbf87ecf9e7ff7aa80d2b41367e5e2cc1",
+    "Assets/Stage3/PlayerInterface/Resources/Stage3WeaponControlSkins.png": "3cb3efbc83050645b4cc016b89dc4dfc6f36c0b3d51bec58a6a80abc456b384c",
+    "Assets/Stage3/PlayerInterface/Resources/Stage3WeaponControlSkins.png.meta": "27411f4e4626bc4a04fe65307a02015df917d11a8561eae172fc03aeb2b8fb7d",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3HudRefactorReview.cs": "30bbb1899668ab85ce7b52bfc38b363f9bb4ff990b500640b2c60e95e93ca0d3",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.HeroLoadout.cs": "489fa53bfb93a5e7c4a140d4e4b4de54e61b510dc1d947d64222aa3d8e7d7477"
+  },
+  "build": {
+    "path": "Builds/MacHudCorrections/Not3AHudCorrections.app",
+    "bytes": 807952391,
+    "log": "Artifacts/WEAPON-FIDELITY-2026-10-23/build-final.log",
+    "result": "Succeeded"
+  },
+  "native": {
+    "result": "READY18_ERROR_FREE",
+    "capture_status": "Artifacts/WEAPON-FIDELITY-2026-10-23/native-v2/capture-status.json",
+    "manifest": "Artifacts/WEAPON-FIDELITY-2026-10-23/native-v2/manifest-sha256.json",
+    "viewports": [
+      "1280x720",
+      "1600x900",
+      "1920x1080"
+    ],
+    "states": [
+      "ordinary empty",
+      "bow front",
+      "staff turn",
+      "staff front",
+      "bow turn",
+      "staff turn peak atprogress.536"
+    ],
+    "actual_Z_switch_and_rank_sources": true,
+    "player_log": "Artifacts/WEAPON-FIDELITY-2026-10-23/native-v2.log",
+    "Astra_review": "art/source/weapon_fidelity_2026-10-23_native_review.json",
+    "return": "Lower active staff gem overlaps staff caption during turn at900/1080; local orbit correction requested. Add peak-displacement frame to coverfullturn.",
+    "history": {
+      "first15": "RETURN WF-01 lower active staff gem overlaps caption; historical report Artifacts/WEAPON-FIDELITY-2026-10-23/native-v1-review.json"
+    },
+    "orbit_correction": "Incoming active rises3logicalpx,outgoing lowers3;X7,12degreeiconturn,resting50percentoverlap/API unchanged.",
+    "Astra_result": "PASS_ALL18_WF01_CLOSED",
+    "owner_native_acceptance": "Not inferred"
+  },
+  "tests": {
+    "scope": "Appearance-only change; no new/repeated gameplay tests. Compile/build and targeted native real-input states verify current change.",
+    "baseline": "art/source/hud_corrections_2026-10-23_verification.json",
+    "baseline_result": "20functionalPASS/1headlessviewportSKIP before this visual-only correction;not claimed as new gameplay run."
+  },
+  "processes": {
+    "old_pid_17480": "Closed before replacement build",
+    "running_player_count": 1,
+    "ordinary_pid": 20305,
+    "arguments": "/Users/artemmusket/game-dev/not-3a-game/Builds/MacHudCorrections/Not3AHudCorrections.app/Contents/MacOS/Not_3A_game -logFile /Users/artemmusket/game-dev/not-3a-game/Artifacts/WEAPON-FIDELITY-2026-10-23/ordinary-final.log -screen-width 1600 -screen-height 900 -screen-fullscreen 0",
+    "QA_player": "Completed and autoquit",
+    "prior_ordinary_pid19511": "Closed before final build"
+  },
+  "physical_smoke": {
+    "tool": "CUA",
+    "result": "PASS",
+    "observed": "New patterned empty,shaped Z keycap and4active-bow gems visible. Actual disabled footer click and Z keep bow/empty staff;no free weapon/progression grant.",
+    "scope": "Material/control click+empty-staff-Z smoke was performed in first807952332byte build; final807952391build differs only in vertical transition path. Final ordinary startup is clean."
+  },
+  "ordinary_startup": {
+    "directory": "Artifacts/WEAPON-FIDELITY-2026-10-23/ordinary-final",
+    "verification": "Artifacts/WEAPON-FIDELITY-2026-10-23/ordinary-final/verification.txt",
+    "result": "All first8actual renders ready;noQA grants"
+  },
+  "console": "No attributable compiler/native-v1/ordinary player exception found; environmental Unity warnings remain separate.",
+  "remaining": [
+    "Windows/Steam and continuous animation smoothness/manual balance remain unqualified by these static frames."
+  ],
+  "final_astra_report": {
+    "path": "art/source/weapon_fidelity_2026-10-23_native_review.json",
+    "sha256": "d29b2e169a694376af64cb38d9c5d11a8e84b0fdd695e04b652e85c3f843e5b1",
+    "status": "PASS",
+    "reviewed_frame_count": 18
+  }
+}

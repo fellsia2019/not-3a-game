@@ -1,5 +1,22 @@
 # Current cycle update — D-074/D-087/D-088
 
+## D127 — paid dwelling construction,2026-10-23
+
+Owner changes current dwelling price to20wood20stone in DwellingCatalog. Both
+materials are required atdraft andcommit; cancellation/invalidplacement spends
+nothing. Sleep still stops at19:50 with the existing threat/localchecks and no
+skippedincome. Actualmanualharvest→paidhome and lifecycle checks cover the new
+price; no save/scene/Inspector migration. D127 researchcentre contract is inRESEARCH.
+
+
+## D123 current portal tuning, 2026-10-22
+
+Current portal enemies use 5 HP; first night spawns every 4 seconds. Later existing
+intervals shorten with the same HP, per the owner's follow-up. No new difficulty
+curve beyond that trial change. Ten-minute day/three-minute streaming night,
+last-won daytime profile, cutoff, sleep, cleanup and retry remain as below.
+XP/gold reduction is D121; values stay in the current data assets.
+
 ## D-106 — timed day/night stream,2026-10-20
 
 Current Stage3 day is10active real minutes (08:00–20:00); night is3

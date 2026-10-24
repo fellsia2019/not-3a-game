@@ -7,6 +7,8 @@ namespace Not3A.Stage3.VisualPilot
         public Material sealMaterial;
         public Sprite workshopSprite;
         public Material workshopMaterial;
+        [Min(0)] public int workshopWoodCost = 30;
+        [Min(0)] public int workshopStoneCost = 40;
         public Vector2 workshopOffsetFromThrone = new Vector2(-5, 7);
         public Vector2 baseOffsetFromThrone = new Vector2(0, 7);
         public Vector2 worldCirclePosition = new Vector2(94, 48);

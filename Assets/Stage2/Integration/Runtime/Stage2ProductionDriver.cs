@@ -90,6 +90,7 @@ namespace Not3A.Stage2.Integration
         public bool CanBeginPlacement(ResourceProductionBuilding building)
         {
             if (Rules == null || !Active) return false;
+            if (!Rules.IsBuildingAvailable(building)) return false;
             var entry = Catalog.Get(building);
             return entry.IsValid && gathering.Economy.Inventory.CanAfford(entry.WoodCost, entry.StoneCost, entry.MetalCost, entry.GoldCost);
         }

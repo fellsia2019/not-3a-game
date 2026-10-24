@@ -14,21 +14,31 @@ namespace Not3A.Stage3.PlayerInterface
 
         private void BindProfessions()
         {
-            if (equipmentDriver == null) return;
+            if (equipmentDriver == null || heroProgression == null) return;
             var data = Resources.Load<Stage2ProfessionCatalog>("Stage3Professions");
             if (data == null || !data.TryValidate(out _))
             { Debug.LogError("S3_PROFESSIONS_BINDING_ERROR: missing/invalid Stage3Professions catalog."); return; }
             professionDriver = GetComponent<Stage2ProfessionDriver>() ?? gameObject.AddComponent<Stage2ProfessionDriver>();
-            professionDriver.Configure(game, data);
+            professionDriver.Configure(game, data, heroProgression.Rules);
             professionDriver.Rules.Changed += MarkProfessionsDirty;
+            heroProgression.Rules.Changed += MarkProfessionsDirty;
             equipmentDriver.Rules.Changed += MarkProfessionsDirty;
             presentation.WindowChanged += MarkProfessionsDirty;
             presentation.ProfessionTalentUpgradeRequested += UpgradeProfession;
+            presentation.ProfessionCapstoneUpgradeRequested += UpgradeProfessionCapstone;
             RefreshProfessions();
             Debug.Log("S3_PROFESSIONS_READY: actual manual-material XP; miner/logger independent, retry preserves current mastery.");
         }
         private void MarkProfessionsDirty() => professionsDirty = true;
         private void UpgradeProfession(int profession, int talent) => TryUpgradeProfession(profession, talent);
+        private void UpgradeProfessionCapstone(int profession) => TryUpgradeProfessionCapstone(profession);
+        public bool TryUpgradeProfessionCapstone(int profession)
+        {
+            if (!CanManageProfessions || presentation.ActiveWindow != Stage3PlayerWindow.Hero ||
+                !presentation.IsProfessionsOpen || profession is < 0 or > 1) return false;
+            var result = professionDriver.Rules.TryUpgradeCapstone((Stage2Profession)profession);
+            RefreshProfessions(); return result;
+        }
         public bool TryUpgradeProfession(int profession, int talent)
         {
             if (!CanManageProfessions || presentation.ActiveWindow != Stage3PlayerWindow.Hero ||
@@ -63,7 +73,8 @@ namespace Not3A.Stage3.PlayerInterface
                 for (var t = 0; t < 3; t++)
                 {
                     var talent = (Stage2ProfessionTalent)t; var rank = rules.Rank(profession, talent);
-                    var next = Mathf.Min(catalog.MaxTalentRank, rank + 1); var hasNext = rank < catalog.MaxTalentRank;
+                    var maxRank = catalog.TalentMaxRank(talent);
+                    var next = Mathf.Min(maxRank, rank + 1); var hasNext = rank < maxRank;
                     var canUpgrade = rules.CanUpgrade(profession, talent);
                     var currentBonus = t == 0 ? rules.PowerBonus(profession) : t == 1 ? currentTempo : currentReach;
                     var perRank = t == 0 ? catalog.PowerPerRank : t == 1 ? catalog.TempoPerRank : catalog.ReachPerRank;
@@ -72,9 +83,9 @@ namespace Not3A.Stage3.PlayerInterface
                         Description = t == 0 ? p == 0 ? "Больше камня и металла за удар" : "Больше дерева за удар" :
                             t == 1 ? p == 0 ? "Быстрее завершает удар" : "Быстрее завершает замах" :
                             p == 0 ? "Удобнее доставать до залежи" : "Удобнее доставать до дерева",
-                        Rank = rank, MaxRank = catalog.MaxTalentRank, PointCost = catalog.RankPointCost,
+                        Rank = rank, MaxRank = maxRank, PointCost = catalog.RankPointCost,
                         CanUpgrade = CanManageProfessions && canUpgrade,
-                        UnavailableReason = !hasNext ? "Максимальный ранг" : !canUpgrade ? "Недостаточно очков профессии" :
+                        UnavailableReason = !hasNext ? "Максимальный ранг" : !canUpgrade ? "Недостаточно очков героя" :
                             !CanManageProfessions ? "Сейчас недоступно" : string.Empty,
                         CurrentPower = currentPower,
                         NextPower = item == null ? 0 : currentPower + (t == 0 && hasNext ? catalog.PowerPerRank : 0),
@@ -91,7 +102,18 @@ namespace Not3A.Stage3.PlayerInterface
                     Mastery = rules.Mastery(profession), MaxMastery = catalog.MaxMastery,
                     XpWithin = rules.XpWithin(profession), RequiredXp = rules.RequiredXp(profession),
                     AvailablePoints = rules.AvailablePoints(profession), Talents = talents,
-                    Tool = item == null ? null : ItemView(item)
+                    Tool = item == null ? null : ItemView(item),
+                    Capstone = catalog.CapstoneChance <= 0 ? null : new Stage3ProfessionTalentView {
+                        Title = p == 0 ? "Раскалывающий удар" : "Размашистая рубка",
+                        Description = p == 0 ? $"{catalog.CapstoneChance * 100:0}% шанс целиком разбить средний валун. Не действует на руду и большие залежи." :
+                            $"{catalog.CapstoneChance * 100:0}% шанс срубить ещё одно обычное дерево в вашей дистанции добычи. Не запускает цепную рубку.",
+                        Rank = rules.HasCapstone(profession) ? 1 : 0, MaxRank = 1, PointCost = catalog.RankPointCost,
+                        CurrentBonus = rules.CapstoneChance(profession), NextBonus = catalog.CapstoneChance,
+                        CanUpgrade = CanManageProfessions && rules.CanUpgradeCapstone(profession),
+                        UnavailableReason = rules.HasCapstone(profession) ? "Изучено" :
+                            rules.Rank(profession, Stage2ProfessionTalent.Strength) < catalog.TalentMaxRank(Stage2ProfessionTalent.Strength) ?
+                                "Сначала: Сила удара V" : !CanManageProfessions ? "Сейчас недоступно" : "Нужно очко героя"
+                    }
                 };
             }
             presentation.SetProfessions(new Stage3ProfessionsView { Professions = rows });
@@ -99,10 +121,12 @@ namespace Not3A.Stage3.PlayerInterface
         private void UnbindProfessions()
         {
             if (professionDriver != null) professionDriver.Rules.Changed -= MarkProfessionsDirty;
+            if (heroProgression != null) heroProgression.Rules.Changed -= MarkProfessionsDirty;
             if (equipmentDriver != null) equipmentDriver.Rules.Changed -= MarkProfessionsDirty;
             if (presentation == null) return;
             presentation.WindowChanged -= MarkProfessionsDirty;
             presentation.ProfessionTalentUpgradeRequested -= UpgradeProfession;
+            presentation.ProfessionCapstoneUpgradeRequested -= UpgradeProfessionCapstone;
         }
     }
 }

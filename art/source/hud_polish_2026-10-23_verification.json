@@ -1,0 +1,166 @@
+{
+  "date": "2026-10-23",
+  "decision": "D127",
+  "status": "LOCAL_MAC_NATIVE_QUALIFIED",
+  "functional": {
+    "unique_tests": 65,
+    "passed": 65,
+    "failed": 0,
+    "runs": [
+      {
+        "file": "Artifacts/HUD-POLISH-2026-10-23/playmode-metal.xml",
+        "passed": 60,
+        "failed": 5
+      },
+      {
+        "file": "Artifacts/HUD-POLISH-2026-10-23/playmode-repair.xml",
+        "passed": 4,
+        "failed": 1
+      },
+      {
+        "file": "Artifacts/HUD-POLISH-2026-10-23/gather-repair.xml",
+        "passed": 1,
+        "failed": 0
+      }
+    ],
+    "headless_attempt": {
+      "file": "Artifacts/HUD-POLISH-2026-10-23/playmode.log",
+      "result": "Unity native crash139 in legacy Camera.Render seal test without graphics; repeated with Metal"
+    },
+    "results": {
+      "Not3A.Stage3.VisualPilot.Tests.Stage3BlueprintResearchTests.ConstructionPagingRoutesVisibleChoicesToTheirActualRolesAndCancelsDrafts": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3BlueprintResearchTests.ConstructionShowsOnlyStudiedCardsWithDenseIndicesAndResetHidesThemAgain": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3BlueprintResearchTests.ConsumedDocumentLeavesBagAndKnowledgeOpensActualDefenseRole": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3BlueprintResearchTests.DefeatRetryPreservesKnowledgeCurrentPapersAndMerchantStockButFullResetClearsThem": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3BlueprintResearchTests.ForgeOrderRejectsWithoutConsumptionAndLocalEOpensResearchInsteadOfAutoStudy": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3BlueprintResearchTests.ProductionAndForgeRequireTheirOwnBoughtAndLocallyStudiedConstructionPaper": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3BlueprintResearchTests.StudyRequiresLocalWorkshopSelectedDocumentAndLiveResearchWindow": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3DayNightCycleTests.ActualGatheringPaysForHomeWithoutMaterialOrGoldGrants": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3DayNightCycleTests.ConstructionModesPauseDebugResetAndRegenerationDoNotLeakHomeState": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3DayNightCycleTests.DawnDuringUnfinishedHordeChangesLightingButDoesNotAllowRestOrOverlap": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3DayNightCycleTests.DayIsTenActiveMinutesAndSpaceCannotStartNightRemotely": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3DayNightCycleTests.HeldHomeSleepCannotStartNightAndLaterNightsContinueGrowing": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3DayNightCycleTests.HomePurchaseIsAtomicRejectsInvalidGroundAndProtectsOneFootprint": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3DayNightCycleTests.HomeSleepStopsBeforeNightWithoutSkippedProductionOrRecovery": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3DayNightCycleTests.MouseUiHeldClicksAndSameFrameCancelDoNotSpendOrBuildTwice": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3HeroLoadoutCombatTests.AimedShotCancelsOnMovementWithoutManaOrCooldownAndMovingFireRequiresTalent": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3HeroLoadoutCombatTests.ConstructionDigitsSelectVisibleBuildingsAndNeverCastWeaponSkills": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3HeroLoadoutCombatTests.DigitKeysBelongToHeroSkillsAndNeverOpenConstruction": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3HeroLoadoutCombatTests.F3ConsumesMixedPotionAndF10AloneOpensDebug": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3HeroLoadoutCombatTests.FireAndLightningHitAtMostFourRealPortalActorsAndNeverClearDenseHorde": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3HeroLoadoutCombatTests.NewAdventurerPassivesAffectRealWorldHitsAndRecoveryWithoutPortalBonus": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3HeroLoadoutCombatTests.QuickItemMouseRequestsAndKeysReportActualSuccessRefusalAndEmptyReserve": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3HeroLoadoutCombatTests.QuickslotReflectsFullHealthWithoutConsumingStock": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3HeroLoadoutCombatTests.SmallWorldXpBonusAccumulatesAndDoesNotIncreasePortalReward": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3HeroLoadoutCombatTests.StaffBoltAndColdArrowDamageAndSlowActualNeutralActors": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3PlayerInterfaceTests.AllProductionKindsDwellingAndThroneExposeActualOwnedBuildingData": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3PlayerInterfaceTests.AltClickPaysOneUpgradeWithoutSelectingAndFailuresSpendNothing": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3PlayerInterfaceTests.ConstructionPanelProtectsClicksAndAllowsFreshWorldPurchaseWithoutClosing": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3PlayerInterfaceTests.CursorZoomKeepsTwoAsymmetricWorldAnchorsWithoutMovingTheCamera": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3PlayerInterfaceTests.CursorZoomLimitsAndInvalidInputsDoNotDriftAndMapEdgesStayBounded": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3PlayerInterfaceTests.ExistingTowerSelectionPreemptsAllBuildingDraftsWithoutClosingConstruction": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3PlayerInterfaceTests.KeyboardWindowsAreExclusiveAndEscapeDoesNotPauseTheDay": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3PlayerInterfaceTests.ModalWindowBlocksHeroAndLocalResearchUntilFreshInputAfterClosing": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3PlayerInterfaceTests.OnlyPaidUpgradesCreateFeedbackAndPauseOrModalFreezeUntilReset": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3PlayerInterfaceTests.RegionalMapNavigationDoesNotMoveWorldCameraAndLifecycleClearsWindows": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3PlayerInterfaceTests.SelectedCardUsesLivePricesUpgradesBeyondFiveAndPaysSaleOnce": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3PlayerInterfaceTests.ShiftKeepsPaidTowerDraftForRepeatedClicksAndOrdinaryClickEndsIt": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3PlayerInterfaceTests.SyntheticTouchGesturePansAndPinchesAroundItsMovingMidpoint": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3PlayerInterfaceTests.TabReturnsToPlayerFromConstructionAndPagesWithoutSpending": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3PlayerInterfaceTests.TrackpadRoutesPinchAndPanToOnlyTheVisibleSurface": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3PlayerInterfaceTests.UnifiedHudContainsMinimapTenReservesAndSeparateProtectedRibbon": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3PlayerInterfaceTests.WorkshopSelectionClearsForResearchWithoutBuyingAndLifecycleRequiresFreshClicks": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3PlayerInterfaceTests.WorldDragRejectsOccupiedTowerAndEscapeOrModalCancelsWithoutPayment": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3PlayerInterfaceTests.WorldSelectionShowsLiveTowerHealthClearsOnRemovalAndRejectsHeldUiDrag": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3WorldCorrectionsTests.CampPackStandsBesideItsShelterAndLethalFirstHitAlertsAllAlliesOnly": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3WorldCorrectionsTests.CampTreesAndRocksYieldActualStockAndRemoveTheirVisibleSolidThenReset": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3WorldCorrectionsTests.ClickingActualSealEdgeOpensChoiceWithoutTravelAndGuardsRemoteClick": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3WorldCorrectionsTests.EmptyFutureSitesAndDepletedResourceDoNotBlockBuildingsOrRegrowInsideThem": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3WorldTravelTests.ApprovedSealRendersAtThreeZoomsWithTransparentSourceBackground": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3WorldTravelTests.BuildMenuMousePlacementPaysOnceAndMatchesPreviewBeforeResearch": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3WorldTravelTests.CityCollisionsAndStreetArrivalAreSeparateAndResourcesCannotSpawnInside": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3WorldTravelTests.CityMarkerTracksRegeneratedWorldAndExplicitClearRemovesIt": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3WorldTravelTests.CityNavigationMarkerExistsBeforeResearchAndSurvivesResetWithoutOpeningTeleport": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3WorldTravelTests.ConfiguredThirdEndpointRendersAndUsesTheSameOpenedDestinationMenu": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3WorldTravelTests.DiscoveryAndMenuTravelWorkBothWaysWithoutBounceOrBlockedArrival": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3WorldTravelTests.DiscoveryBeforeResearchPersistsThroughStudyAndWaveButTerminalBlocksTravel": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3WorldTravelTests.ManualBaseCircleRejectsInvalidSitesAndCancelsAcrossInputModesWithoutCreatingAnything": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3WorldTravelTests.ManualBaseCircleUsesChosenSiteAndCannotBeBuiltTwiceOrTravelToUnknownCity": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3WorldTravelTests.PauseBuildAndDebugBlockResearchAndHeldInputDoesNotReplay": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3WorldTravelTests.PlacementRejectsRoadHeroResourcesCirclesObstaclesAndMenuClicksAndCancellationWins": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3WorldTravelTests.ReopeningMapPreservesPlayerZoomAndPan": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3WorldTravelTests.ResearchCentreRequiresBothMaterialsAndRevalidatesBeforePaying": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3WorldTravelTests.ResearchUnlocksManualBaseCircleAndResetRemovesItWithoutSpendingOrGranting": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3WorldTravelTests.WorkshopPlacementYieldsToOtherModesAndCannotSurvivePauseDebugTerminalOrReset": "Passed",
+      "Not3A.Stage3.VisualPilot.Tests.Stage3WorldTravelTests.WorldRegenerationRebindsOneWorkshopObstacleAndKeepsArrivalSitesClear": "Passed"
+    }
+  },
+  "functional_scope": "65 unique latest PASS. Final v2 only visual spacing/type/copy and QA capture wait; no redundant gameplay rerun. Prior failed fixtures and headless crash retained.",
+  "native": {
+    "path": "Artifacts/HUD-POLISH-2026-10-23/native-v2",
+    "frames": 30,
+    "report": "art/source/hud_polish_2026-10-23_native_review.json",
+    "report_sha256": "cc4f48120cd5508a2bc9015d95860d9d7e0323c941e377532a628738eb81049b",
+    "Astra": "PASS all30; HP-01/02/03 closed",
+    "geometry_results": "Artifacts/HUD-POLISH-2026-10-23/native-v2/geometry-and-results.json",
+    "alpha_audit": "Artifacts/HUD-POLISH-2026-10-23/native-v2/geometry-alpha-audit.json",
+    "previous_return": "Artifacts/HUD-POLISH-2026-10-23/native-v1",
+    "manifest": "Artifacts/HUD-POLISH-2026-10-23/native-v2/manifest-sha256.json"
+  },
+  "build": {
+    "path": "Builds/MacHudPolish/Not3AHudPolish.app",
+    "bytes": 816359833,
+    "log": "Artifacts/HUD-POLISH-2026-10-23/build-v2.log",
+    "result": "Succeeded"
+  },
+  "ordinary": {
+    "players": [
+      {
+        "pid": 27278,
+        "executable": "/Users/artemmusket/game-dev/not-3a-game/Builds/MacHudPolish/Not3AHudPolish.app/Contents/MacOS/Not_3A_game"
+      }
+    ],
+    "verification": "Artifacts/HUD-POLISH-2026-10-23/ordinary-final/verification.txt",
+    "log": "Artifacts/HUD-POLISH-2026-10-23/ordinary-final.log",
+    "result": "All first8actual renders ready, noQA grants; LVL1,XP0,5gold; actualCUA mouseF2red/keyF3red/F4silent/B/Baseprices/Playerclick pass; returnedPlayer."
+  },
+  "console": {
+    "build-v2.log": [],
+    "native-v2.log": [],
+    "ordinary-final.log": []
+  },
+  "assets": {
+    "provenance": "art/source/hud_polish_2026-10-23_generation.json",
+    "runtime_source_byte_identical": true,
+    "new_resource": "Stage3HudPolishSkins texture; no scene/Inspector hookup required; existing Resources binding",
+    "migration": "Additive workshop wood/stone and dwelling stone fields; existing serialized identities/GUIDs preserved. Current assets and builder defaults updated. No save format/package changes."
+  },
+  "source_sha256": {
+    "Assets/Stage3/WorldTravel/Runtime/Stage3WorldTravelData.cs": "3bde192d7ed0d169b8bc0d54ed8eaacac687312ccb894d2acd4fb21fd7795fa6",
+    "Assets/Stage3/WorldTravel/Runtime/Stage3WorldTravel.cs": "f069a800cb69bc5d7d9f79a30f9e6bc244d8b58a7311024545f92c43f54c535c",
+    "Assets/Stage3/WorldTravel/Runtime/Stage3WorldTravel.Construction.cs": "65e6164dd3a22d78bfdf91065007bf6d42a94142e116de63b1a07a5dd28ec8f2",
+    "Assets/Stage3/WorldTravel/WorldTravelData.asset": "ef1d8993a1c1c8e3af7f9820ebc1fd617d53f03da9afc886906a10b0b7489753",
+    "Assets/Stage3/DayNight/Runtime/Stage3DwellingCatalog.cs": "cb8ce03767ab512b7b7039c7235efb80200fec5d8ea27e4763992b1c2fee52f6",
+    "Assets/Stage3/DayNight/Runtime/Stage3Dwelling.cs": "a31dedcb4cf684aa228af32a3ad2ae56deda55d1d348fb50424a865ee2879c0a",
+    "Assets/Stage3/DayNight/Runtime/Stage3DwellingPresentation.cs": "6e8ed77062ec52f38935a56481a48e540f70b8a4dcc15586f0492e6fc182d475",
+    "Assets/Stage3/DayNight/DwellingCatalog.asset": "65850f98f3fbed6ce793d214a8b9787b7f50da05997457767b1f31edf6d5f57c",
+    "Assets/Stage2/Integration/Runtime/Stage2GameHud.cs": "bab3586e34d5163c8fce12752bed7c2d07a0aa5692cc04a424dc151fa5b6a407",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3PlayerInterfaceBinding.HeroLoadout.cs": "c17f3f7a7e182f63a41edd039a01ddefd2a7e97300333beeddc16e6e1d18a982",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3PlayerInterfaceBinding.Selection.cs": "af07537e8551abd28883824478146937b281aec88f4693660fecb6ea33eca058",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3PlayerInterfaceBinding.Research.cs": "78620b3fcdc121ff0615b67d7ce622e4579099b63c074583f9e30d1bad75cfd9",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.cs": "eb7065f7317f686608015b9d668d668d67a227685ec7fd4667954cc168ed2b08",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Dock.cs": "cc628f7362f4c9fb178fdc6334b50e26224ecd5e2a62461f5c7cf8b4fa67bf08",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.HeroLoadout.cs": "79d7b0883f66a5646873c0559dfab215cbcf3a931a08fa596491e684fdb57443",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.SkillDock.cs": "4106b0914667a09f80901353086ddb033c7bdb23d683dc78aa53853086e09b48",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Construction.cs": "9fb2cc6dc7d092eebe63a38252c86b422a49ddd12bcff92a306706241715c097",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Research.cs": "1734cf51030cca1a1afb7dfa8fec65cb5cf16eaee96a05ff72a90cc8a364ad62",
+    "Assets/Stage3/PlayerInterface/Resources/Stage3HudPolishSkins.png": "fc02a602e213b715c25add755eb9eda798156961d760233537f7bffc0c507452",
+    "Assets/Stage3/PlayerInterface/Resources/Stage3HudPolishSkins.png.meta": "ca54cf40cc07b06f189c4ac97d6bfad1b5c6357c5a5f4f8354807a30c7a19cdd",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3HudRefactorReview.cs": "5363ae168264b985053ade719fbae0388060901de5162dfe570c06d2a4113947"
+  },
+  "remaining": [
+    "Windows/Steam qualification",
+    "Continuous manual feel and sustained economy/night balance outside targeted scope"
+  ],
+  "owner_acceptance": "Concept selected and implementation authorized; final native owner acceptance is not inferred."
+}

@@ -1,0 +1,63 @@
+{
+  "date": "2026-10-23",
+  "tool": "built-in image_gen.imagegen",
+  "license_provenance": "Original AI-generated concept from project-owned references; no third-party source assets. Concepts only, no runtime import.",
+  "selected": "art/concepts/hud_polish_2026-10-23/hud_polish_v1.png",
+  "sha256": "e1504653f83c4dbbd0b30e9b806063b66f0e02fc088353ccc9187664f07fc01b",
+  "prompt": "art/source/hud_polish_2026-10-23_v1_prompt.txt",
+  "owner_choice": "Latest owner explicitly likes global building preview replacing active hero part in construction, authorizes execution and requires strong native fidelity. Supersedes earlier per-card answer.",
+  "alternative": "art/concepts/hud_polish_2026-10-23/per_card_alternative_superseded.png",
+  "alternative_prompt": "art/source/hud_polish_2026-10-23_per_card_prompt.txt",
+  "constraints": "Existing building art, data values, exactly3cards, quickleft/navright, categoriesbelow. Native layout must be readable720/900/1080; approval of concept is not native acceptance.",
+  "runtime_art_source": {
+    "path": "art/source/hud_polish_2026-10-23_atlas.png",
+    "sha256": "fc02a602e213b715c25add755eb9eda798156961d760233537f7bffc0c507452",
+    "prompt": "art/source/hud_polish_2026-10-23_atlas_prompt.txt",
+    "tool": "built-in image_gen.imagegen",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "png_color_type": 6,
+    "native_import": "Astra owns measured UV/import; source pixels unmodified."
+  },
+  "runtime_import": {
+    "path": "Assets/Stage3/PlayerInterface/Resources/Stage3HudPolishSkins.png",
+    "importer": "RGBA sRGB uncompressed alpha, native text, measured nine-slice patches; Astra implementation",
+    "bounds_top_left_pixels": {
+      "tile": [
+        146,
+        78,
+        474,
+        452
+      ],
+      "plum": [
+        718,
+        205,
+        468,
+        159
+      ],
+      "ivory": [
+        102,
+        610,
+        556,
+        193
+      ],
+      "ruby": [
+        815,
+        523,
+        290,
+        285
+      ],
+      "coral": [
+        55,
+        879,
+        749,
+        309
+      ]
+    }
+  },
+  "status": "ASTRA_IMPLEMENTED_LOCAL_MAC_NATIVE_QUALIFIED",
+  "native_review": "art/source/hud_polish_2026-10-23_native_review.json",
+  "verification": "art/source/hud_polish_2026-10-23_verification.json"
+}

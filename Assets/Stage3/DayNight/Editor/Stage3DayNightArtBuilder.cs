@@ -72,7 +72,7 @@ namespace Not3A.Stage3.VisualPilot.Editor
             var catalog=LoadOrCreate<Stage3DwellingCatalog>(CatalogPath);
             var homeRect=new RectInt(0,0,home.width,home.height); var bounds=Visible(home,homeRect);
             catalog.worldWidth=3.2f; catalog.footprint=new Vector2(3.2f,2f);
-            catalog.entranceOffset=new Vector2(.3f,-1.4f); catalog.interactionRadius=1.4f; catalog.woodCost=10;
+            catalog.entranceOffset=new Vector2(.3f,-1.4f); catalog.interactionRadius=1.4f; catalog.woodCost=20; catalog.stoneCost=20;
             catalog.sprite=SpriteAsset(catalog,"Approved dwelling B front",home,homeRect,
                 new Vector2(bounds.center.x,bounds.yMin),bounds.width/catalog.worldWidth);
             catalog.material=MaterialAsset(Folder+"DwellingInk.mat","Not3A/Dwelling Sprite");

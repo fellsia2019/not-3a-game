@@ -40,7 +40,7 @@ namespace Not3A.Stage3.PlayerInterface
         {
             DrawBlueprintNeutralFrame(rect);
             DrawBlueprintIcon(Inset(rect, Mathf.Min(rect.width,rect.height)*.14f), item);
-            if (selected) DrawEquipmentSelection(rect);
+            if (selected) DrawEquipmentSelection(rect); else DrawEquipmentHover(rect);
             if (item.Studied)
             {
                 var size=Mathf.Min(18f*UiScale,Mathf.Min(rect.width,rect.height)*.205f);
@@ -75,7 +75,7 @@ namespace Not3A.Stage3.PlayerInterface
 
         private void DrawBlueprintNeutralFrame(Rect rect)
         {
-            var sprite = art?.panelFrame;
+            var sprite = art?.controlSlot??art?.panelFrame;
             if (sprite == null || Event.current.type != EventType.Repaint) return;
             var src = sprite.rect; var border = sprite.border;
             var factor = Mathf.Min(.09f*UiScale,Mathf.Min(rect.width/(border.x+border.z+1f),
@@ -134,7 +134,7 @@ namespace Not3A.Stage3.PlayerInterface
                 blueprint.Description??"",17,TextAnchor.UpperLeft,true);
             var requested=Button(EquipmentActionRect,"К исследованиям");
             Label(new Rect(r.x,EquipmentActionRect.yMax+3f*s,r.width,28f*s),
-                blueprint.Studied?"Уже изучено":"Изучается в исследовательской мастерской",12,TextAnchor.MiddleCenter,true);
+                blueprint.Studied?"Уже изучено":"Изучается в исследовательском центре",12,TextAnchor.MiddleCenter,true);
             if(requested)BlueprintResearchRequested?.Invoke(blueprint.KindIndex);
         }
     }

@@ -40,11 +40,8 @@ namespace Not3A.Stage3.PlayerInterface
         private void DrawUnifiedDockBackground()
         {
             var s=UiScale;
-            // Common backing bridges the transparent tips of three adjoining original frames.
-            Fill(Rect.MinMaxRect(WorldHudRect.x+22f*s,WorldHudRect.y+16f*s,
-                WorldHudRect.xMax-22f*s,WorldHudRect.yMax-16f*s),Pearl);
             DrawPanel(BottomRect);
-            DrawPanel(NavigationRibbonRect);
+            DrawReferenceServiceRibbon();
             if(HasSelectedBuilding) DrawPanel(SelectedBuildingRect);
             DrawRule(new Rect(MinimapRect.xMax+8f*s,BottomRect.y+24f*s,1f*s,BottomRect.height-48f*s));
         }

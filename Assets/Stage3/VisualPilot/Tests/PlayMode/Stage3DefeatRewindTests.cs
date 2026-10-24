@@ -74,6 +74,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             {
                 if (production.Rules.IsOccupied(i)) continue;
                 var kind = (ResourceProductionBuilding)(int)production.Rules.Points[i].Resource;
+                Stage3TestCycle.StudyBlueprint(game, Stage2BlueprintCatalog.ForProduction(kind));
                 production.SelectAndBeginPlacement(kind);
                 if (production.TryBuildAt(i) == ProductionPlacementResult.Built) return;
             }
@@ -124,13 +125,14 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Assert.That(game.RunDriver.CanRetry, Is.True, $"Retry phase={Run.Phase} rulesReady={Run.CanRetry} clockOnly={Run.PreserveProgressOnRetry} effectReady={Read<bool>(effect, "RetryReady")} lossElapsed={Read<float>(effect, "LossElapsed")}");
         }
 
-        [UnityTest] public IEnumerator RetryKeepsPaidUpgradesMergeSaleAndCurrentInvestmentLedger()
+        [UnityTest] public IEnumerator RetryKeepsPaidUpgradesSaleAndCurrentInvestmentLedger()
         {
             var defense = game.Building.Defense; var a = BuildTower(0); var b = BuildTower(0);
             Assert.That(defense.TryUpgrade(a), Is.EqualTo(Stage2TowerActionResult.Ready));
             Assert.That(Stage3TestCycle.StartNight(Run), Is.True);
             Assert.That(defense.TryUpgrade(b), Is.EqualTo(Stage2TowerActionResult.Ready));
-            Assert.That(defense.TryMerge(a,b), Is.EqualTo(Stage2TowerActionResult.Ready));
+            Assert.That(defense.TryMerge(a,b), Is.EqualTo(Stage2TowerActionResult.Incompatible));
+            Assert.That(defense.TrySell(a), Is.EqualTo(Stage2TowerActionResult.Ready));
             Assert.That(defense.TrySell(b), Is.EqualTo(Stage2TowerActionResult.Ready));
             var current = BuildTower(0); current.TakeDamage(1);
             var stock = Stock(); var hp = current.Health; var invested = current.Invested;

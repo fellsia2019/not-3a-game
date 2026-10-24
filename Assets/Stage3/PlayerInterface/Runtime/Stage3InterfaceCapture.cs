@@ -78,6 +78,9 @@ namespace Not3A.Stage3.PlayerInterface
 
         private IEnumerator Start()
         {
+            var hudRefactorDirectory=Environment.GetEnvironmentVariable("NOT3A_HUD_REFACTOR_REVIEW");
+            if(Debug.isDebugBuild&&!Application.isBatchMode&&!string.IsNullOrWhiteSpace(hudRefactorDirectory)&&Path.IsPathFullyQualified(hudRefactorDirectory))
+            {yield return Stage3HudRefactorReview.Capture(gameObject,hudRefactorDirectory);yield break;}
             var loadoutDirectory=Environment.GetEnvironmentVariable("NOT3A_HERO_LOADOUT_REVIEW");
             if(Debug.isDebugBuild&&!Application.isBatchMode&&!string.IsNullOrWhiteSpace(loadoutDirectory)&&Path.IsPathFullyQualified(loadoutDirectory))
             {yield return Stage3HeroLoadoutQualification.Capture(gameObject,loadoutDirectory);yield break;}

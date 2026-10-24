@@ -172,10 +172,44 @@ namespace Not3A.Stage2.Defense.Tests
             {
                 var data = AssetDatabase.LoadAssetAtPath<Stage2DefenseCatalog>(path);
                 Assert.That(data.TryValidate(out var reason), Is.True, reason); Assert.That(data.GoldCost, Is.Zero);
-                Assert.That(data.MaximumLevel, Is.GreaterThan(1));
-                for (var level = 1; level < data.MaximumLevel; level++)
+                Assert.That(data.AllowMerging, Is.False);
+                if (!data.CanAttack)
+                {
+                    Assert.That(data.MaximumLevel, Is.EqualTo(1));
+                    Assert.That(data.TryGetUpgrade(1, out _), Is.False); continue;
+                }
+                Assert.That(data.UnlimitedUpgrades, Is.True);
+                for (var level = 1; level <= 100; level++)
                 { Assert.That(data.TryGetUpgrade(level, out var tier), Is.True); Assert.That(tier.Cost.Gold, Is.Zero); }
+                Assert.That(data.TryGetUpgrade(int.MaxValue - 1, out _), Is.False, "Unrepresentable stats must not overflow.");
             }
+        }
+        [Test] public void ContinuingTowerCanUpgradeBeyondFiveAndRestoreItsInvestmentHealthAndCooldown()
+        {
+            var data = AssetDatabase.LoadAssetAtPath<Stage2DefenseCatalog>("Assets/Stage3/CartoonWorldPilot/RapidCartoonCatalog.asset");
+            Object.DestroyImmediate(catalog); catalog = Object.Instantiate(data);
+            defense = new Stage2Defense(map, navigation, stock, catalog, () => hero, () => Object.Instantiate(catalog.TowerPrefab));
+            defense.SetRunState(Stage2BuildPhase.Preparation, false);
+            var tower = Build(0); tower.TakeDamage(2);
+            defense.SetAttackTarget((_, __, ___, ____, _____) => true); tower.Tick(.01f);
+            while (tower.Level < 8) Assert.That(defense.TryUpgrade(tower), Is.EqualTo(Stage2TowerActionResult.Ready));
+            Assert.That(tower.AttackDamage, Is.EqualTo(40)); Assert.That(tower.MaximumHealth, Is.EqualTo(400));
+            Assert.That(tower.Health, Is.EqualTo(320)); Assert.That(tower.CooldownRemaining, Is.EqualTo(.45f).Within(.0001));
+            var saved = defense.CaptureSnapshot(); var investment = tower.Invested.Wood;
+            defense.TryUpgrade(tower); Assert.That(defense.RestoreSnapshot(saved), Is.True);
+            Assert.That(defense.GetTower(0).Level, Is.EqualTo(8));
+            Assert.That(defense.GetTower(0).Invested.Wood, Is.EqualTo(investment));
+        }
+        [Test] public void CurrentCatalogDisablesDirectMergeWithoutConsumingEitherTowerOrCurrency()
+        {
+            var serialized = new SerializedObject(catalog); serialized.FindProperty("allowMerging").boolValue = false;
+            serialized.ApplyModifiedPropertiesWithoutUndo();
+            var a = Build(0); var b = Build(1); var revision = navigation.Revision; var gold = stock.Gold;
+            Assert.That(defense.EvaluateMerge(a, b), Is.EqualTo(Stage2TowerActionResult.Incompatible));
+            Assert.That(defense.TryMerge(a, b), Is.EqualTo(Stage2TowerActionResult.Incompatible));
+            Assert.That(a.Level, Is.EqualTo(1)); Assert.That(b.Level, Is.EqualTo(1));
+            Assert.That(defense.TowerCount, Is.EqualTo(2)); Assert.That(stock.Gold, Is.EqualTo(gold));
+            Assert.That(navigation.Revision, Is.EqualTo(revision));
         }
     }
 }

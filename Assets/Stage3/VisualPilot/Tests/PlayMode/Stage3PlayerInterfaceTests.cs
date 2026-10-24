@@ -217,7 +217,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
         {
             var travel = game.GetComponent("Stage3WorldTravel");
             Assert.That(travel, Is.Not.Null);
-            hud.SelectWorkshop();
+            Stage3TestCycle.FundBaseConstruction(game);hud.SelectWorkshop();
             var site = Read<Vector2>(travel, "WorkshopPosition");
             Assert.That(Call(travel, "TryBuildWorkshopAt", site).ToString(), Is.EqualTo("Built"));
             scene.PlayerMover.transform.position = Read<Vector2>(travel, "WorkshopInteractionPosition");
@@ -602,7 +602,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
         public IEnumerator WorkshopSelectionClearsForResearchWithoutBuyingAndLifecycleRequiresFreshClicks()
         {
             var travel = game.GetComponent("Stage3WorldTravel");
-            Call(travel, "BeginWorkshopPlacement");
+            Stage3TestCycle.FundBaseConstruction(game);Call(travel, "BeginWorkshopPlacement");
             var site = Read<Vector2>(travel, "WorkshopPosition");
             Assert.That(Call(travel, "TryBuildWorkshopAt", site).ToString(), Is.EqualTo("Built"));
             yield return null;
@@ -611,6 +611,9 @@ namespace Not3A.Stage3.VisualPilot.Tests
             yield return Click(point);
             Assert.That(Read<bool>(playerUi, "HasSelectedBuilding"), Is.True);
             var stock = Stock();
+            var view = Read<object>(playerUi, "SelectedBuildingView");
+            Assert.That((string)view.GetType().GetField("Subtitle").GetValue(view), Is.EqualTo("Изучение чертежей"));
+            Assert.That((bool)view.GetType().GetField("ShowUpgrade").GetValue(view), Is.False);
             // Native IMGUI buttons are verified in the real player; synthetic Input System
             // mouse events do not create Editor GUI.Button events in batchmode.
             yield return Tap(keyboard.pKey);
@@ -642,6 +645,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             {
                 var pointIndex = Enumerable.Range(0, production.Rules.Points.Count)
                     .First(i => production.Rules.Points[i].Building == kind);
+                Stage3TestCycle.StudyBlueprint(game, Stage2BlueprintCatalog.ForProduction(kind));
                 production.SelectAndBeginPlacement(kind);
                 Assert.That(production.TryBuildAt(pointIndex), Is.EqualTo(ProductionPlacementResult.Built));
                 Call(playerUi, "CloseWindow"); yield return null;
@@ -701,7 +705,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
         }
 
         [UnityTest]
-        public IEnumerator SelectedCardUsesLivePricesUpgradesToCapAndPaysSaleOnce()
+        public IEnumerator SelectedCardUsesLivePricesUpgradesBeyondFiveAndPaysSaleOnce()
         {
             var binding = game.GetComponent("Stage3PlayerInterfaceBinding");
             var tower = BuildSelectionTower(); yield return null;
@@ -722,10 +726,19 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Assert.That(Call(binding, "TryUpgradeSelectedBuilding").ToString(), Is.EqualTo("Ready"));
             Assert.That(tower.Level, Is.EqualTo(2)); Assert.That(inventory.Get(MapResourceKind.Wood), Is.Zero);
             Assert.That(SelectedStat("Урон"), Is.EqualTo(tower.AttackDamage.ToString()));
-            inventory.TryCredit(new Stage2ResourceCost(1000, 1000, 1000));
-            while (tower.Level < data.MaximumLevel)
+            Assert.That(data.UnlimitedUpgrades, Is.True);
+            while (tower.Level < 8)
+            {
+                Assert.That(data.TryGetUpgrade(tower.Level, out var paidNext), Is.True);
+                Assert.That(inventory.TryCredit(paidNext.Cost), Is.True);
                 Assert.That(Call(binding, "TryUpgradeSelectedBuilding").ToString(), Is.EqualTo("Ready"));
-            Assert.That(UpgradeAvailable(), Is.False);
+            }
+            Assert.That(tower.Level, Is.EqualTo(8));
+            Assert.That(data.TryGetUpgrade(tower.Level, out var ninth), Is.True);
+            Assert.That(inventory.TryCredit(ninth.Cost), Is.True);
+            yield return null;
+            Assert.That(UpgradeAvailable(), Is.True);
+            Assert.That((string)View().GetType().GetField("Subtitle").GetValue(View()), Is.EqualTo("Уровень 8"));
             var refund = defense.GetSaleRefund(tower); inventory.Reset();
             Assert.That(Call(binding, "TrySellSelectedBuilding").ToString(), Is.EqualTo("Ready"));
             Assert.That(Read<bool>(playerUi, "HasSelectedBuilding"), Is.False);
@@ -738,6 +751,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
         [UnityTest]
         public IEnumerator ExistingTowerSelectionPreemptsAllBuildingDraftsWithoutClosingConstruction()
         {
+            Stage3TestCycle.StudyBlueprint(game, Stage2BlueprintKind.Sawmill);
             var binding = game.GetComponent("Stage3PlayerInterfaceBinding");
             var tower = BuildSelectionTower(); yield return null;
             var point = FrameBuilding(tower.GetComponentsInChildren<Renderer>().First(r => r.enabled));
@@ -769,7 +783,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
         }
 
         [UnityTest]
-        public IEnumerator WorldDragMergesVisibleTowerAndEscapeOrModalCancelsWithoutPayment()
+        public IEnumerator WorldDragRejectsOccupiedTowerAndEscapeOrModalCancelsWithoutPayment()
         {
             var binding = game.GetComponent("Stage3PlayerInterfaceBinding");
             var source = BuildSelectionTower(); var defense = game.Building.Defense;
@@ -820,17 +834,25 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Assert.That(Read<bool>(binding,"IsDraggingBuilding"), Is.True);
             var targetRenderer = target.GetComponentsInChildren<Renderer>().First(r => r.enabled);
             var targetPoint = (Vector2)scene.CameraFollow.BoundCamera.WorldToScreenPoint(targetRenderer.bounds.center);
+            var sourceCell = source.Cell; var targetCell = target.Cell;
+            var sourceHealth = source.Health; var targetHealth = target.Health;
             input.Set(mouse.position, targetPoint); yield return null;
-            Assert.That(Read<bool>(binding, "DragDropValid"), Is.True, "Visible merge target must be above the selected HUD: " + targetPoint);
-            Assert.That(Read<bool>(binding, "DragWillMerge"), Is.True);
+            Assert.That(Read<bool>(binding, "DragDropValid"), Is.False, "Occupied tower silhouettes must reject drops: " + targetPoint);
+            Assert.That(Read<bool>(binding, "DragWillMerge"), Is.False);
             input.Release(mouse.leftButton); yield return null; yield return null;
-            Assert.That(target.Level, Is.EqualTo(2)); Assert.That(defense.TowerCount, Is.EqualTo(1));
+            Assert.That(source.Level, Is.EqualTo(1)); Assert.That(target.Level, Is.EqualTo(1));
+            Assert.That(defense.TowerCount, Is.EqualTo(2));
+            Assert.That(source.Cell, Is.EqualTo(sourceCell)); Assert.That(source.Health, Is.EqualTo(sourceHealth));
+            Assert.That(target.Health, Is.EqualTo(targetHealth));
+            Assert.That(target.Cell, Is.EqualTo(targetCell));
             Assert.That(Window, Is.EqualTo("Construction"));
             Assert.That(Read<bool>(playerUi,"HasSelectedBuilding"), Is.True);
             Assert.That(Stock(), Is.EqualTo(stock)); Assert.That(Read<bool>(binding, "IsDraggingBuilding"), Is.False);
             Assert.That(Read<bool>(binding, "DragWillMerge"), Is.False, "Drop cannot leave a stale merge highlight.");
             // A short real drag can arrive entirely within one Input System update.
             // Its press position must survive the later motion/release events.
+            var fastOrigin=FrameBuilding(targetRenderer);yield return null;
+            Assert.That(game.ContainsScreenPoint(fastOrigin),Is.False,"Batched drag must start in exposed world above the taller construction dock.");
             var fastCell = target.Cell; var fastPoint = Vector2.zero; var foundFast = false;
             foreach (var offset in new[] {Vector2Int.up*2,Vector2Int.right*2,Vector2Int.left*2})
             {
@@ -840,7 +862,6 @@ namespace Not3A.Stage3.VisualPilot.Tests
                 fastCell=candidate;fastPoint=screen;foundFast=true;break;
             }
             Assert.That(foundFast,Is.True);
-            var fastOrigin=(Vector2)camera.WorldToScreenPoint(targetRenderer.bounds.center);
             InputSystem.QueueStateEvent(mouse,new MouseState {position=fastOrigin}.WithButton(MouseButton.Left));
             InputSystem.QueueStateEvent(mouse,new MouseState {position=fastPoint}.WithButton(MouseButton.Left));
             InputSystem.QueueStateEvent(mouse,new MouseState {position=fastPoint});
@@ -851,11 +872,122 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Assert.That(Call(binding, "TryBeginBuildingDrag", target), Is.True);
             yield return Tap(keyboard.escapeKey); input.Release(mouse.leftButton); yield return null;
             Assert.That(Read<bool>(binding, "IsDraggingBuilding"), Is.False);
-            Assert.That(target.Level, Is.EqualTo(2)); Assert.That(defense.TowerCount, Is.EqualTo(1));
+            Assert.That(source.Level, Is.EqualTo(1)); Assert.That(target.Level, Is.EqualTo(1));
+            Assert.That(defense.TowerCount, Is.EqualTo(2));
+            Assert.That(source.Cell, Is.EqualTo(sourceCell)); Assert.That(source.Health, Is.EqualTo(sourceHealth));
+            Assert.That(target.Health, Is.EqualTo(targetHealth));
             Assert.That(Call(binding, "TryBeginBuildingDrag", target), Is.True);
             Call(playerUi, "SetWindow", Enum.Parse(playerUi.GetType().Assembly.GetType("Not3A.Stage3.PlayerInterface.Stage3PlayerWindow"), "Inventory"));
             yield return null;
             Assert.That(Read<bool>(binding, "IsDraggingBuilding"), Is.False); Assert.That(Stock(), Is.EqualTo(stock));
+        }
+
+        [UnityTest]
+        public IEnumerator ShiftKeepsPaidTowerDraftForRepeatedClicksAndOrdinaryClickEndsIt()
+        {
+            game.RunDriver.enabled=false;game.RunDriver.ResetRun();yield return null;
+            var inventory=game.Gathering.Economy.Inventory;
+            inventory.TryAdd(MapResourceKind.Wood,100);inventory.TryAdd(MapResourceKind.Stone,100);
+            yield return Tap(keyboard.bKey);
+            Assert.That(Call(playerUi,"ActivateBuildChoice",0),Is.True);
+            var defense=game.Building.Defense;
+            var cost=defense.SelectedCatalog.BuildCost;
+            var camera=scene.CameraFollow.BoundCamera;scene.CameraFollow.enabled=false;
+            var safe=new Vector2(Screen.width*.55f,Screen.height*.65f);
+            var previousWood=inventory.Get(MapResourceKind.Wood);
+            foreach(var shift in new[]{keyboard.leftShiftKey,keyboard.rightShiftKey})
+            {
+                var cell=FindLegalCell();AlignWorldPoint(camera,scene.MapDefinition.CellToWorld(cell),safe);
+                input.Press(shift);yield return Click(safe);input.Release(shift);yield return null;
+                Assert.That(defense.IsPlacing,Is.True,"Shift preserves the same paid blueprint.");
+                Assert.That(inventory.Get(MapResourceKind.Wood),Is.EqualTo(previousWood-cost.Wood));
+                previousWood=inventory.Get(MapResourceKind.Wood);
+                var count=defense.TowerCount;var stock=Stock();
+                // Existing-building selection wins over placement, even while Shift is held.
+                // Test the occupied placement rule directly without initiating selection.
+                defense.SetPreviewCell(cell);
+                Assert.That(defense.TryConfirm(out _),Is.EqualTo(PlacementResult.Occupied));
+                Assert.That(defense.TowerCount,Is.EqualTo(count));Assert.That(Stock(),Is.EqualTo(stock));
+            }
+            var last=FindLegalCell();AlignWorldPoint(camera,scene.MapDefinition.CellToWorld(last),safe);
+            yield return Click(safe);
+            Assert.That(defense.TowerCount,Is.EqualTo(3));Assert.That(defense.IsPlacing,Is.False);
+            Assert.That(inventory.Get(MapResourceKind.Wood),Is.EqualTo(previousWood-cost.Wood));
+            Assert.That(Call(playerUi,"ActivateBuildChoice",0),Is.True);
+            input.Press(keyboard.leftShiftKey);yield return Tap(keyboard.escapeKey);input.Release(keyboard.leftShiftKey);
+            Assert.That(defense.IsPlacing,Is.False);
+        }
+
+        [UnityTest]
+        public IEnumerator TabReturnsToPlayerFromConstructionAndPagesWithoutSpending()
+        {
+            game.RunDriver.enabled=false;var stock=Stock();
+            foreach(var key in new[]{keyboard.bKey,keyboard.iKey,keyboard.oKey,keyboard.pKey,keyboard.mKey})
+            {
+                yield return Tap(key);Assert.That(Window,Is.Not.EqualTo("None"));
+                yield return Tap(keyboard.tabKey);Assert.That(Window,Is.EqualTo("None"));
+                Assert.That(game.Building.Defense.IsPlacing,Is.False);Assert.That(Stock(),Is.EqualTo(stock));
+            }
+        }
+
+        [UnityTest]
+        public IEnumerator OnlyPaidUpgradesCreateFeedbackAndPauseOrModalFreezeUntilReset()
+        {
+            game.RunDriver.enabled=false;game.SetPaused(false);var tower=BuildSelectionTower();yield return null;
+            var binding=game.GetComponent("Stage3PlayerInterfaceBinding");
+            var point=FrameBuilding(tower.GetComponentsInChildren<Renderer>().First(r=>r.enabled));
+            Assert.That(Call(binding,"TrySelectBuildingAtScreen",point),Is.True);
+            game.Gathering.Economy.Inventory.Reset();
+            Assert.That(Call(binding,"TryUpgradeSelectedBuilding").ToString(),Is.EqualTo("CannotAfford"));
+            Assert.That(Read<int>(playerUi,"BuildingUpgradeEffectCount"),Is.Zero);
+            game.Building.Defense.GetTowerCatalog(tower).TryGetUpgrade(tower.Level,out var next);
+            game.Gathering.Economy.Inventory.TryCredit(next.Cost);
+            Assert.That(Call(binding,"TryUpgradeSelectedBuilding").ToString(),Is.EqualTo("Ready"));
+            Assert.That(Read<int>(playerUi,"BuildingUpgradeEffectCount"),Is.EqualTo(1));
+            game.SetPaused(true);var elapsed=Read<float>(playerUi,"BuildingUpgradeEffectElapsed");
+            yield return null;yield return null;
+            Assert.That(Read<float>(playerUi,"BuildingUpgradeEffectElapsed"),Is.EqualTo(elapsed));
+            game.SetPaused(false);yield return Tap(keyboard.iKey);
+            elapsed=Read<float>(playerUi,"BuildingUpgradeEffectElapsed");yield return null;yield return null;
+            Assert.That(Read<float>(playerUi,"BuildingUpgradeEffectElapsed"),Is.EqualTo(elapsed));
+            yield return Tap(keyboard.tabKey);
+            Assert.That(Read<float>(playerUi,"BuildingUpgradeEffectElapsed"),Is.GreaterThan(elapsed));
+            game.RunDriver.ResetRun();yield return null;
+            Assert.That(Read<int>(playerUi,"BuildingUpgradeEffectCount"),Is.Zero);
+        }
+
+        [UnityTest]
+        public IEnumerator AltClickPaysOneUpgradeWithoutSelectingAndFailuresSpendNothing()
+        {
+            game.RunDriver.enabled=false;game.RunDriver.ResetRun();yield return null;
+            var tower=BuildSelectionTower();yield return null;
+            var binding=game.GetComponent("Stage3PlayerInterfaceBinding");
+            Call(binding,"ClearBuildingSelection");
+            var point=FrameBuilding(tower.GetComponentsInChildren<Renderer>().First(r=>r.enabled));
+            var defense=game.Building.Defense;var inventory=game.Gathering.Economy.Inventory;
+            foreach(var alt in new[]{keyboard.leftAltKey,keyboard.rightAltKey})
+            {
+                var level=tower.Level;var cost=defense.GetTowerCatalog(tower).TryGetUpgrade(level,out var next)?next.Cost:default;
+                input.Press(alt);yield return null;
+                Assert.That(Call(binding,"EvaluateQuickUpgrade",tower).ToString(),Is.EqualTo("Ready"));
+                var wood=inventory.Get(MapResourceKind.Wood);yield return Click(point);
+                Assert.That(tower.Level,Is.EqualTo(level+1));
+                Assert.That(inventory.Get(MapResourceKind.Wood),Is.EqualTo(wood-cost.Wood));
+                Assert.That(Read<object>(binding,"SelectedBuildingKind").ToString(),Is.EqualTo("None"));
+                Assert.That(Read<bool>(playerUi,"HasSelectedBuilding"),Is.False);
+                input.Release(alt);yield return null;
+            }
+            inventory.Reset();var stock=Stock();var previousLevel=tower.Level;
+            input.Press(keyboard.leftAltKey);yield return null;
+            Assert.That(Call(binding,"EvaluateQuickUpgrade",tower).ToString(),Is.EqualTo("CannotAfford"));
+            yield return Click(point);
+            Assert.That(tower.Level,Is.EqualTo(previousLevel));Assert.That(Stock(),Is.EqualTo(stock));
+            Assert.That(Read<bool>(playerUi,"HasSelectedBuilding"),Is.False);
+            game.SetPaused(true);yield return null;
+            Assert.That(Call(binding,"TryQuickUpgradeAtScreen",point).ToString(),Is.EqualTo("Inactive"));
+            Assert.That(Stock(),Is.EqualTo(stock));game.SetPaused(false);input.Release(keyboard.leftAltKey);yield return null;
+            yield return Click(point);Assert.That(Read<bool>(playerUi,"HasSelectedBuilding"),Is.True,
+                "A normal click still opens the existing card.");
         }
 
         private Stage2Tower BuildSelectionTower()

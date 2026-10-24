@@ -1,0 +1,178 @@
+{
+  "date": "2026-10-23",
+  "status": "LOCAL_MAC_REFERENCE_QUALIFIED",
+  "scope": "Owner-returned D127 appearance repair. This qualifies measured native states and existing gameplay contracts; owner acceptance is separate.",
+  "changes": [
+    "One connected painted32/23/45 quick/quiet/nav ribbon with140logical height",
+    "Matching broad round HUD flasks, contained keycaps/counts, source-shaped silver/cyan/red borders",
+    "Readable left actual building traits/placement/shortage/hints without construction hover popup"
+  ],
+  "native": {
+    "final_capture": "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v2/capture-status.json",
+    "final_assertions": "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v2-assertions.json",
+    "frames": 39,
+    "resolutions": [
+      "1280x720",
+      "1600x900",
+      "1920x1080"
+    ],
+    "review": {
+      "path": "art/source/hud_reference_repair_2026-10-23_native_review.json",
+      "sha256": "b452563f42875bd70291269c4b4a53559c168ec1698d4a9f19309a8a7600bb59"
+    },
+    "astra_visual_scope": "All39v1 inspected;21changedv2 inspected and18unchangedv1layout reused. Six defects closed; v1weakcolour/bevelRETURNretained."
+  },
+  "build": {
+    "path": "Builds/MacHudReferenceRepair/Not3AHudReferenceRepair.app",
+    "bytes": 849904711,
+    "log": {
+      "path": "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/build-v2.log",
+      "sha256": "b8a78776650936eb567f6867b25f5de553b94f3dab3fbedfe7b276efcfaee694"
+    },
+    "ordinary_pid": 30606,
+    "ordinary_process": "30606 /Users/artemmusket/game-dev/not-3a-game/Builds/MacHudReferenceRepair/Not3AHudReferenceRepair.app/Contents/MacOS/Not_3A_game -logFile /Users/artemmusket/game-dev/not-3a-game/Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/ordinary-final.log -screen-width 1600 -screen-height 900 -screen-fullscreen 0",
+    "old_players_closed": [
+      27278,
+      29751
+    ],
+    "review_players": "autoquit"
+  },
+  "ordinary": {
+    "first_eight": "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/ordinary-final/verification.txt",
+    "all_ready": true,
+    "level": 1,
+    "xp": 0,
+    "gold": 5,
+    "qa_grants": false,
+    "actual_cua_smoke": [
+      "V1mouse+key refusal",
+      "F4empty/silent",
+      "Bconstruction/Baseactualprices",
+      "Dwellingleftno-popup",
+      "FinalV2F3visible red refusal"
+    ]
+  },
+  "functional": {
+    "baseline": "Artifacts/HUD-POLISH-2026-10-23/functional-summary.json",
+    "unique_latest_pass": 65,
+    "rerun": false,
+    "reason": "This follow-up changes appearance and routes construction details into the existing left pane. Costs, input transactions and gameplay rules remain unchanged."
+  },
+  "logs": [
+    {
+      "path": "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/build-v1.log",
+      "sha256": "e8527284ddd80c89b600bd721f0ba301d2467c60fd036801ac766bed022476b0"
+    },
+    {
+      "path": "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/build-v2.log",
+      "sha256": "b8a78776650936eb567f6867b25f5de553b94f3dab3fbedfe7b276efcfaee694"
+    },
+    {
+      "path": "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v1.log",
+      "sha256": "861bef4e3b0c0368e34de2101f83ea177db60c8ded9d0579cc65715a5c4c183c"
+    },
+    {
+      "path": "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/native-v2.log",
+      "sha256": "e56df3a49c787391b8d0eefbb3fabb66ac02233e3d3f2fbcd742ab49a1aa6f8a"
+    },
+    {
+      "path": "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/ordinary-v1.log",
+      "sha256": "ab9475786f77e95654ea6bd39f27fd29e1b36947fb0c5564094c89acd16b9495"
+    },
+    {
+      "path": "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/ordinary-final.log",
+      "sha256": "c7896e4eeebcaf4c140ea1a972e2f7154f9598e5d1967f2959b5fbe7d1f2d68c"
+    }
+  ],
+  "new_attributable_errors": [],
+  "source_and_prompts": "art/source/hud_reference_repair_2026-10-23_generation.json",
+  "scene_inspector_wiring": "None new. Existing partial HUD and Resources string loads; source PNG/meta preserve current serialized identities.",
+  "meta_whitespace": "Artifacts/HUD-REFERENCE-REPAIR-2026-10-23/meta-whitespace.json",
+  "files": [
+    {
+      "path": "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.cs",
+      "sha256": "3e4e2c648ad8745f4453a82b61378d66af0086855c91b8f32011fd97b31ff629"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Dock.cs",
+      "sha256": "07d2fd4a9f8539d8b7307080a4339540892d11f75538bd7b64dd73ebfc523616"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.SkillDock.cs",
+      "sha256": "84c1373c0a7b9dfe42aa13e5f241c66629d08db30fc03f1ed3d1fbc3c2b4f565"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.HeroLoadout.cs",
+      "sha256": "1e3a35f6996c75b5b4ad8cc354397cec71d7ad055f21ea0392dc14c0a9993a69"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Construction.cs",
+      "sha256": "d3e27255e6a29dd929942d15d55af4b516637d22036b3e3e4110b863eef72715"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Runtime/Stage3HudRefactorReview.cs",
+      "sha256": "1814091e3d42b6e058db959db6415a02574e4f8d892d81ac2280cf0f5a3cbe65"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Resources/Stage3HudReferenceStates.png",
+      "sha256": "f472fdb7ffb7e9ddd975050f6cd3a716d5ae5427271887358e09d2ed8da0a7d9"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Resources/Stage3HudReferenceSkins.png",
+      "sha256": "9be9fbb770a52ab0e5373b87a522e6fd0e3a40788ef31da930d5643d76b085e7"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Resources/Stage3HudReferencePotions.png",
+      "sha256": "c04b5b461dd169592ab5b4e407296d7db7cace9509abc69fef32d5281f82c894"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Resources/Stage3HudReferenceStates.png.meta",
+      "sha256": "229b82072a05fcc21df39b71fadf34ca5592f995140dbb05bed105fd574d540e"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Resources/Stage3HudReferenceSkins.png.meta",
+      "sha256": "78c986be96925edb400e331fd368063fcd6cdc54cc0001c4443db41f083ed9d8"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Resources/Stage3HudReferenceRibbon.png",
+      "sha256": "0ef9f7996acf0eb7ec4e8639d1e595cc33bcef9981ca4f260b09e82532ff1450"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Resources/Stage3HudReferenceRibbon.png.meta",
+      "sha256": "7f0c5d6d7318df5c27d06f12ca0ca5e6bb030054c5cdc6e6b88f2a72ba92bc96"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Resources/Stage3HudReferencePotions.png.meta",
+      "sha256": "9cac4dedf055797a77987375272ee687ed6c294275ee02634fbc3c234b4d24d7"
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "65d48f242669aacad92677d709e1d5fa041901f1e077cfa401acbece521aedb1"
+    },
+    {
+      "path": "gamedesign/DEVELOPMENT_PLAN.md",
+      "sha256": "beebfa16e5c01f99bbf106d3ada8c423007d5d12f0ba5dae174fb0d1c2683eb6"
+    },
+    {
+      "path": "gamedesign/ART_DIRECTION.md",
+      "sha256": "2fde89e87ef33f6a374fe3f242d906161883c3500434af34b53c36b83a9a5c38"
+    },
+    {
+      "path": "gamedesign/features/PLAYER_INTERFACE.md",
+      "sha256": "249d5f3e6e3c69d840d42cd4d16cd2588710b61f3c92d38907c17862a16205fd"
+    },
+    {
+      "path": "production/WORKSTREAMS.md",
+      "sha256": "2babe391dda6b076f8823462717016ee84311d773eb52d32a20ef4a192c33f53"
+    },
+    {
+      "path": "production/DECISIONS.md",
+      "sha256": "27bba3201c9726360905509b9d87585ad20ae0c1408b1cb83e4f814503d08472"
+    }
+  ],
+  "remaining": [
+    "Windows/Steam qualification",
+    "Sustained manual feel and balance",
+    "Owner acceptance of corrected native appearance"
+  ]
+}

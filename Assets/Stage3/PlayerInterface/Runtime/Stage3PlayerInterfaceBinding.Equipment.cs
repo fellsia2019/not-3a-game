@@ -57,9 +57,6 @@ namespace Not3A.Stage3.PlayerInterface
         public bool TryEquipItem(int id)
         {
             if (!CanManageEquipment || presentation.ActiveWindow != Stage3PlayerWindow.Inventory) return false;
-            var consumable=equipmentDriver.Rules.Find(id);
-            if(consumable!=null&&Stage2EquipmentCatalog.IsConsumable(consumable.Type))
-            {presentation.CloseWindow();RefreshHeroLoadout();return true;}
             LastEquipmentResult = equipmentDriver.Rules.TryEquip(id); MarkEquipmentDirty(); RefreshEquipment();
             return LastEquipmentResult == Stage2EquipmentResult.Ready;
         }
@@ -139,8 +136,9 @@ namespace Not3A.Stage3.PlayerInterface
             return new Stage3EquipmentItemView { Id = id, TypeIndex = (int)type, QualityIndex = (int)quality, Level = level,
                 Name = equipmentDriver.Catalog.Get(type).displayName, Properties = ItemProperties(type, quality, level), IsEquipped = equipped,
                 Consumable=Stage2EquipmentCatalog.IsConsumable(type),Quantity=1,CanUse=CanManageEquipment,
-                EquippedLabel = "Надето", CanEquip = id >= 0 && CanManageEquipment && presentation.ActiveWindow == Stage3PlayerWindow.Inventory,
-                EquipUnavailableReason = "Сейчас недоступно" };
+                CanAssignQuickAccess=id>=0&&CanManageEquipment&&equipmentDriver.Rules.HasActiveAction(type),
+                EquippedLabel = "Надето", CanEquip = id >= 0 && CanManageEquipment && presentation.ActiveWindow == Stage3PlayerWindow.Inventory && equipmentDriver.Rules.EvaluateEquip(id)==Stage2EquipmentResult.Ready,
+                EquipUnavailableReason = type==Stage2ItemType.Wand&&!equipmentDriver.Rules.StaffMasteryKnown?"Изучите свиток «Владение посохом»":"Сейчас недоступно" };
         }
         private Stage3SelectedBuildingStat[] ItemProperties(Stage2ItemType type, Stage2ItemQuality quality, int level)
         {
@@ -185,7 +183,7 @@ namespace Not3A.Stage3.PlayerInterface
                 for (var i = 0; i < outcome.Properties.Length; i++) properties.Add(new Stage3ForgePropertyView { Label = outcome.Properties[i].Label,
                     Before = before?.Properties != null && i < before.Properties.Length ? before.Properties[i].Value : "—", After = outcome.Properties[i].Value });
             presentation.SetForge(new Stage3ForgeView { Mode = forgeMode, SelectedTypeIndex = (int)selectedForgeType, SelectedItemId = selectedForgeItemId,
-                BuildingLevel = rules.ForgeLevel, MaximumQualityIndex = (int)rules.MaximumQuality, Items = choices.ToArray(), CurrentItem = before, Outcome = outcome,
+                BuildingName = forge.DisplayName, BuildingLevel = rules.ForgeLevel, MaximumQualityIndex = (int)rules.MaximumQuality, Items = choices.ToArray(), CurrentItem = before, Outcome = outcome,
                 Cost = ForgeCost(cost), Properties = properties.ToArray(), CanExecute = CanManageEquipment && forge.CanUse && result == Stage2EquipmentResult.Ready,
                 UnavailableReason = !forge.IsBuilt ? "Сначала постройте кузницу" : !forge.NearEntrance ? "Подойдите ко входу в кузницу" :
                     !CanManageEquipment || !forge.CanUse ? "Кузница сейчас недоступна" : EquipmentReason(result),
@@ -196,12 +194,13 @@ namespace Not3A.Stage3.PlayerInterface
         public static string EquipmentReason(Stage2EquipmentResult result) => result switch {
             Stage2EquipmentResult.Ready => null,
             Stage2EquipmentResult.ForgeRequired => "Сначала постройте кузницу",
+            Stage2EquipmentResult.ForgeStageRequired => "Нужна Небесная кузница (ступень II)",
             Stage2EquipmentResult.InsufficientResources => "Недостаточно ресурсов",
             Stage2EquipmentResult.MaximumLevel => "Максимальный уровень",
             Stage2EquipmentResult.ForgeQualityLimit => "Нужна следующая ступень кузницы",
             Stage2EquipmentResult.DropOnlyQuality => "SSS — только ультраредкая добыча",
             Stage2EquipmentResult.UpgradeScrollRequired => "Нужен свиток улучшения кузницы",
-            Stage2EquipmentResult.ResearchRequired => "Изучите соответствующий чертёж в мастерской",
+            Stage2EquipmentResult.ResearchRequired => "Изучите соответствующий чертёж в исследовательском центре",
             Stage2EquipmentResult.MaximumForgeStage => "Максимальная ступень",
             Stage2EquipmentResult.InvalidItem => "Выберите предмет",
             _ => "Сейчас недоступно" };

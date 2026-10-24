@@ -67,7 +67,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
 
         private Vector2 BuildHome()
         {
-            game.Gathering.Economy.Inventory.TryAdd(MapResourceKind.Wood, 10);
+            Stage3TestCycle.FundBaseConstruction(game,20,20);
             Call("BeginPlacement"); var point = FindLegalSite();
             Assert.That(Call("TryBuildAt", point).ToString(), Is.EqualTo("Built"));
             return Get<Vector2>("Position");
@@ -105,18 +105,18 @@ namespace Not3A.Stage3.VisualPilot.Tests
         {
             var inventory = game.Gathering.Economy.Inventory;
             Call("BeginPlacement"); Assert.That(Get<bool>("IsPlacing"), Is.False);
-            inventory.TryAdd(MapResourceKind.Wood, 10); Call("BeginPlacement");
+            Stage3TestCycle.FundBaseConstruction(game,20,20); Call("BeginPlacement");
             Assert.That(Evaluate(scene.MapDefinition.CellToWorld(scene.MapDefinition.EnemyEntrance)), Is.EqualTo("InvalidGround"));
             Assert.That(Evaluate(scene.PlayerMover.transform.position), Is.EqualTo("HeroOverlap"));
             Assert.That(Call("TryBuildAt", new Vector2(float.NaN, 0)).ToString(), Is.EqualTo("InvalidGround"));
             var position = FindLegalSite(); var before = scene.PlayerMover.Obstacles.Rectangles.Count;
             Assert.That(Call("TryBuildAt", position).ToString(), Is.EqualTo("Built"));
-            Assert.That(inventory.Get(MapResourceKind.Wood), Is.Zero);
+            Assert.That(inventory.Get(MapResourceKind.Wood), Is.Zero);Assert.That(inventory.Get(MapResourceKind.Stone),Is.Zero);
             Assert.That(scene.PlayerMover.Obstacles.Rectangles.Count, Is.EqualTo(before + 1));
             Assert.That(scene.PlayerMover.Obstacles.IsBlocked(Get<Vector2>("Position"), scene.PlayerMover.CollisionRadius), Is.True);
             Assert.That(scene.PlayerMover.Obstacles.IsBlocked(Get<Vector2>("InteractionPosition"), scene.PlayerMover.CollisionRadius), Is.False);
             Assert.That(Call("TryBuildAt", position).ToString(), Is.EqualTo("NotPlacing"));
-            Assert.That(inventory.Get(MapResourceKind.Wood), Is.Zero);
+            Assert.That(inventory.Get(MapResourceKind.Wood), Is.Zero);Assert.That(inventory.Get(MapResourceKind.Stone),Is.Zero);
             Assert.That(scene.PlayerMover.Obstacles.Rectangles.Count, Is.EqualTo(before + 1));
             yield return null;
         }
@@ -124,24 +124,40 @@ namespace Not3A.Stage3.VisualPilot.Tests
         [UnityTest] public IEnumerator ActualGatheringPaysForHomeWithoutMaterialOrGoldGrants()
         {
             var inventory = game.Gathering.Economy.Inventory;
-            scene.PlayerMover.transform.position = game.Gathering.Economy.WorldPosition(MapResourceKind.Wood);
-            var hud = game.GetComponent<Stage2GameHud>(); hud.SetGameSpeed(10);
-            input.Release(Keyboard.current.eKey); yield return null;
-            input.Press(Keyboard.current.eKey);
-            var deadline = Time.realtimeSinceStartup + 22f;
-            while (inventory.Get(MapResourceKind.Wood) < 10 && Time.realtimeSinceStartup < deadline) yield return null;
-            input.Release(Keyboard.current.eKey); hud.SetGameSpeed(1); yield return null;
-            Assert.That(inventory.Get(MapResourceKind.Wood), Is.GreaterThanOrEqualTo(10));
-            Assert.That(inventory.Gold, Is.EqualTo(5));
+            var hud = game.GetComponent<Stage2GameHud>();
+            foreach(var kind in new[]{MapResourceKind.Wood,MapResourceKind.Stone})
+            {
+                // Stand at a walkable harvest approach, not inside the old marker's solid rock.
+                var economy=game.Gathering.Economy;Vector2? approach=null;
+                foreach(var node in economy.Nodes.Where(n=>n.Resource==kind&&!n.IsDepleted))
+                {
+                    for(var bearing=0;bearing<8&&!approach.HasValue;bearing++)
+                    {
+                        var angle=bearing*Mathf.PI/4f;
+                        var candidate=node.WorldPosition+new Vector2(Mathf.Cos(angle),Mathf.Sin(angle))*(node.InteractionRadius+scene.PlayerMover.CollisionRadius+.08f);
+                        if(scene.PlayerMover.Obstacles.IsBlocked(candidate,scene.PlayerMover.CollisionRadius)||economy.NearestAvailableNode(candidate)?.Resource!=kind)continue;
+                        approach=candidate;
+                    }
+                    if(approach.HasValue)break;
+                }
+                Assert.That(approach.HasValue,Is.True,"Reachable actual harvest approach for "+kind);
+                scene.PlayerMover.transform.position=approach.Value;hud.SetGameSpeed(10);
+                input.Release(Keyboard.current.eKey);yield return null;input.Press(Keyboard.current.eKey);
+                var deadline=Time.realtimeSinceStartup+40f;
+                while(inventory.Get(kind)<20&&Time.realtimeSinceStartup<deadline)yield return null;
+                input.Release(Keyboard.current.eKey);hud.SetGameSpeed(1);yield return null;
+                Assert.That(inventory.Get(kind),Is.GreaterThanOrEqualTo(20),"Actual "+kind+" harvest; target "+game.Gathering.InteractionTarget?.Resource);
+            }
+            Assert.That(inventory.Gold,Is.EqualTo(5));
             var before = inventory.Get(MapResourceKind.Wood);
             Call("BeginPlacement"); var point = FindLegalSite();
             Assert.That(Call("TryBuildAt", point).ToString(), Is.EqualTo("Built"));
-            Assert.That(inventory.Get(MapResourceKind.Wood), Is.EqualTo(before - 10));
+            Assert.That(inventory.Get(MapResourceKind.Wood), Is.EqualTo(before - 20));
         }
 
         [UnityTest] public IEnumerator MouseUiHeldClicksAndSameFrameCancelDoNotSpendOrBuildTwice()
         {
-            game.Gathering.Economy.Inventory.TryAdd(MapResourceKind.Wood, 10);
+            Stage3TestCycle.FundBaseConstruction(game,20,20);
             Call("BeginPlacement"); var point = FindLegalSite();
             var camera = scene.CameraFollow.BoundCamera; scene.CameraFollow.enabled = false;
             camera.transform.position = (Vector3)point - camera.transform.forward * 30f;
@@ -155,7 +171,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
             input.Release(Mouse.current.leftButton); yield return null;
             input.Press(Mouse.current.leftButton); input.Press(Mouse.current.rightButton); yield return null;
             Assert.That(Get<bool>("IsBuilt"), Is.False); Assert.That(Get<bool>("IsPlacing"), Is.False);
-            Assert.That(game.Gathering.Economy.Inventory.Get(MapResourceKind.Wood), Is.EqualTo(10));
+            Assert.That(game.Gathering.Economy.Inventory.Get(MapResourceKind.Wood), Is.EqualTo(20));Assert.That(game.Gathering.Economy.Inventory.Get(MapResourceKind.Stone), Is.EqualTo(20));
             input.Release(Mouse.current.leftButton); input.Release(Mouse.current.rightButton); yield return null;
             Call("BeginPlacement"); yield return null;
             input.Press(Mouse.current.leftButton); yield return null; yield return null;
@@ -169,6 +185,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
         [UnityTest] public IEnumerator HomeSleepStopsBeforeNightWithoutSkippedProductionOrRecovery()
         {
             BuildHome();
+            Stage3TestCycle.StudyBlueprint(game,Stage2BlueprintKind.Sawmill);
             var production = game.Production;
             foreach (MapResourceKind kind in Enum.GetValues(typeof(MapResourceKind))) game.Gathering.Economy.Inventory.TryAdd(kind, 100);
             var point = production.Rules.Points[0];
@@ -263,7 +280,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
 
         [UnityTest] public IEnumerator ConstructionModesPauseDebugResetAndRegenerationDoNotLeakHomeState()
         {
-            var inventory = game.Gathering.Economy.Inventory; inventory.TryAdd(MapResourceKind.Wood, 20);
+            var inventory = game.Gathering.Economy.Inventory; Stage3TestCycle.FundBaseConstruction(game);
             Call("BeginPlacement"); Assert.That(Get<bool>("IsPlacing"), Is.True);
             var travel = game.GetComponent("Stage3WorldTravel");
             travel.GetType().GetMethod("BeginWorkshopPlacement").Invoke(travel, null); yield return null;

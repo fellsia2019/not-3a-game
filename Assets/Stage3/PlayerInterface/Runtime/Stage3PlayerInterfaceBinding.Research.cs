@@ -27,17 +27,18 @@ namespace Not3A.Stage3.PlayerInterface
             presentation.ResearchStudyRequested+=StudyResearch;
             presentation.BlueprintResearchRequested+=OpenResearchForBlueprint;
             game.Building.SetRoleAvailability(role=>role!=1||Blueprints.IsStudied(Stage2BlueprintKind.Longshot));
+            game.Production?.Rules.SetBuildingAvailability(kind=>Blueprints.IsStudied(Stage2BlueprintCatalog.ForProduction(kind)));
             BlueprintsChanged();
-            Debug.Log("S3_BLUEPRINTS_READY:4 gold-traded documents, local single-use study, permanent knowledge; single-level workshop.");
+            Debug.Log("S3_BLUEPRINTS_READY:8 gold-traded documents, local single-use study, construction gates; single-level workshop.");
         }
         private void BlueprintsChanged()
         {researchDirty=true;MarkEquipmentDirty();MarkMerchantDirty();InvalidateBuildingSelection();}
         private void SelectResearch(int kind)
-        {if(kind< -1||kind>=4)return;selectedResearchKind=kind;researchDirty=true;RefreshResearch();}
+        {if(kind< -1||Blueprints==null||kind>=Blueprints.Catalog.Count)return;selectedResearchKind=kind;researchDirty=true;RefreshResearch();}
         private void StudyResearch(int kind)=>TryStudyResearch(kind);
         public void OpenResearchForBlueprint(int kind)
         {
-            if(!CanManageEquipment||Blueprints==null||kind<0||kind>=4)return;
+            if(!CanManageEquipment||Blueprints==null||kind<0||kind>=Blueprints.Catalog.Count)return;
             selectedResearchKind=kind;OpenResearchWindow();
         }
         private void OpenWorkshopResearch()
@@ -54,7 +55,7 @@ namespace Not3A.Stage3.PlayerInterface
             presentation.ActiveWindow==Stage3PlayerWindow.Research&&(blueprintTravel?.CanStudyAtWorkshop??false);
         public bool TryStudyResearch(int kind)
         {
-            if(Blueprints==null||kind!=selectedResearchKind||kind< -1||kind>=4||!ResearchModeAllowed)
+            if(Blueprints==null||kind!=selectedResearchKind||kind< -1||kind>=Blueprints.Catalog.Count||!ResearchModeAllowed)
             {LastResearchResult=Stage2BlueprintResult.Unavailable;researchDirty=true;return false;}
             if(kind== -1)
                 LastResearchResult=blueprintTravel.TryStudyTeleport()?Stage2BlueprintResult.Ready:
@@ -78,8 +79,8 @@ namespace Not3A.Stage3.PlayerInterface
         private string ResearchReason(Stage2BlueprintKind? kind)
         {
             if(kind.HasValue&&Blueprints.IsStudied(kind.Value)||!kind.HasValue&&(blueprintTravel?.IsResearched??false))return "Изучено";
-            if(!(blueprintTravel?.WorkshopBuilt??false))return "Сначала постройте исследовательскую мастерскую";
-            if(!(blueprintTravel?.NearWorkshop??false))return "Подойдите к исследовательской мастерской";
+            if(!(blueprintTravel?.WorkshopBuilt??false))return "Сначала постройте исследовательский центр";
+            if(!(blueprintTravel?.NearWorkshop??false))return "Подойдите к исследовательскому центру";
             if(!ResearchModeAllowed)return "Исследование сейчас недоступно";
             if(!kind.HasValue)return null;
             var paper=Blueprints.Find(kind.Value);
@@ -128,6 +129,7 @@ namespace Not3A.Stage3.PlayerInterface
             presentation.ResearchSelected-=SelectResearch;presentation.ResearchStudyRequested-=StudyResearch;
             presentation.BlueprintResearchRequested-=OpenResearchForBlueprint;presentation.SetResearch(null);
             game.Building.SetRoleAvailability(null);
+            game.Production?.Rules.SetBuildingAvailability(null);
         }
     }
 }

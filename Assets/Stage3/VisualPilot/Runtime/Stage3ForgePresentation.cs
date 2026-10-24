@@ -78,7 +78,7 @@ namespace Not3A.Stage3.VisualPilot
             }
             if(hud!=null)hud.ForgeInteractionHint=owner.IsPlacing?
                 visible?PlacementHint(owner.PreviewResult):"Выберите место в мире · Esc / ПКМ · отменить":
-                owner.IsBuilt&&owner.NearEntrance?owner.CanUse?"E · кузница":"Кузница сейчас недоступна":null;
+                owner.IsBuilt&&owner.NearEntrance?owner.CanUse?"E · "+owner.DisplayName:owner.DisplayName+" сейчас недоступна":null;
         }
         private static string PlacementHint(Stage3ForgePlacementResult result) => result switch
         {
@@ -87,6 +87,7 @@ namespace Not3A.Stage3.VisualPilot
             Stage3ForgePlacementResult.Occupied => "Место занято · выберите свободный участок · Esc / ПКМ · отменить",
             Stage3ForgePlacementResult.InvalidGround => "Нужен ровный свободный участок зелёной земли · Esc / ПКМ · отменить",
             Stage3ForgePlacementResult.InsufficientResources => "Недостаточно ресурсов для кузницы · Esc / ПКМ · отменить",
+            Stage3ForgePlacementResult.ResearchRequired => "Изучите чертёж кузницы в исследовательском центре · Esc / ПКМ · отменить",
             Stage3ForgePlacementResult.CreationFailed => "Не удалось построить кузницу · выберите другое место · Esc / ПКМ · отменить",
             _ => "Выберите свободную зелёную землю · Esc / ПКМ · отменить"
         };

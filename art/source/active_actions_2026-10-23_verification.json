@@ -1,0 +1,79 @@
+{
+  "accepted_date": "2026-10-23",
+  "completed_local_date": "2026-10-24",
+  "status": "PASS_LOCAL_MAC",
+  "owner_appearance_acceptance": false,
+  "scope": "D128 compact HUD plus D129 configurable active items/staff mastery and D130 distinct elemental actions. Current task qualification, not a whole-project or full-run balance claim.",
+  "functional": {
+    "passed_unique": 88,
+    "failed": 0,
+    "skipped": 1,
+    "summary": "Artifacts/ACTIVE-ACTIONS-2026-10-23/functional-summary.json",
+    "skip": "One existing headless viewport caption-band case cannot apply720p; native whole-tree/detail captures at720/900/1080 corroborate layout, without converting the skipped NUnit case into PASS.",
+    "includes": [
+      "owned capability/nonconsumable fixture, assignment/clear/finite stacks/F4 keyboard/shared CD/full-vitals refusal",
+      "mastery buy versus consuming study, staff equip/skills and paid ForgeII craft",
+      "actual portal/world damage, area cap, freeze/stun/slow, school vulnerability and fractional starter damage",
+      "target burn versus ground newcomers, three active seconds, full ticks at120Hz, pause/expiry",
+      "nearest autocast, manual coexistence, Hero-window preference settings versus paused/other modal events",
+      "retry/current bindings/toggles/CD and transient clear; full reset defaults/no free bottles"
+    ]
+  },
+  "native": {
+    "final_capture": "Artifacts/ACTIVE-ACTIONS-2026-10-23/native-v3",
+    "frames": 45,
+    "sizes": [
+      "1280x720",
+      "1600x900",
+      "1920x1080"
+    ],
+    "assertions": 142,
+    "visual_review": "art/source/active_actions_2026-10-23_native_review.json",
+    "final_review_scope": "15 changed clean v3 frames plus30 unchanged UI frames actually reviewed in v1. V1 RETURN and v2 effect-state contamination retained; v3 isolates previous statuses/areas and blocks autocast only for effect snapshots.",
+    "fixture": "Explicit opt-in only; actual finite purchases, paid centre/forge, local consuming studies, real casts. Durable portal sample uses existing health multiplier100 for readability only; world enemy uses authored health. Ordinary run has no such grants."
+  },
+  "compact_hud": {
+    "capture": "Artifacts/HUD-COMPACT-2026-10-23/native-v2",
+    "asserted_frames": 33,
+    "review": "art/source/hud_compact_2026-10-23_native_review.json",
+    "scope": "Recorded v1 RETURN repaired and v2 local visual PASS; current action capture reuses compact geometry/materials."
+  },
+  "manual_input": {
+    "native_mouse_v1": [
+      "Inventory RMB clears F4 without losing2bottles; LMB reassigns HP to F4 and another slot",
+      "RMB bow1 toggles off/on; Z switches and staff autocast spends normal MP/hits target; RMB6 disables it"
+    ],
+    "native_keyboard_v3": [
+      "Empty F4 silent",
+      "I inventory",
+      "O hero with staff concealed",
+      "Tab returns player"
+    ],
+    "mapped_F4_use": "Actual InputSystem F4 in native opt-in and PlayMode consumes assigned potion/heals; not claimed as an injured OS CUA test.",
+    "limitation": "Optional additional final closed-staff mouse click was blocked by transient CUA noWindowsAvailable; captured bound-selection assertions already reject inspection. Final keyboard return succeeded."
+  },
+  "build": {
+    "path": "Builds/MacActiveActions/Not3AActiveActions.app",
+    "bytes": 849979653,
+    "log": "Artifacts/ACTIVE-ACTIONS-2026-10-23/build-v3.log",
+    "ordinary_startup": "Artifacts/ACTIVE-ACTIONS-2026-10-23/ordinary-final",
+    "first_eight_renders_ready": true,
+    "ordinary_profile": "LVL1/XP0/gold5/no potions/no staff knowledge/emptyF4",
+    "only_one_player": true
+  },
+  "integration": "Existing scene binding/Resources only. Keep old enum IDs, asset GUIDs/instances/ranks; no package, extra scene wiring or disk-save migration. New .meta pairs included.",
+  "remaining": [
+    "Windows/Steam qualification",
+    "Sustained manual balance and owner appearance acceptance",
+    "Portal HP5 can die before late debuffs show; no hidden horde-HP retuning was made"
+  ],
+  "audit": "art/source/active_skills_2026-10-23_audit.json",
+  "sha256": {
+    "Assets/Stage2/Integration/Runtime/Stage2Equipment.QuickAccess.cs": "790fb6ebd83bcb2b4b67a7d5de71f28d69fb077d602c5f8a7bad7029cb91452d",
+    "Assets/Stage2/WavesAI/Runtime/Stage2CombatStatuses.cs": "bf6b29b76a88dfd81edb70807d29b6ff80434c93fcc03d9f23912992b2896076",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3HeroSkillsDriver.cs": "4d8d4562cfdea426c0f38d6d279a20a9d8852c0320b0e428395fc63ba5a4c41a",
+    "Assets/Stage3/VisualPilot/Runtime/Stage3HeroSkillPresentation.cs": "74db2633d186c4dc5cd658bfa6e48543d8ec6583d477d2e37b2e6320d6d6c922",
+    "Assets/Stage3/PlayerInterface/Resources/Stage3HeroSkills.asset": "d2c81302199c7f483334148ff65359ead0a753a88e04085db3c19d72939db5cf",
+    "Assets/Stage3/PlayerInterface/Resources/Stage3Blueprints.asset": "9605861b421f06755c1b4b6c3a84d57a6d956376667939299b91108fd148afc9"
+  }
+}

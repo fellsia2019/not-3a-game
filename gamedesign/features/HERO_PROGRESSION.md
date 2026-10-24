@@ -1,6 +1,197 @@
 # Hero progression
 
-## D120 — implemented bow/staff development,2026-10-22
+## D130 — active-skill roles and real enemy effects,2026-10-23
+
+Owner replaces the old temporary attack-speed/movement skills and requests
+bounded elemental effects, selective RMB autocast and an audit of all actives.
+IDs, learned ranks, prerequisites, shared points and weapon controls survive.
+Current tuning is owned ONLY by Resources/Stage3HeroSkills.asset. The following
+is a role audit of that data, not a second tuning source.
+
+| Key | Bow role/effect | Staff role/effect |
+| --- | --- | --- |
+| Q | Shared Blink: reposition, no damage/status | Same shared learned Blink |
+| 1 | AimedShot: stationary charge, strong single physical hit; optional autocast | Arcane: repeatable magical hit with a smaller splash; optional autocast |
+| 2 | FireArrow: small initial physical area, target-attached magical burn follows affected survivors | Barrier: temporary personal absorption, no throne protection |
+| 3 | IceArrow: small physical area, actual freeze followed by a longer slow | Recovery: personal HP restoration for MP; full HP refuses without spend |
+| 4 | PiercingArrow: physical burst and a roaming red magic-arrow presentation in the impact area; continued physical hits, smaller area than Fireball | Fireball: larger magical burst and persistent ground fire; entering enemies can be hit after the initial impact |
+| 5 | PoisonArrow: small physical area, physical poison DoT, slow and physical incoming-damage vulnerability | Lightning: magical area burst, short stun and magical incoming-damage vulnerability |
+
+The two fire skills differ by ownership of the lingering effect: FireArrow's
+burn is carried by initial surviving targets; Fireball owns a ground area and
+can hurt later entrants. The red arrow is a narrower, cheaper physical pressure
+zone rather than a second fire spell. Poison supports bow/physical towers;
+Lightning supports staff and magical burn/fire, with immediate hard control.
+Ice gives earlier control with less burst. Staff trades two offensive slots for
+barrier/heal; the branches intentionally do not mirror five identical spells.
+AimedShot/Arcane remain non-elemental baseline attacks; mobility and personal
+sustain do not receive invented offensive debuffs.
+
+All damage uses actual portal/world HP, existing kill/XP ownership and per-tick
+area target caps. Persistent damage snapshots cast-time weapon damage, so Z
+cannot retroactively amplify an existing zone/poison. Ground zones require a
+valid initial target under the existing no-empty-cast contract. Pausing stops
+CD and persistent ticks; retry/death clear transient targeting and hero-owned
+DoT/zones, while retry retains learned ranks/current CD and autocast settings.
+Reset clears learned ranks, toggles and transient effects. Invalid/manual
+cancelled casts spend no MP/CD. MovingFire never removes AimedShot's stop rule.
+
+Only learned AimedShot/Arcane accept RMB autocast. It spends normal MP/CD,
+uses the same nearest valid enemy inside ordinary attack range, respects active
+weapon/knowledge/UI/pause, and retains manual targeting. AimedShot still charges;
+moving cancels it without spend. The contained cyan A mark reflects actual toggle.
+
+Portal and neutral enemies share plain per-actor timed statuses. Freeze/stun
+stop movement AND attacks; slow does not. Reapplication refreshes one effect
+rather than stacking a new vulnerability multiplier. Current enemies have no
+baseline physical armor/magic resistance: requested defense weakening is
+implemented honestly as school-specific incoming-damage vulnerability. Physical
+and magical bonus fractions carry per enemy, so starter damage1 still benefits
+without rounding every hit upward. Released ordinary projectiles retain their
+launch-time damage school across Z. Existing untyped tower hits are physical;
+no tower element is invented.
+
+Passive21 now extends PiercingArrow area lifetime;22 extends PoisonArrow's
+poison/slow/physical vulnerability. IDs/ranks and point costs remain. Cold-tip
+also slightly extends freeze in addition to its existing slow strength. Skill
+views show actual radius/target cap and base status duration/cadence; supporting
+talents describe their additions. Status/ground effects use established original
+project art, not copied movie assets.
+
+Balance audit: low-rank Ice/Poison are utility, not burst replacements; Fireball
+has a larger area/burst but higher MP and longer cooldown than FireArrow. Every
+area keeps the bounded target budget, including each persistent tick. Changing
+entrants can still make a zone hit more unique enemies across its lifetime; it
+is not a total lifetime cap. Portal HP5 means a developed burst can kill before
+a debuff becomes visible. That is a limit of the current trial progression,
+not permission to silently increase horde HP or claim full-run balance. The
+shared100-level budget still requires specialization; no points/content added.
+
+Local qualification completed2026-10-24:88unique relevant PlayModePASS,1existing
+headless viewportSKIP documented and corroborated by native layouts. Final45
+native assertions at720/900/1080; Astra reviewed15changed clean v3 plus30reused
+unchanged v1UI after retained RETURNs. Current Mac849979653-byte player starts
+ordinary LVL1/XP0/gold5 with no grants; first8renders ready. Evidence:
+art/source/active_actions_2026-10-23_verification.json and native_review.json.
+Windows, sustained balance and final owner appearance acceptance remain open.
+
+## D129 — configurable active items and staff mastery,2026-10-23
+
+F1–F4 are configurable through inventory. Select an owned item with actual
+ActiveAction capability, then its destination slot; RMB on the inventory slot
+clears the binding. Ordinary armor/tools/non-active items cannot be assigned.
+Bindings reference item type/action without moving, equipping or duplicating an
+item. Current actives are the three finite bag potions; future nonconsumable
+active items can use the same capability without being consumed. Every slot,
+including F4, invokes its actual assigned type. Empty slots stay silent; zero
+stock/full vitals/CD refuse visibly without consumption. Retry/death retain
+bindings; bag drops remove available stock until recovery. Reset restores the
+three potion defaults/empty F4 and grants no potion.
+
+The existing WandRecipe paper is now «Владение посохом»: purchase alone does
+nothing; one local study consumes it and opens staff equipment, staff skills
+and the staff forge recipe. Crafting additionally needs ForgeII, displayed as
+«Небесная кузница». A merchant staff can be bought before study, but cannot be
+equipped/used until knowledge is learned. Unknown staff nodes are obscured,
+desaturated and cannot be upgraded, selected for inspection or show descriptions.
+Known historical ranks/instances are not deleted; staff effects are dormant
+until knowledge exists. Legacy profiles without blueprint research retain
+legacy equipment access. No new scroll family/stock/price/restock/save format.
+
+## D126 — explicit development-only XP/level grants,2026-10-23
+
+The existing F10 developer menu gains +100/+1000XP and +1/+10hero levels plus
+actual level/XP status. Both routes call normal AwardExperience: normal shared
+points, level-up feedback and catalog cap100. A level action pays the remaining
+XP to the requested boundary (XPwithin0); it does not learn ranks. Grants require
+enabled developer tools, an open debug menu and a live nonterminal run; explicit
+grants also work while paused. Invalid values, disabled/closed tools and cap
+change nothing. Full Reset clears grants; current retry retains progression by
+D087. No ordinary startup XP, mastery points, items or skipped-time income.
+
+## D125 — late moving fire, five-rank specializations and gathering capstones
+
+Owner requests moving fire far later and extends current gathering/adventurer
+training. Talent14 now requires the advanced bow branch through skill5 (now Ядовитая стрела under D130);
+the current resource sets first purchase at hero50, later ranks54/58. It remains
+a shared both-weapon passive with the same moving-shot penalties. Existing
+learned ranks are retained; prerequisites gate future purchases, not retroactive
+removal. Early Light Step no longer opens this talent.
+
+Strength and tempo have five paid ranks for each profession; reach retains
+three. Each of five adventurer talents now has five ranks. Previous values/IDs
+are preserved and ranksIV/V append in Stage3HeroSkills.asset. The installer can
+append missing adventure nodes and expand old three-value power arrays without
+changing their first three entries. Legacy profession data defaults remain3/3/3;
+current Stage3Professions explicitly selects5/5/3.
+
+After StrengthV, each profession offers one additional paid one-rank passive:
+«Раскалывающий удар» finishes a medium STONE node on a successful proc;
+«Размашистая рубка» harvests one additional ordinary tree inside the hero's
+normal gathering range after felling the first. Owner selected the10%trial
+chance. Large deposits and metal never receive the stone finisher. The extra
+tree cannot trigger another proc. Actual remaining stock alone pays material
+and mastery XP; normal tool/range/time/pause/ownership/wallet checks remain.
+
+Budget: hero levels2–100 still award99points. Full training costs43paid active
+ranks +60combat passive ranks +25adventurer ranks +26core gathering ranks
++2gathering capstones =156points. Full completion is not funded by the current
+cap; branch choices are required. No extra point income or currency is added.
+Runtime values live in Stage3HeroSkills/Stage3Professions; concept labels do not
+override data. D124/D125 local qualification completed2026-10-23 with37EditMode
+and82unique PlayMode PASS,1headlessviewportSKIP replaced by native captures.
+Astra visual PASS and remaining Windows/manual-balance scope are recorded in
+art/source/hud_refactor_2026-10-22_verification.json.
+
+## D124 — expanded adventurer branch and shared visual refactor, 2026-10-22
+
+Owner authorizes two additional passive talents suitable for world adventures:
+«Охотник на чудовищ» (world-enemy damage) and «Стойкость странника» (incoming
+world damage reduction). Append IDs34/35 to the existing three adventurer IDs31–33;
+combat IDs0–30,11actives/20passives and all learned-rank identities stay intact.
+The catalogue therefore contains36nodes, including5adventurer talents. Target
+paid ranks initially become136 (D125 above subsequently extends this to156); hero cap100/shared99points
+still require choices rather than completing every rank.
+
+Both new talents spend ordinary shared hero points. Current rank values,
+required levels and prerequisites live in Stage3HeroSkills.asset. Hunter requires
+the existing adventurer-XP talent; resistance requires Hunter. World damage
+applies at the actual world-hit endpoint to automatic attacks and active hits,
+including their damage-over-time. Carry fractional damage so low starter damage
+still receives its percentage benefit. Invalid/portal hits do not earn this
+bonus. World resistance composes multiplicatively with existing equipment
+protection before barrier absorption, spends no mana and uses the actual
+exploration-damage recovery path. Portal horde income/HP/targeting stay unchanged.
+Retry keeps ranks; Reset clears the new ranks and fractional accumulators.
+
+Current resources append serialized definitions; the installer migration supports
+31/34→36nodes by appending only missing entries, preserving existing values.
+Owner approved the compact five-node tree with deliberate orthogonal links
+and the shared header/details/control family with combat and gathering. Astra
+has implemented and locally qualified the native branch with the D125 ranks. The old sprawling three-compass/curved-line board is superseded.
+PLAYER_INTERFACE.md owns the complete HUD/menu refactor and appearance gate.
+
+## D121 — shared talent points and reduced portal rewards, 2026-10-22
+
+ONE existing Stage2HeroProgression balance pays every learned combat, gathering
+and adventurer rank. Miner/logger mastery and material XP remain independent,
+but mastery milestones no longer mint points. Both profession cards display the
+same hero-point balance; any branch's purchase immediately updates the others.
+Profession rank costs remain catalog data. Existing learned effects, tool
+composition and gathering stock are preserved. Reentrant profession purchases
+cannot spend the same balance twice. Retry preserves current points/mastery/ranks;
+Reset clears them. No persistence migration is needed (world state is in memory).
+
+Portal confirmed kills now give one XP; the current XP curve and chance-based
+gold are tuned against the actual timed five-night stream rather than authored
+finite quotas. Guild/world rewards are unchanged. This supersedes D092/D120's
+independent profession point income and the earlier portal XP amount.
+
+Local D121–D123 verification:105EditMode/99PlayMode PASS; Mac native/Astra
+qualification and remaining Windows/manual-balance scope are recorded in
+`art/source/progression_refactor_2026-10-22_verification.json`.
+
+## D120 — original implemented bow/staff development, amended above by D129/D130,2026-10-22
 
 Owner approved hero_tree_v1/hud_v2/equipment_v2, the five-per-weapon catalogue
 and controls. This supersedes D119's ten-active composition and earlier draft
@@ -43,8 +234,8 @@ attack damage is carried between shots so small percentage bonuses work.
 The graph has real level/prerequisite gates. Both first attacks branch from
 free BlinkI; later spells branch within their own weapon, rather than requiring
 every passive or investment in the other weapon. Four ranks per active, three
-per passive. The existing1point per level2–100 gives99points. All43paid active
-ranks +60combat passive ranks +9adventurer ranks total112possible spends,
+per passive. The existing1point per level2–100 gives99points. With D121, all43paid active
+ranks +60combat passive ranks +9adventurer ranks +18gathering ranks total130possible spends,
 creating build choices without increasing point income or the level cap.
 
 Авантюрист has THREE working talents: contract XP, contract gold, and world
@@ -52,7 +243,7 @@ kill XP. Contract bonuses apply once at actual local turn-in and the displayed
 reward matches the payment; world XP applies to orcs/ogres only, with fractional
 carry for low-value kills. Portal XP is unchanged. No invented world gold/drop
 or discovery reward. Добыча retains the existing miner/logger mastery1–100,
-three talents each and independent profession points. The larger gathering and
+three talents each; D121 makes them spend shared hero points, without mastery-point income. The larger gathering and
 six-adventurer lists below are superseded proposals, not locked fake buttons.
 
 Runtime values belong to Resources/Stage3HeroSkills and Stage3HeroProgression,

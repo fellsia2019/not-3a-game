@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 namespace Not3A.Stage3.VisualPilot
 {
-    public enum WorkshopPlacementResult { NotPlacing, Ready, InvalidGround, Occupied, HeroOverlap, Built }
+    public enum WorkshopPlacementResult { NotPlacing, Ready, InvalidGround, Occupied, HeroOverlap, Built, InsufficientResources }
 
     public sealed partial class Stage3WorldTravel
     {
@@ -15,6 +15,10 @@ namespace Not3A.Stage3.VisualPilot
         private Stage2PlacementMark workshopOutline;
         private Material workshopPreviewMaterial, workshopGroundMaterial;
         private bool confirmRequiresRelease;
+        private bool workshopCommitInProgress;
+        public int WorkshopWoodCost => data.workshopWoodCost;
+        public int WorkshopStoneCost => data.workshopStoneCost;
+        public bool CanAffordWorkshop => game.Gathering.Economy.Inventory.CanAfford(WorkshopWoodCost, WorkshopStoneCost, 0, 0);
         public bool IsPlacingWorkshop { get; private set; }
         public WorkshopPlacementResult WorkshopPreviewResult { get; private set; }
         public Vector2 WorkshopPreviewPosition { get; private set; }
@@ -23,11 +27,11 @@ namespace Not3A.Stage3.VisualPilot
         private bool ConstructionAllowed => Active && (hud == null || !hud.DebugOpen);
         public Stage2WorkshopBuildStatus WorkshopBuildStatus => state.WorkshopBuilt ? Stage2WorkshopBuildStatus.Built :
             !ConstructionAllowed ? Stage2WorkshopBuildStatus.Unavailable :
-            IsPlacingWorkshop ? Stage2WorkshopBuildStatus.Placing : Stage2WorkshopBuildStatus.Ready;
+            IsPlacingWorkshop ? Stage2WorkshopBuildStatus.Placing : CanAffordWorkshop ? Stage2WorkshopBuildStatus.Ready : Stage2WorkshopBuildStatus.Unavailable;
 
         public void BeginWorkshopPlacement()
         {
-            if (!ConstructionAllowed || state.WorkshopBuilt) return;
+            if (!ConstructionAllowed || state.WorkshopBuilt || workshopCommitInProgress || !CanAffordWorkshop) return;
             game.Building.CancelPlacement(); game.Production?.CancelPlacement(); CancelConstructionPlacement();
             GetComponent<Stage3Dwelling>()?.CancelPlacement();GetComponent<Stage3Forge>()?.CancelPlacement();
             PlacementStarting?.Invoke();
@@ -58,7 +62,7 @@ namespace Not3A.Stage3.VisualPilot
 
         public WorkshopPlacementResult EvaluateWorkshopAt(Vector2 point)
         {
-            if (!IsPlacingWorkshop || !ConstructionAllowed || state.WorkshopBuilt) return WorkshopPlacementResult.NotPlacing;
+            if (!IsPlacingWorkshop || !ConstructionAllowed || state.WorkshopBuilt || workshopCommitInProgress) return WorkshopPlacementResult.NotPlacing;
             if (float.IsNaN(point.x) || float.IsNaN(point.y) || float.IsInfinity(point.x) || float.IsInfinity(point.y))
                 return WorkshopPlacementResult.InvalidGround;
             point = SnapWorkshop(point);
@@ -95,20 +99,27 @@ namespace Not3A.Stage3.VisualPilot
             var approachCell = map.WorldToCell(approach);
             if (!map.Contains(approachCell) || !map.IsWalkable(approachCell) || obstacles.IsBlocked(approach, scene.PlayerMover.CollisionRadius))
                 return WorkshopPlacementResult.Occupied;
-            return WorkshopPlacementResult.Ready;
+            return CanAffordWorkshop ? WorkshopPlacementResult.Ready : WorkshopPlacementResult.InsufficientResources;
         }
 
         public WorkshopPlacementResult TryBuildWorkshopAt(Vector2 point)
         {
             var result = EvaluateWorkshopAt(point);
             if (result != WorkshopPlacementResult.Ready) return WorkshopPreviewResult = result;
-            WorkshopPosition = SnapWorkshop(point);
-            CreateWorkshop(); PlaceWorkshop(); state.BuildWorkshop();
-            workshopObstacle = new Rect(WorkshopPosition - data.workshopFootprint * .5f, data.workshopFootprint);
-            obstacles.AddRectangle(workshopObstacle);
-            CancelWorkshopPlacement(); requiresRelease = true; game.Gathering.CancelGatherUntilRelease(); RefreshMarkers();
-            GetComponent<Stage3TacticalPresentation>()?.RefreshSiteClearances();
-            return WorkshopPreviewResult = WorkshopPlacementResult.Built;
+            workshopCommitInProgress = true;
+            try
+            {
+                if (!game.Gathering.Economy.Inventory.TrySpend(WorkshopWoodCost, WorkshopStoneCost, 0, 0))
+                    return WorkshopPreviewResult = WorkshopPlacementResult.InsufficientResources;
+                WorkshopPosition = SnapWorkshop(point);
+                CreateWorkshop(); PlaceWorkshop(); state.BuildWorkshop();
+                workshopObstacle = new Rect(WorkshopPosition - data.workshopFootprint * .5f, data.workshopFootprint);
+                obstacles.AddRectangle(workshopObstacle);
+                CancelWorkshopPlacement(); requiresRelease = true; game.Gathering.CancelGatherUntilRelease(); RefreshMarkers();
+                GetComponent<Stage3TacticalPresentation>()?.RefreshSiteClearances();
+                return WorkshopPreviewResult = WorkshopPlacementResult.Built;
+            }
+            finally { workshopCommitInProgress = false; }
         }
 
         private void EnableConstructionInput()
@@ -154,7 +165,8 @@ namespace Not3A.Stage3.VisualPilot
             workshopOutline.transform.position = new Vector3(WorkshopPreviewPosition.x, WorkshopPreviewPosition.y,
                 Stage3TacticalPresentation.GrassSurfaceZ(WorkshopPreviewPosition) - .025f);
             if (hud != null) hud.WorldInteractionHint = WorkshopPreviewResult == WorkshopPlacementResult.Ready ?
-                "ЛКМ · построить мастерскую    Esc / ПКМ · отменить" : WorkshopPreviewResult == WorkshopPlacementResult.HeroOverlap ?
+                "ЛКМ · построить исследовательский центр    Esc / ПКМ · отменить" : WorkshopPreviewResult == WorkshopPlacementResult.InsufficientResources ?
+                "Недостаточно ресурсов для исследовательского центра" : WorkshopPreviewResult == WorkshopPlacementResult.HeroOverlap ?
                 "Место занято героем · отойдите или выберите соседнее" : WorkshopPreviewResult == WorkshopPlacementResult.Occupied ?
                 "Место или вход заняты ресурсом, зданием либо кругом · выберите соседнее" :
                 "Весь фундамент должен быть на зелёной земле · Esc / ПКМ отменяет";

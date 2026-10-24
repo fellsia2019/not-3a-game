@@ -43,6 +43,41 @@ namespace Not3A.Stage3.VisualPilot.Tests
             var points = rules.AvailablePoints; rules.AwardExperience(int.MaxValue);
             Assert.That(rules.AvailablePoints, Is.EqualTo(points)); Assert.That(celebrations, Is.EqualTo(2));
         }
+        [Test] public void FiveAuthoredTimedNightsFitEarlyLevelAndGoldBudgetsWithoutChangingEnemyDensity()
+        {
+            var data = UnityEditor.AssetDatabase.LoadAssetAtPath<Stage2RunCatalog>("Assets/Stage3/CombatSlice/HordeRun.asset");
+            var economyData = UnityEditor.AssetDatabase.LoadAssetAtPath<Stage2EconomyCatalog>("Assets/Stage3/ResourceSpritePilot/ManualEconomy.asset");
+            Assert.That(data.GetWave(0).SpawnInterval, Is.EqualTo(4));
+            var kills = 0;
+            for (var i = 0; i < 5; i++) kills += (int)Math.Ceiling((double)data.NightDurationSeconds / data.GetWave(i).SpawnInterval);
+            Assert.That(kills, Is.InRange(8000, 8500)); Assert.That(catalog.XpPerKill, Is.EqualTo(1));
+            rules.AwardExperience(kills * catalog.XpPerKill);
+            Assert.That(rules.Level, Is.InRange(5, 10)); Assert.That(rules.AvailablePoints, Is.EqualTo(rules.Level - 1));
+            var expectedGold = kills * economyData.GoldDropChance * economyData.GoldPerKill;
+            Assert.That(expectedGold, Is.InRange(200, 300));
+            TestContext.WriteLine($"Five-night full-kill forecast: {kills} kills, LVL {rules.Level}, XP {rules.XpWithin}/{rules.RequiredXp}, expected gold {expectedGold:0.00} (+{economyData.StartingGold} starting).");
+        }
+        [TestCase(0f)] [TestCase(.03f)] [TestCase(1f)]
+        public void KillGoldChanceHasExactBoundariesAndLegacyGuaranteedPayout(float chance)
+        {
+            var data = UnityEditor.AssetDatabase.LoadAssetAtPath<Stage2EconomyCatalog>("Assets/Stage3/ResourceSpritePilot/ManualEconomy.asset");
+            var copy = Object.Instantiate(data);
+            try
+            {
+                var serialized = new UnityEditor.SerializedObject(copy);
+                serialized.FindProperty("goldDropChance").floatValue = chance; serialized.ApplyModifiedPropertiesWithoutUndo();
+                Assert.That(copy.TryValidate(out _), Is.True);
+                var map = UnityEditor.AssetDatabase.LoadAssetAtPath<Stage2MapDefinition>("Assets/Stage2/Map/Data/Stage2Map100x100.asset");
+                var economy = new Stage2Economy(map, copy);
+                Assert.That(economy.GoldRewardForRoll(chance), Is.Zero);
+                Assert.That(economy.GoldRewardForRoll(double.NaN), Is.Zero);
+                Assert.That(economy.GoldRewardForRoll(-.1), Is.Zero);
+                Assert.That(economy.GoldRewardForRoll(1), Is.Zero);
+                if (chance > 0) Assert.That(economy.GoldRewardForRoll(0), Is.EqualTo(copy.GoldPerKill));
+                Assert.That(economy.GoldRewardForRoll(.999999), Is.EqualTo(chance == 1 ? copy.GoldPerKill : 0));
+            }
+            finally { Object.DestroyImmediate(copy); }
+        }
 
         [Test] public void RankCapsAndPersonalBonusesAreEffectiveAndSnapshotDoesNotAliasRanks()
         {
@@ -121,7 +156,7 @@ namespace Not3A.Stage3.VisualPilot.Tests
         }
         [Test] public void UpgradingBlinkDoesNotRewriteTheActiveCastCooldown()
         {
-            rules.TryBlink(Vector2.zero,Vector2.right,_=>true,out _);rules.AwardExperience(100);Assert.That(rules.TryUpgradeBlink(),Is.True);
+            rules.TryBlink(Vector2.zero,Vector2.right,_=>true,out _);rules.AwardExperience(catalog.RequiredXp(1));Assert.That(rules.TryUpgradeBlink(),Is.True);
             Assert.That(rules.BlinkCooldownDuration,Is.EqualTo(4));Assert.That(rules.BlinkCooldownTotal,Is.EqualTo(5));
             Assert.That(rules.BlinkCooldownRemaining,Is.EqualTo(5));Assert.That(catalog.HealthPerSecond,Is.EqualTo(1));
             rules.Tick(1000,true);Assert.That(rules.Health,Is.EqualTo(100));Assert.That(rules.Mana,Is.EqualTo(100));
@@ -182,6 +217,34 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Assert.That(victim.WasKilled, Is.True); Assert.That(driver.Rules.XpWithin, Is.EqualTo(2 * driver.Catalog.XpPerKill));
             game.RunDriver.ResetRun(); Assert.That(driver.Rules.Level, Is.EqualTo(1)); Assert.That(driver.Rules.XpWithin, Is.Zero);
             yield return null;
+        }
+        [UnityTest] public IEnumerator FiveActualTimedHordesAwardOneXpPerConfirmedKillAndStayBelowLevelEleven()
+        {
+            var earned = 0; var kills = 0; driver.Rules.ExperienceGained += amount => earned += amount;
+            var startGold = game.Gathering.Economy.Inventory.Gold;
+            for (var night = 0; night < 5; night++)
+            {
+                Assert.That(Stage3TestCycle.StartNight(Run), Is.True);
+                Assert.That(game.Enemies.GetEnemy(0).MaximumHealth, Is.EqualTo(5), "HP stays constant at later tiers.");
+                for (var tick = 0; tick < 182 && Run.Phase == Stage2RunPhase.Wave; tick++)
+                {
+                    while (game.Enemies.ActiveCount > 0)
+                    {
+                        var enemy = game.Enemies.GetEnemy(0); enemy.SetAutomaticTick(false);
+                        enemy.TakeDamage(int.MaxValue); kills++;
+                    }
+                    Run.Tick(1f);
+                    if (tick % 20 == 0) yield return null;
+                }
+                while (game.Enemies.ActiveCount > 0) { game.Enemies.GetEnemy(0).TakeDamage(int.MaxValue); kills++; }
+                Assert.That(Run.Phase, Is.EqualTo(Stage2RunPhase.Preparation));
+                yield return null;
+            }
+            Assert.That(kills, Is.InRange(8000, 8500)); Assert.That(earned, Is.EqualTo(kills));
+            Assert.That(driver.Rules.Level, Is.InRange(5, 10));
+            var gold = game.Gathering.Economy.Inventory.Gold - startGold;
+            Assert.That(gold, Is.LessThan(kills / 2), "Gold must pass through the chance gate, not pay every kill.");
+            TestContext.WriteLine($"Actual five nights: {kills} kills / {earned} XP, LVL {driver.Rules.Level}, {gold} gold (random). No daytime farming or guild XP.");
         }
 
         [UnityTest] public IEnumerator BlinkChecksFootprintBuildingsPauseAndUiAndKeepsDebugMovementSeparate()
@@ -299,6 +362,69 @@ namespace Not3A.Stage3.VisualPilot.Tests
             Assert.That(Run.RetryFailedWave(),Is.True);Assert.That(rules.Mana,Is.EqualTo(5));Assert.That(rules.Health,Is.EqualTo(100));
             game.RunDriver.ResetRun();Assert.That(rules.Mana,Is.EqualTo(100));
         }
+        [UnityTest] public IEnumerator DebugExperienceAndLevelsUseActualProgressionAndAwardNormalSharedPoints()
+        {
+            var tools = game.GetComponent<Stage2GameHud>();
+            var rules = driver.Rules;
+            Assert.That(tools.GrantHeroExperience(100), Is.False, "Closed debug cannot grant progression.");
+            Assert.That(tools.GrantHeroLevels(1), Is.False);
+            tools.SetDebugOpen(true);
+            Assert.That(tools.CanGrantHeroProgression, Is.True);
+            var celebrations = 0;
+            rules.LevelRaised += _ => celebrations++;
+            Assert.That(tools.GrantHeroExperience(75), Is.True);
+            Assert.That(rules.Level, Is.EqualTo(1));
+            Assert.That(rules.XpWithin, Is.EqualTo(75));
+            Assert.That(tools.GrantHeroLevels(1), Is.True);
+            Assert.That(rules.Level, Is.EqualTo(2));
+            Assert.That(rules.XpWithin, Is.Zero, "A level grant fills the missing XP to its boundary.");
+            Assert.That(rules.AvailablePoints, Is.EqualTo(1));
+            Assert.That(tools.GrantHeroLevels(10), Is.True);
+            Assert.That(rules.Level, Is.EqualTo(12));
+            Assert.That(rules.AvailablePoints, Is.EqualTo(11));
+            Assert.That(celebrations, Is.EqualTo(2), "Normal multi-level award coalesces the celebration.");
+            game.SetPaused(true);
+            Assert.That(tools.GrantHeroExperience(20), Is.True, "Explicit debug awards remain available on pause.");
+            Assert.That(game.Gathering.Economy.Inventory.Gold, Is.EqualTo(5));
+            Assert.That(rules.BlinkRank, Is.EqualTo(1), "Levels award points, never free learned ranks.");
+            yield return null;
+            var view = Read(game.GetComponent("Stage3FantasyHud"), "HeroProgressionView");
+            Assert.That((int)view.GetType().GetField("Level").GetValue(view), Is.EqualTo(12));
+            tools.SetDebugOpen(false);
+            Assert.That(tools.GrantHeroExperience(1000), Is.False);
+            Assert.That(rules.XpWithin, Is.EqualTo(20));
+        }
+
+        [UnityTest] public IEnumerator DebugProgressionRejectsInvalidOrDisabledGrantsAndStopsAtTheRealLevelCap()
+        {
+            var tools = game.GetComponent<Stage2GameHud>();
+            var rules = driver.Rules;
+            tools.SetDebugOpen(true);
+            foreach (var invalid in new[] { 0, -1, int.MinValue })
+            {
+                Assert.That(tools.GrantHeroExperience(invalid), Is.False);
+                Assert.That(tools.GrantHeroLevels(invalid), Is.False);
+            }
+            Assert.That(rules.Level, Is.EqualTo(1));
+            tools.enabled = false;
+            Assert.That(tools.GrantHeroExperience(100), Is.False);
+            Assert.That(tools.GrantHeroLevels(1), Is.False);
+            tools.enabled = true; tools.SetDebugOpen(true);
+            Assert.That(tools.GrantHeroLevels(int.MaxValue), Is.True);
+            Assert.That(rules.Level, Is.EqualTo(driver.Catalog.MaxLevel));
+            Assert.That(rules.XpWithin, Is.Zero);
+            Assert.That(rules.AvailablePoints, Is.EqualTo(99));
+            Assert.That(tools.CanGrantHeroProgression, Is.False);
+            Assert.That(tools.GrantHeroExperience(int.MaxValue), Is.False);
+            Assert.That(tools.GrantHeroLevels(1), Is.False);
+            Assert.That(rules.AvailablePoints, Is.EqualTo(99));
+            game.RunDriver.ResetRun();
+            Assert.That(rules.Level, Is.EqualTo(1));
+            Assert.That(rules.XpWithin, Is.Zero);
+            Assert.That(rules.AvailablePoints, Is.Zero);
+            yield return null;
+        }
+
         [UnityTest] public IEnumerator DebugWtfUsesActualDriverAndHudAndCannotBypassPauseOrBlockedLanding()
         {
             var tools=game.GetComponent<Stage2GameHud>();var origin=FindClear(new Vector2(110,110));scene.PlayerMover.transform.position=origin;

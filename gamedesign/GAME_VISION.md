@@ -1,5 +1,69 @@
 # Game Vision
 
+## Current D127 HUD refinement —2026-10-23
+
+Owner selects reference-faithful servicebar padding/keycaps and visible actual
+consumable feedback; unassignedF4 stays empty. Construction replaces hero part
+with actual hoveredbuilding parameters while retainingminimap/3cards. Research
+building becomes Исследовательский центр with paidmaterial construction; dwelling
+also requires wood/stone. PLAYER_INTERFACE/RESEARCH and projectdata own details.
+No change to coreloop, currencies, research knowledge or building upgrade scope.
+
+
+## Current D126 interface correction —2026-10-23
+
+Explicit F10 XP/level grants use actual progression/shared points only in developer
+tools. Nonupgradable buildings carry no artificial level; full hover text stays
+readable. Owner accepts thin overlapping round weapon slots with an active-
+foreground switching turn. PLAYER_INTERFACE/HERO_PROGRESSION own the contracts.
+
+## Current D124 interface and adventurer request — 2026-10-22
+
+Owner reopens HUD, controls and development/inventory/trade appearance. The lower
+HUD combines horizontal consumables with icon/key-only navigation and an explicit
+Player return on Tab distinct from O. Construction pages at most3 studied choices with
+contextual1–3, centred flowing material prices and no weapon previews in that
+mode; Player1–5 still casts skills. Shift repeats individually paid placement;
+Alt upgrades a tower directly without selecting it. New silver-pattern level
+labels and gold building-upgrade confirmation are approved for implementation.
+The selected first HUD keeps only quick items left/nav right in its servicebar;
+construction categories stay below above the cards. Fixed2×2price slots are rejected.
+The selected Player insignia is crossed bow/staff with a thin crescent; generic
+account silhouettes and a repeated main portrait in that navigation are rejected.
+
+Owner also authorizes two working adventurer passives: world-enemy damage and
+world damage resistance, extending the existing three reward talents to five.
+They use shared hero points and exclude portal hordes. Feature specs and project
+data own detailed contracts. Main integrates rules; Astra implements the approved
+visual design. Local Mac qualification completed2026-10-23; Windows and
+sustained manual balance remain unverified.
+
+D125 extends strength/tempo to5ranks, reach stays3, and each adventurer talent
+has5ranks. Late moving-fire training follows the advanced bow path. After full
+strength, a paid one-rank mining/logging capstone has a10%chance to finish a
+medium stone node or harvest one additional ordinary in-range tree. No chain,
+extra currency or stock duplication. All branches retain99hero points and
+156possible paid ranks; HERO_PROGRESSION and STAGE2_ECONOMY own the details.
+
+## Current corrections — D121–D123, 2026-10-22
+
+Hero levels award ONE shared talent-point balance for Бой, Добыча and Авантюрист.
+Miner/logger mastery still grows from actual manual material, without generating
+separate points. Current tower upgrades use the selected card only, continue
+past the former five authored levels and preserve paid investments; barricades
+cannot upgrade and owned-tower drag cannot merge. Preparation movement remains.
+Production construction (sawmill/quarry/iron mine) and forge construction each
+require their own purchased paper, locally studied at the existing workshop.
+The workshop itself and Rapid/barricade remain available; building payments and
+existing production/forge upgrades remain separate. Upper HUD clocks draw above
+world level badges. Portal enemies have the owner's trial 5 HP at every current
+tier; the first night interval is 4 seconds. Later existing intervals remain the
+only requested difficulty progression; broader balance is deferred. Portal kills
+award 1 XP and chance-based gold; trial XP/gold data targets early levels and
+roughly no more than 300 horde gold after five complete nights without day farming.
+These corrections supersede older independent-point, merge, cap and ungated
+construction statements below. Feature specs own the detailed contracts.
+
 D120 implements the expanded hero development slice: universal Q Blink plus
 5bow/5staff actives,20combat passives and a connected mixed prerequisite tree.
 Both weapons can be equipped; Z selects active stats and contextual1–5. Four
@@ -23,7 +87,7 @@ D119/D120: три ветки Бой/Добыча/Авантюрист, нова�
 D110/D111: утверждена гильдия авантюристов с бумажной доской F…S. Повторные заказы засчитываются; при принятии заселяется отдельный спот орков/огров. После зачистки нужно сдать заказ у доски за награду. Три сдачи текущего ранга открывают одно испытание следующего, сдача испытания повышает ранг. В городе остаются гильдия и храм с открытым двором телепорта. Первый срез внедрён и проверен локально; Windows ещё не проверен.
 
 
-Status: current player intent updated 2026-10-22 through D-120. Durable decisions are in
+Status: current player intent updated 2026-10-23 through D-126. Durable decisions are in
 `production/DECISIONS.md`; the shortest route to a playable build is in
 `DEVELOPMENT_PLAN.md`.
 

@@ -1,4 +1,63 @@
-# Feature: Исследовательская мастерская
+# Feature: Исследовательский центр
+
+## D129 — one staff-mastery paper,2026-10-23
+
+Existing WandRecipe is renamed «Владение посохом», retaining kind/price100/art,
+finite merchant stock, tradable known duplicates and explicit local consuming
+study. One study permits staff equipment/skills AND its recipe; the recipe is
+usable only in ForgeII or higher. Buying a staff stays possible before study,
+equipping does not. ForgeII now displays «Небесная кузница»; its separate upgrade
+document, payment and local upgrade action remain. Study neither grants a weapon
+nor upgrades/builds a forge. Known ranks/instances survive; no extra scroll spend.
+The old D120 crafting-only mastery gate below is superseded.
+
+Local qualification completed2026-10-24:88unique relevant PlayModePASS,1existing
+headless viewportSKIP documented and corroborated by native layouts. Final45
+native assertions at720/900/1080; Astra reviewed15changed clean v3 plus30reused
+unchanged v1UI after retained RETURNs. Current Mac849979653-byte player starts
+ordinary LVL1/XP0/gold5 with no grants; first8renders ready. Evidence:
+art/source/active_actions_2026-10-23_verification.json and native_review.json.
+Windows, sustained balance and final owner appearance acceptance remain open.
+
+## D127 — research-centre name and paid construction,2026-10-23
+
+Owner renames the one-level building to «Исследовательский центр» and requests
+paid construction. Workshop identity/art/knowledge/local study remain unchanged.
+WorldTravelData owns30wood40stone current trial price; both materials required
+atdraft entry andcommit, invalid/cancelled placement spendsnothing. Buying,
+studying and constructing unlocked objects remain distinct. Retry keeps current
+builtcentre/spending; Reset clears it normally. Dwelling separately costs20wood/
+20stone in DwellingCatalog. No gold charge, new tier or research prerequisite.
+D127localqualification:65latestuniquePlayModePASS,30native/AstraPASS, actual
+newname/30-40/20-20ordinarysmoke. Evidence:art/source/hud_polish_2026-10-23_verification.json.
+
+
+## D122 — production and forge construction knowledge, 2026-10-22
+
+The merchant now has eight finite document kinds: the existing four plus opening
+papers for sawmill, quarry, iron mine and forge construction. New IDs are appended;
+old identities/knowledge meanings stay unchanged. Each new paper uses the approved
+D101 opening-sheet art base and its actual name/result. Initial trial prices reuse
+the opening-document price in Stage3Blueprints; each has one finite copy and the
+existing half-price sale/no-restock contract. No new illustrated asset is introduced.
+
+Buying alone grants no construction access. A local explicit study at the single-
+level workshop consumes one owned copy and unlocks only its building. Construction
+still pays the existing material cost. Production checks knowledge in plain rules
+and at draft entry; forge checks it before draft entry and direct placement commit.
+Studying does not construct anything, enable a recipe or upgrade a forge. Existing
+forge II/III and wand/staff-recipe papers remain separate; generator upgrades stay
+at their existing five paid stages without extra research requirements.
+
+Retry keeps current papers/knowledge/buildings; full Reset clears knowledge and
+restores finite merchant documents. The fixed 4x3 research grid fits all eight;
+locked build-card details explain the missing study. Workshop/Rapid/barricade stay
+available, avoiding a research-construction deadlock. No package, global service
+or persistent-save migration. D102's four-kind limit below is historical.
+
+Local D121–D123 verification:105EditMode/99PlayMode PASS; Mac native/Astra
+qualification and remaining Windows/manual-balance scope are recorded in
+`art/source/progression_refactor_2026-10-22_verification.json`.
 
 ## D120 implemented override — staff terminology
 

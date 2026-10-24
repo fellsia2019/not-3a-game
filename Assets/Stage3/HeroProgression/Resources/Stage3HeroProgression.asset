@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Stage3HeroProgression
   m_EditorClassIdentifier: Not3A.Stage2.Integration::Not3A.Stage2.Integration.Stage2HeroProgressionCatalog
   maxLevel: 100
-  firstLevelXp: 100
-  xpIncreasePerLevel: 50
-  xpPerKill: 12
+  firstLevelXp: 200
+  xpIncreasePerLevel: 250
+  xpPerKill: 1
   pointsPerLevel: 1
   rankPointCost: 1
   blinkRanges:

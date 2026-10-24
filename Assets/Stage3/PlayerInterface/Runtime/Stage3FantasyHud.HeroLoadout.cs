@@ -16,16 +16,22 @@ namespace Not3A.Stage3.PlayerInterface
     {
         public int Id, Rank, MaxRank, RequiredLevel, RequiredNodeId = -1, Weapon = -1;
         public bool IsActive, CanUpgrade, CanCast, Armed;
+        public bool KnowledgeLocked,SupportsAutocast,AutocastEnabled;
         public float CooldownRemaining, CooldownTotal, ManaCost;
         public string Title, Description, EffectText, UnavailableReason, UpgradeReason;
     }
 
     public sealed class Stage3QuickSlotView
     {
+        public int ItemTypeIndex=-1;
         public int Index, Count;
         public float CooldownRemaining, CooldownTotal;
         public bool CanUse;
         public string Title, UnavailableReason;
+        // Transient result of an actual assigned-item attempt, shared by mouse and keys.
+        public int FeedbackSerial;
+        public bool FeedbackSucceeded;
+        public float FeedbackStartedAt;
     }
 
     public sealed partial class Stage3FantasyHud
@@ -39,20 +45,23 @@ namespace Not3A.Stage3.PlayerInterface
         public int SelectedSkillId => selectedSkillId;
         public bool IsAdventurerOpen => ActiveWindow == Stage3PlayerWindow.Hero && showAdventurer;
         public event Action<int> SkillUpgradeRequested, SkillArmRequested, QuickSlotUseRequested;
+        public event Action<int,int> QuickAccessAssignmentRequested;
+        public event Action<int> QuickAccessClearRequested,SkillAutocastToggleRequested;
         public event Action WeaponSwitchRequested;
 
         public void SetHeroLoadout(Stage3HeroLoadoutView value)
         {
             heroLoadout = value;
+            UpdateWeaponSwitchVisual(value?.ActiveWeapon??0);
             if (showAdventurer && (value?.AdventurerNodes == null || value.AdventurerNodes.Length == 0))
                 showAdventurer = false;
-            if (FindSkill(selectedSkillId) == null) selectedSkillId = showAdventurer && value?.AdventurerNodes?.Length > 0
+            if (FindSkill(selectedSkillId) == null || FindSkill(selectedSkillId).KnowledgeLocked) selectedSkillId = showAdventurer && value?.AdventurerNodes?.Length > 0
                 ? value.AdventurerNodes[0].Id : 0;
         }
 
         public void SelectSkill(int id)
         {
-            if (FindSkill(id) != null) selectedSkillId = id;
+            if (FindSkill(id) != null && !FindSkill(id).KnowledgeLocked) selectedSkillId = id;
         }
 
         private Stage3SkillNodeView FindSkill(int id)
@@ -76,14 +85,10 @@ namespace Not3A.Stage3.PlayerInterface
             return null;
         }
 
-        private Rect LoadoutWeaponArea => new Rect(HeroDockContentRect.x, HeroDockContentRect.y,
-            HeroDockContentRect.width * .255f, HeroDockContentRect.height);
-        private Rect LoadoutSkillsArea => new Rect(LoadoutWeaponArea.xMax, HeroDockContentRect.y,
-            HeroDockContentRect.width * .385f, HeroDockContentRect.height);
-        private Rect LoadoutQuickArea => new Rect(LoadoutSkillsArea.xMax + 6f * UiScale, HeroDockContentRect.y,
-            HeroDockContentRect.width * .14f - 12f * UiScale, HeroDockContentRect.height);
-        private Rect LoadoutStatusArea => Rect.MinMaxRect(LoadoutQuickArea.xMax + 12f * UiScale,
-            HeroDockContentRect.y, HeroDockContentRect.xMax, HeroDockContentRect.yMax);
+        private Rect LoadoutPortraitArea => new Rect(HeroDockContentRect.x, HeroDockContentRect.y, 112f*UiScale, HeroDockContentRect.height);
+        private Rect LoadoutStatusArea => new Rect(LoadoutPortraitArea.xMax+10f*UiScale,HeroDockContentRect.y+10f*UiScale,220f*UiScale,HeroDockContentRect.height-20f*UiScale);
+        private Rect LoadoutWeaponArea => new Rect(LoadoutStatusArea.xMax+22f*UiScale,HeroDockContentRect.y,156f*UiScale,HeroDockContentRect.height);
+        private Rect LoadoutSkillsArea => Rect.MinMaxRect(LoadoutWeaponArea.xMax+16f*UiScale,HeroDockContentRect.y,HeroDockContentRect.xMax,HeroDockContentRect.yMax);
 
         public Rect SkillSlotRect(int id)
         {
@@ -91,9 +96,10 @@ namespace Not3A.Stage3.PlayerInterface
             var r = LoadoutSkillsArea; var s = UiScale;
             var gap = 5f * s;
             var side = Mathf.Min(72f * s, Mathf.Min((r.width - 64f * s - gap * 4) / 5f, (r.height - gap) / 2f));
-            var start = r.x + 64f * s;
+            var origin=r.center.x-(side*6f+gap*4f+14f*s)*.5f;
+            var start = origin+side+14f*s;
             var top = r.center.y - side - gap * .5f;
-            if (id == 0) return new Rect(r.x + 2f * s, r.center.y - side * .5f, side, side);
+            if (id == 0) return new Rect(origin, r.center.y - side * .5f, side, side);
             var index = id - 1;
             return new Rect(start + index % 5 * (side + gap), top + index / 5 * (side + gap), side, side);
         }
@@ -101,16 +107,67 @@ namespace Not3A.Stage3.PlayerInterface
         public Rect QuickSlotRect(int index)
         {
             if (index < 0 || index > 3) return Rect.zero;
-            var r = LoadoutQuickArea; var gap = 7f * UiScale;
-            var side = Mathf.Min((r.width - gap) * .5f, (r.height - gap) * .5f);
-            var x = r.center.x - side - gap * .5f;
-            var y = r.center.y - side - gap * .5f;
-            return new Rect(x + index % 2 * (side + gap), y + index / 2 * (side + gap), side, side);
+            var s=UiScale;var group=QuickRibbonRect;var side=64f*s;
+            var gap=6f*s;
+            return new Rect(group.x+16f*s+index*(side+gap),group.center.y-side*.5f,side,side);
+        }
+
+        public Rect QuickSlotKeyRect(int index)
+        {
+            var r=QuickSlotRect(index);var s=UiScale;
+            return r.width<=0?Rect.zero:new Rect(r.x+3f*s,r.y+3f*s,25f*s,21f*s);
+        }
+        public Rect QuickSlotCountRect(int index)
+        {
+            var r=QuickSlotRect(index);var s=UiScale;
+            return index<0||index>3?Rect.zero:new Rect(r.xMax-27f*s,r.yMax-24f*s,24f*s,21f*s);
+        }
+        public Rect QuickSlotIconRect(int index)
+        {
+            var r=QuickSlotRect(index);var s=UiScale;
+            return index<0||index>3?Rect.zero:new Rect(r.center.x-17f*s,r.y+12f*s,40f*s,50f*s);
+        }
+        public void RequestQuickSlotUse(int index)
+        {
+            if(index<0||index>3||FindQuickSlot(index)==null||FindQuickSlot(index).ItemTypeIndex<0||IsModalOpen||
+                game?.RunDriver?.Run==null||game.RunDriver.Run.IsPaused||game.RunDriver.Run.IsTerminal||legacyHud?.DebugOpen==true)return;
+            QuickSlotUseRequested?.Invoke(index);
+        }
+
+        private int weaponVisualTarget=-1,weaponVisualPrevious;
+        private float weaponSwitchElapsed=.28f;
+        private int weaponVisualFrame=-1;
+        public float WeaponSwitchAnimationProgress => Mathf.Clamp01(weaponSwitchElapsed/.28f);
+        public int WeaponFrontIndex => WeaponSwitchAnimationProgress<.5f?weaponVisualPrevious:Mathf.Max(0,weaponVisualTarget);
+        private bool CanSwitchDockWeapon => EquippedItem(4)!=null&&EquippedItem(7)!=null;
+
+        private void UpdateWeaponSwitchVisual(int active)
+        {
+            if(weaponVisualTarget<0){weaponVisualTarget=active;weaponVisualPrevious=active;weaponSwitchElapsed=.28f;}
+            else if(active!=weaponVisualTarget)
+            {weaponVisualPrevious=weaponVisualTarget;weaponVisualTarget=active;weaponSwitchElapsed=0f;}
+            var settle=ActiveWindow!=Stage3PlayerWindow.None||game?.RunDriver?.Run==null||game.RunDriver.Run.IsPaused||
+                game.RunDriver.Run.IsTerminal||legacyHud?.DebugOpen==true;
+            if(settle)weaponSwitchElapsed=.28f;
+            else if(weaponVisualFrame!=Time.frameCount)weaponSwitchElapsed=Mathf.Min(.28f,weaponSwitchElapsed+Time.deltaTime);
+            weaponVisualFrame=Time.frameCount;
+        }
+
+        public Rect WeaponDiscRect(int index)
+        {
+            if(index<0||index>1)return Rect.zero;
+            var r=LoadoutWeaponArea;var s=UiScale;var diameter=92f*s;
+            var arc=Mathf.Sin(WeaponSwitchAnimationProgress*Mathf.PI);
+            var incoming=index==weaponVisualTarget;
+            var centre=new Vector2(r.center.x+(index==0?-23f:23f)*s,r.center.y-18f*s);
+            // Lift the active rim's lower jewel away from the fixed caption throughout the turn.
+            centre+=new Vector2((index==0?1f:-1f)*7f*s*arc,(incoming?-1f:1f)*3f*s*arc);
+            return new Rect(centre-Vector2.one*diameter*.5f,Vector2.one*diameter);
         }
 
         public Rect WeaponSwitchRect
         {
-            get { var r = LoadoutWeaponArea; return new Rect(r.xMax - 32f * UiScale, r.center.y - 28f * UiScale, 30f * UiScale, 56f * UiScale); }
+            get { var r=LoadoutWeaponArea;var s=UiScale;return new Rect(r.x+3f*s,r.center.y+49f*s,150f*s,30f*s); }
         }
 
         public Rect HeroDevelopmentTabRect(int index)
@@ -118,7 +175,7 @@ namespace Not3A.Stage3.PlayerInterface
             if (ActiveWindow != Stage3PlayerWindow.Hero || index < 0 || index > 2) return Rect.zero;
             var r = WindowContentRect; var s = UiScale;
             var width = Mathf.Min(220f * s, r.width * .18f);
-            return new Rect(r.center.x - width * 1.5f + index * width, r.y - 9f * s, width, 44f * s);
+            return new Rect(r.center.x - width * 1.5f + index * width, r.y + 58f * s, width, 44f * s);
         }
 
         private Rect SkillTreeRect
@@ -142,14 +199,16 @@ namespace Not3A.Stage3.PlayerInterface
             {
                 var index = Array.IndexOf(heroLoadout.AdventurerNodes, node);
                 if (index < 0) return Rect.zero;
-                var columns = 3;
-                x = r.x + r.width * ((index % columns + .5f) / columns);
-                y = r.y + r.height * ((index / columns + .5f) / Mathf.Max(1, Mathf.CeilToInt(heroLoadout.AdventurerNodes.Length / 3f)));
+                var positions=new[]{new Vector2(.20f,.5f),new Vector2(.47f,.20f),new Vector2(.47f,.80f),new Vector2(.57f,.5f),new Vector2(.83f,.5f)};
+                var position=positions[Mathf.Clamp(index,0,positions.Length-1)];
+                x=r.x+r.width*position.x;y=r.y+r.height*position.y;
                 side = 90f * s;
             }
             else if (id == 0)
             { x = r.x + 78f * s; y = r.center.y; side = 110f * s; }
-            else if (id >= 11 && id <= 14)
+            else if (id == 14)
+            { var anchor=SkillNodeRect(5).center; x=anchor.x+48f*s; y=anchor.y+122f*s; side=44f*s; }
+            else if (id >= 11 && id <= 13)
             {
                 x = r.x + (id % 2 == 1 ? 142f : 140f) * s;
                 y = r.center.y + (id <= 12 ? -1 : 1) * (id % 2 == 1 ? 155f : 102f) * s;
@@ -236,16 +295,30 @@ namespace Not3A.Stage3.PlayerInterface
             return new Rect(p.x / 1774f, 1f - p.yMax / 887f, p.width / 1774f, p.height / 887f);
         }
 
-        private void DrawSkillArtwork(Rect r, int id)
+        private void DrawSkillArtwork(Rect r, int id, bool concealed=false)
         {
             LoadHeroLoadoutIcons();
+            if(id>=31&&art.adventurerIcons!=null&&id-31<art.adventurerIcons.Length)
+            {DrawIcon(r,art.adventurerIcons[id-31]);return;}
             if (heroSkillIcons != null && id >= 0 && id <= 36)
             {
                 var index = id <= 30 ? id : 31;
                 var uv = SkillIconUv(index);
                 var aspect = heroSkillIcons.width * uv.width / (heroSkillIcons.height * uv.height);
                 var width = Mathf.Min(r.width, r.height * aspect); var height = width / aspect;
-                DrawUiTexture(new Rect(r.center.x - width * .5f, r.center.y - height * .5f, width, height), heroSkillIcons, uv);
+                var target=new Rect(r.center.x-width*.5f,r.center.y-height*.5f,width,height);
+                if(concealed&&CircularMaterial!=null)
+                {
+                    if(Event.current.type!=EventType.Repaint)return;
+                    CircularMaterial.SetFloat("_Desaturate",1);CircularMaterial.SetFloat("_Softness",5f);
+                    CircularMaterial.SetFloat("_CircleMask",1);
+                    CircularMaterial.SetVector("_SourceRect",new Vector4(uv.x,uv.y,uv.width,uv.height));
+                    CircularMaterial.SetVector("_Tint",new Vector4(.48f,.48f,.48f,.60f));
+                    Graphics.DrawTexture(target,heroSkillIcons,uv,0,0,0,0,Color.white,CircularMaterial);
+                    CircularMaterial.SetFloat("_Desaturate",0);CircularMaterial.SetFloat("_Softness",0);
+                    CircularMaterial.SetVector("_SourceRect",new Vector4(0,0,1,1));CircularMaterial.SetVector("_Tint",Vector4.one);
+                }
+                else DrawUiTexture(target,heroSkillIcons,uv);
             }
             else if (id == 0) DrawProgressionIcon(r, 0);
             else if (id >= 11 && id <= 13) DrawProgressionIcon(r, id - 10);

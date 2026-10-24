@@ -1,0 +1,81 @@
+{
+  "date": "2026-10-23",
+  "scope": "D126 owner reference-fidelity follow-up: empty backdrop, shaped Z control, four active-only gems",
+  "tool": "Built-in image_gen.imagegen",
+  "mode": "edit/derive from project-owned references",
+  "owner_instructions": [
+    "Patterned or gradient empty-slot backdrop like the reference, replacing flat grey",
+    "Native switch must match referenced shaped button",
+    "Four emerald diamonds only for active state"
+  ],
+  "approval_basis": "Previously selected ImageGen references with explicit owner corrections. Consolidated v3 documents these corrections; prior native36framePASS did not establish owner acceptance.",
+  "concept": {
+    "path": "art/concepts/hud_corrections_2026-10-23/weapon_switch_v3.png",
+    "original": "/Users/artemmusket/.codex/generated_images/01a16343-dbe2-7540-a7a4-7e050c8347fb/exec-9cf42913-5b19-4478-84cf-fec2cd41e442.png",
+    "prompt": "art/source/hud_weapon_switch_2026-10-23_v3_prompt.txt",
+    "path_sha256": "11c22c6d2ac19b9a69e9c896b768e4a9fff471ac660b9d8c5f3c33bd020ae7e8",
+    "prompt_sha256": "667d8fd7658364972939de9dbbf6236f79192c2be9a0a02f591fbcc74bcf50a5"
+  },
+  "production": {
+    "path": "art/source/hud_weapon_control_skins_2026-10-23.png",
+    "original": "/Users/artemmusket/.codex/generated_images/01a16343-dbe2-7540-a7a4-7e050c8347fb/exec-3e268739-c7a9-403c-90cd-283fb53efd4f.png",
+    "prompt": "art/source/hud_weapon_control_skins_2026-10-23_prompt.txt",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "runtime_destination": "Assets/Stage3/PlayerInterface/Resources/Stage3WeaponControlSkins.png",
+    "parts": [
+      "Neutral engraved empty-disc interior",
+      "Blank ivory keycap",
+      "Active painted shaped backplate",
+      "Disabled painted shaped backplate"
+    ],
+    "runtime_contract": "Native Z/text and active-only gemstones; measured UVs, no baked text/weapons/gems. Existing equipped rank skins/geometry/inputs unchanged.",
+    "attempts": [
+      "First call failed:connection failed:error sending request",
+      "Retry succeeded"
+    ],
+    "path_sha256": "3cb3efbc83050645b4cc016b89dc4dfc6f36c0b3d51bec58a6a80abc456b384c",
+    "prompt_sha256": "8661ab157bcaabca982d1d9a5363b74d4dd964f61f36cfd9ebf8301bbf868b4b",
+    "runtime_sha256": "3cb3efbc83050645b4cc016b89dc4dfc6f36c0b3d51bec58a6a80abc456b384c",
+    "runtime_meta": "Assets/Stage3/PlayerInterface/Resources/Stage3WeaponControlSkins.png.meta",
+    "runtime_guid": "f87caafab9fc47c4b0a1b55fa1acd5b0",
+    "uv_bounds_top_left_alpha_gt12": {
+      "empty": [
+        99,
+        53,
+        813,
+        751
+      ],
+      "key": [
+        921,
+        241,
+        1136,
+        606
+      ],
+      "active": [
+        44,
+        812,
+        1208,
+        977
+      ],
+      "disabled": [
+        44,
+        1029,
+        1209,
+        1191
+      ]
+    },
+    "import": "Uncompressed sRGB alpha;trilinear mipmaps;max2048;no per-item texture or SO wiring"
+  },
+  "rights": "Original AI-generated project art from project-owned approved references; no external/franchise source. Original generated files retained. Runtime reuse authorized by owner requested interface correction.",
+  "status": "ASTRA_IMPLEMENTED_LOCALLY_NATIVE_QUALIFIED",
+  "native_evidence": "art/source/weapon_fidelity_2026-10-23_verification.json",
+  "owner_native_acceptance": "Not inferred from Astra qualification"
+}

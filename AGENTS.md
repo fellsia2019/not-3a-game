@@ -255,6 +255,15 @@ a better option instead of implementing it silently.
   HERO_PROGRESSION/EQUIPMENT_AND_RUNES and D120 own the current contracts,
   superseding older counts/single weapon slot. No current enemy loot drops.
 
+- D-121 supersedes independent profession points: all three O branches spend
+  hero-level points; gathering mastery no longer awards points. Stage3 towers
+  upgrade beyond5 only through their own card; barricades cannot upgrade and
+  current drag/direct merging is disabled. D121 reduces portal XP/gold.
+- D-122 requires studied construction documents for sawmill/quarry/iron mine/forge,
+  separate from buying, building, recipes and existing upgrades. Clock overlays
+  world LVL labels. D-123 sets current portal HP5, first spawn interval4s and
+  unchanged HP at later existing shorter intervals; broader balance is deferred.
+
 ## Change Rules
 
 - Make the smallest coherent change that satisfies a ready feature brief.
@@ -293,6 +302,83 @@ tables.
 
 ## UI And Visuals
 
+- D124 owner explicitly forbids generic website/account/profile bust or person
+  silhouette icons in game UI. Do not use the HUD portrait again as the Player
+  navigation icon either. Owner selected the original crossed bow/staff with a
+  thin crescent (navigation study variant1). World-HUD navigation shows only
+  pictograms and existing hotkey badges; full names appear on hover. Player is
+  first and returns to the skill dock through Tab, distinct from O hero development.
+  Construction now pages at most3 studied cards with contextual1–3 (revising
+  the initial5), hides weapon previews in that mode. Owner approved the FIRST
+  HUD composition: quick items left/nav right in the upper servicebar; category
+  tabs stay BELOW in the main dock above cards. Prices centre their actual
+  contents and wrap only when needed; fixed2×2/empty price slots are rejected.
+  D124 adds two actual world-combat adventurer passives to the original3,
+  for5nodes with precise orthogonal links. Owner approved implementation of
+  the proposed development/inventory/trade/silver-LVL/gold-upgrade appearances,
+  with the latest HUD corrections above. Locally Mac-qualified2026-10-23:
+  37EditMode/82PlayMode PASS,1headlessviewportSKIP; final69native captures,
+  Astra PASS on9v5+29reusedv4frames. Evidence:art/source/hud_refactor_2026-10-22_verification.json.
+  Windows and sustained manual balance remain unverified.
+- D125 moves moving-fire talent14 to late bow training after5, retaining its
+  both-weapon effect and learned ranks. Strength/tempo have5ranks, reach3;
+  each adventurer talent5. Two paid one-rank gathering capstones require
+  StrengthV:10% full medium STONE node or one extra ordinary tree within the
+  hero's normal gathering range, no recursive chain. Current data owns values.
+  All branches share99earned hero points,156possible paid ranks, requiring choices.
+- D126 removes artificial building level labels when no upgrade capability
+  exists, and requires measured foreground tooltips. F10 gains explicit XP/level
+  presets through normal progression/shared points/cap; no ordinary startup grants.
+  Owner requests all old players closed and exactly one latest build. Weapon
+  switch appearance is accepted with thin rims,50%horizontal overlap and active
+  foreground short turning/depth exchange; updated weapon_switch_v2 records it.
+  Owner subsequently requires reference-shaped painted Z control/ivory keycap,
+  patterned neutral empty surface,and FOUR cardinal gems only on actual active
+  weapon. weapon_switch_v3/weapon_fidelity evidence own the correction;prior
+  native appearance PASS did not establish owner acceptance. Active turn rises
+  clear of its caption;resting overlap and gameplay/input remain.
+- D127 renames research workshop to Исследовательский центр (30wood/40stone),
+  dwelling20wood/20stone. Both materials are checked atdraft andcommit; serialized
+  Workshop identities and one-level/localstudy/retryreset stay. Latestowner picks
+  sharedleft buildingpreview replacing hero part ONLY duringConstruction, keeping
+  minimap/3cards and categoriesbelow. Servicebar matches hud_polish_v1: quickleft,
+  navright, paddedbottles/containedplumbadges/ivorynavkeys. RealassignedF1–F3
+  attempts pulsecyan/red by actualresult;F4empty/silent, no+/count/CD. Unfunded
+  card art remains fullcolour with coralwell/rubyalert/actualdeficit. Astraowns
+  visualmatch/nativequalification; conceptapproval doesnot establishnativeacceptance.
+- D127 owner returned native-v2 appearance: prior native PASS is not acceptance.
+  Match selected hud_polish_v1 ribbon proportions/contours, round HUD flasks,
+  shaped luminous states and bold plum type. Construction hover popups are
+  forbidden; actual stats/description/placement/shortage/hints stay LEFT. Native
+  review must compare appearance against source, not just rectangle geometry.
+- D127 reference repair locally passes39 final native assertions; Astra reviewed
+  21 changed v2 frames plus18 reused v1 layouts, retaining the colour/bevel RETURN.
+  Evidence:art/source/hud_reference_repair_2026-10-23_verification.json. Local
+  reference qualification is not owner acceptance; Windows remains unverified.
+- D128 owner directly revises the oversized servicebar: quick/navigation controls
+  near skill-icon size, multiline modal labels, ivory edge-only header states,
+  inset minimap terrain with a less intrusive rim, and continuous upper joins.
+  Reuse current artwork; this explicit correction supersedes D127's large sizes.
+  Astra owns native rendering; main owns capture/build/docs. Gameplay stays intact.
+- D129 makes all F1–F4 configurable from inventory by actual active-action
+  capability, preserving bag ownership/counts/shared CD; empty cells silent.
+  Existing WandRecipe is Владение посохом: consuming local study gates staff
+  equip/skills and recipe at ForgeII, Небесная кузница. Merchant staff remains
+  buyable before study. Unknown staff nodes are obscured/noninspectable.
+- D130 adds selective RMB autocast for learned AimedShot/Arcane; manual use,
+  stationary aim, ordinary target/range/mana/CD stay. Fire/Ice arrows gain small
+  areas; Arcane smaller splash. Skill4 is a red persistent piercing-arrow area,
+  skill5 poison DoT/slow/physical vulnerability. Ice freezes; Fireball has larger
+  burst plus ground fire; Lightning stuns and adds magic vulnerability. No enemy
+  baseline armor is invented. All areas keep bounded per-tick target counts.
+  HERO_PROGRESSION owns roles/limits, assets own current tuning; Windows and
+  sustained full-run balance require separate qualification.
+- D128–D130 local qualification completed2026-10-24:88relevantPlayModePASS,
+  1oldheadlessviewportSKIP corroborated by native;45finalframeassertions,
+  Astra15cleanv3+30reusedv1UI after retained RETURNs. Evidence:
+  art/source/active_actions_2026-10-23_verification.json and native_review.json.
+  Current build MacActiveActions849979653bytes; ordinary first8rendersready.
+  Local qualification does not imply owner acceptance or Windows/full-run balance.
 - All visual decisions/appearance and visual implementation are assigned to
   GPT-6 Astra. First create sketches through ImageGen, obtain the owner's
   appearance approval, then delegate their visual Unity implementation to Astra.

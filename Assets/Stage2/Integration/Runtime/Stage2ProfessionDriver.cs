@@ -10,9 +10,9 @@ namespace Not3A.Stage2.Integration
         private Stage2GameComposition game;
         public Stage2Professions Rules { get; private set; }
         public Stage2ProfessionCatalog Catalog { get; private set; }
-        public void Configure(Stage2GameComposition owner, Stage2ProfessionCatalog data)
+        public void Configure(Stage2GameComposition owner, Stage2ProfessionCatalog data, Stage2HeroProgression progression)
         {
-            Unbind(); game = owner; Catalog = data; Rules = new Stage2Professions(data);
+            Unbind(); game = owner; Catalog = data; Rules = new Stage2Professions(data, progression);
             game.Gathering.Economy.Gathered += OnGathered;
             game.RunDriver.Run.Reset += ResetRules;
             Rules.BonusesChanged += ApplyBonuses; ApplyBonuses();
@@ -29,6 +29,8 @@ namespace Not3A.Stage2.Integration
                 Rules.PowerBonus(Stage2Profession.Miner), 1 + Rules.TempoBonus(Stage2Profession.Logger),
                 1 + Rules.TempoBonus(Stage2Profession.Miner), 1 + Rules.ReachBonus(Stage2Profession.Logger),
                 1 + Rules.ReachBonus(Stage2Profession.Miner));
+            game.Gathering.Economy.SetManualCapstoneChances(Rules.CapstoneChance(Stage2Profession.Logger),
+                Rules.CapstoneChance(Stage2Profession.Miner));
         }
         private void Unbind()
         {

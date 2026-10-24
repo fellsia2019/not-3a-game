@@ -14,7 +14,7 @@ namespace Not3A.Stage3.PlayerInterface.Editor
             var data=AssetDatabase.LoadAssetAtPath<Stage2BlueprintCatalog>(path);
             if(data==null){data=ScriptableObject.CreateInstance<Stage2BlueprintCatalog>();AssetDatabase.CreateAsset(data,path);}
             if(!data.TryValidate(out var reason))throw new InvalidOperationException(reason);
-            AssetDatabase.SaveAssets();Debug.Log("S3_BLUEPRINTS_INSTALLED:4 accepted documents, trial gold prices serialized, target building stages only.");
+            AssetDatabase.SaveAssets();Debug.Log("S3_BLUEPRINTS_INSTALLED:8 construction/recipe/upgrade documents, trial gold prices serialized, target building stages only.");
         }
     }
 }

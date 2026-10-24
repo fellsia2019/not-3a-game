@@ -1,0 +1,255 @@
+{
+  "date": "2026-10-23",
+  "reviewer": "Astra",
+  "status": "PASS",
+  "reference": "art/concepts/hud_polish_2026-10-23/hud_polish_v1.png",
+  "scope": "All 30 native HUD frames at 720p, 900p and 1080p, compared with the selected concept containing shared left construction details. Owner acceptance of native appearance is not inferred.",
+  "iterations": [
+    {
+      "capture": "Artifacts/HUD-POLISH-2026-10-23/native-v1",
+      "status": "RETURN",
+      "reviewed_frame_count": 30,
+      "reviewed_paths": [
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1280x720-00-ordinary.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1280x720-01-zero-refused.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1280x720-02-base-prices.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1600x900-00-ordinary.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1600x900-01-zero-refused.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1600x900-02-base-prices.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1920x1080-00-ordinary.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1920x1080-01-zero-refused.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1920x1080-02-base-prices.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1280x720-03-funded-longshot-stats.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1280x720-04-unfunded-defense.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1280x720-05-three-resource-production.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1280x720-06-quick-hover.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1280x720-07-quick-success.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1280x720-08-quick-cooldown-refused.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1280x720-09-empty-reserve.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1600x900-03-funded-longshot-stats.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1600x900-04-unfunded-defense.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1600x900-05-three-resource-production.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1600x900-06-quick-hover.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1600x900-07-quick-success.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1600x900-08-quick-cooldown-refused.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1600x900-09-empty-reserve.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1920x1080-03-funded-longshot-stats.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1920x1080-04-unfunded-defense.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1920x1080-05-three-resource-production.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1920x1080-06-quick-hover.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1920x1080-07-quick-success.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1920x1080-08-quick-cooldown-refused.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1920x1080-09-empty-reserve.png"
+      ],
+      "review_method": "All30HUDs inspected in10same-state3-resolution comparison sheets; actual source potion alpha checked against renderer target/badge rectangles.",
+      "findings": [
+        {
+          "id": "HP-01",
+          "status": "RETURN",
+          "issue": "Real potion pixels overlap F-key and count badges at all3resolutions; both source-alpha calculation and native frames confirm this.",
+          "correction": "76pxsquare quickslots in90pxribbon; separate nonintersecting key, bottle, count regions."
+        },
+        {
+          "id": "HP-02",
+          "status": "RETURN",
+          "issue": "Navigation pictograms and Tab lettering are visibly too small relative to selected reference; broad unused interior remains.",
+          "correction": "Larger painted icons within80pxhigh navigation region; equal15pxkey type and widerTabkey; preserve clear gap between icon/key."
+        },
+        {
+          "id": "HP-03",
+          "status": "RETURN",
+          "issue": "Actual deficit values are correct but Russian forms are wrong for some amounts:1дерева,5камня.",
+          "correction": "Amount-aware log/stone plurals; unchanged actual values."
+        }
+      ],
+      "passed_checks": [
+        "Construction preserves fixed minimap and replaces hero content with actual hovered choice information. Longshot actual HP10/damage2/radius7.5/rate0.71and splashR2 visible.",
+        "Research centre full name,30wood40stone and dwelling20wood20stone readable without overlap.",
+        "Three resource iron mine price/deficit and actual output/interval visible at all3sizes.",
+        "Coral artwork well, full-colour buildings, round ruby alert and constant card/footer geometry match selected state family.",
+        "Three connected servicebar sections and standalone navigation icons replace old ornate individual squares.",
+        "Hover is pale blue, successful actual use cyan, zero-stock/cooldown refusal red. F4 empty and receives no feedback or cooldown."
+      ],
+      "notes": [
+        "F1pulse in subsequentbase/F4captures is carried from earlierQAaction, not caused by base/F4; finalcapture will wait for settling.",
+        "Ordinary weapon artwork is prior D126 surface and is not requalified by this change."
+      ],
+      "capture_status_sha256": "0de39d7d1fbbfa7e8cf16f02b49e6bdf1d999c051bfaaeaf4998483400da4653",
+      "frame_sha256": {
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1280x720-00-ordinary.png": "c15cb4d4a7fd8332a6d3994fcf863e8fd1474fa39a39d17d6560861db23ab6c2",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1280x720-01-zero-refused.png": "2f76ca08818c5836357418520266c6a58ed04513d74ece0336262346c07f6400",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1280x720-02-base-prices.png": "f933174d8d088cf42c8ccdec462dbf05cce97ccbc8e59fa9697aba006592619a",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1600x900-00-ordinary.png": "c7b8f564830ead3126338328c50c8682159206a225c3ec3fe33ff83eaf546908",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1600x900-01-zero-refused.png": "ca6ffacc04e1cc1ea3d23f8f8f5949dd5fe6c487de9cbaeb0896ec2178f0595b",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1600x900-02-base-prices.png": "e417018cade74d11534d19d80cbee9bb37b45cc1f79067714f2ac4c6a5d1e59f",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1920x1080-00-ordinary.png": "3f97e72788594eec5f6e66a7fc06ec361e38d9b85010510d76665b56ab540af2",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1920x1080-01-zero-refused.png": "93c01de837fd2e6d48636a65b5fae39f5016f42fb5d813f4c336641f263e0c36",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1920x1080-02-base-prices.png": "c881c2b6d0351e79d6680467dfee63512a64060f5bc009e5ef81e9f1521eb850",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1280x720-03-funded-longshot-stats.png": "d9d9209fffd18f3258693cea8f8a766971eb10391146b015c2299b1ac7e5f23a",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1280x720-04-unfunded-defense.png": "0b44ca9c325e0bf1582a483c5c120c7f7436b19b1fd4c9de457488683e9f8f9b",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1280x720-05-three-resource-production.png": "602d578ecee7a7498af8b520b8570fa63b90944be31c7b795c2337915edec669",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1280x720-06-quick-hover.png": "361bd7ec55c7a6ee8549e27fb92db899cf859c83fbffedf27c33771e161ee707",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1280x720-07-quick-success.png": "a9e8ac94fdd9498481e7d9277006336c347d4a494ec0b5d3e8106ed0d08ddebd",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1280x720-08-quick-cooldown-refused.png": "23b9040305c7aff0ff93196e5d435e5eb3b61aae0af590613a226636673d8d22",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1280x720-09-empty-reserve.png": "e901ba2d7c66aefe6e1fbabd153c27a38d89d57b3786328dbbc726bbff066958",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1600x900-03-funded-longshot-stats.png": "c78c1de5cb1a16322f0331b904c224e137ce3ce669d3dcad615d6347ed3e489a",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1600x900-04-unfunded-defense.png": "c8e3f967fa63b9205e655f3f017a4b311edcf77b46552954a47359d38726a9cb",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1600x900-05-three-resource-production.png": "c0d639cb8f4f4768b598e90f3fdd9164a74c06a2cef3197f2fc93de4d6ca2bf5",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1600x900-06-quick-hover.png": "f01b70b53d3e1ee412e9245b442c7098488a2ac148e8c34af29b2f7c678db3cb",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1600x900-07-quick-success.png": "e68de9dd505644d4509e896673f70c106d8ae2a22a39dae6b26ede646087c2ad",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1600x900-08-quick-cooldown-refused.png": "07307c913a83ce83e38e79f679f6354dc5af9754cdc15baad1e1e4049a4b5371",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1600x900-09-empty-reserve.png": "4341ee973d1b2c1a274d57e5310f503c6e7938570f18002266f6b2d880c4f97b",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1920x1080-03-funded-longshot-stats.png": "764002e6599e7a771511493dc2224854bcabb72a052f4de89f3fd9c53a54be30",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1920x1080-04-unfunded-defense.png": "d2107477bc7e6e4b46bce5d1de3a441a9def81e4cbb6ea80038c1a9779a31797",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1920x1080-05-three-resource-production.png": "1d0ec2fd21db26a7dc851998eaffbf0eb272fc91b9e17cbb2912fe00e10b2d06",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1920x1080-06-quick-hover.png": "f69660bf96eca27a9195cc89f4607f25f037ade55fd6a1372345a5c028fe8e11",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1920x1080-07-quick-success.png": "c6548b115950ce94ba42c34c79cb90de8136de5761b9bff355c813947126b67d",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1920x1080-08-quick-cooldown-refused.png": "4b946c1838c9976d49bfaab4d6e613e712e76ee41ae39fc4124d06f7f67f2b36",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v1/1920x1080-09-empty-reserve.png": "4b8de6d7447f853c7d4f2316c4e616d9428b31413114a34a303cd91a6a33b1e5"
+      }
+    },
+    {
+      "capture": "Artifacts/HUD-POLISH-2026-10-23/native-v2",
+      "status": "PASS",
+      "reviewed_frame_count": 30,
+      "reviewed_paths": [
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1280x720-00-ordinary.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1280x720-01-zero-refused.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1280x720-02-base-prices.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1600x900-00-ordinary.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1600x900-01-zero-refused.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1600x900-02-base-prices.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1920x1080-00-ordinary.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1920x1080-01-zero-refused.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1920x1080-02-base-prices.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1280x720-03-funded-longshot-stats.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1280x720-04-unfunded-defense.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1280x720-05-three-resource-production.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1280x720-06-quick-hover.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1280x720-07-quick-success.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1280x720-08-quick-cooldown-refused.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1280x720-09-empty-reserve.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1600x900-03-funded-longshot-stats.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1600x900-04-unfunded-defense.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1600x900-05-three-resource-production.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1600x900-06-quick-hover.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1600x900-07-quick-success.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1600x900-08-quick-cooldown-refused.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1600x900-09-empty-reserve.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1920x1080-03-funded-longshot-stats.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1920x1080-04-unfunded-defense.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1920x1080-05-three-resource-production.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1920x1080-06-quick-hover.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1920x1080-07-quick-success.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1920x1080-08-quick-cooldown-refused.png",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1920x1080-09-empty-reserve.png"
+      ],
+      "review_method": "All 30 HUDs visually inspected in ten comparison sheets, each showing the same state at three resolutions at a 1280 px viewing width. Checked 90 quick-slot and 180 navigation geometries. Mapped actual potion pixels with alpha > 8 through the renderer UV and aspect-fit rules onto each native rectangle.",
+      "capture_status_sha256": "47dae478b9030111a3adfe3935878a5edc22dfbca6e94b4858b81e39da93aeea",
+      "frame_sha256": {
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1280x720-00-ordinary.png": "c95420a65c1662d4299311904ff230818045dcb56e9c25e49afd295d0a7285cc",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1280x720-01-zero-refused.png": "403ca69baf0899870b2a643e51b085a21fdc59fa7829857fde38b3e029ad0d14",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1280x720-02-base-prices.png": "c70c6536a538c4bdb61370504e00d51d73c2d81508e23fa189427a166a80c764",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1600x900-00-ordinary.png": "efa62581e1326f6ea14ef7720f6c9100a57be6f635c0954f74c2bdd5c45bd0ba",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1600x900-01-zero-refused.png": "19e513bb3186b2725759251a758a8dac69e25f091b730519ca70aa3b871efbc5",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1600x900-02-base-prices.png": "c664c0847e697f546a84fecec063b5e0458a21294c22a110aa878a1644905928",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1920x1080-00-ordinary.png": "c1790926fc17ea1a40aedf12d1857171ce8a59ad99f8838c90d8a7fe96bfa08e",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1920x1080-01-zero-refused.png": "1fe667ca544ef205fe72f35b9321844d517b1351766e480fbe31d8ebc993f558",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1920x1080-02-base-prices.png": "cd18c1bdae199e0b0ecb4ef4525530fa0c2061b8e91098345f652a6b2db0ac05",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1280x720-03-funded-longshot-stats.png": "bbb545fd05306e80cce6261f479ba5389bec28f1de7bab702bc8cdcb58e56070",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1280x720-04-unfunded-defense.png": "c809cd4fca85230db14ad237f1efc03a01d322bfaf7c0e0f13f23393eea6b6cc",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1280x720-05-three-resource-production.png": "b609a2ac362d7d3039105784aed48457fbdd7edc7878a7a1589ca239edb5ea30",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1280x720-06-quick-hover.png": "1881540009d302e80c9df2bda83587681f1aa8d43559bf709f46559aebe57baa",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1280x720-07-quick-success.png": "f26e38f06ba9065486e98b56400902dbd737544e8f1ac080390b900e907f2d4d",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1280x720-08-quick-cooldown-refused.png": "ef42a63bf7ac2f82b06609c81f969875f2306ebfce73b3acf72a1aff41221e51",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1280x720-09-empty-reserve.png": "54d8f1fcd2f51d7d310620a1254f58e0095ef197452530ede341aac3f48362a4",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1600x900-03-funded-longshot-stats.png": "ce145e3db82c84b0aec32b4b01ef61c3f7e90057e90b9eee5adadf08de5403df",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1600x900-04-unfunded-defense.png": "4a292fb9a3783ac6d7edee2027739299a0c637f376cc02ec0347e7913fa356d0",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1600x900-05-three-resource-production.png": "4e29898403aa4d3d77bb2df50d787cd06c0e0f81eb06cad0a76834176abf802d",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1600x900-06-quick-hover.png": "31f0dc544a69f154ad2aa3d6dd9877a6877bcf2a85c9c0d2bc40143494aa88b5",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1600x900-07-quick-success.png": "96b4559466667ab391d4427c87afe2ac394a421218d8cde32df85b4a617268e0",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1600x900-08-quick-cooldown-refused.png": "f7e41a2cdef028f8da41df46a11b5ba190e0935573f1929f8b0122826ecb1717",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1600x900-09-empty-reserve.png": "ae236e277547055395495f5dc20c92a96380cd5ccf550de16207fc5fde7142ae",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1920x1080-03-funded-longshot-stats.png": "b96a3b3b1467c15a190908cc70d738f45ea11c187dc074e24a115e61b35b4f2a",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1920x1080-04-unfunded-defense.png": "94679858a9ac972db0016225919caec4c371cf7b2c148d60cc795fe61ee8434e",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1920x1080-05-three-resource-production.png": "91c21eee9bfd4dcc11e7817d9b864df69194b16081f06ba48e4fcf866023c709",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1920x1080-06-quick-hover.png": "6ebfc51e59bd46420d4d4352a8af1782adf51944fce52b4ddf4c377b4c13f5ac",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1920x1080-07-quick-success.png": "40bf9ddc8e691092b713144e499a5dacfa18a664c989801ee1f254350ff6dd72",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1920x1080-08-quick-cooldown-refused.png": "57e1682fdabe5d16c6bdc96def54482c8e80cfcc089a26dfe871aacd2fb22f7f",
+        "Artifacts/HUD-POLISH-2026-10-23/native-v2/1920x1080-09-empty-reserve.png": "e0f84b542a02ff92050f69f12fc09ba971ce9272685e9b4f9317b7932cf375de"
+      },
+      "closed_findings": [
+        {
+          "id": "HP-01",
+          "status": "PASS",
+          "evidence": "Every quick key, count and icon rectangle is disjoint and contained within its tile. Zero potion source pixels overlap either badge. Minimum gaps at 720p: key to bottle 1.60 px; bottle to count 3.20 px."
+        },
+        {
+          "id": "HP-02",
+          "status": "PASS",
+          "evidence": "Larger standalone painted icons, ivory keycaps and equal 15 logical px key text, including Tab, are legible at all three sizes. All 180 icon/key pairs are disjoint, with a minimum physical gap of 2.40 px. Heavy individual ornate squares are absent; only a thin active or hover rim remains."
+        },
+        {
+          "id": "HP-03",
+          "status": "PASS",
+          "evidence": "Native deficits show correct forms: 1 бревно, 2 бревна, 5 камней, 30 брёвен, 40 камней and 3 ед. металла. Actual counts are retained."
+        }
+      ],
+      "checks": [
+        {
+          "status": "PASS",
+          "check": "Selected concept composition",
+          "evidence": "Three connected servicebar sections: light segmented quick tiles on the left, a quiet centre, standalone pictograms and ivory keys on the right. Construction retains the minimap and replaces the hero block with actual card details behind a vertical divider. Tabs and three fixed catalogue cells remain on the right. Current native building art and a compact left icon adapt the selected concept without inventing assets."
+        },
+        {
+          "status": "PASS",
+          "check": "Construction data and text",
+          "evidence": "Longshot HP 10, damage 2, radius 7.5, rate 0.71/s and area radius 2 are readable. Production shows actual +1 per 10 s without combat placeholders. The full research centre name and 30 wood/40 stone price fit, as does the dwelling 20 wood/20 stone price. Iron mine 6 wood/8 stone/3 metal price and deficit fit at all three sizes."
+        },
+        {
+          "status": "PASS",
+          "check": "Unavailable card appearance",
+          "evidence": "Painted coral art well, full-colour building, circular ruby alert, red prices and actual deficit match the approved state family. Title, price and footer allocations remain fixed between funded and unfunded states. No grey building wash or plain-text-only warning remains."
+        },
+        {
+          "status": "PASS",
+          "check": "Quick states",
+          "evidence": "Pale blue hover, cyan actual success, and red zero-stock or cooldown refusal are visibly distinct. Counts 0 and transitions 5 to 4, 4 to 3, and 3 to 2 are readable. Countdown text is separate from count and key positions. F4 shows only its key and empty interior, with no plus, count, cooldown, hover or pulse. Its reported feedback serial and cooldown are zero in all 30 frames."
+        },
+        {
+          "status": "PASS",
+          "check": "Foreground tooltip and padding",
+          "evidence": "Longshot and three-material iron mine tooltips render above other panels inside the viewport, including wrapped text at 720p. The F1 tooltip is complete. No cropped title, price, deficit or navigation key was found."
+        }
+      ],
+      "geometry_alpha_audit": "Artifacts/HUD-POLISH-2026-10-23/native-v2/geometry-alpha-audit.json",
+      "geometry_alpha_result": {
+        "status": "PASS",
+        "frames": 30,
+        "quick_entries_checked": 90,
+        "nav_entries_checked": 180,
+        "source_alpha_threshold": 8,
+        "potion_source_pixels_intersecting_key_or_count": 0,
+        "rect_issues": [],
+        "minimum_physical_pixel_gaps": {
+          "key_to_bottle_y": 1.600006103515625,
+          "bottle_to_count_x": 3.1999988555908203,
+          "nav_icon_to_key_y": 2.399982452392578
+        },
+        "F4_feedback_serial_and_cooldown_zero": true
+      },
+      "notes": [
+        "Some later QA frames retain an F1 refusal pulse or shared potion cooldown from a prior actual attempt. F4 does not cause either. Ordinary and base frames are dedicated settled states.",
+        "Building images remain current runtime assets. This review does not approve content changes inferred from ImageGen illustrations."
+      ]
+    }
+  ],
+  "pending_corrections": {},
+  "final_capture": "Artifacts/HUD-POLISH-2026-10-23/native-v2",
+  "final_reviewed_frame_count": 30,
+  "remaining": [
+    "Windows/Steam verification on the target platform.",
+    "Continuous manual animation and pulse feel, and sustained balance, are outside this static-frame qualification.",
+    "Owner acceptance of native appearance is not inferred from this review."
+  ]
+}

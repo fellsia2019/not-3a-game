@@ -1,0 +1,102 @@
+{
+  "date": "2026-10-23",
+  "reviewer": "Astra",
+  "status": "PASS",
+  "reviewed_paths": [
+    "Artifacts/WEAPON-FIDELITY-2026-10-23/native-v2/1280x720-00-ordinary-hud.png",
+    "Artifacts/WEAPON-FIDELITY-2026-10-23/native-v2/1280x720-23-bow-front.png",
+    "Artifacts/WEAPON-FIDELITY-2026-10-23/native-v2/1280x720-24-staff-turn.png",
+    "Artifacts/WEAPON-FIDELITY-2026-10-23/native-v2/1280x720-25-staff-front.png",
+    "Artifacts/WEAPON-FIDELITY-2026-10-23/native-v2/1280x720-26-bow-turn.png",
+    "Artifacts/WEAPON-FIDELITY-2026-10-23/native-v2/1280x720-27-staff-turn-peak.png",
+    "Artifacts/WEAPON-FIDELITY-2026-10-23/native-v2/1600x900-00-ordinary-hud.png",
+    "Artifacts/WEAPON-FIDELITY-2026-10-23/native-v2/1600x900-23-bow-front.png",
+    "Artifacts/WEAPON-FIDELITY-2026-10-23/native-v2/1600x900-24-staff-turn.png",
+    "Artifacts/WEAPON-FIDELITY-2026-10-23/native-v2/1600x900-25-staff-front.png",
+    "Artifacts/WEAPON-FIDELITY-2026-10-23/native-v2/1600x900-26-bow-turn.png",
+    "Artifacts/WEAPON-FIDELITY-2026-10-23/native-v2/1600x900-27-staff-turn-peak.png",
+    "Artifacts/WEAPON-FIDELITY-2026-10-23/native-v2/1920x1080-00-ordinary-hud.png",
+    "Artifacts/WEAPON-FIDELITY-2026-10-23/native-v2/1920x1080-23-bow-front.png",
+    "Artifacts/WEAPON-FIDELITY-2026-10-23/native-v2/1920x1080-24-staff-turn.png",
+    "Artifacts/WEAPON-FIDELITY-2026-10-23/native-v2/1920x1080-25-staff-front.png",
+    "Artifacts/WEAPON-FIDELITY-2026-10-23/native-v2/1920x1080-26-bow-turn.png",
+    "Artifacts/WEAPON-FIDELITY-2026-10-23/native-v2/1920x1080-27-staff-turn-peak.png"
+  ],
+  "reviewed_frame_count": 18,
+  "capture_status": {
+    "path": "Artifacts/WEAPON-FIDELITY-2026-10-23/native-v2/capture-status.json",
+    "ready": true,
+    "frames": 18,
+    "error": ""
+  },
+  "references": [
+    "art/concepts/hud_corrections_2026-10-23/weapon_switch_v1.png",
+    "art/concepts/hud_corrections_2026-10-23/weapon_switch_v3.png"
+  ],
+  "provenance": [
+    "art/source/hud_weapon_control_skins_2026-10-23.png",
+    "art/source/hud_weapon_control_skins_2026-10-23_prompt.txt",
+    "art/source/hud_weapon_switch_2026-10-23_generation.json"
+  ],
+  "passed_checks": [
+    "Empty staff has visible smoke-plum gradient and engraved pattern, faint staff and readable empty caption; no empty-rim gems.",
+    "Shaped painted footer, separate ivory Z keycap, enabled turquoise endpoints and neutral disabled endpoints match the reference family at all three sizes.",
+    "Four cardinal stones follow only the actual active equipped weapon; inactive medallion has none of its own.",
+    "Equipped quality centres, resting overlap and final active-front states preserved.",
+    "Footer text is readable at720, not struck through by rails.",
+    "WF-01: lower active rim jewel no longer collides with the weapon caption in either direction; the added near-peak staff turn also has clear separation at all three resolutions."
+  ],
+  "issues": [],
+  "limitations": [
+    "Visual qualification is not owner acceptance of the native result.",
+    "Still frames cover endpoints, both sampled turns and near-peak staff turn; they do not establish full continuous temporal smoothness.",
+    "Windows/Steam rendering is unverified.",
+    "This18frameweapon-only review does not repeat the separate tooltip/debug/building review or full gameplay qualification."
+  ],
+  "resolved_issues": [
+    {
+      "id": "WF-01",
+      "status": "RESOLVED",
+      "frames": [
+        "1920x1080-24-staff-turn.png",
+        "1600x900-24-staff-turn.png"
+      ],
+      "description": "Incoming active disc moves downward during its orbit; the new lower rim diamond intersects the right end of the Посох caption.",
+      "approximate_pixels": {
+        "1920x1080": "gem x843–859,y959–974; caption y968–980",
+        "1600x900": "gem x704–715,y800–812"
+      },
+      "correction": "Incoming active disc rises and outgoing disc lowers with3logicalpx amplitude. Preserve X7/rotation12/rest/input. Capture the peak near progress0.5 in addition to sampled turns.",
+      "resolution": "Incoming active disc rises by3logicalpx instead of descending9; outgoing descends3. X/rotation/endpoints/input remain unchanged. All18v2frames reviewed; intermediate and near-peak staff turn retain visible lower-gem/caption clearance at720/900/1080."
+    }
+  ],
+  "return_history": [
+    {
+      "status": "RETURN",
+      "report": "Artifacts/WEAPON-FIDELITY-2026-10-23/native-v1-review.json",
+      "issue": "WF-01",
+      "reviewed_frame_count": 15
+    }
+  ],
+  "owner_acceptance": "Not inferred: this is Astra native visual qualification, not an owner acceptance statement.",
+  "peak_capture": [
+    {
+      "file": "1280x720-27-staff-turn-peak.png",
+      "activeWeapon": 1,
+      "weaponFront": 1,
+      "weaponAnimation": 0.535714328289032
+    },
+    {
+      "file": "1600x900-27-staff-turn-peak.png",
+      "activeWeapon": 1,
+      "weaponFront": 1,
+      "weaponAnimation": 0.535714328289032
+    },
+    {
+      "file": "1920x1080-27-staff-turn-peak.png",
+      "activeWeapon": 1,
+      "weaponFront": 1,
+      "weaponAnimation": 0.535714328289032
+    }
+  ]
+}

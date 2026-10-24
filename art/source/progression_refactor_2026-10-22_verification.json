@@ -1,0 +1,916 @@
+{
+  "date": "2026-10-22",
+  "decisions": [
+    "D-121",
+    "D-122",
+    "D-123"
+  ],
+  "status": "LOCALLY_QUALIFIED_MAC; WINDOWS_UNVERIFIED",
+  "scope": [
+    "One hero point pool for combat, both gathering professions and adventurer; mastery retains XP without independent point income.",
+    "Current towers card-only upgrades beyond5, continuing last authored positive differences; no current merge/barricade upgrades, preserve ratios/refunds/empty-cell movement/retry.",
+    "Four finite construction papers append IDs4..7 for production3 and forge; purchase/local-study/build separate; core rules/draft/forge commit gate knowledge.",
+    "Clock draws after world badges; no artwork/layout redesign.",
+    "Separate current PortalEnemy5HP, first night interval4s; later existing intervals and same5HP, no HP tier growth. Legacy Stage2 preserved."
+  ],
+  "tests": {
+    "playmode_distinct_latest": {
+      "Passed": 99
+    },
+    "playmode_latest_index": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/latest-playmode-results.json",
+    "ordered_xml": [
+      "Artifacts/PROGRESSION-REFACTOR-2026-10-22/playmode.xml",
+      "Artifacts/PROGRESSION-REFACTOR-2026-10-22/playmode-focused.xml",
+      "Artifacts/PROGRESSION-REFACTOR-2026-10-22/playmode-gates-final.xml"
+    ],
+    "editmode": {
+      "passed": 105,
+      "failed": 0,
+      "xml": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/editmode-expanded.xml"
+    },
+    "distinct_total": 204,
+    "iteration_notes": [
+      "Initial no-graphics broad run crashed in an existing Camera.Render screenshot test; reran with Metal.",
+      "An unsupported NUnit constraint was corrected before the final Metal run.",
+      "Two old fixtures required updates: world-XP talent uses catalog-derived level15 XP instead of hardcoded15000; first-night throughput follows targets instead of assuming clearing all threats while stationary at the portal. Full prior results remain in the ordered XML; latest99cases all pass.",
+      "Final source review added an invalid-production-kind guard and preserved InvalidPoint/WrongType validation before the research callback; the actual construction gate scene test was rerun and passed. Caption-only changes were qualified by rebuilding and native frames."
+    ]
+  },
+  "balance": {
+    "scenario": "Five full timed mandatory nights, all portal enemies killed immediately for reward-path qualification; no day farm, guild rewards or spending. Not a natural defense playthrough.",
+    "confirmed_kills": 8298,
+    "experience": 8298,
+    "hero_level": 8,
+    "observed_gold_earned": 224,
+    "gold_chance": 0.03,
+    "gold_per_success": 1,
+    "forecast_kills": 8299,
+    "forecast_expected_gold": 248.97,
+    "starting_gold_separate": 5,
+    "first_interval_seconds": 4,
+    "portal_hp_all_current_tiers": 5,
+    "later_intervals_unchanged": [
+      0.12,
+      0.08
+    ],
+    "first_night_bow_fixture": "PASS with ideal target following/no walking delay. Earlier stationary portal policy lost; natural manual balance remains unqualified."
+  },
+  "native": {
+    "frames": 78,
+    "captures": [
+      {
+        "name": "buildings720",
+        "pid": 37480,
+        "ready": true,
+        "seconds": 22.6,
+        "frames": 16
+      },
+      {
+        "name": "buildings900",
+        "pid": 37514,
+        "ready": true,
+        "seconds": 18.5,
+        "frames": 16
+      },
+      {
+        "name": "buildings1080",
+        "pid": 37546,
+        "ready": true,
+        "seconds": 19.6,
+        "frames": 16
+      },
+      {
+        "name": "professions",
+        "pid": 37621,
+        "ready": true,
+        "seconds": 18.0,
+        "frames": 9
+      },
+      {
+        "name": "research-final",
+        "pid": 38503,
+        "ready": true,
+        "seconds": 25.9,
+        "frames": 18
+      },
+      {
+        "name": "ordinary-start-final",
+        "pid": 38167,
+        "ready": true,
+        "seconds": 17.2,
+        "frames": 3
+      }
+    ],
+    "manifest": [
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings720/00-construction-group-0.png",
+        "sha256": "aa35c7b9d9f314f00b17cc9eeab48beb7d9a2eafbba57c8a72cb6c6579fb9596"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings720/00-construction-group-1.png",
+        "sha256": "4d324c589400b0e8e30fd98bbfc64c32adde8bd4930dff62f3457ebead1e7d42"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings720/00-construction-group-2.png",
+        "sha256": "ca2b97ea293c46d0c61496405fce83ee8b53b979d22ea81726e0b17db197a864"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings720/01-affordable.png",
+        "sha256": "ed9a70a267ea0706efc1c1c1fce3c75bf46c37a522acbc0b65577d75e9036189"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings720/02-upgraded-damaged.png",
+        "sha256": "eb0368efdb0b4d7c505b8469daeb6834fce0ab04187baf33f289873805264dab"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings720/03-unaffordable.png",
+        "sha256": "98fc8a7ebe8a3a8462f504555e6a334f8b9ad19d008d60323c0a8396ea38a2e1"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings720/04-clock-over-level-1280x720.png",
+        "sha256": "67949ef244f7933c4e3d4294131a68e6555c31d78863b51d8490dc4e42ac68e6"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings720/04-level-six.png",
+        "sha256": "6220ded0faf60b83b2590b49be26b2dad4f8ef8e3adf44208a8441f5f6654e05"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings720/05-invalid-occupied.png",
+        "sha256": "df23c344d9639306101fec63506c7fc316041256d66d8695a960d396a7b191e8"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings720/06-level-zoom-10.0.png",
+        "sha256": "dfdbddf6c90975f43ce8bd7f9e42a13dad3892101007ace47b64134797598d01"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings720/06-level-zoom-2.5.png",
+        "sha256": "2329db968d0f98b130414926dd6561299d827a9ad4557c83c83caa961d835c22"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings720/06-rejected-drop.png",
+        "sha256": "0767237173fde4bdea4a7bbcb05411f4bf395d08c46e5497cd33c631d1139a85"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings720/07-valid-empty.png",
+        "sha256": "ce5c37529cbc23f44086e4145d96c9981e546d8a183e28beaae53d7378460624"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings720/08-invalid-merge.png",
+        "sha256": "e87f6c471a8906376390642f6714add7aad730bf2a79b2715520415d88a7dd2b"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings720/09-longshot-ghost.png",
+        "sha256": "bb757dff26205f9a3bfba5eb7248a9998b76efb16035347b1ec5fb2ef93da36f"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings720/10-barricade.png",
+        "sha256": "84ac010018a14c79d63d8692c25b4a1510d765019ee5e762aeefb51b1313a26c"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings900/00-construction-group-0.png",
+        "sha256": "257523066ad86409df418c5b8607a8f753cbae68bafaeb604ba2662c9d58a114"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings900/00-construction-group-1.png",
+        "sha256": "9de5c235866162746d936dacc69042f9e532e6d2d4a93e5183345dc286704408"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings900/00-construction-group-2.png",
+        "sha256": "42aa33b471d53a7f710176f4735e8f1ddeb82530b2ccd4f81ca0c9f00fe176f2"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings900/01-affordable.png",
+        "sha256": "02f4060d741ff3cb76409c00c91581207b14d09c06a6006997a27c91f4b18d06"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings900/02-upgraded-damaged.png",
+        "sha256": "594df679e573547ffd061f8ea2e7a697ef3b25721b501717e4e2354c160eeedf"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings900/03-unaffordable.png",
+        "sha256": "44f057c84b8ff37bce5f573775850d76e04053e3249a48ca87dab64e38d4fc58"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings900/04-clock-over-level-1600x900.png",
+        "sha256": "b91c33b6926a6c71782ee4c5c8285b1089fa5725c413609993eeba676b201e9f"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings900/04-level-six.png",
+        "sha256": "48e984d4a91d1039bb598d5482e22c49cec9d4e499858572d704169bcdb33866"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings900/05-invalid-occupied.png",
+        "sha256": "df02ee419eb60b4b36f602534a8e421d9774fd0d60baaca0730898d3347d9cdc"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings900/06-level-zoom-10.0.png",
+        "sha256": "c0730ba95d3c9822ab7d448f8e6bdb88683fa2bbab5de21e2ca6e1799a98866c"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings900/06-level-zoom-2.5.png",
+        "sha256": "de78b91bf53ae2ba1eedb9757a8d86f8f775bb46976e2015c473a1a92f5a76a9"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings900/06-rejected-drop.png",
+        "sha256": "dfceff27620d318248a5df82b3d1bf94b2b72c3ab63145a139e3ee56a97a8a16"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings900/07-valid-empty.png",
+        "sha256": "53ab6d7e17093d76f764d2f5b2c179b64ee6ebb74a0e163e12bd2f2c0fa92a56"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings900/08-invalid-merge.png",
+        "sha256": "ef9505d022ae955a4f40011643e48366a8f444ea638d0126a43e80e8decff1dc"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings900/09-longshot-ghost.png",
+        "sha256": "b7aad2d683c20fcb0d321f3b25ce6b8c57782207dd15723014f5e169cfd89d55"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings900/10-barricade.png",
+        "sha256": "79eb16a91b5f5f17513c887eb50bd0a9cbbacd598d00ee82a1c0b09930d2b269"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings1080/00-construction-group-0.png",
+        "sha256": "49126873fff423a4af85cb83244b262b23df7a114a82ad7a1721fd4f1d4dcfb3"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings1080/00-construction-group-1.png",
+        "sha256": "c6bd8f16104edb6f094fc9b25f63dbf7941c1439585b06a4b3341ca30f5f1458"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings1080/00-construction-group-2.png",
+        "sha256": "03ef64d19f06c3eba838c8c5ea3e8f83ba761e7e82b2fe4a0e3157792f67a23f"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings1080/01-affordable.png",
+        "sha256": "416430b98b090cdf5a7eedb118255d4b80db8f036f167c869d6ef7bae32c62a3"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings1080/02-upgraded-damaged.png",
+        "sha256": "aaad0de1fbe1ed5cb745121087fe65e70f217fbcb805173e38f84d6fc9e0a680"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings1080/03-unaffordable.png",
+        "sha256": "13b54c4d446dfc9a23a0ede36470f47fb91102beccdd9d63f2bf10ec65af98bf"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings1080/04-clock-over-level-1920x1080.png",
+        "sha256": "2e54f77162ef9fca34fe5631b14da1329cfc4e3382bb994ab8202f9f5f3afd75"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings1080/04-level-six.png",
+        "sha256": "06f9617f95a2f82f7c3fa2bbcba8d225795083f737080a434bb921a128777edd"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings1080/05-invalid-occupied.png",
+        "sha256": "54e2464967535db2300466d2807ba32e6f30270d17cfc3f91ca916f8ec61d51a"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings1080/06-level-zoom-10.0.png",
+        "sha256": "ef8723df05aede8a9ee74bdeb1efbd4908932a447cb7bb36fbb53e7a9171fc62"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings1080/06-level-zoom-2.5.png",
+        "sha256": "f09441a6bc5b1d278bf0de259cb66b90f10a807d150da3bb5e1aa3d5963d64ce"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings1080/06-rejected-drop.png",
+        "sha256": "753b8845a6e3c6c3c9848da54381d971e9d4020ba65389e4dcfecc4a5f5a882e"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings1080/07-valid-empty.png",
+        "sha256": "a4f5585f0a0be4b284d85cf0989a325a2c9586f79867547024670916f91f7616"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings1080/08-invalid-merge.png",
+        "sha256": "159a0636a5c08fba71feab66b2c36dd5d248757d702db873cc13b440f1c4ee38"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings1080/09-longshot-ghost.png",
+        "sha256": "15be29d97e1914e5001713130a86398c314de8b67b60bdaf5cd19ce8fbefee46"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings1080/10-barricade.png",
+        "sha256": "b8bcaf157776c285a04f1a7a6c0b54039720a71f3d1459f3eef50e283c39cdf9"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/professions/combat-1280x720.png",
+        "sha256": "59ec780adede8d198ee0617d47676038f769cfa692a5045a05ee8b15d5e7f512"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/professions/combat-1600x900.png",
+        "sha256": "0bb1657e5b46809549cf175ca64993021db27db1db0c4405af89423737406f5b"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/professions/combat-1920x1080.png",
+        "sha256": "7281c03cdfccb8a2f8ff3f6556f1bfa5677983bd12eccc75785ccd260e28dcb6"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/professions/logger-1280x720.png",
+        "sha256": "690d82723dcf325011f71e0adee816aa92c3adef2712f68cdc72b1e236d6cb44"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/professions/logger-1600x900.png",
+        "sha256": "321e19b0e2b5c23c3980897eb60b2647b9f10c96ac192f62e15b06ca313ed5a8"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/professions/logger-1920x1080.png",
+        "sha256": "4486f3b0f6697599bbf01c8e1c6ad5d402694acc540d54fc61e9c96dbad77d2b"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/professions/miner-1280x720.png",
+        "sha256": "57d2128ac134f2141d4e6c9edf6ec47608384a8fa1407d1f0825b360fbc032d7"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/professions/miner-1600x900.png",
+        "sha256": "1db19275a6fd801e9a1110dde4a2d5292283cc0f031b3ed3e1a2ab7855f4f8ca"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/professions/miner-1920x1080.png",
+        "sha256": "3f7cc95dbdd9ad077678dab0c9821617e8ed09ba53a48e8f7d3ffc30f1ad897e"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/research-final/1280x720-bag-known-duplicate.png",
+        "sha256": "ad1c5c07a41ff0b8ab7839653dcdf80f2c010806b3f961fc97b171683655ac77"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/research-final/1280x720-forge-iii-prerequisite.png",
+        "sha256": "20dec659a2ab9f7a0c76c0aad13521c5270107d8eb55f79f4e445ea125661704"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/research-final/1280x720-merchant-blueprints.png",
+        "sha256": "e6e6ce37300931c6978e8bf3e87ffc2e957af7103e871dc651df8880eb07bba6"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/research-final/1280x720-merchant-known-duplicate.png",
+        "sha256": "538440837493ac78c4a4f649c1674ff10ff7febb945c6980d2b3f4688e21be7b"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/research-final/1280x720-workshop-owned.png",
+        "sha256": "801627fac3de54cae02c35e3405ad5fd13ab91331b715532705a0d9624dfd02f"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/research-final/1280x720-workshop-studied.png",
+        "sha256": "6b728781375c90c20c3ebb0f9c78d496869f02d3b9adc47560f38a900645e04d"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/research-final/1600x900-bag-known-duplicate.png",
+        "sha256": "33eb0da03856c886b796da48f9b2da04a247bcfb71a891cc1d6d68fd1aa1793d"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/research-final/1600x900-forge-iii-prerequisite.png",
+        "sha256": "aa7416b3ffb34ca1988f47ed52ac67a79f9d18245c5a08f434283dcc979536af"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/research-final/1600x900-merchant-blueprints.png",
+        "sha256": "d337e04d7e7aaa72e5a0903ebd1da60b5f9ad57087d4375d39a8432df3df6a10"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/research-final/1600x900-merchant-known-duplicate.png",
+        "sha256": "e5048257645af1741996f9c9451ab4606200d7a908f2c08a3014931a53d5e279"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/research-final/1600x900-workshop-owned.png",
+        "sha256": "63e17f128ebc7e152f83bcd2c43a333da96ca7dc5db91fae478b59c58a9e57b9"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/research-final/1600x900-workshop-studied.png",
+        "sha256": "c58badac73b7da70f354197a840215deb4fe37deee7937f50eac866b7116ecd7"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/research-final/1920x1080-bag-known-duplicate.png",
+        "sha256": "9c250d05f03658d57f62ba25211fa6710d36a23aca034ad80999d2277a64491e"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/research-final/1920x1080-forge-iii-prerequisite.png",
+        "sha256": "a8f6b6986d0f667db943764d727a7178f7b1737b82d2ce07abd938d2e6ea4c9f"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/research-final/1920x1080-merchant-blueprints.png",
+        "sha256": "d1f661adecd86d45aeff45bbc1d9e059c88306f994f91d3c9d09d5c1365fba10"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/research-final/1920x1080-merchant-known-duplicate.png",
+        "sha256": "24390ce70e9535281c49de444a217f2f7b344b0ece63440f3353789beea7e90d"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/research-final/1920x1080-workshop-owned.png",
+        "sha256": "99e51c3691433080ba7ab69f725bc69d875bee602beb4e1ddaa3ab801400c830"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/research-final/1920x1080-workshop-studied.png",
+        "sha256": "479953867d756cccdc6beb137c6bda1f68c4424e5b831de882798a1e5fbb5f30"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/ordinary-start-final/render-01.png",
+        "sha256": "a0c494d9a6361985757a110a747206780d5464ae211ce744144c79337c626535"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/ordinary-start-final/render-02.png",
+        "sha256": "7dbfdaa8784c6ef024076856a68df10c987640f0f479b931fdc30dd34100d056"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/ordinary-start-final/render-08.png",
+        "sha256": "68df6703c9d25322c5575940806e81d8e9fb702708d116777a8931cdb8cd4c25"
+      }
+    ],
+    "astra_review": "FINAL VISUAL PASS in inspected scope",
+    "resolutions": [
+      "1280x720",
+      "1600x900",
+      "1920x1080"
+    ],
+    "console": "No Exception or S3_*ERROR in final native capture logs. Optional Unity Cloud symbol upload credentials were absent during successful builds.",
+    "ordinary_start": {
+      "capture": {
+        "name": "ordinary-start-final",
+        "pid": 38167,
+        "ready": true,
+        "seconds": 17.2,
+        "frames": 3
+      },
+      "first_eight_renders": "all ready=True; no warm-up skipped; baseline LVL1/XP0/200/gold5/HP100/MP100 seen",
+      "verification": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/ordinary-start-final/verification.txt",
+      "qa_grants": "none; capture only observes startup"
+    },
+    "initial_astra_review": {
+      "result": "RETURN: merchant IronMine caption clips",
+      "reviewed_frames": 33,
+      "passed_states": [
+        "clock deliberate overlap",
+        "level6 upgrade card",
+        "barricade no upgrade",
+        "locked production/base cards",
+        "miner/logger/combat shared points",
+        "research owned/studied"
+      ],
+      "failed_state": "merchant-blueprints: Железная шахта wraps to two rows and clips in a fixed caption cell",
+      "approved_correction": "shortLabel only -> Жел. шахта; full name/result/ID/price unchanged",
+      "caveat": "Base-tab capture selects workshop detail, so new forge hover reason is code-reviewed rather than visible in the frame."
+    },
+    "prior_manifest": [
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings720/00-construction-group-0.png",
+        "sha256": "aa35c7b9d9f314f00b17cc9eeab48beb7d9a2eafbba57c8a72cb6c6579fb9596"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings720/00-construction-group-1.png",
+        "sha256": "4d324c589400b0e8e30fd98bbfc64c32adde8bd4930dff62f3457ebead1e7d42"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings720/00-construction-group-2.png",
+        "sha256": "ca2b97ea293c46d0c61496405fce83ee8b53b979d22ea81726e0b17db197a864"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings720/01-affordable.png",
+        "sha256": "ed9a70a267ea0706efc1c1c1fce3c75bf46c37a522acbc0b65577d75e9036189"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings720/02-upgraded-damaged.png",
+        "sha256": "eb0368efdb0b4d7c505b8469daeb6834fce0ab04187baf33f289873805264dab"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings720/03-unaffordable.png",
+        "sha256": "98fc8a7ebe8a3a8462f504555e6a334f8b9ad19d008d60323c0a8396ea38a2e1"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings720/04-clock-over-level-1280x720.png",
+        "sha256": "67949ef244f7933c4e3d4294131a68e6555c31d78863b51d8490dc4e42ac68e6"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings720/04-level-six.png",
+        "sha256": "6220ded0faf60b83b2590b49be26b2dad4f8ef8e3adf44208a8441f5f6654e05"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings720/05-invalid-occupied.png",
+        "sha256": "df23c344d9639306101fec63506c7fc316041256d66d8695a960d396a7b191e8"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings720/06-level-zoom-10.0.png",
+        "sha256": "dfdbddf6c90975f43ce8bd7f9e42a13dad3892101007ace47b64134797598d01"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings720/06-level-zoom-2.5.png",
+        "sha256": "2329db968d0f98b130414926dd6561299d827a9ad4557c83c83caa961d835c22"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings720/06-rejected-drop.png",
+        "sha256": "0767237173fde4bdea4a7bbcb05411f4bf395d08c46e5497cd33c631d1139a85"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings720/07-valid-empty.png",
+        "sha256": "ce5c37529cbc23f44086e4145d96c9981e546d8a183e28beaae53d7378460624"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings720/08-invalid-merge.png",
+        "sha256": "e87f6c471a8906376390642f6714add7aad730bf2a79b2715520415d88a7dd2b"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings720/09-longshot-ghost.png",
+        "sha256": "bb757dff26205f9a3bfba5eb7248a9998b76efb16035347b1ec5fb2ef93da36f"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings720/10-barricade.png",
+        "sha256": "84ac010018a14c79d63d8692c25b4a1510d765019ee5e762aeefb51b1313a26c"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings900/00-construction-group-0.png",
+        "sha256": "257523066ad86409df418c5b8607a8f753cbae68bafaeb604ba2662c9d58a114"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings900/00-construction-group-1.png",
+        "sha256": "9de5c235866162746d936dacc69042f9e532e6d2d4a93e5183345dc286704408"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings900/00-construction-group-2.png",
+        "sha256": "42aa33b471d53a7f710176f4735e8f1ddeb82530b2ccd4f81ca0c9f00fe176f2"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings900/01-affordable.png",
+        "sha256": "02f4060d741ff3cb76409c00c91581207b14d09c06a6006997a27c91f4b18d06"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings900/02-upgraded-damaged.png",
+        "sha256": "594df679e573547ffd061f8ea2e7a697ef3b25721b501717e4e2354c160eeedf"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings900/03-unaffordable.png",
+        "sha256": "44f057c84b8ff37bce5f573775850d76e04053e3249a48ca87dab64e38d4fc58"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings900/04-clock-over-level-1600x900.png",
+        "sha256": "b91c33b6926a6c71782ee4c5c8285b1089fa5725c413609993eeba676b201e9f"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings900/04-level-six.png",
+        "sha256": "48e984d4a91d1039bb598d5482e22c49cec9d4e499858572d704169bcdb33866"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings900/05-invalid-occupied.png",
+        "sha256": "df02ee419eb60b4b36f602534a8e421d9774fd0d60baaca0730898d3347d9cdc"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings900/06-level-zoom-10.0.png",
+        "sha256": "c0730ba95d3c9822ab7d448f8e6bdb88683fa2bbab5de21e2ca6e1799a98866c"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings900/06-level-zoom-2.5.png",
+        "sha256": "de78b91bf53ae2ba1eedb9757a8d86f8f775bb46976e2015c473a1a92f5a76a9"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings900/06-rejected-drop.png",
+        "sha256": "dfceff27620d318248a5df82b3d1bf94b2b72c3ab63145a139e3ee56a97a8a16"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings900/07-valid-empty.png",
+        "sha256": "53ab6d7e17093d76f764d2f5b2c179b64ee6ebb74a0e163e12bd2f2c0fa92a56"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings900/08-invalid-merge.png",
+        "sha256": "ef9505d022ae955a4f40011643e48366a8f444ea638d0126a43e80e8decff1dc"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings900/09-longshot-ghost.png",
+        "sha256": "b7aad2d683c20fcb0d321f3b25ce6b8c57782207dd15723014f5e169cfd89d55"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings900/10-barricade.png",
+        "sha256": "79eb16a91b5f5f17513c887eb50bd0a9cbbacd598d00ee82a1c0b09930d2b269"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings1080/00-construction-group-0.png",
+        "sha256": "49126873fff423a4af85cb83244b262b23df7a114a82ad7a1721fd4f1d4dcfb3"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings1080/00-construction-group-1.png",
+        "sha256": "c6bd8f16104edb6f094fc9b25f63dbf7941c1439585b06a4b3341ca30f5f1458"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings1080/00-construction-group-2.png",
+        "sha256": "03ef64d19f06c3eba838c8c5ea3e8f83ba761e7e82b2fe4a0e3157792f67a23f"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings1080/01-affordable.png",
+        "sha256": "416430b98b090cdf5a7eedb118255d4b80db8f036f167c869d6ef7bae32c62a3"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings1080/02-upgraded-damaged.png",
+        "sha256": "aaad0de1fbe1ed5cb745121087fe65e70f217fbcb805173e38f84d6fc9e0a680"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings1080/03-unaffordable.png",
+        "sha256": "13b54c4d446dfc9a23a0ede36470f47fb91102beccdd9d63f2bf10ec65af98bf"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings1080/04-clock-over-level-1920x1080.png",
+        "sha256": "2e54f77162ef9fca34fe5631b14da1329cfc4e3382bb994ab8202f9f5f3afd75"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings1080/04-level-six.png",
+        "sha256": "06f9617f95a2f82f7c3fa2bbcba8d225795083f737080a434bb921a128777edd"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings1080/05-invalid-occupied.png",
+        "sha256": "54e2464967535db2300466d2807ba32e6f30270d17cfc3f91ca916f8ec61d51a"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings1080/06-level-zoom-10.0.png",
+        "sha256": "ef8723df05aede8a9ee74bdeb1efbd4908932a447cb7bb36fbb53e7a9171fc62"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings1080/06-level-zoom-2.5.png",
+        "sha256": "f09441a6bc5b1d278bf0de259cb66b90f10a807d150da3bb5e1aa3d5963d64ce"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings1080/06-rejected-drop.png",
+        "sha256": "753b8845a6e3c6c3c9848da54381d971e9d4020ba65389e4dcfecc4a5f5a882e"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings1080/07-valid-empty.png",
+        "sha256": "a4f5585f0a0be4b284d85cf0989a325a2c9586f79867547024670916f91f7616"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings1080/08-invalid-merge.png",
+        "sha256": "159a0636a5c08fba71feab66b2c36dd5d248757d702db873cc13b440f1c4ee38"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings1080/09-longshot-ghost.png",
+        "sha256": "15be29d97e1914e5001713130a86398c314de8b67b60bdaf5cd19ce8fbefee46"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/buildings1080/10-barricade.png",
+        "sha256": "b8bcaf157776c285a04f1a7a6c0b54039720a71f3d1459f3eef50e283c39cdf9"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/professions/combat-1280x720.png",
+        "sha256": "59ec780adede8d198ee0617d47676038f769cfa692a5045a05ee8b15d5e7f512"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/professions/combat-1600x900.png",
+        "sha256": "0bb1657e5b46809549cf175ca64993021db27db1db0c4405af89423737406f5b"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/professions/combat-1920x1080.png",
+        "sha256": "7281c03cdfccb8a2f8ff3f6556f1bfa5677983bd12eccc75785ccd260e28dcb6"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/professions/logger-1280x720.png",
+        "sha256": "690d82723dcf325011f71e0adee816aa92c3adef2712f68cdc72b1e236d6cb44"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/professions/logger-1600x900.png",
+        "sha256": "321e19b0e2b5c23c3980897eb60b2647b9f10c96ac192f62e15b06ca313ed5a8"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/professions/logger-1920x1080.png",
+        "sha256": "4486f3b0f6697599bbf01c8e1c6ad5d402694acc540d54fc61e9c96dbad77d2b"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/professions/miner-1280x720.png",
+        "sha256": "57d2128ac134f2141d4e6c9edf6ec47608384a8fa1407d1f0825b360fbc032d7"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/professions/miner-1600x900.png",
+        "sha256": "1db19275a6fd801e9a1110dde4a2d5292283cc0f031b3ed3e1a2ab7855f4f8ca"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/professions/miner-1920x1080.png",
+        "sha256": "3f7cc95dbdd9ad077678dab0c9821617e8ed09ba53a48e8f7d3ffc30f1ad897e"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/research/1280x720-bag-known-duplicate.png",
+        "sha256": "0b009482cbcffe4617910556f8b594fdaf370f80e459397eda46ef28ad2fe585"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/research/1280x720-forge-iii-prerequisite.png",
+        "sha256": "8e8fe4fcef4b75e91bd8d0617574546e56031f2b8dd5e6000867483ce8acc910"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/research/1280x720-merchant-blueprints.png",
+        "sha256": "4278f740d4bab9a675ba3795f1251f12faae66db36e3528fb5015944b4ad9a25"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/research/1280x720-merchant-known-duplicate.png",
+        "sha256": "eaf0d8ef216e86f78e404a8b782fe62ffaa165ae779f9622dbb5dfde8ac71a1b"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/research/1280x720-workshop-owned.png",
+        "sha256": "187bb0ff93f1eb043ad4a47c879984ccaa52344a825192d83cfa34f6b2caeefc"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/research/1280x720-workshop-studied.png",
+        "sha256": "6b728781375c90c20c3ebb0f9c78d496869f02d3b9adc47560f38a900645e04d"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/research/1600x900-bag-known-duplicate.png",
+        "sha256": "60ecd025bfd1e7d38026d6023cb71b6a3fcda34ffd0fae65338b593160fca881"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/research/1600x900-forge-iii-prerequisite.png",
+        "sha256": "8ecacc1f06abf35425cfabdfbc68773b9fe946119a5931f0777e65dfe531a364"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/research/1600x900-merchant-blueprints.png",
+        "sha256": "683259dfe062935933f52c014c7628cb3c57f3558f35bcdb7f98fba241cec82f"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/research/1600x900-merchant-known-duplicate.png",
+        "sha256": "9a7fc9032f594b3713984b67be1440724b08fc59ea0b427e71fb3a202510967e"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/research/1600x900-workshop-owned.png",
+        "sha256": "3a9e658a7f2f792ac1754bfe914ba5327f2cb9c3997c79cb631463e840e3e428"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/research/1600x900-workshop-studied.png",
+        "sha256": "c58badac73b7da70f354197a840215deb4fe37deee7937f50eac866b7116ecd7"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/research/1920x1080-bag-known-duplicate.png",
+        "sha256": "0ac63856643e06a80f0b7e08fc7e67b328aa031279b5cd67720e8be91dacbef8"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/research/1920x1080-forge-iii-prerequisite.png",
+        "sha256": "fafd146a718b7fa95a632c41c684b448c7d45a7b9d3a8f1da95628c159d9af71"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/research/1920x1080-merchant-blueprints.png",
+        "sha256": "0c51b6cf1022badc9e8912efbea53d72080e8da4659739e829ad1c249d2ef0ff"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/research/1920x1080-merchant-known-duplicate.png",
+        "sha256": "9ff1509996ee4fbfd5a06a14174152cc5e28e6d88759e44214ef2842f906f84d"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/research/1920x1080-workshop-owned.png",
+        "sha256": "0e978cadaf235de4ba389b031852c16dcee3133cb5303d0f4e8d99a51cfde80e"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/research/1920x1080-workshop-studied.png",
+        "sha256": "479953867d756cccdc6beb137c6bda1f68c4424e5b831de882798a1e5fbb5f30"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/ordinary-start/render-01.png",
+        "sha256": "40f5d1a97b1d83bfb335233ed5caf99fd272bf12387110ae2a0b13e06558f00a"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/ordinary-start/render-02.png",
+        "sha256": "143af53f72dbf44aca15e45cf4f13218a5303946a8319253804e7347532b477e"
+      },
+      {
+        "path": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/ordinary-start/render-08.png",
+        "sha256": "f3287db538eae1fcafe9f28419310f7bb372211eabc3098b3a15c876a226d7a6"
+      }
+    ],
+    "build_match_notes": "Buildings/professions/ordinary frames reuse unchanged visual/runtime states. Final rebuild only shortens IronMine shortLabel in catalog/default text; all18research/merchant frames were recaptured from the final caption build. Late nonvisual invalid-kind guard is independently PlayMode-qualified.",
+    "final_visual_review": {
+      "result": "PASS",
+      "reviewer": "GPT-6 Astra",
+      "original_reviewed_frames": 33,
+      "rechecked_corrected_frames": 6,
+      "original_groups": {
+        "buildings{720,900,1080}": [
+          "04-clock-over-level-{resolution}",
+          "04-level-six",
+          "10-barricade",
+          "00-construction-group-1",
+          "00-construction-group-2"
+        ],
+        "professions": [
+          "{miner,logger,combat}-{resolution}"
+        ],
+        "research": [
+          "{resolution}-{workshop-owned,workshop-studied,merchant-blueprints}"
+        ]
+      },
+      "replacement_frames": "research-final/{resolution}-{merchant-blueprints,workshop-owned}.png",
+      "caption_return_resolved": "ShortLabel Жел. шахта fits one line; full name/result/ID/price unchanged; fixed cells/rows preserved.",
+      "confirmed": [
+        "Clock overlays deliberate LVL intersection",
+        "LVL6 card remains upgradeable",
+        "Barricade upgrade action absent",
+        "Production/forge cards locked",
+        "Both professions show shared hero points",
+        "8 research entries fit fixed cells"
+      ],
+      "limits": [
+        "Forge hover-detail is code-reviewed, not separately captured.",
+        "Review covers the listed representative Mac frames, not every captured file or Windows."
+      ]
+    }
+  },
+  "build": {
+    "path": "Builds/MacProgressionRefactor/Not3AProgressionRefactor.app",
+    "bytes_reported": 774338804,
+    "log": "Artifacts/PROGRESSION-REFACTOR-2026-10-22/build-caption-final.log",
+    "managed_sha256": {
+      "Builds/MacProgressionRefactor/Not3AProgressionRefactor.app/Contents/Resources/Data/Managed/Assembly-CSharp.dll": "236f4f5cde4f75bd148b9308cb307079b8756793ea8022d7b7abbc189d38cdec",
+      "Builds/MacProgressionRefactor/Not3AProgressionRefactor.app/Contents/Resources/Data/Managed/Not3A.Stage2.RunState.dll": "cc04edee8345863d62d53309058266ec2b207ec5619d0a000e4b5553801c4438",
+      "Builds/MacProgressionRefactor/Not3AProgressionRefactor.app/Contents/Resources/Data/Managed/Not3A.Stage1.dll": "99ec8d9d87c9ed8e4e6515bf62cde0a38db077ef1ec53b11051985c22d6dda86",
+      "Builds/MacProgressionRefactor/Not3AProgressionRefactor.app/Contents/Resources/Data/Managed/Not3A.Stage2.Navigation.dll": "37f7e8f9ac54709e8af830b88d892e2206d547d1557c7be8ed0557f6ee2e6ac1",
+      "Builds/MacProgressionRefactor/Not3AProgressionRefactor.app/Contents/Resources/Data/Managed/Not3A.Stage2.Integration.dll": "6742cab37fc1108b73e2d57a14d995e8785f5802a511117829a6c59607d6529c",
+      "Builds/MacProgressionRefactor/Not3AProgressionRefactor.app/Contents/Resources/Data/Managed/Not3A.Stage2.Economy.dll": "e08568e429a4c1a40a0903890b2eeea721a7ea192919f168cd0f76564cb77e75",
+      "Builds/MacProgressionRefactor/Not3AProgressionRefactor.app/Contents/Resources/Data/Managed/Not3A.Stage2.Defense.dll": "ede342960add6543e7555eb9ff29e1c4976e6b80ff69a3cbaf01190772da4f16",
+      "Builds/MacProgressionRefactor/Not3AProgressionRefactor.app/Contents/Resources/Data/Managed/Not3A.Stage2.Map.dll": "e11edefd9a4918cffcc919997ff3292e96703699b43a216d6bba047a591ad254",
+      "Builds/MacProgressionRefactor/Not3AProgressionRefactor.app/Contents/Resources/Data/Managed/Not3A.Stage2.WavesAI.dll": "34db3d95daac31170b0b758adbd7086b1ebbbb768e18b7b5cec93c0912fdedc1"
+    },
+    "normal_start": "LVL1/XP0/gold5, no capture variables or QA grants; captures are explicit disposable fixtures."
+  },
+  "wiring": {
+    "scene": "Assets/Scenes/Stage3Rapid3DGamePilot.unity",
+    "only_scene_contract_change": "enemyCatalog -> Assets/Stage3/CombatSlice/PortalEnemy.asset (GUID0919c3135aa6e436696d455d9acd24ab)",
+    "new_documents": "Append IDs4..7; no persistence format. Existing D101 opening artwork reused; no PNG/world asset changes.",
+    "packages_and_project_settings": "unchanged"
+  },
+  "source_sha256": {
+    "Assets/Scenes/Stage3Rapid3DGamePilot.unity": "458928e593831fbe394e9fb862bdbb6440bcca7c1797f9a3b4cd86e844badf33",
+    "Assets/Stage2/Defense/Runtime/Stage2Defense.cs": "8193bb3850c4bd41ec6741598379fafdcc8312f0c796e7d4479f279168a5f5ff",
+    "Assets/Stage2/Defense/Runtime/Stage2DefenseCatalog.cs": "b3d3bcf7d27192fb7dde761b93f8b2a7ac0a75d6f4624c6334281fd368b383fc",
+    "Assets/Stage2/Defense/Tests/EditMode/Stage2TowerUpgradeTests.cs": "c3740bcfec39935bd76eb34108442aadf32d9aa03162e167779bd9f2701323c4",
+    "Assets/Stage2/Economy/Runtime/Stage2Economy.cs": "9ea25f2b164adda6ae6c5278b0782adbc2e9844c1de7c09e07cb848c06f82e2e",
+    "Assets/Stage2/Economy/Runtime/Stage2EconomyCatalog.cs": "1d28bf04f35df11c0d5b315dd34e1b54ca386fc4884181417b48163e279a51db",
+    "Assets/Stage2/Economy/Runtime/Stage2Production.cs": "21b453453588711f34657a6a8138fd4656f454d9bbb8305827459c56d075b384",
+    "Assets/Stage2/Integration/Runtime/Stage2BlueprintCatalog.cs": "e7914517514a30c226ea128a2f35055b777f0f1baa3e4bc12d6db6bfb513a2f1",
+    "Assets/Stage2/Integration/Runtime/Stage2ProductionDriver.cs": "c0ad8e852c77b77859809de179af2a956f00f8e55dd193b7438ca521d4a712b7",
+    "Assets/Stage2/Integration/Runtime/Stage2ProfessionCatalog.cs": "bf391632330d60dee848b6460dcac228eaaad3fca4f0450f8037aa52b207d27c",
+    "Assets/Stage2/Integration/Runtime/Stage2ProfessionDriver.cs": "c7764e795d4b7faa31f4303b29eb0c15e751597c541ce713758a2997958d147f",
+    "Assets/Stage2/Integration/Runtime/Stage2Professions.cs": "b194d3a646837c63e42f952c34f44cd9b5aee8046a2b3ca011a6cb9441b1fd32",
+    "Assets/Stage2/RunState/Runtime/Stage2Run.cs": "7217895dc1645805275adfde3097076ce7112925c8fe057f45cb859aec0acc7f",
+    "Assets/Stage3/Barricades/WoodenBarricadeCatalog.asset": "43895351106846adcd682d381dc4ca3445cee09fd3c60c86d714a6c35fc71558",
+    "Assets/Stage3/CartoonWorldPilot/LongshotCartoonCatalog.asset": "7165de93f535b4c28a8785bfb23ddb6d4a11ff0d3f004cd53f5f9d1c6edd2419",
+    "Assets/Stage3/CartoonWorldPilot/RapidCartoonCatalog.asset": "edcca4825d9f00138f5bda377220e6a011bacead97e122654cd8a1cd35694dc3",
+    "Assets/Stage3/CombatSlice/Editor/Stage3HeroCombatSliceBuilder.cs": "5b469774bf6422a4e4309d9049fb64948ad7d2ed93aa55f6758e4c9138c81dbd",
+    "Assets/Stage3/CombatSlice/HordeRun.asset": "7a717623cd6b0321339f4b0019343d07ce0dbd9e16b1de0df8b63217065bde65",
+    "Assets/Stage3/HeroProgression/Resources/Stage3HeroProgression.asset": "6307bbf6965ec6ccb7b21b7afd5171ec6a6ab2c3566ba46b080cfdee7a822c5d",
+    "Assets/Stage3/PlayerInterface/Editor/Stage3BlueprintInstaller.cs": "15893658850f9e33538fdb23759b429914e2de1fa7f470d47a23330b35ffd12b",
+    "Assets/Stage3/PlayerInterface/Editor/Stage3HeroLoadoutInstaller.cs": "282f2691142375c6dc549a9578725a141cc329adf8e3f4ae1401d168e525e08e",
+    "Assets/Stage3/PlayerInterface/Resources/Stage3Blueprints.asset": "cb3461c4ea22e4c04d7b5127edc6f6f24da5bb61fa82da9e54c4c9237f3076e6",
+    "Assets/Stage3/PlayerInterface/Resources/Stage3HeroSkillIcons.png.meta": "f71b7dd42a529f11c193a015ae0c665b3dd2e795217e893eddd2b6b440ed63de",
+    "Assets/Stage3/PlayerInterface/Resources/Stage3ItemsStaffAccessories.png.meta": "f9bfb7dc671851439335c16cfcfd003beb1205dedac0c4ee39b118f7189f8e00",
+    "Assets/Stage3/PlayerInterface/Resources/Stage3Potions.png.meta": "8d32ff52441bd46cd0fc3fa2c0dd3c015c235d5caef53795de415b7e3ffec74d",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3BuildingActionReview.cs": "81daf012d6eeb8b7fc9ce98a12ba8328fbbb9ab216e288b7dc64e15d147459c3",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Construction.cs": "dbb5cbca2bbe514f689226b25ee0ced77cd99d0546a43ea0be3c7959a239b526",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.Professions.cs": "7e662abc2720d688b686b1db5065ef8194a0a9342c59f527b342082fbcb1816b",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3FantasyHud.cs": "0475d6e99a66b77b31996f16e2cdff8e78724d04cd49eea040c7ee32b661bd5f",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3PlayerInterfaceBinding.Professions.cs": "ea4f98b097b144ffd32e8b320d53c98ea2e1e792f162007840a86034de990dac",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3PlayerInterfaceBinding.Research.cs": "1159ce98c5dde515df19543420711520a29cfc248dd16d0b9b2997f7a415487b",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3PlayerInterfaceBinding.Selection.cs": "409401b72f759cbd9e4445d18ecc49e6806eff25f10cbf2bd7de810d5dc652a0",
+    "Assets/Stage3/PlayerInterface/Runtime/Stage3ProfessionReview.cs": "5208cc4c8c8dc66e09ed650ec90413b02bad225a4e9350502c3ce033f8d6119e",
+    "Assets/Stage3/ResourceSpritePilot/ManualEconomy.asset": "c9e27dffc7d74d52debc3d3683f5436702ac8e61e651559a1cfe69a9f2cb3705",
+    "Assets/Stage3/VisualPilot/Runtime/Stage3Forge.cs": "92e04398e23211b6d59c1e3c589f5070beb9d01697c5d91fc5a01a06655844b5",
+    "Assets/Stage3/VisualPilot/Runtime/Stage3ForgePresentation.cs": "671f37b4cf74837575f0ecc31c0b897cf8b0b2768fd5c4ee96e76bf5ed47de75",
+    "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3BlueprintResearchTests.cs": "0ae57996ef375bbf4170b0f23672753560bd8102dbfee90ca7e6d7c6c3498db1",
+    "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3BlueprintRulesTests.cs": "5d0b21e5cc0d05b92934bdf37204eb7fd6ff33d3ac6d213c1331469d564e2252",
+    "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3DaytimeGateTests.cs": "106db96ff2c84ae80abfae06f1932848dc8d508fc9fee29297dd506519674e20",
+    "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3DefeatRewindTests.cs": "17c9e2f01b98809aeae35e2763e1712ed4835e1d224647d5891fc4b6a3d2424d",
+    "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3EquipmentForgeTests.cs": "6cd758842f646d2e71bc3b2cb196e134c163f8299d1afe0c64526a1358f29055",
+    "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3HeroCombatSliceTests.cs": "b5b56b3e665e2b8166f9d3393c225f1539af16c3ee9d50bd210cda2504a46794",
+    "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3HeroLoadoutCombatTests.cs": "8d1dafd3a132509edf4c040f32b3f636e608df2690220324670b16180932f1eb",
+    "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3HeroProgressionTests.cs": "361440575301bcaa277f23cb2d47d2f4772bd6b52506bd5ea4d22d637664b53f",
+    "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3PlayerInterfaceTests.cs": "53a0fee9d912497fc586a2d6c8faf906e1431d830b0aa5ce0c99b1acaf17afc4",
+    "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3ProductionTests.cs": "c7b5e7ce06e606cb8b4a6286e31d91b7b25d332934dd86b85b797a5ed1be8627",
+    "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3ProductionUpgradeTests.cs": "9772b9dcd40488b16b2f682953bb72b7f8df0bca5497118115acbf7b6d55d0d4",
+    "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3ProfessionTests.cs": "476f345040bc20d6ffbea3bd29329b645889ec0fc41d7f927d608642e04704c1",
+    "Assets/Stage3/VisualPilot/Tests/PlayMode/Stage3WorldCorrectionsTests.cs": "8f411578072d96f224cba65067f4dc6c5da77ad60eec1ef33e7bc5f7e3c295cf",
+    "Assets/Stage3/CombatSlice/PortalEnemy.asset": "0a519f38d0be08652dbd8be4fd2acbaaa89d5ede132efd3e96356ddd0743104c",
+    "Assets/Stage3/CombatSlice/PortalEnemy.asset.meta": "28d1cccab1e47b756b134f64ab11b6fa6be605eae27314bca693b32ec8e720c4"
+  },
+  "unity_import_whitespace_normalization": [
+    {
+      "path": "Assets/Scenes/Stage3Rapid3DGamePilot.unity",
+      "before": "312a05c5e17ef4ee084884a3f2f36533babf28c53652b1dadcd749ea2823cacf",
+      "after": "458928e593831fbe394e9fb862bdbb6440bcca7c1797f9a3b4cd86e844badf33",
+      "change": "Unity-generated trailing whitespace only; serialized content/GUID unchanged"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Resources/Stage3HeroSkillIcons.png.meta",
+      "before": "d44b506430e4896d01fd19a75b87508ace6ed55bd5080fcd7a8ef42d1d31b4bc",
+      "after": "f71b7dd42a529f11c193a015ae0c665b3dd2e795217e893eddd2b6b440ed63de",
+      "change": "Unity-generated trailing whitespace only; serialized content/GUID unchanged"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Resources/Stage3ItemsStaffAccessories.png.meta",
+      "before": "d4467ea80fa2c2279948e0d4b6dbccdb61f90bb01db71bf95514d7a287baf751",
+      "after": "f9bfb7dc671851439335c16cfcfd003beb1205dedac0c4ee39b118f7189f8e00",
+      "change": "Unity-generated trailing whitespace only; serialized content/GUID unchanged"
+    },
+    {
+      "path": "Assets/Stage3/PlayerInterface/Resources/Stage3Potions.png.meta",
+      "before": "38fa44ba4acb6cb8651fb12a3f24d12a057938ff1dd7099fd67c5a1f7498f378",
+      "after": "8d32ff52441bd46cd0fc3fa2c0dd3c015c235d5caef53795de415b7e3ffec74d",
+      "change": "Unity-generated trailing whitespace only; serialized content/GUID unchanged"
+    },
+    {
+      "path": "Assets/Stage3/CombatSlice/PortalEnemy.asset.meta",
+      "before": "e5e2e1d9c4cf9a19e0b3484f74aaae6bcb017f5409b7185f413ef645442bbb95",
+      "after": "28d1cccab1e47b756b134f64ab11b6fa6be605eae27314bca693b32ec8e720c4",
+      "change": "Unity-generated trailing whitespace only; serialized content/GUID unchanged"
+    }
+  ],
+  "remaining": [
+    "Windows/Steam qualification",
+    "Natural manual first-night/full-run playtest and later economy/difficulty tuning; owner explicitly deferred deeper portal balance.",
+    "No new bespoke construction-paper illustrations or restock/save/loot system."
+  ]
+}

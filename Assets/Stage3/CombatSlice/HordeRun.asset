@@ -33,7 +33,7 @@ MonoBehaviour:
   waves:
   - preparationSeconds: 600
     enemyCount: 16
-    spawnInterval: 2.2
+    spawnInterval: 4
   - preparationSeconds: 600
     enemyCount: 120
     spawnInterval: 0.12
@@ -47,6 +47,6 @@ MonoBehaviour:
   gateCutoffMinutes: 30
   daytimeSpawnInterval: 2.4
   daytimePopulationLimit: 24
-  healthGrowthPerTier: 0.15
+  healthGrowthPerTier: 0
   siegeGrowthPerTier: 0.1
   sleepBeforeNightMinutes: 10

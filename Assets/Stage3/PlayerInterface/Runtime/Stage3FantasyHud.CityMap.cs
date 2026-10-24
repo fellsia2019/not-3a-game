@@ -76,7 +76,7 @@ namespace Not3A.Stage3.PlayerInterface
                 DrawGlyphLine(anchor,p,s,new Color(.94f,.88f,.73f));
             }
             var rect=new Rect(p.x-size*.5f,p.y-size*.5f,size,size);
-            var northCaption=new Rect(MinimapRect.center.x-16f*s,MinimapRect.y+6f*s,32f*s,25f*s);
+            var northCaption=new Rect(inner.center.x-16f*s,inner.y-22f*s,32f*s,18f*s);
             if(rect.Overlaps(northCaption))return;
             DrawCityMapBadge(rect);
             CityMinimapMarkerRect=rect;

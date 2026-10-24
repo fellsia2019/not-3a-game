@@ -37,9 +37,9 @@ namespace Not3A.Stage3.PlayerInterface
         private int pressedButtonId;
         private int buildGroup;
         private int inspectedBuildIndex;
-        private static readonly Stage3PlayerWindow[] MenuWindows = { Stage3PlayerWindow.Inventory, Stage3PlayerWindow.Construction,
+        private static readonly Stage3PlayerWindow[] MenuWindows = { Stage3PlayerWindow.None, Stage3PlayerWindow.Inventory, Stage3PlayerWindow.Construction,
             Stage3PlayerWindow.Research, Stage3PlayerWindow.Hero, Stage3PlayerWindow.Map };
-        private static readonly string[] MenuKeys = { "I", "B", "P", "O", "M" };
+        private static readonly string[] MenuKeys = { "Tab", "I", "B", "P", "O", "M" };
         private static readonly Stage3PlayerWindow[] FullscreenWindows = { Stage3PlayerWindow.Inventory,
             Stage3PlayerWindow.Research, Stage3PlayerWindow.Hero, Stage3PlayerWindow.Map };
         private static readonly string[] FullscreenLabels = { "Инвентарь  I", "Исследования  P", "Развитие героя  O", "Карта  M" };
@@ -59,12 +59,14 @@ namespace Not3A.Stage3.PlayerInterface
         public Func<string> ClockText { get; set; }
         public event Action WindowChanged;
         public Rect SafeScreenRect => Inset(new Rect(0,0,Screen.width,Screen.height),12f*UiScale);
-        public Rect BottomRect => new Rect(SafeScreenRect.x, SafeScreenRect.yMax-196f*UiScale,
-            SafeScreenRect.width,196f*UiScale);
+        public Rect BottomRect => new Rect(SafeScreenRect.x, SafeScreenRect.yMax-(ActiveWindow==Stage3PlayerWindow.Construction?300f:232f)*UiScale,
+            SafeScreenRect.width,(ActiveWindow==Stage3PlayerWindow.Construction?300f:232f)*UiScale);
         public Rect BottomDockRect => BottomRect;
-        public Rect NavigationRibbonRect => new Rect(BottomRect.x,BottomRect.y-54f*UiScale,BottomRect.width,54f*UiScale);
-        public Rect MinimapRect => new Rect(BottomRect.x,BottomRect.y,220f*UiScale,196f*UiScale);
-        public Rect ConstructionContentRect => Rect.MinMaxRect(MinimapRect.xMax+14f*UiScale,BottomRect.y+12f*UiScale,
+        public Rect NavigationRibbonRect => new Rect(BottomRect.x,BottomRect.y-80f*UiScale,BottomRect.width,80f*UiScale);
+        public Rect QuickRibbonRect => new Rect(NavigationRibbonRect.x,NavigationRibbonRect.y,NavigationRibbonRect.width*.32f,NavigationRibbonRect.height);
+        public Rect MenuRibbonRect => new Rect(NavigationRibbonRect.xMax-NavigationRibbonRect.width*.45f,NavigationRibbonRect.y,NavigationRibbonRect.width*.45f,NavigationRibbonRect.height);
+        public Rect MinimapRect => new Rect(BottomRect.x,BottomRect.center.y-116f*UiScale,220f*UiScale,232f*UiScale);
+        public Rect ConstructionContentRect => Rect.MinMaxRect(BottomRect.x+BottomRect.width*.54f,BottomRect.y+14f*UiScale,
             BottomRect.xMax-18f*UiScale,BottomRect.yMax-12f*UiScale);
         public Rect WorldHudRect => Rect.MinMaxRect(BottomRect.x,HasSelectedBuilding?SelectedBuildingRect.y:NavigationRibbonRect.y,
             BottomRect.xMax,BottomRect.yMax);
@@ -76,21 +78,23 @@ namespace Not3A.Stage3.PlayerInterface
         public Rect FullscreenFooterRect => new Rect(0,Screen.height-68f*UiScale,Screen.width,68f*UiScale);
         public Rect WindowContentRect => !IsModalOpen ? Rect.zero : new Rect(64f*UiScale,164f*UiScale,
             Screen.width-128f*UiScale,Screen.height-254f*UiScale);
-        public Rect CloseButtonRect => GuildOpen ? GuildCloseRect : TeleportsOpen ? TeleportCloseRect : IsModalOpen ? new Rect(Screen.width-190f*UiScale,10f*UiScale,174f*UiScale,52f*UiScale) : Rect.zero;
+        public Rect CloseButtonRect => GuildOpen ? GuildCloseRect : TeleportsOpen ? TeleportCloseRect : IsModalOpen ? new Rect(Screen.width-190f*UiScale,10f*UiScale,174f*UiScale,56f*UiScale) : Rect.zero;
 
         public Rect FullscreenTabRect(Stage3PlayerWindow window)
         {
+            if(window==Stage3PlayerWindow.None)return new Rect(12f*UiScale,6f*UiScale,62f*UiScale,60f*UiScale);
             var index=Array.IndexOf(FullscreenWindows,window);
             if(index<0) return Rect.zero;
-            var width=(Screen.width-214f*UiScale)/4f;
-            return new Rect(16f*UiScale+index*width,0,width,72f*UiScale);
+            var width=(Screen.width-286f*UiScale)/4f;
+            return new Rect(88f*UiScale+index*width,0,width,72f*UiScale);
         }
 
         public Rect HudMenuButtonRect(Stage3PlayerWindow window)
         {
             var index=Array.IndexOf(MenuWindows,window);
-            return index<0 ? Rect.zero : new Rect(NavigationRibbonRect.center.x-172f*UiScale+index*72f*UiScale,
-                NavigationRibbonRect.y+9f*UiScale,56f*UiScale,40f*UiScale);
+            if(index<0)return Rect.zero;
+            var group=MenuRibbonRect;var s=UiScale;var width=70f*s;
+            return new Rect(group.xMax-14f*s-(6-index)*width,group.y+5f*s,width,group.height-10f*s);
         }
 
         // Public hit-test/capture API always describes the navigation that is currently visible.
@@ -111,6 +115,12 @@ namespace Not3A.Stage3.PlayerInterface
 
         public void ToggleWindow(Stage3PlayerWindow window) => SetWindow(ActiveWindow==window ? Stage3PlayerWindow.None : window);
         public void CloseWindow() => SetWindow(Stage3PlayerWindow.None);
+        private void ReturnToPlayer()
+        {
+            if(ActiveWindow!=Stage3PlayerWindow.None){SetWindow(Stage3PlayerWindow.None);return;}
+            game?.Building?.CancelPlacement();game?.Production?.CancelPlacement();
+            CancelPlacementRequested?.Invoke();WindowChanged?.Invoke();
+        }
         public void SetWindow(Stage3PlayerWindow window)
         {
             if(ActiveWindow==window) return;
@@ -146,20 +156,31 @@ namespace Not3A.Stage3.PlayerInterface
         private void Update()
         {
             if(game==null || !game.IsInitialized) return;
+            UpdateBuildingUpgradeEffects();
             if(game.RunDriver.Run.IsTerminal || legacyHud!=null && legacyHud.DebugOpen) { CloseWindow(); return; }
             UpdateMapTouchInput();
+            UpdateConstructionPagingInput();
             var keyboard=Keyboard.current; if(keyboard==null) return;
             if(keyboard.escapeKey.wasPressedThisFrame) { CloseWindow(); return; }
             if(TeleportsOpen) return;
+            if(keyboard.tabKey.wasPressedThisFrame) { ReturnToPlayer(); return; }
             if(keyboard.iKey.wasPressedThisFrame) ToggleWindow(Stage3PlayerWindow.Inventory);
             else if(keyboard.bKey.wasPressedThisFrame) ToggleWindow(Stage3PlayerWindow.Construction);
             else if(keyboard.pKey.wasPressedThisFrame) ToggleWindow(Stage3PlayerWindow.Research);
             else if(keyboard.oKey.wasPressedThisFrame) ToggleWindow(Stage3PlayerWindow.Hero);
             else if(keyboard.mKey.wasPressedThisFrame) ToggleWindow(Stage3PlayerWindow.Map);
+            else if(ActiveWindow==Stage3PlayerWindow.Construction && !game.RunDriver.Run.IsPaused)
+            {
+                if(keyboard.digit1Key.wasPressedThisFrame)ActivateBuildChoice(0);
+                else if(keyboard.digit2Key.wasPressedThisFrame)ActivateBuildChoice(1);
+                else if(keyboard.digit3Key.wasPressedThisFrame)ActivateBuildChoice(2);
+                else if(keyboard.leftArrowKey.wasPressedThisFrame)SetBuildPage(BuildPage-1);
+                else if(keyboard.rightArrowKey.wasPressedThisFrame)SetBuildPage(BuildPage+1);
+            }
         }
 
-        private void ResetPresentation() { CloseWindow(); ReleaseMapView(); InitializeMapView(); inspectedBuildIndex=0; ResetProfessionPresentation(); }
-        private void OnDisable() { CloseWindow(); ReleaseMapDrag(); if(recoveryPresentation!=null)recoveryPresentation.gameObject.SetActive(false); }
+        private void ResetPresentation() { ClearBuildingUpgradeEffects(); CloseWindow(); ReleaseMapView(); InitializeMapView(); buildPage=0; inspectedBuildIndex=0; ResetProfessionPresentation(); }
+        private void OnDisable() { ClearBuildingUpgradeEffects(); CloseWindow(); ReleaseMapDrag(); if(recoveryPresentation!=null)recoveryPresentation.gameObject.SetActive(false); }
         private void OnDestroy()
         {
             if(recoveryPresentation!=null)Destroy(recoveryPresentation.gameObject);
@@ -175,6 +196,7 @@ namespace Not3A.Stage3.PlayerInterface
 
         private void OnGUI()
         {
+            ResetLoadoutTooltip();
             if(!IsReady) return;
             ResetRecoveryPointerMetadata();
             ResetCityMapMetadata();
@@ -196,15 +218,22 @@ namespace Not3A.Stage3.PlayerInterface
                 if(IsModalOpen) DrawOpenWindow();
                 else
                 {
-                    DrawResourcesAndClock(); DrawDevelopmentAccess();
-                    if(!game.RunDriver.Run.IsTerminal && !(legacyHud!=null && legacyHud.DebugOpen))
+                    var showWorldHud=!game.RunDriver.Run.IsTerminal && !(legacyHud!=null && legacyHud.DebugOpen);
+                    // World annotations sit beneath every fixed HUD surface, including the clock.
+                    if(showWorldHud)
                     {
+                        DrawBuildingUpgradeEffects();
                         DrawSelectedBuildingWorldOutline();
                         DrawTowerLevelBadges();
                         DrawRecoveryWorld();
+                    }
+                    DrawResourcesAndClock(); DrawDevelopmentAccess();
+                    if(showWorldHud)
+                    {
                         DrawUnifiedDockBackground();
                         DrawLocalMinimap();
-                        if(ActiveWindow==Stage3PlayerWindow.Construction) DrawConstructionRibbon(); else DrawHeroDock();
+                        if(ActiveWindow==Stage3PlayerWindow.Construction) { DrawConstructionRibbon(); } else DrawHeroDock();
+                        for(var q=0;q<4;q++) if(DrawQuickSlot(QuickSlotRect(q),FindQuickSlot(q),q))RequestQuickSlotUse(q);
                         for(var i=0;i<MenuWindows.Length;i++) DrawMenuButton(i);
                         DrawHeroPointBadge();
                         DrawSelectedBuilding();
@@ -213,6 +242,7 @@ namespace Not3A.Stage3.PlayerInterface
                 }
                 DrawHeroLevelUpOverlay();
                 defeatPresentation?.DrawOverlay();
+                DrawDeferredLoadoutTooltip();
             }
             finally { GUI.depth=savedDepth; GUI.enabled=savedEnabled; GUI.color=savedColor; GUI.backgroundColor=savedBackground; GUI.contentColor=savedContent; GUI.matrix=savedMatrix; }
         }
@@ -236,17 +266,34 @@ namespace Not3A.Stage3.PlayerInterface
             if(Button(r,heroLoadout!=null?"F10 · Отладка":"F3 · Отладка")) legacyHud.SetDebugOpen(true);
         }
 
+        public Rect HudMenuKeyRect(int index)
+        {
+            if(index<0||index>=MenuWindows.Length)return Rect.zero;
+            var r=HudMenuButtonRect(MenuWindows[index]);var s=UiScale;
+            var width=(index==0?32f:23f)*s;
+            return new Rect(r.center.x-width*.5f,r.yMax-21f*s,width,21f*s);
+        }
+
+        public Rect HudMenuIconRect(int index)
+        {
+            if(index<0||index>=MenuWindows.Length)return Rect.zero;
+            var r=HudMenuButtonRect(MenuWindows[index]);var s=UiScale;
+            return new Rect(r.center.x-25f*s,r.y-1f*s,50f*s,50f*s);
+        }
+
         private void DrawMenuButton(int i)
         {
-            var r=HudMenuButtonRect(MenuWindows[i]); var s=UiScale;
-            var clicked=SurfaceButton(r,ActiveWindow==MenuWindows[i],true);
-            if(MenuWindows[i]==Stage3PlayerWindow.Hero)
-                DrawDevelopmentTreeIcon(new Rect(r.x+10f*s,r.y+4f*s,28f*s,28f*s));
-            else if(art.menuIcons!=null && i<art.menuIcons.Length)
-                DrawIcon(new Rect(r.x+10f*s,r.y+4f*s,28f*s,28f*s),art.menuIcons[i]);
-            var key=new Rect(r.xMax-21f*s,r.yMax-21f*s,21f*s,21f*s);
-            DrawDisc(key,Silver);DrawDisc(Inset(key,1.5f*s),PlumInk); PaleLabel(key,MenuKeys[i],14,TextAnchor.MiddleCenter);
-            if(clicked) ToggleWindow(MenuWindows[i]);
+            var r=HudMenuButtonRect(MenuWindows[i]);var s=UiScale;
+            var hover=GUI.enabled&&r.Contains(CurrentGuiPointer);
+            var selected=ActiveWindow==MenuWindows[i];
+            if(hover||selected)DrawReferenceState(new Rect(r.center.x-31f*s,r.y+3f*s,62f*s,r.height-4f*s),selected?1:0,1f);
+            var icon=HudMenuIconRect(i);
+            if(i==0)DrawIcon(icon,art.playerNavigationIcon);
+            else if(art.menuIcons!=null&&i-1<art.menuIcons.Length)DrawIcon(icon,art.menuIcons[i-1]);
+            DrawHudKeycap(HudMenuKeyRect(i),MenuKeys[i],false,14);
+            if(hover)DrawLoadoutTooltip(r,new[]{"Игрок · Tab","Инвентарь","Строительство","Исследования","Развитие героя","Карта"}[i]);
+            if(blankButton==null)blankButton=new GUIStyle(GUIStyle.none);
+            if(GUI.Button(r,GUIContent.none,blankButton)){if(i==0)ReturnToPlayer();else ToggleWindow(MenuWindows[i]);}
         }
 
         private void DrawOpenWindow()
@@ -256,10 +303,13 @@ namespace Not3A.Stage3.PlayerInterface
             DrawFullscreenShell();
             // Defer navigation until after drawing so one event never mixes two page geometries.
             var requested=ActiveWindow;
+            var playerTab=FullscreenTabRect(Stage3PlayerWindow.None);
+            if(DrawFullscreenTab(playerTab,string.Empty,false))requested=Stage3PlayerWindow.None;
+            DrawIcon(Inset(playerTab,8f*UiScale),art.playerNavigationIcon);
             for(var i=0;i<FullscreenWindows.Length;i++)
                 if(DrawFullscreenTab(FullscreenTabRect(FullscreenWindows[i]),FullscreenLabels[i],ActiveWindow==FullscreenWindows[i]))
                     requested=FullscreenWindows[i];
-            var close=DrawFullscreenTab(CloseButtonRect,"Esc · Закрыть",false);
+            var close=DrawFullscreenTab(CloseButtonRect,"Вернуться\nк игроку",false);
             var content=WindowContentRect;
             switch(ActiveWindow)
             {
@@ -290,7 +340,7 @@ namespace Not3A.Stage3.PlayerInterface
                     src.width*.32f/texture.width,src.height*.28f/texture.height);
                 DrawUiTexture(CurrentWindowRect,texture,uv);
             }
-            Fill(FullscreenHeaderRect,PlumInk);
+            DrawPanel(FullscreenHeaderRect);
             var s=UiScale;var wallet=game.Gathering.Economy.Inventory;
             for(var i=0;i<(MerchantOpen?1:4);i++)
             {
@@ -305,25 +355,61 @@ namespace Not3A.Stage3.PlayerInterface
             DrawRule(new Rect(32f*s,FullscreenFooterRect.y,Screen.width-64f*s,1f*s));
         }
 
+        public Rect FullscreenReturnTextRect { get; private set; }
+        public float FullscreenReturnMeasuredHeight { get; private set; }
+
         private bool DrawFullscreenTab(Rect r,string text,bool selected)
         {
-            var clicked=SurfaceButton(r,selected,false);
-            PaleLabel(Inset(r,10f*UiScale),text,18,TextAnchor.MiddleCenter);
-            return clicked;
+            var s=UiScale;
+            var face=Inset(r,7f*s);
+            DrawHudPlainTile(face,Color.clear);
+            var hover=GUI.enabled&&r.Contains(CurrentGuiPointer);
+            if(selected||hover)
+            {
+                var edge=Inset(face,3f*s);var bottom=edge.yMax;
+                edge.y=Mathf.Max(edge.y,14f*s);edge.height=bottom-edge.y;
+                DrawReferenceState(edge,selected?1:0,1f);
+            }
+            var textRect=new Rect(face.x+5f*s,face.y+2f*s,face.width-10f*s,face.height-4f*s);
+            var style=GetLabelStyle(18,false);
+            var oldSize=style.fontSize;var oldWrap=style.wordWrap;var oldAlignment=style.alignment;
+            var oldColor=style.normal.textColor;var oldFont=style.fontStyle;
+            style.wordWrap=true;style.alignment=TextAnchor.MiddleCenter;style.fontStyle=FontStyle.Bold;
+            style.normal.textColor=HudReferenceInk;
+            var content=LabelContent(text);var measured=style.CalcHeight(content,textRect.width);
+            while(measured>textRect.height&&style.fontSize>Mathf.RoundToInt(13f*s))
+            {style.fontSize--;measured=style.CalcHeight(content,textRect.width);}
+            if(r==CloseButtonRect){FullscreenReturnTextRect=textRect;FullscreenReturnMeasuredHeight=measured;}
+            GUI.Label(textRect,content,style);
+            style.fontSize=oldSize;style.wordWrap=oldWrap;style.alignment=oldAlignment;
+            style.normal.textColor=oldColor;style.fontStyle=oldFont;
+            if(blankButton==null)blankButton=new GUIStyle(GUIStyle.none);
+            return GUI.Button(r,GUIContent.none,blankButton);
+        }
+
+        private bool BranchTab(Rect r,string text,bool selected,bool enabled=true)
+        {
+            var wasEnabled=GUI.enabled;GUI.enabled=wasEnabled&&enabled;
+            DrawSliced(r,selected?(art.controlAction??art.panelFrame):(art.controlPanel??art.panelFrame),true,.35f*UiScale);
+            if(selected)Fill(new Rect(r.x+12f*UiScale,r.yMax-3f*UiScale,r.width-24f*UiScale,2f*UiScale),Accent);
+            if(selected)PaleLabel(Inset(r,5f*UiScale),text,17,TextAnchor.MiddleCenter);
+            else Label(Inset(r,5f*UiScale),text,17,TextAnchor.MiddleCenter);
+            if(blankButton==null)blankButton=new GUIStyle(GUIStyle.none);
+            var clicked=GUI.Button(r,GUIContent.none,blankButton);GUI.enabled=wasEnabled;return clicked;
         }
 
         private bool SurfaceButton(Rect r,bool selected,bool pearl)
         {
             var e=Event.current;var id=GUIUtility.GetControlID(FocusType.Passive,r);
             var mouse=Mouse.current;
-            var point=mouse!=null?new Vector2(mouse.position.ReadValue().x,Screen.height-mouse.position.ReadValue().y):e.mousePosition;
+            var point=CurrentGuiPointer;
             var hover=GUI.enabled&&r.Contains(point);
             if(e.type==EventType.MouseDown&&e.button==0&&hover) pressedButtonId=id;
             var pressed=hover&&pressedButtonId==id&&(mouse?.leftButton.isPressed??false);
             if(pearl)
             {
-                DrawSliced(r,art.panelFrame,true,.10f*UiScale);
-                if(selected||hover) Fill(Inset(r,6f*UiScale),new Color(.08f,.65f,.72f,.50f));
+                DrawSliced(r,art.controlPanel??art.panelFrame,true,art.controlPanel!=null?.35f*UiScale:.10f*UiScale);
+                if(hover)Stroke(Inset(r,3f*UiScale),new Color(.95f,.97f,1f,.85f),UiScale);
             }
             else if(selected||hover) Fill(r,selected?new Color(.36f,.20f,.37f):new Color(.30f,.18f,.33f));
             if(pressed) Fill(r,new Color(0f,.22f,.25f,.30f));
@@ -366,12 +452,18 @@ namespace Not3A.Stage3.PlayerInterface
             DrawPanel(r); Label(Inset(r,5f*UiScale),hint,14,TextAnchor.MiddleCenter);
         }
 
+        public Rect MinimapTerrainRect => new Rect(MinimapRect.center-Vector2.one*(86f*UiScale),Vector2.one*(172f*UiScale));
+        public Rect MinimapOrnamentRect => new Rect(MinimapRect.center-Vector2.one*(85f*UiScale),Vector2.one*(170f*UiScale));
+
         private void DrawLocalMinimap()
         {
             var source=game.GetComponent<Stage2Minimap>(); if(source==null || source.Terrain==null) return;
             var map=scene.MapDefinition;
-            var outer=MinimapRect; var mapSide=outer.height*.86f;
-            var inner=new Rect(outer.center.x-mapSide*.5f,outer.center.y-mapSide*.5f,mapSide,mapSide);
+            var inner=MinimapTerrainRect;
+            // The decorative base sits behind the terrain, never over its readable area.
+            DrawIcon(MinimapOrnamentRect,art.minimapFrame);
+            DrawDisc(Inset(inner,-3f*UiScale),PlumInk);
+            DrawDisc(Inset(inner,-1.5f*UiScale),Pearl);
             var heroCell=map.WorldToCellCoordinates(scene.PlayerMover.transform.position)-(Vector2)map.MinimumCell+Vector2.one*.5f;
             const float viewFraction=.35f;
             var uv=new Rect(heroCell.x/map.Size.x-viewFraction*.5f,heroCell.y/map.Size.y-viewFraction*.5f,viewFraction,viewFraction);
@@ -381,16 +473,28 @@ namespace Not3A.Stage3.PlayerInterface
                 if(marker.Kind==Stage2MinimapMarkerKind.City) continue;
                 var cell=map.WorldToCellCoordinates(marker.World)-(Vector2)map.MinimumCell+Vector2.one*.5f;
                 var unit=new Vector2((cell.x/map.Size.x-uv.x)/uv.width,(cell.y/map.Size.y-uv.y)/uv.height);
-                if((unit-Vector2.one*.5f).sqrMagnitude>.235f) continue;
+                if((unit-Vector2.one*.5f).sqrMagnitude>.21f) continue;
                 var p=new Vector2(inner.x+unit.x*inner.width,inner.yMax-unit.y*inner.height);
                 DrawWorldMapMarker(p,marker.Kind,UiScale*.65f);
             }
             DrawGuildMinimapMarkers(inner,uv);
             DrawRecoveryMinimap(inner,uv);
-            DrawIcon(outer,art.minimapFrame);
-            Label(new Rect(outer.center.x-16f*UiScale,outer.y+6f*UiScale,32f*UiScale,25f*UiScale),"N",15,TextAnchor.MiddleCenter);
+            DrawMinimapRimJewels(inner);
+            Label(new Rect(inner.center.x-16f*UiScale,inner.y-22f*UiScale,32f*UiScale,18f*UiScale),"N",13,TextAnchor.MiddleCenter);
             DrawCityMinimapMarker(source,inner,uv);
             DrawGuildQuestMinimap(inner,uv);
+        }
+
+        private void DrawMinimapRimJewels(Rect inner)
+        {
+            var s=UiScale;var radius=inner.width*.5f;
+            EnsureHudReferenceArt();
+            if(hudReferenceSkins==null)return;
+            for(var i=0;i<4;i++)
+            {
+                var angle=i*Mathf.PI*.5f;var centre=inner.center+new Vector2(Mathf.Cos(angle),Mathf.Sin(angle))*radius;
+                DrawReferenceSource(new Rect(centre-new Vector2(5f,5.5f)*s,new Vector2(10f,11f)*s),hudReferenceSkins,ReferenceSkinSources[9]);
+            }
         }
 
         private Material CircularMaterial
@@ -408,6 +512,7 @@ namespace Not3A.Stage3.PlayerInterface
         private void DrawCircularTexture(Rect r,Texture2D texture,Rect uv)
         {
             if(texture==null || Event.current.type!=EventType.Repaint || CircularMaterial==null) return;
+            CircularMaterial.SetFloat("_CircleMask",1);CircularMaterial.SetFloat("_RemoveDark",0);CircularMaterial.SetVector("_Tint",Vector4.one);
             CircularMaterial.SetVector("_SourceRect",new Vector4(uv.x,uv.y,uv.width,uv.height));
             Graphics.DrawTexture(r,texture,uv,0,0,0,0,Color.white,CircularMaterial);
             CircularMaterial.SetVector("_SourceRect",new Vector4(0,0,1,1));
@@ -439,7 +544,7 @@ namespace Not3A.Stage3.PlayerInterface
 
         private static Rect Inset(Rect r,float margin) => new Rect(r.x+margin,r.y+margin,Mathf.Max(0,r.width-2*margin),Mathf.Max(0,r.height-2*margin));
         private void DrawPanel(Rect r) => DrawPanel(r,false);
-        private void DrawPanel(Rect r,bool window) => DrawSliced(r,window?art?.windowFrame:art?.panelFrame,true);
+        private void DrawPanel(Rect r,bool window) => DrawSliced(r,window?art?.windowFrame:(art?.controlPanel??art?.panelFrame),true);
         private void DrawFrame(Rect r) => DrawSliced(r,art?.windowFrame,false);
         private void DrawSlot(Rect r,bool locked=false)
         {
@@ -449,10 +554,10 @@ namespace Not3A.Stage3.PlayerInterface
         private void DrawMedallion(Rect r,bool selected=false)
         {
             var color=GUI.color; if(selected) GUI.color=color*new Color(.65f,1f,1f,1f);
-            DrawIcon(r,art?.medallionFrame); GUI.color=color;
+            DrawIcon(r,art?.controlMedallion??art?.medallionFrame); GUI.color=color;
         }
         public Rect PanelContentRect(Rect r) => FrameContentRect(r,art?.panelFrame);
-        public Rect ButtonContentRect(Rect r) => r.width<r.height*1.45f ? Inset(r,r.width*.25f) : FrameContentRect(r,art?.buttonNormal);
+        public Rect ButtonContentRect(Rect r) => Inset(r,Mathf.Min(12f*UiScale,r.height*.18f));
         private float FrameScale(Rect r,Sprite sprite)
         {
             if(sprite==null) return 0f;
@@ -476,13 +581,10 @@ namespace Not3A.Stage3.PlayerInterface
             var pressed=hover&&pressedButtonId==id&&(Mouse.current?.leftButton.isPressed??false);
             GUI.enabled=usable;
             GUI.color=oldColor*(!usable?new Color(.66f,.65f,.69f,.85f):pressed?new Color(.64f,.87f,.92f):hover?new Color(.80f,1f,1f):Color.white);
-            if(r.width<r.height*1.45f)
-            {
-                var disc=!usable?new Color(.32f,.29f,.34f):pressed?new Color(.08f,.20f,.25f):
-                    hover?new Color(.37f,.28f,.45f):selected?new Color(.13f,.35f,.41f):PlumInk;
-                DrawDisc(Inset(r,r.width*.17f),disc); DrawMedallion(r,selected||hover);
-            }
-            else DrawSliced(r,selected||hover||pressed?art?.buttonSelected:art?.buttonNormal,true);
+            var tint=GUI.color;
+            if(art.controlAction!=null)DrawSliced(r,art.controlAction,true,.40f*UiScale);
+            else { GUI.color=tint*new Color(.31f,.21f,.34f);DrawSliced(r,art?.panelFrame,true,.14f*UiScale);GUI.color=tint;DrawSliced(r,art?.panelFrame,false,.14f*UiScale); }
+            if(selected) Fill(new Rect(r.x+10f*UiScale,r.yMax-3f*UiScale,r.width-20f*UiScale,2f*UiScale),Accent);
             if(blankButton==null) blankButton=new GUIStyle(GUIStyle.none);
             var result=GUI.Button(r,GUIContent.none,blankButton);
             GUI.enabled=oldEnabled;GUI.color=oldColor;

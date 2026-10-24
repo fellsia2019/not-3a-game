@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 
 namespace Not3A.Stage3.VisualPilot
 {
-    public enum Stage3ForgePlacementResult { NotPlacing, Ready, InvalidGround, Occupied, HeroOverlap, InsufficientResources, CreationFailed, Built }
+    public enum Stage3ForgePlacementResult { NotPlacing, Ready, InvalidGround, Occupied, HeroOverlap, InsufficientResources, CreationFailed, Built, ResearchRequired }
 
     /// <summary>One resource-paid green-ground forge, local service and existing obstacle/input ownership.</summary>
     [DisallowMultipleComponent]
@@ -26,6 +26,7 @@ namespace Not3A.Stage3.VisualPilot
         public Stage2EquipmentDriver EquipmentDriver { get; private set; }
         public bool IsReady { get; private set; }
         public bool IsBuilt { get; private set; }
+        public string DisplayName=>EquipmentDriver?.Rules.ForgeLevel>=2?"Небесная кузница":"Кузница";
         public bool IsPlacing { get; private set; }
         public Vector2 Position { get; private set; }
         public Vector2 InteractionPosition => Position + Catalog.EntranceOffset;
@@ -38,14 +39,15 @@ namespace Not3A.Stage3.VisualPilot
         private bool OtherDraft => game.Building.Defense.IsPlacing || (game.Production?.IsPlacing ?? false) ||
             (GetComponent<Stage3Dwelling>()?.IsPlacing ?? false) || (GetComponent<Stage3WorldTravel>()?.IsPlacingWorkshop ?? false) || (GetComponent<Stage3WorldTravel>()?.IsPlacingBaseCircle ?? false);
         public bool NearEntrance => IsBuilt && scene != null && Vector2.Distance(scene.PlayerMover.transform.position, InteractionPosition) <= Catalog.InteractionRadius;
-        public bool CanBeginPlacement => Active && !game.PlayerInputBlocked && !IsBuilt && game.Gathering.Economy.Inventory.CanAfford(Catalog.BuildCost);
+        public bool ConstructionUnlocked => EquipmentDriver?.Rules.Blueprints == null || EquipmentDriver.Rules.Blueprints.IsStudied(Stage2BlueprintKind.ForgeConstruction);
+        public bool CanBeginPlacement => Active && ConstructionUnlocked && !game.PlayerInputBlocked && !IsBuilt && game.Gathering.Economy.Inventory.CanAfford(Catalog.BuildCost);
         public bool CanUse => Active && IsBuilt && NearEntrance && !IsPlacing && !OtherDraft &&
             (!game.PlayerInputBlocked || GetComponent<Stage3FantasyHud>().ActiveWindow == Stage3PlayerWindow.Forge);
         public bool CanUpgradeBuilding => CanUse && EquipmentDriver.Rules.EvaluateForgeUpgrade() == Stage2EquipmentResult.Ready;
         public string UpgradeUnavailableReason => !IsBuilt ? "Сначала постройте кузницу" : !NearEntrance ? "Подойдите ко входу в кузницу" :
             EquipmentDriver.Rules.ForgeLevel >= EquipmentDriver.Catalog.ForgeStageCount ? "Максимальная ступень" :
             !CanUse ? "Кузница сейчас недоступна" : EquipmentDriver.Rules.EvaluateForgeUpgrade()==Stage2EquipmentResult.ResearchRequired ?
-                "Изучите чертёж кузницы "+(EquipmentDriver.Rules.ForgeLevel==1?"II":"III")+" в мастерской" :
+                "Изучите чертёж кузницы "+(EquipmentDriver.Rules.ForgeLevel==1?"II":"III")+" в исследовательском центре" :
             EquipmentDriver.Rules.Blueprints==null&&EquipmentDriver.Rules.ForgeUpgradeScrolls < 1 ? "Нужен свиток улучшения кузницы" : null;
         public void Initialize(Stage3ForgeCatalog data, Stage3ForgeArt art, Stage2EquipmentDriver equipment)
         {
@@ -80,6 +82,7 @@ namespace Not3A.Stage3.VisualPilot
             new Vector2(Mathf.Clamp(point.x, area.xMin, area.xMax), Mathf.Clamp(point.y, area.yMin, area.yMax)));
         public Stage3ForgePlacementResult EvaluateAt(Vector2 point)
         {
+            if (!ConstructionUnlocked) return Stage3ForgePlacementResult.ResearchRequired;
             if (!IsPlacing || !Active || game.PlayerInputBlocked || IsBuilt) return Stage3ForgePlacementResult.NotPlacing;
             if (!float.IsFinite(point.x) || !float.IsFinite(point.y)) return Stage3ForgePlacementResult.InvalidGround;
             point = Snap(point); var area = Footprint(point);

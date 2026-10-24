@@ -47,6 +47,8 @@ namespace Not3A.Stage3.PlayerInterface
             scene.CameraFollow.SetPointerBlocker(point => IsDraggingBuilding || game.ContainsScreenPoint(point));
             scene.CameraFollow.SetOverlayTrackpadInput(presentation.AcceptsMapTrackpad, presentation.ApplyMapTrackpadGesture);
             game.Building.UseBuildShortcut = false;
+            game.Building.UseRoleShortcuts = false;
+            game.Building.RepeatPlacementWithShift = true;
             game.Building.PlacementStarting += OpenDefense;
             game.RunDriver.Run.Rewound += AfterRetry;
             if (game.Production != null) game.Production.PlacementStarting += OpenProduction;
@@ -172,6 +174,8 @@ namespace Not3A.Stage3.PlayerInterface
                 {
                     game.Building.PlacementStarting -= OpenDefense;
                     game.Building.SetInputBlocker(null); game.Building.UseBuildShortcut = true;
+                    game.Building.UseRoleShortcuts = true;
+                    game.Building.RepeatPlacementWithShift = false;
                 }
                 if (game.Production != null) game.Production.PlacementStarting -= OpenProduction;
             }

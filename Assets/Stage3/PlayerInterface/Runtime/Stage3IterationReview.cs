@@ -31,7 +31,7 @@ namespace Not3A.Stage3.PlayerInterface
                 yield return Shot(directory,prefix+"-dawn-far-city-hidden",frames);
                 Require(hud.CityMinimapMarkerRect==Rect.zero,"no distant city pointer");
                 Require(Mathf.Abs(hud.CycleDialRect.width-120*hud.UiScale)<.01f,"double-size clock");
-                travel.BeginWorkshopPlacement();Require(travel.TryBuildWorkshopAt(travel.WorkshopPosition)==WorkshopPlacementResult.Built,"workshop construction");
+                game.Gathering.Economy.Inventory.TryAdd(Not3A.Stage2.Map.MapResourceKind.Wood,travel.WorkshopWoodCost);game.Gathering.Economy.Inventory.TryAdd(Not3A.Stage2.Map.MapResourceKind.Stone,travel.WorkshopStoneCost);travel.BeginWorkshopPlacement();Require(travel.TryBuildWorkshopAt(travel.WorkshopPosition)==WorkshopPlacementResult.Built,"workshop construction");
                 Move(scene,Clear(hero,travel.WorkshopInteractionPosition));Require(travel.TryInteract(),"local E research route");
                 hud.SelectResearchEntry(-1);yield return Shot(directory,prefix+"-starter-blueprint",frames);
                 Require(binding.TryStudyResearch(-1),"starter study");Require(!travel.BaseBuilt&&!travel.BaseVisible,"study does not construct circle");
